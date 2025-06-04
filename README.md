@@ -1,0 +1,2 @@
+# CUDI
+personal KI
