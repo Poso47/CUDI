@@ -1,0 +1,50 @@
+{
+  "system_info": {
+    "python_version": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "win32",
+    "cwd": "C:\\Users\\cakgu\\Desktop\\PROJEKTE MITTE\\CUDI"
+  },
+  "cudi_status": {
+    "timestamp": "2025-10-17T12:53:56.019023",
+    "config_loaded": true,
+    "intelligence_active": true,
+    "components": {
+      "telemetry": true,
+      "event_bus": true,
+      "command_router": true,
+      "conversation_handler": true,
+      "brain": true
+    },
+    "file_counts": {
+      "total": 22,
+      "by_type": {
+        ".markdown": 1,
+        ".txt": 6,
+        ".json": 3,
+        ".md": 3,
+        ".ps1": 1,
+        ".py": 5,
+        ".sql": 1,
+        ".csv": 1,
+        ".xml": 1
+      }
+    },
+    "memory_usage": {
+      "memory_mb": 19.2,
+      "cpu_percent": 0.0
+    }
+  },
+  "configuration": {
+    "intelligence_mode": "active",
+    "nlp_handler": "enabled",
+    "active_personality": "jarvis"
+  },
+  "performance": {
+    "files_generated": 22,
+    "components_active": 5,
+    "memory_usage": {
+      "memory_mb": 19.2,
+      "cpu_percent": 0.0
+    }
+  }
+}

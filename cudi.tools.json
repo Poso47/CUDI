@@ -1,0 +1,70 @@
+{
+  "tools": [
+    {
+      "name": "web_search",
+      "url": "http://localhost:8001/search",
+      "description": "DuckDuckGo Web Search API",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "query": {"type": "string", "description": "Search query"}
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "content_generate", 
+      "url": "http://localhost:8002/generate",
+      "description": "Content Generation API",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "prompt": {"type": "string", "description": "Content generation prompt"},
+          "type": {"type": "string", "enum": ["text", "summary", "translation"]}
+        },
+        "required": ["prompt"]
+      }
+    },
+    {
+      "name": "file_operations",
+      "url": "http://localhost:8003/files",
+      "description": "File System Operations API",
+      "schema": {
+        "type": "object", 
+        "properties": {
+          "action": {"type": "string", "enum": ["read", "write", "list", "delete"]},
+          "path": {"type": "string", "description": "File or directory path"},
+          "content": {"type": "string", "description": "File content for write operations"}
+        },
+        "required": ["action", "path"]
+      }
+    },
+    {
+      "name": "system_info",
+      "url": "http://localhost:8004/system",
+      "description": "System Information API", 
+      "schema": {
+        "type": "object",
+        "properties": {
+          "info_type": {"type": "string", "enum": ["cpu", "memory", "disk", "processes"]}
+        },
+        "required": ["info_type"]
+      }
+    },
+    {
+      "name": "ping",
+      "url": "http://localhost:8000/ping",
+      "description": "Health Check Endpoint",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "message": {"type": "string", "description": "Ping message"}
+        }
+      }
+    }
+  ],
+  "endpoints": {
+    "ping": "http://localhost:8000/ping",
+    "search": "http://localhost:8000/search?q="
+  }
+}

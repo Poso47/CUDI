@@ -1,0 +1,43 @@
+﻿== CUDI DIAG = 2025-10-20T09:04:02.2808146+02:00
+PWD: C:\Users\cakgu\Desktop\PROJEKTE MITTE\CUDI
+User: cakgu | Host: CUDI_PC
+PS: 5.1.26100.6899
+Node: v22.18.0 | NPM: 10.9.3
+Python: Python 3.13.7
+Git: git version 2.51.0.windows.2
+ENV:CUDI_ENV=
+ENV:CUDI_API_KEY=
+ENV:CUDI_LOG_LEVEL=
+WRITE: OK (.\_cudi_write_test.txt)
+PORTS (LISTEN):
+TOOLS: Lade .\cudi.tools.json
+ - web_search @ http://localhost:8001/search
+ - content_generate @ http://localhost:8002/generate
+ - file_operations @ http://localhost:8003/files
+ - system_info @ http://localhost:8004/system
+ - ping @ http://localhost:8000/ping
+PING: URL fehlt (setze CUDI_PING_URL)
+SEARCH: URL fehlt (setze CUDI_SEARCH_URL)
+LOGS: PrÃ¼fe Fallback-EintrÃ¤ge
+ - C:\Users\cakgu\Desktop\PROJEKTE MITTE\CUDI\.cudi\logs\2025-10-20.log
+   2025-10-20 08:46:49,000 [INFO] ðŸ§ª TESTLAUF gestartet
+   2025-10-20 08:46:49,001 [INFO] Ping Test: âœ… OK (0.00s)
+   2025-10-20 08:46:49,001 [INFO] Tool Dry-Run: âŒ FAIL (0.00s)
+   2025-10-20 08:46:49,001 [INFO] Rollen-Simulation: âœ… OK (0.00s)
+   2025-10-20 08:47:45,739 [INFO] ðŸ¤– CUDI-OPERATOR initialisiert
+   2025-10-20 08:47:45,739 [INFO] ðŸ” PRE-FLIGHT CHECK gestartet
+   2025-10-20 08:47:45,740 [INFO] 1ï¸âƒ£ Systemkonfiguration: âœ… OK
+   2025-10-20 08:47:45,740 [INFO] 2ï¸âƒ£ Authentifizierung: âœ… OK
+   2025-10-20 08:47:45,747 [DEBUG] Starting new HTTPS connection (1): httpbin.org:443
+   2025-10-20 08:47:46,472 [DEBUG] https://httpbin.org:443 "GET /get HTTP/1.1" 200 313
+   2025-10-20 08:47:46,473 [INFO] 3ï¸âƒ£ Netzwerk & Infrastruktur: âœ… OK
+   2025-10-20 08:47:46,475 [INFO] 4ï¸âƒ£ Tool-Registry: âœ… OK
+   2025-10-20 08:47:46,475 [INFO] 5ï¸âƒ£ Nachrichtenfluss: âœ… OK
+   2025-10-20 08:47:46,475 [INFO] 6ï¸âƒ£ Safety & Berechtigungen: âœ… OK
+   2025-10-20 08:47:46,490 [INFO] 7ï¸âƒ£ Kontext & Speicher: âœ… OK
+   2025-10-20 08:47:46,492 [INFO] 8ï¸âƒ£ Logging & Monitoring: âœ… OK
+   2025-10-20 08:47:46,492 [INFO] ðŸ§ª TESTLAUF gestartet
+   2025-10-20 08:47:46,492 [INFO] Ping Test: âœ… OK (0.00s)
+   2025-10-20 08:47:46,493 [INFO] Tool Dry-Run: âŒ FAIL (0.00s)
+   2025-10-20 08:47:46,493 [INFO] Rollen-Simulation: âœ… OK (0.00s)
+

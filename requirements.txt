@@ -1,0 +1,96 @@
+# CUDI Requirements - Benötigte Python-Pakete
+# Installation: pip install -r requirements.txt
+
+# System-Zugriff
+psutil>=5.9.0
+
+# Web-Scraping und Internet
+requests>=2.28.0
+beautifulsoup4>=4.11.0
+lxml>=4.9.0
+
+# Aufgaben-Planung
+schedule>=1.2.0
+
+# Sprach-Ein/Ausgabe (optional)
+pyttsx3>=2.90
+SpeechRecognition>=3.8.1
+pyaudio>=0.2.11
+
+# GUI (bereits in Python enthalten)
+# tkinter
+
+# Datenbank (bereits in Python enthalten)
+# sqlite3
+
+# Weitere hilfreiche Pakete
+pillow>=9.0.0        # Bildverarbeitung
+pywin32>=304         # Windows-spezifische APIs
+cryptography>=3.4.0  # Verschlüsselung
+colorama>=0.4.4      # Farbige Konsolenausgabe
+
+# GUI-Erweiterungen
+matplotlib>=3.5.0    # Diagramme und Visualisierung
+numpy>=1.21.0        # Numerische Berechnungen
+pandas>=1.3.0        # Datenanalyse und -verarbeitung
+seaborn>=0.11.0      # Erweiterte Datenvisualisierung
+
+# Zusätzliche Entwickler-Tools
+watchdog>=2.1.0      # Datei-Überwachung
+keyboard>=0.13.0     # Globale Tastatur-Events
+mouse>=0.7.0         # Maus-Steuerung
+
+# Netzwerk und APIs
+flask>=2.0.0         # Web-Framework für APIs
+websockets>=10.0     # WebSocket-Kommunikation
+
+# Erweiterte Systemfunktionen
+py-cpuinfo>=8.0.0    # CPU-Informationen
+GPUtil>=1.4.0        # GPU-Monitoring (falls vorhanden)
+
+# CUDI Autonomes Lernen und KI-Erweiterungen
+openai>=1.0.0        # OpenAI API für erweiterte KI-Fähigkeiten (optional)
+anthropic>=0.3.0     # Claude API Integration (optional)
+transformers>=4.21.0 # Lokale NLP-Modelle
+torch>=1.12.0        # PyTorch für ML-Modelle
+scikit-learn>=1.1.0  # Machine Learning Algorithmen
+
+# Autonome Code-Generierung und -Analyse
+ast-tools>=0.1.0     # AST-Manipulation für Code-Analyse
+black>=22.0.0        # Code-Formatierung
+autopep8>=1.7.0      # Code-Stil-Korrektur
+pylint>=2.14.0       # Code-Qualitäts-Analyse
+
+# Erweiterte Programmier-Tools
+gitpython>=3.1.0     # Git-Integration für Versionskontrolle
+pytest>=7.1.0        # Automatische Tests
+coverage>=6.4.0      # Test-Coverage-Analyse
+mypy>=0.971          # Type-Checking
+
+# Datenbank und Persistierung
+sqlalchemy>=1.4.0    # ORM für Datenbanken
+redis>=4.3.0         # In-Memory-Datenbank
+tinydb>=4.7.0        # Leichtgewichtige JSON-Datenbank
+
+# API und Web-Integration
+fastapi>=0.78.0      # Moderne Web-API
+uvicorn>=0.18.0      # ASGI-Server
+aiohttp>=3.8.0       # Asynchrone HTTP-Requests
+selenium>=4.3.0      # Web-Automatisierung
+
+# Dokumentations-Generierung
+sphinx>=5.0.0        # Dokumentations-Generator
+markdown>=3.4.0      # Markdown-Verarbeitung
+pydocstring>=1.0.0   # Automatische Docstring-Generierung
+
+# Erweiterte Datenverarbeitung
+openpyxl>=3.0.0      # Excel-Dateien
+python-docx>=0.8.0   # Word-Dokumente
+pypdf>=3.0.0         # PDF-Verarbeitung
+xmltodict>=0.13.0    # XML-zu-Dict Konvertierung
+
+# Machine Learning und KI-Tools
+joblib>=1.1.0        # Parallel-Processing für ML
+networkx>=2.8.0      # Graph-Algorithmen
+sympy>=1.10.0        # Symbolische Mathematik
+nltk>=3.7.0          # Natural Language Processing
