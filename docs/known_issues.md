@@ -1,25 +1,27 @@
 # Bekannte Fehler und Integrationsprobleme
 
-Stand: 2026-10-26. Status: 🔴 offen · 🟢 behoben. Reproduktionen wurden unter Linux/Python 3.13
+Stand: 2026-10-26 (nach Einbau des neuen Kerns). Status: 🔴 offen · 🟡 im Chat behoben, Altcode noch vorhanden · 🟢 behoben. Reproduktionen wurden unter Linux/Python 3.13
 mit der GUI im Offscreen-Modus (`QT_QPA_PLATFORM=offscreen`) bzw. direkt in Python durchgeführt.
 
 | ID | Status | Schwere | Kurzbeschreibung |
 |---|---|---|---|
 | KI-01 | 🟢 | kritisch | GUI hängt beim Start (Event-Bus blockiert Hauptthread) |
-| KI-02 | 🔴 | kritisch | Fast jede Nachricht erzeugt eine Markdown-Vorlagendatei statt einer Antwort/Handlung |
-| KI-03 | 🔴 | kritisch | Kein Sprachmodell im Standard-Chatweg; Antworten sind Textbausteine |
-| KI-04 | 🔴 | hoch | Vorgetäuschte Erfolgsmeldungen |
-| KI-05 | 🔴 | hoch | Selbstheilung ruft nicht existierende Methoden auf |
-| KI-06 | 🔴 | hoch | „Merke dir …“ funktioniert nicht; Gedächtnisabruf defekt |
-| KI-07 | 🔴 | hoch | Sechs getrennte Wissensspeicher, keiner liest den anderen |
+| KI-02 | 🟡 | kritisch | Fast jede Nachricht erzeugt eine Markdown-Vorlagendatei statt einer Antwort/Handlung |
+| KI-03 | 🟢 | kritisch | Kein Sprachmodell im Standard-Chatweg; Antworten sind Textbausteine |
+| KI-04 | 🟡 | hoch | Vorgetäuschte Erfolgsmeldungen |
+| KI-05 | 🟡 | hoch | Selbstheilung ruft nicht existierende Methoden auf |
+| KI-06 | 🟢 | hoch | „Merke dir …“ funktioniert nicht; Gedächtnisabruf defekt |
+| KI-07 | 🟡 | hoch | Sechs getrennte Wissensspeicher, keiner liest den anderen |
 | KI-08 | 🔴 | mittel | 18 doppelt definierte GUI-Methoden; Command-Router ist toter Code |
-| KI-09 | 🔴 | mittel | Schlüsselwort-Erkennung per Teilstring |
+| KI-09 | 🟡 | mittel | Schlüsselwort-Erkennung per Teilstring |
 | KI-10 | 🔴 | mittel | 22 verschluckte Ausnahmen (`pass  # Optimized error handling`) |
-| KI-11 | 🔴 | mittel | Laufzeit-Installation von Paketen per `pip` |
+| KI-11 | 🟡 | mittel | Laufzeit-Installation von Paketen per `pip` |
 | KI-12 | 🔴 | mittel | Harmonizer-Skripte schreiben Quellcode per Regex um |
 | KI-13 | 🔴 | niedrig | Fehlende Module, mehrere Startwege, PyQt5/PySide6/Tkinter gemischt |
-| KI-14 | 🔴 | niedrig | README beschreibt eine nicht vorhandene Architektur |
-| KI-15 | 🔴 | niedrig | Laufzeitdaten (Logs, generierte Dateien) liegen im Repository |
+| KI-14 | 🟢 | niedrig | README beschreibt eine nicht vorhandene Architektur |
+| KI-15 | 🟡 | niedrig | Laufzeitdaten (Logs, generierte Dateien) liegen im Repository |
+| KI-16 | 🔴 | mittel | Alte Knöpfe/Menüs der Oberfläche nutzen weiter die alte (teils vorgetäuschte) Logik |
+| KI-17 | 🔴 | niedrig | Volle `requirements.txt` lässt sich auf vielen Rechnern nicht installieren |
 
 ---
 
@@ -44,9 +46,9 @@ mit der GUI im Offscreen-Modus (`QT_QPA_PLATFORM=offscreen`) bzw. direkt in Pyth
   Immer eine Datei erstellen“) wird in `process_user_input()` sowohl im Zweig „Intent erkannt“ als
   auch „nicht erkannt“ aufgerufen. `process_user_input_no_questions_original()` erzeugt bei mehr als
   zwei Wörtern ebenfalls Dateien.
-* **Lösungsweg:** Orchestrator ersetzt diesen Pfad; Dateien werden nur noch erstellt, wenn der Nutzer
-  das ausdrücklich verlangt und die Berechtigung vorliegt. **Erfordert Zustimmung**, da bestehendes
-  Verhalten entfernt wird (siehe `implementation_plan.md`, Entscheidung E-1).
+* **Stand (🟡):** Das Chat-Eingabefeld läuft jetzt über den Orchestrator; Dateien entstehen nur noch,
+  wenn der Nutzer es will und die Schreibaktion freigibt (Test B/C/I, GUI-Offscreen-Test). Die alten
+  Methoden stehen weiterhin im Code und werden noch von alten Knöpfen erreicht (KI-16).
 
 ### KI-03 – Kein Sprachmodell im Standardweg
 
@@ -54,6 +56,8 @@ mit der GUI im Offscreen-Modus (`QT_QPA_PLATFORM=offscreen`) bzw. direkt in Pyth
 * `AdvancedCommunicationEngine` wird nur erreicht, wenn `self.brain` fehlt – das ist nie der Fall.
 * Zusätzlich: veraltete Modellnamen (`gpt-4`, `claude-3-sonnet-20240229`, `llama2`), kein
   Gesprächsverlauf, Systemprompt und Nutzertext in einer einzigen Nachricht.
+* **Behoben (🟢):** Neuer Model Manager (`cudi/models/`) mit Ollama, Claude, OpenAI, Verlauf,
+  getrenntem System-Prompt und Werkzeugaufrufen. Ohne Modell meldet CUDI das ehrlich (Test G).
 
 ### KI-04 – Vorgetäuschte Erfolgsmeldungen
 
@@ -63,12 +67,16 @@ mit der GUI im Offscreen-Modus (`QT_QPA_PLATFORM=offscreen`) bzw. direkt in Pyth
   (Minimal-Fallback)“, obwohl ein Fehler auftrat.
 * `cudi_unified_cloud_system.py`: „Google Drive verbunden“ – laut Kommentar simuliert.
 * Statusanzeige „Voice ✅ Ready“, obwohl `get_voice_engine()` `None` liefert.
+* **Stand (🟡):** Im Chat zeigt jede Antwort den echten Aktionsstatus; Voice/LLM-Status sind jetzt
+  ehrlich. Alte Knöpfe (KI-16) und `cudi_unified_cloud_system.py` enthalten die Attrappen weiterhin.
 
 ### KI-05 – Selbstheilung defekt
 
 * `_with_auto_repair()` ruft `_attempt_perfect_repair` und `_execute_perfect_fallback` auf – beide
   existieren nicht. Jeder Fehler in einer überwachten Aktion löst daher einen `AttributeError` aus, der
   weiter außen als Erfolg (KI-04) gemeldet wird.
+* **Stand (🟡):** Wird vom neuen Chatweg nicht mehr benutzt; ehrliche Diagnose über `/status`.
+  Der defekte Code ist noch vorhanden (Aufräumen = Vorschlag V8).
 
 ### KI-06 – Gedächtnis „Merke dir“ / Abruf
 
@@ -76,12 +84,16 @@ mit der GUI im Offscreen-Modus (`QT_QPA_PLATFORM=offscreen`) bzw. direkt in Pyth
 * `_answer_from_memory()` erwartet eine Liste von Dicts, `retrieve_relevant_memories()` liefert ein
   Dict von Listen → Fehler wird verschluckt, generische Antwort.
 * `_research_and_learn()` speichert den Platzhalter „Recherche zu '…' läuft“ als gelerntes Wissen.
+* **Behoben (🟢):** Neues Gedächtnis `cudi/brain/memory.py` (Test D, H, K). `cudi_brain.py` bleibt
+  unverändert erhalten, wird vom Chat aber nicht mehr für Antworten genutzt.
 
 ### KI-07 – Getrennte Wissensspeicher
 
 `cudi_brain_memory.db`, `cudi_learning.db`, `config/knowledge_base.json`,
 `cudi_generated/learning_data_*.json`, `cudi_generated/cudi_learning_log.json`, `data/cloud_sync.db`,
 dazu verwaist `CUDI_BACKUPS/…/cudi_autonomous_knowledge.db` (40 Einträge, Modul fehlt).
+**Stand (🟡):** Der neue Kern nutzt nur `data/cudi_brain.db`. Altbestand kann mit `/altwissen` als
+„vorläufig“ übernommen werden (nach Freigabe). Die alten Dateien bleiben unangetastet.
 
 ### KI-08 – Doppelte Methoden / toter Code
 
@@ -96,6 +108,8 @@ Aufruf von `CUDICommandRouter.route_command` steht in der inaktiven ersten `send
 
 `'hi' in message` trifft „nichts“, „ja“ trifft „Jahr“, „ok“ trifft „Kokosnuss“. Fragen ohne
 Schlüsselwort landen im Datei-Fallback (KI-02).
+**Stand (🟡):** Neuer Router `cudi/core/intent_router.py` arbeitet mit verankerten Mustern und
+überlässt alles Uneindeutige dem Sprachmodell. Die alten Weichen existieren noch im Altcode.
 
 ### KI-10 – Verschluckte Fehler
 
@@ -108,6 +122,7 @@ Ersetzungen; sie enthält aber nicht alle späteren Änderungen und ist daher ke
 
 `_real_web_search()` führt bei fehlendem `bs4` `pip install requests beautifulsoup4` aus – ohne
 Rückfrage. Verstößt gegen „keinen beliebigen Code ohne Zustimmung ausführen“.
+**Stand (🟡):** Wird vom neuen Chatweg nicht mehr aufgerufen; Code noch vorhanden.
 
 ### KI-12 – Harmonizer-Skripte
 
@@ -123,12 +138,26 @@ PySide6-GUI.
 
 ### KI-14 – Veraltete README
 
-`README.md` beschreibt `main.py`, `brain.py`, `system_access.py`, `setup.py`, `start_advanced_gui.py`
-– keine dieser Dateien existiert. Wird in Phase 10 neu geschrieben (vorher Rückfrage nicht nötig, da
-nur Dokumentation).
+`README.md` beschrieb `main.py`, `brain.py`, `system_access.py`, `setup.py`, `start_advanced_gui.py`
+– keine dieser Dateien existierte. **Behoben (🟢):** README neu geschrieben.
 
 ### KI-15 – Laufzeitdaten im Repository
 
 `cudi_generated/`, `cudi_content/`, `cudi_research/`, `cudi_production_data/` (erfundene Demo-Kunden-
 und Finanzdaten aus `cudi_production_data_generator.py`), `__pycache__/`-Dateien im Backup sind
-versioniert. Vorschlag: in `.gitignore` aufnehmen, sobald die Ausgabeorte im neuen Kern festgelegt sind.
+versioniert. **Stand (🟡):** Die Laufzeitdaten des neuen Kerns (`data/`, `logs/`, `workspace/`,
+`import/`) sind in `.gitignore`. Die alten, bereits versionierten Ordner wurden nicht gelöscht.
+
+### KI-16 – Alte Knöpfe/Menüs nutzen die alte Logik
+
+Quick-Action-Knöpfe (Analysieren, Schreiben, Recherche …), Modus-Knöpfe (Deep Thinking, Learning …),
+Tool-Launcher, „Train Model“, Plugin-Manager-Dialog und Selbstheilung rufen weiterhin die alten
+Methoden auf (Vorlagendateien, simulierte Abläufe). Nur das Chat-Eingabefeld und das Menü
+„🧠 Gehirn“ laufen über den neuen Kern. Lösungsweg: Vorschlag V8 in `implementation_plan.md`.
+
+### KI-17 – Volle requirements.txt nicht überall installierbar
+
+`requirements.txt` enthält u. a. `pywin32` (nur Windows), `pyaudio` (braucht Build-Werkzeuge),
+`torch`/`transformers` (mehrere GB) und `ast-tools`/`pydocstring` (Existenz auf PyPI fraglich).
+Ein Fehler bricht die ganze Installation ab. Lösung: `pip install -r requirements-core.txt`
+(nur benötigte Pakete). Die volle Liste wurde nicht verändert (außer PySide6 ergänzt).

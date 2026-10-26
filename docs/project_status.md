@@ -1,127 +1,120 @@
 # Projektstatus CUDI + Digitales Gehirn
 
-Stand: 2026-10-26 · Phase 1 (Bestandsaufnahme) abgeschlossen · Beginn Phase 3 (kritischer Startfehler behoben)
+Stand: 2026-10-26 · Phase 1–2 abgeschlossen · Phase 3 (Kern) und Phase 4 (Digitales Gehirn) umgesetzt ·
+Phase 6 (Oberfläche) teilweise
 
-Diese Datei beschreibt den **tatsächlichen** Codezustand. Alle Aussagen zu Tests beziehen sich nur auf
-Tests, die wirklich ausgeführt wurden (Abschnitt 6).
-
----
-
-## 1. Was ist im Repository vorhanden?
-
-| Bereich | Umfang |
-|---|---|
-| Python-Dateien (Root + `plugins/`) | 29 Dateien, ca. 16 900 Zeilen |
-| Hauptanwendung | `cudi_supreme_gui.py` (PySide6/Qt, 5 986 Zeilen) |
-| „Gehirn“ | `cudi_brain.py` (1 631 Zeilen, ohne Sprachmodell) |
-| Datenbanken | `cudi_brain_memory.db`, `cudi_learning.db` (alle Tabellen **leer**) |
-| Backup | `CUDI_BACKUPS/CUDI_AUTO_BACKUP_20251009_084156/` (ältere Kopien + `cudi_autonomous_knowledge.db` mit 40 Wissenseinträgen) |
-| Erzeugte Dateien | `cudi_generated/`, `cudi_content/`, `cudi_research/`, `cudi_production_data/` (Vorlagen-/Demo-Ausgaben) |
-| Tests | bisher keine echten Tests; neu: `tests/test_event_bus.py` |
-| Dokumentation | `README.md` (beschreibt eine **ältere, nicht mehr vorhandene** Architektur), `README_CUDI_SUPREME.md`, diverse Status-Markdowns mit Erfolgsmeldungen, die nicht dem Code entsprechen |
-
-### Nicht vorhanden (obwohl im Master-Prompt oder im Code erwähnt)
-
-* **Keine zweite Codebasis „Digitales Gehirn“.** Das einzige Gehirn-Modul ist `cudi_brain.py`.
-  Wenn das Digitale Gehirn als eigenes Projekt existiert, liegt es nicht in diesem Repository.
-* Keine der im Master-Prompt genannten Dateien existiert: `main.py`, `brain.py`, `voice.py`,
-  `local_llm.py`, `netzwerk_listener.py`, `self_improve.py`, `cudi_master_functions.py`,
-  `memory.json`, `settings.json`, `knowledge_base.json`, `feedback_log.json`, `task_log.json`,
-  `kollektiv.json`, `schreibstil.json`, `training_data.json`.
-* Vom Code importierte, aber fehlende Module: `llm_integration`, `advanced_voice_engine`,
-  `plugin_manager`, `advanced_web_intelligence`, `autonomous_thinking`, `cudi_ai_settings_dialog`,
-  `cudi_auto_self_diagnosis`, `game_app_learning_system`, `desktop_gui/main_window`,
-  `cudi_autonomous_intelligence` (nur im Backup), `cudi_backup_manager` (nur im Backup).
-  Die Importe sind meist mit `try/except` abgefangen – die Funktionen fehlen dann still.
+Diese Datei beschreibt den **tatsächlichen** Codezustand. Testergebnisse stammen nur aus Tests, die
+wirklich ausgeführt wurden (Abschnitt 4). Die ursprüngliche Bestandsaufnahme (Phase 1) steht in
+Abschnitt 6.
 
 ---
 
-## 2. Funktionen von CUDI (GUI + Assistent)
+## 1. Kurzfassung
 
-Legende: ✅ funktioniert · 🟡 teilweise · ❌ fehlerhaft/vorgetäuscht · ⬜ nicht vorhanden
+CUDI hat jetzt einen echten, getesteten Kern im Paket `cudi/`. Der Chat der bestehenden Oberfläche
+läuft vollständig über diesen Kern:
 
-| Funktion | Status | Befund |
+* **Ein Weg für jede Nachricht:** Absicht → Kontext aus dem Digitalen Gehirn → Sprachmodell mit
+  Werkzeugen (oder Regel) → Berechtigungsprüfung → Ausführung → Qualitätsprüfung → Speicherung.
+* **Keine vorgetäuschten Aktionen mehr im Chat:** Jede Aktion erscheint mit ihrem echten Status
+  (✅ ausgeführt · ❌ fehlgeschlagen · ⛔ abgelehnt). Es entstehen keine automatischen
+  Vorlagendateien mehr.
+* **Ein Gedächtnis:** eine SQLite-Datenbank `data/cudi_brain.db` für Erinnerungen, Gesprächsverlauf,
+  Projekte, Aufgaben, Dokumente, Verlauf/Feedback und Modellaufrufe.
+* **Austauschbare Sprachmodelle:** Ollama (lokal), Claude (Anthropic), OpenAI – mit
+  Ausweichreihenfolge. Ist keins erreichbar, sagt CUDI das klar und arbeitet eingeschränkt weiter.
+
+## 2. Was funktioniert (implementiert und getestet)
+
+| Bereich | Funktion | Wo |
 |---|---|---|
-| GUI-Start (`python cudi_supreme_gui.py`) | ✅ (seit Fix) | Hing vorher unter Python 3.13 dauerhaft beim Start (Event-Bus). Behoben, siehe `known_issues.md` KI-01. |
-| Chat-Fenster, Nachrichtenanzeige | ✅ | funktioniert |
-| Natürliche Antworten | ❌ | Antworten sind feste Textbausteine (Zufallsauswahl). Kein Sprachmodell wird im Standardweg genutzt. |
-| Sprachmodell-Anbindung (`AdvancedCommunicationEngine`) | 🟡 | Code für OpenAI, Anthropic und Ollama vorhanden, aber: veraltete Modellnamen, kein Gesprächsverlauf, System-Prompt und Nutzernachricht in einer Nachricht vermischt; im Standard-Chatweg wird die Engine praktisch nie erreicht. |
-| Intent-Erkennung | ❌ | Schlüsselwort-Treffer per Teilstring („hi“ trifft „nichts“, „ja“ trifft „Jahr“), drei konkurrierende Implementierungen. |
-| Aktionen/Werkzeuge | ❌ | „Absolut-Fallback: immer eine Datei erstellen“ – fast jede Nachricht erzeugt eine Markdown-Vorlagendatei in `cudi_content/`. Das ist die Ursache für „Markdown-Liste statt Handlung“. |
-| Slash-Befehle (`/file`, `/research`, `/learn`, `/exec`) | ❌ | `cudi_command_router.py` existiert, wird aber nur von einer überschriebenen (toten) Methode aufgerufen. `/exec` erzeugt nur eine Vorlagendatei. |
-| Web-Recherche | 🟡 | DuckDuckGo-Instant-Answer-Abfrage vorhanden; bei Fehler wird trotzdem „Ich habe gelernt“ gemeldet. Installiert fehlende Pakete zur Laufzeit per `pip`. |
-| Plugins | 🟡 | `plugins/rechnungsassistent.py` ist ein echtes Tkinter-Plugin. Der Plugin-Manager listet sonst 6 fest eingetragene „Plugins“, die keine eigenen Dateien haben. |
-| Sprachsteuerung / Sprachausgabe | ⬜ | `get_voice_engine()` gibt `None` zurück; Statusanzeige meldet trotzdem „✅ Ready“. |
-| Selbstdiagnose / Selbstheilung | ❌ | `_with_auto_repair` ruft nicht existierende Methoden auf; Fehler werden als „ausgeführt (Fallback)“ gemeldet. 22 Stellen mit `pass  # Optimized error handling` verschlucken Fehler. |
-| Cloud-Synchronisierung | ❌ | `cudi_unified_cloud_system.py` meldet „Google Drive verbunden“ ohne echte Verbindung (simuliert). |
-| Telemetrie / Event-Bus | ✅ | `cudi_telemetry.py`, `cudi_event_bus.py` funktionieren (Event-Bus seit Fix ohne Hänger). |
-| Rechnungsassistent-Plugin | 🟡 | eigenständig nutzbar, nicht mit Gedächtnis/Orchestrierung verbunden (nicht im Detail getestet). |
+| Start | `python main.py` (Fenster), `--cli` (Terminal), `--diagnose` | `main.py`, `cudi/cli.py` |
+| Einstellungen | Standardwerte → `config/settings.json` → `.env`/Umgebungsvariablen; Schlüssel nie in Dateien des Repos | `cudi/config/settings.py` |
+| Protokoll | `logs/cudi.log` (rotierend) | `cudi/config/logging_config.py` |
+| Orchestrator | Ablaufsteuerung, Werkzeugschleife (max. 8 Schritte), Unterbrechung für Freigaben, Qualitätsprüfung | `cudi/core/orchestrator.py` |
+| Absichtserkennung | Befehle, „merke dir“, „vergiss“, „künftig …“, Feedback, Ja/Nein, Rückfragen; DE/EN | `cudi/core/intent_router.py` |
+| Berechtigungen | Stufen 1–5; ab Stufe 3 Freigabe (Dialog oder „ja/nein“), Stufe 5 immer; „für diese Sitzung erlauben“ | `cudi/core/permissions.py` |
+| Persönlichkeit | Jarvis-artiger Kollege, handelt statt aufzuzählen, fragt gezielt nach, ehrlich bei Grenzen | `cudi/core/persona.py` |
+| Gedächtnis | Speichern nur auf Wunsch, Quelle/Zeitstempel/Status (bestätigt/vorläufig/veraltet), Duplikaterkennung, Widerspruchserkennung mit Rückfrage, Korrektur, Löschen, Export | `cudi/brain/memory.py` |
+| Arbeitskontext | Gesprächsverlauf in der DB (überlebt Neustart), offene Rückfragen, zuletzt bearbeitete Dateien | `cudi/brain/conversation.py` |
+| Projektgedächtnis | Projekte, Ziele, Anforderungen, Entscheidungen, Probleme, getestete Lösungen, nächste Schritte, Aufgaben | `cudi/brain/projects.py` |
+| Wissen/Dokumente | Import PDF, DOCX, TXT, MD, JSON, CSV; Abschnitte mit Fundstelle (Seite/Abschnitt/Zeilen); Duplikaterkennung; Volltextsuche (FTS5 + Wortteile) | `cudi/brain/knowledge.py` |
+| Kontextaufbau | Vorlieben/Fakten, passende Erinnerungen, aktives Projekt, Dokumentauszüge (als Daten markiert), Widerspruchshinweise | `cudi/brain/context_builder.py` |
+| Lernen | Feedback („richtig/falsch“, „Lösung hat (nicht) funktioniert“), Vorlieben („künftig …“), Hinweis an das Modell, wenn ein identischer Werkzeugaufruf schon gescheitert ist | `cudi/brain/episodes.py`, Orchestrator |
+| Verlaufsprotokoll | jede Werkzeugausführung, Fehler, Feedback, Modellaufruf (Dauer, Tokens) | `cudi/brain/episodes.py` |
+| Modelle | Ollama (lokal, nimmt installiertes Modell, weicht ohne Werkzeugunterstützung aus), Claude (offizielle SDK, Standard `claude-opus-5-5`, serverseitiges Ersatzmodell bei Ablehnung), OpenAI | `cudi/models/` |
+| Werkzeuge (25) | Dateien auflisten/lesen/schreiben (nur Arbeitsordner, Sicherung vor Überschreiben), Gedächtnis, Projekte, Aufgaben, Dokumente, Diagnose, Sicherung/Wiederherstellung, Export, Altbestand-Import | `cudi/tools/` |
+| Selbstdiagnose | kritisch / Warnung / optional, mit Lösungsvorschlag | `cudi/diagnostics/health.py` |
+| Sicherung | täglich automatisch beim Start (die letzten 10), manuell `/sicherung`, Wiederherstellung mit vorheriger Sicherheitskopie | `cudi/brain/database.py` |
+| Oberfläche | Chat → Kern (im Hintergrund-Thread), Freigabe-Dialog, ehrliche Statusanzeige (LLM/Voice), Menü „🧠 Gehirn“ (Gehirn-Ansicht, Dokument importieren, Arbeitsordner, Sicherung, Modelle, Diagnose, Hilfe) | `cudi_supreme_gui.py`, `ui/brain_dialog.py` |
 
-## 3. Funktionen des Digitalen Gehirns (`cudi_brain.py`)
+## 3. Was (noch) nicht funktioniert
 
-| Funktion | Status | Befund |
-|---|---|---|
-| Arbeitsgedächtnis (`WorkingMemory`) | 🟡 | hält aktive Konzepte im RAM, wird nicht für Antworten genutzt |
-| Langzeitgedächtnis (`LongTermMemory`, SQLite) | 🟡 | Tabellen episodisch/semantisch/prozedural/assoziativ; nur episodische Einträge werden geschrieben |
-| Abruf aus dem Gedächtnis | ❌ | `_answer_from_memory` erwartet eine Liste, bekommt ein Dict → Fehler wird verschluckt |
-| „Merke dir …“ | ❌ | `learn_new_information` ruft nicht existierende Methode `store_concept` auf (AttributeError) |
-| Recherche | ❌ | `_perform_external_research` ist simuliert (4 feste Begriffe, sonst „Recherche läuft …“) |
-| Lernen (`ContinuousLearning`) | ❌ | speichert die Platzhaltertexte als „gelerntes Wissen“ → verschmutzt das Gedächtnis |
-| Emotionserkennung, Metakognition | 🟡 | Schlüsselwort-Heuristik, Kennzahlen sind feste Schätzwerte |
-| Quellen, Zeitstempel, Konflikterkennung, Dokumentenimport, Projektgedächtnis | ⬜ | nicht vorhanden |
+* **Kein Sprachmodell vorinstalliert:** Ohne Ollama oder API-Schlüssel beantwortet CUDI nur Befehle,
+  Gedächtnis- und Dokumentfragen. Einrichtung: `docs/user_guide.md`.
+* **Alte Knöpfe/Menüs der Oberfläche** (Quick Actions, „Train Model“, Tool-Launcher, Plugin-Manager,
+  Selbstheilung, Cloud) laufen weiter über die **alte** Logik und sind teils Attrappen (siehe
+  `known_issues.md`). Nur das Chat-Eingabefeld und das Menü „🧠 Gehirn“ nutzen den neuen Kern.
+* Nicht implementiert: Sprachsteuerung, Websuche, Code ausführen/Tests starten, E-Mail/Kalender,
+  semantische Suche (Embeddings), Agenten-Rollen, Kreativ-/Videostudio, Synchronisierung zwischen
+  Geräten. Vorschläge dazu: `implementation_plan.md`.
+* Offene Freigaben gehen bei einem Neustart verloren (bewusst: nichts wird ohne erneute Freigabe ausgeführt).
 
-## 4. Doppelte, konkurrierende und isolierte Komponenten
+## 4. Tatsächlich ausgeführte Tests (2026-10-26, Linux, Python 3.13)
 
-* **18 doppelt definierte Methoden** in `CUDISupremeMainWindow` (u. a. `init_ui`, `send_message`,
-  `process_user_input`, `init_cudi_supreme`). In Python gewinnt die zweite Definition – die erste
-  ist toter Code (dort hing z. B. der Command-Router).
-* **Drei Konversations-Weichen** mit gleicher Schlüsselwortliste: `cudi_conversation_handler.py`,
-  `process_user_input_no_questions_original`, `_handle_normal_conversation`.
-* **Mindestens sechs getrennte Wissens-/Gedächtnisspeicher:** `cudi_brain_memory.db`,
-  `cudi_learning.db`, `config/knowledge_base.json`, `cudi_generated/learning_data_*.json`,
-  `cudi_generated/cudi_learning_log.json`, `data/cloud_sync.db`, dazu die verwaiste
-  `cudi_autonomous_knowledge.db` im Backup. Keiner liest die Daten der anderen.
-* **Zwei GUI-Frameworks:** Hauptanwendung PySide6, aber `cudi_supreme_harmonized.py` und
-  `cudi_self_healing_addon.py` nutzen PyQt5; zusätzlich Tkinter (Hilfe-System, Plugin-Dialog, Plugin).
-* **Fünf Startwege:** `cudi_supreme_gui.py`, `launch_cudi_supreme.py`, `launch_cudi_perfect.py`,
-  `LAUNCH_CUDI_SUPREME_GUI.py` (benötigt fehlendes `desktop_gui/`), `CUDI_SUPREME.bat`,
-  zusätzlich `scripts/cudi-start-safe.js`, `cudi-diagnose.sh`, `CUDI-Diagnose.ps1`.
-* **Zwei Plugin-Manager:** `simple_plugin_manager.py` und `simple_plugin_manager_enhanced.py`.
+**Automatisch:** `python -m pytest tests/` → **49 bestanden, 0 fehlgeschlagen**
 
-## 5. Wiederverwendbare Bestandteile
-
-* PySide6-Oberfläche (Layout, Navigation, Chat-Ansicht, Theme) – als Hülle gut weiterverwendbar.
-* `cudi_event_bus.py` und `cudi_telemetry.py` – sauber getrennt, nun getestet bzw. lauffähig.
-* `AdvancedCommunicationEngine` – Grundidee eines Modellanbieter-Wechsels; wird in einen Model Manager überführt.
-* `SystemInterface` in `cudi_brain.py` – Ansatz für erlaubte/verbotene Operationen (Basis für Berechtigungen).
-* SQLite-Schema-Ideen des Langzeitgedächtnisses (episodisch/semantisch/prozedural).
-* `plugins/rechnungsassistent.py` als echtes Plugin-Beispiel.
-
-## 6. Tatsächlich ausgeführte Tests (2026-10-26, Linux, Python 3.13)
-
-| Test | Ergebnis |
+| Datei | Inhalt |
 |---|---|
-| `CudiBrain` direkt: „Hallo CUDI.“ | ❌ Antwort: „Basierend auf meiner Recherche: Recherche zu hallo: Recherche zu 'hallo' läuft …“ |
-| `CudiBrain` direkt: „Kannst du programmieren?“ | ❌ gleiche Platzhalterantwort |
-| `CudiBrain`: „Merke dir: Mein Lieblingseditor ist VS Code“ → „Was ist mein Lieblingseditor?“ | ❌ nicht gespeichert, nicht wiedergefunden |
-| `CudiBrain.learn_new_information()` | ❌ `AttributeError: 'LongTermMemory' object has no attribute 'store_concept'` |
-| GUI-Start (offscreen) vor Fix | ❌ blockiert dauerhaft in `cudi_event_bus.start_sync` (Traceback gesichert) |
-| GUI-Start (offscreen) nach Fix | ✅ Fenster initialisiert, Event-Bus läuft im Hintergrund |
-| GUI-Chat „Hallo CUDI.“ | 🟡 feste Begrüßung („Hey! Ich bin bereit für deine Aufgaben! 🚀“), stabil |
-| GUI-Chat „Kannst du programmieren?“ | ❌ erzeugt zweimal eine Markdown-Vorlagendatei in `cudi_content/`, meldet „Ich habe über 'programmieren' gelernt!“, obwohl nur ein Fehler-Platzhalter gespeichert wurde |
-| `pytest tests/` | ✅ 3 bestanden (`test_event_bus.py`) |
+| `tests/test_acceptance.py` | Abnahmetests A–K aus dem Master-Prompt (25 Tests) |
+| `tests/test_brain.py` | Gedächtnisregeln, Vorlieben, Feedback, Fehler-Lernen, Dokumente als Daten, Datenschutz-Schalter, Altbestand, keine Schlüssel in Einstellungen, Zugangsdaten-Dateien gesperrt, tolerante Werkzeugparameter |
+| `tests/test_models.py` | Ollama/OpenAI/Claude-Anfrageformat, Werkzeugaufrufe, Fehlermeldungen, Ablehnung – ohne Netzwerk (Attrappen) |
+| `tests/test_event_bus.py` | Start-Hänger der GUI (Regression) |
 
-Abnahmetests A–K aus dem Master-Prompt: nur A (stabil, aber nicht natürlich) und G (teilweise) sind
-heute erfüllbar; B, C, D, E, F, H, I, K scheitern am aktuellen Code. Ziel der nächsten Phasen ist,
-diese Tests automatisiert grün zu bekommen.
+Abnahmetests im Einzelnen (alle bestanden): A Hallo-Chat (mit/ohne Modell) · B „Kannst du
+programmieren?“ fragt nach dem Ziel, erzeugt nichts · C Werkzeug wird aufgerufen, echter Status,
+Fehler wird nie als Erfolg gemeldet · D Erinnerung übersteht Neustart und erreicht das Modell ·
+E Projektstand und Verlauf überstehen Neustart · F DOCX/PDF-Import, Antwort mit Fundstelle,
+Doppelimport erkannt · G fehlendes/ausfallendes Modell wird gemeldet, Ausweichen auf nächstes
+Modell · H Widerspruch → Rückfrage, alte Angabe wird „veraltet“ statt gelöscht · I Schreiben/Löschen
+braucht Freigabe, Ablehnung wirkt, Schreiben außerhalb des Arbeitsordners blockiert · J alte Module
+und GUI-Methoden bleiben erhalten · K Neustart ohne Duplikate, Integrität, Sicherung/Wiederherstellung.
 
-## 7. Was wurde in dieser Sitzung geändert?
+Hinweis: In allen Tests mit Sprachmodell wird ein **Fake-Modell** mit festem Drehbuch verwendet.
+Geprüft wird damit die Verarbeitung (Kontext, Werkzeuge, Freigaben, Status) – nicht die
+Antwortqualität eines echten Modells. Ein echtes Modell war in dieser Umgebung nicht verfügbar.
 
-1. `cudi_event_bus.py`: `start_sync()` startet den Worker jetzt in einem eigenen Hintergrund-Thread
-   statt den GUI-Hauptthread zu blockieren; neu `stop_sync()`; `emit_sync()` leitet Events
-   thread-sicher an den Bus-Loop weiter.
-2. `tests/test_event_bus.py`: 3 Regressionstests (Start im Hauptthread, Zustellung an Abonnenten, Stopp).
-3. `requirements.txt`: fehlendes `PySide6` (das tatsächlich verwendete GUI-Framework) ergänzt.
-4. Diese Dokumentation unter `docs/`.
+**Manuell (automatisiert gesteuert):**
+* Echte PySide6-Oberfläche im Offscreen-Modus: „Hallo CUDI.“, „Kannst du programmieren?“,
+  „Schreib mir ein Hallo-Welt-Skript …“ (Freigabe-Dialog → Datei `workspace/hallo.py` entsteht),
+  „Merke dir …“ – alles über den neuen Kern; keine neue Datei in `cudi_content/`; Menü „🧠 Gehirn“
+  und Gehirn-Ansicht zeigen echte Daten.
+* `python main.py --diagnose` und `python main.py --cli` ohne Sprachmodell: laufen, melden fehlende
+  Modelle mit Einrichtungshinweis.
 
-Keine bestehende Funktion wurde entfernt.
+## 5. Änderungen an bestehenden Dateien
+
+* `cudi_supreme_gui.py`: `send_message` leitet an den neuen Kern weiter (alte Verarbeitung bleibt als
+  Rückfallebene, falls der Kern nicht lädt); neue Methoden `_init_cudi_core`, `_send_to_core`,
+  `_run_core`, `_on_core_result`, `_ask_core_confirmation`, `_open_brain_dialog`,
+  `_import_document_dialog`, `_open_workspace`; `new_chat` startet auch im Kern ein neues Gespräch;
+  Signal `core_result_ready`; `import html`. **Keine bestehende Methode entfernt.**
+* `cudi_event_bus.py`: Start-Hänger behoben (siehe `known_issues.md` KI-01).
+* `requirements.txt`: PySide6 ergänzt. Neu: `requirements-core.txt` (schlanke Installation).
+* `.gitignore`: Laufzeitdaten (`data/`, `logs/`, `workspace/`, `import/`, `.env`, `config/*.json` der Laufzeit).
+* `README.md`: neu geschrieben (die alte Fassung beschrieb nicht vorhandene Dateien).
+
+---
+
+## 6. Ursprüngliche Bestandsaufnahme (Phase 1, unverändert gültig für den Altbestand)
+
+* 29 Python-Dateien (~16 900 Zeilen); Hauptanwendung `cudi_supreme_gui.py` (PySide6, eine Klasse mit
+  220 Methoden, davon 18 doppelt definiert).
+* **Kein separates „Digitales Gehirn“-Projekt im Repository**; einziges Gehirn-Modul war
+  `cudi_brain.py` (ohne Sprachmodell, Antworten aus Textbausteinen, „Merke dir“ defekt).
+* Die im Master-Prompt genannten Dateien (`main.py`, `brain.py`, `voice.py`, `local_llm.py`,
+  `memory.json`, `settings.json` …) existierten nicht; elf importierte Module fehlten.
+* Ursache für „Markdown-Liste statt Handlung“: ein Rückfallzweig erzeugte bei fast jeder Nachricht
+  eine Vorlagendatei (`known_issues.md` KI-02) – im Chat jetzt durch den Orchestrator ersetzt.
+* Mindestens sechs getrennte Wissensspeicher; drei konkurrierende Konversationsweichen; Selbstheilung
+  rief nicht existierende Methoden auf; 22 verschluckte Fehler; simulierte Cloud-Verbindung.

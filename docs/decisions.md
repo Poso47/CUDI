@@ -24,7 +24,7 @@ Status „wartet auf Zustimmung“ = wird erst nach ausdrücklicher Freigabe umg
   separates Paket ermöglicht automatisierte Abnahmetests A–K ohne Bildschirm.
 * **Verworfen:** Weiteres Ergänzen von Methoden in `cudi_supreme_gui.py` (verstärkt das Problem);
   kompletter Neubau inklusive GUI (verliert funktionierende Oberfläche).
-* **Status:** vorgeschlagen.
+* **Status:** umgesetzt (2026-10-26), Paket `cudi/`.
 
 ## D-003 Eine SQLite-Datenbank für das Digitale Gehirn, FTS5 statt Vektordatenbank
 
@@ -35,7 +35,7 @@ Status „wartet auf Zustimmung“ = wird erst nach ausdrücklicher Freigabe umg
   reicht für persönliche Datenmengen. FTS5 liefert Fundstellen und Ranking ohne Zusatzpaket.
 * **Verworfen:** Vektordatenbank (Chroma/FAISS) von Anfang an – zusätzliche schwere Abhängigkeiten
   ohne belegten Bedarf; Weiterverwendung der sechs bestehenden Speicher – führt zu Doppelhaltung.
-* **Status:** vorgeschlagen. Bestehende `.db`-Dateien bleiben unverändert liegen (sind leer).
+* **Status:** umgesetzt (`data/cudi_brain.db`, Schema v1; ergänzend Wortteil-Suche per LIKE). Bestehende `.db`-Dateien bleiben unverändert liegen.
 
 ## D-004 Model Manager mit Anbieter-Schnittstelle; Ollama lokal als Standard
 
@@ -46,7 +46,7 @@ Status „wartet auf Zustimmung“ = wird erst nach ausdrücklicher Freigabe umg
 * **Begründung:** Datenschutz (lokale Verarbeitung zuerst), Austauschbarkeit, ehrliche Fehlermeldung.
 * **Verworfen:** Fest verdrahtete Modellnamen im Code (heutiger Zustand); `transformers`/`torch`
   direkt in der App (mehrere GB, langsamer Start).
-* **Status:** vorgeschlagen; welcher Anbieter tatsächlich genutzt wird, entscheidet der Nutzer (Frage F-1).
+* **Status:** umgesetzt. Standardreihenfolge ollama → anthropic → openai (D-010); der Nutzer kann sie in `.env` ändern.
 
 ## D-005 Werkzeuge mit Berechtigungsstufen
 
@@ -55,7 +55,7 @@ Status „wartet auf Zustimmung“ = wird erst nach ausdrücklicher Freigabe umg
   nicht für die Sitzung freigegeben); Stufe 5 immer mit Bestätigung. Vor dem Überschreiben wird eine
   Sicherungskopie angelegt.
 * **Begründung:** Anforderungen aus Abschnitt 12 des Master-Prompts.
-* **Status:** vorgeschlagen.
+* **Status:** umgesetzt (Standard: Stufe 1–2 automatisch, `auto_approve_level` in den Einstellungen).
 
 ## D-006 Speicherregeln für Erinnerungen
 
@@ -63,8 +63,8 @@ Status „wartet auf Zustimmung“ = wird erst nach ausdrücklicher Freigabe umg
   („merke dir“, „speichere“) oder (b) was er bestätigt. Jede Erinnerung hat Quelle, Zeitstempel,
   Status (bestätigt / vorläufig / veraltet), Vertrauen. Widersprüche zu bestehenden Einträgen
   werden erkannt und als Rückfrage gemeldet statt überschrieben.
-* **Begründung:** Verhindert Gedächtnisverschmutzung (heute: Platzhaltertexte als „Wissen“).
-* **Status:** vorgeschlagen.
+* **Begründung:** Verhindert Gedächtnisverschmutzung (früher: Platzhaltertexte als „Wissen“).
+* **Status:** umgesetzt; bei Widerspruch wird die alte Angabe nach Bestätigung „veraltet“ (nicht gelöscht).
 
 ## D-007 Nicht ausführen: Harmonizer-/Selbstmodifikationsskripte
 
@@ -80,3 +80,49 @@ Status „wartet auf Zustimmung“ = wird erst nach ausdrücklicher Freigabe umg
 * **Verworfen:** Event-Bus deaktivieren (verliert Telemetrie-Ereignisse); qasync-Integration in den
   Qt-Loop (zusätzliche Abhängigkeit).
 * **Status:** umgesetzt und getestet (2026-10-26).
+
+## D-009 Chat der Oberfläche über den neuen Kern (Freigabe E-1)
+
+* **Entscheidung:** `send_message` leitet jede Chat-Nachricht an den Orchestrator. Die alte
+  Verarbeitung bleibt im Code und springt nur ein, wenn der Kern nicht geladen werden kann.
+* **Begründung:** Nutzerauftrag vom 2026-10-26: „mach, dass es genau so funktioniert, wie ich es
+  gesagt habe“ – der alte Weg erzeugte Vorlagendateien statt Antworten.
+* **Status:** umgesetzt. Alte Methoden nicht entfernt (Aufräumen nur nach Zustimmung, Vorschlag V8).
+
+## D-010 Standard-Modellreihenfolge: lokal zuerst; Claude-Standardmodell claude-opus-5-5
+
+* **Entscheidung:** ollama → anthropic → openai. Claude wird über die offizielle `anthropic`-SDK mit
+  `claude-opus-5-5`, `effort=medium` und serverseitigem Ersatzmodell (`fallbacks="default"`) angesprochen.
+* **Begründung:** Lokale Verarbeitung schützt Daten und kostet nichts; Claude Opus 5.5 ist das
+  aktuelle Standardmodell. Jede Antwort zeigt Anbieter/Modell und ob lokal oder extern verarbeitet wurde.
+* **Verworfen:** OpenAI-kompatible Zwischenschichten für Claude (nicht empfohlen).
+
+## D-011 Ohne Sprachmodell: ehrlich eingeschränkt statt Textbausteine
+
+* **Entscheidung:** Ist kein Modell erreichbar, beantwortet CUDI Begrüßung, Fähigkeitsfragen,
+  Gedächtnis- und Dokumentfragen regelbasiert und sagt bei allem anderen klar, dass ein Modell fehlt
+  und wie man es einrichtet.
+* **Begründung:** Master-Prompt: „keine Oberfläche, die Funktionen nur simuliert“.
+
+## D-012 Dokumentauszüge an externe Modelle: standardmäßig erlaubt, abschaltbar
+
+* **Entscheidung:** Passende Auszüge importierter Dokumente gehen auch an externe Modelle mit
+  (sonst funktioniert „Frag mein Dokument“ mit Claude/OpenAI nicht). Abschaltbar über
+  `share_documents_with_external_models: false` in `config/settings.json`.
+* **Begründung:** Nur die zur Frage passenden Abschnitte werden gesendet, und nur wenn der Nutzer
+  einen externen Anbieter selbst eingerichtet hat. Lokale Modelle sind immer bevorzugt.
+* **Status:** umgesetzt; Test `test_external_model_does_not_get_documents_when_disabled`.
+
+## D-013 Regeln für eindeutige Anliegen, Sprachmodell für den Rest
+
+* **Entscheidung:** „Merke dir“, „vergiss“, Feedback, Vorlieben, Ja/Nein und /Befehle werden
+  deterministisch verarbeitet; alles andere entscheidet das Sprachmodell mit Werkzeugen.
+* **Begründung:** Speichern/Löschen muss verlässlich und nachvollziehbar sein – unabhängig davon,
+  welches Modell gerade läuft. Freie Sprache versteht ein Modell besser als Schlüsselwortlisten.
+
+## D-014 Vom Nutzer im Dialog gewählte Dateien gelten als freigegeben
+
+* **Entscheidung:** Wählt der Nutzer im Menü „Dokument importieren…“ eine Datei, ist das die Freigabe
+  zum Lesen dieser Datei. Schlägt dagegen das Modell vor, eine Datei außerhalb der freigegebenen
+  Ordner zu lesen, wird nachgefragt (Stufe 3).
+* **Begründung:** Schutz vor manipulierten Anweisungen in Dokumenten, ohne den Nutzer zu gängeln.

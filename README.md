@@ -1,176 +1,52 @@
-# CUDI - Digitaler Assistent
+# CUDI – persönlicher KI-Kollege mit Digitalem Gehirn
 
-CUDI (Computer Understanding & Digital Intelligence) ist ein vollwertiger digitaler Assistent, der als Ihr digitaler Zwilling fungiert und weitreichende Systemzugriffe sowie Automatisierungsfähigkeiten bietet.
+CUDI ist ein lokaler Desktop-Assistent (Python, PySide6): ein Kollege im Stil von J.A.R.V.I.S., der
+natürlich mit dir spricht, sich erinnert, deine Projekte und Dokumente kennt und Aufgaben über echte
+Werkzeuge erledigt – mit Rückfrage vor jeder Veränderung.
 
-## 🎯 Projektbeschreibung
+## Schnellstart
 
-CUDI ist darauf ausgelegt, als vollständiger digitaler Assistent zu fungieren, der:
-- **Vollständigen Systemzugriff** hat (mit Admin-Rechten)
-- **Internet-Recherchen** durchführt und Datenbanken aufbaut
-- **Projekte automatisch erstellt** und verwaltet
-- **Hintergrundaufgaben** ausführt und plant
-- **System-Wartung** automatisiert
-- Als **digitaler Zwilling** des Benutzers agiert
-
-## 🚀 Installation & Start
-
-### Schnelle Installation
-```bash
-# 1. Alle Dateien in einem Ordner zusammenfassen
-# 2. Setup ausführen:
-python setup.py
-
-# 3. CUDI starten (verschiedene Optionen):
-
-# Neue Advanced GUI (EMPFOHLEN):
-start_cudi_gui.bat
-# oder
-python start_advanced_gui.py
-
-# Klassische GUI:
-start_cudi.bat
-# oder
-python startup.py
+```
+pip install -r requirements-core.txt
+python main.py            # Fenster
+python main.py --cli      # Chat im Terminal
+python main.py --diagnose # Selbstdiagnose
 ```
 
-### Manuelle Installation
-```bash
-# Abhängigkeiten installieren
-pip install -r requirements.txt
+Für freie Antworten ein Sprachmodell anschließen: **Ollama** (lokal, kostenlos) oder einen
+**Claude**/OpenAI-Schlüssel in `.env` (Vorlage: `.env.example`). Details: [docs/user_guide.md](docs/user_guide.md).
 
-# CUDI mit Advanced GUI starten
-python advanced_gui.py
+## Was funktioniert
+
+* Chat über einen zentralen Orchestrator mit Werkzeugen, Berechtigungsstufen und ehrlichem Status
+* Digitales Gehirn in einer SQLite-Datenbank: Langzeitgedächtnis (Quelle, Status, Widerspruchserkennung),
+  Gesprächsverlauf, Projektgedächtnis, Aufgaben, Dokumentwissen mit Fundstellen, Feedback, Verlaufsprotokoll
+* Dokumentimport: PDF, DOCX, TXT, Markdown, JSON, CSV
+* Sprachmodelle: Ollama, Claude (`claude-opus-5-5`), OpenAI – mit Ausweichreihenfolge
+* Selbstdiagnose, tägliche Sicherung, Wiederherstellung, Export
+* 49 automatische Tests (`python -m pytest tests/`), darunter die Abnahmetests A–K
+
+Noch nicht eingebaut: Sprachsteuerung, Websuche, Code ausführen, E-Mail/Kalender, Kreativstudio.
+
+## Aufbau
+
+```
+main.py              Start
+cudi/                neuer Kern (core, brain, models, tools, diagnostics, config)
+ui/                  zusätzliche Fenster (Digitales Gehirn)
+cudi_supreme_gui.py  Oberfläche (Chat läuft über cudi/)
+tests/               automatische Tests
+docs/                Status, Architektur, Plan, Entscheidungen, bekannte Fehler, Anleitung
 ```
 
-## 🎮 Benutzer-Interfaces
+Die übrigen `cudi_*.py`-Dateien sind der Altbestand; sie bleiben erhalten, bis ihre Ablösung
+freigegeben ist (siehe [docs/implementation_plan.md](docs/implementation_plan.md), Vorschlag V8).
 
-### 🌟 Advanced GUI (NEU!)
-**Moderne Tab-basierte Oberfläche mit:**
-- **💬 Chat-Tab**: Direkte Kommunikation + Emotions-Panel
-- **🧠 Wissen-Tab**: Wissensdatenbank mit Suche & Management
-- **🖥️ System-Tab**: System-Monitoring & Datei-Management  
-- **📁 Projekte-Tab**: Projekt-Erstellung & -Verwaltung
-- **⚡ Aufgaben-Tab**: Hintergrundaufgaben & Automation
-- **📜 Logs-Tab**: System-Protokolle & Export-Funktionen
+## Dokumentation
 
-**Start**: `python start_advanced_gui.py` oder `start_cudi_gui.bat`
-
-### 🎮 Klassische GUI
-**Einfache Chat-Oberfläche mit Buttons:**
-**Erste Reihe:**
-- **Sprechen**: Spracheingabe (mockup)
-- **Denken**: Simuliert Denkprozess
-- **Wissen**: Zeigt gespeicherte Informationen
-- **Plugins**: Plugin-Verwaltung
-- **Logs**: System-Logs anzeigen
-- **Emotion**: Aktuelle "Stimmung" der KI
-
-**Zweite Reihe:**
-- **System**: System-Informationen abrufen
-- **Projekte**: Projekt-Management
-- **Aufgaben**: Hintergrundaufgaben verwalten
-- **Internet**: Web-Recherche starten
-- **Reinigen**: System-Wartung durchführen
-
-### Chat-Befehle
-```
-# System-Befehle
-"erstelle datei beispiel.txt"
-"lösche datei unwichtig.log"
-"führe aus dir"
-"system info"
-
-# Internet-Recherche
-"suche im internet Python Tutorials"
-"lade herunter https://example.com/file.zip"
-"recherchiere Künstliche Intelligenz"
-
-# Projekt-Management
-"erstelle projekt MeinWebsite"
-"liste projekte"
-"lösche projekt AltesZeug"
-
-# Automatisierung
-"führe im hintergrund aus python script.py"
-"plane aufgabe täglich system backup"
-"system reinigen"
-```
-
-## 🔧 Technische Details
-
-### Architektur
-```
-CUDI/
-├── main.py              # Haupt-GUI und Entry Point
-├── brain.py             # KI-Logik und Befehlsverarbeitung
-├── system_access.py     # Vollständiger Systemzugriff
-├── internet_research.py # Web-Scraping und Recherche
-├── project_manager.py   # Automatische Projekterstellung
-├── task_automation.py   # Hintergrundaufgaben und Planung
-├── startup.py           # Startup-Script mit Fehlerbehandlung
-├── setup.py             # Automatische Installation
-└── requirements.txt     # Python-Abhängigkeiten
-```
-
-### Abhängigkeiten
-- **psutil**: System-Monitoring
-- **requests**: HTTP-Anfragen
-- **beautifulsoup4**: Web-Scraping
-- **schedule**: Aufgaben-Planung
-- **sqlite3**: Lokale Datenbank
-- **tkinter**: GUI-Framework
-
-### Sicherheitshinweise
-⚠️ **WICHTIG**: CUDI erfordert erweiterte Systemrechte und kann:
-- Dateien systemweit erstellen/löschen
-- Programme ausführen
-- Registry-Änderungen vornehmen
-- Netzwerkzugriffe durchführen
-
-## 🎯 Anwendungsszenarien
-
-### Als persönlicher Assistent
-```python
-# Tägliche Aufgaben automatisieren
-"plane aufgabe täglich backup erstellen"
-"system reinigen"
-"erstelle projekt Monatsreport"
-```
-
-### Als Entwicklungshelfer
-```python
-# Projekte schnell aufsetzen
-"erstelle projekt WebApp"
-"suche im internet React Best Practices"
-"führe im hintergrund aus npm install"
-```
-
-### Als System-Administrator
-```python
-# System überwachen und warten
-"system info"
-"führe aus sfc /scannow"
-"lösche datei C:/temp/cache.tmp"
-```
-
-## 🔮 Erweiterungsmöglichkeiten
-
-Das Projekt ist modular aufgebaut und kann erweitert werden mit:
-- **Spracherkennung**: Echte Voice-to-Text Integration
-- **API-Integration**: OpenAI, Google APIs
-- **Machine Learning**: Lokale AI-Modelle
-- **Netzwerk-Management**: Remote-System-Zugriff
-- **Cloud-Integration**: Dropbox, Google Drive
-- **Überwachung**: System-Alerts und Benachrichtigungen
-
-## 📄 Lizenz
-
-Dieses Projekt ist für Bildungszwecke und persönliche Nutzung gedacht. Bei kommerziellem Einsatz beachten Sie bitte die Lizenzen der verwendeten Bibliotheken.
-
-## ⚠️ Haftungsausschluss
-
-CUDI ist ein experimentelles Projekt. Die Nutzung erfolgt auf eigene Verantwortung. Erstellen Sie vor dem Einsatz Backups wichtiger Daten.
-
----
-
-**Entwickelt als vollwertiger digitaler Assistent mit dem Ziel, als digitaler Zwilling zu fungieren.**
+* [docs/user_guide.md](docs/user_guide.md) – Bedienung
+* [docs/project_status.md](docs/project_status.md) – was fertig und getestet ist
+* [docs/architecture.md](docs/architecture.md) – Aufbau und Zuständigkeiten
+* [docs/implementation_plan.md](docs/implementation_plan.md) – nächste Schritte und Vorschläge
+* [docs/decisions.md](docs/decisions.md) – Architekturentscheidungen
+* [docs/known_issues.md](docs/known_issues.md) – bekannte Fehler

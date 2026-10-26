@@ -5,6 +5,7 @@ Direct Start in Agent Mode with Full Communication Capabilities
 """
 
 import sys
+import html
 import json
 import threading
 import time
@@ -413,7 +414,8 @@ class CUDISupremeMainWindow(QMainWindow):
     voice_input_received = Signal(str)  # voice text
     llm_response_ready = Signal(str, dict)  # response, metadata
     thinking_clear_requested = Signal()  # UI: "Denke nach..." entfernen
-    
+    core_result_ready = Signal(object)  # Ergebnis des neuen Kerns (cudi.core.results.Result)
+
     def __init__(self):
         super().__init__()
         
@@ -489,6 +491,8 @@ class CUDISupremeMainWindow(QMainWindow):
         self.init_cudi_supreme()
         self.connect_signals()
         self.start_agent_mode()
+        # Neuer Kern (Orchestrator + Digitales Gehirn); alte Verarbeitung bleibt als Rückfallebene
+        self._init_cudi_core()
         # Live-Updates (Systemstatus/Avatar)
         try:
             self.start_timers()
@@ -3806,11 +3810,17 @@ Erfolgreiche Reparaturen: {len(self.repair_attempts)}
         message = self.chat_input.text().strip()
         if not message:
             return
-        
+
+        # Neuer Kern: Orchestrator mit Gedächtnis, Werkzeugen und Berechtigungen
+        if getattr(self, 'cudi_core', None) is not None:
+            self.chat_input.clear()
+            self._send_to_core(message)
+            return
+
         # User message hinzufügen
         self.add_chat_message("👤 Du", message)
         self.chat_input.clear()
-        
+
         # Wähle Verarbeitungs-Modus basierend auf Toggle
         if getattr(self, 'no_questions_mode', True):  # Standard: Direct Action
             # DIREKTE AKTIONS-VERARBEITUNG ohne Fragen
@@ -5670,7 +5680,127 @@ Neueste Fehlermeldungen:
     def new_chat(self):
         """Startet neuen Chat"""
         self.clear_chat()
+        if getattr(self, 'cudi_core', None) is not None:
+            self.cudi_core.orchestrator.new_conversation()
         self.add_chat_message("🤖 CUDI", "Neuer Chat gestartet. Wie kann ich dir helfen?")
+
+    # === Neuer Kern (cudi/) ===================================================
+    def _init_cudi_core(self):
+        """Lädt Orchestrator + Digitales Gehirn. Bei Fehlern bleibt die alte Verarbeitung aktiv."""
+        self.cudi_core = None
+        try:
+            from cudi.core.application import get_app
+            self.cudi_core = get_app()
+        except Exception as e:
+            self.add_chat_message("⚠️ System", "Der neue CUDI-Kern konnte nicht geladen werden – die alte "
+                                  f"Verarbeitung bleibt aktiv. Details: {html.escape(str(e))}")
+            return
+        self.core_result_ready.connect(self._on_core_result)
+        self._core_busy = False
+
+        # Ehrliche Statusanzeige statt pauschalem "Ready"
+        models = self.cudi_core.models.status()
+        active = [f"{name} ({info})" for name, ok, info in models if ok]
+        self.update_status("LLM", "✅ " + active[0] if active else "⚠️ kein Modell")
+        if getattr(self, 'voice_engine', None) is None:
+            self.update_status("Voice", "➖ nicht verfügbar")
+
+        menu = self.menuBar().addMenu("🧠 &Gehirn")
+        for label, slot in (("Digitales Gehirn anzeigen…", self._open_brain_dialog),
+                            ("Dokument importieren…", self._import_document_dialog),
+                            ("Importordner einlesen", lambda: self._send_to_core("/importordner")),
+                            ("Arbeitsordner öffnen", self._open_workspace),
+                            ("Sicherung erstellen", lambda: self._send_to_core("/sicherung")),
+                            ("Modelle & Einrichtung", lambda: self._send_to_core("/modelle")),
+                            ("Selbstdiagnose", lambda: self._send_to_core("/status")),
+                            ("Hilfe / Befehle", lambda: self._send_to_core("/hilfe"))):
+            action = QAction(label, self)
+            action.triggered.connect(slot)
+            menu.addAction(action)
+
+        name = self.cudi_core.settings.assistant_name
+        if active:
+            self.add_chat_message(f"🤖 {name}", f"Bereit. Sprachmodell: {html.escape(active[0])}. "
+                                  "Sag mir einfach, woran wir arbeiten.")
+        else:
+            self.add_chat_message(f"🤖 {name}", "Bereit – aber noch ohne Sprachmodell. Gedächtnis, Projekte, "
+                                  "Dokumentsuche und Befehle funktionieren schon. Menü „Gehirn → Modelle & "
+                                  "Einrichtung“ zeigt, wie du ein Modell anschließt.")
+
+    def _send_to_core(self, text, show_user=True):
+        if getattr(self, 'cudi_core', None) is None:
+            return
+        if getattr(self, '_core_busy', False):
+            self.add_chat_message("⏳ System", "Ich arbeite noch an der vorherigen Anfrage – einen Moment bitte.")
+            return
+        if show_user:
+            self.add_chat_message("👤 Du", html.escape(text))
+        self._run_core(lambda: self.cudi_core.handle(text))
+
+    def _run_core(self, job):
+        self._core_busy = True
+        self._show_typing_indicator()
+
+        def worker():
+            try:
+                result = job()
+            except Exception as e:  # sichtbar machen, nie verschweigen
+                from cudi.core.results import ERROR, Result
+                result = Result(ERROR, f"Interner Fehler: {e}")
+            self.core_result_ready.emit(result)
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def _on_core_result(self, result):
+        from cudi.core.results import CONFIRM
+        self._core_busy = False
+        self._hide_typing_indicator()
+        name = self.cudi_core.settings.assistant_name
+        sender = f"🤖 {name}" + (f" · {result.model}" if result.model else "")
+        body = html.escape(result.render())
+        if result.details:
+            body += f"<br><span style='color:#7d8590;font-size:11px;'>Technische Details: {html.escape(result.details)}</span>"
+        self.add_chat_message(sender, body)
+        if result.kind == CONFIRM and result.pending_id:
+            self._ask_core_confirmation(result)
+
+    def _ask_core_confirmation(self, result):
+        box = QMessageBox(self)
+        box.setWindowTitle("Freigabe erforderlich")
+        box.setIcon(QMessageBox.Icon.Question)
+        box.setTextFormat(Qt.TextFormat.PlainText)
+        box.setText(result.text)
+        box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        remember = QCheckBox("Dieses Werkzeug für diese Sitzung ohne Rückfrage erlauben")
+        box.setCheckBox(remember)
+        approved = box.exec() == QMessageBox.StandardButton.Yes
+        pending_id = result.pending_id
+        if pending_id not in self.cudi_core.orchestrator.pending:
+            return  # wurde inzwischen per Chat ("ja"/"nein") beantwortet
+        self.add_chat_message("👤 Du", "Ja" if approved else "Nein")
+        self._run_core(lambda: self.cudi_core.resolve(pending_id, approved, remember.isChecked()))
+
+    def _open_brain_dialog(self):
+        if getattr(self, 'cudi_core', None) is None:
+            return
+        from ui.brain_dialog import BrainDialog
+        BrainDialog(self.cudi_core, self).exec()
+
+    def _import_document_dialog(self):
+        if getattr(self, 'cudi_core', None) is None:
+            return
+        from cudi.brain.knowledge import SUPPORTED
+        pattern = "Dokumente (" + " ".join(f"*{s}" for s in SUPPORTED) + ")"
+        path, _ = QFileDialog.getOpenFileName(self, "Dokument importieren", str(Path.home()), pattern)
+        if path:
+            self.add_chat_message("👤 Du", html.escape(f"Dokument importieren: {path}"))
+            # Vom Nutzer im Dialog gewählt = ausdrückliche Freigabe zum Lesen dieser Datei
+            self._run_core(lambda: self.cudi_core.orchestrator.run_tool("import_document", {"path": path}))
+
+    def _open_workspace(self):
+        if getattr(self, 'cudi_core', None) is None:
+            return
+        QDesktopServices.openUrl(QUrl.fromLocalFile(str(self.cudi_core.settings.workspace_dir)))
     
     def save_chat(self):
         """Speichert Chat"""

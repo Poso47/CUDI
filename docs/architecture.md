@@ -1,12 +1,12 @@
 # Architektur CUDI + Digitales Gehirn
 
-Dieses Dokument beschreibt (A) die **Ist-Architektur**, wie sie im Code tatsächlich vorliegt, und
-(B) die **Zielarchitektur**, auf die schrittweise migriert wird. Abschnitt C ordnet jede vorhandene
+Dieses Dokument beschreibt (A) die **Altarchitektur** vor dem Umbau, (B) die **neue Architektur**
+(seit 2026-10-26 umgesetzt: Kern, Gedächtnis, Modelle, Werkzeuge, Chat-Anbindung). Abschnitt C ordnet jede vorhandene
 Komponente ihrem Zielmodul zu.
 
 ---
 
-## A. Ist-Architektur (Stand 2026-10-26)
+## A. Altarchitektur (vor dem Umbau; der Code existiert weiterhin)
 
 ```
                 ┌─────────────────────────────────────────────────────────────┐
@@ -49,7 +49,11 @@ Wesentliche Eigenschaften:
 
 ---
 
-## B. Zielarchitektur
+## B. Neue Architektur (umgesetzt)
+
+Stand: Kern, Digitales Gehirn, Modelle, Werkzeuge, Diagnose und die Chat-Anbindung der Oberfläche
+sind implementiert und getestet (siehe `project_status.md`). Agenten-Rollen, Sprachsteuerung,
+Websuche und Kreativstudio sind noch offen.
 
 Grundsatz: Die PySide6-Oberfläche bleibt (keine Framework-Migration). Die Logik wird aus der GUI in
 ein **GUI-unabhängiges Python-Paket `cudi/`** verlagert, das ohne Oberfläche testbar ist. Die GUI
@@ -68,31 +72,53 @@ Nutzer → GUI (ui/) → core.Orchestrator
                         └─ 8. Speicherung       → brain/ (nur nach Regeln; Quelle + Zeitstempel)
 ```
 
-### Geplante Paketstruktur (nur Module mit konkretem Zweck)
+### Paketstruktur (tatsächlich vorhanden)
 
 ```
+main.py                         Start: Fenster | --cli | --diagnose
 cudi/
-├── config/settings.py         Einheitliche Einstellungen (config/settings.json + Umgebungsvariablen)
-├── config/logging_config.py   Ein Logging für alle Module (Datei + Konsole)
-├── core/orchestrator.py       Zentrale Ablaufsteuerung (Schritte 1–8)
-├── core/intent_router.py      Absicht + Parameter erkennen (DE/EN)
-├── core/permissions.py        Berechtigungsstufen, Bestätigungen
-├── core/results.py            Einheitliches Ergebnisobjekt (ok / Fehler / Rückfrage / Bestätigung nötig)
-├── brain/database.py          EINE SQLite-Datenbank (cudi_brain.db) inkl. Schema-Version + Migrationen
-├── brain/memory.py            Langzeit-, episodisches Gedächtnis; Status bestätigt/vorläufig/veraltet
-├── brain/working_memory.py    Arbeitskontext der laufenden Unterhaltung
-├── brain/projects.py          Projektgedächtnis (Ziele, Entscheidungen, offene Punkte, nächste Schritte)
-├── brain/knowledge.py         Dokumente + Abschnitte, SQLite-FTS5-Volltextsuche, Fundstellen
-├── brain/context_builder.py   Relevanten Kontext für eine Anfrage zusammenstellen
-├── models/model_manager.py    Anbieter-unabhängige Schnittstelle, Ausweichstrategie, Laufzeit/Token
-├── models/providers.py        Ollama (lokal), Anthropic, OpenAI – nur wenn konfiguriert
-├── tools/registry.py          Werkzeugregistrierung (Name, Beschreibung, Parameter, Stufe, Prüfung)
-├── tools/file_tools.py        Dateien lesen/auflisten/schreiben (nur im freigegebenen Arbeitsordner)
-├── tools/document_tools.py    Import PDF/DOCX/TXT/MD/JSON/CSV
-├── tools/memory_tools.py      Merken, Erinnern, Vergessen, Korrigieren
-└── diagnostics/health.py      Selbstdiagnose (kritisch / Warnung / optional)
-tests/                         pytest, ohne GUI lauffähig; Abnahmetests A–K
+├── config/settings.py          Einstellungen (Standard → config/settings.json → .env/Umgebung)
+├── config/logging_config.py    logs/cudi.log
+├── core/application.py         baut alles zusammen (eine DB, ein Orchestrator); get_app()
+├── core/orchestrator.py        Ablaufsteuerung, Werkzeugschleife, Freigaben, Qualitätsprüfung
+├── core/intent_router.py       eindeutige Anliegen (Befehle, merken, Feedback, ja/nein), DE/EN
+├── core/permissions.py         Stufen 1–5, Sitzungsfreigaben
+├── core/persona.py             System-Prompt (Jarvis-artiger Kollege)
+├── core/results.py             Result/Action – einheitliche Rückgabe an GUI/CLI
+├── brain/database.py           SQLite + Schema-Version + FTS5 + Sicherung/Wiederherstellung
+├── brain/memory.py             Langzeitgedächtnis (Status, Quelle, Duplikate, Widersprüche)
+├── brain/conversation.py       Gesprächsverlauf (DB) + Arbeitsgedächtnis (RAM)
+├── brain/projects.py           Projektgedächtnis + Aufgaben
+├── brain/knowledge.py          Dokumentimport (PDF/DOCX/TXT/MD/JSON/CSV) + Suche mit Fundstellen
+├── brain/episodes.py           Verlaufsprotokoll, Feedback, Modellaufrufe, Fehler-Hinweise
+├── brain/context_builder.py    Kontext pro Anfrage
+├── models/base.py              Schnittstelle ModelProvider, ModelResponse, ToolCall
+├── models/model_manager.py     Reihenfolge, Ausweichen, Protokoll, Einrichtungshinweis
+├── models/ollama_provider.py   lokal
+├── models/anthropic_provider.py Claude (offizielle SDK)
+├── models/openai_provider.py   OpenAI (HTTP)
+├── tools/registry.py           Werkzeugregistrierung, Validierung, Protokoll
+├── tools/file_tools.py         list_files, read_file, write_file
+├── tools/memory_tools.py       remember, search_memory, replace_memory, forget_memory
+├── tools/project_tools.py      Projekte, Einträge, Aufgaben
+├── tools/document_tools.py     import_document, import_folder, search_documents, list_documents
+├── tools/system_tools.py       Diagnose, Sicherung, Wiederherstellung, Export, Altbestand
+├── diagnostics/health.py       Selbstdiagnose
+└── cli.py                      Terminal-Chat
+ui/brain_dialog.py              Fenster „Digitales Gehirn“ (echte Daten)
+cudi_supreme_gui.py             bestehende Oberfläche; Chat → Orchestrator
+tests/                          49 Tests (Abnahmetests A–K u. a.), ohne GUI/Netzwerk lauffähig
 ```
+
+Laufzeitordner (nicht versioniert): `data/` (Datenbank, Sicherungen, Exporte), `workspace/`
+(hier schreibt CUDI Dateien), `import/` (Dokumente zum Einlesen), `logs/`.
+
+### Neues Werkzeug hinzufügen
+
+1. In einer Datei unter `cudi/tools/` eine Funktion schreiben, die `ToolOutput(ok, inhalt, summary)` liefert.
+2. Mit `registry.register(Tool(name, beschreibung, parameter_schema, Level.X, funktion))` registrieren.
+3. Die Datei in `cudi/core/application.py` in der Liste der Werkzeugmodule ergänzen.
+4. Einen Test in `tests/` schreiben. Das Sprachmodell kennt das Werkzeug danach automatisch.
 
 Agenten (Research, Document, Coding, Planning, Quality, Creative) werden zunächst **nicht** als eigene
 Module angelegt, sondern entstehen in Phase 5 als Rollen (System-Prompt + erlaubte Werkzeuge) über
@@ -112,6 +138,11 @@ dem Orchestrator, sobald Werkzeuge und Modelle stabil sind.
 ---
 
 ## C. Zuordnung bestehender Komponenten → Zielmodul
+
+Stand 2026-10-26: Umgesetzt sind die Zeilen für Chat/Intent/Aktionen (Orchestrator), Kommunikations-Engine
+(Model Manager), `cudi_brain.py`-Gedächtnis (neues Gedächtnis), Wissensspeicher (eine DB + `/altwissen`),
+Selbstheilung (Diagnose). Archivieren alter Dateien und das Umstellen der alten Knöpfe sind noch offen
+(Vorschlag V8, nur nach Zustimmung).
 
 | Bestehend | Ziel | Vorgehen |
 |---|---|---|

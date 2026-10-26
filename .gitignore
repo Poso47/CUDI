@@ -192,3 +192,14 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+# CUDI-Laufzeitdaten (nicht versionieren)
+.env
+data/
+logs/
+workspace/
+import/
+config/settings.json
+config/user_prefs.json
+config/knowledge_base.json
+config/cudi_bridge.log
+cudi_logs/

@@ -1,0 +1,141 @@
+# CUDI – Bedienungsanleitung
+
+CUDI ist dein persönlicher KI-Kollege. Du sprichst ganz normal mit ihm. CUDI merkt sich, was du ihm
+sagst, kennt deine Projekte, liest deine Dokumente und erledigt Aufgaben – bei allem, was etwas
+verändert, fragt er vorher.
+
+---
+
+## 1. Einmalige Einrichtung
+
+Im Terminal von VS Code (Menü *Terminal → Neues Terminal*), im Ordner `CUDI`:
+
+```
+pip install -r requirements-core.txt
+```
+
+Das installiert nur, was CUDI wirklich braucht. (Die große `requirements.txt` enthält viele Pakete,
+die auf manchen Rechnern nicht installierbar sind.)
+
+### Sprachmodell anschließen (eine Möglichkeit genügt)
+
+Ohne Sprachmodell funktionieren Befehle, Gedächtnis, Projekte und Dokumentsuche – freie Antworten
+und selbstständiges Arbeiten aber erst mit Modell.
+
+**A) Lokal und kostenlos – Ollama (empfohlen für Datenschutz)**
+1. Ollama installieren: https://ollama.com
+2. Im Terminal: `ollama pull llama3.1`
+3. CUDI starten – fertig. (Ein anderes installiertes Modell nimmt CUDI automatisch.)
+
+**B) Claude (Anthropic) – beste Qualität, kostenpflichtig**
+1. `pip install anthropic`
+2. Datei `.env.example` kopieren und in `.env` umbenennen.
+3. In `.env` die Zeile `ANTHROPIC_API_KEY=...` mit deinem Schlüssel eintragen (ohne `#` davor).
+
+**C) OpenAI** – wie B, aber `OPENAI_API_KEY=...`.
+
+Die Datei `.env` wird nie ins Git-Repository übernommen. Reihenfolge der Modelle ändern:
+`CUDI_PROVIDER_ORDER=anthropic,ollama` in `.env`.
+
+Prüfen, was verbunden ist: in CUDI `/modelle` eingeben oder Menü **🧠 Gehirn → Modelle & Einrichtung**.
+
+## 2. Starten
+
+| Was | Befehl |
+|---|---|
+| Fenster (normal) | `python main.py` |
+| Chat im Terminal | `python main.py --cli` |
+| Selbstdiagnose | `python main.py --diagnose` |
+
+## 3. Mit CUDI arbeiten
+
+Schreib einfach, was du brauchst – zum Beispiel:
+
+* „Kannst du programmieren?“ → CUDI fragt, was du bauen willst, und legt dann los.
+* „Schreib mir ein Python-Skript, das meine Fotos nach Datum sortiert, und speichere es.“ →
+  CUDI schreibt den Code und fragt **vor dem Speichern** um Erlaubnis. Dateien landen im Ordner
+  `workspace/` (Menü **🧠 Gehirn → Arbeitsordner öffnen**).
+* „Merke dir: Mein Lieblingseditor ist VS Code.“ → wird dauerhaft gespeichert.
+* „Was ist mein Lieblingseditor?“ → CUDI antwortet mit Quelle.
+* „Künftig bitte immer kurze Antworten mit Codebeispiel.“ → gilt ab jetzt für alle Antworten.
+* „Das war richtig.“ / „Das ist falsch.“ / „Diese Lösung hat funktioniert.“ → CUDI lernt daraus.
+
+Unter jeder Antwort siehst du, was **wirklich** passiert ist:
+✅ ausgeführt · ❌ fehlgeschlagen · ⛔ von dir abgelehnt. Welches Modell geantwortet hat (lokal oder
+extern), steht neben dem Namen.
+
+### Freigaben
+
+Lesen und Nachschlagen macht CUDI selbst. Bevor CUDI etwas **verändert** (Datei schreiben,
+Erinnerung löschen, Sicherung zurückspielen …), erscheint ein Fenster: *Ja* oder *Nein*. Du kannst
+auch einfach „ja“ oder „nein“ in den Chat schreiben. Mit dem Häkchen „für diese Sitzung erlauben“
+fragt CUDI bis zum nächsten Start bei diesem Werkzeug nicht mehr.
+
+## 4. Das Digitale Gehirn
+
+Menü **🧠 Gehirn → Digitales Gehirn anzeigen…** zeigt alles, was CUDI weiß: Erinnerungen (mit
+Status bestätigt/vorläufig/veraltet und Quelle), Projekte, Aufgaben, Dokumente, Verlauf, Modelle,
+Diagnose.
+
+* **Widersprüche:** Sagst du etwas, das einer gespeicherten Angabe widerspricht, fragt CUDI nach.
+  Die alte Angabe wird dann als „veraltet“ markiert, nicht gelöscht.
+* **Korrigieren:** `/korrigiere 3 Mein Lieblingseditor ist PyCharm`
+* **Löschen:** „Vergiss #3“ (mit Rückfrage)
+* **Alles exportieren:** `/export` (JSON-Datei in `data/exports/`)
+
+### Projekte
+
+```
+/projekt neu Webseite | Seite für meinen Friseursalon
+/entscheidung Wir nutzen WordPress
+/problem Kontaktformular sendet nicht
+/lösung SMTP-Port 587 statt 25
+/schritt Bilder optimieren
+/projektstand
+```
+
+Nach einem Neustart weiß CUDI, wo ihr stehen geblieben seid („Wo waren wir?“).
+
+### Dokumente
+
+* Menü **🧠 Gehirn → Dokument importieren…** und Datei wählen, **oder**
+* Dateien in den Ordner `import/` legen und `/importordner` eingeben.
+
+Unterstützt: PDF, DOCX, TXT, Markdown, JSON, CSV. Danach einfach fragen – CUDI nennt die Fundstelle
+(z. B. „vertrag.pdf, Seite 2“). Eingescannte PDFs ohne Texterkennung können nicht gelesen werden.
+Anweisungen, die in Dokumenten stehen, befolgt CUDI nicht – Dokumente sind nur Wissensquellen.
+
+## 5. Sicherung und Wiederherstellung
+
+* Automatisch: einmal täglich beim Start (die letzten 10 bleiben, Ordner `data/backups/`).
+* Manuell: `/sicherung` oder Menü **🧠 Gehirn → Sicherung erstellen**.
+* Zurückspielen: `/sicherungen` zeigt die Dateien, `/wiederherstellen DATEINAME`. Vorher wird der
+  aktuelle Stand automatisch gesichert.
+
+## 6. Wenn etwas nicht klappt
+
+1. `/status` eingeben (oder `python main.py --diagnose`). ❌ = kritisch, ⚠️ = Warnung,
+   ➖ = optional/nicht vorhanden – jeweils mit Lösungsvorschlag.
+2. Technische Details stehen in `logs/cudi.log`.
+3. Antwortet CUDI nur eingeschränkt, ist meist kein Sprachmodell verbunden → `/modelle`.
+
+## 7. Einstellungen
+
+Optional in `config/settings.json` (wird angelegt, wenn du Einstellungen speicherst) oder `.env`:
+
+| Einstellung | Bedeutung | Standard |
+|---|---|---|
+| `user_name` / `CUDI_USER_NAME` | wie CUDI dich nennt | leer |
+| `address` | „du“ oder „Sie“ | du |
+| `provider_order` / `CUDI_PROVIDER_ORDER` | Reihenfolge der Modelle | ollama, anthropic, openai |
+| `ollama_model`, `anthropic_model`, `openai_model` | Modellnamen | llama3.1, claude-opus-5-5, gpt-4o |
+| `auto_approve_level` | bis zu welcher Stufe ohne Rückfrage (1–4) | 2 |
+| `share_documents_with_external_models` | Dokumentauszüge an externe Modelle senden | true |
+
+## 8. Was CUDI (noch) nicht kann
+
+Sprachsteuerung, Websuche, Programme/Tests ausführen, E-Mail/Kalender, Videoproduktion und
+Synchronisierung zwischen Geräten sind noch nicht eingebaut – CUDI sagt das auch ehrlich, wenn du
+danach fragst. Die Vorschläge dazu stehen in `docs/implementation_plan.md`. Die alten Knöpfe der
+Oberfläche (Quick Actions, Modus-Knöpfe, Tool-Starter) nutzen noch die alte Logik; verlässlich ist
+der Chat und das Menü „🧠 Gehirn“.
