@@ -20,8 +20,10 @@ mit der GUI im Offscreen-Modus (`QT_QPA_PLATFORM=offscreen`) bzw. direkt in Pyth
 | KI-13 | 🔴 | niedrig | Fehlende Module, mehrere Startwege, PyQt5/PySide6/Tkinter gemischt |
 | KI-14 | 🟢 | niedrig | README beschreibt eine nicht vorhandene Architektur |
 | KI-15 | 🟡 | niedrig | Laufzeitdaten (Logs, generierte Dateien) liegen im Repository |
-| KI-16 | 🔴 | mittel | Alte Knöpfe/Menüs der Oberfläche nutzen weiter die alte (teils vorgetäuschte) Logik |
+| KI-16 | 🟡 | mittel | Alte Knöpfe/Menüs der Oberfläche nutzen weiter die alte (teils vorgetäuschte) Logik |
 | KI-17 | 🔴 | niedrig | Volle `requirements.txt` lässt sich auf vielen Rechnern nicht installieren |
+| KI-18 | 🟢 | hoch | Oberfläche überlappt, Texte abgeschnitten/unlesbar |
+| KI-19 | 🟢 | mittel | „Speichere …“ wurde immer als Merk-Auftrag verstanden |
 
 ---
 
@@ -154,6 +156,27 @@ Quick-Action-Knöpfe (Analysieren, Schreiben, Recherche …), Modus-Knöpfe (Dee
 Tool-Launcher, „Train Model“, Plugin-Manager-Dialog und Selbstheilung rufen weiterhin die alten
 Methoden auf (Vorlagendateien, simulierte Abläufe). Nur das Chat-Eingabefeld und das Menü
 „🧠 Gehirn“ laufen über den neuen Kern. Lösungsweg: Vorschlag V8 in `implementation_plan.md`.
+**Stand (🟡):** Standard ist jetzt das neue Hauptfenster ohne diese Knöpfe. Die alte Oberfläche mit
+den alten Knöpfen gibt es nur noch über `python main.py --alt`.
+
+### KI-18 – Oberfläche überlappt, Texte unlesbar 🟢 behoben
+
+* **Symptom (Nutzer, 2026-10-26):** „alles überlappt und ineinander, man kann nichts richtig lesen“.
+* **Ursachen (alte Oberfläche):** (1) `ModernCard` setzte `QFrame { border; padding: 10px; margin: 5px }`
+  – in Qt erben QLabel, QTextEdit und Listen von QFrame, also bekam jeder Text Rahmen und Abstände;
+  (2) Startgröße 1800×1200, Mindestgröße 1400×900 – größer als viele Laptop-Bildschirme;
+  (3) drei Spalten mit Karten fester Höhe ohne Scrollen; (4) ~15 Schalter in einer Zeile.
+* **Lösung:** neues Hauptfenster `ui/main_window.py` (Standard), gezielte Stil-Selektoren in
+  `ui/theme.py`, Fenster passt sich dem Bildschirm an, Sprechblasen berechnen Breite/Höhe aus Text und
+  Fenster, Verlauf als zentrierte Spalte. In der alten Oberfläche: Selektor `QFrame#ModernCard`,
+  Fenstergröße an Bildschirm angepasst (bleibt dort trotzdem eng – KI-16).
+* **Nachweis:** Bildschirmfotos bei 900×600, 1280×720, 1920×1080; `tests/test_ui.py`.
+
+### KI-19 – „Speichere …“ immer als Merk-Auftrag 🟢 behoben
+
+„Speichere den Code als main.py“ wäre im Gedächtnis gelandet statt als Datei. Jetzt zählen nur
+eindeutige Formulierungen („Merke dir“, „Speichere dir …“, „Speichere, dass …“, „im Gedächtnis
+speichern“, „Notiere dir“, „Behalte“). Test: `test_only_clear_memory_requests_are_treated_as_remember`.
 
 ### KI-17 – Volle requirements.txt nicht überall installierbar
 

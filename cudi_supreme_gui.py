@@ -125,15 +125,18 @@ class ModernCard(QFrame):
     def __init__(self, title="", parent=None):
         super().__init__(parent)
         self.setFrameStyle(QFrame.Shape.Box)
+        # Nur diese Karte stylen: ein pauschales "QFrame {...}" traf auch jede Beschriftung
+        # (QLabel erbt von QFrame) und machte Texte durch Rahmen/Abstände unlesbar.
+        self.setObjectName("ModernCard")
         self.setStyleSheet("""
-            QFrame {
+            QFrame#ModernCard {
                 background-color: #161b22;
                 border: 2px solid #30363d;
                 border-radius: 12px;
                 margin: 5px;
                 padding: 10px;
             }
-            QFrame:hover {
+            QFrame#ModernCard:hover {
                 border-color: #1f6feb;
                 background-color: #21262d;
             }
@@ -520,8 +523,16 @@ class CUDISupremeMainWindow(QMainWindow):
 
         # Vollständige Oberfläche (links/mitte/rechts Panels)
         self.setWindowTitle("CUDI_SUPREME - Ultimate AI Assistant")
-        self.setGeometry(100, 100, 1800, 1200)
-        self.setMinimumSize(1400, 900)
+        # Fenster an den Bildschirm anpassen (früher fest 1800x1200, mindestens 1400x900 –
+        # auf Laptops größer als der Bildschirm, dadurch alles zusammengequetscht)
+        self.setMinimumSize(1000, 650)
+        screen = QGuiApplication.primaryScreen()
+        if screen is not None:
+            area = screen.availableGeometry()
+            self.setGeometry(area.x() + 20, area.y() + 20,
+                             max(1000, min(1800, area.width() - 40)), max(650, min(1200, area.height() - 40)))
+        else:
+            self.setGeometry(100, 100, 1400, 900)
 
         # Central Widget mit Splitter-Layout
         central_widget = QWidget()
@@ -1543,8 +1554,16 @@ class CUDISupremeMainWindow(QMainWindow):
 
         # Vollständige Oberfläche (links/mitte/rechts Panels)
         self.setWindowTitle("CUDI_SUPREME - Ultimate AI Assistant")
-        self.setGeometry(100, 100, 1800, 1200)
-        self.setMinimumSize(1400, 900)
+        # Fenster an den Bildschirm anpassen (früher fest 1800x1200, mindestens 1400x900 –
+        # auf Laptops größer als der Bildschirm, dadurch alles zusammengequetscht)
+        self.setMinimumSize(1000, 650)
+        screen = QGuiApplication.primaryScreen()
+        if screen is not None:
+            area = screen.availableGeometry()
+            self.setGeometry(area.x() + 20, area.y() + 20,
+                             max(1000, min(1800, area.width() - 40)), max(650, min(1200, area.height() - 40)))
+        else:
+            self.setGeometry(100, 100, 1400, 900)
 
         # Central Widget mit Splitter-Layout
         central_widget = QWidget()

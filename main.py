@@ -4,6 +4,7 @@
     python main.py              Desktop-Oberfläche (PySide6)
     python main.py --cli        Chat im Terminal
     python main.py --diagnose   Selbstdiagnose ausgeben
+    python main.py --alt        alte Oberfläche (CUDI_SUPREME) starten
 """
 
 from __future__ import annotations
@@ -20,6 +21,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="CUDI – persönlicher KI-Kollege")
     parser.add_argument("--cli", action="store_true", help="Chat im Terminal statt Fenster")
     parser.add_argument("--diagnose", action="store_true", help="Selbstdiagnose ausgeben und beenden")
+    parser.add_argument("--alt", action="store_true", help="alte Oberfläche (CUDI_SUPREME) starten")
     args = parser.parse_args()
 
     # Ältere Module arbeiten mit relativen Pfaden – deshalb immer im Projektordner starten
@@ -44,13 +46,17 @@ def main() -> int:
         print("Alternativ im Terminal starten: python main.py --cli")
         return 1
 
-    import cudi_supreme_gui
+    if args.alt:
+        import cudi_supreme_gui
 
-    app = QApplication(sys.argv)
-    app.setStyle("Fusion")
-    window = cudi_supreme_gui.CUDISupremeMainWindow()
-    window.show()
-    return app.exec()
+        app = QApplication(sys.argv)
+        app.setStyle("Fusion")
+        window = cudi_supreme_gui.CUDISupremeMainWindow()
+        window.show()
+        return app.exec()
+
+    from ui.main_window import run
+    return run()
 
 
 if __name__ == "__main__":

@@ -108,3 +108,15 @@ def test_null_and_string_numbers_from_models_are_tolerated(make_app):
     assert stored.ok
     assert app.tools.execute("search_memory", {"query": "Auto"}).ok
     assert app.tools.execute("replace_memory", {"memory_id": "#1", "content": "Mein Auto ist grün"}).ok
+
+
+def test_only_clear_memory_requests_are_treated_as_remember():
+    from cudi.core.intent_router import route
+
+    for text in ("Merke dir: Ich trinke Kaffee schwarz", "Speichere dir, dass ich Python mag",
+                 "Speichere, dass mein Auto blau ist", "Speichere im Gedächtnis: Termin ist Montag",
+                 "Notiere dir meine Lieblingsfarbe Grün", "Remember that I use Windows"):
+        assert route(text).kind == "remember", text
+    for text in ("Speichere den Code als main.py", "Speichere eine Notiz", "Notiere die Ergebnisse in einer Datei"):
+        assert route(text).kind == "chat", text
+    assert route("Speichere, dass mein Auto blau ist").data["content"] == "mein Auto blau ist"

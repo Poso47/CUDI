@@ -5,6 +5,7 @@ REM  Beim ersten Start wird alles Noetige automatisch installiert
 REM  (eigene Umgebung im Ordner .venv, dein System bleibt sauber).
 REM  Optionen:  CUDI_STARTEN.bat --cli       (Chat im Terminal)
 REM             CUDI_STARTEN.bat --diagnose  (Selbstdiagnose)
+REM             CUDI_STARTEN.bat --alt       (alte Oberflaeche)
 REM ============================================================
 setlocal
 cd /d "%~dp0"

@@ -126,3 +126,17 @@ Status „wartet auf Zustimmung“ = wird erst nach ausdrücklicher Freigabe umg
   zum Lesen dieser Datei. Schlägt dagegen das Modell vor, eine Datei außerhalb der freigegebenen
   Ordner zu lesen, wird nachgefragt (Stufe 3).
 * **Begründung:** Schutz vor manipulierten Anweisungen in Dokumenten, ohne den Nutzer zu gängeln.
+
+## D-015 Neues Hauptfenster statt Reparatur der alten Oberfläche
+
+* **Entscheidung:** `python main.py` startet ein neues, schlankes PySide6-Fenster (`ui/main_window.py`)
+  mit den Bereichen aus Abschnitt 14 des Master-Prompts (Chat, Gedächtnis, Projekte, Aufgaben,
+  Dokumente, Modelle, Werkzeuge, Diagnose, Einstellungen). Die alte Oberfläche bleibt unverändert im
+  Code und ist mit `python main.py --alt` startbar; dort wurden nur Stil-Kaskade und Fenstergröße korrigiert.
+* **Begründung:** Rückmeldung des Nutzers am 2026-10-26: „sieht scheiße aus, alles überlappt, man kann
+  nichts lesen“. Ursachen in der alten Oberfläche: pauschale `QFrame`-Stile trafen jede Beschriftung,
+  Mindestgröße 1400×900 (größer als viele Laptop-Bildschirme), drei Spalten mit Karten fester Höhe ohne
+  Scrollen, ~15 Schalter in einer Zeile, viele Attrappen-Kacheln. Eine Reparatur hätte die Attrappen
+  behalten; das neue Fenster zeigt nur echte Funktionen. Gleiches Framework (PySide6), gleiche Farbwelt.
+* **Verworfen:** Framework-Wechsel (Tkinter/Web) – kein Nutzen; Flickwerk an der alten Oberfläche.
+* **Status:** umgesetzt; geprüft bei 900×600, 1280×720 und 1920×1080 (Bildschirmfotos, `tests/test_ui.py`).

@@ -29,7 +29,8 @@ Für freie Antworten ein Sprachmodell anschließen: **Ollama** (lokal, kostenlos
 * Dokumentimport: PDF, DOCX, TXT, Markdown, JSON, CSV
 * Sprachmodelle: Ollama, Claude (`claude-opus-5-5`), OpenAI – mit Ausweichreihenfolge
 * Selbstdiagnose, tägliche Sicherung, Wiederherstellung, Export
-* 49 automatische Tests (`python -m pytest tests/`), darunter die Abnahmetests A–K
+* Aufgeräumtes Hauptfenster: Chat, Gedächtnis, Projekte, Aufgaben, Dokumente, Modelle, Werkzeuge, Diagnose, Einstellungen
+* 55 automatische Tests (`python -m pytest tests/`), darunter die Abnahmetests A–K
 
 Noch nicht eingebaut: Sprachsteuerung, Websuche, Code ausführen, E-Mail/Kalender, Kreativstudio.
 
@@ -38,8 +39,8 @@ Noch nicht eingebaut: Sprachsteuerung, Websuche, Code ausführen, E-Mail/Kalende
 ```
 main.py              Start
 cudi/                neuer Kern (core, brain, models, tools, diagnostics, config)
-ui/                  zusätzliche Fenster (Digitales Gehirn)
-cudi_supreme_gui.py  Oberfläche (Chat läuft über cudi/)
+ui/                  Hauptfenster (Standard)
+cudi_supreme_gui.py  alte Oberfläche, startbar mit --alt
 tests/               automatische Tests
 docs/                Status, Architektur, Plan, Entscheidungen, bekannte Fehler, Anleitung
 ```

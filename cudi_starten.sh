@@ -3,6 +3,7 @@
 #   ./cudi_starten.sh            Fenster
 #   ./cudi_starten.sh --cli      Chat im Terminal
 #   ./cudi_starten.sh --diagnose Selbstdiagnose
+#   ./cudi_starten.sh --alt      alte Oberflaeche
 set -e
 cd "$(dirname "$0")"
 PY=$(command -v python3 || command -v python || true)

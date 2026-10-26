@@ -58,7 +58,9 @@ def route(text: str) -> Intent:
         return Intent("save_insight", {"kind": {"lösung": "solution", "loesung": "solution",
                                                 "entscheidung": "decision"}.get(kind, "insight")})
 
-    m = _m(r"^(?:bitte\s+)?(?:merke?\s+dir|merk\s+dir|speichere(?:\s+dir)?|notiere(?:\s+dir)?|behalte|"
+    # Nur eindeutige Merk-Aufträge. "Speichere den Code als main.py" ist KEIN Gedächtnis-Auftrag.
+    m = _m(r"^(?:bitte\s+)?(?:merke?\s+dir|merk\s+dir|speichere\s+dir|notiere\s+dir|behalte|"
+           r"speichere\s+(?:im|in\s+deinem)\s+gedächtnis|speichere(?=\s*,?\s*dass\b)|"
            r"remember(?:\s+that)?|note\s+that)\s*[:,]?\s*(?:bitte\s*)?(?:,\s*)?(?:dass\s+|that\s+)?(.+)$", t)
     if m and len(m.group(1).strip()) > 2:
         return Intent("remember", {"content": m.group(1).strip()})

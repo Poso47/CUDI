@@ -1,7 +1,7 @@
 # Projektstatus CUDI + Digitales Gehirn
 
-Stand: 2026-10-26 · Phase 1–2 abgeschlossen · Phase 3 (Kern) und Phase 4 (Digitales Gehirn) umgesetzt ·
-Phase 6 (Oberfläche) teilweise
+Stand: 2026-10-26 · Phase 1–2 abgeschlossen · Phase 3 (Kern), Phase 4 (Digitales Gehirn) und
+Phase 6 (neues Hauptfenster) umgesetzt
 
 Diese Datei beschreibt den **tatsächlichen** Codezustand. Testergebnisse stammen nur aus Tests, die
 wirklich ausgeführt wurden (Abschnitt 4). Die ursprüngliche Bestandsaufnahme (Phase 1) steht in
@@ -11,8 +11,8 @@ Abschnitt 6.
 
 ## 1. Kurzfassung
 
-CUDI hat jetzt einen echten, getesteten Kern im Paket `cudi/`. Der Chat der bestehenden Oberfläche
-läuft vollständig über diesen Kern:
+CUDI hat jetzt einen echten, getesteten Kern im Paket `cudi/` und ein neues, aufgeräumtes
+Hauptfenster (`ui/main_window.py`), das nur echte Funktionen zeigt. Alles läuft über den Kern:
 
 * **Ein Weg für jede Nachricht:** Absicht → Kontext aus dem Digitalen Gehirn → Sprachmodell mit
   Werkzeugen (oder Regel) → Berechtigungsprüfung → Ausführung → Qualitätsprüfung → Speicherung.
@@ -46,15 +46,17 @@ läuft vollständig über diesen Kern:
 | Werkzeuge (25) | Dateien auflisten/lesen/schreiben (nur Arbeitsordner, Sicherung vor Überschreiben), Gedächtnis, Projekte, Aufgaben, Dokumente, Diagnose, Sicherung/Wiederherstellung, Export, Altbestand-Import | `cudi/tools/` |
 | Selbstdiagnose | kritisch / Warnung / optional, mit Lösungsvorschlag | `cudi/diagnostics/health.py` |
 | Sicherung | täglich automatisch beim Start (die letzten 10), manuell `/sicherung`, Wiederherstellung mit vorheriger Sicherheitskopie | `cudi/brain/database.py` |
-| Oberfläche | Chat → Kern (im Hintergrund-Thread), Freigabe-Dialog, ehrliche Statusanzeige (LLM/Voice), Menü „🧠 Gehirn“ (Gehirn-Ansicht, Dokument importieren, Arbeitsordner, Sicherung, Modelle, Diagnose, Hilfe) | `cudi_supreme_gui.py`, `ui/brain_dialog.py` |
+| Hauptfenster (Standard) | Navigation mit Chat, Gedächtnis (suchen, korrigieren, löschen, exportieren), Projekte (anlegen, aktiv setzen, Einträge), Aufgaben (Status setzen), Dokumente (importieren, durchsuchen mit Fundstelle), Modelle (Status, erneut prüfen), Werkzeuge (Stufe, Freigaben), Diagnose, Einstellungen (Name, Anrede, Modelle, Freigabestufe, Datenschutz); Sprechblasen passen sich Text und Fenster an; Freigabe-Dialog; Enter sendet | `ui/main_window.py`, `ui/pages.py`, `ui/chat_view.py`, `ui/theme.py` |
+| Alte Oberfläche (`--alt`) | Chat → Kern, Freigabe-Dialog, Menü „🧠 Gehirn“; Stil-Kaskade und Fenstergröße korrigiert | `cudi_supreme_gui.py`, `ui/brain_dialog.py` |
+| Start | Doppelklick `CUDI_STARTEN.bat` / `cudi_starten.sh` (richtet `.venv` selbst ein), VS Code F5 | Starter, `.vscode/launch.json` |
 
 ## 3. Was (noch) nicht funktioniert
 
 * **Kein Sprachmodell vorinstalliert:** Ohne Ollama oder API-Schlüssel beantwortet CUDI nur Befehle,
   Gedächtnis- und Dokumentfragen. Einrichtung: `docs/user_guide.md`.
-* **Alte Knöpfe/Menüs der Oberfläche** (Quick Actions, „Train Model“, Tool-Launcher, Plugin-Manager,
-  Selbstheilung, Cloud) laufen weiter über die **alte** Logik und sind teils Attrappen (siehe
-  `known_issues.md`). Nur das Chat-Eingabefeld und das Menü „🧠 Gehirn“ nutzen den neuen Kern.
+* **Alte Oberfläche** (`python main.py --alt`): Ihre Knöpfe (Quick Actions, „Train Model“,
+  Tool-Launcher, Plugin-Manager, Selbstheilung, Cloud) laufen über die alte Logik und sind teils
+  Attrappen; das Layout bleibt dort eng (KI-16). Das neue Standardfenster enthält diese Knöpfe nicht.
 * Nicht implementiert: Sprachsteuerung, Websuche, Code ausführen/Tests starten, E-Mail/Kalender,
   semantische Suche (Embeddings), Agenten-Rollen, Kreativ-/Videostudio, Synchronisierung zwischen
   Geräten. Vorschläge dazu: `implementation_plan.md`.
@@ -62,7 +64,7 @@ läuft vollständig über diesen Kern:
 
 ## 4. Tatsächlich ausgeführte Tests (2026-10-26, Linux, Python 3.13)
 
-**Automatisch:** `python -m pytest tests/` → **49 bestanden, 0 fehlgeschlagen**
+**Automatisch:** `python -m pytest tests/` → **55 bestanden, 0 fehlgeschlagen**
 
 | Datei | Inhalt |
 |---|---|
@@ -70,6 +72,7 @@ läuft vollständig über diesen Kern:
 | `tests/test_brain.py` | Gedächtnisregeln, Vorlieben, Feedback, Fehler-Lernen, Dokumente als Daten, Datenschutz-Schalter, Altbestand, keine Schlüssel in Einstellungen, Zugangsdaten-Dateien gesperrt, tolerante Werkzeugparameter |
 | `tests/test_models.py` | Ollama/OpenAI/Claude-Anfrageformat, Werkzeugaufrufe, Fehlermeldungen, Ablehnung – ohne Netzwerk (Attrappen) |
 | `tests/test_event_bus.py` | Start-Hänger der GUI (Regression) |
+| `tests/test_ui.py` | Neues Hauptfenster offscreen: Chat-Rundlauf, alle Bereiche, Freigabe-Dialog schreibt Datei, Sprechblasen-Breite/-Höhe, Einstellungen ohne Schlüssel |
 
 Abnahmetests im Einzelnen (alle bestanden): A Hallo-Chat (mit/ohne Modell) · B „Kannst du
 programmieren?“ fragt nach dem Ziel, erzeugt nichts · C Werkzeug wird aufgerufen, echter Status,
@@ -85,6 +88,10 @@ Geprüft wird damit die Verarbeitung (Kontext, Werkzeuge, Freigaben, Status) –
 Antwortqualität eines echten Modells. Ein echtes Modell war in dieser Umgebung nicht verfügbar.
 
 **Manuell (automatisiert gesteuert):**
+* Neues Hauptfenster offscreen bei 900×600, 1280×720 und 1920×1080 mit Bildschirmfotos aller Bereiche:
+  keine Überlappungen, keine abgeschnittenen Texte, Sprechblasen umbrechen sinnvoll.
+* Starter `cudi_starten.sh` aus frischer Kopie: legt `.venv` an, installiert, startet. `CUDI_STARTEN.bat`
+  folgt demselben Ablauf, konnte aber mangels Windows hier nicht ausgeführt werden.
 * Echte PySide6-Oberfläche im Offscreen-Modus: „Hallo CUDI.“, „Kannst du programmieren?“,
   „Schreib mir ein Hallo-Welt-Skript …“ (Freigabe-Dialog → Datei `workspace/hallo.py` entsteht),
   „Merke dir …“ – alles über den neuen Kern; keine neue Datei in `cudi_content/`; Menü „🧠 Gehirn“

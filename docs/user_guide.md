@@ -41,7 +41,7 @@ und selbstständiges Arbeiten aber erst mit Modell.
 Die Datei `.env` wird nie ins Git-Repository übernommen. Reihenfolge der Modelle ändern:
 `CUDI_PROVIDER_ORDER=anthropic,ollama` in `.env`.
 
-Prüfen, was verbunden ist: in CUDI `/modelle` eingeben oder Menü **🧠 Gehirn → Modelle & Einrichtung**.
+Prüfen, was verbunden ist: Bereich **🤖 Modelle** oder `/modelle` im Chat.
 
 ## 2. Startvarianten
 
@@ -54,14 +54,33 @@ Prüfen, was verbunden ist: in CUDI `/modelle` eingeben oder Menü **🧠 Gehirn
 Wurde `requirements-core.txt` geändert, die Datei `.venv/cudi_installiert.txt` löschen – beim
 nächsten Start wird dann neu installiert.
 
-## 3. Mit CUDI arbeiten
+## 3. Das Fenster
+
+Links die Bereiche, rechts der Inhalt:
+
+| Bereich | Wofür |
+|---|---|
+| 💬 Chat | mit CUDI reden; Enter sendet, Umschalt+Enter = neue Zeile; unten Schnellknöpfe |
+| 🧠 Gedächtnis | alle Erinnerungen mit Quelle/Status; suchen, korrigieren, löschen, exportieren |
+| 📁 Projekte | Projekte anlegen, aktiv setzen, Entscheidungen/Probleme/Schritte eintragen |
+| ✅ Aufgaben | Aufgaben anlegen und auf erledigt/in Arbeit/fehlgeschlagen setzen |
+| 📄 Dokumente | Dokumente importieren und durchsuchen (mit Fundstelle) |
+| 🤖 Modelle | welches Sprachmodell verbunden ist und wie man eins anschließt |
+| 🛠 Werkzeuge | was CUDI ausführen darf (Stufe, Rückfrage ja/nein) |
+| 🩺 Diagnose | Selbsttest, letzte Ereignisse, Sicherung |
+| ⚙️ Einstellungen | Name, Anrede (du/Sie), Modelle, Freigabestufe, Datenschutz |
+
+Die frühere Oberfläche („CUDI_SUPREME“) gibt es weiterhin: `CUDI_STARTEN.bat --alt` bzw.
+`python main.py --alt`.
+
+## 4. Mit CUDI arbeiten
 
 Schreib einfach, was du brauchst – zum Beispiel:
 
 * „Kannst du programmieren?“ → CUDI fragt, was du bauen willst, und legt dann los.
 * „Schreib mir ein Python-Skript, das meine Fotos nach Datum sortiert, und speichere es.“ →
   CUDI schreibt den Code und fragt **vor dem Speichern** um Erlaubnis. Dateien landen im Ordner
-  `workspace/` (Menü **🧠 Gehirn → Arbeitsordner öffnen**).
+  `workspace/`.
 * „Merke dir: Mein Lieblingseditor ist VS Code.“ → wird dauerhaft gespeichert.
 * „Was ist mein Lieblingseditor?“ → CUDI antwortet mit Quelle.
 * „Künftig bitte immer kurze Antworten mit Codebeispiel.“ → gilt ab jetzt für alle Antworten.
@@ -78,11 +97,10 @@ Erinnerung löschen, Sicherung zurückspielen …), erscheint ein Fenster: *Ja* 
 auch einfach „ja“ oder „nein“ in den Chat schreiben. Mit dem Häkchen „für diese Sitzung erlauben“
 fragt CUDI bis zum nächsten Start bei diesem Werkzeug nicht mehr.
 
-## 4. Das Digitale Gehirn
+## 5. Das Digitale Gehirn
 
-Menü **🧠 Gehirn → Digitales Gehirn anzeigen…** zeigt alles, was CUDI weiß: Erinnerungen (mit
-Status bestätigt/vorläufig/veraltet und Quelle), Projekte, Aufgaben, Dokumente, Verlauf, Modelle,
-Diagnose.
+Die Bereiche **🧠 Gedächtnis**, **📁 Projekte**, **✅ Aufgaben** und **📄 Dokumente** zeigen alles, was CUDI
+weiß – Erinnerungen mit Status (bestätigt/vorläufig/veraltet) und Quelle.
 
 * **Widersprüche:** Sagst du etwas, das einer gespeicherten Angabe widerspricht, fragt CUDI nach.
   Die alte Angabe wird dann als „veraltet“ markiert, nicht gelöscht.
@@ -105,30 +123,30 @@ Nach einem Neustart weiß CUDI, wo ihr stehen geblieben seid („Wo waren wir?�
 
 ### Dokumente
 
-* Menü **🧠 Gehirn → Dokument importieren…** und Datei wählen, **oder**
+* Bereich **📄 Dokumente → Dokument importieren …** und Datei wählen, **oder**
 * Dateien in den Ordner `import/` legen und `/importordner` eingeben.
 
 Unterstützt: PDF, DOCX, TXT, Markdown, JSON, CSV. Danach einfach fragen – CUDI nennt die Fundstelle
 (z. B. „vertrag.pdf, Seite 2“). Eingescannte PDFs ohne Texterkennung können nicht gelesen werden.
 Anweisungen, die in Dokumenten stehen, befolgt CUDI nicht – Dokumente sind nur Wissensquellen.
 
-## 5. Sicherung und Wiederherstellung
+## 6. Sicherung und Wiederherstellung
 
 * Automatisch: einmal täglich beim Start (die letzten 10 bleiben, Ordner `data/backups/`).
-* Manuell: `/sicherung` oder Menü **🧠 Gehirn → Sicherung erstellen**.
+* Manuell: `/sicherung` oder Bereich **🩺 Diagnose → Sicherung erstellen**.
 * Zurückspielen: `/sicherungen` zeigt die Dateien, `/wiederherstellen DATEINAME`. Vorher wird der
   aktuelle Stand automatisch gesichert.
 
-## 6. Wenn etwas nicht klappt
+## 7. Wenn etwas nicht klappt
 
-1. `/status` eingeben (oder `python main.py --diagnose`). ❌ = kritisch, ⚠️ = Warnung,
+1. Bereich **🩺 Diagnose** öffnen, `/status` eingeben oder `python main.py --diagnose`. ❌ = kritisch, ⚠️ = Warnung,
    ➖ = optional/nicht vorhanden – jeweils mit Lösungsvorschlag.
 2. Technische Details stehen in `logs/cudi.log`.
 3. Antwortet CUDI nur eingeschränkt, ist meist kein Sprachmodell verbunden → `/modelle`.
 
-## 7. Einstellungen
+## 8. Einstellungen
 
-Optional in `config/settings.json` (wird angelegt, wenn du Einstellungen speicherst) oder `.env`:
+Am einfachsten im Bereich **⚙️ Einstellungen**. Gespeichert wird in `config/settings.json`; alternativ `.env`:
 
 | Einstellung | Bedeutung | Standard |
 |---|---|---|
@@ -139,10 +157,9 @@ Optional in `config/settings.json` (wird angelegt, wenn du Einstellungen speiche
 | `auto_approve_level` | bis zu welcher Stufe ohne Rückfrage (1–4) | 2 |
 | `share_documents_with_external_models` | Dokumentauszüge an externe Modelle senden | true |
 
-## 8. Was CUDI (noch) nicht kann
+## 9. Was CUDI (noch) nicht kann
 
 Sprachsteuerung, Websuche, Programme/Tests ausführen, E-Mail/Kalender, Videoproduktion und
 Synchronisierung zwischen Geräten sind noch nicht eingebaut – CUDI sagt das auch ehrlich, wenn du
-danach fragst. Die Vorschläge dazu stehen in `docs/implementation_plan.md`. Die alten Knöpfe der
-Oberfläche (Quick Actions, Modus-Knöpfe, Tool-Starter) nutzen noch die alte Logik; verlässlich ist
-der Chat und das Menü „🧠 Gehirn“.
+danach fragst. Die Vorschläge dazu stehen in `docs/implementation_plan.md`. In der alten Oberfläche
+(`--alt`) nutzen die alten Knöpfe noch die alte Logik.

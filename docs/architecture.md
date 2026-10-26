@@ -75,7 +75,7 @@ Nutzer → GUI (ui/) → core.Orchestrator
 ### Paketstruktur (tatsächlich vorhanden)
 
 ```
-main.py                         Start: Fenster | --cli | --diagnose
+main.py                         Start: Fenster | --cli | --diagnose | --alt
 cudi/
 ├── config/settings.py          Einstellungen (Standard → config/settings.json → .env/Umgebung)
 ├── config/logging_config.py    logs/cudi.log
@@ -105,9 +105,10 @@ cudi/
 ├── tools/system_tools.py       Diagnose, Sicherung, Wiederherstellung, Export, Altbestand
 ├── diagnostics/health.py       Selbstdiagnose
 └── cli.py                      Terminal-Chat
-ui/brain_dialog.py              Fenster „Digitales Gehirn“ (echte Daten)
-cudi_supreme_gui.py             bestehende Oberfläche; Chat → Orchestrator
-tests/                          49 Tests (Abnahmetests A–K u. a.), ohne GUI/Netzwerk lauffähig
+ui/main_window.py, pages.py, chat_view.py, theme.py  neues Hauptfenster (Standard)
+ui/brain_dialog.py              Fenster „Digitales Gehirn“ (für die alte Oberfläche)
+cudi_supreme_gui.py             alte Oberfläche (--alt); Chat → Orchestrator
+tests/                          55 Tests (Abnahmetests A–K u. a.), ohne GUI/Netzwerk lauffähig
 ```
 
 Laufzeitordner (nicht versioniert): `data/` (Datenbank, Sicherungen, Exporte), `workspace/`

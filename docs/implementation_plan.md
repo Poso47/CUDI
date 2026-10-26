@@ -9,9 +9,9 @@ Jeder Schritt endet mit einem überprüfbaren Ergebnis. Grundlage: `project_stat
 |---|---|---|
 | 1 Bestandsaufnahme | Ist-Zustand, Fehlerursachen | `project_status.md` §6, `known_issues.md` |
 | 2 Zielarchitektur | Architektur, Zuordnung, Entscheidungen | `architecture.md`, `decisions.md` |
-| 3 Gemeinsamer Kern | Start (`main.py`), Einstellungen, Logging, Fehlerbehandlung, Model Manager, Intent-Erkennung, Orchestrator, Werkzeugregistrierung, Berechtigungen, einheitliche Speicherzugriffe | `tests/` (49 grün) |
+| 3 Gemeinsamer Kern | Start (`main.py`), Einstellungen, Logging, Fehlerbehandlung, Model Manager, Intent-Erkennung, Orchestrator, Werkzeugregistrierung, Berechtigungen, einheitliche Speicherzugriffe | `tests/` (55 grün) |
 | 4 Digitales Gehirn | Arbeits-, Langzeit-, Projektgedächtnis, Wissen/Dokumente, Suche, Fundstellen, Feedback, Verlaufsprotokoll, kontrollierte Aktualisierung, Sicherung | Tests A–K |
-| 6 Oberfläche (Teil) | Chat über den Kern, Freigabe-Dialog, ehrliche Statusanzeige, Menü „🧠 Gehirn“ mit Gehirn-Ansicht | GUI-Offscreen-Test |
+| 6 Oberfläche | Neues Hauptfenster mit allen Bereichen aus Abschnitt 14 (inkl. Einstellungen), Freigabe-Dialog, ehrliche Statusanzeige; alte Oberfläche als `--alt` | `tests/test_ui.py`, Bildschirmfotos |
 | 7 Diagnose (Teil) | `/status`, `python main.py --diagnose` | Test G |
 
 ## Offene Entscheidungen des Nutzers
@@ -38,7 +38,7 @@ Reihenfolge = meine Empfehlung. Jeder Vorschlag wird erst nach „Ja“ umgesetz
 | V7 | **Agenten-Rollen** Research/Document/Coding/Planning/Quality mit Qualitätsprüfung vor der Ausgabe | bessere Ergebnisse bei großen Aufgaben | mittel | baut auf V2/V3 auf |
 | V8 | **Altlasten aufräumen**: alte Knöpfe auf den neuen Kern umstellen oder als „nicht verfügbar“ markieren; alte Vorlagen-/Selbstheilungslogik und Harmonizer-Skripte in ein Archiv verschieben | Oberfläche zeigt nur noch Echtes (KI-16), GUI-Datei wird übersichtlich | mittel | **entfernt bestehende Funktionen → braucht deine Zustimmung** |
 | V9 | **E-Mail & Kalender** (Outlook/Google) | Termine, Mails vorbereiten | mittel–groß | Senden nur nach Einzelfreigabe (Stufe 5) |
-| V10 | **Einstellungsfenster** in der Oberfläche (Name, Anrede, Modell, Datenschutz, Freigabestufe) | keine Dateien von Hand bearbeiten | klein | |
+| V10 | ~~Einstellungsfenster~~ – **erledigt** als Bereich „⚙️ Einstellungen“ im neuen Hauptfenster | | | |
 | V11 | **Kreativ-/Videostudio** (Phase 8: Skript → Storyboard → Timeline → Render-Anbieter) | Produktionsworkflows | groß | erst nach V1–V7 |
 | V12 | **Verschlüsselte Synchronisierung** zwischen deinen Geräten | gleiches Gehirn überall | groß | eigenes Sicherheitskonzept nötig |
 
@@ -46,4 +46,4 @@ Reihenfolge = meine Empfehlung. Jeder Vorschlag wird erst nach „Ja“ umgesetz
 
 1. Ein Sprachmodell anschließen (F-1) – erst dann kann CUDI frei antworten und Werkzeuge selbst wählen.
    Empfehlung: Ollama lokal (kostenlos, Daten bleiben auf dem Rechner) oder Claude (beste Qualität).
-2. Danach V10 (Einstellungsfenster) und V4 (Briefing) als schnelle Gewinne, dann V1 (Sprache).
+2. Danach V4 (Briefing) und V5 (Streaming) als schnelle Gewinne, dann V1 (Sprache).
