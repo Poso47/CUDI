@@ -1,17 +1,19 @@
 <title>Ameisenreich</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
-/* Layout: full-screen living soil map; slim instrument bars top and bottom, like a field notebook clipped to a terrarium. */
+/* Layout: full-screen living soil map (or nest cross-section); slim instrument bars top and bottom, like a field notebook clipped to a terrarium. */
 :root{
   --humus:#120d09;
   --soil:#241a12;
-  --panel:rgba(30,22,15,.92);
+  --card:#2a2016;
+  --panel:rgba(30,22,15,.94);
   --line:#4b3a28;
   --text:#f3e7d3;
   --muted:#b5a187;
   --amber:#efa63c;
+  --ink:#24180b;
   --leaf:#93c45d;
   --danger:#e0573f;
   --rain:#7fa8d6;
@@ -21,26 +23,30 @@
 }
 html,body{height:100%;margin:0;}
 [hidden]{display:none!important;}
-body{background:var(--humus);color:var(--text);font-family:var(--f-body);font-size:14px;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;}
+body{background:var(--humus);color:var(--text);font-family:var(--f-body);font-size:14px;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;}
 button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer;}
 button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 #app{height:100%;display:grid;grid-template-rows:auto 1fr auto;}
 #app.demo #top,#app.demo #bar{opacity:.35;pointer-events:none;}
-#app.demo #mini,#app.demo #hint{display:none;}
+#app.demo #mini,#app.demo #hint,#app.demo #goals{display:none;}
 /* top bar */
 #top{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;padding:8px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;}
 .brand{font-family:var(--f-display);font-weight:800;font-size:17px;letter-spacing:-.01em;color:var(--amber);margin-right:4px;}
 .stat{display:flex;flex-direction:column;gap:1px;min-width:0;}
-.stat b{font-size:15px;font-weight:700;}
-.stat small{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
-.qbar{width:86px;height:6px;border-radius:3px;background:#3a2c1e;overflow:hidden;margin-top:4px;}
-.qbar i{display:block;height:100%;background:var(--leaf);width:100%;transition:width .3s;}
+.stat b{font-size:15px;font-weight:700;white-space:nowrap;}
+.stat small{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.qbar,.sbar{width:86px;height:6px;border-radius:3px;background:#3a2c1e;overflow:hidden;margin-top:4px;}
+.sbar{width:72px;height:3px;margin-top:3px;}
+.qbar i,.sbar i{display:block;height:100%;background:var(--leaf);width:100%;transition:width .3s;}
+.sbar i{background:var(--amber);transition:none;}
 .qbar.low i{background:var(--danger);}
+#sFood.full{color:var(--amber);}
 .spacer{flex:1;}
 .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
 .seg button{background:transparent;border:0;padding:6px 10px;font-size:13px;font-weight:700;color:var(--muted);}
 .seg button+button{border-left:1px solid var(--line);}
-.seg button[aria-pressed="true"]{background:var(--amber);color:#24180b;}
+.seg button[aria-pressed="true"]{background:var(--amber);color:var(--ink);}
+.mbtn{background:transparent;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-weight:700;font-size:13px;}
 /* stage */
 #stage{position:relative;overflow:hidden;min-height:0;}
 #world{position:absolute;inset:0;width:100%;height:100%;touch-action:none;display:block;}
@@ -52,6 +58,11 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 .toast.rain{border-left-color:var(--rain);}
 @keyframes tin{from{transform:translateY(-6px);opacity:0}to{transform:none;opacity:1}}
 #hint{position:absolute;left:12px;bottom:10px;right:12px;font-size:12px;color:var(--muted);pointer-events:none;text-shadow:0 1px 3px #000;}
+#goals{position:absolute;left:12px;bottom:34px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 11px;font-size:12.5px;width:min(280px,64%);pointer-events:none;box-sizing:border-box;}
+#goals h4{margin:0 0 5px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+#goals ul{margin:0;padding:0;display:flex;flex-direction:column;gap:3px;}
+#goals li{list-style:none;display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums;}
+#goals li.done{color:var(--leaf);}
 /* bottom bar */
 #bar{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px 14px;padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px));background:var(--panel);border-top:1px solid var(--line);}
 .group{display:flex;gap:6px;align-items:stretch;flex-wrap:wrap;}
@@ -60,46 +71,89 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 .tool b,.brood b,.act b{font-size:13px;}
 .tool small,.brood small,.act small{font-size:11px;color:var(--muted);}
 .tool[aria-pressed="true"]{border-color:var(--amber);background:#3d2b15;box-shadow:inset 0 0 0 1px var(--amber);}
+.tool:disabled{opacity:.4;cursor:default;}
 .brood:disabled{opacity:.45;cursor:default;}
-.brood .q{position:absolute;top:-6px;right:-6px;background:var(--amber);color:#24180b;font-size:11px;font-weight:700;border-radius:9px;padding:0 6px;line-height:17px;}
+.brood .q{position:absolute;top:-6px;right:-6px;background:var(--amber);color:var(--ink);font-size:11px;font-weight:700;border-radius:9px;padding:0 6px;line-height:17px;}
 .brood .q:empty{display:none;}
 .act[aria-pressed="true"]{border-color:var(--leaf);box-shadow:inset 0 0 0 1px var(--leaf);}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:1px;}
+#btnView[aria-pressed="true"]{border-color:var(--amber);background:#3d2b15;box-shadow:inset 0 0 0 1px var(--amber);}
 /* overlays */
-.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(12,8,5,.62);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:20;overflow:auto;}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;max-width:560px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.6);}
+.overlay{position:absolute;inset:0;display:flex;padding:16px;background:rgba(12,8,5,.62);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:20;overflow:auto;}
+.card{margin:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;max-width:560px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.6);box-sizing:border-box;}
+.menu{max-width:760px;}
 .menu h1{font-family:var(--f-display);font-weight:800;font-size:clamp(40px,9vw,68px);line-height:.92;letter-spacing:-.03em;margin:0 0 6px;color:var(--amber);text-wrap:balance;}
-.menu .tag{color:var(--muted);font-size:15px;margin:0 0 18px;max-width:46ch;line-height:1.45;}
-.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 18px;}
-.how div{font-size:13px;line-height:1.4;color:var(--text);}
-.how b{display:block;font-family:var(--f-display);font-size:14px;color:var(--amber);margin-bottom:2px;}
+.menu .tag{color:var(--muted);font-size:15px;margin:0 0 16px;max-width:52ch;line-height:1.45;}
+.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:700;}
+.species{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:0 0 18px;}
+.sp{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 10px;display:flex;flex-direction:column;gap:1px;min-width:0;}
+.sp b{font-family:var(--f-display);font-size:14px;}
+.sp i{font-size:11px;color:var(--muted);}
+.sp small{font-size:11.5px;color:var(--muted);line-height:1.3;margin-top:4px;}
+.sp[aria-pressed="true"]{border-color:var(--amber);box-shadow:inset 0 0 0 1px var(--amber);background:#3d2b15;}
+.tabs{margin:0 0 14px;width:max-content;max-width:100%;}
+.tabs button{padding:8px 16px;font-size:14px;}
+.levels{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px;margin:0 0 12px;}
+.lv{display:flex;align-items:center;gap:8px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-width:0;}
+.lv .num{font-family:var(--f-display);font-weight:800;color:var(--amber);width:18px;flex:none;}
+.lv .nm{flex:1;font-size:13px;min-width:0;}
+.lv .st{font-size:12px;color:var(--amber);letter-spacing:1px;flex:none;}
+.lv:disabled{opacity:.4;cursor:default;}
+.lv[aria-pressed="true"]{border-color:var(--amber);box-shadow:inset 0 0 0 1px var(--amber);}
+.brief{background:#21180f;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.45;}
+.brief h3{margin:0 0 4px;font-family:var(--f-display);font-size:19px;}
+.brief p{margin:0;color:var(--muted);max-width:62ch;}
+.brief ul{margin:8px 0 0;padding-left:18px;}
 .opt{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 10px;}
 .opt span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
-.go{margin-top:12px;width:100%;background:var(--amber);color:#24180b;border:0;border-radius:10px;padding:13px;font-family:var(--f-display);font-weight:800;font-size:18px;}
+.go{margin-top:12px;width:100%;background:var(--amber);color:var(--ink);border:0;border-radius:10px;padding:13px;font-family:var(--f-display);font-weight:800;font-size:18px;}
+.go small{display:block;font-family:var(--f-body);font-weight:400;font-size:12.5px;opacity:.8;margin-top:2px;}
 .go.ghost{background:transparent;color:var(--text);border:1px solid var(--line);font-size:15px;}
+.go.cont{margin:0 0 16px;}
 .best{font-size:12px;color:var(--muted);margin-top:10px;text-align:center;}
 .sheet h2,.end h2{font-family:var(--f-display);font-weight:800;font-size:28px;margin:0 0 4px;letter-spacing:-.02em;}
-.sheet p.sub{margin:0 0 14px;color:var(--muted);}
-.ups{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;}
-.up{border:1px solid var(--line);border-radius:10px;padding:11px;display:flex;flex-direction:column;gap:6px;background:#2a2016;}
+.sheet p.sub{margin:0 0 14px;color:var(--muted);line-height:1.4;}
+.ups{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;}
+.up{border:1px solid var(--line);border-radius:10px;padding:11px;display:flex;flex-direction:column;gap:6px;background:var(--card);}
 .up h3{margin:0;font-size:15px;font-family:var(--f-display);}
 .up p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.35;flex:1;}
 .pips{display:flex;gap:4px;}
 .pips i{width:18px;height:5px;border-radius:3px;background:#46372a;}
 .pips i.on{background:var(--amber);}
-.up button{background:var(--amber);color:#24180b;border:0;border-radius:7px;padding:7px;font-weight:700;font-size:13px;}
+.up button{background:var(--amber);color:var(--ink);border:0;border-radius:7px;padding:7px;font-weight:700;font-size:13px;}
 .up button:disabled{background:#46372a;color:var(--muted);cursor:default;}
+.up button.danger-btn{background:transparent;color:var(--danger);border:1px solid var(--danger);}
+.up button.danger-btn:disabled{color:var(--muted);border-color:var(--line);}
 .end table{width:100%;border-collapse:collapse;margin:12px 0 4px;font-variant-numeric:tabular-nums;}
 .end td{padding:6px 0;border-bottom:1px solid var(--line);}
 .end td+td{text-align:right;font-weight:700;}
+.stars{font-size:28px;color:var(--amber);letter-spacing:5px;margin:8px 0 0;}
+.stars span{color:#46372a;}
 @media (max-width:640px){
   #top{gap:6px 12px;padding:6px 12px;}
   .brand,.stat.opt-m{display:none;}
   #bar{padding:6px 10px calc(6px + env(safe-area-inset-bottom,0px));gap:6px 10px;}
   .glabel{display:none;}
   .tool,.brood,.act{padding:5px 8px;}
-  .tool small{display:none;}
+  .tool small,.act small{display:none;}
   #mini{width:120px!important;height:auto!important;}
+  .card{padding:18px 16px;}
+  #goals{bottom:30px;}
+  .species{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .sp small{display:none;}
+  #spDesc{display:block;}
+}
+#spDesc{display:none;margin:-10px 0 16px;font-size:13px;color:var(--muted);line-height:1.4;}
+@media (max-height:500px){
+  .brand,.stat.opt-m,.glabel,#hint,.tool small,.brood small,.act small{display:none;}
+  #top{padding:4px 12px;gap:4px 12px;}
+  .stat b{font-size:13px;}
+  .stat small{font-size:9px;}
+  #bar{padding:4px 10px calc(4px + env(safe-area-inset-bottom,0px));gap:4px 8px;}
+  .tool,.brood,.act{padding:4px 8px;}
+  .seg button{padding:4px 8px;}
+  .mbtn{padding:4px 8px;}
+  #mini{width:110px!important;height:auto!important;}
+  #goals{bottom:8px;padding:5px 8px;font-size:11.5px;}
 }
 @media (prefers-reduced-motion:reduce){.toast{animation:none;}}
 </style>
@@ -111,8 +165,8 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
     <div class="stat"><small>Volk</small><b id="sPop">0</b></div>
     <div class="stat opt-m"><small>Kaste A · S · K</small><b id="sCaste">0 · 0 · 0</b></div>
     <div class="stat"><small>Königin</small><div class="qbar" id="sQueen"><i></i></div></div>
-    <div class="stat"><small>Zeit</small><b id="sTime">0:00</b></div>
-    <div class="stat opt-m"><small>Wetter</small><b id="sWeather">Trocken</b></div>
+    <div class="stat"><small id="sYear">Jahr 1</small><b id="sSeason">Frühling</b><div class="sbar" id="sSeasonBar"><i></i></div></div>
+    <div class="stat opt-m"><small>Zeit</small><b id="sTime">0:00</b></div>
     <span class="spacer"></span>
     <div class="seg" id="speed" role="group" aria-label="Spielgeschwindigkeit">
       <button data-s="0" aria-pressed="false" title="Pause (Leertaste)">II</button>
@@ -120,39 +174,57 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
       <button data-s="2" aria-pressed="false">2×</button>
       <button data-s="3" aria-pressed="false">3×</button>
     </div>
+    <button class="mbtn" id="btnMenuTop" title="Spiel speichern und zum Menü">Menü</button>
   </header>
 
   <main id="stage">
     <canvas id="world"></canvas>
     <canvas id="mini" width="180" height="120" aria-label="Übersichtskarte"></canvas>
     <div id="toasts"></div>
+    <div id="goals" hidden><h4 id="goalsTitle">Ziele</h4><ul id="goalsList"></ul></div>
     <div id="hint"></div>
 
     <div class="overlay" id="menu">
       <div class="card menu">
         <h1>Ameisenreich</h1>
-        <p class="tag">Führe dein Volk vom ersten Krümel bis zur Herrschaft über den Waldboden. Lenke Duftspuren, züchte Kasten, erforsche Anpassungen und stürze die Königinnen der Rivalen.</p>
-        <div class="how">
-          <div><b>Duftspuren</b>Arbeiterinnen folgen Pheromonen. Zieh eigene Spuren zum Futter oder verwische die der Gegner.</div>
-          <div><b>Drei Kasten</b>Arbeiterinnen sammeln, Späherinnen finden Futter, Soldatinnen kämpfen und folgen deiner Fahne.</div>
-          <div><b>Lebendige Welt</b>Wolfsspinnen jagen, Regen wäscht Spuren weg, Blattläuse liefern Honigtau.</div>
+        <p class="tag">Führe dein Volk vom ersten Krümel bis zur Herrschaft über den Waldboden. Lenke Duftspuren, grabe Kammern, überstehe den Winter und stürze die Königinnen der Rivalen.</p>
+        <button class="go cont" id="btnContinue" hidden>Fortsetzen<small id="contInfo"></small></button>
+        <p class="lbl">Deine Ameisenart</p>
+        <div class="species" id="speciesList"></div>
+        <p id="spDesc"></p>
+        <div class="seg tabs" id="modeTabs">
+          <button data-v="campaign" aria-pressed="true">Kampagne</button>
+          <button data-v="free" aria-pressed="false">Freies Spiel</button>
         </div>
-        <div class="opt"><span>Rivalen</span>
-          <div class="seg" id="optDiff">
-            <button data-v="easy" aria-pressed="false">Leicht · 1</button>
-            <button data-v="normal" aria-pressed="true">Normal · 2</button>
-            <button data-v="hard" aria-pressed="false">Schwer · 3</button>
+        <section id="tabCampaign">
+          <div class="levels" id="levelList"></div>
+          <div class="brief" id="levelBrief"></div>
+          <button class="go" id="btnLevel">Level starten</button>
+        </section>
+        <section id="tabFree" hidden>
+          <div class="opt"><span>Rivalen</span>
+            <div class="seg" id="optDiff">
+              <button data-v="easy" aria-pressed="false">Leicht · 1</button>
+              <button data-v="normal" aria-pressed="true">Normal · 2</button>
+              <button data-v="hard" aria-pressed="false">Schwer · 3</button>
+            </div>
           </div>
-        </div>
-        <div class="opt"><span>Revier</span>
-          <div class="seg" id="optSize">
-            <button data-v="small" aria-pressed="false">Klein</button>
-            <button data-v="medium" aria-pressed="true">Mittel</button>
-            <button data-v="large" aria-pressed="false">Groß</button>
+          <div class="opt"><span>Revier</span>
+            <div class="seg" id="optSize">
+              <button data-v="small" aria-pressed="false">Klein</button>
+              <button data-v="medium" aria-pressed="true">Mittel</button>
+              <button data-v="large" aria-pressed="false">Groß</button>
+            </div>
           </div>
-        </div>
-        <button class="go" id="btnStart">Kolonie gründen</button>
-        <div class="best" id="best"></div>
+          <div class="opt"><span>Jahreszeiten</span>
+            <div class="seg" id="optSeasons">
+              <button data-v="on" aria-pressed="true">Mit Winter</button>
+              <button data-v="off" aria-pressed="false">Ewiger Sommer</button>
+            </div>
+          </div>
+          <button class="go" id="btnStart">Kolonie gründen</button>
+          <div class="best" id="best"></div>
+        </section>
       </div>
     </div>
 
@@ -161,7 +233,16 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
         <h2>Forschung</h2>
         <p class="sub">Anpassungen gelten für das ganze Volk. Das Spiel pausiert, solange dieses Fenster offen ist. Vorrat: <b id="rFood">0</b> Futter</p>
         <div class="ups" id="ups"></div>
-        <button class="go ghost" id="btnCloseSheet">Zurück zum Revier</button>
+        <button class="go ghost" data-close>Zurück</button>
+      </div>
+    </div>
+
+    <div class="overlay" id="csheet" hidden>
+      <div class="card sheet" style="max-width:760px">
+        <h2 id="cTitle">Kammer</h2>
+        <p class="sub" id="cSub"></p>
+        <div class="ups" id="cBody"></div>
+        <button class="go ghost" data-close>Zurück</button>
       </div>
     </div>
 
@@ -169,8 +250,9 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
       <div class="card end">
         <h2 id="endTitle">Sieg</h2>
         <p class="sub" id="endSub" style="color:var(--muted);margin:0"></p>
+        <div class="stars" id="endStars"></div>
         <table id="endStats"></table>
-        <button class="go" id="btnAgain">Neue Kolonie, gleiche Regeln</button>
+        <button class="go" id="btnAgain">Nochmal</button>
         <button class="go ghost" id="btnMenu">Hauptmenü</button>
       </div>
     </div>
@@ -191,9 +273,10 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
       <button class="brood" data-b="scout"><b>Späherin</b><small>16 Futter</small><span class="q"></span></button>
     </div>
     <div class="group">
+      <button class="act" id="btnView" aria-pressed="false"><b>Bau</b><small>Kammern graben</small></button>
+      <button class="act" id="btnResearch"><b>Forschung</b><small id="resHint">6 Zweige</small></button>
       <button class="act" id="btnAuto" aria-pressed="false"><b>Auto-Brut</b><small>Arbeiterinnen</small></button>
       <button class="act" id="btnPher" aria-pressed="true"><b>Duft</b><small>anzeigen</small></button>
-      <button class="act" id="btnResearch"><b>Forschung</b><small id="resHint">6 Zweige</small></button>
     </div>
   </footer>
 </div>
@@ -201,31 +284,31 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 <script>
 'use strict';
 // ---------- constants ----------
-const STEP = 1/30, CELL = 10, FC = 40, HC = 48, NEST_R = 22;
+const STEP = 1/30, CELL = 10, FC = 40, HC = 48, NEST_R = 22, SEASON_LEN = 120;
 const TYPES = {
   worker:  {n:'Arbeiterin', cost:10, hp:10, dmg:1, spd:38, carry:2, life:300, time:3},
   soldier: {n:'Soldatin',   cost:28, hp:42, dmg:6, spd:33, carry:0, life:380, time:6},
   scout:   {n:'Späherin',   cost:16, hp:8,  dmg:1, spd:64, carry:0, life:230, time:4},
 };
-const DIFF = {
-  easy:   {rivals:1, income:0.8,  attackAt:18, grace:360, sold:0.2},
-  normal: {rivals:2, income:1.0,  attackAt:14, grace:240, sold:0.25},
-  hard:   {rivals:3, income:1.25, attackAt:12, grace:150, sold:0.32},
+const TYPE_IDX = ['worker','soldier','scout'];
+const SPECIES = {
+  rufa:    {n:'Waldameise',           latin:'Formica rufa',             d:'Ausgewogen und robust. Ideal für den Einstieg.', mod:{}},
+  atta:    {n:'Blattschneiderameise', latin:'Atta cephalotes',          d:'Pilzgärten liefern doppelt, Blätter +50 %. Zähe, aber langsame Soldatinnen.', mod:{fungus:2, leaf:1.5, spd:.9, shp:1.25}},
+  eciton:  {n:'Wanderameise',         latin:'Eciton burchellii',        d:'+30 % Schaden, schnellere Brut und Beine. Kleinere Vorratskammern.', mod:{dmg:1.3, hatch:.8, spd:1.08, store:.6}},
+  myrmeco: {n:'Honigtopfameise',      latin:'Myrmecocystus mexicanus',  d:'Doppelte Vorräte, halber Winterverbrauch, Blattläuse ×2. Schwächer im Kampf.', mod:{store:2, winter:.5, aphid:2, dmg:.85}},
+  solen:   {n:'Feuerameise',          latin:'Solenopsis invicta',       d:'Arbeiterinnen stechen kräftig und kosten nur 8 Futter. Weniger Lebenspunkte.', mod:{wdmg:2.5, wcost:8, hp:.85, dmg:1.1}},
 };
+const SP_KEYS = Object.keys(SPECIES);
+const DIFF = {easy:{rivals:1,lvl:.8}, normal:{rivals:2,lvl:1}, hard:{rivals:3,lvl:1.25}};
 const SIZES = {small:{w:1800,h:1200}, medium:{w:2400,h:1600}, large:{w:3200,h:2200}};
-const COLS = [
-  {name:'Dein Volk',            c:'#efa63c'},
-  {name:'Rote Waldameisen',     c:'#e0573f'},
-  {name:'Violette Rossameisen', c:'#a58bea'},
-  {name:'Türkise Wegameisen',   c:'#58c4b4'},
-];
+const COLS = [{adj:'Gelbe',c:'#efa63c'},{adj:'Rote',c:'#e0573f'},{adj:'Violette',c:'#a58bea'},{adj:'Türkise',c:'#58c4b4'}];
 const UPS = [
   {k:'jaw',   n:'Kräftige Kiefer', d:'+35 % Bissschaden für alle Kasten.', base:60},
   {k:'armor', n:'Chitinpanzer',    d:'+30 % Lebenspunkte, auch für lebende Ameisen.', base:60},
   {k:'legs',  n:'Lange Beine',     d:'+12 % Laufgeschwindigkeit.', base:50},
   {k:'crop',  n:'Sozialmagen',     d:'Arbeiterinnen tragen +1 Futter pro Gang.', base:45},
   {k:'scent', n:'Duftdrüse',       d:'Deine Duftspuren halten 50 % länger.', base:40},
-  {k:'brood', n:'Brutkammern',     d:'Brut schlüpft schneller, +50 Plätze im Bau.', base:70},
+  {k:'brood', n:'Ammenpflege',     d:'Brut schlüpft 15 % schneller, +20 Plätze im Volk.', base:70},
 ];
 const FOOD = {
   sugar:  {n:'Zucker',    amt:130, c:'#f4efe4', c2:'#c9c0ae'},
@@ -235,52 +318,137 @@ const FOOD = {
   aphid:  {n:'Blattläuse',amt:90,  c:'#b6d86a', c2:'#5f8a2e', regen:0.7},
   carcass:{n:'Kadaver',   amt:200, c:'#6b5a4c', c2:'#3e3229'},
 };
+const SEASONS = [
+  {i:0, n:'Frühling', hatch:1.25, spd:1,   food:1,   rain:1},
+  {i:1, n:'Sommer',   hatch:1,    spd:1.1, food:1.3, rain:.6},
+  {i:2, n:'Herbst',   hatch:.9,   spd:1,   food:1.5, rain:1.6},
+  {i:3, n:'Winter',   hatch:.5,   spd:.55, food:0,   rain:0, winter:true},
+];
+const NEUTRAL = {i:1, n:'Sommer', hatch:1, spd:1, food:1, rain:1};
+const CHAMBERS = {
+  queen:  {n:'Königinnenkammer', d:'Hier legt die Königin ihre Eier. Fällt der Bau, ist das Spiel verloren.'},
+  brood:  {n:'Brutkammer',   d:'+30 Plätze im Volk, Brut schlüpft 15 % schneller.', cost:40, work:25},
+  store:  {n:'Vorratskammer',d:'+250 Lagerplatz für Futter. Wichtig vor dem Winter.', cost:30, work:20},
+  fungus: {n:'Pilzgarten',   d:'Erzeugt stetig Futter (+0,35 pro Sekunde), auch im Winter.', cost:60, work:35},
+  guard:  {n:'Wachkammer',   d:'+400 Lebenspunkte für den Bau, Soldatinnen schlüpfen 25 % schneller.', cost:50, work:30},
+};
+const BUILDABLE = ['brood','store','fungus','guard'];
+// nest cross-section: x in [-1,1], depth y in [0,1], p = parent chamber (tunnel connection)
+const SLOTS = [
+  {x:0,    y:.2,  p:-1}, {x:-.45, y:.3,  p:0}, {x:.45, y:.3,  p:0},
+  {x:-.18, y:.52, p:0},  {x:.2,   y:.54, p:0}, {x:-.72,y:.56, p:1},
+  {x:.74,  y:.58, p:2},  {x:-.42, y:.78, p:3}, {x:.04, y:.82, p:4},
+  {x:.46,  y:.8,  p:4},  {x:-.8,  y:.88, p:5}, {x:.84, y:.92, p:6},
+];
+const LEVELS = [
+  {n:'Erste Krümel', size:'small', rivals:[], seasons:false, spiders:false, par:300,
+   story:'Ein junges Volk erwacht. Lerne, wie Duftspuren deine Arbeiterinnen zum Futter führen.',
+   tip:'Wähle das Werkzeug „Spur" und ziehe eine Linie vom Bau zum Zucker.', goals:[{k:'gather',v:200}]},
+  {n:'Unter Tage', size:'small', rivals:[], seasons:false, spiders:false, par:480,
+   story:'Dein Bau braucht Platz. Grabe Kammern, damit das Volk wachsen kann.',
+   tip:'Öffne mit „Bau" den Querschnitt und tippe auf eine freie Stelle.', goals:[{k:'chambers',v:5},{k:'pop',v:90}]},
+  {n:'Die Wolfsspinne', size:'small', rivals:[], seasons:false, firstSpider:25, par:300,
+   story:'Ein Jäger streift durch das Revier. Züchte Soldatinnen und erlege ihn.',
+   tip:'Setze die Kampffahne neben die Spinne, sobald du sechs Soldatinnen hast.', goals:[{k:'spider',v:1}]},
+  {n:'Nachbarn', size:'small', rivals:[{sp:'rufa',lvl:.8}], seasons:false, par:720,
+   story:'Hinter den Steinen lebt ein fremdes Volk. Nur eine Königin kann bleiben.',
+   tip:'Erforsche Kiefer und Panzer, bevor du angreifst.', goals:[{k:'conquer'}]},
+  {n:'Der erste Winter', size:'medium', rivals:[{sp:'myrmeco',lvl:.8}], seasons:true, par:485,
+   story:'Sammle im Sommer und Herbst genug Vorräte, um den Winter zu überstehen.',
+   tip:'Im Winter verbraucht jede Ameise Futter. Grabe Vorratskammern und Pilzgärten.', goals:[{k:'survive',v:SEASON_LEN*4+5}]},
+  {n:'Regenzeit', size:'medium', rivals:[{sp:'atta',lvl:1}], seasons:false, rainEvery:55, par:900,
+   story:'Ständiger Regen wäscht jede Spur weg. Späherinnen sind jetzt Gold wert.',
+   tip:'Späherinnen legen nach jedem Fund eine frische Spur zum Bau.', goals:[{k:'conquer'}]},
+  {n:'Die Wanderameisen kommen', size:'medium', rivals:[{sp:'eciton',lvl:1.15,aggressive:true}], seasons:true, par:900,
+   story:'Ein nomadisches Heer zieht heran. Halte stand und schlag zurück.',
+   tip:'Eine Wachkammer stärkt deinen Bau. Halte Soldatinnen zu Hause, bis der erste Angriff abgewehrt ist.', goals:[{k:'conquer'}]},
+  {n:'Zwei Fronten', size:'medium', rivals:[{sp:'solen',lvl:1},{sp:'rufa',lvl:1}], seasons:true, par:1200,
+   story:'Zwei Völker beanspruchen dein Revier. Spiele sie gegeneinander aus.',
+   tip:'Rivalen greifen sich auch gegenseitig an. Schlag zu, wenn einer geschwächt ist.', goals:[{k:'conquer'}]},
+  {n:'Herrschaft über den Waldboden', size:'large', rivals:[{sp:'eciton',lvl:1.1},{sp:'solen',lvl:1.1},{sp:'atta',lvl:1.1}], seasons:true, par:1800,
+   story:'Das große Finale. Drei mächtige Völker, ein riesiges Revier, harte Winter.',
+   tip:'Baue früh Pilzgärten, damit der Winter dich nicht ausbremst.', goals:[{k:'conquer'}]},
+];
 const upCost = (u,l) => Math.round(u.base*Math.pow(1.8,l));
-const capOf = c => 70 + 50*c.up.brood;
 const fmtT = t => { t = Math.floor(t); return Math.floor(t/60)+':'+String(t%60).padStart(2,'0'); };
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 const rnd = Math.random;
+const M = (c,k) => c.sp.mod[k] ?? 1;
+const costOf = (c,t) => t === 'worker' ? (c.sp.mod.wcost ?? 10) : TYPES[t].cost;
+const chCount = (c,type) => { let n = 0; for (const ch of c.chambers) if (ch && ch.done && ch.type === type) n++; return n; };
+const capOf = c => 40 + 30*chCount(c,'brood') + 20*c.up.brood;
+const storeCap = c => Math.round((150 + 250*chCount(c,'store'))*M(c,'store'));
+const nestMax = c => 1000 + 400*chCount(c,'guard');
+const antMaxHp = (c,t) => TYPES[t].hp*(1+.3*c.up.armor)*M(c,'hp')*(t === 'soldier' ? M(c,'shp') : 1);
+const chamberCost = (c,type) => Math.round(CHAMBERS[type].cost*(1+.25*(c.chambers.filter(Boolean).length-3)));
+const slotOpen = (c,i) => !c.chambers[i] && (SLOTS[i].p < 0 || (c.chambers[SLOTS[i].p] && c.chambers[SLOTS[i].p].done));
+function season(){ const g = G; if (!g || !g.seasons) return NEUTRAL; return SEASONS[Math.floor(g.t/SEASON_LEN)%4]; }
+function hatchTime(c,t){
+  let h = TYPES[t].time*(1-.15*c.up.brood)*M(c,'hatch')/season().hatch/(1+.15*chCount(c,'brood'));
+  if (t === 'soldier' && chCount(c,'guard')) h *= .75;
+  return h;
+}
+
+// ---------- persistence ----------
+const SAVE_KEY = 'ameisenreich.save.v1', PROG_KEY = 'ameisenreich.campaign.v1';
+const store = {
+  get(k){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ return false; } },
+  del(k){ try { localStorage.removeItem(k); } catch(e){} },
+};
+const progress = Object.assign({unlocked:0, stars:{}}, store.get(PROG_KEY) || {});
 
 // ---------- state ----------
 let G = null;
 const cam = {x:0,y:0,z:1};
-let speed = 1, tool = 'pan', showPher = true, frameN = 0, sheetOpen = false;
-const settings = {diff:'normal', size:'medium'};
+let speed = 1, tool = 'pan', showPher = true, frameN = 0, modal = null, view = 'surface';
+const settings = Object.assign({diff:'normal', size:'medium', seasons:'on', species:'rufa', mode:'campaign', level:0}, store.get('ameisenreich.settings') || {});
 
 // ---------- world generation ----------
-function newGame(opts){
-  const sz = SIZES[opts.size], df = DIFF[opts.diff];
-  const R = mulberry32(opts.seed ?? (Math.random()*1e9|0));
-  const W = sz.w, H = sz.h;
+function buildConfig(opts){
+  if (opts.mode === 'campaign'){
+    const L = LEVELS[opts.level];
+    return {size:L.size, rivals:L.rivals, seasons:!!L.seasons, spiders:L.spiders !== false, firstSpider:L.firstSpider ?? 100,
+      rainEvery:L.rainEvery ?? 170, goals:L.goals, title:'Level '+(opts.level+1)+' · '+L.n};
+  }
+  if (opts.mode === 'demo') return {size:'medium', nRivals:3, lvl:1, seasons:true, spiders:true, firstSpider:60, rainEvery:150, goals:[]};
+  const d = DIFF[opts.diff || 'normal'];
+  return {size:opts.size || 'medium', nRivals:d.rivals, lvl:d.lvl, seasons:opts.seasons !== 'off', spiders:true, firstSpider:100,
+    rainEvery:170, goals:[{k:'conquer'}], title:'Freies Spiel'};
+}
+
+function newGame(opts, saved){
+  opts = {...opts};
+  if (opts.seed == null) opts.seed = (Math.random()*1e9)|0;
+  const cfg = buildConfig(opts), sz = SIZES[cfg.size], R = mulberry32(opts.seed);
+  const W = sz.w, H = sz.h, demo = opts.mode === 'demo';
+  const pSp = demo ? SP_KEYS[(R()*SP_KEYS.length)|0] : (opts.species || 'rufa');
+  const rivals = cfg.rivals || Array.from({length:cfg.nRivals}, () => ({sp:SP_KEYS[(R()*SP_KEYS.length)|0], lvl:cfg.lvl}));
   const g = G = {
     W, H, GW:Math.ceil(W/CELL), GH:Math.ceil(H/CELL), FW:Math.ceil(W/FC), FH:Math.ceil(H/FC),
-    HW:Math.ceil(W/HC), HH:Math.ceil(H/HC), df, demo:!!opts.demo, opts,
+    HW:Math.ceil(W/HC), HH:Math.ceil(H/HC), demo, opts, cfg, seasons:cfg.seasons, spidersOn:cfg.spiders,
+    goals:cfg.goals, goalDone:cfg.goals.map(() => false), spiderKills:0, seasonIdx:0, minHp:1, S:NEUTRAL,
     colonies:[], foods:[], spiders:[], rocks:[], t:0, steps:0, over:false,
-    rain:{on:false,end:0,next:110+R()*60}, nextSpider:80+R()*60, nextFood:18, lastWarn:-99,
+    rain:{on:false, end:0, next:cfg.rainEvery*(.6+R()*.4)}, nextSpider:cfg.firstSpider, nextFood:18, lastWarn:-99, lastStarve:-99,
   };
   g.obst = new Uint8Array(g.GW*g.GH);
   g.fog = new Uint8Array(g.FW*g.FH);
   g.buckets = Array.from({length:g.HW*g.HH}, () => []);
 
-  // nests
-  const spots = [[.14,.5],[.86,.24],[.86,.76],[.5,.14],[.5,.86]];
-  const n = 1 + df.rivals;
-  const order = n === 2 ? [0,1] : n === 3 ? [0,1,2] : [0,1,2,3];
-  if (n === 2) spots[1] = [.86,.5];
-  order.forEach((si,i) => {
-    const [fx,fy] = spots[si];
+  const n = 1 + rivals.length;
+  const spots = n === 1 ? [[.3,.5]] : n === 2 ? [[.14,.5],[.86,.5]] : n === 3 ? [[.14,.5],[.86,.24],[.86,.76]] : [[.14,.5],[.86,.24],[.86,.76],[.5,.14]];
+  spots.forEach(([fx,fy],i) => {
     const x = W*fx + (R()-.5)*W*.05, y = H*fy + (R()-.5)*H*.06;
-    const ai = g.demo || i > 0;
-    g.colonies.push(makeColony(i, x, y, i===0 && !g.demo, ai));
+    const r = i ? rivals[i-1] : null;
+    g.colonies.push(makeColony(i, x, y, {isPlayer:i === 0 && !demo, ai:demo || i > 0, sp:r ? r.sp : pSp, lvl:r ? r.lvl : 1, aggressive:!!(r && r.aggressive)}));
   });
 
-  // rocks
   const nr = Math.round(W*H/95000);
   for (let i=0;i<nr;i++){
     const x = R()*W, y = R()*H, r = 16+R()*40;
-    if (g.colonies.some(c => Math.hypot(c.x-x,c.y-y) < 150+r)) continue;
     const pts = []; const k = 7+(R()*5|0);
     for (let j=0;j<k;j++){ const a = j/k*Math.PI*2; pts.push([Math.cos(a)*r*(.75+R()*.3), Math.sin(a)*r*(.75+R()*.3)]); }
+    if (g.colonies.some(c => Math.hypot(c.x-x,c.y-y) < 150+r)) continue;
     g.rocks.push({x,y,r,pts});
   }
   for (const rk of g.rocks){
@@ -294,60 +462,67 @@ function newGame(opts){
   for (let x=0;x<g.GW;x++){ g.obst[x]=1; g.obst[(g.GH-1)*g.GW+x]=1; }
   for (let y=0;y<g.GH;y++){ g.obst[y*g.GW]=1; g.obst[y*g.GW+g.GW-1]=1; }
 
-  // food: two guaranteed piles per nest, plus scattered
   for (const c of g.colonies){
     for (let k=0;k<2;k++){
       const p = findFree(R, 50, (x,y) => { const d = Math.hypot(x-c.x,y-c.y); return d>170 && d<260; });
-      if (p) makeFood(p.x,p.y, k ? 'crumb' : 'sugar');
+      if (p) makeFood(p.x,p.y, k ? 'crumb' : 'sugar', null, R);
     }
   }
   const nf = Math.round(W*H/220000)+4;
   const kinds = ['sugar','crumb','berry','leaf','berry','crumb'];
   for (let i=0;i<nf;i++){
     const p = findFree(R, 60, (x,y) => g.colonies.every(c => Math.hypot(x-c.x,y-c.y) > 260));
-    if (p) makeFood(p.x,p.y, kinds[(R()*kinds.length)|0]);
+    if (p) makeFood(p.x,p.y, kinds[(R()*kinds.length)|0], null, R);
   }
   for (let i=0;i<2+(W>3000?1:0);i++){
     const p = findFree(R, 60, (x,y) => g.colonies.every(c => Math.hypot(x-c.x,y-c.y) > 380));
-    if (p) makeFood(p.x,p.y,'aphid');
+    if (p) makeFood(p.x,p.y,'aphid', null, R);
   }
+  renderBackground(R);
 
-  // starting brood
   for (const c of g.colonies){
     for (let i=0;i<12;i++) spawnAnt(c,'worker');
     for (let i=0;i<2;i++) spawnAnt(c,'soldier');
     spawnAnt(c,'scout');
   }
-  if (!g.demo){ reveal(g.colonies[0].x, g.colonies[0].y, 7); }
-  else g.fog.fill(1);
-  g.fogDirty = true;
+  if (demo) g.fog.fill(1); else reveal(g.colonies[0].x, g.colonies[0].y, 7);
 
-  renderBackground(R);
   g.pherCv = document.createElement('canvas'); g.pherCv.width = g.GW; g.pherCv.height = g.GH;
   g.pherCtx = g.pherCv.getContext('2d'); g.pherImg = g.pherCtx.createImageData(g.GW, g.GH);
   g.fogCv = document.createElement('canvas'); g.fogCv.width = g.FW; g.fogCv.height = g.FH;
   g.fogCtx = g.fogCv.getContext('2d'); g.fogImg = g.fogCtx.createImageData(g.FW, g.FH);
 
   const p = g.colonies[0];
-  if (g.demo){ cam.z = Math.max(0.7, Math.min(VW/W, VH/H)*1.6); cam.x = W/2 - VW/cam.z/2; cam.y = H/2 - VH/cam.z/2; }
+  if (demo){ cam.z = Math.max(.7, Math.min(VW/W, VH/H)*1.6); cam.x = W/2 - VW/cam.z/2; cam.y = H/2 - VH/cam.z/2; }
   else { cam.z = VW < 700 ? 1 : 1.25; cam.x = p.x - VW/cam.z/2; cam.y = p.y - VH/cam.z/2; }
+  if (saved) restoreState(saved);
+  g.seasonIdx = g.seasons ? Math.floor(g.t/SEASON_LEN) : 0;
+  g.S = season();
+  g.fogDirty = true;
   clampCam();
-  const mini = document.getElementById('mini');
   const mw = VW < 640 ? 120 : 180;
   mini.width = mw*2; mini.height = Math.round(mw*H/W)*2;
   mini.style.width = mw+'px'; mini.style.height = Math.round(mw*H/W)+'px';
-  document.getElementById('toasts').innerHTML = '';
-  document.getElementById('app').classList.toggle('demo', g.demo);
+  $('toasts').innerHTML = '';
+  $('app').classList.toggle('demo', demo);
+  $('goals').hidden = demo;
+  setView('surface');
   updateHud(true);
 }
 
-function makeColony(i,x,y,isPlayer,ai){
-  const g = G, N = g.GW*g.GH;
-  return {id:i, name:COLS[i].name, color:COLS[i].c, isPlayer, ai, x, y,
-    food:45, hp:1000, maxHp:1000, lastHit:-99, ants:[], queue:[], hatchT:0,
+function makeColony(i,x,y,o){
+  const N = G.GW*G.GH, sp = SPECIES[o.sp], lvl = o.lvl;
+  const c = {id:i, name:o.isPlayer ? 'Dein Volk' : COLS[i].adj+' '+sp.n+'n', color:COLS[i].c, isPlayer:o.isPlayer, ai:o.ai,
+    spKey:o.sp, sp, x, y, food:45, hp:1000, maxHp:1000, lastHit:-99, ants:[], queue:[], hatchT:0, starve:0,
     up:{jaw:0,armor:0,legs:0,crop:0,scent:0,brood:0},
     homeP:new Float32Array(N), foodP:new Float32Array(N), rally:null, alive:true, auto:false, aiT:i*.25,
-    st:{gathered:0,born:0,lost:0,kills:0,nests:0}};
+    lvl, attackAt:Math.round(15/lvl), grace:o.aggressive ? 90 : (lvl < .95 ? 360 : lvl < 1.15 ? 240 : 160), sold:.18+.14*(lvl-.8),
+    chambers:SLOTS.map(() => null), digSlot:-1, n:{worker:0,soldier:0,scout:0},
+    st:{gathered:0,born:0,lost:0,kills:0}};
+  c.chambers[0] = {type:'queen', done:true, prog:0};
+  c.chambers[1] = {type:'store', done:true, prog:0};
+  c.chambers[3] = {type:'brood', done:true, prog:0};
+  return c;
 }
 function findFree(R, tries, test){
   const g = G;
@@ -360,19 +535,62 @@ function findFree(R, tries, test){
   }
   return null;
 }
-function makeFood(x,y,kind,amt){
+function makeFood(x,y,kind,amt,R){
+  R = R || rnd;
   const F = FOOD[kind];
-  const a = amt ?? Math.round(F.amt*(.8+Math.random()*.5));
-  const f = {x,y,kind,amount:a,max:a,regen:F.regen||0,seed:Math.random()*1000,r:0};
-  f.r = 5+Math.sqrt(a)*.8;
+  const a = amt ?? Math.round(F.amt*(.8+R()*.5));
+  const f = {x,y,kind,amount:a,max:a,regen:F.regen||0,seed:Math.round(R()*1000),r:5+Math.sqrt(a)*.8};
   G.foods.push(f);
   return f;
 }
 function spawnAnt(c,type,x,y){
-  const T = TYPES[type], hp = T.hp*(1+.3*c.up.armor);
-  const a = Math.random()*Math.PI*2;
+  const hp = antMaxHp(c,type), a = rnd()*Math.PI*2;
   c.ants.push({c,type, x:(x??c.x)+Math.cos(a)*6, y:(y??c.y)+Math.sin(a)*6, a, hp, maxHp:hp,
-    carry:0, state:0, str:1, age:0, life:T.life*(.85+Math.random()*.3), cd:0, dead:false, ph:Math.random()*6});
+    carry:0, ck:null, state:0, str:1, age:0, life:TYPES[type].life*(.85+rnd()*.3), cd:0, dead:false, ph:rnd()*6});
+}
+
+// ---------- save / restore ----------
+const r1 = v => Math.round(v*10)/10;
+function serialize(){
+  const g = G;
+  return {v:1, opts:g.opts, t:g.t, steps:g.steps, rain:g.rain, nextSpider:g.nextSpider, nextFood:g.nextFood,
+    spiderKills:g.spiderKills, goalDone:g.goalDone, minHp:g.minHp, cam:{...cam},
+    label:(g.cfg.title || '')+' · '+SPECIES[g.colonies[0].spKey].n, savedAt:Date.now(),
+    fog:Array.from(g.fog).join(''),
+    foods:g.foods.map(f => ({x:r1(f.x),y:r1(f.y),kind:f.kind,amount:r1(f.amount),max:f.max,regen:f.regen,seed:f.seed,r:r1(f.r)})),
+    spiders:g.spiders.map(s => ({x:r1(s.x),y:r1(s.y),a:r1(s.a),hp:s.hp,maxHp:s.maxHp,cd:0,ph:0})),
+    colonies:g.colonies.map(c => ({food:r1(c.food), hp:r1(c.hp), maxHp:c.maxHp, lastHit:c.lastHit, queue:c.queue, hatchT:c.hatchT,
+      up:c.up, alive:c.alive, auto:c.auto, st:c.st, chambers:c.chambers, digSlot:c.digSlot,
+      rally:c.rally ? {x:r1(c.rally.x), y:r1(c.rally.y), col:c.rally.col ? c.rally.col.id : -1} : null,
+      ants:c.ants.map(a => [TYPE_IDX.indexOf(a.type), r1(a.x), r1(a.y), Math.round(a.a*100)/100, r1(a.hp), r1(a.maxHp), a.carry, a.ck, a.state, Math.round(a.age), Math.round(a.life)])}))};
+}
+function restoreState(d){
+  const g = G;
+  Object.assign(g, {t:d.t, steps:d.steps, rain:d.rain, nextSpider:d.nextSpider, nextFood:d.nextFood,
+    spiderKills:d.spiderKills, goalDone:d.goalDone, minHp:d.minHp});
+  for (let i=0;i<g.fog.length;i++) g.fog[i] = d.fog.charCodeAt(i) === 49 ? 1 : 0;
+  g.foods = d.foods.map(f => ({...f}));
+  g.spiders = d.spiders.map(s => ({...s, lastBy:null}));
+  d.colonies.forEach((s,i) => {
+    const c = g.colonies[i];
+    Object.assign(c, {food:s.food, hp:s.hp, maxHp:s.maxHp, lastHit:s.lastHit, queue:s.queue, hatchT:s.hatchT,
+      up:s.up, alive:s.alive, auto:s.auto, st:s.st, chambers:s.chambers, digSlot:s.digSlot});
+    c.rally = s.rally ? {x:s.rally.x, y:s.rally.y, col:s.rally.col >= 0 ? g.colonies[s.rally.col] : null} : null;
+    c.ants = s.ants.map(r => ({c, type:TYPE_IDX[r[0]], x:r[1], y:r[2], a:r[3], hp:r[4], maxHp:r[5], carry:r[6], ck:r[7],
+      state:r[8], str:.6, age:r[9], life:r[10], cd:0, dead:false, ph:rnd()*6}));
+  });
+  Object.assign(cam, d.cam);
+  $('btnAuto').setAttribute('aria-pressed', String(g.colonies[0].auto));
+}
+function saveGame(){
+  if (!G || G.demo || G.over) return;
+  store.set(SAVE_KEY, serialize());
+}
+function loadGame(){
+  const d = store.get(SAVE_KEY);
+  if (!d || d.v !== 1) return false;
+  try { newGame(d.opts, d); } catch(e){ store.del(SAVE_KEY); return false; }
+  return true;
 }
 
 // ---------- background ----------
@@ -388,7 +606,6 @@ function renderBackground(R){
     const s = 1+R()*R()*9;
     x.beginPath(); x.ellipse(R()*g.W, R()*g.H, s, s*(.5+R()*.6), R()*3, 0, Math.PI*2); x.fill();
   }
-  // moss and grass patches
   for (let i=0;i<g.W*g.H/60000;i++){
     const cx = R()*g.W, cy = R()*g.H, rr = 40+R()*110;
     for (let j=0;j<rr*3;j++){
@@ -399,13 +616,11 @@ function renderBackground(R){
       x.beginPath(); x.moveTo(px,py); x.lineTo(px+Math.cos(ang)*L, py+Math.sin(ang)*L); x.stroke();
     }
   }
-  // pebbles
   for (let i=0;i<g.W*g.H/9000;i++){
     x.globalAlpha = .55; x.fillStyle = R()<.5 ? '#6b5b4a' : '#5a4a3a';
     const s = 1.5+R()*3.5; x.beginPath(); x.ellipse(R()*g.W,R()*g.H,s,s*.7,R()*3,0,Math.PI*2); x.fill();
   }
   x.globalAlpha = 1;
-  // rocks
   for (const rk of g.rocks){
     x.save(); x.translate(rk.x, rk.y);
     x.fillStyle = 'rgba(0,0,0,.35)'; poly(x, rk.pts, 5, 7); x.fill();
@@ -415,7 +630,6 @@ function renderBackground(R){
     x.strokeStyle = 'rgba(255,255,255,.12)'; x.lineWidth = 2; x.stroke();
     x.restore();
   }
-  // edge vignette
   const v = x.createRadialGradient(g.W/2,g.H/2,Math.min(g.W,g.H)*.35,g.W/2,g.H/2,Math.max(g.W,g.H)*.75);
   v.addColorStop(0,'rgba(0,0,0,0)'); v.addColorStop(1,'rgba(0,0,0,.45)');
   x.fillStyle = v; x.fillRect(0,0,g.W,g.H);
@@ -494,9 +708,10 @@ function hit(att,e,dmg){
     if (e.carry) dropCrumb(e.x,e.y,e.carry);
   }
 }
+function hitSpider(att,s,dmg){ s.hp -= dmg; s.lastBy = att.c; }
 function dropCrumb(x,y,amt){
-  const f = G.foods.find(f => f.kind==='carcass' && Math.hypot(f.x-x,f.y-y) < 25);
-  if (f){ f.amount += amt; f.max = Math.max(f.max,f.amount); f.r = 5+Math.sqrt(f.max)*.8; }
+  const f = G.foods.find(f => f.kind === 'carcass' && Math.hypot(f.x-x,f.y-y) < 25);
+  if (f){ f.amount += amt; f.max = Math.max(f.max,f.amount); }
   else if (!blocked(x,y)) makeFood(x,y,'carcass',amt+3);
 }
 function reveal(x,y,r){
@@ -509,15 +724,22 @@ function reveal(x,y,r){
     }
 }
 const seen = (x,y) => { const g = G; const gx = (x/FC)|0, gy = (y/FC)|0; return gx>=0&&gy>=0&&gx<g.FW&&gy<g.FH && g.fog[gy*g.FW+gx] === 1; };
+function addFood(c,amt){ c.food = Math.min(storeCap(c), c.food+amt); }
 
 // ---------- simulation ----------
 function step(dt){
   const g = G;
   g.t += dt; g.steps++;
-  // weather
-  if (!g.rain.on && g.t >= g.rain.next){ g.rain.on = true; g.rain.end = g.t+18; toast('Regen setzt ein. Duftspuren werden weggewaschen.','rain'); }
-  if (g.rain.on && g.t >= g.rain.end){ g.rain.on = false; g.rain.next = g.t+120+rnd()*100; toast('Der Regen hört auf.','rain'); }
-  // pheromone decay
+  if (g.seasons){ const si = Math.floor(g.t/SEASON_LEN); if (si !== g.seasonIdx){ g.seasonIdx = si; onSeason(); } }
+  const S = g.S = season();
+  if (!g.rain.on && g.t >= g.rain.next){
+    if (S.rain > 0){ g.rain.on = true; g.rain.end = g.t+18; toast('Regen setzt ein. Duftspuren werden weggewaschen.','rain'); }
+    else g.rain.next = g.t+30;
+  }
+  if (g.rain.on && g.t >= g.rain.end){
+    g.rain.on = false; g.rain.next = g.t + g.cfg.rainEvery*(.6+rnd()*.8)/Math.max(.3,S.rain);
+    toast('Der Regen hört auf.','rain');
+  }
   if (g.steps % 3 === 0){
     for (const c of g.colonies){
       const hl = g.rain.on ? 2.5 : 28*(1+.5*c.up.scent);
@@ -527,22 +749,22 @@ function step(dt){
       }
     }
   }
-  // world events
   if (g.t >= g.nextFood){
-    g.nextFood = g.t+16+rnd()*10;
-    if (g.foods.filter(f => !f.regen).length < Math.round(g.W*g.H/200000)+8){
+    g.nextFood = g.t + (16+rnd()*10)/Math.max(.5,S.food || 1);
+    if (S.food > 0 && g.foods.filter(f => !f.regen).length < Math.round(g.W*g.H/200000)+8){
       const p = findFree(rnd, 40, (x,y) => g.colonies.every(c => Math.hypot(x-c.x,y-c.y) > 160));
-      if (p) makeFood(p.x,p.y, ['sugar','crumb','berry','leaf'][(rnd()*4)|0]);
+      const kinds = S.i === 2 && g.seasons ? ['berry','berry','crumb','leaf'] : ['sugar','crumb','berry','leaf'];
+      if (p) makeFood(p.x,p.y, kinds[(rnd()*4)|0]);
     }
   }
-  if (g.t >= g.nextSpider){
+  if (g.spidersOn && !S.winter && g.t >= g.nextSpider){
     g.nextSpider = g.t+100+rnd()*80;
     if (g.spiders.length < (g.W > 3000 ? 2 : 1)){
       const p = findFree(rnd, 60, (x,y) => g.colonies.every(c => Math.hypot(x-c.x,y-c.y) > 360));
-      if (p){ g.spiders.push({x:p.x,y:p.y,a:rnd()*6,hp:320,maxHp:320,cd:0,ph:0}); toast('Eine Wolfsspinne jagt im Revier. Soldatinnen können sie erlegen.','danger'); }
+      if (p){ g.spiders.push({x:p.x,y:p.y,a:rnd()*6,hp:320,maxHp:320,cd:0,ph:0,lastBy:null}); toast('Eine Wolfsspinne jagt im Revier. Soldatinnen können sie erlegen.','danger'); }
     }
   }
-  for (const f of g.foods) if (f.regen && f.amount < f.max) f.amount = Math.min(f.max, f.amount+f.regen*dt);
+  if (!S.winter) for (const f of g.foods) if (f.regen && f.amount < f.max) f.amount = Math.min(f.max, f.amount+f.regen*dt);
 
   buildHash();
   for (const c of g.colonies){
@@ -553,43 +775,113 @@ function step(dt){
   for (const s of g.spiders) spiderStep(s,dt);
   for (const c of g.colonies) if (c.ants.some(a => a.dead)) c.ants = c.ants.filter(a => !a.dead);
   if (g.spiders.some(s => s.hp <= 0)){
-    for (const s of g.spiders) if (s.hp <= 0){ makeFood(s.x,s.y,'carcass',240); toast('Die Spinne ist erlegt. Ihr Kadaver ist ein Festmahl.','good'); }
+    for (const s of g.spiders) if (s.hp <= 0){
+      makeFood(s.x,s.y,'carcass',240);
+      if (s.lastBy && s.lastBy.isPlayer) g.spiderKills++;
+      toast('Die Spinne ist erlegt. Ihr Kadaver ist ein Festmahl.','good');
+    }
     g.spiders = g.spiders.filter(s => s.hp > 0);
   }
   g.foods = g.foods.filter(f => f.amount >= 1 || f.regen);
   for (const f of g.foods) if (!f.regen) f.r = 4+Math.sqrt(Math.max(f.amount,1))*.8;
 
-  // fog of war
   if (!g.demo && g.steps % 8 === 0){
-    for (const a of g.colonies[0].ants) reveal(a.x,a.y, a.type==='scout' ? 4 : 2);
+    for (const a of g.colonies[0].ants) reveal(a.x,a.y, a.type === 'scout' ? 4 : 2);
   }
-  // end conditions
   for (const c of g.colonies) if (c.alive && c.hp <= 0) killColony(c);
   if (!g.over){
-    if (g.demo){ if (g.colonies.filter(c => c.alive).length <= 1) newGame({...g.opts, seed:undefined}); }
-    else if (!g.colonies[0].alive) endGame(false);
-    else if (g.colonies.slice(1).every(c => !c.alive)) endGame(true);
+    if (g.demo){ if (g.colonies.filter(c => c.alive).length <= 1) newGame({mode:'demo'}); }
+    else {
+      const p = g.colonies[0];
+      g.minHp = Math.min(g.minHp, p.hp/p.maxHp);
+      if (!p.alive) endGame(false);
+      else if (g.steps % 15 === 0){ checkGoals(); if (g.goalDone.length && g.goalDone.every(Boolean)) endGame(true); }
+    }
   }
 }
 
+function onSeason(){
+  const g = G, S = season();
+  if (S.winter){
+    g.rain.on = false;
+    g.rain.next = g.t+SEASON_LEN+10;
+    if (g.spiders.length){ g.spiders = []; toast('Die Spinne verkriecht sich für den Winter.'); }
+    for (const c of g.colonies) if (c.ai) c.rally = null;
+    toast('Der Winter beginnt. Draußen ist es kalt, das Volk zehrt von seinen Vorräten.','rain');
+  }
+  else if (S.i === 0) toast('Frühling. Die Brut schlüpft schneller, neues Futter wächst.','good');
+  else if (S.i === 1) toast('Sommer. Die Ameisen sind flink, Futter ist reichlich.','good');
+  else toast('Herbst. Fallobst liegt überall, aber der Winter naht. Lege Vorräte an.','rain');
+}
+
+function goalInfo(){
+  const g = G, c = g.colonies[0];
+  return g.goals.map((goal,i) => {
+    let cur = 0, tgt = goal.v || 1, label = '', time = false;
+    switch (goal.k){
+      case 'gather':   cur = c.st.gathered; label = 'Futter sammeln'; break;
+      case 'chambers': cur = c.chambers.filter((ch,j) => ch && ch.done && j > 0).length; label = 'Kammern im Bau'; break;
+      case 'pop':      cur = c.ants.length; label = 'Ameisen im Volk'; break;
+      case 'spider':   cur = g.spiderKills; label = 'Wolfsspinne erlegen'; break;
+      case 'conquer':  tgt = g.colonies.length-1; cur = g.colonies.slice(1).filter(o => !o.alive).length; label = 'Rivalen besiegen'; break;
+      case 'survive':  cur = g.t; label = 'Ein Jahr überstehen'; time = true; break;
+    }
+    const done = g.goalDone[i] || cur >= tgt;
+    return {label, cur:done ? tgt : cur, tgt, done, time};
+  });
+}
+function checkGoals(){ goalInfo().forEach((s,i) => { if (s.done) G.goalDone[i] = true; }); }
+
 function colonyStep(c,dt){
-  const g = G;
+  const g = G, S = g.S, n = c.n;
+  n.worker = n.soldier = n.scout = 0;
+  for (const a of c.ants) n[a.type]++;
   if (c.queue.length){
     c.hatchT += dt;
-    const T = TYPES[c.queue[0]];
-    if (c.hatchT >= T.time*(1-.18*c.up.brood) && c.ants.length < capOf(c)){
+    if (c.hatchT >= hatchTime(c,c.queue[0]) && c.ants.length < capOf(c)){
       spawnAnt(c, c.queue.shift()); c.hatchT = 0; c.st.born++;
     }
   }
-  if (c.auto && c.queue.length === 0 && c.food >= TYPES.worker.cost+5 && c.ants.length < capOf(c)) enqueue(c,'worker');
+  if (c.ants.length < 6 && c.queue.length === 0 && c.food < costOf(c,'worker')){
+    c.emerg = (c.emerg || 0) + dt;
+    if (c.emerg >= 12){
+      c.emerg = 0; spawnAnt(c,'worker'); c.st.born++;
+      if (c.isPlayer) toast('Die Königin zieht aus eigenen Reserven eine Arbeiterin auf.');
+    }
+  } else c.emerg = 0;
+  if (c.auto && c.queue.length === 0 && c.food >= costOf(c,'worker')+(S.winter ? 80 : 5) && c.ants.length < capOf(c)) enqueue(c,'worker');
+  if (c.digSlot >= 0){
+    const ch = c.chambers[c.digSlot];
+    ch.prog += dt*(1+Math.min(n.worker,20)*.12);
+    if (ch.prog >= CHAMBERS[ch.type].work){
+      ch.done = true; c.digSlot = -1;
+      if (ch.type === 'guard'){ c.maxHp = nestMax(c); c.hp = Math.min(c.maxHp, c.hp+400); }
+      if (c.isPlayer) toast(CHAMBERS[ch.type].n+' fertig gegraben.','good');
+    }
+  }
+  const fg = chCount(c,'fungus');
+  if (fg) addFood(c, .35*fg*M(c,'fungus')*dt);
+  if (S.winter && c.ants.length){
+    c.food -= c.ants.length*.015*M(c,'winter')*dt;
+    if (c.food < 0){
+      c.food = 0; c.starve += dt;
+      if (c.starve >= 2){
+        c.starve = 0;
+        const k = Math.max(1, Math.round(c.ants.length*.03));
+        for (let i=0;i<k;i++){ const a = c.ants[(rnd()*c.ants.length)|0]; if (!a.dead){ a.dead = true; c.st.lost++; } }
+        if (c.isPlayer && g.t-g.lastStarve > 15){ g.lastStarve = g.t; toast('Dein Volk hungert! Ameisen sterben, bis wieder Futter da ist.','danger'); }
+      }
+    } else c.starve = 0;
+  }
+  if (c.food > storeCap(c)) c.food = storeCap(c);
   if (g.t - c.lastHit > 8) c.hp = Math.min(c.maxHp, c.hp+3*dt);
   if (c.ai){ c.aiT -= dt; if (c.aiT <= 0){ c.aiT = 1; aiThink(c); } }
 }
 
 function enqueue(c,type){
-  const T = TYPES[type];
-  if (c.food < T.cost || c.queue.length >= 12) return false;
-  c.food -= T.cost; c.queue.push(type); return true;
+  const cost = costOf(c,type);
+  if (c.food < cost || c.queue.length >= 12) return false;
+  c.food -= cost; c.queue.push(type); return true;
 }
 function buyUp(c,k){
   const u = UPS.find(u => u.k === k), l = c.up[k];
@@ -597,7 +889,23 @@ function buyUp(c,k){
   const cost = upCost(u,l);
   if (c.food < cost) return false;
   c.food -= cost; c.up[k]++;
-  if (k === 'armor') for (const a of c.ants){ const m = TYPES[a.type].hp*(1+.3*c.up.armor); a.hp *= m/a.maxHp; a.maxHp = m; }
+  if (k === 'armor') for (const a of c.ants){ const m = antMaxHp(c,a.type); a.hp *= m/a.maxHp; a.maxHp = m; }
+  return true;
+}
+function startDig(c,i,type){
+  if (c.digSlot >= 0 || !slotOpen(c,i)) return false;
+  const cost = chamberCost(c,type);
+  if (c.food < cost) return false;
+  c.food -= cost; c.chambers[i] = {type, done:false, prog:0}; c.digSlot = i;
+  return true;
+}
+function fillChamber(c,i){
+  const ch = c.chambers[i];
+  if (!ch || ch.type === 'queen') return false;
+  if (SLOTS.some((s,j) => s.p === i && c.chambers[j])) return false;
+  if (!ch.done){ c.digSlot = -1; c.chambers[i] = null; c.food = Math.min(storeCap(c), c.food+Math.round(chamberCost(c,ch.type)*.5)); }
+  else c.chambers[i] = null;
+  c.maxHp = nestMax(c); c.hp = Math.min(c.hp, c.maxHp);
   return true;
 }
 
@@ -606,14 +914,14 @@ function antStep(a,dt){
   a.age += dt;
   if (a.age > a.life){ a.dead = true; if (a.carry) dropCrumb(a.x,a.y,a.carry); return; }
   if (a.cd > 0) a.cd -= dt;
-  const spd = T.spd*(1+.12*c.up.legs)*(g.rain.on ? .75 : 1);
-  const dmg = T.dmg*(1+.35*c.up.jaw);
+  const spd = T.spd*(1+.12*c.up.legs)*M(c,'spd')*g.S.spd*(g.rain.on ? .75 : 1);
+  const dmg = T.dmg*(1+.35*c.up.jaw)*M(c,'dmg')*(a.type === 'worker' ? M(c,'wdmg') : 1);
   if (a.type === 'soldier') soldierAI(a,dmg);
   else {
     if (a.cd <= 0){
       const e = nearestEnemy(a,9);
       if (e){ hit(a,e,dmg); a.cd = .7; }
-      else { const s = nearSpider(a,14); if (s){ s.hp -= dmg; a.cd = .7; } }
+      else { const s = nearSpider(a,14); if (s){ hitSpider(a,s,dmg); a.cd = .7; } }
     }
     if (a.type === 'worker') workerAI(a); else scoutAI(a);
   }
@@ -624,8 +932,9 @@ function antStep(a,dt){
 function deliver(a){
   const c = a.c, g = G;
   if (a.carry){
-    const amt = a.carry*(c.ai && !g.demo ? g.df.income : 1);
-    c.food += amt; c.st.gathered += amt; a.carry = 0;
+    let amt = a.carry*(a.ck === 'leaf' ? M(c,'leaf') : a.ck === 'aphid' ? M(c,'aphid') : 1);
+    if (c.ai && !g.demo) amt *= c.lvl;
+    addFood(c,amt); c.st.gathered += amt; a.carry = 0; a.ck = null;
   }
   a.state = 0; a.str = 1; a.a += Math.PI;
 }
@@ -643,7 +952,7 @@ function workerAI(a){
       steerTo(a,f.x,f.y,.35);
       if (Math.hypot(f.x-a.x,f.y-a.y) < f.r+3){
         const take = Math.min(f.amount, TYPES.worker.carry+c.up.crop);
-        if (take >= 1){ f.amount -= take; a.carry = take; a.state = 1; a.str = 1; a.a += Math.PI; }
+        if (take >= 1){ f.amount -= take; a.carry = take; a.ck = f.kind; a.state = 1; a.str = 1; a.a += Math.PI; }
       }
     } else if (!follow(a,c.foodP)) wander(a,.5);
   } else {
@@ -683,7 +992,7 @@ function soldierAI(a,dmg){
   if (t){
     steerTo(a,t.x,t.y,.4);
     if (td < (t === s ? 16 : 10) && a.cd <= 0){
-      if (t === s) s.hp -= dmg; else hit(a,t,dmg);
+      if (t === s) hitSpider(a,s,dmg); else hit(a,t,dmg);
       a.cd = .6;
     }
     return;
@@ -712,13 +1021,14 @@ function soldierAI(a,dmg){
 function spiderStep(s,dt){
   const g = G;
   if (s.cd > 0) s.cd -= dt;
+  if (s.eat > 0){ s.eat -= dt; return; }
   const t = nearestEnemy({x:s.x,y:s.y,c:null},150,true);
   let spd = 20;
   if (t){
     steerTo(s,t.x,t.y,.2); spd = 34;
     if (Math.hypot(t.x-s.x,t.y-s.y) < 16 && s.cd <= 0){
-      t.hp -= 30; s.cd = .9;
-      if (t.hp <= 0 && !t.dead){ t.dead = true; t.c.st.lost++; if (t.carry) dropCrumb(t.x,t.y,t.carry); }
+      t.hp -= 30; s.cd = 1.1;
+      if (t.hp <= 0 && !t.dead){ t.dead = true; t.c.st.lost++; s.eat = 3; if (t.carry) dropCrumb(t.x,t.y,t.carry); }
     }
   } else wander(s,.3);
   for (const c of g.colonies){ if (c.alive && Math.hypot(c.x-s.x,c.y-s.y) < 90) steerTo(s, s.x*2-c.x, s.y*2-c.y, .15); }
@@ -733,29 +1043,39 @@ function killColony(c){
   c.ants = []; c.queue = []; c.rally = null;
   makeFood(c.x+30, c.y, 'carcass', Math.round(150+c.food*.5));
   for (const o of g.colonies) if (o.rally && o.rally.col === c) o.rally = null;
-  const killer = g.colonies.filter(o => o.alive).sort((p,q) => Math.hypot(p.x-c.x,p.y-c.y)-Math.hypot(q.x-c.x,q.y-c.y))[0];
-  if (killer) killer.st.nests++;
   if (!c.isPlayer) toast('Die Königin der '+c.name+' ist gefallen.','good');
 }
 
 function aiThink(c){
-  const g = G, df = g.df;
-  const n = {worker:0,soldier:0,scout:0};
-  for (const a of c.ants) n[a.type]++;
+  const g = G, S = g.S;
+  const n = {...c.n};
   for (const q of c.queue) n[q]++;
   const pop = c.ants.length + c.queue.length;
-  if (c.queue.length < 2 && pop < capOf(c)){
+  const reserve = S.winter ? 60 : (S.i === 2 && g.seasons ? 40 : 0);
+  if (c.digSlot < 0 && !c.plan){
+    if (pop >= capOf(c)-6) c.plan = 'brood';
+    else if (c.food >= storeCap(c)*.75) c.plan = 'store';
+    else if (g.t > 120 && chCount(c,'fungus') < 2 && rnd() < .03) c.plan = 'fungus';
+    else if (g.t > 240 && chCount(c,'guard') < 1 && rnd() < .02) c.plan = 'guard';
+  }
+  if (c.plan){
+    const i = c.chambers.findIndex((ch,j) => slotOpen(c,j));
+    if (i < 0 || c.digSlot >= 0) c.plan = null;
+    else if (startDig(c,i,c.plan)) c.plan = null;
+  }
+  const saving = c.plan && g.t-c.lastHit >= 5 && n.worker >= 8;
+  if (!saving && c.queue.length < 2 && pop < capOf(c)){
     let type = 'worker';
     if (n.scout < 2) type = 'scout';
-    else if (n.soldier < pop*df.sold || g.t-c.lastHit < 5) type = 'soldier';
-    if (c.food >= TYPES[type].cost) enqueue(c,type);
+    else if (n.soldier < pop*c.sold || g.t-c.lastHit < 5) type = 'soldier';
+    if (c.food >= costOf(c,type)+reserve) enqueue(c,type);
   }
-  if (c.food > 140 && rnd() < .35){
+  if (c.food > 140+reserve && rnd() < .3){
     const opts = UPS.filter(u => c.up[u.k] < 3 && upCost(u,c.up[u.k]) <= c.food-60);
     if (opts.length) buyUp(c, opts[(rnd()*opts.length)|0].k);
   }
-  if (c.rally && (n.soldier < 4 || !c.rally.col.alive || g.t-c.lastHit < 3)) c.rally = null;
-  if (!c.rally && n.soldier >= df.attackAt && g.t > (g.demo ? 60 : df.grace) && rnd() < .25){
+  if (c.rally && (n.soldier < 4 || (c.rally.col && !c.rally.col.alive) || g.t-c.lastHit < 3 || S.winter)) c.rally = null;
+  if (!c.rally && !S.winter && n.soldier >= c.attackAt && g.t > (g.demo ? 60 : c.grace) && rnd() < .25){
     const others = g.colonies.filter(o => o !== c && o.alive);
     if (!others.length) return;
     let tgt = others.sort((p,q) => Math.hypot(p.x-c.x,p.y-c.y)-Math.hypot(q.x-c.x,q.y-c.y))[0];
@@ -766,9 +1086,10 @@ function aiThink(c){
   }
 }
 
-// ---------- rendering ----------
-const cv = document.getElementById('world'), ctx = cv.getContext('2d');
-const mini = document.getElementById('mini'), mctx = mini.getContext('2d');
+// ---------- rendering: surface ----------
+const $ = id => document.getElementById(id);
+const cv = $('world'), ctx = cv.getContext('2d');
+const mini = $('mini'), mctx = mini.getContext('2d');
 let VW = 800, VH = 600, DPR = Math.min(2, window.devicePixelRatio||1);
 function resize(){
   const r = cv.getBoundingClientRect();
@@ -805,8 +1126,15 @@ function updateFog(){
   g.fogDirty = false;
 }
 
+function antPath(a, s, hr, ab){
+  const ca = Math.cos(a.a), sa = Math.sin(a.a);
+  ctx.moveTo(a.x+ca*3*s+hr*s, a.y+sa*3*s); ctx.arc(a.x+ca*3*s, a.y+sa*3*s, hr*s, 0, 6.283);
+  ctx.moveTo(a.x+1.1*s, a.y); ctx.arc(a.x, a.y, 1.1*s, 0, 6.283);
+  ctx.moveTo(a.x-ca*3.4*s+ab*s, a.y-sa*3.4*s); ctx.arc(a.x-ca*3.4*s, a.y-sa*3.4*s, ab*s, 0, 6.283);
+}
+
 function render(){
-  const g = G;
+  const g = G, S = season();
   ctx.setTransform(DPR,0,0,DPR,0,0);
   ctx.fillStyle = '#120d09'; ctx.fillRect(0,0,VW,VH);
   if (!g) return;
@@ -822,17 +1150,11 @@ function render(){
     if (frameN % 4 === 0) updatePher();
     ctx.drawImage(g.pherCv,0,0,g.GW*CELL,g.GH*CELL);
   }
-  // food
-  for (const f of g.foods){
-    if (!inView(f.x,f.y)) continue;
-    drawFood(f);
-  }
-  // nests
+  for (const f of g.foods) if (inView(f.x,f.y)) drawFood(f);
   for (const c of g.colonies){
     if (fogOn && !c.isPlayer && !seen(c.x,c.y)) continue;
     drawNest(c);
   }
-  // ants
   const legs = z >= 1.5;
   for (const c of g.colonies){
     const vis = [];
@@ -845,7 +1167,7 @@ function render(){
     if (legs){
       ctx.strokeStyle = 'rgba(20,12,6,.85)'; ctx.lineWidth = .6; ctx.beginPath();
       for (const a of vis){
-        const s = a.type==='soldier' ? 1.3 : a.type==='scout' ? .9 : 1;
+        const s = a.type === 'soldier' ? 1.3 : a.type === 'scout' ? .9 : 1;
         const ca = Math.cos(a.a), sa = Math.sin(a.a);
         for (let k=-1;k<=1;k++){
           const w = Math.sin(a.ph + k*2.1)*1.4;
@@ -858,18 +1180,13 @@ function render(){
     }
     ctx.fillStyle = c.color; ctx.beginPath();
     for (const a of vis){
-      const s = a.type==='soldier' ? 1.35 : a.type==='scout' ? .85 : 1;
-      const ca = Math.cos(a.a), sa = Math.sin(a.a);
-      const hr = a.type==='soldier' ? 1.9 : 1.3;
-      ctx.moveTo(a.x+ca*3*s+hr*s, a.y+sa*3*s); ctx.arc(a.x+ca*3*s, a.y+sa*3*s, hr*s, 0, 6.283);
-      ctx.moveTo(a.x+1.1*s, a.y); ctx.arc(a.x, a.y, 1.1*s, 0, 6.283);
-      const ab = a.type==='scout' ? 1.6 : 2.2;
-      ctx.moveTo(a.x-ca*3.4*s+ab*s, a.y-sa*3.4*s); ctx.arc(a.x-ca*3.4*s, a.y-sa*3.4*s, ab*s, 0, 6.283);
+      const s = a.type === 'soldier' ? 1.35 : a.type === 'scout' ? .85 : 1;
+      antPath(a, s, a.type === 'soldier' ? 1.9 : 1.3, a.type === 'scout' ? 1.6 : 2.2);
     }
     ctx.fill();
     ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath();
     for (const a of vis){
-      const s = a.type==='soldier' ? 1.35 : 1, ca = Math.cos(a.a), sa = Math.sin(a.a);
+      const s = a.type === 'soldier' ? 1.35 : 1, ca = Math.cos(a.a), sa = Math.sin(a.a);
       ctx.moveTo(a.x-ca*3.4*s+1.1*s, a.y-sa*3.4*s+.6); ctx.arc(a.x-ca*3.4*s, a.y-sa*3.4*s+.6, 1.1*s, 0, 6.283);
     }
     ctx.fill();
@@ -881,28 +1198,37 @@ function render(){
     }
     ctx.fill();
   }
-  // spiders
   for (const s of g.spiders){
     if (!inView(s.x,s.y) || (fogOn && !seen(s.x,s.y))) continue;
     drawSpider(s);
   }
-  // rally flags
   for (const c of g.colonies){
     if (!c.rally || !c.alive) continue;
     if (fogOn && !c.isPlayer) continue;
     drawFlag(c);
   }
-  // fog
   if (fogOn){
     if (g.fogDirty) updateFog();
     ctx.drawImage(g.fogCv,0,0,g.FW*FC,g.FH*FC);
   }
-  // screen-space weather
+  // screen-space season and weather
   ctx.setTransform(DPR,0,0,DPR,0,0);
+  const tt = performance.now()/1000;
+  if (S.winter){
+    ctx.fillStyle = 'rgba(214,226,240,.16)'; ctx.fillRect(0,0,VW,VH);
+    ctx.fillStyle = 'rgba(245,248,255,.8)'; ctx.beginPath();
+    for (let i=0;i<110;i++){
+      const px = (((i*7919.3 + Math.sin(tt*.8+i)*30 + tt*14) % (VW+40)) + VW+40) % (VW+40) - 20;
+      const py = ((i*373.1 + tt*(30+i%5*8)) % (VH+20)) - 10;
+      const r = 1+(i%3)*.6; ctx.moveTo(px+r,py); ctx.arc(px,py,r,0,6.283);
+    }
+    ctx.fill();
+  } else if (S.i === 2 && g.seasons){
+    ctx.fillStyle = 'rgba(190,110,40,.07)'; ctx.fillRect(0,0,VW,VH);
+  }
   if (g.rain.on){
     ctx.fillStyle = 'rgba(60,85,120,.16)'; ctx.fillRect(0,0,VW,VH);
     ctx.strokeStyle = 'rgba(170,200,235,.38)'; ctx.lineWidth = 1; ctx.beginPath();
-    const tt = performance.now()/1000;
     for (let i=0;i<160;i++){
       const px = ((i*7919.3 + tt*60) % (VW+60)) - 30;
       const py = ((i*104.7*7 + tt*(520+i%7*40)) % (VH+40)) - 20;
@@ -915,12 +1241,11 @@ function render(){
 function drawFood(f){
   const F = FOOD[f.kind];
   if (f.kind === 'aphid'){
-    // a stem with aphids that regrow
     ctx.strokeStyle = '#4d6b2a'; ctx.lineWidth = 3;
     ctx.beginPath(); ctx.moveTo(f.x-18,f.y+10); ctx.quadraticCurveTo(f.x,f.y-6,f.x+18,f.y+6); ctx.stroke();
     const n = Math.ceil(f.amount/8);
     for (let i=0;i<n;i++){
-      const t = (i+.5)/12, px = f.x-18+36*t, py = f.y+10-16*t+ (i%2?3:-3) + Math.sin(f.seed+i)*2;
+      const t = (i+.5)/12, px = f.x-18+36*t, py = f.y+10-16*t + (i%2?3:-3) + Math.sin(f.seed+i)*2;
       ctx.fillStyle = F.c; ctx.beginPath(); ctx.ellipse(px,py,2.4,1.7,.4,0,6.283); ctx.fill();
     }
     return;
@@ -955,11 +1280,11 @@ function drawNest(c){
   ctx.beginPath(); ctx.arc(c.x,c.y,r,0,6.283); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
   ctx.fillStyle = '#140e09'; ctx.beginPath(); ctx.ellipse(c.x,c.y,9,7,0,0,6.283); ctx.fill();
   ctx.fillStyle = c.color; ctx.beginPath(); ctx.arc(c.x,c.y,3,0,6.283); ctx.fill();
-  const w = 52, frac = c.hp/c.maxHp;
+  const w = 52, frac = Math.max(0,c.hp/c.maxHp);
   ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(c.x-w/2-1,c.y-r-12,w+2,6);
   ctx.fillStyle = frac > .35 ? '#93c45d' : '#e0573f'; ctx.fillRect(c.x-w/2,c.y-r-11,w*frac,4);
   if (cam.z > .7){
-    ctx.font = '700 11px "Atkinson Hyperlegible", system-ui, sans-serif'; ctx.textAlign = 'center';
+    ctx.font = '700 11px "Atkinson Hyperlegible", system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillText(c.name, c.x+1, c.y+r+15);
     ctx.fillStyle = c.color; ctx.fillText(c.name, c.x, c.y+r+14);
   }
@@ -970,9 +1295,9 @@ function drawSpider(s){
   ctx.strokeStyle = '#1b1411'; ctx.lineWidth = 2; ctx.lineCap = 'round';
   for (let side=-1; side<=1; side+=2) for (let k=0;k<4;k++){
     const w = Math.sin(s.ph + k*1.6 + (side>0?1.5:0))*3;
-    const bx = 4-k*3, ang = side*(0.6+k*.55);
+    const bx = 4-k*3, ang = side*(.6+k*.55);
     const kx = bx+Math.cos(ang)*12, ky = Math.sin(ang)*12;
-    ctx.beginPath(); ctx.moveTo(bx,0); ctx.lineTo(kx+w,ky); ctx.lineTo(kx+w+Math.cos(ang)*8 - side*2, ky+Math.sin(ang)*8+side*4); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(bx,0); ctx.lineTo(kx+w,ky); ctx.lineTo(kx+w+Math.cos(ang)*8-side*2, ky+Math.sin(ang)*8+side*4); ctx.stroke();
   }
   ctx.fillStyle = '#2b211c'; ctx.beginPath(); ctx.ellipse(-8,0,10,8,0,0,6.283); ctx.fill();
   ctx.fillStyle = '#3a2d26'; ctx.beginPath(); ctx.ellipse(5,0,6,5,0,0,6.283); ctx.fill();
@@ -1015,43 +1340,267 @@ function renderMini(){
   mctx.strokeRect(cam.x*sx, cam.y*sy, VW/cam.z*sx, VH/cam.z*sy);
 }
 
+// ---------- rendering: nest cross-section ----------
+let underBg = null, underKey = '', underAnts = [];
+function underLayout(){
+  const top = Math.max(64, VH*.14);
+  const rx = Math.max(32, Math.min(78, VW*.085, VH*.075)), ry = rx*.58;
+  const span = VW/2 - rx - 14, y0 = top + ry + 22, y1 = VH - ry - 30;
+  const pos = SLOTS.map(s => ({x:VW/2 + s.x*span, y:y0 + (s.y-.2)/.72*(y1-y0)}));
+  return {top, rx, ry, pos, ent:{x:VW/2, y:top}};
+}
+function renderUnderBg(S){
+  const key = VW+'x'+VH+'x'+DPR+'x'+S.i;
+  if (key === underKey) return;
+  underKey = key;
+  const c = document.createElement('canvas'); c.width = Math.round(VW*DPR); c.height = Math.round(VH*DPR);
+  const x = c.getContext('2d'); x.scale(DPR,DPR);
+  const R = mulberry32(7), L = underLayout();
+  const sky = [['#55704a','#2e3b27'],['#6c7a3f','#38401f'],['#7a5a32','#3d2d1a'],['#9aa6b2','#56606b']][S.i];
+  let gr = x.createLinearGradient(0,0,0,L.top); gr.addColorStop(0,sky[1]); gr.addColorStop(1,sky[0]);
+  x.fillStyle = gr; x.fillRect(0,0,VW,L.top);
+  gr = x.createLinearGradient(0,L.top,0,VH); gr.addColorStop(0,'#4d3826'); gr.addColorStop(.5,'#33251a'); gr.addColorStop(1,'#1a110b');
+  x.fillStyle = gr; x.fillRect(0,L.top,VW,VH-L.top);
+  x.fillStyle = '#5a4230'; x.beginPath(); x.ellipse(VW/2, L.top+2, 90, 24, 0, Math.PI, 0); x.fill();
+  x.lineWidth = 1;
+  for (let k=0;k<7;k++){
+    const yy = L.top + (k+1)*(VH-L.top)/8;
+    x.strokeStyle = 'rgba(0,0,0,.18)'; x.beginPath();
+    for (let px=0; px<=VW; px+=20) x.lineTo(px, yy + Math.sin(px*.012+k*1.7)*8 + (R()-.5)*3);
+    x.stroke();
+  }
+  for (let i=0;i<VW*VH/700;i++){
+    const py = L.top + R()*(VH-L.top);
+    x.fillStyle = R()<.5 ? 'rgba(110,92,72,.5)' : 'rgba(20,14,9,.35)';
+    const s = .8+R()*R()*5; x.beginPath(); x.ellipse(R()*VW, py, s, s*.7, R()*3, 0, 6.283); x.fill();
+  }
+  x.strokeStyle = 'rgba(92,64,38,.55)'; x.lineCap = 'round';
+  for (let i=0;i<6;i++){
+    let px = R()*VW, py = L.top; x.lineWidth = 2+R()*3;
+    for (let k=0;k<6;k++){
+      x.beginPath(); x.moveTo(px,py);
+      px += (R()-.5)*60; py += 20+R()*45; x.lineTo(px,py); x.stroke(); x.lineWidth *= .8;
+    }
+  }
+  if (S.i === 3){ x.fillStyle = '#e9eef3'; x.fillRect(0, L.top-5, VW, 6); }
+  x.strokeStyle = S.i === 3 ? '#cfd8df' : S.i === 2 ? '#8a7a3a' : '#5d7d35'; x.lineWidth = 1.5;
+  x.beginPath();
+  for (let px=0; px<VW; px+=3+R()*4){ x.moveTo(px, L.top); x.lineTo(px+(R()-.5)*5, L.top-4-R()*10); }
+  x.stroke();
+  underBg = c;
+}
+function cubicPt(a,b,t){
+  const c1y = a.y+(b.y-a.y)*.6, c2y = b.y-(b.y-a.y)*.6, u = 1-t;
+  return {x:u*u*u*a.x + 3*u*u*t*a.x + 3*u*t*t*b.x + t*t*t*b.x, y:u*u*u*a.y + 3*u*u*t*c1y + 3*u*t*t*c2y + t*t*t*b.y};
+}
+function curve(a,b){ ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.bezierCurveTo(a.x, a.y+(b.y-a.y)*.6, b.x, b.y-(b.y-a.y)*.6, b.x, b.y); }
+function tunnel(a,b,w){
+  curve(a,b);
+  ctx.strokeStyle = '#5e4631'; ctx.lineWidth = w+4; ctx.stroke();
+  ctx.strokeStyle = '#140d08'; ctx.lineWidth = w; ctx.stroke();
+}
+function underAnt(x,y,ang,s,col){
+  const ca = Math.cos(ang), sa = Math.sin(ang);
+  ctx.fillStyle = col; ctx.beginPath();
+  ctx.moveTo(x+ca*3*s+1.4*s,y+sa*3*s); ctx.arc(x+ca*3*s,y+sa*3*s,1.4*s,0,6.283);
+  ctx.moveTo(x+1.1*s,y); ctx.arc(x,y,1.1*s,0,6.283);
+  ctx.moveTo(x-ca*3.4*s+2.2*s,y-sa*3.4*s); ctx.arc(x-ca*3.4*s,y-sa*3.4*s,2.2*s,0,6.283);
+  ctx.fill();
+}
+function renderUnder(){
+  const g = G, c = g.colonies[0], S = season(), L = underLayout();
+  renderUnderBg(S);
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  ctx.drawImage(underBg,0,0,VW,VH);
+  const tw = Math.max(9, L.rx*.26);
+  ctx.lineCap = 'round';
+  const edges = [{a:{x:L.ent.x, y:L.ent.y-6}, b:L.pos[0]}];
+  SLOTS.forEach((s,i) => { if (i && c.chambers[i]) edges.push({a:L.pos[s.p], b:L.pos[i]}); });
+  for (const e of edges) tunnel(e.a, e.b, tw);
+  const tt = performance.now()/1000;
+  const ghost = c.digSlot >= 0 ? 'rgba(239,166,60,.35)' : 'rgba(239,166,60,.8)';
+  SLOTS.forEach((s,i) => {
+    if (!slotOpen(c,i)) return;
+    const p = L.pos[i];
+    ctx.setLineDash([5,6]); ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgba(239,166,60,.3)'; curve(L.pos[s.p], p); ctx.stroke();
+    ctx.strokeStyle = ghost; ctx.beginPath(); ctx.ellipse(p.x,p.y,L.rx,L.ry,0,0,6.283); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = ghost; ctx.font = '800 24px "Bricolage Grotesque", system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('+', p.x, p.y);
+  });
+  c.chambers.forEach((ch,i) => { if (ch) drawChamber(L, L.pos[i], ch, c, i, tt); });
+  const want = Math.min(40, Math.ceil(c.ants.length/3));
+  while (underAnts.length < want) underAnts.push({e:0, t:rnd(), d:rnd()<.5?1:-1, v:.15+rnd()*.25});
+  underAnts.length = want;
+  for (const u of underAnts){
+    if (u.e >= edges.length) u.e = (rnd()*edges.length)|0;
+    if (speed > 0 && !modal) u.t += u.d*u.v*speed/60;
+    if (u.t > 1 || u.t < 0){ u.e = (rnd()*edges.length)|0; u.d = rnd()<.5?1:-1; u.t = u.d > 0 ? 0 : 1; }
+    const e = edges[u.e], p = cubicPt(e.a,e.b,u.t), p2 = cubicPt(e.a,e.b,Math.min(1,Math.max(0,u.t+u.d*.02)));
+    underAnt(p.x, p.y, Math.atan2(p2.y-p.y, p2.x-p.x), 1.3, c.color);
+  }
+  const fmt = v => v.toFixed(2).replace('.',',');
+  const lines = [
+    ['Volk', c.ants.length+' / '+capOf(c)],
+    ['Lager', Math.floor(c.food)+' / '+storeCap(c)],
+    ['Pilzgärten', chCount(c,'fungus') ? '+'+fmt(chCount(c,'fungus')*.35*M(c,'fungus'))+' /s' : 'keine'],
+    ['Graben', c.digSlot >= 0 ? CHAMBERS[c.chambers[c.digSlot].type].n+' '+Math.floor(c.chambers[c.digSlot].prog/CHAMBERS[c.chambers[c.digSlot].type].work*100)+' %' : 'frei'],
+  ];
+  if (S.winter) lines.push(['Winterbedarf', '−'+fmt(c.ants.length*.015*M(c,'winter'))+' /s']);
+  if (VW < 700) return;
+  const pw = 220, ph = 14+lines.length*18, px = VW-pw-10, py = 10;
+  ctx.fillStyle = 'rgba(30,22,15,.9)'; ctx.strokeStyle = '#4b3a28'; ctx.lineWidth = 1;
+  ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(px,py,pw,ph,8); else ctx.rect(px,py,pw,ph); ctx.fill(); ctx.stroke();
+  ctx.textBaseline = 'middle';
+  lines.forEach((l,k) => {
+    ctx.font = '400 12px "Atkinson Hyperlegible", system-ui, sans-serif'; ctx.textAlign = 'left'; ctx.fillStyle = '#b5a187';
+    ctx.fillText(l[0], px+10, py+16+k*18);
+    ctx.font = '700 12px "Atkinson Hyperlegible", system-ui, sans-serif'; ctx.textAlign = 'right'; ctx.fillStyle = '#f3e7d3';
+    ctx.fillText(l[1], px+pw-10, py+16+k*18);
+  });
+}
+function drawChamber(L,p,ch,c,i,tt){
+  const {rx,ry} = L, def = CHAMBERS[ch.type];
+  const prog = ch.done ? 1 : Math.min(1, ch.prog/def.work);
+  ctx.fillStyle = '#5e4631'; ctx.beginPath(); ctx.ellipse(p.x,p.y,rx+4,ry+4,0,0,6.283); ctx.fill();
+  ctx.save();
+  ctx.beginPath(); ctx.ellipse(p.x,p.y,rx,ry,0,0,6.283); ctx.clip();
+  ctx.fillStyle = '#3c2b1d'; ctx.fillRect(p.x-rx,p.y-ry,rx*2,ry*2);
+  ctx.fillStyle = '#150e09'; ctx.fillRect(p.x-rx,p.y-ry,rx*2*prog,ry*2);
+  const fl = ctx.createLinearGradient(0,p.y,0,p.y+ry); fl.addColorStop(0,'rgba(0,0,0,0)'); fl.addColorStop(1,'rgba(120,90,60,.35)');
+  ctx.fillStyle = fl; ctx.fillRect(p.x-rx,p.y,rx*2*prog,ry);
+  if (ch.done){
+    const R = mulberry32(i*31+7), s = rx/60;
+    if (ch.type === 'queen'){
+      const eggs = Math.min(14, 4+c.queue.length*2);
+      for (let k=0;k<eggs;k++){ ctx.fillStyle = '#f4efe4'; ctx.beginPath(); ctx.ellipse(p.x+rx*.4+(R()-.5)*rx*.4, p.y+ry*.45+(R()-.5)*ry*.3, 2.6*s, 1.8*s, R()*3, 0, 6.283); ctx.fill(); }
+      ctx.fillStyle = c.color;
+      ctx.beginPath(); ctx.ellipse(p.x-rx*.22, p.y+ry*.15, 15*s, 8*s, 0, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(p.x, p.y+ry*.1, 6*s, 4.5*s, 0, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x+9*s, p.y+ry*.05, 4.2*s, 0, 6.283); ctx.fill();
+      ctx.fillStyle = 'rgba(0,0,0,.25)';
+      for (let k=0;k<3;k++) ctx.fillRect(p.x-rx*.22-9*s+k*6*s, p.y+ry*.15-7*s, 1.5*s, 14*s);
+    } else if (ch.type === 'brood'){
+      const n = Math.min(14, 6+c.queue.length*2);
+      for (let k=0;k<n;k++){
+        const px = p.x-rx*.6+(k%7)*rx*.2, py = p.y+ry*.05+Math.floor(k/7)*ry*.38;
+        ctx.fillStyle = k%3 === 0 ? '#d9c39a' : '#f2eadb';
+        ctx.beginPath(); ctx.ellipse(px, py, 4.5*s, 2.8*s, .5+Math.sin(tt*2+k)*.15, 0, 6.283); ctx.fill();
+      }
+    } else if (ch.type === 'store'){
+      const fill = Math.min(1, c.food/storeCap(c)), n = Math.round(fill*40);
+      const cols = ['#efa63c','#f4efe4','#c2304a','#d8a86a','#b6d86a'];
+      for (let k=0;k<n;k++){
+        const px = p.x+(R()-.5)*rx*1.5*(1-k/60), py = p.y+ry*.55-(k/40)*ry*.8*R();
+        ctx.fillStyle = cols[k%5]; ctx.beginPath(); ctx.arc(px,py,3*s,0,6.283); ctx.fill();
+      }
+    } else if (ch.type === 'fungus'){
+      for (let k=0;k<18;k++){
+        const px = p.x+(R()-.5)*rx*1.4, py = p.y+ry*.2+(R()-.3)*ry*.6, r = (4+R()*5)*s*(1+Math.sin(tt*1.5+k)*.05);
+        ctx.fillStyle = k%4 === 0 ? '#7fae4a' : '#d6d0c2'; ctx.beginPath(); ctx.arc(px,py,r,0,6.283); ctx.fill();
+      }
+    } else if (ch.type === 'guard'){
+      for (let k=0;k<3;k++) underAnt(p.x-rx*.45+k*rx*.45, p.y+ry*.2, -Math.PI/2+Math.sin(tt+k)*.2, 2.4*s+.6, c.color);
+    }
+  }
+  ctx.restore();
+  const label = ch.done ? def.n : def.n+' · '+Math.floor(prog*100)+' %';
+  ctx.font = '700 11.5px "Atkinson Hyperlegible", system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillText(label, p.x+1, p.y+ry+7);
+  ctx.fillStyle = ch.done ? '#f3e7d3' : '#efa63c'; ctx.fillText(label, p.x, p.y+ry+6);
+}
+function underTap(sx,sy){
+  const L = underLayout(), c = G.colonies[0];
+  for (let i=0;i<SLOTS.length;i++){
+    const p = L.pos[i], dx = (sx-p.x)/L.rx, dy = (sy-p.y)/L.ry;
+    if (dx*dx+dy*dy <= 1.3 && (c.chambers[i] || slotOpen(c,i))){ openChamber(i); return; }
+  }
+}
+
 // ---------- HUD ----------
-const $ = id => document.getElementById(id);
 function updateHud(force){
   const g = G; if (!g) return;
-  const c = g.colonies[0];
+  const c = g.colonies[0], S = season();
   const n = {worker:0,soldier:0,scout:0}; for (const a of c.ants) n[a.type]++;
-  $('sFood').textContent = Math.floor(c.food);
+  const cap = storeCap(c);
+  $('sFood').textContent = Math.floor(c.food)+' / '+cap;
+  $('sFood').classList.toggle('full', c.food >= cap-1);
   $('sPop').textContent = c.ants.length+' / '+capOf(c);
   $('sCaste').textContent = n.worker+' · '+n.soldier+' · '+n.scout;
   const q = $('sQueen'); q.firstElementChild.style.width = Math.max(0,c.hp/c.maxHp*100)+'%'; q.classList.toggle('low', c.hp/c.maxHp < .35);
   $('sTime').textContent = fmtT(g.t);
-  $('sWeather').textContent = g.rain.on ? 'Regen' : 'Trocken';
-  $('sWeather').style.color = g.rain.on ? 'var(--rain)' : '';
+  $('sYear').textContent = g.seasons ? 'Jahr '+(Math.floor(g.t/(SEASON_LEN*4))+1) : 'Wetter';
+  $('sSeason').textContent = g.seasons ? S.n+(g.rain.on ? ' · Regen' : '') : (g.rain.on ? 'Regen' : 'Trocken');
+  $('sSeason').style.color = S.winter ? '#cfe0f2' : g.rain.on ? 'var(--rain)' : '';
+  $('sSeasonBar').hidden = !g.seasons;
+  $('sSeasonBar').firstElementChild.style.width = ((g.t % SEASON_LEN)/SEASON_LEN*100)+'%';
   document.querySelectorAll('.brood').forEach(b => {
-    const t = b.dataset.b;
-    b.disabled = g.demo || c.food < TYPES[t].cost || !c.alive;
+    const t = b.dataset.b, cost = costOf(c,t);
+    b.disabled = g.demo || c.food < cost || !c.alive;
+    b.querySelector('small').textContent = cost+' Futter';
     const k = c.queue.filter(x => x === t).length;
     b.querySelector('.q').textContent = k ? k : '';
   });
   const affordable = UPS.filter(u => c.up[u.k] < 3 && upCost(u,c.up[u.k]) <= c.food).length;
   $('resHint').textContent = affordable ? affordable+' bezahlbar' : 'Anpassungen';
-  if (sheetOpen || force) renderUps();
+  if (!g.demo){
+    $('goalsTitle').textContent = g.cfg.title || 'Ziele';
+    const html = goalInfo().map(s => `<li class="${s.done?'done':''}"><span>${s.done?'✓ ':''}${s.label}</span><span>${s.time ? fmtT(s.cur)+' / '+fmtT(s.tgt) : Math.floor(s.cur)+' / '+s.tgt}</span></li>`).join('');
+    if ($('goalsList').innerHTML !== html) $('goalsList').innerHTML = html;
+  }
+  if (modal === 'sheet' || force) renderUps();
+  if (modal === 'csheet') renderChamberSheet();
 }
 function renderUps(){
   const c = G.colonies[0];
   $('rFood').textContent = Math.floor(c.food);
-  $('ups').innerHTML = UPS.map(u => {
+  const html = UPS.map(u => {
     const l = c.up[u.k], cost = upCost(u,l), max = l >= 3;
     return `<div class="up"><h3>${u.n}</h3><p>${u.d}</p>
       <div class="pips">${[0,1,2].map(i => `<i class="${i<l?'on':''}"></i>`).join('')}</div>
       <button data-u="${u.k}" ${max||c.food<cost?'disabled':''}>${max ? 'Voll entwickelt' : 'Erforschen · '+cost+' Futter'}</button></div>`;
   }).join('');
+  if ($('ups').innerHTML !== html) $('ups').innerHTML = html;
 }
 $('ups').addEventListener('click', e => {
   const b = e.target.closest('button[data-u]'); if (!b) return;
   const u = UPS.find(u => u.k === b.dataset.u);
   if (buyUp(G.colonies[0], b.dataset.u)){ toast(u.n+' erforscht.','good'); updateHud(true); }
+});
+let cSel = -1;
+function openChamber(i){ cSel = i; openModal('csheet'); renderChamberSheet(); }
+function renderChamberSheet(){
+  const c = G.colonies[0], ch = c.chambers[cSel];
+  let title, sub, html;
+  if (!ch){
+    title = 'Neue Kammer';
+    sub = c.digSlot >= 0 ? 'Deine Arbeiterinnen graben gerade an einer anderen Kammer. Warte, bis sie fertig ist.' : 'Je mehr Arbeiterinnen du hast, desto schneller wird gegraben. Vorrat: '+Math.floor(c.food)+' Futter.';
+    html = BUILDABLE.map(t => {
+      const d = CHAMBERS[t], cost = chamberCost(c,t), have = chCount(c,t);
+      return `<div class="up"><h3>${d.n}</h3><p>${d.d}</p><p style="flex:0">Vorhanden: ${have}</p>
+        <button data-dig="${t}" ${c.digSlot>=0||c.food<cost?'disabled':''}>Graben · ${cost} Futter</button></div>`;
+    }).join('');
+  } else {
+    const d = CHAMBERS[ch.type];
+    title = d.n;
+    if (!ch.done){
+      sub = 'Wird gegraben: '+Math.floor(ch.prog/d.work*100)+' %. Abbrechen erstattet die Hälfte der Kosten.';
+      html = `<div class="up"><p>${d.d}</p><button class="danger-btn" data-fill>Graben abbrechen</button></div>`;
+    } else {
+      sub = d.d;
+      const locked = SLOTS.some((s,j) => s.p === cSel && c.chambers[j]);
+      html = ch.type === 'queen' ? '' : `<div class="up"><p>${locked ? 'Diese Kammer verbindet tiefere Kammern und kann nicht zugeschüttet werden.' : 'Zuschütten macht den Platz wieder frei. Es gibt keine Erstattung.'}</p>
+        <button class="danger-btn" data-fill ${locked?'disabled':''}>Zuschütten</button></div>`;
+    }
+  }
+  $('cTitle').textContent = title; $('cSub').textContent = sub;
+  if ($('cBody').innerHTML !== html) $('cBody').innerHTML = html;
+}
+$('cBody').addEventListener('click', e => {
+  const c = G.colonies[0];
+  const dig = e.target.closest('button[data-dig]');
+  if (dig){ if (startDig(c, cSel, dig.dataset.dig)){ toast(CHAMBERS[dig.dataset.dig].n+' wird gegraben.'); closeModal(); } return; }
+  if (e.target.closest('button[data-fill]')){ if (fillChamber(c, cSel)) closeModal(); }
 });
 function toast(msg,kind){
   if (!G || G.demo) return;
@@ -1066,20 +1615,32 @@ const HINTS = {
   trail:'Zeichne eine Duftspur vom Bau zum Futter. Suchende Arbeiterinnen folgen ihr.',
   erase:'Wische über Spuren, um sie zu löschen. Das trifft auch die Spuren der Rivalen.',
   flag:'Tippe, um die Kampffahne zu setzen. Tippe auf deinen Bau, um die Soldatinnen zurückzurufen.',
+  under:'Tippe auf eine freie Stelle (+), um eine Kammer zu graben, oder auf eine Kammer für Details.',
 };
 function setTool(t){
   tool = t;
   document.querySelectorAll('.tool').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.t === t)));
-  $('hint').textContent = HINTS[t];
+  $('hint').textContent = view === 'under' ? HINTS.under : HINTS[t];
+}
+function setView(v){
+  view = v;
+  $('btnView').setAttribute('aria-pressed', String(v === 'under'));
+  $('btnView').querySelector('b').textContent = v === 'under' ? 'Oberfläche' : 'Bau';
+  $('mini').hidden = v === 'under';
+  document.querySelectorAll('.tool').forEach(b => b.disabled = v === 'under');
+  $('hint').textContent = v === 'under' ? HINTS.under : HINTS[tool];
 }
 function setSpeed(s){
   speed = s;
   document.querySelectorAll('#speed button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.s === s)));
 }
+function openModal(id){ if (modal) $(modal).hidden = true; modal = id; $(id).hidden = false; }
+function closeModal(){ if (modal) $(modal).hidden = true; modal = null; }
+document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeModal));
 
 // ---------- input ----------
 const pts = new Map();
-let gesture = 'none', pinch = null, lastW = null, downAt = null, moved = 0;
+let gesture = 'none', pinch = null, lastW = null, moved = 0;
 const toWorld = (sx,sy) => ({x:cam.x+sx/cam.z, y:cam.y+sy/cam.z});
 function local(e){ const r = cv.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; }
 
@@ -1087,13 +1648,14 @@ cv.addEventListener('pointerdown', e => {
   if (!G) return;
   cv.setPointerCapture(e.pointerId);
   const p = local(e); pts.set(e.pointerId,p);
+  if (view === 'under'){ gesture = 'utap'; moved = 0; return; }
   if (pts.size === 2){
     const [a,b] = [...pts.values()];
     pinch = {d:Math.hypot(a.x-b.x,a.y-b.y), z:cam.z, w:toWorld((a.x+b.x)/2,(a.y+b.y)/2)};
     gesture = 'pinch'; return;
   }
   if (pts.size > 2) return;
-  moved = 0; downAt = p; lastW = toWorld(p.x,p.y);
+  moved = 0; lastW = toWorld(p.x,p.y);
   const playing = !G.demo && G.colonies[0].alive;
   if (!playing || tool === 'pan') gesture = 'pan';
   else if (tool === 'trail' || tool === 'erase'){ gesture = 'paint'; paint(lastW,lastW); }
@@ -1102,6 +1664,8 @@ cv.addEventListener('pointerdown', e => {
 cv.addEventListener('pointermove', e => {
   if (!pts.has(e.pointerId)) return;
   const prev = pts.get(e.pointerId), p = local(e); pts.set(e.pointerId,p);
+  moved += Math.hypot(p.x-prev.x,p.y-prev.y);
+  if (gesture === 'utap') return;
   if (gesture === 'pinch' && pts.size >= 2){
     const [a,b] = [...pts.values()];
     const d = Math.hypot(a.x-b.x,a.y-b.y), mx = (a.x+b.x)/2, my = (a.y+b.y)/2;
@@ -1109,7 +1673,6 @@ cv.addEventListener('pointermove', e => {
     cam.x = pinch.w.x - mx/cam.z; cam.y = pinch.w.y - my/cam.z; clampCam();
     return;
   }
-  moved += Math.hypot(p.x-prev.x,p.y-prev.y);
   if (gesture === 'tap' && moved > 12) gesture = 'pan';
   if (gesture === 'pan'){ cam.x -= (p.x-prev.x)/cam.z; cam.y -= (p.y-prev.y)/cam.z; clampCam(); }
   else if (gesture === 'paint'){ const w = toWorld(p.x,p.y); paint(lastW,w); lastW = w; }
@@ -1118,14 +1681,14 @@ function endPointer(e){
   if (!pts.has(e.pointerId)) return;
   const p = pts.get(e.pointerId);
   pts.delete(e.pointerId);
+  if (gesture === 'utap' && moved < 14 && !G.demo) underTap(p.x,p.y);
   if (gesture === 'tap' && pts.size === 0) tapAt(toWorld(p.x,p.y));
-  if (pts.size === 0) gesture = 'none';
-  else if (gesture === 'pinch') gesture = 'none';
+  if (pts.size === 0 || gesture === 'pinch') gesture = 'none';
 }
 cv.addEventListener('pointerup', endPointer);
 cv.addEventListener('pointercancel', endPointer);
 cv.addEventListener('wheel', e => {
-  if (!G) return; e.preventDefault();
+  if (!G || view === 'under') return; e.preventDefault();
   const p = local(e), w = toWorld(p.x,p.y);
   cam.z *= Math.exp(-e.deltaY*.0015); clampCam();
   cam.x = w.x - p.x/cam.z; cam.y = w.y - p.y/cam.z; clampCam();
@@ -1166,46 +1729,90 @@ document.querySelectorAll('#speed button').forEach(b => b.addEventListener('clic
 document.querySelectorAll('.brood').forEach(b => b.addEventListener('click', () => { if (enqueue(G.colonies[0], b.dataset.b)) updateHud(); }));
 $('btnAuto').addEventListener('click', () => { const c = G.colonies[0]; c.auto = !c.auto; $('btnAuto').setAttribute('aria-pressed', String(c.auto)); });
 $('btnPher').addEventListener('click', () => { showPher = !showPher; $('btnPher').setAttribute('aria-pressed', String(showPher)); });
-$('btnResearch').addEventListener('click', openSheet);
-$('btnCloseSheet').addEventListener('click', closeSheet);
-function openSheet(){ if (!G || G.demo) return; sheetOpen = true; $('sheet').hidden = false; renderUps(); }
-function closeSheet(){ sheetOpen = false; $('sheet').hidden = true; }
+$('btnResearch').addEventListener('click', () => { if (G && !G.demo){ openModal('sheet'); renderUps(); } });
+$('btnView').addEventListener('click', () => { if (G && !G.demo) setView(view === 'under' ? 'surface' : 'under'); });
+$('btnMenuTop').addEventListener('click', toMenu);
+
+function saveSettings(){ store.set('ameisenreich.settings', settings); }
 function bindSeg(id,key){
   document.querySelectorAll('#'+id+' button').forEach(b => b.addEventListener('click', () => {
-    settings[key] = b.dataset.v;
-    document.querySelectorAll('#'+id+' button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    showBest();
+    settings[key] = b.dataset.v; saveSettings(); syncMenu();
   }));
 }
-bindSeg('optDiff','diff'); bindSeg('optSize','size');
-function startGame(){
-  $('menu').hidden = true; $('end').hidden = true; closeSheet();
-  newGame({diff:settings.diff, size:settings.size});
+bindSeg('optDiff','diff'); bindSeg('optSize','size'); bindSeg('optSeasons','seasons'); bindSeg('modeTabs','mode');
+const GOAL_TXT = {gather:g => g.v+' Futter sammeln', chambers:g => g.v+' Kammern im Bau haben', pop:g => g.v+' Ameisen im Volk', spider:() => 'Eine Wolfsspinne erlegen', conquer:() => 'Alle rivalen Königinnen besiegen', survive:() => 'Ein ganzes Jahr überstehen'};
+function syncMenu(){
+  for (const [id,key] of [['optDiff','diff'],['optSize','size'],['optSeasons','seasons'],['modeTabs','mode']])
+    document.querySelectorAll('#'+id+' button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === settings[key])));
+  $('tabCampaign').hidden = settings.mode !== 'campaign';
+  $('tabFree').hidden = settings.mode !== 'free';
+  $('speciesList').innerHTML = SP_KEYS.map(k => { const s = SPECIES[k];
+    return `<button class="sp" data-sp="${k}" aria-pressed="${settings.species === k}"><b>${s.n}</b><i>${s.latin}</i><small>${s.d}</small></button>`; }).join('');
+  $('spDesc').textContent = SPECIES[settings.species].d;
+  if (!(settings.level <= progress.unlocked)) settings.level = progress.unlocked;
+  $('levelList').innerHTML = LEVELS.map((L,i) => { const st = progress.stars[i] || 0, locked = i > progress.unlocked;
+    return `<button class="lv" data-lv="${i}" aria-pressed="${settings.level === i}" ${locked?'disabled':''}><span class="num">${i+1}</span><span class="nm">${L.n}</span><span class="st">${locked ? 'gesperrt' : '★'.repeat(st)+'☆'.repeat(3-st)}</span></button>`; }).join('');
+  const L = LEVELS[settings.level];
+  $('levelBrief').innerHTML = `<h3>${settings.level+1} · ${L.n}</h3><p>${L.story}</p><ul>${L.goals.map(g => '<li>'+GOAL_TXT[g.k](g)+'</li>').join('')}
+    ${L.rivals.length ? '<li>Rivalen: '+L.rivals.map(r => SPECIES[r.sp].n+'n').join(', ')+'</li>' : ''}${L.seasons ? '<li>Mit Jahreszeiten und Winter</li>' : ''}<li>Drei Sterne: Sieg unter ${fmtT(L.par)}, Königin nie unter 50 %</li></ul>`;
+  const best = store.get('ameisenreich.best.'+settings.diff+'.'+settings.size);
+  $('best').textContent = best ? 'Schnellster Sieg mit diesen Regeln: '+fmtT(best) : '';
+  const sv = store.get(SAVE_KEY);
+  $('btnContinue').hidden = !sv;
+  if (sv) $('contInfo').textContent = sv.label+' · '+fmtT(sv.t);
+}
+$('speciesList').addEventListener('click', e => { const b = e.target.closest('[data-sp]'); if (b){ settings.species = b.dataset.sp; saveSettings(); syncMenu(); } });
+$('levelList').addEventListener('click', e => { const b = e.target.closest('[data-lv]'); if (b && !b.disabled){ settings.level = +b.dataset.lv; saveSettings(); syncMenu(); } });
+
+function begin(opts){
+  $('menu').hidden = true; $('end').hidden = true; closeModal();
+  newGame(opts);
   setSpeed(1); setTool('pan');
   $('btnAuto').setAttribute('aria-pressed','false');
-  toast('Dein Volk erwacht. Suche Futter und baue die Kolonie aus.','good');
+  toast(opts.mode === 'campaign' ? LEVELS[opts.level].tip : 'Dein Volk erwacht. Suche Futter und baue die Kolonie aus.','good');
+  saveGame();
 }
-$('btnStart').addEventListener('click', startGame);
-$('btnAgain').addEventListener('click', startGame);
-$('btnMenu').addEventListener('click', () => { $('end').hidden = true; $('menu').hidden = false; newGame({diff:'normal',size:'medium',demo:true}); setSpeed(1); });
+$('btnStart').addEventListener('click', () => begin({mode:'free', diff:settings.diff, size:settings.size, seasons:settings.seasons, species:settings.species}));
+$('btnLevel').addEventListener('click', () => begin({mode:'campaign', level:settings.level, species:settings.species}));
+$('btnContinue').addEventListener('click', () => {
+  if (loadGame()){ $('menu').hidden = true; setSpeed(1); setTool('pan'); toast('Spielstand geladen.','good'); }
+  else syncMenu();
+});
+let endAction = null;
+$('btnAgain').addEventListener('click', () => endAction && endAction());
+$('btnMenu').addEventListener('click', () => { $('end').hidden = true; showMenu(); });
+function showMenu(){ $('menu').hidden = false; closeModal(); newGame({mode:'demo'}); setSpeed(1); syncMenu(); }
+function toMenu(){ saveGame(); showMenu(); }
 
-const bestKey = () => 'ameisenreich.best.'+settings.diff+'.'+settings.size;
-function showBest(){
-  let v = null; try { v = localStorage.getItem(bestKey()); } catch(e){}
-  $('best').textContent = v ? 'Schnellster Sieg mit diesen Regeln: '+fmtT(+v) : '';
-}
 function endGame(won){
   const g = G; g.over = true;
-  const c = g.colonies[0];
-  let record = false;
-  if (won){ try { const k = bestKey(), v = localStorage.getItem(k); if (!v || g.t < +v){ localStorage.setItem(k, String(Math.floor(g.t))); record = true; } } catch(e){} }
-  $('endTitle').textContent = won ? 'Das Revier gehört dir' : 'Deine Königin ist gefallen';
-  $('endSub').textContent = won ? 'Alle rivalen Königinnen sind besiegt'+(record ? '. Neuer Bestwert!' : '.') : 'Die Rivalen haben deinen Bau eingenommen.';
+  store.del(SAVE_KEY);
+  const c = g.colonies[0], o = g.opts, camp = o.mode === 'campaign';
+  let stars = 0, record = false;
+  if (won){
+    stars = 1 + (camp && g.t <= LEVELS[o.level].par ? 1 : 0) + (g.minHp >= .5 ? 1 : 0);
+    if (camp){
+      progress.stars[o.level] = Math.max(progress.stars[o.level] || 0, stars);
+      progress.unlocked = Math.max(progress.unlocked, Math.min(LEVELS.length-1, o.level+1));
+      store.set(PROG_KEY, progress);
+    } else {
+      const k = 'ameisenreich.best.'+o.diff+'.'+o.size, v = store.get(k);
+      if (!v || g.t < v){ store.set(k, Math.floor(g.t)); record = true; }
+    }
+  }
+  const last = camp && o.level >= LEVELS.length-1;
+  $('endTitle').textContent = won ? (camp ? (last ? 'Der Waldboden gehört dir' : 'Level geschafft') : 'Das Revier gehört dir') : 'Deine Königin ist gefallen';
+  $('endSub').textContent = won
+    ? (camp ? (last ? 'Du hast die Kampagne abgeschlossen.' : 'Level '+(o.level+2)+' ist freigeschaltet.') : 'Alle rivalen Königinnen sind besiegt'+(record ? '. Neuer Bestwert!' : '.'))
+    : 'Die Rivalen haben deinen Bau eingenommen.';
+  $('endStars').innerHTML = won && camp ? '★'.repeat(stars)+'<span>'+'★'.repeat(3-stars)+'</span>' : '';
   const ups = Object.values(c.up).reduce((s,v) => s+v, 0);
   $('endStats').innerHTML = [
     ['Spielzeit', fmtT(g.t)], ['Futter gesammelt', Math.floor(c.st.gathered)], ['Ameisen geschlüpft', c.st.born],
-    ['Gegner besiegt', c.st.kills], ['Eigene Verluste', c.st.lost], ['Forschungsstufen', ups+' / 18'],
+    ['Gegner besiegt', c.st.kills], ['Eigene Verluste', c.st.lost], ['Kammern', c.chambers.filter(Boolean).length+' / '+SLOTS.length], ['Forschungsstufen', ups+' / 18'],
   ].map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+  if (won && camp && !last){ $('btnAgain').textContent = 'Nächstes Level'; endAction = () => { settings.level = o.level+1; saveSettings(); begin({mode:'campaign', level:o.level+1, species:o.species}); }; }
+  else { $('btnAgain').textContent = camp ? 'Level wiederholen' : 'Neue Kolonie, gleiche Regeln'; endAction = () => begin({...o, seed:undefined}); }
   setTimeout(() => { $('end').hidden = false; }, 900);
 }
 
@@ -1217,27 +1824,31 @@ document.addEventListener('keydown', e => {
   else if (k === 'a') enqueue(G.colonies[0],'worker');
   else if (k === 's') enqueue(G.colonies[0],'soldier');
   else if (k === 'd') enqueue(G.colonies[0],'scout');
-  else if (k === 'f') sheetOpen ? closeSheet() : openSheet();
-  else if (k === 'escape') closeSheet();
+  else if (k === 'f'){ if (modal === 'sheet') closeModal(); else { openModal('sheet'); renderUps(); } }
+  else if (k === 'b') setView(view === 'under' ? 'surface' : 'under');
+  else if (k === 'escape') closeModal();
 });
+document.addEventListener('visibilitychange', () => { if (document.hidden) saveGame(); });
+window.addEventListener('pagehide', saveGame);
+setInterval(saveGame, 20000);
 
 // ---------- loop ----------
 let last = performance.now(), acc = 0;
 function frame(t){
   const dt = Math.min(.1, (t-last)/1000); last = t;
-  if (G && !G.over && !sheetOpen && speed > 0){
+  if (G && !G.over && !modal && speed > 0){
     acc += dt*speed; let n = 0;
     while (acc >= STEP && n < 10){ step(STEP); acc -= STEP; n++; }
     if (n === 10) acc = 0;
   }
   frameN++;
-  render();
-  if (G && frameN % 8 === 0) renderMini();
+  if (G && view === 'under') renderUnder(); else render();
+  if (G && view === 'surface' && frameN % 8 === 0) renderMini();
   if (frameN % 10 === 0) updateHud();
   requestAnimationFrame(frame);
 }
 resize();
-newGame({diff:'normal', size:'medium', demo:true});
-setTool('pan'); showBest();
+newGame({mode:'demo'});
+setTool('pan'); syncMenu();
 requestAnimationFrame(frame);
 </script>
