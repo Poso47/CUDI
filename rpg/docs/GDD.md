@@ -145,9 +145,11 @@ Drachen sind **zähmbar** (extrem schwer) – z. B. durch Aufzucht aus einem Ei.
 
 ---
 
-## 11. Technische Richtung
-- **Kernsysteme engine-unabhängig** (aktuell Python-Prototypen), damit Regeln und Balancing schnell testbar sind.
-- **Engine-Entscheidung offen** – Empfehlung siehe Abschnitt 12.
+## 11. Technische Richtung & Stil
+- **Engine: Godot 4** (Projekt in `game/`).
+- **Grafikstil:** Low-Poly-Formen wie RuneScape + Toon-/Cel-Licht wie Zelda. Kräftige Farben, flach schattierte Flächen.
+- **Steuerung:** direkt (WASD/Controller) mit freier Verfolgerkamera, Kampf mit Angriff, Block und Ausweichrolle.
+- **Balancing** der Systeme weiterhin in den Python-Prototypen (`rpg/core/`), übertragen nach GDScript.
 
 ## 12. Roadmap (Schritt für Schritt)
 | Phase | Inhalt | Status |
@@ -155,7 +157,7 @@ Drachen sind **zähmbar** (extrem schwer) – z. B. durch Aufzucht aus einem Ei.
 | 0 | Vision & GDD | ✅ |
 | 1 | Prototyp Skill-Fusion | ✅ |
 | 1 | Prototyp Wirtschaft & Währung | ✅ |
-| 2 | Engine-Wahl + spielbare Testwelt (Bewegung, Kamera, Kampf) | ⏳ |
+| 2 | Engine-Wahl + spielbare Testwelt (Bewegung, Kamera, Kampf) | ✅ |
 | 3 | Stats & Learning-by-Doing | ⏳ |
 | 4 | Schmieden & Zerlegen | ⏳ |
 | 5 | Zähmen, Reittiere | ⏳ |
