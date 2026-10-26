@@ -1,8 +1,8 @@
 # Niemandsland – spielbare Testwelt (Godot 4)
 
-Low-Poly-Formen wie in RuneScape, Toon-Licht wie in Zelda, direkte Steuerung
-mit Verfolgerkamera. Alle Modelle werden per Code erzeugt – keine externen
-Assets nötig.
+Stilisierter Look wie in Zelda: runde, weiche Formen, Cel-Shading, Gras im Wind.
+Direkte Steuerung mit Verfolgerkamera. Alle Modelle werden per Code erzeugt –
+keine externen Assets nötig.
 
 ## Starten
 
@@ -44,11 +44,12 @@ Beim ersten Öffnen scannt Godot die Skripte einmal – das dauert ein paar Seku
 | Datei | Inhalt |
 |-------|--------|
 | `scripts/main.gd` | baut die Welt zusammen |
-| `scripts/core/low_poly.gd` | Low-Poly-Mesh-Baukasten + Toon-Material |
+| `scripts/core/mesh_kit.gd` | Baukasten für runde Formen + Toon-Material |
 | `scripts/core/market.gd` | Markt (Übertragung von `rpg/core/economy.py`) |
 | `scripts/core/controls.gd` | Tastenbelegung |
 | `scripts/world/terrain.gd` | prozedurale Insel |
-| `scripts/world/props.gd` | Bäume, Felsen, Häuser, Lager |
+| `scripts/world/props.gd` | Bäume, Büsche, Felsen, Häuser, Lager |
+| `scripts/world/grass.gd` + `shaders/grass.gdshader` | Gras, das sich im Wind wiegt |
 | `scripts/world/day_night.gd` | Tag/Nacht, Himmel, Licht |
 | `scripts/actors/character_model.gd` | Figur mit Ausrüstungsplätzen und Animationen |
 | `scripts/actors/player.gd` | Spielersteuerung, Kampf, Inventar |

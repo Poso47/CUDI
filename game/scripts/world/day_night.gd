@@ -29,6 +29,11 @@ func _ready() -> void:
 	environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	environment.glow_enabled = true
 	environment.glow_intensity = 0.4
+	environment.glow_bloom = 0.05
+	# Weiche Umgebungsverdeckung lässt runde Formen plastischer wirken.
+	environment.ssao_enabled = true
+	environment.ssao_radius = 1.2
+	environment.ssao_intensity = 1.5
 	environment.fog_enabled = true
 	environment.fog_density = 0.0025
 	environment.fog_aerial_perspective = 0.6
@@ -39,6 +44,7 @@ func _ready() -> void:
 	sun = DirectionalLight3D.new()
 	sun.shadow_enabled = true
 	sun.directional_shadow_max_distance = 120.0
+	sun.shadow_blur = 1.5
 	sun.light_color = Color(1.0, 0.96, 0.88)
 	add_child(sun)
 

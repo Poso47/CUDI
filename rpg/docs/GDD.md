@@ -147,7 +147,7 @@ Drachen sind **zähmbar** (extrem schwer) – z. B. durch Aufzucht aus einem Ei.
 
 ## 11. Technische Richtung & Stil
 - **Engine: Godot 4** (Projekt in `game/`).
-- **Grafikstil:** Low-Poly-Formen wie RuneScape + Toon-/Cel-Licht wie Zelda. Kräftige Farben, flach schattierte Flächen.
+- **Grafikstil:** stilisiert wie Zelda (Breath of the Wild): runde, weiche Formen, Cel-Shading, kräftige Farben, Gras im Wind. **Kein** kantiger Klötzchen-/Minecraft-Look.
 - **Steuerung:** direkt (WASD/Controller) mit freier Verfolgerkamera, Kampf mit Angriff, Block und Ausweichrolle.
 - **Balancing** der Systeme weiterhin in den Python-Prototypen (`rpg/core/`), übertragen nach GDScript.
 

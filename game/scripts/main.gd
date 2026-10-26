@@ -25,6 +25,9 @@ func _ready() -> void:
 	add_child(terrain)
 	_add_water()
 	_scatter_nature()
+	var grass := Grass.new()
+	grass.terrain = terrain
+	add_child(grass)
 
 	market = Market.village()
 	day_night.hour_passed.connect(func(_h: int) -> void: market.tick_hour())
@@ -82,16 +85,15 @@ func _scatter_nature() -> void:
 		attempts += 1
 		var x := rng.randf_range(-half, half)
 		var z := rng.randf_range(-half, half)
-		var h := terrain.height_at(x, z)
+		var h := terrain.surface_height(x, z)
 		if h < 1.2 or h > 22.0 or terrain.is_flat_zone(x, z, 2.0):
 			continue
 		# Zu steile Hänge auslassen
-		var slope := absf(terrain.height_at(x + 1.5, z) - h) + absf(terrain.height_at(x, z + 1.5) - h)
-		if slope > 2.2:
+		if terrain.flatness(x, z) < 0.8:
 			continue
 		var body := StaticBody3D.new()
 		var mesh: ArrayMesh = Props.pine_mesh() if (h > 9.0 or rng.randf() < 0.4) else Props.oak_mesh()
-		var mi := LowPoly.instance(mesh)
+		var mi := MeshKit.instance(mesh)
 		var s := rng.randf_range(0.8, 1.4)
 		mi.scale = Vector3(s, s * rng.randf_range(0.9, 1.2), s)
 		mi.rotation.y = rng.randf() * TAU
@@ -107,14 +109,27 @@ func _scatter_nature() -> void:
 		add_child(body)
 		placed += 1
 
+	# Büsche, auch am Dorfrand
+	for i in 220:
+		var x := rng.randf_range(-half, half)
+		var z := rng.randf_range(-half, half)
+		var h := terrain.surface_height(x, z)
+		if h < 1.5 or h > 18.0 or terrain.flatness(x, z) < 0.85 or terrain.is_flat_zone(x, z, -12.0):
+			continue
+		var bush := MeshKit.instance(Props.bush_mesh())
+		bush.position = Vector3(x, h - 0.1, z)
+		bush.rotation.y = rng.randf() * TAU
+		bush.scale = Vector3.ONE * rng.randf_range(0.7, 1.4)
+		add_child(bush)
+
 	for i in 90:
 		var x := rng.randf_range(-half, half)
 		var z := rng.randf_range(-half, half)
-		var h := terrain.height_at(x, z)
+		var h := terrain.surface_height(x, z)
 		if h < -2.0 or terrain.is_flat_zone(x, z):
 			continue
 		var rock := StaticBody3D.new()
-		var mi := LowPoly.instance(Props.rock_mesh(i % 4))
+		var mi := MeshKit.instance(Props.rock_mesh(i % 4))
 		var s := rng.randf_range(0.6, 2.2)
 		mi.scale = Vector3.ONE * s
 		rock.add_child(mi)

@@ -38,6 +38,7 @@ func _ready() -> void:
 	model.shirt = Color(0.4, 0.3, 0.2)
 	model.pants = Color(0.3, 0.25, 0.18)
 	model.hair = Color(0.2, 0.3, 0.12)
+	model.ears_pointed = true
 	model.scale = Vector3.ONE * 0.78
 	add_child(model)
 	model.build()

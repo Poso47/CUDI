@@ -1,7 +1,7 @@
 class_name CharacterModel
 extends Node3D
-## Kantige Figur im RuneScape-Stil mit Ausrüstungsplätzen.
-## Jede Ausrüstung ist ein eigenes Mesh am Körper – was du trägst, sieht man.
+## Stilisierte Figur aus runden Formen (großer Kopf, weiche Silhouette) mit
+## Ausrüstungsplätzen. Jede Ausrüstung ist ein eigenes Mesh – was du trägst, sieht man.
 
 const ITEMS := {
 	"Rostiges Schwert": {"slot": "weapon", "damage": 10.0},
@@ -13,10 +13,16 @@ const ITEMS := {
 	"Lederrüstung": {"slot": "chest", "armor": 6.0},
 }
 
-var skin := Color(0.96, 0.78, 0.62)
-var shirt := Color(0.55, 0.45, 0.3)
-var pants := Color(0.35, 0.3, 0.25)
-var hair := Color(0.35, 0.22, 0.1)
+const HIP_Y := 0.85
+const TORSO_Y := 1.2
+const NECK_Y := 1.5
+
+var skin := Color(0.98, 0.8, 0.66)
+var shirt := Color(0.36, 0.52, 0.32)
+var pants := Color(0.42, 0.34, 0.26)
+var hair := Color(0.45, 0.28, 0.14)
+var boots := Color(0.32, 0.22, 0.14)
+var ears_pointed := false        # Goblins haben spitze Ohren
 
 var equipment := {}             # Slot -> Gegenstandsname
 var _slot_nodes := {}           # Slot -> MeshInstance3D
@@ -36,32 +42,49 @@ var hand_r: Node3D
 func build() -> void:
 	for child in get_children():
 		child.queue_free()
-	leg_l = _limb(Vector3(-0.17, 0.9, 0), Vector3(0.24, 0.9, 0.26), pants)
-	leg_r = _limb(Vector3(0.17, 0.9, 0), Vector3(0.24, 0.9, 0.26), pants)
+
+	leg_l = _pivot(self, Vector3(-0.13, HIP_Y, 0))
+	leg_r = _pivot(self, Vector3(0.13, HIP_Y, 0))
 	for leg in [leg_l, leg_r]:
-		leg.add_child(LowPoly.instance(LowPoly.box(Vector3(0.26, 0.18, 0.36), Color(0.25, 0.17, 0.1), Vector3(0, -0.84, -0.05))))
+		var b := MeshKit.Builder.new()
+		b.add(MeshKit.capsule(0.11, 0.8), MeshKit.at(Vector3(0, -0.38, 0)), pants)
+		b.add(MeshKit.capsule(0.12, 0.34), MeshKit.at(Vector3(0, -0.72, -0.04), Vector3(PI * 0.5, 0, 0)), boots)
+		leg.add_child(MeshKit.instance(b.commit()))
 
-	torso = Node3D.new()
-	torso.position = Vector3(0, 1.25, 0)
-	add_child(torso)
-	torso.add_child(LowPoly.instance(LowPoly.box(Vector3(0.6, 0.72, 0.34), shirt)))
-	torso.add_child(LowPoly.instance(LowPoly.box(Vector3(0.62, 0.1, 0.36), Color(0.3, 0.2, 0.12), Vector3(0, -0.3, 0))))
+	torso = _pivot(self, Vector3(0, TORSO_Y, 0))
+	var tb := MeshKit.Builder.new()
+	tb.add(MeshKit.capsule(0.25, 0.72), MeshKit.at(Vector3.ZERO, Vector3.ZERO, Vector3(1.0, 1.0, 0.75)), shirt)
+	tb.add(MeshKit.torus(0.2, 0.27), MeshKit.at(Vector3(0, -0.2, 0), Vector3.ZERO, Vector3(1.0, 1.0, 0.78)), Color(0.35, 0.22, 0.12))   # Gürtel
+	tb.add(MeshKit.cylinder(0.05, 0.05, 0.05, 10), MeshKit.at(Vector3(0, -0.2, -0.2), Vector3(PI * 0.5, 0, 0)), Color(0.85, 0.7, 0.3))  # Schnalle
+	torso.add_child(MeshKit.instance(tb.commit()))
 
-	head = Node3D.new()
-	head.position = Vector3(0, 1.62, 0)
-	add_child(head)
-	head.add_child(LowPoly.instance(LowPoly.box(Vector3(0.4, 0.42, 0.4), skin, Vector3(0, 0.21, 0))))
-	head.add_child(LowPoly.instance(LowPoly.box(Vector3(0.44, 0.14, 0.44), hair, Vector3(0, 0.44, 0.02))))
-	for x in [-0.09, 0.09]:
-		head.add_child(LowPoly.instance(LowPoly.box(Vector3(0.06, 0.06, 0.02), Color(0.1, 0.1, 0.15), Vector3(x, 0.24, -0.205))))
+	head = _pivot(self, Vector3(0, NECK_Y, 0))
+	var hb := MeshKit.Builder.new()
+	hb.add(MeshKit.cylinder(0.07, 0.08, 0.12, 10), MeshKit.at(Vector3(0, 0.02, 0)), skin)
+	hb.add(MeshKit.sphere(0.24, 20, 12), MeshKit.at(Vector3(0, 0.26, 0), Vector3.ZERO, Vector3(1.0, 1.05, 1.0)), skin)
+	# Haare: Kappe hinten/oben, leicht größer als der Kopf
+	hb.add(MeshKit.sphere(0.255, 20, 12), MeshKit.at(Vector3(0, 0.34, 0.07), Vector3.ZERO, Vector3(1.04, 0.92, 1.0)), hair)
+	# Augen, Nase, Ohren
+	for x in [-0.085, 0.085]:
+		hb.add(MeshKit.sphere(0.045, 10, 6), MeshKit.at(Vector3(x, 0.26, -0.2), Vector3.ZERO, Vector3(0.8, 1.2, 0.5)), Color(1, 1, 1))
+		hb.add(MeshKit.sphere(0.027, 8, 6), MeshKit.at(Vector3(x, 0.255, -0.222)), Color(0.12, 0.1, 0.15))
+	hb.add(MeshKit.sphere(0.035, 8, 6), MeshKit.at(Vector3(0, 0.2, -0.235)), skin.darkened(0.08))
+	for side in [-1.0, 1.0]:
+		if ears_pointed:
+			hb.add(MeshKit.cylinder(0.0, 0.07, 0.26, 8), MeshKit.at(Vector3(0.26 * side, 0.3, 0.02), Vector3(0, 0, -side * 1.2)), skin)
+		else:
+			hb.add(MeshKit.sphere(0.06, 8, 6), MeshKit.at(Vector3(0.235 * side, 0.25, 0.02), Vector3.ZERO, Vector3(0.5, 1, 0.8)), skin)
+	head.add_child(MeshKit.instance(hb.commit()))
 
-	arm_l = _limb(Vector3(-0.41, 1.55, 0), Vector3(0.18, 0.68, 0.2), shirt)
-	arm_r = _limb(Vector3(0.41, 1.55, 0), Vector3(0.18, 0.68, 0.2), shirt)
+	arm_l = _pivot(self, Vector3(-0.33, NECK_Y - 0.06, 0))
+	arm_r = _pivot(self, Vector3(0.33, NECK_Y - 0.06, 0))
 	for arm in [arm_l, arm_r]:
-		arm.add_child(LowPoly.instance(LowPoly.box(Vector3(0.16, 0.16, 0.16), skin, Vector3(0, -0.74, 0))))
-	hand_r = Node3D.new()
-	hand_r.position = Vector3(0, -0.74, 0)
-	arm_r.add_child(hand_r)
+		var ab := MeshKit.Builder.new()
+		ab.add(MeshKit.sphere(0.1), MeshKit.at(Vector3.ZERO), shirt)   # Schulter
+		ab.add(MeshKit.capsule(0.075, 0.62), MeshKit.at(Vector3(0, -0.3, 0)), shirt)
+		ab.add(MeshKit.sphere(0.075), MeshKit.at(Vector3(0, -0.64, 0)), skin)
+		arm.add_child(MeshKit.instance(ab.commit()))
+	hand_r = _pivot(arm_r, Vector3(0, -0.64, 0))
 
 	var current := equipment.duplicate()
 	equipment.clear()
@@ -70,11 +93,10 @@ func build() -> void:
 		equip(current[slot])
 
 
-func _limb(pivot: Vector3, size: Vector3, color: Color) -> Node3D:
+func _pivot(parent: Node3D, pos: Vector3) -> Node3D:
 	var node := Node3D.new()
-	node.position = pivot
-	add_child(node)
-	node.add_child(LowPoly.instance(LowPoly.box(size, color, Vector3(0, -size.y * 0.5, 0))))
+	node.position = pos
+	parent.add_child(node)
 	return node
 
 
@@ -85,12 +107,12 @@ func equip(item: String) -> void:
 		return
 	var slot: String = ITEMS[item]["slot"]
 	unequip(slot)
-	var mi := LowPoly.instance(_item_mesh(item))
+	var mi := MeshKit.instance(_item_mesh(item))
 	match slot:
 		"weapon":
 			hand_r.add_child(mi)
 		"shield":
-			mi.position = Vector3(-0.12, -0.45, 0)
+			mi.position = Vector3(-0.1, -0.4, 0)
 			arm_l.add_child(mi)
 		"helmet":
 			head.add_child(mi)
@@ -115,49 +137,48 @@ func stat_total(stat: String) -> float:
 
 
 func _item_mesh(item: String) -> ArrayMesh:
-	var b := LowPoly.Builder.new()
-	var steel := Color(0.75, 0.78, 0.82)
-	var rust := Color(0.6, 0.45, 0.35)
-	var wood := Color(0.45, 0.3, 0.16)
-	var leather := Color(0.5, 0.32, 0.18)
+	var b := MeshKit.Builder.new()
+	var steel := Color(0.78, 0.8, 0.85)
+	var rust := Color(0.62, 0.48, 0.38)
+	var wood := Color(0.5, 0.33, 0.18)
+	var leather := Color(0.55, 0.35, 0.2)
+	var gold := Color(0.9, 0.72, 0.3)
+	var forward := Vector3(PI * 0.5, 0, 0)    # Zylinderachse nach vorn (-Z)
 	match item:
 		"Rostiges Schwert":
-			b.add(_bm(Vector3(0.06, 0.06, 0.25)), _t(Vector3(0, 0, 0.02)), wood)
-			b.add(_bm(Vector3(0.3, 0.05, 0.06)), _t(Vector3(0, 0, -0.12)), rust)
-			b.add(_bm(Vector3(0.08, 0.03, 0.9)), _t(Vector3(0, 0, -0.6)), rust.lerp(steel, 0.4))
+			b.add(MeshKit.cylinder(0.03, 0.03, 0.22, 10), MeshKit.at(Vector3(0, 0, 0.0), forward), leather)
+			b.add(MeshKit.sphere(0.045), MeshKit.at(Vector3(0, 0, 0.12)), rust)
+			b.add(MeshKit.capsule(0.035, 0.34), MeshKit.at(Vector3(0, 0, -0.12), Vector3(0, 0, PI * 0.5)), rust)
+			var blade := rust.lerp(steel, 0.45)
+			b.add(MeshKit.box(Vector3(0.075, 0.02, 0.78)), MeshKit.at(Vector3(0, 0, -0.52)), blade, false)
+			b.add(MeshKit.box(Vector3(0.053, 0.02, 0.053)), MeshKit.at(Vector3(0, 0, -0.91), Vector3(0, PI * 0.25, 0)), blade, false)
 		"Streitaxt":
-			b.add(_bm(Vector3(0.06, 0.06, 1.1)), _t(Vector3(0, 0, -0.4)), wood)
-			b.add(_bm(Vector3(0.05, 0.4, 0.3)), _t(Vector3(0, 0.15, -0.85)), steel)
-			b.add(_bm(Vector3(0.05, 0.2, 0.2)), _t(Vector3(0, -0.1, -0.85)), steel)
+			b.add(MeshKit.cylinder(0.032, 0.036, 1.1, 10), MeshKit.at(Vector3(0, 0, -0.38), forward), wood)
+			# Halbmondförmige Klinge aus einer flachen Scheibe
+			b.add(MeshKit.cylinder(0.24, 0.24, 0.04, 20), MeshKit.at(Vector3(0, 0.12, -0.82), Vector3(0, 0, PI * 0.5)), steel)
+			b.add(MeshKit.cylinder(0.06, 0.06, 0.1, 10), MeshKit.at(Vector3(0, 0, -0.82), Vector3(0, 0, PI * 0.5)), steel.darkened(0.3))
 		"Keule":
-			b.add(_bm(Vector3(0.07, 0.07, 0.6)), _t(Vector3(0, 0, -0.25)), wood)
-			b.add(_bm(Vector3(0.18, 0.18, 0.35)), _t(Vector3(0, 0, -0.6)), wood.darkened(0.2))
+			b.add(MeshKit.cylinder(0.035, 0.05, 0.55, 10), MeshKit.at(Vector3(0, 0, -0.22), forward), wood)
+			b.add(MeshKit.sphere(0.13), MeshKit.at(Vector3(0, 0, -0.56), Vector3.ZERO, Vector3(1, 1, 1.4)), wood.darkened(0.2))
 		"Holzschild":
-			b.add(_bm(Vector3(0.08, 0.7, 0.6)), _t(Vector3.ZERO), wood)
-			b.add(_bm(Vector3(0.1, 0.12, 0.12)), _t(Vector3(-0.05, 0, 0)), rust)
+			b.add(MeshKit.cylinder(0.36, 0.36, 0.06, 24), MeshKit.at(Vector3.ZERO, Vector3(0, 0, PI * 0.5)), wood)
+			b.add(MeshKit.torus(0.33, 0.39, 28), MeshKit.at(Vector3.ZERO, Vector3(0, 0, PI * 0.5)), wood.darkened(0.25))
+			b.add(MeshKit.sphere(0.08), MeshKit.at(Vector3(-0.04, 0, 0), Vector3.ZERO, Vector3(0.6, 1, 1)), rust)
 		"Eisenschild":
-			b.add(_bm(Vector3(0.08, 0.85, 0.7)), _t(Vector3.ZERO), steel.darkened(0.15))
-			b.add(_bm(Vector3(0.1, 0.85, 0.12)), _t(Vector3(-0.02, 0, 0)), Color(0.75, 0.15, 0.15))
-			b.add(_bm(Vector3(0.1, 0.12, 0.7)), _t(Vector3(-0.02, 0.1, 0)), Color(0.75, 0.15, 0.15))
+			b.add(MeshKit.cylinder(0.42, 0.42, 0.06, 28), MeshKit.at(Vector3.ZERO, Vector3(0, 0, PI * 0.5)), Color(0.7, 0.18, 0.18))
+			b.add(MeshKit.torus(0.39, 0.46, 32), MeshKit.at(Vector3.ZERO, Vector3(0, 0, PI * 0.5)), steel)
+			b.add(MeshKit.sphere(0.1), MeshKit.at(Vector3(-0.05, 0, 0), Vector3.ZERO, Vector3(0.6, 1, 1)), gold)
 		"Eisenhelm":
-			b.add(_bm(Vector3(0.48, 0.3, 0.48)), _t(Vector3(0, 0.4, 0)), steel)
-			b.add(_bm(Vector3(0.08, 0.22, 0.08)), _t(Vector3(0, 0.24, -0.23)), steel)
-			b.add(_bm(Vector3(0.1, 0.12, 0.1)), _t(Vector3(0, 0.6, 0)), Color(0.8, 0.15, 0.15))
+			b.add(MeshKit.dome(0.27, 20, 8), MeshKit.at(Vector3(0, 0.3, 0.01)), steel)
+			b.add(MeshKit.torus(0.25, 0.29, 24), MeshKit.at(Vector3(0, 0.31, 0.01)), steel.darkened(0.2))
+			b.add(MeshKit.capsule(0.022, 0.2), MeshKit.at(Vector3(0, 0.24, -0.255)), steel)
+			b.add(MeshKit.sphere(0.05), MeshKit.at(Vector3(0, 0.58, 0.01), Vector3.ZERO, Vector3(1, 0.6, 1)), gold)
 		"Lederrüstung":
-			b.add(_bm(Vector3(0.66, 0.6, 0.4)), _t(Vector3(0, 0.05, 0)), leather)
-			b.add(_bm(Vector3(0.74, 0.14, 0.42)), _t(Vector3(0, 0.33, 0)), leather.darkened(0.2))
-			b.add(_bm(Vector3(0.1, 0.62, 0.42)), _t(Vector3(0, 0.05, 0)), leather.darkened(0.3))
+			b.add(MeshKit.capsule(0.27, 0.62), MeshKit.at(Vector3(0, 0.04, 0), Vector3.ZERO, Vector3(1.0, 1.0, 0.8)), leather)
+			for side in [-1.0, 1.0]:
+				b.add(MeshKit.sphere(0.14), MeshKit.at(Vector3(0.3 * side, 0.27, 0), Vector3.ZERO, Vector3(1, 0.7, 1)), leather.darkened(0.2))
+			b.add(MeshKit.torus(0.22, 0.29), MeshKit.at(Vector3(0, -0.18, 0), Vector3.ZERO, Vector3(1.0, 1.0, 0.8)), leather.darkened(0.35))
 	return b.commit()
-
-
-func _bm(size: Vector3) -> BoxMesh:
-	var m := BoxMesh.new()
-	m.size = size
-	return m
-
-
-func _t(pos: Vector3) -> Transform3D:
-	return Transform3D(Basis(), pos)
 
 
 # --- Animation --------------------------------------------------------------
@@ -168,11 +189,13 @@ func animate(speed: float, delta: float) -> void:
 	var swing := sin(_walk_phase) * 0.7 * amount
 	leg_l.rotation.x = lerpf(leg_l.rotation.x, swing, 12.0 * delta)
 	leg_r.rotation.x = lerpf(leg_r.rotation.x, -swing, 12.0 * delta)
-	var bob := absf(sin(_walk_phase)) * 0.06 * amount
-	torso.position.y = 1.25 + bob
-	head.position.y = 1.62 + bob
+	# leichtes Wippen und Atmen
+	var bob := absf(sin(_walk_phase)) * 0.05 * amount + sin(Time.get_ticks_msec() * 0.002) * 0.006
+	torso.position.y = TORSO_Y + bob
+	head.position.y = NECK_Y + bob
+	torso.rotation.y = sin(_walk_phase) * 0.08 * amount
 	if not _blocking:
-		arm_l.rotation = arm_l.rotation.lerp(Vector3(-swing * 0.8, 0, 0), 12.0 * delta)
+		arm_l.rotation = arm_l.rotation.lerp(Vector3(-swing * 0.8, 0, 0.08), 12.0 * delta)
 	else:
 		arm_l.rotation = arm_l.rotation.lerp(Vector3(1.2, 0, 0.5), 18.0 * delta)
 	if _slot_nodes.has("shield"):
@@ -180,7 +203,7 @@ func animate(speed: float, delta: float) -> void:
 		var shield: Node3D = _slot_nodes["shield"]
 		shield.rotation.y = lerpf(shield.rotation.y, -PI * 0.5 if _blocking else 0.0, 18.0 * delta)
 	if not _attacking:
-		arm_r.rotation = arm_r.rotation.lerp(Vector3(swing * 0.8 + 0.25, 0, 0), 12.0 * delta)
+		arm_r.rotation = arm_r.rotation.lerp(Vector3(swing * 0.8 + 0.25, 0, -0.08), 12.0 * delta)
 
 
 func set_blocking(value: bool) -> void:
