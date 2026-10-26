@@ -6,16 +6,19 @@ verändert, fragt er vorher.
 
 ---
 
-## 1. Einmalige Einrichtung
+## 1. Starten – der einfachste Weg
 
-Im Terminal von VS Code (Menü *Terminal → Neues Terminal*), im Ordner `CUDI`:
+**Windows:** Im Ordner `CUDI` doppelt auf **`CUDI_STARTEN.bat`** klicken. Fertig.
+Beim ersten Start richtet sich CUDI selbst ein (eigene Umgebung im Ordner `.venv`, dauert einige
+Minuten). Danach startet CUDI in Sekunden. Voraussetzung: Python 3.10+ von https://www.python.org
+(beim Installieren „Add python.exe to PATH“ anhaken).
 
-```
-pip install -r requirements-core.txt
-```
+**macOS/Linux:** `./cudi_starten.sh`
 
-Das installiert nur, was CUDI wirklich braucht. (Die große `requirements.txt` enthält viele Pakete,
-die auf manchen Rechnern nicht installierbar sind.)
+**In VS Code:** Links auf „Ausführen und Debuggen“ (oder **F5**) und „CUDI starten (Fenster)“ wählen.
+Es gibt auch „CUDI im Terminal (Chat)“, „CUDI Selbstdiagnose“ und „CUDI Tests“.
+
+**Von Hand (Terminal):** `pip install -r requirements-core.txt`, dann `python main.py`.
 
 ### Sprachmodell anschließen (eine Möglichkeit genügt)
 
@@ -28,9 +31,10 @@ und selbstständiges Arbeiten aber erst mit Modell.
 3. CUDI starten – fertig. (Ein anderes installiertes Modell nimmt CUDI automatisch.)
 
 **B) Claude (Anthropic) – beste Qualität, kostenpflichtig**
-1. `pip install anthropic`
-2. Datei `.env.example` kopieren und in `.env` umbenennen.
-3. In `.env` die Zeile `ANTHROPIC_API_KEY=...` mit deinem Schlüssel eintragen (ohne `#` davor).
+1. Datei `.env.example` kopieren und in `.env` umbenennen.
+2. In `.env` die Zeile `ANTHROPIC_API_KEY=...` mit deinem Schlüssel eintragen (ohne `#` davor).
+3. CUDI neu starten – der Starter installiert das Claude-Paket dann automatisch
+   (von Hand: `pip install anthropic`).
 
 **C) OpenAI** – wie B, aber `OPENAI_API_KEY=...`.
 
@@ -39,13 +43,16 @@ Die Datei `.env` wird nie ins Git-Repository übernommen. Reihenfolge der Modell
 
 Prüfen, was verbunden ist: in CUDI `/modelle` eingeben oder Menü **🧠 Gehirn → Modelle & Einrichtung**.
 
-## 2. Starten
+## 2. Startvarianten
 
-| Was | Befehl |
-|---|---|
-| Fenster (normal) | `python main.py` |
-| Chat im Terminal | `python main.py --cli` |
-| Selbstdiagnose | `python main.py --diagnose` |
+| Was | Doppelklick-Starter | Terminal |
+|---|---|---|
+| Fenster (normal) | `CUDI_STARTEN.bat` | `python main.py` |
+| Chat im Terminal | `CUDI_STARTEN.bat --cli` | `python main.py --cli` |
+| Selbstdiagnose | `CUDI_STARTEN.bat --diagnose` | `python main.py --diagnose` |
+
+Wurde `requirements-core.txt` geändert, die Datei `.venv/cudi_installiert.txt` löschen – beim
+nächsten Start wird dann neu installiert.
 
 ## 3. Mit CUDI arbeiten
 

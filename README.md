@@ -6,6 +6,11 @@ Werkzeuge erledigt – mit Rückfrage vor jeder Veränderung.
 
 ## Schnellstart
 
+**Windows:** Doppelklick auf `CUDI_STARTEN.bat` (richtet beim ersten Start alles selbst ein).
+**macOS/Linux:** `./cudi_starten.sh` · **VS Code:** F5 → „CUDI starten (Fenster)“
+
+Von Hand:
+
 ```
 pip install -r requirements-core.txt
 python main.py            # Fenster
