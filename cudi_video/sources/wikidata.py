@@ -10,7 +10,7 @@ from urllib.parse import unquote
 from .. import net
 from ..models import RankItem, Research
 from ..spec import VideoSpec, WikidataSource
-from ..units import fmt_number
+from ..units import fmt_number, quantity
 
 log = logging.getLogger(__name__)
 
@@ -472,5 +472,7 @@ def check_consistency(spec: VideoSpec, research: Research) -> list[str]:
                                 "bitte prüfen, ob das Gebäude fertiggestellt ist.")
     for a, b in zip(items, items[1:]):
         if a.value == b.value:
-            warnings.append(f"Gleichstand: {a.labels.get('en')} und {b.labels.get('en')} ({a.value}).")
+            shown = quantity(a.value, a.unit, spec.unit).display("de")
+            warnings.append(f"Gleichstand: {a.labels.get('de') or a.labels.get('en')} und "
+                            f"{b.labels.get('de') or b.labels.get('en')} ({shown}).")
     return warnings

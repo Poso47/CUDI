@@ -35,6 +35,7 @@ class Subtitles:
     def __init__(self, words: list[dict], text: str, offset: float, highlight=ACCENT):
         self.highlight = highlight
         self.font = font("black", 66)
+        self.line_height = sum(self.font.getmetrics()) + 14
         self.chunks = self._chunk(words, text)
         self.offset = offset
         self._cache: dict[tuple[int, int], Image.Image] = {}
@@ -101,7 +102,8 @@ class Subtitles:
                         wi = i
                 img = self._render(ci, wi)
                 pop = ease_out_back(progress(ts, chunk[0]["start"] - 0.05, 0.18))
-                y = SUB_Y - img.height / 2 + (1 - pop) * 18
+                # oben verankert: zweizeilige Untertitel wachsen nach unten statt in die Info-Chips
+                y = SUB_Y - self.line_height / 2 - 10 + (1 - pop) * 18
                 paste(frame, img, (X0, y), opacity=clamp(pop * 1.4))
                 return
 
@@ -384,8 +386,8 @@ class ItemScene(Scene):
             if x + c.width > X0 + CONTENT_W:
                 x = X0
                 y += c.height + 12
-            if y + c.height > SUB_Y - 70:
-                break
+            if y + c.height > SUB_Y - self.subs.line_height / 2 - 24:
+                break   # Platz für die Untertitel freihalten
             paste(f, c, (x, y + (1 - pch) * 20), opacity=pch)
             x += c.width + 12
         # Konfetti für Platz 1
