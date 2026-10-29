@@ -752,3 +752,26 @@ def test_hashtags_per_language():
     assert make_spec(hashtags=["natur"]).tags_for("en") == ["natur"]          # Liste gilt für alle Sprachen
     planned = VideoSpec.from_dict(topics.plan_from_text("die kleinsten Länder der Welt"))
     assert "länder" not in planned.tags_for("en") and "countries" in planned.tags_for("en")
+
+
+def test_wikipedia_checker_falls_back_to_infobox(monkeypatch):
+    from cudi_video.verify import checkers
+
+    lead_calls = []
+    monkeypatch.setattr(checkers, "fetch_summary", lambda lang, title: "Lake Huron is one of the Great Lakes.")
+
+    def fake_lead(lang, title):
+        lead_calls.append(title)
+        return "Surface area 23,000 sq mi (59,570 km 2 ) Basin area 51,700 sq mi (134,000 km 2 )"
+
+    monkeypatch.setattr(checkers, "fetch_lead_text", fake_lead)
+    spec = make_spec(source={"type": "wikidata", "class": "Q23397", "property": "P2046"}, unit="km2")
+    item = RankItem(qid="Q1383", value=59_600e6, unit="Q25343", labels={"en": "Lake Huron"},
+                    wiki_titles={"en": "Lake Huron"})
+    [ev] = checkers.WikipediaLangChecker("en").check(spec, item)
+    assert lead_calls == ["Lake Huron"]
+    assert ev.value == pytest.approx(59_570e6) and ev.note.startswith("Infobox")
+
+    item.summary["en"] = "Lake Huron has a surface area of 59,600 km2."   # steht in der Einleitung -> keine Zusatzanfrage
+    [ev] = checkers.WikipediaLangChecker("en").check(spec, item)
+    assert lead_calls == ["Lake Huron"] and ev.note.startswith("Einleitung")

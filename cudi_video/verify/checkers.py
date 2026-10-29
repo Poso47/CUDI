@@ -12,6 +12,8 @@ import logging
 import re
 from dataclasses import asdict, dataclass
 
+from bs4 import BeautifulSoup
+
 from .. import config, net
 from ..enrich import fetch_summary
 from ..models import RankItem
@@ -187,10 +189,23 @@ LANG_ORIGIN = {
 }
 
 
-class WikipediaLangChecker(Checker):
-    """Liest den Wert (mit Einheit) aus der Einleitung einer Wikipedia-Sprachversion.
+def fetch_lead_text(lang: str, title: str) -> str:
+    """Text des ersten Artikelabschnitts inklusive Infobox (dort stehen Fläche, Höhe, Tiefe …)."""
+    data = net.get_json(
+        f"https://{lang}.wikipedia.org/w/api.php",
+        params={"action": "parse", "page": title, "prop": "text", "section": 0, "redirects": 1,
+                "disabletoc": 1, "format": "json", "formatversion": 2},
+        cache_hours=24, retries=2, max_wait=15,
+    )
+    soup = BeautifulSoup(data.get("parse", {}).get("text", ""), "lxml")
+    for junk in soup.select("sup.reference, style, script, .mw-editsection, .noprint"):
+        junk.decompose()
+    return soup.get_text(" ", strip=True)
 
-    Gefundene Werte können den Wikidata-Wert bestätigen oder ihm widersprechen."""
+
+class WikipediaLangChecker(Checker):
+    """Liest den Wert (mit Einheit) aus einer Wikipedia-Sprachversion: zuerst aus der Einleitung,
+    sonst aus der Infobox. Gefundene Werte können den Wikidata-Wert bestätigen oder ihm widersprechen."""
 
     def __init__(self, lang: str):
         self.lang = lang
@@ -211,16 +226,20 @@ class WikipediaLangChecker(Checker):
         q = quantity(item.value, item.unit, spec.unit)
         url = item.wiki_url(self.lang) or ""
         symbol = q.unit.symbol if q.unit else ""
-        if symbol in UNIT_FACTORS:
-            # Wert mit Einheit auslesen -> kann bestätigen ODER widersprechen
-            found = closest_unit_value(text, q.value, symbol)
-            if found is not None:
-                value, precision = found
-                return [Evidence(self.name, self.origin, url, value / q.unit.factor, None,
-                                 note=f"im Text: {value:g} {symbol}", precision=precision / q.unit.factor)]
-        elif mentions_value(text, q.value):
-            return [Evidence(self.name, self.origin, url, None, None, agrees=True)]
-        return [Evidence(self.name, self.origin, url, None, None, agrees=None, note="Wert in der Einleitung nicht genannt")]
+        # Erst die Einleitung, dann die Infobox (eine Anfrage mehr, nur wenn nötig)
+        for where, read in (("Einleitung", lambda: text),
+                            ("Infobox", lambda: fetch_lead_text(self.lang, item.wiki_titles[self.lang]))):
+            source_text = read()
+            if symbol in UNIT_FACTORS:
+                # Wert mit Einheit auslesen -> kann bestätigen ODER widersprechen
+                found = closest_unit_value(source_text, q.value, symbol)
+                if found is not None:
+                    value, precision = found
+                    return [Evidence(self.name, self.origin, url, value / q.unit.factor, None,
+                                     note=f"{where}: {value:g} {symbol}", precision=precision / q.unit.factor)]
+            elif mentions_value(source_text, q.value):
+                return [Evidence(self.name, self.origin, url, None, None, agrees=True, note=where)]
+        return [Evidence(self.name, self.origin, url, None, None, agrees=None, note="Wert im Artikel nicht genannt")]
 
 
 # --------------------------------------------------------------------------- Faktencheck-Plattformen

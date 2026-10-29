@@ -84,7 +84,7 @@ Sprachmodell (siehe unten) werden weitere Themen versucht.
 | Weltbank | internationale Organisation | Fläche, Einwohner von Staaten |
 | CIA World Factbook | US-Regierung | Fläche, Einwohner von Staaten |
 | OpenStreetMap | weltweite Kartografie-Community | Gebäude- und Berghöhen |
-| Wikipedia EN, DE, FR, ES, RU, AR, ZH, JA | acht Sprachgemeinschaften | liest den Wert samt Einheit aus dem Text – kann bestätigen **oder widersprechen** |
+| Wikipedia EN, DE, FR, ES, RU, AR, ZH, JA | acht Sprachgemeinschaften | liest den Wert samt Einheit aus der Einleitung, sonst aus der Infobox – kann bestätigen **oder widersprechen** |
 | Google Fact Check Tools (optional) | Faktencheck-Redaktionen (Correctiv, AFP, Snopes …) | gibt es Faktenchecks zum Eintrag? |
 
 Ergebnis je Platz (Prüfbericht mit allen Werten und Links; im Video als Chip „✓ 4 Quellen“):
