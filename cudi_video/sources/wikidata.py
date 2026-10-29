@@ -304,11 +304,18 @@ def _extras(qids: list[str], extras: dict[str, str], langs: list[str]) -> dict[s
     label_opts = [
         f'  OPTIONAL {{ ?v rdfs:label ?vl_{lang} FILTER(LANG(?vl_{lang}) = "{lang}") }}' for lang in langs
     ]
+    # Wikipedia-Titel sind die gebräuchlichen Namen ("China" statt "Volksrepublik China").
+    title_opts = [
+        f"  OPTIONAL {{ ?vw_{lang} schema:about ?v ; schema:isPartOf <https://{lang}.wikipedia.org/> ; "
+        f"schema:name ?vt_{lang} }}" for lang in langs
+    ]
+    names = " ".join(f"?vl_{l} ?vt_{l}" for l in langs)
     query = "\n".join([
-        f"SELECT ?item ?key ?v {' '.join(f'?vl_{l}' for l in langs)} WHERE {{",
+        f"SELECT ?item ?key ?v {names} WHERE {{",
         f"  VALUES ?item {{ {values} }}",
         "\n  UNION\n".join(unions),
         *label_opts,
+        *title_opts,
         "}",
     ])
     # Mehrere Werte sammeln (z. B. Mount Everest: China und Nepal), Reihenfolge beibehalten.
@@ -324,10 +331,10 @@ def _extras(qids: list[str], extras: dict[str, str], langs: list[str]) -> dict[s
             elif datatype.endswith(("decimal", "integer", "double")):
                 num = float(raw)
                 text = fmt_number(num, lang, 0 if num.is_integer() else 1)
-            elif f"vl_{lang}" in b:
-                text = b[f"vl_{lang}"]["value"]
             else:
-                continue
+                text = display_name(b.get(f"vt_{lang}", {}).get("value"), lang) or b.get(f"vl_{lang}", {}).get("value")
+                if not text:
+                    continue
             values = per_lang.setdefault(lang, [])
             if text not in values:
                 values.append(text)
@@ -375,11 +382,16 @@ def candidate_buffer(count: int) -> int:
     return max(3, count // 2)
 
 
-def display_name(title: str | None) -> str | None:
-    """'Victoria Island (Canada)' -> 'Victoria Island'."""
+# Gebräuchliche Kurzformen, wie sie auch Nachrichtensendungen verwenden.
+COMMON_NAMES = {"de": {"Volksrepublik China": "China", "Vereinigte Staaten": "USA"}}
+
+
+def display_name(title: str | None, lang: str | None = None) -> str | None:
+    """'Victoria Island (Canada)' -> 'Victoria Island', 'Volksrepublik China' -> 'China'."""
     if not title:
         return None
-    return re.sub(r"\s*\([^)]*\)$", "", title).strip() or None
+    name = re.sub(r"\s*\([^)]*\)$", "", title).strip()
+    return COMMON_NAMES.get(lang, {}).get(name, name) or None
 
 
 def fetch_item_value(qid: str, prop: str) -> RankItem | None:
@@ -416,7 +428,7 @@ def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
     items: list[RankItem] = []
     for it in pool:
         d = details.get(it.qid)
-        names = {lang: display_name(d["wiki_titles"].get(lang)) or d["labels"].get(lang) for lang in langs} if d else {}
+        names = {lang: display_name(d["wiki_titles"].get(lang), lang) or d["labels"].get(lang) for lang in langs} if d else {}
         if not d or not all(names.get(lang) for lang in spec.langs):
             log.info("Überspringe %s (kein Name in allen Sprachen)", it.qid)
             continue

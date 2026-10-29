@@ -629,6 +629,9 @@ def test_display_name_strips_disambiguation():
     assert display_name("Victoria Island (Canada)") == "Victoria Island"
     assert display_name("Nauru") == "Nauru"
     assert display_name(None) is None
+    assert display_name("Volksrepublik China", "de") == "China"
+    assert display_name("Vereinigte Staaten", "de") == "USA"
+    assert display_name("United States", "en") == "United States"
 
 
 def test_verify_truncates_after_corrections(monkeypatch):
@@ -686,3 +689,26 @@ def test_spoken_sources_are_compact():
     names = spoken_sources(["CIA World Factbook", "Weltbank", "Wikipedia (en)", "Wikipedia (fr)", "Wikipedia (zh)"], "de")
     assert names == ["CIA World Factbook", "Weltbank", "Wikipedia"]
     assert spoken_sources(["Wikipedia (de)", "Wikipedia (ja)"], "en") == ["Wikipedia"]
+
+
+def test_enrich_retries_throttled_images(monkeypatch):
+    from cudi_video import enrich as enrich_mod
+    from cudi_video import net
+
+    calls = []
+
+    def fake_image(item):
+        calls.append(item.qid)
+        if len(calls) == 1:
+            return False                     # erster Versuch: gedrosselt
+        item.image_path = "/tmp/bild.png"
+        return True
+
+    monkeypatch.setattr(enrich_mod, "fetch_image", fake_image)
+    monkeypatch.setattr(enrich_mod, "RETRY_PAUSE", 0)
+    item = RankItem(qid="Q1", value=1, unit="1", labels={"de": "Eins"}, image_file="Eins.jpg")
+    research = Research(spec_id="t", fetched_at="", items=[item])
+    enrich_mod.enrich(research, ["de"])
+    assert calls == ["Q1", "Q1"] and item.image_path
+    assert not any("Ohne Bild" in w for w in research.warnings)
+    assert net._blocked_hosts == {}

@@ -35,6 +35,11 @@ BLOCK_AFTER = 3
 RETRY_STATUSES = (429, 500, 502, 503, 504)
 
 
+def reset_blocks() -> None:
+    """Sperren aufheben, z. B. für einen bewusst späteren zweiten Versuch."""
+    _blocked_hosts.clear()
+
+
 def _block_key(host: str) -> str:
     """Wikimedia drosselt pro Domain: alle Sprachversionen von Wikipedia teilen sich eine Sperre."""
     for domain in ("wikipedia.org", "wikimedia.org"):
