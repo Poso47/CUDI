@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       preset:
-        description: "Vorlage (z. B. hoechste-gebaeude, groesste-laender, meiste-einwohner, hoechste-berge, groesste-seen)"
+        description: "Vorlage (groesste-laender, meiste-einwohner, kleinste-laender, hoechste-gebaeude, hoechste-berge, groesste-seen, tiefste-seen, groesste-inseln, hoechste-wasserfaelle) oder freies Thema"
         required: true
         default: hoechste-gebaeude
       langs:
