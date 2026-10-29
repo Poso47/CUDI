@@ -38,6 +38,8 @@ def main(argv=None) -> int:
     mk.add_argument("--nur-skript", action="store_true", help="nur Recherche + Skript + Prüfbericht")
     mk.add_argument("--ohne-ki", action="store_true", help="kein Sprachmodell verwenden")
     mk.add_argument("--ohne-bilder", action="store_true", help="keine Commons-Bilder laden")
+    mk.add_argument("--streng", action="store_true",
+                    help="abbrechen, wenn ein Platz nicht von mindestens einer unabhängigen Quelle bestätigt ist")
 
     web = sub.add_parser("web", help="Web-Oberfläche starten")
     web.add_argument("--host", default="0.0.0.0")
@@ -60,7 +62,7 @@ def main(argv=None) -> int:
         langs = args.langs.split(",") if args.langs else None
         result = run(
             spec, langs=langs, render=not args.nur_skript,
-            use_llm=False if args.ohne_ki else None, images=not args.ohne_bilder,
+            use_llm=False if args.ohne_ki else None, images=not args.ohne_bilder, strict=args.streng,
             progress=lambda stage, f: print(f"[{f * 100:5.1f} %] {stage}", flush=True),
         )
         print(f"\nAusgabe: {result['output_dir']}")

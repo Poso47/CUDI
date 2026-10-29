@@ -43,6 +43,7 @@ class JobRequest(BaseModel):
     langs: list[str] = ["de", "en"]
     count: int = 10
     only_script: bool = False
+    strict: bool = False
 
 
 def _update(job_id: str, **kw) -> None:
@@ -50,13 +51,13 @@ def _update(job_id: str, **kw) -> None:
         _jobs[job_id].update(kw)
 
 
-def _run_job(job_id: str, spec: VideoSpec, only_script: bool) -> None:
+def _run_job(job_id: str, spec: VideoSpec, only_script: bool, strict: bool = False) -> None:
     from ..pipeline import new_output_dir, run
 
     try:
         out = new_output_dir(spec)
         _update(job_id, folder=out.name, status="läuft")
-        result = run(spec, out=out, render=not only_script,
+        result = run(spec, out=out, render=not only_script, strict=strict,
                      progress=lambda stage, f: _update(job_id, stage=stage, progress=round(f, 3)))
         _update(job_id, status="fertig", progress=1.0, result=result)
     except Exception as exc:
@@ -108,7 +109,7 @@ def create_job(req: JobRequest, request: Request):
             "status": "wartet", "stage": "In der Warteschlange", "progress": 0.0,
             "created": datetime.now().isoformat(timespec="seconds"), "langs": spec.langs,
         }
-    _executor.submit(_run_job, job_id, spec, req.only_script)
+    _executor.submit(_run_job, job_id, spec, req.only_script, req.strict)
     return _jobs[job_id]
 
 

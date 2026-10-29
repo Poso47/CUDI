@@ -167,6 +167,33 @@ def _extras(qids: list[str], extras: dict[str, str], langs: list[str]) -> dict[s
     return out
 
 
+def fetch_identifiers(items: list[RankItem], check_langs: list[str]) -> None:
+    """Länder-Codes (für Weltbank/Factbook) und Artikel in weiteren Sprachen nachladen."""
+    if not items:
+        return
+    values = " ".join(f"wd:{it.qid}" for it in items)
+    sites = ", ".join(f"<https://{lang}.wikipedia.org/>" for lang in check_langs)
+    query = "\n".join([
+        "SELECT ?item ?iso3 ?fips ?site ?title WHERE {",
+        f"  VALUES ?item {{ {values} }}",
+        "  { ?item wdt:P298 ?iso3 } UNION { ?item wdt:P901 ?fips }",
+        f"  UNION {{ ?article schema:about ?item ; schema:isPartOf ?site ; schema:name ?title . FILTER(?site IN ({sites})) }}",
+        "}",
+    ]) if check_langs else ""
+    if not query:
+        return
+    by_qid = {it.qid: it for it in items}
+    for b in _sparql(query, cache_hours=24):
+        it = by_qid[_qid(b["item"]["value"])]
+        if "iso3" in b:
+            it.codes.setdefault("iso3", b["iso3"]["value"])
+        if "fips" in b:
+            it.codes.setdefault("fips", b["fips"]["value"])
+        if "site" in b:
+            lang = b["site"]["value"].split("//")[1].split(".")[0]
+            it.wiki_titles.setdefault(lang, b["title"]["value"])
+
+
 def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
     src = spec.source
     langs = list(dict.fromkeys([*spec.langs, "en"]))
@@ -204,7 +231,6 @@ def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
         items=items,
         query=query,
     )
-    research.warnings.extend(check_consistency(spec, research))
     return research
 
 
@@ -218,7 +244,7 @@ def check_consistency(spec: VideoSpec, research: Research) -> list[str]:
     if len(units) > 1:
         warnings.append(f"Uneinheitliche Einheiten {sorted(units)} – Werte sind evtl. nicht vergleichbar.")
     years = sorted({int(it.value_date[:4]) for it in items if it.value_date})
-    if years and years[-1] - years[0] >= 2:
+    if years and years[-1] - years[0] >= 3:
         warnings.append(
             f"Werte stammen aus unterschiedlichen Jahren ({years[0]}–{years[-1]}). "
             "Die Reihenfolge kann sich mit neueren Daten ändern."

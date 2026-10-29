@@ -6,10 +6,16 @@ from .models import Research, Script
 from .script import format_date
 from .spec import VideoSpec
 from .units import quantity
+from .verify import compact_sources, confirmed_sources
 
 DISCLOSURE = {
     "de": "ℹ️ Automatisch erstellt. Die Stimme ist KI-generiert. Alle Fakten stammen aus den unten genannten Quellen.",
     "en": "ℹ️ Created automatically. The voice is AI-generated. All facts come from the sources listed below.",
+}
+SOURCE_LINKS = {
+    "Weltbank": "https://data.worldbank.org",
+    "CIA World Factbook": "https://www.cia.gov/the-world-factbook/",
+    "OpenStreetMap": "https://www.openstreetmap.org (ODbL)",
 }
 BASE_TAGS = {"de": ["shorts", "fakten", "top10", "wusstestdu"], "en": ["shorts", "facts", "top10", "didyouknow"]}
 
@@ -30,9 +36,20 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
         value = quantity(it.value, it.unit, spec.unit).display(lang)
         as_of = f" ({'Stand' if de else 'as of'} {it.value_date[:4]})" if it.value_date else ""
         lines.append(f"{it.rank}. {it.labels[lang]} – {value}{as_of}")
+        confirmed = confirmed_sources(it)
+        if len(confirmed) >= 2:
+            lines.append(f"   ✓ {compact_sources(confirmed)}")
     lines += ["", DISCLOSURE[lang], "",
               ("📚 Quellen (abgerufen am " if de else "📚 Sources (retrieved ") + retrieved + "):"]
     lines.append("• Wikidata (CC0): " + ", ".join(it.qid for it in items))
+    used = {src for it in items for src in confirmed_sources(it)}
+    for name, url in SOURCE_LINKS.items():
+        if name in used:
+            lines.append(f"• {name}: {url}")
+    langs = sorted(src[len("Wikipedia ("):-1] for src in used if src.startswith("Wikipedia ("))
+    if langs:
+        lines.append(("• Abgleich mit Wikipedia-Sprachversionen: " if de else "• Cross-checked with Wikipedia editions: ")
+                     + ", ".join(langs))
     wiki_used = [it.wiki_url(lang) for it in items if it.summary.get(lang) and it.wiki_url(lang)]
     if wiki_used:
         lines.append("• Wikipedia (CC BY-SA 4.0):")
@@ -53,11 +70,26 @@ def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> 
         out += ["## ⚠️ Bitte prüfen", ""] + [f"- {w}" for w in research.warnings] + [""]
     else:
         out += ["## ✅ Keine Auffälligkeiten in den Daten", ""]
-    out += ["## Ranking", "", "| Platz | Name | Wert | Stand | Bild | Quelle |", "|---|---|---|---|---|---|"]
+    out += ["## Ranking", "", "| Platz | Name | Wert | Stand | Abgleich | Bild | Quelle |", "|---|---|---|---|---|---|---|"]
     for it in sorted(research.items, key=lambda i: i.rank):
         q = quantity(it.value, it.unit, spec.unit)
+        status = (it.verification or {}).get("status", "–")
         out.append(f"| {it.rank} | {it.labels.get('de') or it.labels.get('en')} | {q.display('de')} | "
-                   f"{it.value_date or '–'} | {'ja' if it.image_path else 'Grafik'} | [{it.qid}]({it.wikidata_url}) |")
+                   f"{it.value_date or '–'} | {status} | {'ja' if it.image_path else 'Grafik'} | "
+                   f"[{it.qid}]({it.wikidata_url}) |")
+    out += ["", "## Quellen-Abgleich je Platz", "",
+            "✓ = stimmt überein · ✗ = weicht ab · ? = Wert dort nicht genannt", ""]
+    for it in sorted(research.items, key=lambda i: i.rank):
+        evidence = (it.verification or {}).get("evidence", [])
+        if not evidence:
+            continue
+        out.append(f"**{it.rank}. {it.labels.get('de') or it.labels.get('en')}**")
+        for e in evidence:
+            mark = {True: "✓", False: "✗"}.get(e["agrees"], "?")
+            value = f" – {quantity(e['value'], it.unit, spec.unit).display('de')}" if e["value"] is not None else ""
+            date = f" ({e['date'][:4]})" if e.get("date") else ""
+            out.append(f"- {mark} [{e['source']}]({e['url']}) · {e['origin']}{value}{date}")
+        out.append("")
     for s in scripts:
         out += ["", f"## Sprechertext ({s.lang}, Modus: {s.mode})", ""]
         if s.checks:

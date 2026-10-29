@@ -16,9 +16,9 @@ from .theme import (
 )
 
 LABELS = {
-    "de": {"rank": "PLATZ", "top": "TOP", "photo": "Foto", "as_of": "Stand", "sources": "Quellen",
+    "de": {"rank": "PLATZ", "top": "TOP", "photo": "Foto", "as_of": "Stand", "sources": "Quellen", "src_n": "{n} Quellen",
            "mystery": "Platz 1", "cta": "Folgen für mehr Rankings!"},
-    "en": {"rank": "RANK", "top": "TOP", "photo": "Photo", "as_of": "As of", "sources": "Sources",
+    "en": {"rank": "RANK", "top": "TOP", "photo": "Photo", "as_of": "As of", "sources": "Sources", "src_n": "{n} sources",
            "mystery": "Number 1", "cta": "Follow for more rankings!"},
 }
 
@@ -259,6 +259,9 @@ class ItemScene(Scene):
         if it.get("as_of"):
             chips.append(f"{self.L['as_of']} {it['as_of']}")
         self.chips = [chip(c, chip_font) for c in chips]
+        if it.get("n_sources", 0) >= 2:   # Quellen-Abgleich sichtbar machen
+            self.chips.insert(0, chip("✓ " + self.L["src_n"].format(n=it["n_sources"]), font("bold", 30),
+                                      fg=(6, 30, 16), bg=(74, 222, 128, 255)))
         self.confetti = self._confetti() if it["rank"] == 1 else []
 
     def _confetti(self):

@@ -92,6 +92,7 @@
         <div style="flex:2;min-width:200px">
           <label>&nbsp;</label>
           <span class="check"><input type="checkbox" id="onlyScript"> Erst nur Skript prüfen</span>
+          <span class="check" style="margin-top:8px"><input type="checkbox" id="strict"> Streng: nur mehrfach bestätigte Fakten</span>
         </div>
       </div>
       <button class="primary" id="go" onclick="start()">Video erstellen</button>
@@ -145,7 +146,7 @@ async function start() {
   $("formErr").textContent = "";
   const langs = ["de", "en"].filter(l => $("lang_" + l).checked);
   if (!langs.length) { $("formErr").textContent = "Mindestens eine Sprache wählen."; return; }
-  const body = { langs, count: +$("count").value, only_script: $("onlyScript").checked };
+  const body = { langs, count: +$("count").value, only_script: $("onlyScript").checked, strict: $("strict").checked };
   if (tab === "preset") body.preset = $("preset").value;
   if (tab === "topic") body.topic = $("topic").value.trim();
   if (tab === "yaml") body.yaml_spec = $("yaml").value;

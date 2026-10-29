@@ -13,8 +13,9 @@ from .enrich import enrich
 from .metadata import build_metadata, build_review
 from .models import Research, Script
 from .script import build_script
-from .sources.wikidata import fetch_ranking
+from .sources.wikidata import check_consistency, fetch_identifiers, fetch_ranking
 from .spec import VideoSpec
+from .verify import verify
 
 log = logging.getLogger(__name__)
 
@@ -37,10 +38,14 @@ def new_output_dir(spec: VideoSpec) -> Path:
     return out
 
 
-def research_stage(spec: VideoSpec, out: Path, fresh: bool = True, images: bool = True) -> Research:
+def research_stage(spec: VideoSpec, out: Path, fresh: bool = True, images: bool = True,
+                   strict: bool = False) -> Research:
     research = fetch_ranking(spec, fresh=fresh)
     if not research.items:
         raise RuntimeError("Keine Daten gefunden – Vorgabe prüfen (Klasse/Eigenschaft).")
+    fetch_identifiers(research.items, config.CHECK_LANGS)
+    verify(spec, research, strict=strict)          # Abgleich mit unabhängigen Quellen
+    research.warnings.extend(check_consistency(spec, research))
     enrich(research, spec.langs, images=images)
     _save(out / "research.json", research.to_dict())
     return research
@@ -77,6 +82,7 @@ def run(
     use_llm: bool | None = None,
     fresh: bool = True,
     images: bool = True,
+    strict: bool = False,
     progress: ProgressFn = _noop,
 ) -> dict:
     """Erzeugt Videos für alle Sprachen. Mit render=False nur Recherche + Skript + Prüfbericht."""
@@ -92,7 +98,8 @@ def run(
     if research_file.exists():
         research = Research.from_dict(json.loads(research_file.read_text("utf-8")))
     else:
-        research = research_stage(spec, out, fresh=fresh, images=images)
+        progress("Quellen-Abgleich", 0.05)
+        research = research_stage(spec, out, fresh=fresh, images=images, strict=strict)
 
     progress("Skript", 0.15)
     scripts: list[Script] = []

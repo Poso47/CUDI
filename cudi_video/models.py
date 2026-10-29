@@ -20,6 +20,8 @@ class RankItem:
     summary: dict[str, str] = field(default_factory=dict)            # Wikipedia-Einleitung je Sprache
     image_path: str | None = None
     image_credit: str | None = None
+    codes: dict[str, str] = field(default_factory=dict)          # {"iso3": "RUS", "fips": "RS"}
+    verification: dict = field(default_factory=dict)            # Ergebnis des Quellen-Abgleichs
 
     @property
     def wikidata_url(self) -> str:

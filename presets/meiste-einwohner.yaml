@@ -1,0 +1,15 @@
+id: meiste-einwohner
+title:
+  de: Die {count} Länder mit den meisten Einwohnern
+  en: The {count} Most Populous Countries
+count: 10
+value_label: {de: Einwohner, en: Population}
+source:
+  type: wikidata
+  class: Q3624078        # souveräner Staat
+  property: P1082        # Einwohnerzahl
+  min_value: 50000000    # Abfrage beschleunigen
+  extras: {capital: P36, continent: P30}
+# Einwohnerzahlen sind Schätzungen: der Abgleich mit Weltbank und CIA Factbook ersetzt
+# veraltete Wikidata-Werte, wenn beide übereinstimmend neuere Zahlen melden.
+hashtags: [fakten, ranking, bevölkerung, länder]

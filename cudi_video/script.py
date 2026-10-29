@@ -16,6 +16,7 @@ from . import llm
 from .models import RankItem, Research, Script, Segment
 from .spec import VideoSpec
 from .units import quantity
+from .verify import all_sources, confirmed_sources
 
 log = logging.getLogger(__name__)
 
@@ -47,22 +48,26 @@ TEXT = {
         "rank": "Platz {n}: {name}.",
         "value": "{label}: {value}.",
         "as_of": "Stand {year}.",
+        "confirmed": "Bestätigt durch {n} Quellen.",
         "and": "und",
         "outro": (
-            "Das war unser Ranking. Alle Zahlen stammen aus Wikidata, abgerufen am {date}. "
+            "Das war unser Ranking. Geprüft mit {sources}, abgerufen am {date}. "
             "Welcher Platz hat dich überrascht? Schreib es in die Kommentare und folge für mehr Rankings!"
         ),
+        "wiki_langs": "Wikipedia in {n} Sprachen",
     },
     "en": {
         "intro": "{title}! Number one reaches {top} – but which one is it? Stay until the end!",
         "rank": "Number {n}: {name}.",
         "value": "{label}: {value}.",
         "as_of": "As of {year}.",
+        "confirmed": "Confirmed by {n} sources.",
         "and": "and",
         "outro": (
-            "That was our ranking. All figures come from Wikidata, retrieved on {date}. "
+            "That was our ranking. Checked against {sources}, retrieved on {date}. "
             "Which spot surprised you? Tell us in the comments and follow for more rankings!"
         ),
+        "wiki_langs": "Wikipedia in {n} languages",
     },
 }
 
@@ -89,8 +94,19 @@ RISKY_WORDS = re.compile(
 )
 
 
+# Neutralität: wertende, politische oder konfliktbezogene Aussagen gehören nicht in ein
+# Fakten-Ranking (sie wären einseitig, weil der Kontext fehlt).
+NOT_NEUTRAL = re.compile(
+    r"(vorgeworfen|vorwürf|menschenrecht|diktat|regime|umstritten|kritik|kritisiert|krieg|konflikt|terror|anschlag"
+    r"|annekt|besatz|besetz|propaganda|skandal|korrupt|völkermord|genozid|unterdrück|autoritär|zensur|sanktion"
+    r"|accus|allegation|human rights|dictat|controvers|disputed|criticis|criticiz|\bwars?\b|conflict|annex"
+    r"|occupation|occupied|scandal|corrupt|genocide|oppress|authoritarian|censorship|sanction)",
+    re.I,
+)
+
+
 def has_risky_claims(sentence: str) -> bool:
-    return bool(RISKY_WORDS.search(sentence)) or has_risky_numbers(sentence)
+    return bool(RISKY_WORDS.search(sentence) or NOT_NEUTRAL.search(sentence)) or has_risky_numbers(sentence)
 
 
 def has_risky_numbers(sentence: str) -> bool:
@@ -113,7 +129,7 @@ def _similar(a: str, b: str, threshold: float = 0.6) -> bool:
 
 def usable_description(item: RankItem, lang: str) -> str:
     desc = item.descriptions.get(lang, "")
-    return "" if has_risky_numbers(desc) else desc
+    return "" if has_risky_numbers(desc) or NOT_NEUTRAL.search(desc) else desc
 
 
 def usable_summary_sentences(item: RankItem, lang: str) -> list[str]:
@@ -163,6 +179,7 @@ def item_facts(spec: VideoSpec, item: RankItem, lang: str) -> dict:
         "value_spoken": q.spoken(lang),
         "value_display": q.display(lang),
         "as_of": item.value_date[:4] if item.value_date else None,
+        "confirmed_by": len(confirmed_sources(item)),
         "extras": extras_lines(spec, item, lang),
         "summary_sentences": usable_summary_sentences(item, lang),
     }
@@ -192,6 +209,8 @@ def template_item_text(facts: dict, lang: str, word_budget: int) -> str:
         parts.append(_capitalize(facts["value_spoken"]) + ".")
     if facts["as_of"]:
         parts.append(t["as_of"].format(year=facts["as_of"]))
+    if facts["confirmed_by"] >= 2:
+        parts.append(t["confirmed"].format(n=facts["confirmed_by"]))
     for label, value in facts["extras"]:
         parts.append(f"{label}: {_join(value, lang)}.")
     used = 0
@@ -220,12 +239,14 @@ LLM_SYSTEM = {
     "de": (
         "Du schreibst Sprechertexte für kurze Ranking-Faktenvideos (TikTok/YouTube Shorts). "
         "Nutze AUSSCHLIESSLICH die gelieferten Fakten. Erfinde nichts, ergänze kein Wissen, "
-        "nenne keine Zahlen, die nicht in den Fakten stehen. Lockerer, spannender Ton, kurze Sätze."
+        "nenne keine Zahlen, die nicht in den Fakten stehen. Bleib neutral: keine Wertungen, "
+        "keine politischen Aussagen. Lockerer, spannender Ton, kurze Sätze."
     ),
     "en": (
         "You write voice-over scripts for short ranking fact videos (TikTok/YouTube Shorts). "
         "Use ONLY the provided facts. Do not invent anything, add no outside knowledge, "
-        "mention no numbers that are not in the facts. Casual, exciting tone, short sentences."
+        "mention no numbers that are not in the facts. Stay neutral: no judgments, "
+        "no political statements. Casual, exciting tone, short sentences."
     ),
 }
 
@@ -296,5 +317,9 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
             sources.append(item.wiki_url(lang))
         segments.append(Segment(kind="item", text=text, rank=item.rank, sources=sources))
 
-    segments.append(Segment(kind="outro", text=TEXT[lang]["outro"].format(date=retrieved)))
+    names, n_langs = all_sources(research)
+    if n_langs:
+        names.append(TEXT[lang]["wiki_langs"].format(n=n_langs))
+    source_text = _join(" / ".join(names), lang)
+    segments.append(Segment(kind="outro", text=TEXT[lang]["outro"].format(sources=source_text, date=retrieved)))
     return Script(lang=lang, title=title, segments=segments, mode=mode, checks=checks)

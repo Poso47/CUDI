@@ -23,7 +23,39 @@ Pro Video entstehen:
   („elfthöchste“) oder zeitabhängigen Aussagen („derzeit“) enthalten – die könnten unseren Daten widersprechen.
 * **Optionales Sprachmodell** darf nur umformulieren. Sein Text wird automatisch geprüft
   (jede Zahl muss in den Quelldaten stehen + zweiter Faktencheck) und sonst verworfen.
+* **Quellen-Abgleich aus verschiedenen Ländern und Gemeinschaften** (siehe unten). Im Video zeigt ein
+  grüner Chip „✓ 3 Quellen“, wie oft ein Wert unabhängig bestätigt wurde.
+* **Neutral:** wertende, politische oder konfliktbezogene Sätze werden nicht übernommen – ein
+  Fakten-Ranking soll informieren, nicht urteilen.
 * **Prüfbericht** warnt z. B. bei Werten aus unterschiedlichen Jahren, Gleichständen oder fehlenden Bildern.
+
+## Quellen-Abgleich
+
+Jeder Wert wird vor dem Video mit unabhängigen Quellen verglichen:
+
+| Quelle | Herkunft | prüft |
+|---|---|---|
+| Wikidata | weltweite Community | Ausgangswert |
+| Weltbank | internationale Organisation | Fläche, Einwohner von Staaten |
+| CIA World Factbook | US-Regierung | Fläche, Einwohner von Staaten |
+| OpenStreetMap | weltweite Kartografie-Community | Gebäudehöhen, Berghöhen |
+| Wikipedia FR, ES, RU, AR, ZH, JA | sechs Sprachgemeinschaften | wird der Wert dort genannt? |
+| Google Fact Check Tools (optional) | Faktencheck-Redaktionen weltweit (Correctiv, AFP, Snopes …) | gibt es Faktenchecks zum Eintrag? |
+
+Ergebnis je Platz (steht im Prüfbericht mit allen Werten und Links):
+
+* **bestätigt** – mindestens eine unabhängige Quelle stimmt überein; einzelne Ausreißer werden
+  bei klarer Mehrheit benannt, aber nicht übernommen (Beispiel: Weltbank meldete für Kanada 15,6 Mio. km²).
+* **korrigiert** – der Wikidata-Wert ist veraltet oder weicht ab, und mehrere unabhängige Quellen
+  stimmen überein → deren aktueller Wert wird verwendet und das Ranking neu sortiert
+  (Beispiel: Indien 1,44 Mrd. statt veralteter 1,33 Mrd. → Platz 1 vor China).
+* **widersprüchlich** – keine klare Mehrheit → Warnung; mit `--streng` (bzw. Haken „Streng“ in der
+  Oberfläche) wird dann kein Video erzeugt.
+* **nur eine Quelle** – für dieses Thema gibt es (noch) keine unabhängige Vergleichsquelle.
+
+Weitere Sprachen: `set CUDI_CHECK_LANGS=fr,es,ru,ar,zh,ja,pt,hi`. Faktencheck-Suche aktivieren:
+kostenlosen Schlüssel für die „Fact Check Tools API“ in der Google Cloud Console anlegen und
+`set CUDI_FACTCHECK_API_KEY=...` setzen.
 * **Bilder nur mit freier Lizenz** von Wikimedia Commons; Urheber und Lizenz stehen im Video und in der Beschreibung.
 
 ## Schnellstart am Windows-PC
@@ -40,6 +72,7 @@ python -m cudi_video presets                         # Vorlagen anzeigen
 python -m cudi_video make hoechste-gebaeude          # Video DE + EN
 python -m cudi_video make hoechste-berge --langs de --count 5
 python -m cudi_video make hoechste-gebaeude --nur-skript   # erst nur Skript + Prüfbericht
+python -m cudi_video make meiste-einwohner --streng        # nur mit bestätigten Fakten
 python -m cudi_video web                             # Web-Oberfläche
 ```
 
@@ -103,6 +136,7 @@ Sie wird automatisch leiser, während gesprochen wird.
 ```
 cudi_video/
   sources/wikidata.py   Ranking per SPARQL (neuester Wert je Objekt, Filter, Konsistenz-Check)
+  verify/               Quellen-Abgleich (Weltbank, CIA Factbook, OSM, Wikipedia-Sprachen, Faktenchecks)
   enrich.py             Wikipedia-Einleitung, Commons-Bilder + Lizenz (optional)
   script.py             Sprechertext aus Daten, Faktenschutz, optionales Sprachmodell + Prüfung
   tts.py                KI-Stimme mit Wort-Zeitstempeln, Pausen-Straffung
@@ -115,7 +149,7 @@ presets/                fertige Vorgaben
 
 ## Nächste Ausbaustufen
 
-* Mehr Datenquellen (Wikipedia-Tabellen, offizielle Statistiken) und Abgleich zweier Quellen
+* Weitere Vergleichsquellen je Thema (z. B. UN-Statistik, Eurostat, nationale Statistikämter)
 * Cartoon-/Figuren-Stil als zweites Design
 * Längere Videos im Querformat (16:9) für YouTube
 * Direkter Upload über die YouTube-API, Vorbereitung für die TikTok-API

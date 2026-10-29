@@ -139,7 +139,7 @@ def test_consistency_warns_about_mixed_years():
     spec = make_spec()
     research = make_research()
     research.items[0].value_date = "2025-01-01"
-    research.items[1].value_date = "2020-01-01"
+    research.items[1].value_date = "2021-01-01"
     warnings = check_consistency(spec, research)
     assert any("unterschiedlichen Jahren" in w for w in warnings)
 
@@ -172,3 +172,92 @@ def test_presets_are_valid():
 
 def test_srt_time():
     assert _srt_time(3723.5) == "01:02:03,500"
+
+
+# --------------------------------------------------------------------------- Quellen-Abgleich
+
+from cudi_video.verify import compact_sources, evaluate  # noqa: E402
+from cudi_video.verify.checkers import Evidence  # noqa: E402
+from cudi_video.verify.numbers import mentions_value  # noqa: E402
+
+
+def _item(value):
+    return RankItem(qid="Q1", value=value, unit="Q25343", labels={"de": "X", "en": "X"})
+
+
+def _ev(source, value=None, agrees=None, date=None):
+    return Evidence(source, "test", "https://example.org", value, date, agrees)
+
+
+def test_evaluate_confirmed_by_independent_source():
+    r = evaluate(_item(100.0), [_ev("Wikidata", 100.0), _ev("Weltbank", 100.5)], 0.01)
+    assert r["status"] == "bestätigt"
+    assert r["sources"] == ["Weltbank", "Wikidata"]
+
+
+def test_evaluate_majority_ignores_single_outlier():
+    r = evaluate(_item(9_984_670.0), [
+        _ev("Wikidata", 9_984_670.0), _ev("Weltbank", 15_634_410.0), _ev("CIA World Factbook", 9_984_670.0),
+        _ev("Wikipedia (zh)", agrees=True), _ev("Wikipedia (ja)", agrees=True),
+    ], 0.01)
+    assert r["status"] == "bestätigt"
+    assert r["outliers"] == ["Weltbank"]
+    assert r["value"] == 9_984_670.0
+
+
+def test_evaluate_corrects_outdated_value_when_sources_agree():
+    r = evaluate(_item(1_326_000_000.0), [
+        _ev("Wikidata", 1_326_000_000.0, date="2020-07-01"),
+        _ev("Weltbank", 1_438_000_000.0, date="2024-12-31"),
+        _ev("CIA World Factbook", 1_410_000_000.0, date="2025-07-01"),
+    ], 0.05)
+    assert r["status"] == "korrigiert"
+    assert r["value"] == pytest.approx(1_424_000_000.0)
+    assert r["date"] == "2025-07-01"
+
+
+def test_evaluate_contradiction_without_majority():
+    r = evaluate(_item(100.0), [_ev("Wikidata", 100.0), _ev("Weltbank", 130.0)], 0.01)
+    assert r["status"] == "widersprüchlich"
+
+
+def test_evaluate_single_source():
+    r = evaluate(_item(100.0), [_ev("Wikidata", 100.0), _ev("Wikipedia (fr)", agrees=None)], 0.01)
+    assert r["status"] == "nur eine Quelle"
+
+
+@pytest.mark.parametrize("text,expected,ok", [
+    ("La superficie est de 17 098 246 km².", 17_098_246, True),
+    ("environ 17,1 millions de km2", 17_075_400, True),
+    ("面积1709.8万平方公里", 17_098_246, True),
+    ("ارتفاعه ٨٢٨ مترًا", 828, True),
+    ("Der Berg ist 8.849 m hoch", 8849, True),
+    ("Es ist 830 Meter hoch", 828, False),
+    ("etwa 17 Millionen km²", 17_075_400, False),     # zu grob gerundet
+    ("eröffnet 2010", 828, False),
+])
+def test_mentions_value(text, expected, ok):
+    assert mentions_value(text, expected) is ok
+
+
+def test_compact_sources():
+    assert compact_sources(["Weltbank", "Wikipedia (ru)", "Wikipedia (zh)"]) == "Weltbank, Wikipedia (ru, zh)"
+
+
+@pytest.mark.parametrize("sentence", [
+    "Bis heute werden ihr schwere Menschenrechtsverletzungen vorgeworfen.",
+    "Er liegt in der umstrittenen Region Kaschmir.",
+    "The country has been criticized for its policies.",
+])
+def test_non_neutral_sentences_are_rejected(sentence):
+    assert has_risky_claims(sentence)
+
+
+def test_evaluate_outdated_wikidata_is_replaced_even_if_close():
+    r = evaluate(_item(275_440_000.0), [
+        _ev("Wikidata", 275_440_000.0, date="2021-01-01"),
+        _ev("Weltbank", 285_720_000.0, date="2024-12-31"),
+        _ev("CIA World Factbook", 283_590_000.0, date="2025-07-01"),
+    ], 0.05)
+    assert r["status"] == "korrigiert"
+    assert r["value"] == pytest.approx(284_655_000.0)
