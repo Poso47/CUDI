@@ -23,6 +23,7 @@ class RankItem:
     image_credit: str | None = None
     codes: dict[str, str] = field(default_factory=dict)          # {"iso3": "RUS", "fips": "RS"}
     alternatives: list[float] = field(default_factory=list)      # gleichrangige andere Werte in Wikidata
+    has_build_date: bool | None = None                           # Eröffnungs-/Baudatum vorhanden (Gebäude)
     verification: dict = field(default_factory=dict)            # Ergebnis des Quellen-Abgleichs
 
     @property

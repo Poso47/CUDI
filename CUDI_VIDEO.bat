@@ -31,6 +31,7 @@ echo.
 echo CUDI Video startet auf http://localhost:8000
 echo Vom Handy im selben WLAN: http://IP-DIESES-PCS:8000  (IP mit "ipconfig" anzeigen)
 echo Tipp: Zugangscode setzen mit  set CUDI_VIDEO_TOKEN=deinCode  vor dem Start.
+echo Fragt die Windows-Firewall nach Zugriff: "Zulassen" waehlen, sonst kann das Handy nicht verbinden.
 echo Bei Problemen: CUDI_VIDEO_TEST.bat ausfuehren.
 echo.
 start "" http://localhost:8000

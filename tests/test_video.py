@@ -535,3 +535,13 @@ def test_comparison_half_and_short_name():
     assert monaco["text"] == "etwa halb so groß wie der Englische Garten in München"
     malta = comparison(RankItem(qid="Q233", value=316e6, unit="Q25343"), ref, "P2046", "de")
     assert malta["chip"] == "84× Englischer Garten"
+
+
+def test_buildings_world_requires_build_date_but_country_scope_does_not(fake_lookup):
+    world = VideoSpec.from_dict(topics.plan_from_text("die höchsten Gebäude der Welt"))
+    assert world.source.require_any == ["P1619", "P571"]
+    germany = VideoSpec.from_dict(topics.plan_from_text("die höchsten Gebäude Deutschlands"))
+    assert germany.source.require_any == []
+    assert "Q41176" in germany.source.extra_classes              # auch allgemeine Gebäude (Omniturm)
+    q = build_ranking_query(germany.source)
+    assert "wdt:P5817 ?state" in q                                # Nutzungszustand "im Bau" usw. ausgeschlossen

@@ -349,6 +349,9 @@ def plan_from_text(text: str, count: int | None = None) -> dict:
     source = {"type": "wikidata", "property": pid, "order": order, **info["source"]}
     if scope == "country" and info.get("country_extra_classes"):
         source["extra_classes"] = [*source.get("extra_classes", []), *info["country_extra_classes"]]
+        # In einzelnen Ländern fehlen oft Baudaten (z. B. Omniturm); Projekte sind über Klassen/Nutzungszustand
+        # ausgeschlossen, Einträge ohne Baudatum markiert der Prüfbericht.
+        source.pop("require_any", None)
     if where:
         source["where"] = where
     if scope == "world" and order == "desc" and pid in info.get("world_min", {}):

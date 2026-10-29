@@ -121,6 +121,8 @@ def _filter_lines(src: WikidataSource) -> list[str]:
         lines.append(f"  FILTER EXISTS {{ {alternatives} }}")
     excluded = " ".join(f"wd:{c}" for c in dict.fromkeys([*DEFAULT_EXCLUDE, *src.exclude_classes]))
     lines.append(f"  FILTER NOT EXISTS {{ ?item wdt:P31 ?excluded . VALUES ?excluded {{ {excluded} }} }}")
+    # auch über den Nutzungszustand (P5817): im Bau, geplant, zerstört …
+    lines.append(f"  FILTER NOT EXISTS {{ ?item wdt:P5817 ?state . VALUES ?state {{ {excluded} }} }}")
     # nur Objekte auf der Erde (kein Olympus Mons & Co.)
     lines.append("  FILTER NOT EXISTS { ?item wdt:P376 ?body . FILTER(?body != wd:Q2) }")
     for prop in src.exclude_props:
@@ -139,7 +141,7 @@ def _filter_lines(src: WikidataSource) -> list[str]:
 # --------------------------------------------------------------------------- Ausweichroute
 
 SEARCH_API = "https://www.wikidata.org/w/api.php"
-SEARCH_MAX_OFFSET = 10_000
+SEARCH_MAX_OFFSET = 2_000   # die 2.000 meistverlinkten Kandidaten genügen (Top-Objekte sind gut verlinkt)
 BATCH = 300
 
 
@@ -157,8 +159,9 @@ def _countries_in(continents: list[str]) -> list[str]:
 def _search_candidates(src: WikidataSource) -> list[str]:
     """Kandidaten über den Suchindex (haswbstatement) – schnell auch bei riesigen Klassen.
 
-    Sortiert nach eingehenden Verweisen: falls es mehr als 10.000 Treffer gibt (z. B. Seen in
-    Schweden), bleiben die bekanntesten – und damit sicher die größten – Objekte dabei."""
+    Sortiert nach eingehenden Verweisen und begrenzt auf die meistverlinkten Treffer: bei sehr
+    vielen Objekten (z. B. Seen in Schweden) bleiben die bekanntesten – und damit sicher die
+    größten – dabei, und es sind nur wenige Anfragen nötig."""
     filters: list[str] = []
     if src.country:
         filters.append(f"haswbstatement:P17={src.country}")
@@ -260,8 +263,9 @@ def _details(qids: list[str], langs: list[str], image_prop: str = "P18") -> dict
             f"  OPTIONAL {{ ?w_{lang} schema:about ?item ; schema:isPartOf <https://{lang}.wikipedia.org/> }}",
         ]
     query = "\n".join([
-        f"SELECT ?item ?img ?photo {' '.join(selects)} WHERE {{",
+        f"SELECT ?item ?img ?photo ?built {' '.join(selects)} WHERE {{",
         f"  VALUES ?item {{ {values} }}",
+        "  OPTIONAL { ?item wdt:P1619|wdt:P571 ?built }",
         f"  OPTIONAL {{ ?item wdt:{image_prop} ?img }}",
         "  OPTIONAL { ?item wdt:P18 ?photo }",
         *opts,
@@ -272,7 +276,8 @@ def _details(qids: list[str], langs: list[str], image_prop: str = "P18") -> dict
         qid = _qid(b["item"]["value"])
         if qid in out:
             continue
-        row = {"labels": {}, "descriptions": {}, "wiki_titles": {}, "image_file": None, "image_kind": "photo"}
+        row = {"labels": {}, "descriptions": {}, "wiki_titles": {}, "image_file": None, "image_kind": "photo",
+               "built": "built" in b}
         if "img" in b:
             row["image_file"] = unquote(b["img"]["value"].rsplit("/", 1)[-1])
             row["image_kind"] = "flag" if image_prop == "P41" else "photo"
@@ -401,6 +406,7 @@ def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
             continue
         it.labels, it.descriptions = d["labels"], d["descriptions"]
         it.wiki_titles, it.image_file, it.image_kind = d["wiki_titles"], d["image_file"], d["image_kind"]
+        it.has_build_date = d["built"]
         items.append(it)
         if len(items) == spec.count:
             break
@@ -441,6 +447,11 @@ def check_consistency(spec: VideoSpec, research: Research) -> list[str]:
         old = [it for it in items if it.value_date and now - int(it.value_date[:4]) > spec.source.max_age_years]
         for it in old:
             warnings.append(f"Wert für {it.labels.get('en', it.qid)} ist von {it.value_date[:4]} (älter als erlaubt).")
+    if spec.source.property == "P2048" and spec.source.cls in ("Q11303", "Q18142", "Q41176"):
+        for it in items:
+            if it.has_build_date is False:
+                warnings.append(f"{it.labels.get('de') or it.labels.get('en')}: kein Eröffnungs-/Baudatum in Wikidata – "
+                                "bitte prüfen, ob das Gebäude fertiggestellt ist.")
     for a, b in zip(items, items[1:]):
         if a.value == b.value:
             warnings.append(f"Gleichstand: {a.labels.get('en')} und {b.labels.get('en')} ({a.value}).")

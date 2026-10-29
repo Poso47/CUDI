@@ -103,6 +103,7 @@ kostenlosen Schlüssel für die „Fact Check Tools API“ (Google Cloud Console
 
 **A) Zu Hause (gleiches WLAN):** `CUDI_VIDEO.bat` am PC starten, am Handy `http://<IP-des-PCs>:8000`
 öffnen (IP mit `ipconfig`). Vorher einen Zugangscode setzen: `set CUDI_VIDEO_TOKEN=meinCode`.
+Fragt die Windows-Firewall beim ersten Start nach Zugriff, „Zulassen“ (privates Netzwerk) wählen.
 
 **B) Unterwegs, kostenlos in der Cloud – Hugging Face Spaces:**
 1. Auf huggingface.co einen neuen *Space* anlegen, SDK „Docker“, Sichtbarkeit „Private“.
