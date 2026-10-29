@@ -786,3 +786,41 @@ def test_infobox_ignores_other_quantities_with_same_unit(monkeypatch):
     item = RankItem(qid="Q1", value=979.0, unit="Q11573", wiki_titles={"en": "Angel Falls"})
     [ev] = checkers.WikipediaLangChecker("en").check(spec, item)
     assert ev.value is None and ev.agrees is None        # 1.150 m Meereshöhe ist keine Fallhöhe
+
+
+# --------------------------------------------------------------------------- Datenfehler in Seen-Rankings
+
+def test_pick_latest_prefers_maximum_over_average_depth():
+    mean, maximum = _binding("Q5511", 570), _binding("Q5511", 1433)
+    mean["criterion"] = {"value": "http://www.wikidata.org/entity/Q202785"}      # Durchschnitt
+    maximum["criterion"] = {"value": "http://www.wikidata.org/entity/Q10578722"}  # Maximum
+    assert pick_latest([mean, maximum])["Q5511"].value == 1433
+    assert pick_latest([maximum, mean])["Q5511"].value == 1433
+
+
+def test_lake_query_includes_lake_types_and_excludes_antarctica():
+    spec = VideoSpec.from_dict(topics.plan_from_text("die tiefsten Seen der Welt"))
+    query = build_ranking_query(spec.source)
+    assert "wd:Q211302" in query                                                  # Gletschersee (Großer Sklavensee)
+    assert "FILTER NOT EXISTS { ?item wdt:P30 ?ex0 . VALUES ?ex0 { wd:Q51 } }" in query
+    with pytest.raises(ValueError):
+        make_spec(source={"type": "wikidata", "class": "Q23397", "property": "P4511",
+                          "exclude_values": {"P30": ["Antarktis"]}})
+
+
+def test_shifted_value_detects_decimal_errors_only():
+    from cudi_video.verify.numbers import shifted_unit_value
+    assert shifted_unit_value("Profundidad máxima 111 m", 1112.0, "m") == (111.0, 1.0)
+    assert shifted_unit_value("Altitud 770 m Profundidad máxima 111 m", 614.0, "m") is None
+    assert shifted_unit_value("Elevation 100 m", 1000.0, "m") is None              # runde Zahlen: kein Zufallstreffer
+
+
+def test_contradicted_unconfirmed_value_is_rejected():
+    from cudi_video.verify import unconfirmed_conflict
+    lake = RankItem(qid="Q1", value=1112.0, unit="Q11573")
+    alone = evaluate(lake, [_ev("Wikidata", 1112.0, precision=1), _ev("Wikipedia (es)", 111.0, precision=1)], 0.01)
+    assert alone["status"] == "widersprüchlich" and unconfirmed_conflict(alone)
+    crater = RankItem(qid="Q2", value=594.0, unit="Q11573")
+    split = evaluate(crater, [_ev("Wikidata", 594.0, precision=1), _ev("Wikipedia (en)", 594.0, precision=1),
+                              _ev("Wikipedia (ar)", 655.0, precision=1), _ev("Wikipedia (zh)", 655.0, precision=1)], 0.01)
+    assert split["status"] == "widersprüchlich" and not unconfirmed_conflict(split)

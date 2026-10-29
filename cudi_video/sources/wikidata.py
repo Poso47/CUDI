@@ -23,6 +23,8 @@ CRITERION_SCORE = {
     "Q24192182": 1,    # architektonische Höhe
     "Q26970842": -1,   # Höhe bis zur Spitze (inkl. Antenne)
     "Q31271474": -1,   # Höhe des obersten Geschosses
+    "Q10578722": 1,    # Maximum (z. B. größte Tiefe eines Sees) ...
+    "Q202785": -1,     # ... statt Durchschnitt (Tanganjikasee: 1.433 m statt 570 m)
 }
 
 # Immer ausschließen: Objekte, die es (so) nicht gibt oder nicht mehr gibt.
@@ -130,6 +132,9 @@ def _filter_lines(src: WikidataSource) -> list[str]:
     lines.append("  FILTER NOT EXISTS { ?item wdt:P376 ?body . FILTER(?body != wd:Q2) }")
     for prop in src.exclude_props:
         lines.append(f"  FILTER NOT EXISTS {{ ?item wdt:{prop} [] }}")
+    for i, (prop, qids) in enumerate(src.exclude_values.items()):
+        values = " ".join(f"wd:{q}" for q in qids)
+        lines.append(f"  FILTER NOT EXISTS {{ ?item wdt:{prop} ?ex{i} . VALUES ?ex{i} {{ {values} }} }}")
     if src.min_sitelinks:
         lines.append(f"  ?item wikibase:sitelinks ?sitelinks . FILTER(?sitelinks >= {int(src.min_sitelinks)})")
     if src.exclude_ended:

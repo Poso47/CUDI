@@ -19,7 +19,7 @@ from ..enrich import fetch_summary
 from ..models import RankItem
 from ..spec import VideoSpec
 from ..units import quantity
-from .numbers import UNIT_FACTORS, closest_unit_value, mentions_value
+from .numbers import UNIT_FACTORS, closest_unit_value, mentions_value, shifted_unit_value
 
 log = logging.getLogger(__name__)
 
@@ -228,9 +228,11 @@ class WikipediaLangChecker(Checker):
         symbol = q.unit.symbol if q.unit else ""
         # Erst die Einleitung, dann die Infobox (eine Anfrage mehr, nur wenn nötig). In der Infobox stehen
         # mehr Zahlen gleicher Einheit (Fallhöhe neben Meereshöhe) – daher dort ein engeres Fenster.
+        texts = []
         for where, window, read in (("Einleitung", 0.3, lambda: text),
                                     ("Infobox", 0.15, lambda: fetch_lead_text(self.lang, item.wiki_titles[self.lang]))):
             source_text = read()
+            texts.append(source_text)
             if symbol in UNIT_FACTORS:
                 # Wert mit Einheit auslesen -> kann bestätigen ODER widersprechen
                 found = closest_unit_value(source_text, q.value, symbol, window=window)
@@ -240,6 +242,13 @@ class WikipediaLangChecker(Checker):
                                      note=f"{where}: {value:g} {symbol}", precision=precision / q.unit.factor)]
             elif mentions_value(source_text, q.value):
                 return [Evidence(self.name, self.origin, url, None, None, agrees=True, note=where)]
+        if symbol in UNIT_FACTORS:
+            # Genau eine Zehnerpotenz daneben (111 m statt 1.112 m)? -> Kommafehler auf einer Seite
+            shifted = shifted_unit_value(" ".join(texts), q.value, symbol)
+            if shifted is not None:
+                value, precision = shifted
+                return [Evidence(self.name, self.origin, url, value / q.unit.factor, None,
+                                 note=f"um Faktor 10 abweichend: {value:g} {symbol}", precision=precision / q.unit.factor)]
         return [Evidence(self.name, self.origin, url, None, None, agrees=None, note="Wert im Artikel nicht genannt")]
 
 

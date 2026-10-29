@@ -9,6 +9,10 @@ unit: km2
 source:
   type: wikidata
   class: Q23397          # See
+  # auch Gletscher-, Krater-, Graben- und tektonische Seen (z. B. Großer Sklavensee), keine Stauseen
+  extra_classes: [Q211302, Q204324, Q100900880, Q6341928, Q3511952]
+  # keine Seen unter dem antarktischen Eis – deren Maße sind nur geschätzt
+  exclude_values: {P30: [Q51]}
   property: P2046        # Fläche
   min_value: 10000000000 # ab 10.000 km² (in m²)
   exclude_classes: [Q55965244] # Urzeitseen, die es nicht mehr gibt

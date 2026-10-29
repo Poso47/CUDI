@@ -14,6 +14,10 @@ source:
   property: P4511
   order: desc
   class: Q23397
+  # auch Gletscher-, Krater-, Graben- und tektonische Seen (z. B. Großer Sklavensee), keine Stauseen
+  extra_classes: [Q211302, Q204324, Q100900880, Q6341928, Q3511952]
+  # keine Seen unter dem antarktischen Eis – deren Maße sind nur geschätzt
+  exclude_values: {P30: [Q51]}
   min_value: 400
   extras:
     basin: P205

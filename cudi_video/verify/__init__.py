@@ -250,12 +250,28 @@ def _warnings_for(spec: VideoSpec, item: RankItem, result: dict) -> list[str]:
     return out
 
 
+def unconfirmed_conflict(result: dict) -> bool:
+    """Widerspricht eine Quelle dem Wert, ohne dass irgendeine unabhängige Quelle ihn stützt?"""
+    return result["status"] == "widersprüchlich" and not any(
+        e["agrees"] and e["source"] != "Wikidata" for e in result["evidence"])
+
+
 def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Research:
     checkers = checkers_for(spec)
     notes: dict[str, list[str]] = {}
     for item in research.items:
         result = verify_item(spec, item, checkers)
         notes[item.qid] = _warnings_for(spec, item, result)
+
+    # Werte, denen widersprochen wird und die niemand bestätigt (z. B. Kommafehler 1.112 m statt 111 m),
+    # kommen nicht ins Video – der nächste Kandidat rückt nach.
+    rejected = [it for it in research.items if unconfirmed_conflict(it.verification)]
+    for it in rejected:
+        shown = "; ".join(f"{e['source']}: {quantity(e['value'], it.unit, spec.unit).display('de')}"
+                          for e in it.verification["evidence"] if e["value"] is not None)
+        research.warnings.append(f"{it.labels.get('de') or it.qid}: nicht verwendet – widersprüchliche Angaben "
+                                 f"ohne unabhängige Bestätigung ({shown}).")
+    research.items = [it for it in research.items if it not in rejected]
 
     # Korrigierte Werte können die Reihenfolge ändern – erst jetzt auf die gewünschte Anzahl kürzen.
     research.items.sort(key=lambda it: it.value, reverse=spec.source.order == "desc")

@@ -28,6 +28,7 @@ class WikidataSource:
     exclude_classes: list[str] = field(default_factory=list)  # z. B. unfertige Gebäude
     exclude_ended: bool = True                 # aufgelöst/abgerissen (P576) ausschließen
     exclude_props: list[str] = field(default_factory=list)    # Objekte mit dieser Eigenschaft ausschließen (z. B. P297 = Staat/Gebiet)
+    exclude_values: dict[str, list[str]] = field(default_factory=dict)   # z. B. {"P30": ["Q51"]}: nicht in der Antarktis
     min_sitelinks: int | None = None           # nur Objekte mit Artikeln in mind. N Wikipedia-Sprachen
     min_value: float | None = None
     max_value: float | None = None
@@ -92,6 +93,7 @@ class VideoSpec:
         if not 3 <= self.count <= 20:
             raise ValueError("count muss zwischen 3 und 20 liegen")
         where_ids = [q for v in self.source.where.values() for q in ([v] if isinstance(v, str) else v)]
+        where_ids += [q for v in self.source.exclude_values.values() for q in v]
         for qid in [self.source.cls, self.source.country, *self.source.exclude_classes, *self.source.extra_classes,
                     *where_ids]:
             if qid and not re.fullmatch(r"Q\d+", qid):
@@ -100,7 +102,7 @@ class VideoSpec:
             if not re.fullmatch(r"P\d+\*?(/P\d+\*?){0,2}", path):
                 raise ValueError(f"Ungültiger Filter: {path!r}")
         for pid in [self.source.property, *self.source.require_props, *self.source.require_any,
-                    *self.source.exclude_props, *self.source.extras.values()]:
+                    *self.source.exclude_props, *self.source.exclude_values, *self.source.extras.values()]:
             if not re.fullmatch(r"P\d+", pid):
                 raise ValueError(f"Ungültige Eigenschaft: {pid!r}")
         if self.image_prop not in ("P18", "P41", "P154", "P94"):

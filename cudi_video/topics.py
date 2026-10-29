@@ -18,6 +18,14 @@ class PlanError(ValueError):
 
 # --------------------------------------------------------------------------- Wissen über Themen
 
+# Seen: wichtige Unterklassen gezielt (alle Unterklassen wären langsam und brächten Stauseen),
+# keine Seen unter dem antarktischen Eis (Tiefe nur geschätzt, wie beim ausgeschlossenen Wostoksee).
+LAKE_SOURCE = {
+    "class": "Q23397",
+    "extra_classes": ["Q211302", "Q204324", "Q100900880", "Q6341928", "Q3511952"],
+    "exclude_values": {"P30": ["Q51"]},
+}
+
 CLASSES = {
     "countries": {
         "icon": "globe",
@@ -64,7 +72,7 @@ CLASSES = {
     "lakes": {
         "icon": "lake",
         "keywords": ["seen", "see", "lakes", "lake"],
-        "source": {"class": "Q23397"},
+        "source": LAKE_SOURCE,
         "plural": {"de": "Seen", "en": "Lakes"},
         "props": {"size": "P2046", "depth": "P4511"},
         "default": "size",

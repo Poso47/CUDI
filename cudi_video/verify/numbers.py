@@ -136,3 +136,22 @@ def closest_unit_value(text: str, expected: float, unit_symbol: str, window: flo
         if abs(value - expected) / expected <= window and (best is None or abs(value - expected) < abs(best[0] - expected)):
             best = (value, precision)
     return best
+
+
+def _significant_digits(x: float) -> int:
+    return len(str(int(round(abs(x)))).rstrip("0")) if x else 0
+
+
+def shifted_unit_value(text: str, expected: float, unit_symbol: str, tol: float = 0.015) -> tuple[float, float] | None:
+    """Zahl, die genau um eine Zehnerpotenz vom erwarteten Wert abweicht (111 m statt 1.112 m) –
+    ein typischer Komma- oder Tippfehler in einer der Quellen. Nur bei mindestens dreistelligen
+    Werten, damit runde Zahlen (100 m, 1.000 m) keine Zufallstreffer erzeugen."""
+    if _significant_digits(expected) < 3 and _significant_digits(expected * 10) < 3:
+        return None
+    for value, precision in find_unit_values(text, unit_symbol):
+        if value <= 0 or precision / value > 0.01:
+            continue
+        for factor in (10, 100, 1000):
+            if any(abs(ratio / factor - 1) <= tol for ratio in (expected / value, value / expected)):
+                return value, precision
+    return None
