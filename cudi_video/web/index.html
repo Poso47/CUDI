@@ -174,7 +174,12 @@ async function start() {
 async function copyText(btn, folder, name) {
   const res = await fetch(fileUrl(folder, name));
   const text = await res.text();
-  try { await navigator.clipboard.writeText(text); btn.textContent = "Kopiert ✓"; }
+  try {
+    await navigator.clipboard.writeText(text);
+    const label = btn.textContent;
+    btn.textContent = "Kopiert ✓";
+    setTimeout(() => { btn.textContent = label; }, 2000);
+  }
   catch (e) { window.open(fileUrl(folder, name)); }
 }
 
