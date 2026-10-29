@@ -105,9 +105,25 @@ def main(argv=None) -> int:
 
         if args.host not in ("127.0.0.1", "localhost") and not config.WEB_TOKEN:
             print("Hinweis: Kein CUDI_VIDEO_TOKEN gesetzt – jeder im Netzwerk kann die Oberfläche nutzen.")
+        ip = _lan_address() if args.host == "0.0.0.0" else None
+        if ip:
+            print(f"Vom Handy im selben WLAN öffnen:  http://{ip}:{args.port}")
         uvicorn.run("cudi_video.web.app:app", host=args.host, port=args.port)
         return 0
     return 1
+
+
+def _lan_address() -> str | None:
+    """IP dieses Rechners im WLAN/LAN, damit man die Adresse fürs Handy nicht suchen muss."""
+    import socket
+
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect(("8.8.8.8", 80))      # UDP: wählt nur die Netzwerkkarte aus, sendet nichts
+            ip = s.getsockname()[0]
+    except OSError:
+        return None
+    return None if ip.startswith("127.") else ip
 
 
 if __name__ == "__main__":

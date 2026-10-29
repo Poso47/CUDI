@@ -15,6 +15,15 @@ set PY=python
 
 where ffmpeg >nul 2>nul
 if errorlevel 1 (
+    where winget >nul 2>nul
+    if not errorlevel 1 (
+        echo ffmpeg fehlt - wird jetzt mit winget installiert ...
+        winget install -e --id Gyan.FFmpeg --accept-source-agreements --accept-package-agreements
+        echo.
+        echo Bitte dieses Fenster schliessen und CUDI_VIDEO.bat neu starten.
+        pause
+        exit /b 0
+    )
     echo ffmpeg fehlt. Installation mit:  winget install Gyan.FFmpeg
     echo Danach dieses Fenster schliessen und neu starten.
     pause
@@ -29,7 +38,7 @@ if errorlevel 1 (
 
 echo.
 echo CUDI Video startet auf http://localhost:8000
-echo Vom Handy im selben WLAN: http://IP-DIESES-PCS:8000  (IP mit "ipconfig" anzeigen)
+echo Die Adresse fuers Handy (selbes WLAN) erscheint gleich unten.
 echo Tipp: Zugangscode setzen mit  set CUDI_VIDEO_TOKEN=deinCode  vor dem Start.
 echo Fragt die Windows-Firewall nach Zugriff: "Zulassen" waehlen, sonst kann das Handy nicht verbinden.
 echo Bei Problemen: CUDI_VIDEO_TEST.bat ausfuehren.

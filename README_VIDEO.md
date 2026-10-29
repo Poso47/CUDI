@@ -18,7 +18,8 @@ Pro Video entstehen:
 ## Schnellstart am Windows-PC
 
 1. Python 3.11+ installieren (python.org, Haken bei „Add to PATH“).
-2. ffmpeg installieren: `winget install Gyan.FFmpeg` (danach Fenster neu öffnen).
+2. ffmpeg: installiert `CUDI_VIDEO.bat` beim ersten Start selbst (per winget), sonst
+   `winget install Gyan.FFmpeg` (danach Fenster neu öffnen).
 3. `CUDI_VIDEO_TEST.bat` doppelklicken – der Selbsttest zeigt, ob alles bereit ist.
 4. `CUDI_VIDEO.bat` doppelklicken → Browser öffnet sich auf http://localhost:8000
 
@@ -101,8 +102,9 @@ kostenlosen Schlüssel für die „Fact Check Tools API“ (Google Cloud Console
 
 ## Vom Handy nutzen
 
-**A) Zu Hause (gleiches WLAN):** `CUDI_VIDEO.bat` am PC starten, am Handy `http://<IP-des-PCs>:8000`
-öffnen (IP mit `ipconfig`). Vorher einen Zugangscode setzen: `set CUDI_VIDEO_TOKEN=meinCode`.
+**A) Zu Hause (gleiches WLAN):** `CUDI_VIDEO.bat` am PC starten – das Fenster zeigt die Adresse
+fürs Handy an („Vom Handy im selben WLAN öffnen: http://192.168…:8000“). Vorher einen Zugangscode
+setzen: `set CUDI_VIDEO_TOKEN=meinCode`.
 Fragt die Windows-Firewall beim ersten Start nach Zugriff, „Zulassen“ (privates Netzwerk) wählen.
 
 **B) Unterwegs, kostenlos in der Cloud – Hugging Face Spaces:**
