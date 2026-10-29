@@ -143,7 +143,8 @@ def chip(text: str, fnt, fg=WHITE, bg=(255, 255, 255, 28)) -> Image.Image:
 class GraphicCard:
     """Karte ohne Foto: Farbverlauf, wandernde Streifen und Themen-Icon – oder eine Flagge."""
 
-    def __init__(self, size, icon: str, c1, c2, flag: Image.Image | None = None):
+    def __init__(self, size, icon: str, c1, c2, flag: Image.Image | None = None, keep_out=(0, 0)):
+        """keep_out: Breite/Höhe der Ecke oben links, die das Rang-Badge verdeckt."""
         self.size = size
         w, h = size
         base = rounded_rect(size, 36, (*CARD, 255))
@@ -158,8 +159,13 @@ class GraphicCard:
         self.mask = rounded_mask(size, 36)
         self.flag = None
         if flag is not None:
+            # Flaggen tragen Wappen oft oben links (Malta, Union Jack) – dort sitzt das Badge.
+            # Daher rechts neben dem Badge platzieren statt mittig.
+            left = keep_out[0] + 30 if keep_out[0] > 0 else 70
+            box_w, box_h = w - left - 50, h - 100
             fw, fh = flag.size
-            scale = min((w - 140) / fw, (h - 120) / fh)
+            scale = min(box_w / fw, box_h / fh)
+            self.flag_center = (left + box_w / 2, h / 2)
             flag = flag.resize((max(1, int(fw * scale)), max(1, int(fh * scale))), Image.LANCZOS).convert("RGBA")
             framed = Image.new("RGBA", (flag.width + 12, flag.height + 12), (255, 255, 255, 235))
             framed.alpha_composite(flag, (6, 6))
@@ -181,7 +187,7 @@ class GraphicCard:
         if self.flag is not None:
             scale = 1.0 + 0.04 * p
             flag = self.flag.resize((int(self.flag.width * scale), int(self.flag.height * scale)), Image.BILINEAR)
-            x, y = (w - flag.width) / 2, (h - flag.height) / 2
+            x, y = self.flag_center[0] - flag.width / 2, self.flag_center[1] - flag.height / 2
             paste(card, self.flag_shadow, (x - 36, y - 26))
             paste(card, flag, (x, y))
         else:
@@ -258,6 +264,8 @@ class IntroScene(Scene):
 class ItemScene(Scene):
     CARD_Y = 230
     CARD_SIZE = (CONTENT_W, 560)
+    BADGE = 230
+    BADGE_POS = (-30, -40)          # relativ zur Bildkarte: ragt oben links über den Rand
 
     def __init__(self, job):
         super().__init__(job)
@@ -279,8 +287,9 @@ class ItemScene(Scene):
                     self.photo = cover_crop(img.convert("RGB"), (int(cw * 1.18), int(ch * 1.18)))
             except Exception:
                 self.photo, flag = None, None
+        keep_out = (self.BADGE_POS[0] + self.BADGE, self.BADGE_POS[1] + self.BADGE)
         self.graphic = None if self.photo else GraphicCard(self.CARD_SIZE, it.get("icon", "globe"),
-                                                           self.c1, self.c2, flag)
+                                                           self.c1, self.c2, flag, keep_out)
         self.card_mask = rounded_mask(self.CARD_SIZE, 36)
         self.card_shadow = shadow(rounded_rect(self.CARD_SIZE, 36, (0, 0, 0, 255)), 30, 180)
         self.credit = None
@@ -294,13 +303,14 @@ class ItemScene(Scene):
             self.credit = chip(text if text == full else text.rstrip() + "…", fnt,
                                fg=(230, 230, 240), bg=(0, 0, 0, 150))
         # Rang-Badge
-        badge = rounded_rect((230, 230), 54, (*self.c1, 255))
-        grad = gradient_fill(rounded_rect((230, 230), 54, (255, 255, 255, 255)), self.c1, self.c2, vertical=True)
+        B = self.BADGE
+        badge = rounded_rect((B, B), 54, (*self.c1, 255))
+        grad = gradient_fill(rounded_rect((B, B), 54, (255, 255, 255, 255)), self.c1, self.c2, vertical=True)
         paste(badge, grad, (0, 0))
         lab = text_layer(self.L["rank"], font("bold", 30), fill=(10, 12, 28, 200))
-        paste(badge, lab, ((230 - lab.width) / 2, 26))
-        num = text_layer(f"#{it['rank']}", fit_font(f"#{it['rank']}", "black", 132, 200, 1)[0], fill=(10, 12, 28, 255))
-        paste(badge, num, ((230 - num.width) / 2, 62))
+        paste(badge, lab, ((B - lab.width) / 2, 26))
+        num = text_layer(f"#{it['rank']}", fit_font(f"#{it['rank']}", "black", 132, B - 30, 1)[0], fill=(10, 12, 28, 255))
+        paste(badge, num, ((B - num.width) / 2, 62))
         self.badge = badge
         self.badge_shadow = shadow(badge, 22, 160)
         # Texte
@@ -353,9 +363,11 @@ class ItemScene(Scene):
         # Rang-Badge springt auf die Ecke
         pb = ease_out_back(progress(t, 0.15, 0.45))
         if pb > 0:
-            size = max(1, int(230 * pb))
+            B = self.BADGE
+            size = max(1, int(B * pb))
             b = self.badge.resize((size, size))
-            bx, by = X0 - 30 + (230 - size) / 2, self.CARD_Y - 40 + (230 - size) / 2
+            bx = X0 + self.BADGE_POS[0] + (B - size) / 2
+            by = self.CARD_Y + self.BADGE_POS[1] + (B - size) / 2
             paste(f, self.badge_shadow, (bx - 44, by - 34), opacity=clamp(pb))
             paste(f, b, (bx, by))
         # Name
