@@ -261,9 +261,18 @@ class IntroScene(Scene):
         return f
 
 
+def name_layout(name: str):
+    """Name möglichst einzeilig (dann bleibt Platz für die Info-Chips), sonst zweizeilig."""
+    fnt, lines = fit_font(name, "black", 88, CONTENT_W, 1, min_size=60)
+    if lines == [name] and fnt.getlength(name) <= CONTENT_W:
+        return fnt, lines
+    return fit_font(name, "black", 72, CONTENT_W, 2, min_size=48)
+
+
 class ItemScene(Scene):
     CARD_Y = 230
     CARD_SIZE = (CONTENT_W, 560)
+    CARD_SIZE_LONG_NAME = (CONTENT_W, 490)   # zweizeiliger Name: Karte kürzer, damit die Info-Chips Platz haben
     BADGE = 230
     BADGE_POS = (-30, -40)          # relativ zur Bildkarte: ragt oben links über den Rand
 
@@ -273,6 +282,9 @@ class ItemScene(Scene):
         self.item = it
         self.q = quantity(it["si_value"], it["unit"], it["wanted"])
         self.max_display = job["max_display"]
+        name_font, name_lines = name_layout(it["name"])
+        self.name = text_layer(name_lines, name_font)
+        self.card_size = self.CARD_SIZE if len(name_lines) == 1 else self.CARD_SIZE_LONG_NAME
         # Bild vorbereiten: Fotos füllen die Karte (Ken-Burns braucht Reserve um den Ausschnitt),
         # Flaggen werden vollständig gezeigt, ohne Bild gibt es eine Grafik-Karte mit Themen-Icon.
         self.photo = None
@@ -283,15 +295,15 @@ class ItemScene(Scene):
                 if it.get("image_kind") == "flag":
                     flag = img.convert("RGBA")
                 else:
-                    cw, ch = self.CARD_SIZE
+                    cw, ch = self.card_size
                     self.photo = cover_crop(img.convert("RGB"), (int(cw * 1.18), int(ch * 1.18)))
             except Exception:
                 self.photo, flag = None, None
         keep_out = (self.BADGE_POS[0] + self.BADGE, self.BADGE_POS[1] + self.BADGE)
-        self.graphic = None if self.photo else GraphicCard(self.CARD_SIZE, it.get("icon", "globe"),
+        self.graphic = None if self.photo else GraphicCard(self.card_size, it.get("icon", "globe"),
                                                            self.c1, self.c2, flag, keep_out)
-        self.card_mask = rounded_mask(self.CARD_SIZE, 36)
-        self.card_shadow = shadow(rounded_rect(self.CARD_SIZE, 36, (0, 0, 0, 255)), 30, 180)
+        self.card_mask = rounded_mask(self.card_size, 36)
+        self.card_shadow = shadow(rounded_rect(self.card_size, 36, (0, 0, 0, 255)), 30, 180)
         self.credit = None
         if it.get("credit_short"):
             fnt = font("regular", 22)
@@ -314,8 +326,6 @@ class ItemScene(Scene):
         self.badge = badge
         self.badge_shadow = shadow(badge, 22, 160)
         # Texte
-        fnt, lines = fit_font(it["name"], "black", 88, CONTENT_W, 2, min_size=52)
-        self.name = text_layer(lines, fnt)
         self.value_font = font("black", 96)
         self.value_label = text_layer(it["value_label"].upper(), font("bold", 30), fill=MUTED) if it["value_label"] else None
         chip_font = font("semibold", 30)
@@ -339,7 +349,7 @@ class ItemScene(Scene):
     def _card(self, t):
         if self.photo is None:
             return self.graphic.render(t, self.job["duration"])
-        cw, ch = self.CARD_SIZE
+        cw, ch = self.card_size
         p = ease_in_out(clamp(t / max(1.0, self.job["duration"])))
         zoom = 1.0 + 0.14 * p
         bw, bh = self.photo.size
@@ -359,7 +369,7 @@ class ItemScene(Scene):
         paste(f, self.card_shadow, (X0 - 60, cy - 50), opacity=pc)
         paste(f, self._card(t), (X0, cy), opacity=pc)
         if self.credit:
-            paste(f, self.credit, (X0 + 18, cy + self.CARD_SIZE[1] - self.credit.height - 16), opacity=pc)
+            paste(f, self.credit, (X0 + 18, cy + self.card_size[1] - self.credit.height - 16), opacity=pc)
         # Rang-Badge springt auf die Ecke
         pb = ease_out_back(progress(t, 0.15, 0.45))
         if pb > 0:
@@ -371,7 +381,7 @@ class ItemScene(Scene):
             paste(f, self.badge_shadow, (bx - 44, by - 34), opacity=clamp(pb))
             paste(f, b, (bx, by))
         # Name
-        y = self.CARD_Y + self.CARD_SIZE[1] + 34
+        y = self.CARD_Y + self.card_size[1] + 34
         pn = ease_out_cubic(progress(t, 0.3, 0.45))
         paste(f, self.name, (X0, y + (1 - pn) * 40), opacity=pn)
         y += self.name.height + 6
