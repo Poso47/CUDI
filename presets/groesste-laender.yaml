@@ -1,0 +1,17 @@
+id: groesste-laender
+title:
+  de: Die {count} größten Länder der Welt
+  en: The {count} Largest Countries in the World
+count: 10
+icon: globe
+image_prop: P41        # Flaggen statt Fotos
+value_label: {de: Fläche, en: Area}
+unit: km2
+source:
+  type: wikidata
+  class: Q3624078        # souveräner Staat
+  property: P2046        # Fläche
+  extras: {capital: P36, continent: P30}
+hashtags:
+  de: [ranking, geografie, länder]
+  en: [ranking, geography, countries]

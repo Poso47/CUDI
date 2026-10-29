@@ -1,0 +1,27 @@
+# Die tiefsten Seen der Welt (maximale Tiefe).
+# Erzeugt aus dem freien Thema: "die tiefsten Seen der Welt"
+id: tiefste-seen
+title:
+  de: Die {count} tiefsten Seen der Welt
+  en: The {count} Deepest Lakes in the World
+count: 10
+value_label:
+  de: Tiefe
+  en: Depth
+unit: m
+source:
+  type: wikidata
+  property: P4511
+  order: desc
+  class: Q23397
+  # auch Gletscher-, Krater-, Graben- und tektonische Seen (z. B. Großer Sklavensee), keine Stauseen
+  extra_classes: [Q211302, Q204324, Q100900880, Q6341928, Q3511952]
+  # keine Seen unter dem antarktischen Eis – deren Maße sind nur geschätzt
+  exclude_values: {P30: [Q51]}
+  min_value: 400
+  extras:
+    basin: P205
+hashtags:
+  de: [ranking, seen, natur]
+  en: [ranking, lakes, nature]
+icon: lake
