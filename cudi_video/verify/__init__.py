@@ -30,6 +30,18 @@ DEFAULT_TOLERANCE = 0.01
 
 STATUS_OK = ("bestätigt", "korrigiert")
 
+# Quellennamen je Sprache (intern werden die deutschen Namen als Schlüssel verwendet)
+SOURCE_NAMES = {
+    "Weltbank": {"de": "Weltbank", "en": "World Bank"},
+    "CIA World Factbook": {"de": "CIA World Factbook", "en": "CIA World Factbook"},
+    "OpenStreetMap": {"de": "OpenStreetMap", "en": "OpenStreetMap"},
+    "Wikidata": {"de": "Wikidata", "en": "Wikidata"},
+}
+
+
+def source_label(name: str, lang: str) -> str:
+    return SOURCE_NAMES.get(name, {}).get(lang, name)
+
 
 def confirmed_sources(item: RankItem) -> list[str]:
     """Quellen, die den verwendeten Wert stützen – nur wenn der Abgleich erfolgreich war."""
@@ -37,24 +49,24 @@ def confirmed_sources(item: RankItem) -> list[str]:
     return list(v.get("sources", [])) if v.get("status") in STATUS_OK else []
 
 
-def compact_sources(sources: list[str]) -> str:
+def compact_sources(sources: list[str], lang: str = "de") -> str:
     """['Weltbank', 'Wikipedia (ru)', 'Wikipedia (zh)'] -> 'Weltbank, Wikipedia (ru, zh)'"""
-    plain = [s for s in sources if not s.startswith("Wikipedia (")]
+    plain = [source_label(s, lang) for s in sources if not s.startswith("Wikipedia (")]
     langs = [s[len("Wikipedia ("):-1] for s in sources if s.startswith("Wikipedia (")]
     if langs:
         plain.append(f"Wikipedia ({', '.join(langs)})")
     return ", ".join(plain)
 
 
-def all_sources(research: Research) -> tuple[list[str], int]:
+def all_sources(research: Research, lang: str = "de") -> tuple[list[str], int]:
     """Alle Datenquellen mit Bestätigungen (ohne Wikipedia-Sprachen) + Anzahl Wikipedia-Sprachen."""
     names, langs = [], set()
     for item in research.items:
         for src in confirmed_sources(item) or ["Wikidata"]:
             if src.startswith("Wikipedia ("):
                 langs.add(src)
-            elif src not in names:
-                names.append(src)
+            elif source_label(src, lang) not in names:
+                names.append(source_label(src, lang))
     return names, len(langs)
 
 
@@ -134,28 +146,34 @@ def evaluate(item: RankItem, evidence: list[Evidence], tolerance: float) -> dict
     }
 
 
+def verify_item(spec: VideoSpec, item: RankItem, checkers) -> dict:
+    """Belege sammeln, auswerten und bei Bedarf den Wert korrigieren."""
+    evidence: list[Evidence] = []
+    for checker in checkers:
+        if not checker.applies(spec, item):
+            continue
+        try:
+            evidence.extend(checker.check(spec, item))
+        except (net.FetchError, KeyError, ValueError, TypeError) as exc:
+            log.warning("%s für %s nicht verfügbar: %s", checker.name, item.qid, exc)
+    result = evaluate(item, evidence, TOLERANCE.get(spec.source.property, DEFAULT_TOLERANCE))
+    item.verification = result
+    if result["status"] == "korrigiert":
+        item.value = result["value"]
+        item.value_date = result["date"] or item.value_date
+    return result
+
+
 def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Research:
-    tolerance = TOLERANCE.get(spec.source.property, DEFAULT_TOLERANCE)
     checkers = checkers_for(spec)
     for item in research.items:
-        evidence: list[Evidence] = []
-        for checker in checkers:
-            if not checker.applies(spec, item):
-                continue
-            try:
-                evidence.extend(checker.check(spec, item))
-            except (net.FetchError, KeyError, ValueError, TypeError) as exc:
-                log.warning("%s für %s nicht verfügbar: %s", checker.name, item.qid, exc)
-        result = evaluate(item, evidence, tolerance)
-        item.verification = result
+        result = verify_item(spec, item, checkers)
         name = item.labels.get("de") or item.labels.get("en") or item.qid
         if result["status"] == "korrigiert":
             old = quantity(result["original_value"], item.unit, spec.unit).display("de")
             new = quantity(result["value"], item.unit, spec.unit).display("de")
             research.warnings.append(
                 f"{name}: Wikidata-Wert {old} ist veraltet oder weicht ab – verwendet: {new} ({', '.join(result['sources'])})")
-            item.value = result["value"]
-            item.value_date = result["date"] or item.value_date
         elif result["outliers"]:
             details = "; ".join(
                 f"{e['source']}: {quantity(e['value'], item.unit, spec.unit).display('de')}"

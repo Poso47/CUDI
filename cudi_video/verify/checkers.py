@@ -233,6 +233,8 @@ class FactCheckSearch:
         return hits
 
 
-def checkers_for(spec: VideoSpec) -> list[Checker]:
-    return [WikidataChecker(), WorldBankChecker(), FactbookChecker(), OSMChecker(),
-            *(WikipediaLangChecker(lang) for lang in config.CHECK_LANGS)]
+def checkers_for(spec: VideoSpec, with_wikipedia: bool = True) -> list[Checker]:
+    checkers: list[Checker] = [WikidataChecker(), WorldBankChecker(), FactbookChecker(), OSMChecker()]
+    if with_wikipedia:
+        checkers += [WikipediaLangChecker(lang) for lang in config.CHECK_LANGS]
+    return checkers

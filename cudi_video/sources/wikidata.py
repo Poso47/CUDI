@@ -173,15 +173,15 @@ def fetch_identifiers(items: list[RankItem], check_langs: list[str]) -> None:
         return
     values = " ".join(f"wd:{it.qid}" for it in items)
     sites = ", ".join(f"<https://{lang}.wikipedia.org/>" for lang in check_langs)
+    union_sites = (f"  UNION {{ ?article schema:about ?item ; schema:isPartOf ?site ; schema:name ?title . "
+                   f"FILTER(?site IN ({sites})) }}") if check_langs else ""
     query = "\n".join([
         "SELECT ?item ?iso3 ?fips ?site ?title WHERE {",
         f"  VALUES ?item {{ {values} }}",
         "  { ?item wdt:P298 ?iso3 } UNION { ?item wdt:P901 ?fips }",
-        f"  UNION {{ ?article schema:about ?item ; schema:isPartOf ?site ; schema:name ?title . FILTER(?site IN ({sites})) }}",
+        union_sites,
         "}",
-    ]) if check_langs else ""
-    if not query:
-        return
+    ])
     by_qid = {it.qid: it for it in items}
     for b in _sparql(query, cache_hours=24):
         it = by_qid[_qid(b["item"]["value"])]
@@ -192,6 +192,22 @@ def fetch_identifiers(items: list[RankItem], check_langs: list[str]) -> None:
         if "site" in b:
             lang = b["site"]["value"].split("//")[1].split(".")[0]
             it.wiki_titles.setdefault(lang, b["title"]["value"])
+
+
+def fetch_item_value(qid: str, prop: str) -> RankItem | None:
+    """Aktuellsten Wert einer Eigenschaft für ein einzelnes Objekt (z. B. Vergleichsobjekt)."""
+    query = "\n".join([
+        "SELECT ?item ?value ?unit ?rank ?date WHERE {",
+        f"  VALUES ?item {{ wd:{qid} }}",
+        f"  ?item p:{prop} ?st .",
+        "  ?st wikibase:rank ?rank . FILTER(?rank != wikibase:DeprecatedRank)",
+        f"  {{ ?st psn:{prop} [ wikibase:quantityAmount ?value ; wikibase:quantityUnit ?unit ] }}",
+        f"  UNION {{ FILTER NOT EXISTS {{ ?st psn:{prop} [] }}",
+        f"          ?st psv:{prop} [ wikibase:quantityAmount ?value ; wikibase:quantityUnit ?unit ] }}",
+        "  OPTIONAL { ?st pq:P585 ?date }",
+        "}",
+    ])
+    return pick_latest(_sparql(query, cache_hours=24)).get(qid)
 
 
 def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:

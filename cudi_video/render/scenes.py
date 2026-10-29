@@ -259,6 +259,8 @@ class ItemScene(Scene):
         if it.get("as_of"):
             chips.append(f"{self.L['as_of']} {it['as_of']}")
         self.chips = [chip(c, chip_font) for c in chips]
+        if it.get("compare_chip"):   # belegter Vergleich, z. B. "48× Deutschland"
+            self.chips.insert(0, chip(it["compare_chip"], font("bold", 30), fg=(10, 12, 28), bg=(*self.c1, 255)))
         if it.get("n_sources", 0) >= 2:   # Quellen-Abgleich sichtbar machen
             self.chips.insert(0, chip("✓ " + self.L["src_n"].format(n=it["n_sources"]), font("bold", 30),
                                       fg=(6, 30, 16), bg=(74, 222, 128, 255)))

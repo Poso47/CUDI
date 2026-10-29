@@ -16,7 +16,8 @@ from . import llm
 from .models import RankItem, Research, Script, Segment
 from .spec import VideoSpec
 from .units import quantity
-from .verify import all_sources, confirmed_sources
+from .compare import comparison
+from .verify import all_sources, source_label
 
 log = logging.getLogger(__name__)
 
@@ -45,10 +46,14 @@ PROPERTY_LABELS = {
 TEXT = {
     "de": {
         "intro": "{title}! Platz eins kommt auf {top} – aber wer ist es? Bleib bis zum Ende!",
-        "rank": "Platz {n}: {name}.",
-        "value": "{label}: {value}.",
+        # Nur Varianten, in denen der Name allein steht (kein Artikel-/Kasusproblem).
+        "rank": ["Platz {n}: {name}.", "Auf Platz {n}: {name}.", "Weiter mit Platz {n}: {name}."],
+        "rank_first": "Wir starten mit Platz {n}: {name}.",
+        "rank_one": "Und auf Platz 1: {name}!",
+        "top3": "Jetzt wird es spannend – die Top 3!",
+        "value": ["{label}: {value}.", "Das sind {value}."],
         "as_of": "Stand {year}.",
-        "confirmed": "Bestätigt durch {n} Quellen.",
+        "corrected": "Aktuelle Zahl laut {sources}.",
         "and": "und",
         "outro": (
             "Das war unser Ranking. Geprüft mit {sources}, abgerufen am {date}. "
@@ -58,10 +63,13 @@ TEXT = {
     },
     "en": {
         "intro": "{title}! Number one reaches {top} – but which one is it? Stay until the end!",
-        "rank": "Number {n}: {name}.",
-        "value": "{label}: {value}.",
+        "rank": ["Number {n}: {name}.", "At number {n}: {name}.", "Next up, number {n}: {name}."],
+        "rank_first": "We start at number {n}: {name}.",
+        "rank_one": "And number one: {name}!",
+        "top3": "Now it gets exciting – the top 3!",
+        "value": ["{label}: {value}.", "That's {value}."],
         "as_of": "As of {year}.",
-        "confirmed": "Confirmed by {n} sources.",
+        "corrected": "Latest figure according to {sources}.",
         "and": "and",
         "outro": (
             "That was our ranking. Checked against {sources}, retrieved on {date}. "
@@ -69,6 +77,15 @@ TEXT = {
         ),
         "wiki_langs": "Wikipedia in {n} languages",
     },
+}
+
+# Nur bei Werten, die sich mit der Zeit ändern, wird der Stichtag genannt ("Stand 2025").
+TIME_VARYING = {"P1082", "P1083", "P2131", "P2139"}
+
+# Zählwörter für Werte ohne Einheit ("1,4 Milliarden Einwohner")
+COUNT_NOUNS = {
+    "P1082": {"de": "Einwohner", "en": "people"},
+    "P1083": {"de": "Plätze", "en": "seats"},
 }
 
 
@@ -128,16 +145,27 @@ def _similar(a: str, b: str, threshold: float = 0.6) -> bool:
 
 
 def usable_description(item: RankItem, lang: str) -> str:
-    desc = item.descriptions.get(lang, "")
-    return "" if has_risky_numbers(desc) or NOT_NEUTRAL.search(desc) else desc
+    """Wikidata-Kurzbeschreibung ohne Zahlen, Rang-/Superlativ-Aussagen und Wertungen."""
+    desc = item.descriptions.get(lang, "").strip()
+    if has_risky_claims(desc):
+        desc = re.split(r"[,;(]", desc)[0].strip()      # "Country in …, the largest in the world" -> vorderer Teil
+        if has_risky_claims(desc):
+            return ""
+    return desc if len(desc.split()) >= 2 else ""      # "Country" allein sagt nichts
+
+
+DEFINITION = re.compile(r"\b(ist|sind|war|waren|is|are|was|were)\b", re.I)
 
 
 def usable_summary_sentences(item: RankItem, lang: str) -> list[str]:
     out: list[str] = []
     desc = usable_description(item, lang)
-    for s in _sentences(item.summary.get(lang, "")):
+    has_desc = bool(item.descriptions.get(lang))
+    for i, s in enumerate(_sentences(item.summary.get(lang, ""))):
         if has_risky_claims(s) or len(s.split()) > MAX_SENTENCE_WORDS or len(s) < 20 or not s[0].isupper():
             continue
+        if i == 0 and has_desc and DEFINITION.search(" ".join(s.split()[:10])):
+            continue   # Einleitungssatz definiert nur, was die Beschreibung schon sagt
         if (desc and _similar(s, desc)) or any(_similar(s, o) for o in out):
             continue   # nichts doppelt sagen
         out.append(s)
@@ -154,11 +182,14 @@ def _join(values: str, lang: str) -> str:
 def extras_lines(spec: VideoSpec, item: RankItem, lang: str) -> list[tuple[str, str]]:
     """(Label, Wert)-Paare, z. B. ("Land", "China / Nepal")."""
     lines = []
-    desc = item.descriptions.get(lang, "")
+    desc = item.descriptions.get(lang, "").lower()
     for key, pid in spec.source.extras.items():
         value = item.extras.get(key, {}).get(lang)
-        if not value or (" / " not in value and value in desc):
+        if not value or (" / " not in value and value.lower() in desc):
             continue   # fehlt oder steht schon in der Beschreibung
+        parts = value.split(" / ")
+        if {"Europa", "Asien"} <= set(parts) or {"Europe", "Asia"} <= set(parts):
+            value = " / ".join(p for p in parts if p not in ("Eurasien", "Eurasia"))   # doppelt gemoppelt
         singular, plural = PROPERTY_LABELS.get(pid, ({"de": key.title(), "en": key.title()}, None))
         label = (plural or singular)[lang] if " / " in value else singular[lang]
         lines.append((label, value))
@@ -169,17 +200,56 @@ def _capitalize(s: str) -> str:
     return s[:1].upper() + s[1:] if s else s
 
 
-def item_facts(spec: VideoSpec, item: RankItem, lang: str) -> dict:
+def as_of_year(spec: VideoSpec, item: RankItem) -> str | None:
+    """Stichtag nur für Werte, die sich mit der Zeit ändern (Einwohner ja, Fläche nein)."""
+    return item.value_date[:4] if item.value_date and spec.source.property in TIME_VARYING else None
+
+
+def spoken_with_noun(spec: VideoSpec, value: float, unit: str, lang: str, extra_decimals: int = 0) -> str:
+    """'1,4 Milliarden Einwohner' statt '1,4 Milliarden' bei Werten ohne Einheit."""
+    q = quantity(value, unit, spec.unit)
+    noun = COUNT_NOUNS.get(spec.source.property, {}).get(lang)
+    text = q.spoken(lang, extra_decimals)
+    return f"{text} {noun}" if noun and not (q.unit and q.unit.symbol) else text
+
+
+def distinct_precision(spec: VideoSpec, items: list[RankItem], lang: str) -> dict[str, int]:
+    """Zusätzliche Nachkommastellen je Platz, damit unterschiedliche Werte nicht gleich klingen."""
+    extra = {it.qid: 0 for it in items}
+    for _ in range(3):
+        spoken: dict[str, list[RankItem]] = {}
+        for it in items:
+            if it.value:
+                spoken.setdefault(spoken_with_noun(spec, it.value, it.unit, lang, extra[it.qid]), []).append(it)
+        clashes = [group for group in spoken.values() if len({g.value for g in group}) > 1]
+        if not clashes:
+            break
+        for group in clashes:
+            for it in group:
+                extra[it.qid] += 1
+    return extra
+
+
+def item_facts(spec: VideoSpec, item: RankItem, lang: str, reference: dict | None = None,
+               extra_decimals: int = 0) -> dict:
     q = quantity(item.value, item.unit, spec.unit)
+    bare = q.spoken(lang, extra_decimals)
+    spoken = spoken_with_noun(spec, item.value, item.unit, lang, extra_decimals)
+    corrected_by = []
+    if (item.verification or {}).get("status") == "korrigiert":
+        corrected_by = [source_label(s, lang) for s in item.verification.get("sources", [])]
     return {
         "rank": item.rank,
         "name": item.labels[lang],
         "description": usable_description(item, lang),
         "value_label": spec.value_label.get(lang, ""),
-        "value_spoken": q.spoken(lang),
+        "value_spoken": spoken,
+        "value_spoken_bare": bare,
         "value_display": q.display(lang),
-        "as_of": item.value_date[:4] if item.value_date else None,
-        "confirmed_by": len(confirmed_sources(item)),
+        "has_unit": spoken != bare or bool(q.unit and q.unit.symbol),
+        "as_of": as_of_year(spec, item),
+        "comparison": comparison(item, reference, spec.source.property, lang),
+        "corrected_by": corrected_by,
         "extras": extras_lines(spec, item, lang),
         "summary_sentences": usable_summary_sentences(item, lang),
     }
@@ -198,21 +268,41 @@ def format_date(iso: str, lang: str) -> str:
 
 # --------------------------------------------------------------------------- Textbausteine
 
-def template_item_text(facts: dict, lang: str, word_budget: int) -> str:
+def rank_sentence(n: int, name: str, lang: str, first: bool) -> str:
     t = TEXT[lang]
-    parts = [t["rank"].format(n=facts["rank"], name=facts["name"])]
+    if n == 1:
+        return t["rank_one"].format(name=name)
+    if first:
+        return t["rank_first"].format(n=n, name=name)
+    text = t["rank"][n % len(t["rank"])].format(n=n, name=name)
+    return f"{t['top3']} {text}" if n == 3 else text
+
+
+def template_item_text(facts: dict, lang: str, word_budget: int, first: bool = False) -> str:
+    t = TEXT[lang]
+    parts = [rank_sentence(facts["rank"], facts["name"], lang, first)]
     if facts["description"]:
         parts.append(_capitalize(facts["description"]).rstrip(".") + ".")
-    if facts["value_label"]:
-        parts.append(t["value"].format(label=facts["value_label"], value=facts["value_spoken"]))
+    variant = t["value"][facts["rank"] % 2] if facts["has_unit"] else t["value"][0]
+    if variant == t["value"][0] and facts["value_label"]:
+        value_sentence = variant.format(label=facts["value_label"], value=facts["value_spoken_bare"])
+    elif variant != t["value"][0]:
+        value_sentence = variant.format(value=facts["value_spoken"])
     else:
-        parts.append(_capitalize(facts["value_spoken"]) + ".")
+        value_sentence = _capitalize(facts["value_spoken"]) + "."
+    comp = facts["comparison"] or {}
+    kind, text = comp.get("kind"), comp.get("text")
+    if kind == "fragment":
+        value_sentence = f"{value_sentence[:-1]} – {text}."     # Wert und Vergleich in einem Satz
+    parts.append(value_sentence)
+    if kind == "sentence":
+        parts.append(text)
     if facts["as_of"]:
         parts.append(t["as_of"].format(year=facts["as_of"]))
-    if facts["confirmed_by"] >= 2:
-        parts.append(t["confirmed"].format(n=facts["confirmed_by"]))
+    if facts["corrected_by"]:
+        parts.append(t["corrected"].format(sources=_join(" / ".join(facts["corrected_by"]), lang)))
     for label, value in facts["extras"]:
-        parts.append(f"{label}: {_join(value, lang)}.")
+        parts.append(f"{label}: {_join(value, lang).rstrip('.')}.")
     used = 0
     for sentence in facts["summary_sentences"]:
         if used >= MAX_SUMMARY_SENTENCES:
@@ -251,9 +341,9 @@ LLM_SYSTEM = {
 }
 
 
-def llm_item_text(facts: dict, lang: str, word_budget: int) -> tuple[str | None, str]:
+def llm_item_text(facts: dict, lang: str, word_budget: int, first_item: bool = False) -> tuple[str | None, str]:
     """Gibt (Text, Prüfvermerk) zurück. Text ist None, wenn die Prüfung fehlschlägt."""
-    first = TEXT[lang]["rank"].format(n=facts["rank"], name=facts["name"])
+    first = rank_sentence(facts["rank"], facts["name"], lang, first_item)
     user = (
         f"Fakten (JSON):\n{json.dumps(facts, ensure_ascii=False, indent=1)}\n\n"
         f"Schreibe {word_budget - 10} bis {word_budget} Wörter in der Sprache '{lang}'. "
@@ -298,26 +388,31 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
     retrieved = format_date(research.fetched_at[:10], lang)
 
     top = items[0] if items else None
-    top_spoken = quantity(top.value, top.unit, spec.unit).spoken(lang) if top else ""
+    top_spoken = spoken_with_noun(spec, top.value, top.unit, lang) if top else ""   # bewusst gerundet (Hook)
     segments = [Segment(kind="intro", text=TEXT[lang]["intro"].format(title=title, top=top_spoken),
                         sources=[top.wikidata_url] if top else [])]
     checks: list[str] = []
     mode = "llm" if use_llm else "template"
 
-    for item in sorted(items, key=lambda it: it.rank, reverse=True):   # Countdown: letzter Platz zuerst
-        facts = item_facts(spec, item, lang)
+    reference = research.references.get(lang)
+    precision = distinct_precision(spec, items, lang)
+    countdown = sorted(items, key=lambda it: it.rank, reverse=True)   # Countdown: letzter Platz zuerst
+    for i, item in enumerate(countdown):
+        facts = item_facts(spec, item, lang, reference, precision.get(item.qid, 0))
         text = None
         if use_llm:
-            text, note = llm_item_text(facts, lang, word_budget)
+            text, note = llm_item_text(facts, lang, word_budget, first_item=i == 0)
             checks.append(note)
         if text is None:
-            text = template_item_text(facts, lang, word_budget)
+            text = template_item_text(facts, lang, word_budget, first=i == 0)
         sources = [item.wikidata_url]
+        if facts["comparison"] and reference:
+            sources.append(reference["url"])
         if facts["summary_sentences"] and item.wiki_url(lang):
             sources.append(item.wiki_url(lang))
         segments.append(Segment(kind="item", text=text, rank=item.rank, sources=sources))
 
-    names, n_langs = all_sources(research)
+    names, n_langs = all_sources(research, lang)
     if n_langs:
         names.append(TEXT[lang]["wiki_langs"].format(n=n_langs))
     source_text = _join(" / ".join(names), lang)

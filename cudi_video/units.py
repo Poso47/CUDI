@@ -83,16 +83,22 @@ class Quantity:
         text = fmt_number(v, lang, _auto_decimals(self.value))
         return f"{text} {symbol}".strip()
 
-    def spoken(self, lang: str) -> str:
-        """Für die Stimme: große Zahlen gerundet in Worten, damit es natürlich klingt."""
+    def spoken(self, lang: str, extra_decimals: int = 0) -> str:
+        """Für die Stimme: große Zahlen gerundet in Worten, damit es natürlich klingt.
+
+        `extra_decimals` erhöht die Genauigkeit, wenn sich sonst zwei Plätze gleich anhören
+        (1,4 vs. 1,4 Milliarden -> 1,44 vs. 1,40 Milliarden)."""
         v = self.value
         unit_word = self.unit.spoken[lang] if self.unit else ""
         for threshold, _, word in _BIG[lang]:
             if abs(v) >= threshold:
                 scaled = v / threshold
-                number = fmt_number(scaled, lang, 0 if scaled >= 100 else 1).removesuffix(",0").removesuffix(".0")
+                decimals = (0 if scaled >= 100 else 1) + extra_decimals
+                number = fmt_number(scaled, lang, decimals)
+                if not extra_decimals:
+                    number = number.removesuffix(",0").removesuffix(".0")
                 return f"{number} {word} {unit_word}".strip()
-        return f"{fmt_number(v, lang, _auto_decimals(v))} {unit_word}".strip()
+        return f"{fmt_number(v, lang, _auto_decimals(v) + extra_decimals)} {unit_word}".strip()
 
 
 def quantity(si_value: float, unit_qid: str, wanted: str | None = None) -> Quantity:

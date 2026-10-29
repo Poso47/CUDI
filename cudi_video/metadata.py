@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from .models import Research, Script
-from .script import format_date
+from .script import as_of_year, format_date
 from .spec import VideoSpec
 from .units import quantity
-from .verify import compact_sources, confirmed_sources
+from .verify import compact_sources, confirmed_sources, source_label
 
 DISCLOSURE = {
     "de": "ℹ️ Automatisch erstellt. Die Stimme ist KI-generiert. Alle Fakten stammen aus den unten genannten Quellen.",
@@ -34,18 +34,22 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
     lines = [spec.title[lang] + (" – von Platz 10 bis Platz 1!" if de else " – from 10 to 1!").replace("10", str(len(items))), ""]
     for it in items:
         value = quantity(it.value, it.unit, spec.unit).display(lang)
-        as_of = f" ({'Stand' if de else 'as of'} {it.value_date[:4]})" if it.value_date else ""
+        year = as_of_year(spec, it)
+        as_of = f" ({'Stand' if de else 'as of'} {year})" if year else ""
         lines.append(f"{it.rank}. {it.labels[lang]} – {value}{as_of}")
         confirmed = confirmed_sources(it)
         if len(confirmed) >= 2:
-            lines.append(f"   ✓ {compact_sources(confirmed)}")
+            lines.append(f"   ✓ {compact_sources(confirmed, lang)}")
     lines += ["", DISCLOSURE[lang], "",
               ("📚 Quellen (abgerufen am " if de else "📚 Sources (retrieved ") + retrieved + "):"]
     lines.append("• Wikidata (CC0): " + ", ".join(it.qid for it in items))
     used = {src for it in items for src in confirmed_sources(it)}
     for name, url in SOURCE_LINKS.items():
         if name in used:
-            lines.append(f"• {name}: {url}")
+            lines.append(f"• {source_label(name, lang)}: {url}")
+    ref = research.references.get(lang)
+    if ref and any(ref.get("qid") != it.qid for it in items):
+        lines.append(("• Vergleichswert: " if de else "• Comparison: ") + f"{ref['name']} ({ref['url']})")
     langs = sorted(src[len("Wikipedia ("):-1] for src in used if src.startswith("Wikipedia ("))
     if langs:
         lines.append(("• Abgleich mit Wikipedia-Sprachversionen: " if de else "• Cross-checked with Wikipedia editions: ")

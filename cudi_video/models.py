@@ -39,6 +39,7 @@ class Research:
     items: list[RankItem]
     query: str = ""
     warnings: list[str] = field(default_factory=list)
+    references: dict = field(default_factory=dict)   # Vergleichsobjekt je Sprache
 
     def to_dict(self) -> dict:
         return asdict(self)

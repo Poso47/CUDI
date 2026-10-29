@@ -12,7 +12,8 @@ import numpy as np
 
 from .. import config
 from ..models import Research, Script
-from ..script import extras_lines, format_date
+from ..compare import comparison
+from ..script import as_of_year, extras_lines, format_date
 from ..spec import VideoSpec
 from ..units import quantity
 from ..verify import all_sources, confirmed_sources
@@ -39,7 +40,7 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
     top = items.get(1)
     rows = [(it.rank, it.labels[lang], quantity(it.value, it.unit, spec.unit).display(lang))
             for it in sorted(research.items, key=lambda i: i.rank)]
-    names, n_langs = all_sources(research)
+    names, n_langs = all_sources(research, lang)
     if n_langs:
         names.append(f"Wikipedia ({n_langs} {'Sprachen' if lang == 'de' else 'languages'})")
     if any(i.image_path for i in research.items):
@@ -68,7 +69,8 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
                 "rank": it.rank, "name": it.labels[lang],
                 "si_value": it.value, "unit": it.unit, "wanted": spec.unit,
                 "value_label": spec.value_label.get(lang, ""),
-                "as_of": it.value_date[:4] if it.value_date else None,
+                "as_of": as_of_year(spec, it),
+                "compare_chip": (comparison(it, research.references.get(lang), spec.source.property, lang) or {}).get("chip"),
                 "extras": extras_lines(spec, it, lang),
                 "image_path": it.image_path, "credit_short": _short_credit(it.image_credit),
                 "n_sources": len(confirmed_sources(it)),

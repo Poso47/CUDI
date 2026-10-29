@@ -29,7 +29,8 @@ def make_research():
             qid=f"Q{rank}", value=value, unit="Q11573", rank=rank,
             labels={"de": name, "en": name}, descriptions={"de": "Wolkenkratzer", "en": "skyscraper"},
             extras={"country": {"de": "Land X", "en": "Country X"}},
-            summary={"de": f"{name} ist ein Gebäude. Es wurde 2010 eröffnet und ist 830 Meter hoch.",
+            summary={"de": f"{name} ist ein Gebäude. Oben gibt es eine Aussichtsplattform. "
+                           "Es wurde 2010 eröffnet und ist 830 Meter hoch.",
                      "en": f"{name} is a building. It is the tallest in the world."},
         ))
     return Research(spec_id="test", fetched_at="2026-10-29T10:00:00+00:00", items=items)
@@ -83,7 +84,8 @@ def test_safe_sentence_is_kept():
 def test_summary_filter_drops_conflicting_numbers():
     research = make_research()
     sentences = usable_summary_sentences(research.items[0], "de")
-    assert sentences == ["Turm A ist ein Gebäude."]
+    # Definitionssatz (doppelt zur Beschreibung) und Satz mit abweichender Zahl fallen weg
+    assert sentences == ["Oben gibt es eine Aussichtsplattform."]
 
 
 def test_numbers_supported_guard():
@@ -261,3 +263,67 @@ def test_evaluate_outdated_wikidata_is_replaced_even_if_close():
     ], 0.05)
     assert r["status"] == "korrigiert"
     assert r["value"] == pytest.approx(284_655_000.0)
+
+
+# --------------------------------------------------------------------------- Vergleiche + Skript-Varianten
+
+from cudi_video.compare import comparison  # noqa: E402
+
+
+def _ref(value, unit="Q11573", qid="Q4176", name="der Kölner Dom", **kw):
+    return {"qid": qid, "name": name, "value": value, "unit": unit, "url": "u", **kw}
+
+
+@pytest.mark.parametrize("value,expected", [
+    (828.0, ("fragment", "5,3-mal so hoch wie der Kölner Dom", "5,3× Kölner Dom")),
+    (200.0, ("fragment", "27 Prozent höher als der Kölner Dom", "+27 % vs. Kölner Dom")),
+    (160.0, ("fragment", "etwa so hoch wie der Kölner Dom", "≈ Kölner Dom")),
+    (100.0, None),                                               # kein griffiger Vergleich
+    (20.0, ("sentence", "Zum Vergleich: Der Kölner Dom ist 7,8-mal so hoch.", None)),
+])
+def test_comparison_height_de(value, expected):
+    item = RankItem(qid="Q1", value=value, unit="Q11573")
+    result = comparison(item, _ref(157.0), "P2048", "de")
+    assert (result and (result["kind"], result["text"], result["chip"])) == expected or (result is None and expected is None)
+
+
+def test_comparison_population_and_rounding():
+    item = RankItem(qid="Q668", value=1_440_000_000, unit="Q199")
+    ref = _ref(83_467_117, unit="Q199", qid="Q183", name="Deutschland", **{"in": "in Deutschland"})
+    assert comparison(item, ref, "P1082", "de")["text"] == "17,3-mal so viele wie in Deutschland"
+    en_ref = _ref(69_119_155, unit="Q199", qid="Q145", name="the UK", **{"in": "in the UK"})
+    assert comparison(item, en_ref, "P1082", "en")["text"] == "20.8 times as many people as in the UK"
+    big = RankItem(qid="Q1", value=17_098_000e6, unit="Q25343")
+    de_area = _ref(357_588e6, unit="Q25343", qid="Q183", name="Deutschland")
+    result = comparison(big, de_area, "P2046", "de")
+    assert result["text"] == "rund 48-mal so groß wie Deutschland"
+    assert result["chip"] == "48× Deutschland"
+
+
+def test_comparison_skips_self_and_unit_mismatch():
+    ref = _ref(157.0)
+    assert comparison(RankItem(qid="Q4176", value=157.0, unit="Q11573"), ref, "P2048", "de") is None
+    assert comparison(RankItem(qid="Q1", value=828.0, unit="Q25343"), ref, "P2048", "de") is None
+
+
+def test_script_has_countdown_dramaturgy():
+    spec, research = make_spec(count=3), make_research()
+    research.references = {"de": _ref(157.0)}
+    texts = [s.text for s in build_script(spec, research, "de", use_llm=False).segments]
+    assert texts[1].startswith("Wir starten mit Platz 3: Turm C.")
+    assert "– 4-mal so hoch wie der Kölner Dom." in texts[1]
+    assert texts[3].startswith("Und auf Platz 1: Turm A!")
+    assert "– 5,3-mal so hoch wie der Kölner Dom." in texts[3]
+    assert "Stand" not in " ".join(texts)              # Höhe ändert sich nicht -> kein Stichtag
+
+
+def test_close_values_get_distinct_spoken_precision():
+    spec = make_spec(unit=None, value_label={"de": "Einwohner", "en": "Population"},
+                     source={"type": "wikidata", "class": "Q3624078", "property": "P1082"})
+    research = make_research()
+    research.items[0].value, research.items[0].unit = 1_440_000_000, "Q199"
+    research.items[1].value, research.items[1].unit = 1_404_000_000, "Q199"
+    research.items[2].value, research.items[2].unit = 340_000_000, "Q199"
+    text = " ".join(s.text for s in build_script(spec, research, "de", use_llm=False).segments[1:-1])
+    assert "1,44 Milliarden" in text and "1,40 Milliarden" in text
+    assert "340 Millionen" in text                     # eindeutige Werte bleiben gerundet

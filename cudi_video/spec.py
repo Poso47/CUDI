@@ -40,6 +40,7 @@ class VideoSpec:
     unit: str | None = None                    # Anzeige-Einheit erzwingen: m, km, km2, t, ...
     target_seconds: int = 170                  # Zielänge (YouTube Shorts: max. 180 s)
     hashtags: list[str] = field(default_factory=list)
+    compare: dict | None = None                # Vergleichsobjekt je Sprache, z. B. {"de": {"qid": "Q4127", "name": "der Bodensee"}}
 
     def to_dict(self) -> dict:
         return asdict(self)

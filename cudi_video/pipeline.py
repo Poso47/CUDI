@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Callable
 
 from . import config
+from .compare import load_references
 from .enrich import enrich
 from .metadata import build_metadata, build_review
 from .models import Research, Script
@@ -46,6 +47,7 @@ def research_stage(spec: VideoSpec, out: Path, fresh: bool = True, images: bool 
     fetch_identifiers(research.items, config.CHECK_LANGS)
     verify(spec, research, strict=strict)          # Abgleich mit unabhängigen Quellen
     research.warnings.extend(check_consistency(spec, research))
+    research.references = load_references(spec)    # belegte Vergleiche ("5-mal so hoch wie …")
     enrich(research, spec.langs, images=images)
     _save(out / "research.json", research.to_dict())
     return research
