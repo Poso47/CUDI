@@ -30,7 +30,7 @@ DEFAULT_REFS: dict[str, dict[str, dict]] = {
 
 # Satzmuster: times/pct/same sind Satz-Fragmente, die an den Wert angehängt werden
 # ("Fläche: 2,7 Millionen Quadratkilometer – 7,6-mal so groß wie Deutschland."),
-# inv ist ein eigener Satz für den Fall, dass das Vergleichsobjekt viel größer ist.
+# inv ist ein eigener Satz für den Fall, dass das Vergleichsobjekt größer ist.
 PHRASES = {
     "de": {
         "P2046": {"times": "{r}-mal so groß wie {ref}", "pct": "{p} Prozent größer als {ref}",
@@ -147,6 +147,5 @@ def comparison(item: RankItem, ref: dict | None, prop: str, lang: str) -> dict |
         return {"kind": "fragment", "text": patterns["same"].format(**fields), "chip": f"≈ {short}"}
     if 0.42 <= r <= 0.58:
         return {"kind": "fragment", "text": patterns["half"].format(**fields), "chip": f"≈ ½ {short}"}
-    if r <= 0.2:
-        return {"kind": "sentence", "text": patterns["inv"].format(r=_factor(1 / r, lang), **fields), "chip": None}
-    return None   # sonst kein griffiger Vergleich
+    # Vergleichsobjekt ist größer: "Zum Vergleich: Der Kölner Dom ist 1,6-mal so hoch."
+    return {"kind": "sentence", "text": patterns["inv"].format(r=_factor(1 / r, lang), **fields), "chip": None}

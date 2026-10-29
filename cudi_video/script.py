@@ -188,9 +188,6 @@ def extras_lines(spec: VideoSpec, item: RankItem, lang: str) -> list[tuple[str, 
         value = item.extras.get(key, {}).get(lang)
         if not value or (" / " not in value and (value.lower() in desc or value.lower() == name)):
             continue   # fehlt, steht schon in der Beschreibung oder wiederholt nur den Namen (Monaco: Monaco)
-        parts = value.split(" / ")
-        if {"Europa", "Asien"} <= set(parts) or {"Europe", "Asia"} <= set(parts):
-            value = " / ".join(p for p in parts if p not in ("Eurasien", "Eurasia"))   # doppelt gemoppelt
         singular, plural = PROPERTY_LABELS.get(pid, ({"de": key.title(), "en": key.title()}, None))
         label = (plural or singular)[lang] if " / " in value else singular[lang]
         lines.append((label, value))

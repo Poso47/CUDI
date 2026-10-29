@@ -40,6 +40,9 @@ DEFAULT_EXCLUDE = [
     "Q1140477",    # subglazialer See (Werte stark unsicher)
 ]
 MAX_EXTRA_VALUES = 3
+# Überbegriffe, die neben anderen Werten nichts Neues sagen:
+# Eurasien neben Europa und Asien, Insel-Ozeanien neben Ozeanien.
+REDUNDANT_VALUES = {"Q5401": {"Q46", "Q48"}, "Q538": {"Q55643"}}
 
 
 def _sparql(query: str, cache_hours: float = 6.0, retry_on=net.RETRY_STATUSES) -> list[dict]:
@@ -319,11 +322,11 @@ def _extras(qids: list[str], extras: dict[str, str], langs: list[str]) -> dict[s
         "}",
     ])
     # Mehrere Werte sammeln (z. B. Mount Everest: China und Nepal), Reihenfolge beibehalten.
-    collected: dict[str, dict[str, dict[str, list[str]]]] = {}
+    collected: dict[str, dict[str, dict[str, dict[str, str]]]] = {}   # qid -> key -> Wert -> Sprache -> Text
     for b in _sparql(query):
         qid, key = _qid(b["item"]["value"]), b["key"]["value"]
-        per_lang = collected.setdefault(qid, {}).setdefault(key, {})
         raw = b["v"]["value"]
+        texts = collected.setdefault(qid, {}).setdefault(key, {}).setdefault(raw, {})
         for lang in langs:
             datatype = b["v"].get("datatype", "")
             if datatype.endswith("dateTime"):
@@ -333,20 +336,21 @@ def _extras(qids: list[str], extras: dict[str, str], langs: list[str]) -> dict[s
                 text = fmt_number(num, lang, 0 if num.is_integer() else 1)
             else:
                 text = display_name(b.get(f"vt_{lang}", {}).get("value"), lang) or b.get(f"vl_{lang}", {}).get("value")
-                if not text:
-                    continue
-            values = per_lang.setdefault(lang, [])
-            if text not in values:
-                values.append(text)
+            if text:
+                texts[lang] = text
     out: dict[str, dict[str, dict[str, str]]] = {}
     for qid, keys in collected.items():
-        for key, per_lang in keys.items():
-            texts = {}
-            for lang, values in per_lang.items():
+        for key, by_value in keys.items():
+            present = {_qid(v) for v in by_value}
+            kept = [t for v, t in by_value.items() if not REDUNDANT_VALUES.get(_qid(v), {"-"}) <= present]
+            joined = {}
+            for lang in langs:
+                values = list(dict.fromkeys(t[lang] for t in kept if lang in t))
                 if len(values) > MAX_EXTRA_VALUES:
                     values = values[:MAX_EXTRA_VALUES] + ["…"]
-                texts[lang] = " / ".join(values)
-            out.setdefault(qid, {})[key] = texts
+                if values:
+                    joined[lang] = " / ".join(values)
+            out.setdefault(qid, {})[key] = joined
     return out
 
 

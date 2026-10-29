@@ -292,7 +292,7 @@ def _ref(value, unit="Q11573", qid="Q4176", name="der Kölner Dom", **kw):
     (828.0, ("fragment", "5,3-mal so hoch wie der Kölner Dom", "5,3× Kölner Dom")),
     (200.0, ("fragment", "27 Prozent höher als der Kölner Dom", "+27 % vs. Kölner Dom")),
     (160.0, ("fragment", "etwa so hoch wie der Kölner Dom", "≈ Kölner Dom")),
-    (100.0, None),                                               # kein griffiger Vergleich
+    (100.0, ("sentence", "Zum Vergleich: Der Kölner Dom ist 1,6-mal so hoch.", None)),
     (20.0, ("sentence", "Zum Vergleich: Der Kölner Dom ist 7,8-mal so hoch.", None)),
 ])
 def test_comparison_height_de(value, expected):
@@ -712,3 +712,20 @@ def test_enrich_retries_throttled_images(monkeypatch):
     assert calls == ["Q1", "Q1"] and item.image_path
     assert not any("Ohne Bild" in w for w in research.warnings)
     assert net._blocked_hosts == {}
+
+
+def test_extras_drop_redundant_umbrella_values(monkeypatch):
+    from cudi_video.sources import wikidata
+
+    def row(item, key, qid, en):
+        return {"item": {"value": f"http://www.wikidata.org/entity/{item}"}, "key": {"value": key},
+                "v": {"value": f"http://www.wikidata.org/entity/{qid}"}, "vt_en": {"value": en}}
+
+    rows = [row("Q672", "continent", "Q538", "Insular Oceania"), row("Q672", "continent", "Q55643", "Oceania"),
+            row("Q1", "country", "Q1049", "Sudan"), row("Q1", "country", "Q958", "South Sudan"),
+            row("Q2", "country", "Q148", "China (country)")]
+    monkeypatch.setattr(wikidata, "_sparql", lambda query, **kw: rows)
+    out = wikidata._extras(["Q672", "Q1", "Q2"], {"continent": "P30", "country": "P17"}, ["en"])
+    assert out["Q672"]["continent"]["en"] == "Oceania"
+    assert out["Q1"]["country"]["en"] == "Sudan / South Sudan"
+    assert out["Q2"]["country"]["en"] == "China"
