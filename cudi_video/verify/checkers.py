@@ -179,7 +179,9 @@ LANG_ORIGIN = {
 
 
 class WikipediaLangChecker(Checker):
-    """Wird der Wert in Wikipedia-Ausgaben anderer Sprachgemeinschaften genannt?"""
+    """Liest den Wert (mit Einheit) aus der Einleitung einer Wikipedia-Sprachversion.
+
+    Gefundene Werte können den Wikidata-Wert bestätigen oder ihm widersprechen."""
 
     def __init__(self, lang: str):
         self.lang = lang
@@ -193,7 +195,8 @@ class WikipediaLangChecker(Checker):
         text = item.summary.get(self.lang)
         if text is None:
             text = fetch_summary(self.lang, item.wiki_titles[self.lang]) or ""
-            item.summary[self.lang] = text
+            if text:
+                item.summary[self.lang] = text   # nur Erfolge merken, damit später erneut versucht werden kann
         if not text:
             return []
         q = quantity(item.value, item.unit, spec.unit)

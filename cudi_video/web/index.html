@@ -86,16 +86,11 @@
         <span class="check"><input type="checkbox" id="lang_de" checked> Deutsch</span>
         <span class="check"><input type="checkbox" id="lang_en" checked> Englisch</span>
       </div>
-      <div class="row">
-        <div style="flex:1;min-width:140px">
-          <label for="count">Anzahl Plätze</label>
-          <input id="count" type="number" min="3" max="20" value="10">
-        </div>
-        <div style="flex:2;min-width:200px">
-          <label>&nbsp;</label>
-          <span class="check"><input type="checkbox" id="onlyScript"> Erst nur Skript prüfen</span>
-          <span class="check" style="margin-top:8px"><input type="checkbox" id="strict"> Streng: nur mehrfach bestätigte Fakten</span>
-        </div>
+      <label for="count">Anzahl Plätze</label>
+      <input id="count" type="number" min="3" max="20" value="10" style="max-width:160px">
+      <div class="row" style="margin-top:12px">
+        <span class="check"><input type="checkbox" id="onlyScript"> Erst nur Skript prüfen</span>
+        <span class="check"><input type="checkbox" id="strict"> Streng: nur mehrfach bestätigte Fakten</span>
       </div>
       <button class="primary" id="go" onclick="start()">Video erstellen</button>
       <div class="err" id="formErr"></div>

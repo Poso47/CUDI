@@ -555,3 +555,47 @@ def test_extras_skip_values_repeating_the_name():
     item = RankItem(qid="Q235", value=2.08e6, unit="Q25343", labels={"de": "Monaco"},
                     extras={"capital": {"de": "Monaco"}})
     assert extras_lines(spec, item, "de") == []
+
+
+def test_rate_limit_block_is_shared_per_wikimedia_domain():
+    from cudi_video.net import _block_key
+
+    assert _block_key("fr.wikipedia.org") == _block_key("ja.wikipedia.org") == "wikipedia.org"
+    assert _block_key("upload.wikimedia.org") == _block_key("commons.wikimedia.org") == "wikimedia.org"
+    assert _block_key("query.wikidata.org") == "query.wikidata.org"      # Pflichtquelle getrennt behandeln
+
+
+# --------------------------------------------------------------------------- Rendering (Rauchtest)
+
+def _job(kind, **extra):
+    base = {"index": 0, "kind": kind, "lang": "de", "title": "Die 3 höchsten Türme", "text": "Platz 1: Turm A.",
+            "words": [{"text": "Platz", "start": 0.0, "end": 0.3}, {"text": "1:", "start": 0.3, "end": 0.5}],
+            "lead": 0.4, "frames": 30, "duration": 1.0, "fps": 30, "n_items": 3, "max_display": 828.0,
+            "channel": "@test", "out": "unused.mp4"}
+    base.update(extra)
+    return base
+
+
+@pytest.mark.parametrize("image", ["photo", "flag", None])
+def test_scenes_render_without_errors(tmp_path, image):
+    from PIL import Image
+
+    from cudi_video.render.scenes import make_scene
+    from cudi_video.render.theme import H, W
+
+    path = None
+    if image:
+        path = tmp_path / "img.png"
+        Image.new("RGB", (640, 400), (200, 30, 30)).save(path)
+    item = {"rank": 1, "name": "Turm A", "si_value": 828.0, "unit": "Q11573", "wanted": "m", "value_label": "Höhe",
+            "as_of": None, "extras": [("Land", "Testland")], "image_path": str(path) if path else None,
+            "image_kind": image or "photo", "credit_short": "Jemand (CC BY-SA 4.0)" if image else None,
+            "icon": "building", "n_sources": 3, "compare_chip": "5,3× Kölner Dom"}
+    jobs = [
+        _job("intro", intro={"si_value": 828.0, "unit": "Q11573", "wanted": "m"}),
+        _job("item", item=item),
+        _job("outro", outro={"rows": [(1, "Turm A", "828 m"), (2, "Turm B", "679 m")], "sources_line": "Quellen: Test"}),
+    ]
+    for job in jobs:
+        frame = make_scene(job).frame(0.8)
+        assert frame.size == (W, H)
