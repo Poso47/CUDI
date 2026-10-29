@@ -18,11 +18,16 @@ class WikidataSource:
     cls: str                                   # z. B. Q11303 (Wolkenkratzer)
     property: str                              # z. B. P2048 (Höhe)
     order: str = "desc"                        # desc = größte zuerst
-    subclasses: bool = False                   # auch Unterklassen (langsamer)
+    subclasses: bool = False                   # auch alle Unterklassen (langsam!)
+    extra_classes: list[str] = field(default_factory=list)   # gezielt weitere Klassen, z. B. "Insel Japans"
     country: str | None = None                 # nur ein Land, z. B. Q183 (Deutschland)
+    where: dict[str, str | list[str]] = field(default_factory=dict)  # weitere Filter, z. B. {"P30": "Q46"} (Europa)
+                                                              # oder Pfad {"P17/P30": "Q18"} (Land liegt in Südamerika)
     require_props: list[str] = field(default_factory=list)    # Pflicht-Eigenschaften, z. B. P1619 (eröffnet)
     exclude_classes: list[str] = field(default_factory=list)  # z. B. unfertige Gebäude
     exclude_ended: bool = True                 # aufgelöst/abgerissen (P576) ausschließen
+    exclude_props: list[str] = field(default_factory=list)    # Objekte mit dieser Eigenschaft ausschließen (z. B. P297 = Staat/Gebiet)
+    min_sitelinks: int | None = None           # nur Objekte mit Artikeln in mind. N Wikipedia-Sprachen
     min_value: float | None = None
     max_value: float | None = None
     extras: dict[str, str] = field(default_factory=dict)      # Zusatzinfos: {"country": "P17", "year": "P1619"}
@@ -41,6 +46,7 @@ class VideoSpec:
     target_seconds: int = 170                  # Zielänge (YouTube Shorts: max. 180 s)
     hashtags: list[str] = field(default_factory=list)
     compare: dict | None = None                # Vergleichsobjekt je Sprache, z. B. {"de": {"qid": "Q4127", "name": "der Bodensee"}}
+    image_prop: str = "P18"                    # Bild-Eigenschaft: P18 Foto, P41 Flagge
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -78,12 +84,20 @@ class VideoSpec:
                 raise ValueError(f"Titel für Sprache {lang!r} fehlt")
         if not 3 <= self.count <= 20:
             raise ValueError("count muss zwischen 3 und 20 liegen")
-        for qid in [self.source.cls, self.source.country, *self.source.exclude_classes]:
+        where_ids = [q for v in self.source.where.values() for q in ([v] if isinstance(v, str) else v)]
+        for qid in [self.source.cls, self.source.country, *self.source.exclude_classes, *self.source.extra_classes,
+                    *where_ids]:
             if qid and not re.fullmatch(r"Q\d+", qid):
                 raise ValueError(f"Ungültige Wikidata-ID: {qid!r}")
-        for pid in [self.source.property, *self.source.require_props, *self.source.extras.values()]:
+        for path in self.source.where:
+            if not re.fullmatch(r"P\d+\*?(/P\d+\*?){0,2}", path):
+                raise ValueError(f"Ungültiger Filter: {path!r}")
+        for pid in [self.source.property, *self.source.require_props, *self.source.exclude_props,
+                    *self.source.extras.values()]:
             if not re.fullmatch(r"P\d+", pid):
                 raise ValueError(f"Ungültige Eigenschaft: {pid!r}")
+        if self.image_prop not in ("P18", "P41", "P154", "P94"):
+            raise ValueError(f"Ungültige Bild-Eigenschaft: {self.image_prop!r}")
         if self.source.order not in ("asc", "desc"):
             raise ValueError("order muss 'asc' oder 'desc' sein")
 

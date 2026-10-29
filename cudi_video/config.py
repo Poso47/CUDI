@@ -42,6 +42,6 @@ WEB_TOKEN = os.environ.get("CUDI_VIDEO_TOKEN", "")
 SUPPORTED_LANGS = ("de", "en")
 
 # Quellen-Abgleich: Wikipedia-Sprachversionen aus verschiedenen Weltregionen.
-CHECK_LANGS = [l for l in os.environ.get("CUDI_CHECK_LANGS", "fr,es,ru,ar,zh,ja").split(",") if l]
+CHECK_LANGS = [l for l in os.environ.get("CUDI_CHECK_LANGS", "en,de,fr,es,ru,ar,zh,ja").split(",") if l]
 OVERPASS_URL = os.environ.get("CUDI_OVERPASS_URL", "https://overpass-api.de/api/interpreter")
 FACTCHECK_API_KEY = os.environ.get("CUDI_FACTCHECK_API_KEY", "")   # Google Fact Check Tools (kostenlos)

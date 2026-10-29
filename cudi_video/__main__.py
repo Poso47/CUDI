@@ -3,6 +3,7 @@
 Beispiele:
   python -m cudi_video presets                      # verfügbare Vorlagen
   python -m cudi_video make hoechste-gebaeude       # Video (DE + EN) erzeugen
+  python -m cudi_video make "die tiefsten Seen der Welt" --count 7   # freies Thema
   python -m cudi_video make presets/meins.yaml --langs de --nur-skript
   python -m cudi_video web                          # Web-Oberfläche (auch fürs Handy)
 """
@@ -18,12 +19,19 @@ from . import config
 
 
 def _load(spec_arg: str, count: int | None):
-    from .spec import find_preset, load_spec
+    """Vorlagen-ID, YAML-Datei oder freies Thema ("die höchsten Berge der Alpen")."""
+    from .spec import VideoSpec, find_preset, load_spec
+    from .topics import plan_from_text
 
     path = Path(spec_arg)
     if path.suffix in (".yaml", ".yml") and path.exists():
         return load_spec(path, count)
-    return find_preset(spec_arg, count)
+    try:
+        return find_preset(spec_arg, count)
+    except KeyError:
+        spec = VideoSpec.from_dict(plan_from_text(spec_arg, count))
+        print(f"Thema verstanden: {spec.title['de']} / {spec.title['en']}")
+        return spec
 
 
 def main(argv=None) -> int:
@@ -32,7 +40,7 @@ def main(argv=None) -> int:
     sub.add_parser("presets", help="Vorlagen anzeigen")
 
     mk = sub.add_parser("make", help="Video erzeugen")
-    mk.add_argument("spec", help="Vorlagen-ID oder Pfad zu einer YAML-Datei")
+    mk.add_argument("spec", help="Vorlagen-ID, Pfad zu einer YAML-Datei oder freies Thema in Anführungszeichen")
     mk.add_argument("--langs", default=None, help="z. B. de,en")
     mk.add_argument("--count", type=int, default=None, help="Anzahl Plätze (3–20)")
     mk.add_argument("--nur-skript", action="store_true", help="nur Recherche + Skript + Prüfbericht")

@@ -72,7 +72,8 @@
       </div>
       <div data-pane="topic" class="hidden">
         <label for="topic">Thema</label>
-        <input id="topic" type="text" placeholder="z. B. die größten Stadien der Welt">
+        <input id="topic" type="text" placeholder="z. B. die höchsten Wasserfälle Südamerikas">
+        <p class="hint" id="topicPlan"></p>
         <p class="hint" id="topicHint"></p>
       </div>
       <div data-pane="yaml" class="hidden">
@@ -134,13 +135,25 @@ async function init() {
     const info = await api("/api/info");
     $("login").classList.add("hidden"); $("app").classList.remove("hidden");
     $("preset").innerHTML = info.presets.map(p => `<option value="${esc(p.id)}">${esc(p.title.de || p.title.en)}</option>`).join("");
-    $("topicHint").textContent = info.llm
-      ? "Ein Sprachmodell schlägt eine Vorgabe vor; die Wikidata-IDs werden automatisch geprüft."
-      : "Für freie Themen ist kein Sprachmodell eingerichtet (CUDI_LLM_*). Nutze eine Vorlage oder eine eigene Vorgabe.";
+    $("topicHint").textContent = "Möglich: " + info.topics + "." +
+      (info.llm ? " Andere Themen versucht ein Sprachmodell (mit geprüften Wikidata-IDs)." : "");
     if (!$("yaml").value) $("yaml").value = "id: mein-ranking\ntitle:\n  de: Mein Ranking\n  en: My Ranking\ncount: 10\nvalue_label: {de: Höhe, en: Height}\nunit: m\nsource:\n  type: wikidata\n  class: Q11303\n  property: P2048\n  require_props: [P1619]\n  extras: {country: P17}\n";
     refresh();
   } catch (e) { if (!$("login").classList.contains("hidden")) return; $("formErr").textContent = e.message; }
 }
+
+let planTimer = null;
+$("topic").addEventListener("input", () => {
+  clearTimeout(planTimer);
+  const topic = $("topic").value.trim();
+  if (topic.length < 6) { $("topicPlan").textContent = ""; return; }
+  planTimer = setTimeout(async () => {
+    try {
+      const plan = await api(`/api/plan?topic=${encodeURIComponent(topic)}&count=${+$("count").value || 10}`);
+      $("topicPlan").textContent = `Verstanden: „${plan.title.de}“ / „${plan.title.en}“`;
+    } catch (e) { $("topicPlan").textContent = e.message; }
+  }, 700);
+});
 
 async function start() {
   $("formErr").textContent = "";

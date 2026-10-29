@@ -65,11 +65,24 @@ def _run_job(job_id: str, spec: VideoSpec, only_script: bool, strict: bool = Fal
         _update(job_id, status="fehler", error=f"{exc}", trace=traceback.format_exc()[-2000:])
 
 
-def _spec_from_request(req: JobRequest) -> VideoSpec:
-    if req.topic:
+def plan_topic(topic: str, count: int) -> dict:
+    """Stichwort-Planer zuerst (ohne KI, nur geprüfte Themen); Sprachmodell nur als Rückfall."""
+    from ..topics import PlanError, plan_from_text
+
+    try:
+        return plan_from_text(topic, count)
+    except PlanError as exc:
+        if not llm.available():
+            raise
         from ..planner import plan
 
-        data = plan(req.topic, req.count)
+        log.info("Stichwort-Planer: %s – versuche Sprachmodell", exc)
+        return plan(topic, count)
+
+
+def _spec_from_request(req: JobRequest) -> VideoSpec:
+    if req.topic:
+        data = plan_topic(req.topic, req.count)
     elif req.yaml_spec:
         data = yaml.safe_load(req.yaml_spec)
     elif req.preset:
@@ -89,10 +102,25 @@ def index():
 @app.get("/api/info")
 def info(request: Request):
     _check_token(request)
+    from ..topics import supported_topics
+
     return {
         "presets": [{"id": s.id, "title": s.title} for s in list_presets()],
         "llm": llm.available(),
+        "topics": supported_topics(),
     }
+
+
+@app.get("/api/plan")
+def preview_plan(topic: str, request: Request, count: int = 10):
+    """Zeigt vorab, wie ein freies Thema verstanden wird (Titel DE/EN)."""
+    _check_token(request)
+    try:
+        data = plan_topic(topic, count)
+        spec = VideoSpec.from_dict(data)
+    except Exception as exc:
+        raise HTTPException(400, str(exc))
+    return {"title": spec.title, "count": spec.count}
 
 
 @app.post("/api/jobs")

@@ -146,13 +146,25 @@ def test_consistency_warns_about_mixed_years():
     assert any("unterschiedlichen Jahren" in w for w in warnings)
 
 
+def test_query_where_paths_and_notability():
+    spec = make_spec(source={"type": "wikidata", "class": "Q34038", "property": "P2048",
+                             "where": {"P17/P30": "Q18"}, "exclude_props": ["P297"], "min_sitelinks": 10})
+    q = build_ranking_query(spec.source)
+    assert "?item wdt:P17/wdt:P30 wd:Q18 ." in q
+    assert "FILTER NOT EXISTS { ?item wdt:P297 [] }" in q
+    assert "FILTER(?sitelinks >= 10)" in q
+    with pytest.raises(ValueError):
+        make_spec(source={"type": "wikidata", "class": "Q34038", "property": "P2048", "where": {"P17 } x": "Q18"}})
+
+
 def test_query_contains_filters():
     spec = make_spec(source={"type": "wikidata", "class": "Q11303", "property": "P2048",
                              "require_props": ["P1619"], "exclude_classes": ["Q55965244"], "country": "Q183"})
     q = build_ranking_query(spec.source)
-    assert "wdt:P31 wd:Q11303" in q
+    assert "VALUES ?cls { wd:Q11303 }" in q and "?item wdt:P31 ?cls ." in q
     assert "FILTER EXISTS { ?item wdt:P1619 [] }" in q
-    assert "FILTER NOT EXISTS { ?item wdt:P31 wd:Q55965244 }" in q
+    assert "wd:Q55965244" in q and "wd:Q105821051" in q          # Urzeitseen + nie gebaute Bauwerke
+    assert "wdt:P376" in q                                       # nur Objekte auf der Erde
     assert "?item wdt:P17 wd:Q183" in q
     assert "ORDER BY DESC(?value)" in q
 
@@ -327,3 +339,79 @@ def test_close_values_get_distinct_spoken_precision():
     text = " ".join(s.text for s in build_script(spec, research, "de", use_llm=False).segments[1:-1])
     assert "1,44 Milliarden" in text and "1,40 Milliarden" in text
     assert "340 Millionen" in text                     # eindeutige Werte bleiben gerundet
+
+
+from cudi_video.verify.numbers import closest_unit_value  # noqa: E402
+
+
+@pytest.mark.parametrize("text,expected,unit,found", [
+    ("Great Britain … with an area of 209,331 km2 (80,823 sq mi).", 228_938, "km²", 209_331),
+    ("La Grande-Bretagne a une superficie de 209 331 km².", 228_938, "km²", 209_331),
+    ("本州面积为22.79万平方公里。", 227_940, "km²", 227_900),
+    ("Высота 828 метров.", 828, "m", 828),
+    ("Die Insel hat 1500 Einwohner und ist 230 000 km² groß.", 228_938, "km²", 230_000),
+    ("Sie liegt 40 km vor der Küste.", 228_938, "km²", None),        # falsche Einheit
+    ("Der Turm ist 2000 m vom Fluss entfernt.", 828, "m", None),     # außerhalb ±30 %
+])
+def test_closest_unit_value(text, expected, unit, found):
+    assert closest_unit_value(text, expected, unit) == found
+
+
+def test_wikipedia_values_can_correct_wikidata():
+    r = evaluate(_item(228_938e6), [
+        _ev("Wikidata", 228_938e6),
+        _ev("Wikipedia (en)", 209_331e6), _ev("Wikipedia (fr)", 209_331e6), _ev("Wikipedia (es)", 209_300e6),
+    ], 0.01)
+    assert r["status"] == "korrigiert"
+    assert r["value"] == pytest.approx(209_331e6)
+
+
+# --------------------------------------------------------------------------- Stichwort-Planer
+
+from cudi_video import topics  # noqa: E402
+
+FAKE_COUNTRIES = {
+    "deutschland": {"qid": "Q183", "de": "Deutschland", "en": "Germany"},
+    "united states": {"qid": "Q30", "de": "Vereinigte Staaten", "en": "United States"},
+    "schweiz": {"qid": "Q39", "de": "Schweiz", "en": "Switzerland"},
+}
+
+
+@pytest.fixture
+def fake_lookup(monkeypatch):
+    monkeypatch.setattr(topics, "_lookup_country", lambda name: FAKE_COUNTRIES.get(name.lower()))
+
+
+@pytest.mark.parametrize("text,title_de,title_en,prop,where", [
+    ("die höchsten Wasserfälle Südamerikas", "Die 10 höchsten Wasserfälle Südamerikas",
+     "The 10 Tallest Waterfalls in South America", "P2048", {"P17/P30": "Q18"}),
+    ("Top 5 der größten Seen Deutschlands", "Die 5 größten Seen Deutschlands",
+     "The 5 Largest Lakes in Germany", "P2046", {"P17": "Q183"}),
+    ("tallest buildings in the united states", "Die 10 höchsten Gebäude der USA",
+     "The 10 Tallest Buildings in the United States", "P2048", {"P17": "Q30"}),
+    ("die größten Seen in der Schweiz", "Die 10 größten Seen in der Schweiz",
+     "The 10 Largest Lakes in Switzerland", "P2046", {"P17": "Q39"}),
+    ("die bevölkerungsreichsten Länder Ozeaniens", "Die 10 bevölkerungsreichsten Länder Ozeaniens",
+     "The 10 Most Populous Countries in Oceania", "P1082", {"P30": ["Q55643", "Q538"]}),
+    ("die höchsten Berge der Alpen", "Die 10 höchsten Berge der Alpen",
+     "The 10 Highest Mountains in the Alps", "P2044", {"P4552/P361*": "Q1286"}),
+])
+def test_planner_understands_topics(fake_lookup, text, title_de, title_en, prop, where):
+    spec = VideoSpec.from_dict(topics.plan_from_text(text))
+    assert spec.title == {"de": title_de, "en": title_en}
+    assert spec.source.property == prop
+    assert spec.source.where == where
+
+
+def test_planner_world_scope_and_order(fake_lookup):
+    deep = VideoSpec.from_dict(topics.plan_from_text("die tiefsten Seen der Welt"))
+    assert deep.source.property == "P4511" and deep.source.min_value == 400
+    small = VideoSpec.from_dict(topics.plan_from_text("die kleinsten Länder der Welt"))
+    assert small.source.order == "asc" and small.source.min_value is None
+    assert small.image_prop == "P41"                       # Länder -> Flaggen
+
+
+@pytest.mark.parametrize("text", ["die schnellsten Tiere", "größte Länder von Atlantis", "höchste Gebäude von Narnia"])
+def test_planner_rejects_unknown(fake_lookup, text):
+    with pytest.raises(topics.PlanError):
+        topics.plan_from_text(text)

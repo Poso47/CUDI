@@ -17,7 +17,7 @@ from ..enrich import fetch_summary
 from ..models import RankItem
 from ..spec import VideoSpec
 from ..units import quantity
-from .numbers import mentions_value
+from .numbers import UNIT_FACTORS, closest_unit_value, mentions_value
 
 log = logging.getLogger(__name__)
 
@@ -196,9 +196,16 @@ class WikipediaLangChecker(Checker):
             item.summary[self.lang] = text
         if not text:
             return []
-        expected = quantity(item.value, item.unit, spec.unit).value
+        q = quantity(item.value, item.unit, spec.unit)
         url = item.wiki_url(self.lang) or ""
-        if mentions_value(text, expected):
+        symbol = q.unit.symbol if q.unit else ""
+        if symbol in UNIT_FACTORS:
+            # Wert mit Einheit auslesen -> kann bestätigen ODER widersprechen
+            found = closest_unit_value(text, q.value, symbol)
+            if found is not None:
+                si = found / q.unit.factor
+                return [Evidence(self.name, self.origin, url, si, None, note=f"im Text: {found:g} {symbol}")]
+        elif mentions_value(text, q.value):
             return [Evidence(self.name, self.origin, url, None, None, agrees=True)]
         return [Evidence(self.name, self.origin, url, None, None, agrees=None, note="Wert in der Einleitung nicht genannt")]
 

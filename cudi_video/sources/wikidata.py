@@ -15,6 +15,21 @@ log = logging.getLogger(__name__)
 
 ENDPOINT = "https://query.wikidata.org/sparql"
 CANDIDATE_LIMIT = 500
+
+# Immer ausschließen: Objekte, die es (so) nicht gibt oder nicht mehr gibt.
+DEFAULT_EXCLUDE = [
+    "Q105821051",  # nie gebautes Bauwerk
+    "Q1570262",    # unvollendetes Gebäude
+    "Q12377751",   # im Bau
+    "Q811683",     # geplantes Bauwerk
+    "Q15720793",   # fiktives Gebäude
+    "Q3895768",    # fiktiver Ort
+    "Q19860854",   # zerstörtes Bauwerk
+    "Q96084375",   # ehemaliges Bauwerk
+    "Q55965244",   # Urzeitsee
+    "Q47486890",   # ehemaliger See
+    "Q1140477",    # subglazialer See (Werte stark unsicher)
+]
 MAX_EXTRA_VALUES = 3
 
 
@@ -25,6 +40,8 @@ def _sparql(query: str, cache_hours: float = 6.0) -> list[dict]:
         headers={"Accept": "application/sparql-results+json"},
         cache_hours=cache_hours,
         timeout=90,
+        retries=5,
+        max_wait=90,   # Wikidata begrenzt Rechenzeit pro Minute -> bei 429 geduldig warten
     )
     return data["results"]["bindings"]
 
@@ -41,9 +58,11 @@ def build_ranking_query(src: WikidataSource, limit: int = CANDIDATE_LIMIT) -> st
     """
     p = src.property
     instance = "wdt:P31/wdt:P279*" if src.subclasses else "wdt:P31"
+    classes = " ".join(f"wd:{c}" for c in dict.fromkeys([src.cls, *src.extra_classes]))
     lines = [
         "SELECT ?item ?value ?unit ?rank ?date WHERE {",
-        f"  ?item {instance} wd:{src.cls} .",
+        f"  VALUES ?cls {{ {classes} }}",
+        f"  ?item {instance} ?cls .",
         f"  ?item p:{p} ?st .",
         "  ?st wikibase:rank ?rank . FILTER(?rank != wikibase:DeprecatedRank)",
         f"  {{ ?st psn:{p} [ wikibase:quantityAmount ?value ; wikibase:quantityUnit ?unit ] }}",
@@ -55,8 +74,21 @@ def build_ranking_query(src: WikidataSource, limit: int = CANDIDATE_LIMIT) -> st
         lines.append(f"  ?item wdt:P17 wd:{src.country} .")
     for prop in src.require_props:
         lines.append(f"  FILTER EXISTS {{ ?item wdt:{prop} [] }}")
-    for cls in src.exclude_classes:
-        lines.append(f"  FILTER NOT EXISTS {{ ?item wdt:P31 wd:{cls} }}")
+    excluded = " ".join(f"wd:{c}" for c in dict.fromkeys([*DEFAULT_EXCLUDE, *src.exclude_classes]))
+    lines.append(f"  FILTER NOT EXISTS {{ ?item wdt:P31 ?excluded . VALUES ?excluded {{ {excluded} }} }}")
+    # nur Objekte auf der Erde (kein Olympus Mons & Co.)
+    lines.append("  FILTER NOT EXISTS { ?item wdt:P376 ?body . FILTER(?body != wd:Q2) }")
+    for i, (path, qids) in enumerate(src.where.items()):
+        sparql_path = "/".join("wdt:" + p for p in path.split("/"))
+        if isinstance(qids, str):
+            lines.append(f"  ?item {sparql_path} wd:{qids} .")
+        else:
+            values = " ".join(f"wd:{q}" for q in qids)
+            lines.append(f"  ?item {sparql_path} ?where{i} . VALUES ?where{i} {{ {values} }}")
+    for prop in src.exclude_props:
+        lines.append(f"  FILTER NOT EXISTS {{ ?item wdt:{prop} [] }}")
+    if src.min_sitelinks:
+        lines.append(f"  ?item wikibase:sitelinks ?sitelinks . FILTER(?sitelinks >= {int(src.min_sitelinks)})")
     if src.exclude_ended:
         lines.append("  FILTER NOT EXISTS { ?item wdt:P576 [] }")
     if src.min_value is not None:

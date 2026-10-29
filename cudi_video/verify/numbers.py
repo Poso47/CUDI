@@ -12,6 +12,15 @@ import re
 # Ostarabische/persische Ziffern -> 0-9
 _DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹", "01234567890123456789")
 
+# Einheiten nach der Zahl (mehrsprachig). Reihenfolge wichtig: km² vor km vor m.
+UNIT_PATTERNS = {
+    "km²": r"(km²|km2|km 2|kilomètres? carrés|kilómetros? cuadrados|quilómetros? quadrados|square kilomet(?:er|re)s"
+           r"|sq ?km|км²|км2|кв\.? ?км|квадратн\w* километр\w*|平方公里|平方千米|平方キロメートル|كم²|كم2|كيلومتر مربع)",
+    "km": r"(km\b|kilomètres?\b|kilómetros?\b|kilomet(?:er|re)s?\b|километр\w*|км\b|公里|千米|キロメートル|كم\b|كيلومتر)",
+    "m": r"(m\b|mètres?\b|metros?\b|met(?:er|re)s?\b|метр\w*|м\b|米|メートル|متر)",
+}
+UNIT_FACTORS = {"km²": 1e6, "km": 1e3, "m": 1.0}
+
 SCALES = [
     (re.compile(r"^(milliard|milliarden|mil millones|miliardi|bilh|миллиард|млрд|mrd|billion|bn)", re.I), 1e9),
     (re.compile(r"^(million|millionen|millones|milioni|milh|миллион|млн|mln|mio|millón)", re.I), 1e6),
@@ -87,3 +96,43 @@ def mentions_value(text: str, expected: float, rel_tol: float = 0.002) -> bool:
         if abs(value - expected) <= tolerance:
             return True
     return False
+
+
+def find_unit_values(text: str, unit_symbol: str) -> list[tuple[float, float]]:
+    """Zahlen, auf die direkt die Einheit folgt ("209 331 km²", "1709.8万平方公里") – in Anzeige-Einheit."""
+    pattern = UNIT_PATTERNS.get(unit_symbol)
+    if not pattern or not text:
+        return []
+    unit_re = re.compile(r"^\s?(?:de |of |d')?" + pattern, re.I)
+    text = text.translate(_DIGITS)
+    found = []
+    for m in _NUMBER.finditer(text):
+        tail = text[m.end(): m.end() + 40]
+        scale, rest = 1.0, tail
+        stripped = tail.lstrip(" \u00a0")
+        for scale_pattern, factor in SCALES:
+            sm = scale_pattern.match(stripped)
+            if sm:
+                scale = factor
+                rest = stripped[sm.end():]
+                rest = re.sub(r"^[A-Za-zÀ-ÿА-яЁё]*", "", rest)   # Wortrest ("millions", "Millionen"), nicht CJK
+                break
+        if not unit_re.match(rest.replace("\u00a0", " ")):
+            continue
+        for value, precision in _interpretations(m.group(1)):
+            found.append((value * scale, precision * scale))
+    return found
+
+
+def closest_unit_value(text: str, expected: float, unit_symbol: str, window: float = 0.3) -> float | None:
+    """Zahl mit passender Einheit, die dem erwarteten Wert am nächsten liegt (innerhalb ±30 %).
+
+    So kann ein Text einen Wert nicht nur bestätigen, sondern ihm auch widersprechen
+    ("209.331 km²" statt "228.938 km²"). Zu grob gerundete Angaben werden ignoriert."""
+    best = None
+    for value, precision in find_unit_values(text, unit_symbol):
+        if value <= 0 or precision / max(expected, 1e-9) > 0.05:
+            continue
+        if abs(value - expected) / expected <= window and (best is None or abs(value - expected) < abs(best - expected)):
+            best = value
+    return best
