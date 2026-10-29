@@ -370,6 +370,18 @@ def fetch_identifiers(items: list[RankItem], check_langs: list[str]) -> None:
             it.wiki_titles.setdefault(lang, b["title"]["value"])
 
 
+def candidate_buffer(count: int) -> int:
+    """Wie viele Kandidaten zusätzlich geprüft werden (z. B. 5 bei einer Top 10)."""
+    return max(3, count // 2)
+
+
+def display_name(title: str | None) -> str | None:
+    """'Victoria Island (Canada)' -> 'Victoria Island'."""
+    if not title:
+        return None
+    return re.sub(r"\s*\([^)]*\)$", "", title).strip() or None
+
+
 def fetch_item_value(qid: str, prop: str) -> RankItem | None:
     """Aktuellsten Wert einer Eigenschaft für ein einzelnes Objekt (z. B. Vergleichsobjekt)."""
     query = "\n".join([
@@ -396,19 +408,25 @@ def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
     ordered = sorted(candidates.values(), key=lambda it: it.value, reverse=src.order == "desc")
 
     # Mehr Kandidaten als nötig holen: Objekte ohne Namen in allen Sprachen fallen weg.
-    pool = ordered[: spec.count * 3]
+    # Puffer: einige Kandidaten mehr holen – der Quellen-Abgleich kann Werte korrigieren und damit
+    # die Reihenfolge ändern; gekürzt wird erst danach (siehe verify()).
+    wanted = spec.count + candidate_buffer(spec.count)
+    pool = ordered[: wanted * 2]
     details = _details([it.qid for it in pool], langs, spec.image_prop)
     items: list[RankItem] = []
     for it in pool:
         d = details.get(it.qid)
-        if not d or not all(lang in d["labels"] for lang in spec.langs):
+        names = {lang: display_name(d["wiki_titles"].get(lang)) or d["labels"].get(lang) for lang in langs} if d else {}
+        if not d or not all(names.get(lang) for lang in spec.langs):
             log.info("Überspringe %s (kein Name in allen Sprachen)", it.qid)
             continue
-        it.labels, it.descriptions = d["labels"], d["descriptions"]
+        # Anzeigename: Titel des Wikipedia-Artikels (gepflegter als Wikidata-Bezeichnungen), sonst Bezeichnung
+        it.labels = {lang: name for lang, name in names.items() if name}
+        it.descriptions = d["descriptions"]
         it.wiki_titles, it.image_file, it.image_kind = d["wiki_titles"], d["image_file"], d["image_kind"]
         it.has_build_date = d["built"]
         items.append(it)
-        if len(items) == spec.count:
+        if len(items) == wanted:
             break
 
     extras = _extras([it.qid for it in items], src.extras, langs)

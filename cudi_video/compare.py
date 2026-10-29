@@ -126,6 +126,8 @@ def comparison(item: RankItem, ref: dict | None, prop: str, lang: str) -> dict |
     if not patterns:
         return None
     r = abs(item.value) / abs(ref["value"])
+    if r > 1000 or r < 0.001:
+        return None   # "13.650-mal so groß" ist nicht mehr anschaulich
     name = ref["name"]
     loc = ref.get("in", name)
     short = ref.get("short") or _short(name)

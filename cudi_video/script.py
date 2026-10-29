@@ -279,10 +279,12 @@ def rank_sentence(n: int, name: str, lang: str, first: bool) -> str:
     return f"{t['top3']} {text}" if n == 3 else text
 
 
-def template_item_text(facts: dict, lang: str, word_budget: int, first: bool = False) -> str:
+def template_item_text(facts: dict, lang: str, word_budget: int, first: bool = False, detail: int = 2) -> str:
+    """detail 2 = alles, 1 = ohne Wikipedia-Sätze und mit höchstens einer Zusatzinfo,
+    0 = nur Rang, Wert, Vergleich und Stichtag (für die Längengrenze von Shorts)."""
     t = TEXT[lang]
     parts = [rank_sentence(facts["rank"], facts["name"], lang, first)]
-    if facts["description"]:
+    if facts["description"] and detail >= 1:
         parts.append(_capitalize(facts["description"]).rstrip(".") + ".")
     variant = t["value"][facts["rank"] % 2] if facts["has_unit"] else t["value"][0]
     if variant == t["value"][0] and facts["value_label"]:
@@ -302,10 +304,11 @@ def template_item_text(facts: dict, lang: str, word_budget: int, first: bool = F
         parts.append(t["as_of"].format(year=facts["as_of"]))
     if facts["corrected_by"]:
         parts.append(t["corrected"].format(sources=_join(" / ".join(facts["corrected_by"]), lang)))
-    for label, value in facts["extras"]:
+    extras = facts["extras"] if detail >= 2 else facts["extras"][:1] if detail == 1 else []
+    for label, value in extras:
         parts.append(f"{label}: {_join(value, lang).rstrip('.')}.")
     used = 0
-    for sentence in facts["summary_sentences"]:
+    for sentence in facts["summary_sentences"] if detail >= 2 else []:
         if used >= MAX_SUMMARY_SENTENCES:
             break
         if len(" ".join(parts).split()) + len(sentence.split()) > word_budget:
@@ -378,7 +381,7 @@ def llm_item_text(facts: dict, lang: str, word_budget: int, first_item: bool = F
 # --------------------------------------------------------------------------- Gesamtskript
 
 def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool | None = None,
-                 budget_scale: float = 1.0) -> Script:
+                 budget_scale: float = 1.0, detail: int = 2) -> Script:
     if use_llm is None:
         use_llm = llm.available()
     items = research.items
@@ -405,7 +408,7 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
             text, note = llm_item_text(facts, lang, word_budget, first_item=i == 0)
             checks.append(note)
         if text is None:
-            text = template_item_text(facts, lang, word_budget, first=i == 0)
+            text = template_item_text(facts, lang, word_budget, first=i == 0, detail=detail)
         sources = [item.wikidata_url]
         if facts["comparison"] and reference:
             sources.append(reference["url"])

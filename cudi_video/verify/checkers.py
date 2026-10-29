@@ -31,6 +31,7 @@ class Evidence:
     date: str | None = None
     agrees: bool | None = None  # None = keine Aussage (z. B. Wert dort nicht erwähnt)
     note: str = ""
+    precision: float = 0.0      # Rundungsgenauigkeit der Quelle (SI), z. B. 1e6 bei "2 sq km"
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -78,7 +79,9 @@ class WorldBankChecker(Checker):
             return []
         row = rows[0]
         page = f"https://data.worldbank.org/indicator/{indicator}?locations={row['country']['id']}"
-        return [Evidence(self.name, self.origin, page, float(row["value"]) * factor, f"{row['date']}-12-31")]
+        value = float(row["value"])
+        precision = factor if value.is_integer() else 0.0          # ganze km² -> auf 1 km² gerundet
+        return [Evidence(self.name, self.origin, page, value * factor, f"{row['date']}-12-31", precision=precision)]
 
 
 # --------------------------------------------------------------------------- CIA World Factbook
@@ -114,12 +117,14 @@ class FactbookChecker(Checker):
         return None
 
     @staticmethod
-    def _number(text: str) -> float | None:
-        m = re.search(r"([\d,]+(?:\.\d+)?)\s*(million|billion)?", text)
+    def _number(text: str) -> tuple[float, float] | None:
+        """'2 sq km' -> (2, 1); '1.4 billion' -> (1.4e9, 1e8) – Wert und Rundungsgenauigkeit."""
+        m = re.search(r"([\d,]+(?:\.(\d+))?)\s*(million|billion)?", text)
         if not m:
             return None
-        value = float(m.group(1).replace(",", ""))
-        return value * {"million": 1e6, "billion": 1e9}.get(m.group(2) or "", 1.0)
+        scale = {"million": 1e6, "billion": 1e9}.get(m.group(3) or "", 1.0)
+        decimals = len(m.group(2) or "")
+        return float(m.group(1).replace(",", "")) * scale, 10 ** -decimals * scale
 
     def check(self, spec, item):
         loaded = self._load(item.codes["fips"])
@@ -130,14 +135,18 @@ class FactbookChecker(Checker):
         if spec.source.property == "P2046":
             area = {k.strip(): v for k, v in data.get("Geography", {}).get("Area", {}).items()}
             text = area.get("total", {}).get("text", "")
-            value = self._number(text)
-            return [Evidence(self.name, self.origin, page, value * 1e6, None, note=text)] if value else []
+            parsed = self._number(text)
+            if not parsed or not parsed[0]:
+                return []
+            return [Evidence(self.name, self.origin, page, parsed[0] * 1e6, None, note=text, precision=parsed[1] * 1e6)]
         pop = data.get("People and Society", {}).get("Population", {})
         text = (pop.get("total") or {}).get("text") or pop.get("text", "")
-        value = self._number(text)
+        parsed = self._number(text)
+        if not parsed or not parsed[0]:
+            return []
         year = re.search(r"\((\d{4})", text)
         date = f"{year.group(1)}-07-01" if year else None
-        return [Evidence(self.name, self.origin, page, value, date, note=text)] if value else []
+        return [Evidence(self.name, self.origin, page, parsed[0], date, note=text, precision=parsed[1])]
 
 
 # --------------------------------------------------------------------------- OpenStreetMap
@@ -206,8 +215,9 @@ class WikipediaLangChecker(Checker):
             # Wert mit Einheit auslesen -> kann bestätigen ODER widersprechen
             found = closest_unit_value(text, q.value, symbol)
             if found is not None:
-                si = found / q.unit.factor
-                return [Evidence(self.name, self.origin, url, si, None, note=f"im Text: {found:g} {symbol}")]
+                value, precision = found
+                return [Evidence(self.name, self.origin, url, value / q.unit.factor, None,
+                                 note=f"im Text: {value:g} {symbol}", precision=precision / q.unit.factor)]
         elif mentions_value(text, q.value):
             return [Evidence(self.name, self.origin, url, None, None, agrees=True)]
         return [Evidence(self.name, self.origin, url, None, None, agrees=None, note="Wert in der Einleitung nicht genannt")]

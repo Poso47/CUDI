@@ -28,12 +28,12 @@ if os.environ.get("SSL_CERT_FILE"):
 TICKS_PER_SECOND = 10_000_000  # edge-tts liefert Offsets in 100-ns-Einheiten
 
 
-async def _synthesize(text: str, voice: str, out_path: Path) -> list[dict]:
+async def _synthesize(text: str, voice: str, out_path: Path, rate: str) -> list[dict]:
     words: list[dict] = []
     for attempt in range(3):
         words.clear()
         try:
-            comm = edge_tts.Communicate(text, voice, rate=config.VOICE_RATE, boundary="WordBoundary")
+            comm = edge_tts.Communicate(text, voice, rate=rate, boundary="WordBoundary")
             with open(out_path, "wb") as f:
                 async for chunk in comm.stream():
                     if chunk["type"] == "audio":
@@ -100,13 +100,13 @@ def tighten_pauses(mp3: Path, words: list[dict], wav: Path) -> tuple[list[dict],
     return new_words, len(pcm) / SAMPLE_RATE
 
 
-async def _voice_script(script: Script, out_dir: Path, voice: str, parallel: int = 4) -> None:
+async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 4) -> None:
     sem = asyncio.Semaphore(parallel)
 
     async def one(i, seg):
         async with sem:
             mp3 = out_dir / f"{i:02d}_{seg.kind}.mp3"
-            words = await _synthesize(seg.text, voice, mp3)
+            words = await _synthesize(seg.text, voice, mp3, rate)
             wav = mp3.with_suffix(".wav")
             seg.words, seg.duration = tighten_pauses(mp3, words, wav)
             seg.audio_path = str(wav)
@@ -114,8 +114,8 @@ async def _voice_script(script: Script, out_dir: Path, voice: str, parallel: int
     await asyncio.gather(*(one(i, seg) for i, seg in enumerate(script.segments)))
 
 
-def voice_script(script: Script, out_dir: Path, voice: str | None = None) -> Script:
+def voice_script(script: Script, out_dir: Path, voice: str | None = None, rate: str | None = None) -> Script:
     out_dir.mkdir(parents=True, exist_ok=True)
     voice = voice or config.VOICES[script.lang]
-    asyncio.run(_voice_script(script, out_dir, voice))
+    asyncio.run(_voice_script(script, out_dir, voice, rate or config.VOICE_RATE))
     return script

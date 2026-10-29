@@ -124,8 +124,8 @@ def find_unit_values(text: str, unit_symbol: str) -> list[tuple[float, float]]:
     return found
 
 
-def closest_unit_value(text: str, expected: float, unit_symbol: str, window: float = 0.3) -> float | None:
-    """Zahl mit passender Einheit, die dem erwarteten Wert am nächsten liegt (innerhalb ±30 %).
+def closest_unit_value(text: str, expected: float, unit_symbol: str, window: float = 0.3) -> tuple[float, float] | None:
+    """(Wert, Genauigkeit) der Zahl mit passender Einheit, die dem erwarteten Wert am nächsten liegt (±30 %).
 
     So kann ein Text einen Wert nicht nur bestätigen, sondern ihm auch widersprechen
     ("209.331 km²" statt "228.938 km²"). Zu grob gerundete Angaben werden ignoriert."""
@@ -133,6 +133,6 @@ def closest_unit_value(text: str, expected: float, unit_symbol: str, window: flo
     for value, precision in find_unit_values(text, unit_symbol):
         if value <= 0 or precision / max(expected, 1e-9) > 0.05:
             continue
-        if abs(value - expected) / expected <= window and (best is None or abs(value - expected) < abs(best - expected)):
-            best = value
+        if abs(value - expected) / expected <= window and (best is None or abs(value - expected) < abs(best[0] - expected)):
+            best = (value, precision)
     return best

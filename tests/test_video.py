@@ -201,8 +201,8 @@ def _item(value):
     return RankItem(qid="Q1", value=value, unit="Q25343", labels={"de": "X", "en": "X"})
 
 
-def _ev(source, value=None, agrees=None, date=None):
-    return Evidence(source, "test", "https://example.org", value, date, agrees)
+def _ev(source, value=None, agrees=None, date=None, precision=0.0):
+    return Evidence(source, "test", "https://example.org", value, date, agrees, precision=precision)
 
 
 def test_evaluate_confirmed_by_independent_source():
@@ -356,7 +356,8 @@ from cudi_video.verify.numbers import closest_unit_value  # noqa: E402
     ("Der Turm ist 2000 m vom Fluss entfernt.", 828, "m", None),     # außerhalb ±30 %
 ])
 def test_closest_unit_value(text, expected, unit, found):
-    assert closest_unit_value(text, expected, unit) == found
+    result = closest_unit_value(text, expected, unit)
+    assert (result[0] if result else None) == found
 
 
 def test_wikipedia_values_can_correct_wikidata():
@@ -599,3 +600,81 @@ def test_scenes_render_without_errors(tmp_path, image):
     for job in jobs:
         frame = make_scene(job).frame(0.8)
         assert frame.size == (W, H)
+
+
+def test_evaluate_respects_rounding_of_sources():
+    # Monaco: CIA "2 sq km" (gerundet) passt zu 2,08 km²; Weltbank 74,9 km² ist ein Ausreißer
+    r = evaluate(_item(2.08e6), [
+        _ev("Wikidata", 2.08e6), _ev("Weltbank", 74.9e6, precision=0.1e6), _ev("CIA World Factbook", 2e6, precision=1e6),
+        _ev("Wikipedia (en)", 2.08e6, precision=0.01e6), _ev("Wikipedia (ar)", 2.08e6, precision=0.01e6),
+    ], 0.01)
+    assert r["status"] == "bestätigt"
+    assert r["outliers"] == ["Weltbank"]
+
+
+def test_evaluate_largest_group_wins_despite_scattered_outlier():
+    # Tuvalu: Weltbank, CIA, ru sagen 26 km², Wikidata 25,1, ar 21 -> 26 gewinnt
+    r = evaluate(_item(25.1e6), [
+        _ev("Wikidata", 25.1e6), _ev("Weltbank", 26e6), _ev("CIA World Factbook", 26e6),
+        _ev("Wikipedia (ru)", 26e6), _ev("Wikipedia (ar)", 21e6),
+    ], 0.01)
+    assert r["status"] == "korrigiert"
+    assert r["value"] == 26e6
+    assert r["outliers"] == ["Wikipedia (ar)"]
+
+
+def test_display_name_strips_disambiguation():
+    from cudi_video.sources.wikidata import display_name
+
+    assert display_name("Victoria Island (Canada)") == "Victoria Island"
+    assert display_name("Nauru") == "Nauru"
+    assert display_name(None) is None
+
+
+def test_verify_truncates_after_corrections(monkeypatch):
+    import cudi_video.verify as verify_module
+
+    spec = make_spec(count=3, source={"type": "wikidata", "class": "Q3624078", "property": "P2046", "order": "asc"})
+    values = {"Q1": 0.44e6, "Q2": 2.08e6, "Q3": 21e6, "Q4": 25e6}
+    research = Research(spec_id="t", fetched_at="2026-10-29T10:00:00+00:00", items=[
+        RankItem(qid=q, value=v, unit="Q25343", labels={"de": q}) for q, v in values.items()])
+    research.items.insert(2, RankItem(qid="Q225", value=10e6, unit="Q25343", labels={"de": "Bosnien"},
+                                      alternatives=[51_209e6]))
+
+    def fake_verify_item(spec, item, checkers):
+        result = {"status": "bestätigt", "sources": ["Wikidata", "Weltbank"], "outliers": [], "evidence": []}
+        if item.qid == "Q225":                       # Abgleich findet den richtigen Wert
+            item.value = 51_209e6
+            result["alternatives"] = [10e6]
+        item.verification = result
+        return result
+
+    monkeypatch.setattr(verify_module, "verify_item", fake_verify_item)
+    verify_module.verify(spec, research)
+    assert [it.qid for it in research.items] == ["Q1", "Q2", "Q3"]
+    assert [it.rank for it in research.items] == [1, 2, 3]
+    assert any("Bosnien" in w and "nicht mehr in den Top 3" in w for w in research.warnings)
+
+
+def test_voice_within_limit_drops_optional_text(monkeypatch, tmp_path):
+    from cudi_video import pipeline, tts
+
+    spec = make_spec(target_seconds=80)                        # Grenze: 80 + 8 s
+    research = make_research()
+    calls = []
+
+    def fake_voice(script, out_dir, voice=None, rate=None):
+        calls.append(rate)
+        for seg in script.segments:
+            seg.duration = len(seg.text.split()) * 1.0         # langsame Stimme
+            seg.words = []
+        return script
+
+    monkeypatch.setattr(tts, "voice_script", fake_voice)
+    full = build_script(spec, research, "de", use_llm=False)
+    result = pipeline.voice_within_limit(spec, research, full, tmp_path, use_llm=False)
+    count = lambda sc: " ".join(s.text for s in sc.segments).count("Aussichtsplattform")
+    assert pipeline.video_seconds(result) <= 88
+    assert count(result) < count(full)                       # optionale Wikipedia-Sätze zuerst gekürzt
+    assert "Platz 1: Turm A" in result.segments[-2].text    # Pflichtinhalte bleiben
+    assert len(calls) == 2                                   # gemessen, dann gezielt einmal gekürzt

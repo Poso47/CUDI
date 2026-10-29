@@ -93,47 +93,81 @@ def _newer_sources(evidence: list[Evidence], base_date: str | None) -> list[Evid
             and _years(e.date) - _years(base_date) >= OUTDATED_YEARS]
 
 
+def _close(a: Evidence, b_value: float, b_precision: float, tolerance: float) -> bool:
+    """Gleich im Rahmen der Toleranz – oder der Rundungsgenauigkeit ("2 km²" passt zu 2,08 km²)."""
+    allowed = max(tolerance * max(abs(a.value), abs(b_value)), max(a.precision, b_precision) / 2 * 1.001)
+    return abs(a.value - b_value) <= allowed
+
+
+def _clusters(values: list[Evidence], tolerance: float) -> list[list[Evidence]]:
+    """Werte zu Gruppen zusammenfassen, die untereinander übereinstimmen."""
+    groups: list[list[Evidence]] = []
+    for e in sorted(values, key=lambda x: x.value):
+        for group in groups:
+            center = statistics.median(g.value for g in group)
+            precision = max(g.precision for g in group)
+            if _close(e, center, precision, tolerance):
+                group.append(e)
+                break
+        else:
+            groups.append([e])
+    return groups
+
+
 def evaluate(item: RankItem, evidence: list[Evidence], tolerance: float) -> dict:
-    """Wertet die gesammelten Belege für einen Platz aus (ohne Netzwerk, gut testbar)."""
+    """Wertet die gesammelten Belege für einen Platz aus (ohne Netzwerk, gut testbar).
+
+    Alle Werte werden zu übereinstimmenden Gruppen zusammengefasst; die größte Gruppe gewinnt.
+    Enthält sie den Wikidata-Wert, ist er bestätigt (Abweichler gelten als Ausreißer). Gewinnt eine
+    andere Gruppe mit mindestens zwei Quellen klar, wird ihr Wert übernommen (korrigiert)."""
     base = item.value
+    wikidata = next((e for e in evidence if e.source == "Wikidata"), None)
     values = [e for e in evidence if e.value is not None]
-    for e in values:
-        e.agrees = _rel_diff(e.value, base) <= tolerance
-    independent = [e for e in evidence if e.source != "Wikidata"]
-    confirming = [e for e in independent if e.agrees]
-    disagreeing = [e for e in independent if e.value is not None and e.agrees is False]
+    mentions = [e for e in evidence if e.value is None and e.agrees]      # Bestätigung ohne eigenen Wert
 
     status, new_value, new_date = "nur eine Quelle", None, None
-    outliers: list[Evidence] = []
-    base_date = next((e.date for e in evidence if e.source == "Wikidata" and e.date), item.value_date)
+    winner: list[Evidence] = []
+    base_date = wikidata.date if wikidata and wikidata.date else item.value_date
     current = _newer_sources(evidence, base_date)
     if len(current) >= 2 and _spread(current) <= tolerance:
         # Wikidata-Wert ist veraltet und neuere Quellen stimmen überein -> aktuellste Daten verwenden
-        status = "korrigiert"
-        disagreeing = current
+        status, winner = "korrigiert", current
         new_value = statistics.median(e.value for e in current)
         new_date = max(e.date for e in current)
-        for e in current:
-            e.agrees = True
-    elif disagreeing and len(confirming) >= 2 * len(disagreeing):
-        # klare Mehrheit: einzelne Ausreißer (z. B. Datenfehler einer Quelle) werden benannt, nicht übernommen
-        status, outliers = "bestätigt", disagreeing
-    elif disagreeing:
-        dis_values = [e.value for e in disagreeing]
-        spread_ok = _spread(disagreeing) <= tolerance
-        confirming_values = [e for e in confirming if e.value is not None]
-        if len(disagreeing) >= 2 and spread_ok and len(disagreeing) > len(confirming_values):
-            status = "korrigiert"
-            new_value = statistics.median(dis_values)
-            dates = [e.date for e in disagreeing if e.date]
+    else:
+        groups = _clusters(values, tolerance)
+        base_group = next((g for g in groups if wikidata in g), [wikidata] if wikidata else [])
+
+        def support(group):
+            return len({e.source for e in group}) + (len(mentions) if group is base_group else 0)
+
+        best = max(groups, key=support) if groups else []
+        others = [g for g in groups if g is not best]
+        clear = not others or support(best) > max(support(g) for g in others)
+        if best is base_group or not groups:
+            independent = [e for e in base_group if e.source != "Wikidata"] + mentions
+            winner = base_group
+            if independent and clear:
+                status = "bestätigt"
+            elif others:
+                status = "widersprüchlich"
+        elif clear and len({e.source for e in best}) >= 2:
+            status, winner = "korrigiert", best
+            new_value = statistics.median(e.value for e in best)
+            dates = [e.date for e in best if e.date]
             new_date = max(dates) if dates else None
         else:
             status = "widersprüchlich"
-    elif confirming:
-        status = "bestätigt"
 
-    sources = sorted({e.source for e in evidence if e.source == "Wikidata" or e.agrees}
-                     if status != "korrigiert" else {e.source for e in disagreeing})
+    for e in values:                                  # für den Prüfbericht: passt zum verwendeten Wert?
+        e.agrees = e in winner
+    if status == "korrigiert":
+        sources = sorted({e.source for e in winner if e.source != "Wikidata"})
+    elif status == "widersprüchlich":
+        sources = ["Wikidata"]
+    else:
+        sources = sorted({e.source for e in winner} | {e.source for e in mentions} | {"Wikidata"})
+    outliers = [e for e in values if e not in winner and e.source != "Wikidata"] if status in STATUS_OK else []
     return {
         "status": status,
         "original_value": base,
@@ -218,14 +252,22 @@ def _warnings_for(spec: VideoSpec, item: RankItem, result: dict) -> list[str]:
 
 def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Research:
     checkers = checkers_for(spec)
+    notes: dict[str, list[str]] = {}
     for item in research.items:
         result = verify_item(spec, item, checkers)
-        research.warnings.extend(_warnings_for(spec, item, result))
+        notes[item.qid] = _warnings_for(spec, item, result)
 
-    # Korrigierte Werte können die Reihenfolge ändern.
+    # Korrigierte Werte können die Reihenfolge ändern – erst jetzt auf die gewünschte Anzahl kürzen.
     research.items.sort(key=lambda it: it.value, reverse=spec.source.order == "desc")
+    dropped = research.items[spec.count:]
+    research.items = research.items[:spec.count]
     for pos, it in enumerate(research.items, start=1):
         it.rank = pos
+        research.warnings.extend(notes.get(it.qid, []))
+    for it in dropped:
+        if it.verification.get("status") == "korrigiert" or it.verification.get("alternatives"):
+            research.warnings.append(f"{it.labels.get('de') or it.qid}: nach dem Abgleich nicht mehr in den Top "
+                                     f"{spec.count} ({quantity(it.value, it.unit, spec.unit).display('de')}).")
 
     search = FactCheckSearch()
     if search.available():
