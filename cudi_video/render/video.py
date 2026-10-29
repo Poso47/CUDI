@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 import subprocess
 import wave
 from concurrent.futures import ProcessPoolExecutor
@@ -27,9 +28,12 @@ TAIL = {"intro": 0.35, "item": 0.55, "outro": 1.6}    # Pause danach
 
 
 def _short_credit(credit: str | None) -> str | None:
+    """Kurzer Bildnachweis fürs Video. Gemeinfreie Bilder brauchen keinen (steht trotzdem in der Beschreibung)."""
     if not credit:
         return None
     artist, license_name = (credit.split(" – ") + ["", ""])[:2]
+    if re.search(r"public domain|\bcc0\b|\bpd\b", license_name, re.I):
+        return None
     return f"{artist} ({license_name})" if license_name else artist
 
 

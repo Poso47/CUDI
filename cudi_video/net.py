@@ -35,12 +35,20 @@ BLOCK_AFTER = 3
 RETRY_STATUSES = (429, 500, 502, 503, 504)
 
 
+def _block_key(host: str) -> str:
+    """Wikimedia drosselt pro Domain: alle Sprachversionen von Wikipedia teilen sich eine Sperre."""
+    for domain in ("wikipedia.org", "wikimedia.org"):
+        if host.endswith(domain):
+            return domain
+    return host
+
+
 def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60, retry_on=RETRY_STATUSES):
     """GET mit Wiederholung. Respektiert Retry-After, wartet aber höchstens `max_wait` Sekunden.
 
     `retry_on` legt fest, bei welchen HTTP-Codes erneut versucht wird (z. B. nur 429, wenn ein
     Timeout 504 sofort an eine Ausweichroute übergeben werden soll)."""
-    host = urlparse(url).netloc
+    host = _block_key(urlparse(url).netloc)
     if _blocked_hosts.get(host, 0) >= BLOCK_AFTER:
         raise FetchError(f"{host} ist in diesem Lauf blockiert (zu viele Anfragen)")
     delay = 3.0

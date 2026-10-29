@@ -545,3 +545,13 @@ def test_buildings_world_requires_build_date_but_country_scope_does_not(fake_loo
     assert "Q41176" in germany.source.extra_classes              # auch allgemeine Gebäude (Omniturm)
     q = build_ranking_query(germany.source)
     assert "wdt:P5817 ?state" in q                                # Nutzungszustand "im Bau" usw. ausgeschlossen
+
+
+def test_extras_skip_values_repeating_the_name():
+    from cudi_video.script import extras_lines
+
+    spec = make_spec(source={"type": "wikidata", "class": "Q3624078", "property": "P2046",
+                             "extras": {"capital": "P36"}})
+    item = RankItem(qid="Q235", value=2.08e6, unit="Q25343", labels={"de": "Monaco"},
+                    extras={"capital": {"de": "Monaco"}})
+    assert extras_lines(spec, item, "de") == []

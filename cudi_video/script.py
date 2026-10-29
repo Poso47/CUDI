@@ -183,10 +183,11 @@ def extras_lines(spec: VideoSpec, item: RankItem, lang: str) -> list[tuple[str, 
     """(Label, Wert)-Paare, z. B. ("Land", "China / Nepal")."""
     lines = []
     desc = item.descriptions.get(lang, "").lower()
+    name = item.labels.get(lang, "").lower()
     for key, pid in spec.source.extras.items():
         value = item.extras.get(key, {}).get(lang)
-        if not value or (" / " not in value and value.lower() in desc):
-            continue   # fehlt oder steht schon in der Beschreibung
+        if not value or (" / " not in value and (value.lower() in desc or value.lower() == name)):
+            continue   # fehlt, steht schon in der Beschreibung oder wiederholt nur den Namen (Monaco: Monaco)
         parts = value.split(" / ")
         if {"Europa", "Asien"} <= set(parts) or {"Europe", "Asia"} <= set(parts):
             value = " / ".join(p for p in parts if p not in ("Eurasien", "Eurasia"))   # doppelt gemoppelt
