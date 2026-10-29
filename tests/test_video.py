@@ -678,3 +678,11 @@ def test_voice_within_limit_drops_optional_text(monkeypatch, tmp_path):
     assert count(result) < count(full)                       # optionale Wikipedia-Sätze zuerst gekürzt
     assert "Platz 1: Turm A" in result.segments[-2].text    # Pflichtinhalte bleiben
     assert len(calls) == 2                                   # gemessen, dann gezielt einmal gekürzt
+
+
+def test_spoken_sources_are_compact():
+    from cudi_video.script import spoken_sources
+
+    names = spoken_sources(["CIA World Factbook", "Weltbank", "Wikipedia (en)", "Wikipedia (fr)", "Wikipedia (zh)"], "de")
+    assert names == ["CIA World Factbook", "Weltbank", "Wikipedia"]
+    assert spoken_sources(["Wikipedia (de)", "Wikipedia (ja)"], "en") == ["Wikipedia"]

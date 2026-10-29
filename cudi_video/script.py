@@ -201,6 +201,17 @@ def _capitalize(s: str) -> str:
     return s[:1].upper() + s[1:] if s else s
 
 
+def spoken_sources(sources: list[str], lang: str, limit: int = 3) -> list[str]:
+    """Zum Vorlesen: Wikipedia-Sprachversionen zu "Wikipedia" zusammenfassen, höchstens 3 Namen."""
+    names: list[str] = []
+    for src in sources:
+        name = "Wikipedia" if src.startswith("Wikipedia (") else source_label(src, lang)
+        if name not in names:
+            names.append(name)
+    names.sort(key=lambda n: n == "Wikipedia")        # Institutionen zuerst, Wikipedia zuletzt
+    return names[:limit]
+
+
 def as_of_year(spec: VideoSpec, item: RankItem) -> str | None:
     """Stichtag nur für Werte, die sich mit der Zeit ändern (Einwohner ja, Fläche nein)."""
     return item.value_date[:4] if item.value_date and spec.source.property in TIME_VARYING else None
@@ -238,7 +249,7 @@ def item_facts(spec: VideoSpec, item: RankItem, lang: str, reference: dict | Non
     spoken = spoken_with_noun(spec, item.value, item.unit, lang, extra_decimals)
     corrected_by = []
     if (item.verification or {}).get("status") == "korrigiert":
-        corrected_by = [source_label(s, lang) for s in item.verification.get("sources", [])]
+        corrected_by = spoken_sources(item.verification.get("sources", []), lang)
     return {
         "rank": item.rank,
         "name": item.labels[lang],

@@ -80,26 +80,29 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
     if total <= limit:
         return script
 
-    speech = sum(s.duration for s in script.segments)
-    words = sum(len(s.text.split()) for s in script.segments)
     pauses = sum(LEAD[s.kind] + TAIL[s.kind] for s in script.segments)
-    seconds_per_word = speech / max(1, words)
+    # Sprechtempo je Abschnitt messen (Zahlen und lange Wörter dauern länger als der Durchschnitt)
+    rates_per_segment = [s.duration / max(1, len(s.text.split())) for s in script.segments]
+
+    def estimate(candidate: Script, speed: float) -> float:
+        speech = sum(len(seg.text.split()) * rate for seg, rate in zip(candidate.segments, rates_per_segment))
+        return pauses + speech / speed
+
     candidates = [(scale, detail) for detail in (2, 1, 0) for scale in ((0.8, 0.6, 0.4) if detail == 2 else (1.0,))]
     rates = [config.VOICE_RATE, _faster(config.VOICE_RATE, 7), _faster(config.VOICE_RATE, 14)]
     for rate_index, rate in enumerate(rates):
         speed = 1 + 0.07 * rate_index                     # grobe Schätzung des Tempogewinns
         for scale, detail in candidates:
             candidate = build_script(spec, research, script.lang, use_llm=use_llm, budget_scale=scale, detail=detail)
-            estimate = pauses + sum(len(s.text.split()) for s in candidate.segments) * seconds_per_word / speed
-            if estimate > limit * 0.97:
+            guess = estimate(candidate, speed)
+            if guess > limit - 2:
                 continue
-            log.info("Kürze Text (Stufe %d, Faktor %.1f, Tempo %s): geschätzt %.0fs", detail, scale, rate, estimate)
+            log.info("Kürze Text (Stufe %d, Faktor %.1f, Tempo %s): geschätzt %.0fs", detail, scale, rate, guess)
             voice_script(candidate, audio_dir, rate=rate)
             total = video_seconds(candidate)
             if total <= limit:
                 return candidate
-            seconds_per_word = sum(s.duration for s in candidate.segments) / max(
-                1, sum(len(s.text.split()) for s in candidate.segments)) * speed
+            rates_per_segment = [s.duration * speed / max(1, len(s.text.split())) for s in candidate.segments]
     raise RuntimeError(f"Video bleibt zu lang ({total:.0f}s). Bitte weniger Plätze wählen.")
 
 
