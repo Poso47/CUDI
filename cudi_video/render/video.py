@@ -11,12 +11,13 @@ from pathlib import Path
 import numpy as np
 
 from .. import config
-from ..models import Research, Script
 from ..compare import comparison
+from ..models import Research, Script
 from ..script import as_of_year, extras_lines, format_date
 from ..spec import VideoSpec
 from ..units import quantity
 from ..verify import all_sources, confirmed_sources
+from .icons import icon_for
 
 log = logging.getLogger(__name__)
 
@@ -58,7 +59,7 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
             "index": i, "kind": seg.kind, "lang": lang, "title": script.title,
             "text": seg.text, "words": seg.words, "lead": lead,
             "frames": frames, "duration": frames / config.FPS, "fps": config.FPS,
-            "n_items": len(research.items), "max_display": max_display,
+            "n_items": len(research.items), "max_display": max_display, "channel": config.CHANNEL,
             "out": str(work / f"part_{i:02d}.mp4"),
         }
         if seg.kind == "intro" and top:
@@ -72,7 +73,9 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
                 "as_of": as_of_year(spec, it),
                 "compare_chip": (comparison(it, research.references.get(lang), spec.source.property, lang) or {}).get("chip"),
                 "extras": extras_lines(spec, it, lang),
-                "image_path": it.image_path, "credit_short": _short_credit(it.image_credit),
+                "image_path": it.image_path, "image_kind": it.image_kind,
+                "credit_short": _short_credit(it.image_credit),
+                "icon": icon_for(spec.icon, spec.source.property),
                 "n_sources": len(confirmed_sources(it)),
             }
         elif seg.kind == "outro":
@@ -234,6 +237,8 @@ def render_video(spec: VideoSpec, research: Research, script: Script, out_dir: P
 
     final = out_dir / f"{spec.id}_{script.lang}.mp4"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video_only), "-i", str(audio),
+                    # Lautheit wie auf TikTok/YouTube üblich (ca. -14 LUFS), damit das Video nicht leiser wirkt
+                    "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", str(SAMPLE_RATE),
                     "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
                     str(final)], check=True)
 

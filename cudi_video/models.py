@@ -16,11 +16,13 @@ class RankItem:
     descriptions: dict[str, str] = field(default_factory=dict)
     wiki_titles: dict[str, str] = field(default_factory=dict)
     image_file: str | None = None   # Dateiname auf Wikimedia Commons
+    image_kind: str = "photo"       # photo | flag
     extras: dict[str, dict[str, str]] = field(default_factory=dict)  # {"country": {"de": "...", "en": "..."}}
     summary: dict[str, str] = field(default_factory=dict)            # Wikipedia-Einleitung je Sprache
     image_path: str | None = None
     image_credit: str | None = None
     codes: dict[str, str] = field(default_factory=dict)          # {"iso3": "RUS", "fips": "RS"}
+    alternatives: list[float] = field(default_factory=list)      # gleichrangige andere Werte in Wikidata
     verification: dict = field(default_factory=dict)            # Ergebnis des Quellen-Abgleichs
 
     @property

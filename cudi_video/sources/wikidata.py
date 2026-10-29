@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from datetime import datetime, timezone
 from urllib.parse import unquote
 
@@ -15,6 +16,14 @@ log = logging.getLogger(__name__)
 
 ENDPOINT = "https://query.wikidata.org/sparql"
 CANDIDATE_LIMIT = 500
+
+# Qualifikator "verwendetes Kriterium" (P1013) bei Höhen: architektonische Höhe ist der
+# internationale Standard für Gebäude-Rankings, Antennen-/Spitzen-Höhen werden gemieden.
+CRITERION_SCORE = {
+    "Q24192182": 1,    # architektonische Höhe
+    "Q26970842": -1,   # Höhe bis zur Spitze (inkl. Antenne)
+    "Q31271474": -1,   # Höhe des obersten Geschosses
+}
 
 # Immer ausschließen: Objekte, die es (so) nicht gibt oder nicht mehr gibt.
 DEFAULT_EXCLUDE = [
@@ -33,7 +42,7 @@ DEFAULT_EXCLUDE = [
 MAX_EXTRA_VALUES = 3
 
 
-def _sparql(query: str, cache_hours: float = 6.0) -> list[dict]:
+def _sparql(query: str, cache_hours: float = 6.0, retry_on=net.RETRY_STATUSES) -> list[dict]:
     data = net.get_json(
         ENDPOINT,
         params={"query": query},
@@ -42,6 +51,7 @@ def _sparql(query: str, cache_hours: float = 6.0) -> list[dict]:
         timeout=90,
         retries=5,
         max_wait=90,   # Wikidata begrenzt Rechenzeit pro Minute -> bei 429 geduldig warten
+        retry_on=retry_on,
     )
     return data["results"]["bindings"]
 
@@ -50,41 +60,69 @@ def _qid(uri: str) -> str:
     return uri.rsplit("/", 1)[-1]
 
 
+# Eigenschaften mit Einheit: der normalisierte Wert (psn:, SI-Einheit) reicht und ist schneller.
+UNIT_PROPERTIES = {"P2044", "P2048", "P2046", "P4511", "P2043", "P2049", "P2386", "P2120", "P2067", "P2052"}
+
+
+def _value_pattern(p: str) -> list[str]:
+    if p in UNIT_PROPERTIES:
+        return [f"  ?st psn:{p} [ wikibase:quantityAmount ?value ; wikibase:quantityUnit ?unit ] ."]
+    return [  # z. B. Einwohner: ohne Einheit gibt es oft keinen normalisierten Wert
+        f"  {{ ?st psn:{p} [ wikibase:quantityAmount ?value ; wikibase:quantityUnit ?unit ] }}",
+        f"  UNION {{ FILTER NOT EXISTS {{ ?st psn:{p} [] }}",
+        f"          ?st psv:{p} [ wikibase:quantityAmount ?value ; wikibase:quantityUnit ?unit ] }}",
+    ]
+
+
 def build_ranking_query(src: WikidataSource, limit: int = CANDIDATE_LIMIT) -> str:
     """Alle (nicht veralteten) Aussagen zur Eigenschaft, sortiert nach Wert.
 
-    Es werden Aussagen statt Objekte geholt, damit pro Objekt später die neueste
+    Es werden Aussagen statt Objekte geholt, damit pro Objekt später die neueste bzw. passendste
     ausgewählt werden kann. Mengen werden, wo möglich, in SI-Einheiten normalisiert (psn:).
+    Die Reihenfolge der Bedingungen überlässt Wikidata dem eigenen Optimierer (gemessen: schneller
+    als jede erzwungene Reihenfolge).
     """
     p = src.property
     instance = "wdt:P31/wdt:P279*" if src.subclasses else "wdt:P31"
     classes = " ".join(f"wd:{c}" for c in dict.fromkeys([src.cls, *src.extra_classes]))
+    region: list[str] = []
+    if src.country:
+        region.append(f"  ?item wdt:P17 wd:{src.country} .")
+    for i, (path, qids) in enumerate(src.where.items()):
+        sparql_path = "/".join("wdt:" + part for part in path.split("/"))
+        if isinstance(qids, str):
+            region.append(f"  ?item {sparql_path} wd:{qids} .")
+        else:
+            values = " ".join(f"wd:{q}" for q in qids)
+            region.append(f"  VALUES ?where{i} {{ {values} }} ?item {sparql_path} ?where{i} .")
     lines = [
-        "SELECT ?item ?value ?unit ?rank ?date WHERE {",
+        "SELECT ?item ?value ?unit ?rank ?date ?criterion WHERE {",
         f"  VALUES ?cls {{ {classes} }}",
         f"  ?item {instance} ?cls .",
+        *region,
         f"  ?item p:{p} ?st .",
         "  ?st wikibase:rank ?rank . FILTER(?rank != wikibase:DeprecatedRank)",
-        f"  {{ ?st psn:{p} [ wikibase:quantityAmount ?value ; wikibase:quantityUnit ?unit ] }}",
-        f"  UNION {{ FILTER NOT EXISTS {{ ?st psn:{p} [] }}",
-        f"          ?st psv:{p} [ wikibase:quantityAmount ?value ; wikibase:quantityUnit ?unit ] }}",
+        *_value_pattern(p),
         "  OPTIONAL { ?st pq:P585 ?date }",
+        "  OPTIONAL { ?st pq:P1013 ?criterion }",
     ]
-    if src.country:
-        lines.append(f"  ?item wdt:P17 wd:{src.country} .")
+    lines += _filter_lines(src)
+    direction = "DESC" if src.order == "desc" else "ASC"
+    lines.append(f"}} ORDER BY {direction}(?value) LIMIT {int(limit)}")
+    return "\n".join(lines)
+
+
+def _filter_lines(src: WikidataSource) -> list[str]:
+    lines = []
     for prop in src.require_props:
         lines.append(f"  FILTER EXISTS {{ ?item wdt:{prop} [] }}")
+    if src.require_any:
+        alternatives = " UNION ".join(f"{{ ?item wdt:{prop} [] }}" for prop in src.require_any)
+        lines.append(f"  FILTER EXISTS {{ {alternatives} }}")
     excluded = " ".join(f"wd:{c}" for c in dict.fromkeys([*DEFAULT_EXCLUDE, *src.exclude_classes]))
     lines.append(f"  FILTER NOT EXISTS {{ ?item wdt:P31 ?excluded . VALUES ?excluded {{ {excluded} }} }}")
     # nur Objekte auf der Erde (kein Olympus Mons & Co.)
     lines.append("  FILTER NOT EXISTS { ?item wdt:P376 ?body . FILTER(?body != wd:Q2) }")
-    for i, (path, qids) in enumerate(src.where.items()):
-        sparql_path = "/".join("wdt:" + p for p in path.split("/"))
-        if isinstance(qids, str):
-            lines.append(f"  ?item {sparql_path} wd:{qids} .")
-        else:
-            values = " ".join(f"wd:{q}" for q in qids)
-            lines.append(f"  ?item {sparql_path} ?where{i} . VALUES ?where{i} {{ {values} }}")
     for prop in src.exclude_props:
         lines.append(f"  FILTER NOT EXISTS {{ ?item wdt:{prop} [] }}")
     if src.min_sitelinks:
@@ -95,26 +133,123 @@ def build_ranking_query(src: WikidataSource, limit: int = CANDIDATE_LIMIT) -> st
         lines.append(f"  FILTER(?value >= {float(src.min_value)})")
     if src.max_value is not None:
         lines.append(f"  FILTER(?value <= {float(src.max_value)})")
-    direction = "DESC" if src.order == "desc" else "ASC"
-    lines.append(f"}} ORDER BY {direction}(?value) LIMIT {int(limit)}")
-    return "\n".join(lines)
+    return lines
+
+
+# --------------------------------------------------------------------------- Ausweichroute
+
+SEARCH_API = "https://www.wikidata.org/w/api.php"
+SEARCH_MAX_OFFSET = 10_000
+BATCH = 300
+
+
+class QueryTooHeavy(net.FetchError):
+    pass
+
+
+def _countries_in(continents: list[str]) -> list[str]:
+    values = " ".join(f"wd:{q}" for q in continents)
+    rows = _sparql(f"SELECT DISTINCT ?c WHERE {{ VALUES ?cont {{ {values} }} ?c wdt:P30 ?cont ; wdt:P31 wd:Q3624078 . }}",
+                   cache_hours=24 * 7)
+    return [_qid(r["c"]["value"]) for r in rows]
+
+
+def _search_candidates(src: WikidataSource) -> list[str]:
+    """Kandidaten über den Suchindex (haswbstatement) – schnell auch bei riesigen Klassen.
+
+    Sortiert nach eingehenden Verweisen: falls es mehr als 10.000 Treffer gibt (z. B. Seen in
+    Schweden), bleiben die bekanntesten – und damit sicher die größten – Objekte dabei."""
+    filters: list[str] = []
+    if src.country:
+        filters.append(f"haswbstatement:P17={src.country}")
+    for path, qids in src.where.items():
+        qid_list = [qids] if isinstance(qids, str) else list(qids)
+        if path == "P17/P30":                      # Land liegt auf Kontinent -> Länder auflösen
+            countries = _countries_in(qid_list)
+            filters.append("haswbstatement:" + "|".join(f"P17={c}" for c in countries))
+        elif "/" in path or "*" in path:
+            raise QueryTooHeavy(
+                "Wikidata ist für diese Abfrage gerade zu langsam. Bitte später erneut versuchen "
+                "oder ein einzelnes Land wählen.")
+        else:
+            filters.append("haswbstatement:" + "|".join(f"{path}={q}" for q in qid_list))
+    found: list[str] = []
+    for cls in dict.fromkeys([src.cls, *src.extra_classes]):
+        terms = [f"haswbstatement:P31={cls}", f"haswbstatement:{src.property}", *filters]
+        offset = 0
+        while offset < SEARCH_MAX_OFFSET:
+            data = net.get_json(SEARCH_API, params={
+                "action": "query", "list": "search", "srsearch": " ".join(terms), "srlimit": "500",
+                "srnamespace": "0", "srprop": "", "sroffset": offset, "srsort": "incoming_links_desc",
+                "format": "json",
+            }, cache_hours=6, retries=4, max_wait=30)
+            found += [hit["title"] for hit in data.get("query", {}).get("search", [])]
+            if "continue" not in data:
+                break
+            offset = data["continue"]["sroffset"]
+    return list(dict.fromkeys(q for q in found if re.fullmatch(r"Q\d+", q)))
+
+
+def _statements_for(src: WikidataSource, qids: list[str]) -> list[dict]:
+    """Aussagen zur Eigenschaft für eine feste Liste von Objekten (in kleinen Paketen)."""
+    rows: list[dict] = []
+    for i in range(0, len(qids), BATCH):
+        values = " ".join(f"wd:{q}" for q in qids[i:i + BATCH])
+        query = "\n".join([
+            "SELECT ?item ?value ?unit ?rank ?date ?criterion WHERE {",
+            f"  VALUES ?item {{ {values} }}",
+            f"  ?item p:{src.property} ?st .",
+            "  ?st wikibase:rank ?rank . FILTER(?rank != wikibase:DeprecatedRank)",
+            *_value_pattern(src.property),
+            "  OPTIONAL { ?st pq:P585 ?date }",
+            "  OPTIONAL { ?st pq:P1013 ?criterion }",
+            *_filter_lines(src),
+            "}",
+        ])
+        rows += _sparql(query)
+    return rows
+
+
+def _ranking_bindings(src: WikidataSource, fresh: bool) -> list[dict]:
+    """Hauptabfrage; bei Zeitüberschreitung Ausweichroute über den Suchindex."""
+    try:
+        # Bei Zeitüberschreitung (5xx) nicht dieselbe schwere Abfrage wiederholen, nur bei Drosselung (429)
+        return _sparql(build_ranking_query(src), cache_hours=0 if fresh else 6.0, retry_on=(429,))
+    except net.FetchError as exc:
+        if not re.search(r"HTTP 5\d\d|timed out|Read timed out", str(exc)):
+            raise
+        log.warning("Wikidata-Abfrage zu langsam (%s) – nutze den Suchindex als Ausweichroute", exc)
+    qids = _search_candidates(src)
+    log.info("Suchindex: %d Kandidaten", len(qids))
+    return _statements_for(src, qids)
 
 
 def pick_latest(bindings: list[dict]) -> dict[str, RankItem]:
-    """Pro Objekt eine Aussage wählen: neuester Stichtag, dann bevorzugter Rang, dann erste."""
+    """Pro Objekt eine Aussage wählen: neuester Stichtag, dann bevorzugter Rang, dann Kriterium
+    (architektonische Höhe vor Antennenhöhe). Gleichwertige andere Werte landen in `alternatives`."""
     best: dict[str, tuple[tuple, RankItem]] = {}
+    ties: dict[str, set[float]] = {}
     for b in bindings:
         qid = _qid(b["item"]["value"])
         date = b.get("date", {}).get("value", "")[:10] or None
         preferred = b["rank"]["value"].endswith("PreferredRank")
-        key = (date or "", preferred)
-        item = RankItem(qid=qid, value=float(b["value"]["value"]), unit=_qid(b["unit"]["value"]), value_date=date)
+        criterion = CRITERION_SCORE.get(_qid(b["criterion"]["value"]), 0) if "criterion" in b else 0
+        key = (date or "", preferred, criterion)
+        value = float(b["value"]["value"])
+        item = RankItem(qid=qid, value=value, unit=_qid(b["unit"]["value"]), value_date=date)
         if qid not in best or key > best[qid][0]:
             best[qid] = (key, item)
-    return {qid: item for qid, (_, item) in best.items()}
+            ties[qid] = {value}
+        elif key == best[qid][0]:
+            ties[qid].add(value)
+    out = {}
+    for qid, (_, item) in best.items():
+        item.alternatives = sorted(v for v in ties[qid] if v != item.value)
+        out[qid] = item
+    return out
 
 
-def _details(qids: list[str], langs: list[str]) -> dict[str, dict]:
+def _details(qids: list[str], langs: list[str], image_prop: str = "P18") -> dict[str, dict]:
     values = " ".join(f"wd:{q}" for q in qids)
     selects, opts = [], []
     for lang in langs:
@@ -125,9 +260,10 @@ def _details(qids: list[str], langs: list[str]) -> dict[str, dict]:
             f"  OPTIONAL {{ ?w_{lang} schema:about ?item ; schema:isPartOf <https://{lang}.wikipedia.org/> }}",
         ]
     query = "\n".join([
-        f"SELECT ?item ?img {' '.join(selects)} WHERE {{",
+        f"SELECT ?item ?img ?photo {' '.join(selects)} WHERE {{",
         f"  VALUES ?item {{ {values} }}",
-        "  OPTIONAL { ?item wdt:P18 ?img }",
+        f"  OPTIONAL {{ ?item wdt:{image_prop} ?img }}",
+        "  OPTIONAL { ?item wdt:P18 ?photo }",
         *opts,
         "}",
     ])
@@ -136,9 +272,12 @@ def _details(qids: list[str], langs: list[str]) -> dict[str, dict]:
         qid = _qid(b["item"]["value"])
         if qid in out:
             continue
-        row = {"labels": {}, "descriptions": {}, "wiki_titles": {}, "image_file": None}
+        row = {"labels": {}, "descriptions": {}, "wiki_titles": {}, "image_file": None, "image_kind": "photo"}
         if "img" in b:
             row["image_file"] = unquote(b["img"]["value"].rsplit("/", 1)[-1])
+            row["image_kind"] = "flag" if image_prop == "P41" else "photo"
+        elif "photo" in b:                                # Rückfall: normales Foto
+            row["image_file"] = unquote(b["photo"]["value"].rsplit("/", 1)[-1])
         for lang in langs:
             if f"l_{lang}" in b:
                 row["labels"][lang] = b[f"l_{lang}"]["value"]
@@ -247,13 +386,13 @@ def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
     langs = list(dict.fromkeys([*spec.langs, "en"]))
     query = build_ranking_query(src)
     log.info("Wikidata-Abfrage: Klasse %s, Eigenschaft %s", src.cls, src.property)
-    bindings = _sparql(query, cache_hours=0 if fresh else 6.0)
+    bindings = _ranking_bindings(src, fresh)
     candidates = pick_latest(bindings)
     ordered = sorted(candidates.values(), key=lambda it: it.value, reverse=src.order == "desc")
 
     # Mehr Kandidaten als nötig holen: Objekte ohne Namen in allen Sprachen fallen weg.
     pool = ordered[: spec.count * 3]
-    details = _details([it.qid for it in pool], langs)
+    details = _details([it.qid for it in pool], langs, spec.image_prop)
     items: list[RankItem] = []
     for it in pool:
         d = details.get(it.qid)
@@ -261,7 +400,7 @@ def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
             log.info("Überspringe %s (kein Name in allen Sprachen)", it.qid)
             continue
         it.labels, it.descriptions = d["labels"], d["descriptions"]
-        it.wiki_titles, it.image_file = d["wiki_titles"], d["image_file"]
+        it.wiki_titles, it.image_file, it.image_kind = d["wiki_titles"], d["image_file"], d["image_kind"]
         items.append(it)
         if len(items) == spec.count:
             break

@@ -34,32 +34,32 @@ DEFAULT_REFS: dict[str, dict[str, dict]] = {
 PHRASES = {
     "de": {
         "P2046": {"times": "{r}-mal so groß wie {ref}", "pct": "{p} Prozent größer als {ref}",
-                  "same": "etwa so groß wie {ref}", "inv": "Zum Vergleich: {Ref} ist {r}-mal so groß."},
+                  "same": "etwa so groß wie {ref}", "half": "etwa halb so groß wie {ref}", "inv": "Zum Vergleich: {Ref} ist {r}-mal so groß."},
         "P2048": {"times": "{r}-mal so hoch wie {ref}", "pct": "{p} Prozent höher als {ref}",
-                  "same": "etwa so hoch wie {ref}", "inv": "Zum Vergleich: {Ref} ist {r}-mal so hoch."},
+                  "same": "etwa so hoch wie {ref}", "half": "etwa halb so hoch wie {ref}", "inv": "Zum Vergleich: {Ref} ist {r}-mal so hoch."},
         "P2044": {"times": "{r}-mal so hoch wie {ref}", "pct": "{p} Prozent höher als {ref}",
-                  "same": "etwa so hoch wie {ref}", "inv": "Zum Vergleich: {Ref} ist {r}-mal so hoch."},
+                  "same": "etwa so hoch wie {ref}", "half": "etwa halb so hoch wie {ref}", "inv": "Zum Vergleich: {Ref} ist {r}-mal so hoch."},
         "P4511": {"times": "{r}-mal so tief wie {ref}", "pct": "{p} Prozent tiefer als {ref}",
-                  "same": "etwa so tief wie {ref}", "inv": "Zum Vergleich: {Ref} ist {r}-mal so tief."},
+                  "same": "etwa so tief wie {ref}", "half": "etwa halb so tief wie {ref}", "inv": "Zum Vergleich: {Ref} ist {r}-mal so tief."},
         "P1082": {"times": "{r}-mal so viele wie {ref_in}", "pct": "{p} Prozent mehr als {ref_in}",
-                  "same": "etwa so viele wie {ref_in}", "inv": "Zum Vergleich: {Ref_in} leben {r}-mal so viele Menschen."},
+                  "same": "etwa so viele wie {ref_in}", "half": "etwa halb so viele wie {ref_in}", "inv": "Zum Vergleich: {Ref_in} leben {r}-mal so viele Menschen."},
         "P1083": {"times": "{r}-mal so viele wie im {ref_short}", "pct": "{p} Prozent mehr als im {ref_short}",
-                  "same": "etwa so viele wie im {ref_short}", "inv": "Zum Vergleich: {Ref} hat {r}-mal so viele Plätze."},
+                  "same": "etwa so viele wie im {ref_short}", "half": "etwa halb so viele wie im {ref_short}", "inv": "Zum Vergleich: {Ref} hat {r}-mal so viele Plätze."},
     },
     "en": {
         "P2046": {"times": "{r} times the size of {ref}", "pct": "{p} percent bigger than {ref}",
-                  "same": "about the size of {ref}", "inv": "For comparison: {Ref} is {r} times bigger."},
+                  "same": "about the size of {ref}", "half": "about half the size of {ref}", "inv": "For comparison: {Ref} is {r} times bigger."},
         "P2048": {"times": "{r} times as tall as {ref}", "pct": "{p} percent taller than {ref}",
-                  "same": "about as tall as {ref}", "inv": "For comparison: {Ref} is {r} times taller."},
+                  "same": "about as tall as {ref}", "half": "about half as tall as {ref}", "inv": "For comparison: {Ref} is {r} times taller."},
         "P2044": {"times": "{r} times as high as {ref}", "pct": "{p} percent higher than {ref}",
-                  "same": "about as high as {ref}", "inv": "For comparison: {Ref} is {r} times higher."},
+                  "same": "about as high as {ref}", "half": "about half as high as {ref}", "inv": "For comparison: {Ref} is {r} times higher."},
         "P4511": {"times": "{r} times as deep as {ref}", "pct": "{p} percent deeper than {ref}",
-                  "same": "about as deep as {ref}", "inv": "For comparison: {Ref} is {r} times deeper."},
+                  "same": "about as deep as {ref}", "half": "about half as deep as {ref}", "inv": "For comparison: {Ref} is {r} times deeper."},
         "P1082": {"times": "{r} times as many people as {ref_in}", "pct": "{p} percent more people than {ref_in}",
-                  "same": "about as many people as {ref_in}",
+                  "same": "about as many people as {ref_in}", "half": "about half as many people as {ref_in}",
                   "inv": "For comparison: {Ref_in}, there are {r} times as many people."},
         "P1083": {"times": "{r} times the capacity of {ref}", "pct": "{p} percent more seats than {ref}",
-                  "same": "about the capacity of {ref}", "inv": "For comparison: {Ref} holds {r} times as many."},
+                  "same": "about the capacity of {ref}", "half": "about half the capacity of {ref}", "inv": "For comparison: {Ref} holds {r} times as many."},
     },
 }
 
@@ -128,7 +128,7 @@ def comparison(item: RankItem, ref: dict | None, prop: str, lang: str) -> dict |
     r = abs(item.value) / abs(ref["value"])
     name = ref["name"]
     loc = ref.get("in", name)
-    short = _short(name)
+    short = ref.get("short") or _short(name)
     fields = {
         "ref": name, "Ref": name[:1].upper() + name[1:],
         "ref_in": loc, "Ref_in": loc[:1].upper() + loc[1:],
@@ -143,6 +143,8 @@ def comparison(item: RankItem, ref: dict | None, prop: str, lang: str) -> dict |
         return {"kind": "fragment", "text": patterns["pct"].format(p=p, **fields), "chip": f"+{p} % vs. {short}"}
     if r > 0.95:
         return {"kind": "fragment", "text": patterns["same"].format(**fields), "chip": f"≈ {short}"}
+    if 0.42 <= r <= 0.58:
+        return {"kind": "fragment", "text": patterns["half"].format(**fields), "chip": f"≈ ½ {short}"}
     if r <= 0.2:
         return {"kind": "sentence", "text": patterns["inv"].format(r=_factor(1 / r, lang), **fields), "chip": None}
-    return None   # 0,2–0,95: kein griffiger Vergleich
+    return None   # sonst kein griffiger Vergleich

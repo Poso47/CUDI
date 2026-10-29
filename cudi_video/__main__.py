@@ -6,6 +6,7 @@ Beispiele:
   python -m cudi_video make "die tiefsten Seen der Welt" --count 7   # freies Thema
   python -m cudi_video make presets/meins.yaml --langs de --nur-skript
   python -m cudi_video web                          # Web-Oberfläche (auch fürs Handy)
+  python -m cudi_video check                        # Selbsttest (bei Problemen zuerst ausführen)
 """
 
 from __future__ import annotations
@@ -49,12 +50,31 @@ def main(argv=None) -> int:
     mk.add_argument("--streng", action="store_true",
                     help="abbrechen, wenn ein Platz nicht von mindestens einer unabhängigen Quelle bestätigt ist")
 
+    chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
+    chk.add_argument("--ohne-netz", action="store_true", help="nur lokale Prüfungen")
+    chk.add_argument("--ohne-stimme", action="store_true", help="KI-Stimme nicht testen")
+
     web = sub.add_parser("web", help="Web-Oberfläche starten")
     web.add_argument("--host", default="0.0.0.0")
     web.add_argument("--port", type=int, default=8000)
 
     args = parser.parse_args(argv)
+    # Windows-Konsolen nutzen oft cp1252 -> Zeichen wie ✓ oder ⚠️ würden sonst abstürzen
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", datefmt="%H:%M:%S")
+
+    if args.cmd == "check":
+        from .check import print_report, run_checks
+
+        logging.getLogger().setLevel(logging.ERROR)
+        print("CUDI Video – Selbsttest\n")
+        rows, ready = run_checks(network=not args.ohne_netz, voice=not (args.ohne_stimme or args.ohne_netz))
+        print_report(rows, ready)
+        return 0 if ready else 1
 
     if args.cmd == "presets":
         from .spec import list_presets

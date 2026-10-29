@@ -3,12 +3,13 @@ title:
   de: Die {count} höchsten Gebäude der Welt
   en: The {count} Tallest Buildings in the World
 count: 10
+icon: building
 value_label: {de: Höhe, en: Height}
 unit: m
 source:
   type: wikidata
   class: Q11303          # Wolkenkratzer
   property: P2048        # Höhe
-  require_props: [P1619] # nur offiziell eröffnete Gebäude (keine Projekte/Baustellen)
+  require_any: [P1619, P571]   # eröffnet oder Baujahr bekannt (Projekte/Baustellen sind ohnehin ausgeschlossen)
   extras: {country: P17, year: P1619, floors: P1101, architect: P84}
 hashtags: [fakten, ranking, architektur, wolkenkratzer]

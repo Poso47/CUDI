@@ -1,0 +1,25 @@
+# Die tiefsten Seen der Welt (maximale Tiefe).
+# Erzeugt aus dem freien Thema: "die tiefsten Seen der Welt"
+id: tiefste-seen
+title:
+  de: Die {count} tiefsten Seen der Welt
+  en: The {count} Deepest Lakes in the World
+count: 10
+value_label:
+  de: Tiefe
+  en: Depth
+unit: m
+source:
+  type: wikidata
+  property: P4511
+  order: desc
+  class: Q23397
+  min_value: 400
+  extras:
+    basin: P205
+hashtags:
+- fakten
+- ranking
+- seen
+- natur
+icon: lake

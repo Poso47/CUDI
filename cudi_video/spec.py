@@ -24,6 +24,7 @@ class WikidataSource:
     where: dict[str, str | list[str]] = field(default_factory=dict)  # weitere Filter, z. B. {"P30": "Q46"} (Europa)
                                                               # oder Pfad {"P17/P30": "Q18"} (Land liegt in Südamerika)
     require_props: list[str] = field(default_factory=list)    # Pflicht-Eigenschaften, z. B. P1619 (eröffnet)
+    require_any: list[str] = field(default_factory=list)      # mindestens eine davon, z. B. [P1619, P571]
     exclude_classes: list[str] = field(default_factory=list)  # z. B. unfertige Gebäude
     exclude_ended: bool = True                 # aufgelöst/abgerissen (P576) ausschließen
     exclude_props: list[str] = field(default_factory=list)    # Objekte mit dieser Eigenschaft ausschließen (z. B. P297 = Staat/Gebiet)
@@ -47,6 +48,7 @@ class VideoSpec:
     hashtags: list[str] = field(default_factory=list)
     compare: dict | None = None                # Vergleichsobjekt je Sprache, z. B. {"de": {"qid": "Q4127", "name": "der Bodensee"}}
     image_prop: str = "P18"                    # Bild-Eigenschaft: P18 Foto, P41 Flagge
+    icon: str | None = None                    # Icon ohne Foto: building, mountain, globe, people, lake, island, waterfall
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -92,8 +94,8 @@ class VideoSpec:
         for path in self.source.where:
             if not re.fullmatch(r"P\d+\*?(/P\d+\*?){0,2}", path):
                 raise ValueError(f"Ungültiger Filter: {path!r}")
-        for pid in [self.source.property, *self.source.require_props, *self.source.exclude_props,
-                    *self.source.extras.values()]:
+        for pid in [self.source.property, *self.source.require_props, *self.source.require_any,
+                    *self.source.exclude_props, *self.source.extras.values()]:
             if not re.fullmatch(r"P\d+", pid):
                 raise ValueError(f"Ungültige Eigenschaft: {pid!r}")
         if self.image_prop not in ("P18", "P41", "P154", "P94"):

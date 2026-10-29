@@ -1,0 +1,30 @@
+# Die kleinsten Länder der Welt (nach Fläche). Flaggen statt Fotos.
+# Erzeugt aus dem freien Thema: "die kleinsten Länder der Welt"
+id: kleinste-laender
+title:
+  de: Die {count} kleinsten Länder der Welt
+  en: The {count} Smallest Countries in the World
+count: 10
+value_label:
+  de: Fläche
+  en: Area
+unit: km2
+source:
+  type: wikidata
+  property: P2046
+  order: asc
+  class: Q3624078
+  extras:
+    capital: P36
+    continent: P30
+hashtags:
+- fakten
+- ranking
+- länder
+- geografie
+image_prop: P41
+icon: globe
+# Vergleich mit einem Park statt mit einem Land
+compare:
+  de: {qid: Q260223, name: der Englische Garten in München, short: Englischer Garten}
+  en: {qid: Q160409, name: Central Park}

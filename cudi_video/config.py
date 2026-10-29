@@ -36,6 +36,9 @@ LLM_BASE_URL = os.environ.get("CUDI_LLM_BASE_URL", "")
 LLM_API_KEY = os.environ.get("CUDI_LLM_API_KEY", "")
 LLM_MODEL = os.environ.get("CUDI_LLM_MODEL", "")
 
+# Kanal-Name, z. B. "@cudi.fakten" – erscheint dezent oben im Video und im Abspann.
+CHANNEL = os.environ.get("CUDI_CHANNEL", "").strip()
+
 # Zugangsschutz für die Web-Oberfläche (wichtig in der Cloud).
 WEB_TOKEN = os.environ.get("CUDI_VIDEO_TOKEN", "")
 

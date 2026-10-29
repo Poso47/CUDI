@@ -46,6 +46,7 @@
   .links a, .links button { font-size: 13px; padding: 7px 10px; border-radius: 10px; border: 1px solid var(--line);
                             color: var(--text); background: #0d1129; text-decoration: none; font-weight: 600; }
   .hidden { display: none; }
+  summary { cursor: pointer; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -100,6 +101,12 @@
       <div class="err" id="formErr"></div>
     </div>
     <div id="jobs"></div>
+    <details class="card">
+      <summary>Systemtest</summary>
+      <p class="hint">Prüft ffmpeg, Schriften, KI-Stimme und alle Datenquellen (dauert ca. 20 Sekunden).</p>
+      <button class="primary" id="checkBtn" onclick="runCheck()">Test starten</button>
+      <div id="checkOut" class="hint"></div>
+    </details>
   </section>
 </main>
 <script>
@@ -185,8 +192,13 @@ function renderJob(j) {
   const r = j.result;
   if (r) {
     const folder = j.folder;
-    if (r.warnings && r.warnings.length) html += `<div class="warn">⚠️ Vor dem Hochladen prüfen:<br>${r.warnings.map(esc).join("<br>")}</div>`;
-    html += `<div class="links"><a href="${fileUrl(folder, "review.md")}" target="_blank">Prüfbericht</a></div>`;
+    if (r.warnings && r.warnings.length) {
+      const shown = r.warnings.slice(0, 3).map(esc).join("<br>");
+      const more = r.warnings.length > 3 ? `<br>… und ${r.warnings.length - 3} weitere Hinweise im Prüfbericht` : "";
+      html += `<div class="warn">⚠️ Vor dem Hochladen prüfen:<br>${shown}${more}</div>`;
+    }
+    const reviewUrl = `/review/${encodeURIComponent(folder)}` + (token ? `?token=${encodeURIComponent(token)}` : "");
+    html += `<div class="links"><a href="${reviewUrl}" target="_blank">Prüfbericht mit Quellen</a></div>`;
     html += `<div class="vids">`;
     for (const [lang, v] of Object.entries(r.videos || {})) {
       html += `<div><div class="meta">${lang.toUpperCase()} · ${v.duration} s</div>
@@ -200,6 +212,18 @@ function renderJob(j) {
     html += `</div>`;
   }
   return html + `</div>`;
+}
+
+async function runCheck() {
+  $("checkBtn").disabled = true; $("checkOut").textContent = "Läuft …";
+  try {
+    const r = await api("/api/check");
+    const sym = { true: "✓", false: "✗", null: "–" };
+    $("checkOut").innerHTML = r.rows.map(x => `${sym[x.ok]} <b>${esc(x.name)}</b> ${esc(x.detail)}` +
+      (x.hint ? `<br>&nbsp;&nbsp;→ ${esc(x.hint)}` : "")).join("<br>") +
+      `<p><b>${r.ready ? "Alles bereit." : "Es fehlt noch etwas Wichtiges."}</b></p>`;
+  } catch (e) { $("checkOut").textContent = e.message; }
+  finally { $("checkBtn").disabled = false; }
 }
 
 let timer = null;

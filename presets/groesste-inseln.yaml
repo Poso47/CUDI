@@ -1,0 +1,29 @@
+# Größte Inseln: Insel + 'Insel Japans' (Honshu), ohne Staaten/Gebiete mit Ländercode.
+# Erzeugt aus dem freien Thema: "die größten Inseln der Welt"
+id: groesste-inseln
+title:
+  de: Die {count} größten Inseln der Welt
+  en: The {count} Largest Islands in the World
+count: 10
+value_label:
+  de: Fläche
+  en: Area
+unit: km2
+source:
+  type: wikidata
+  property: P2046
+  order: desc
+  class: Q23442
+  extra_classes:
+  - Q17308006
+  exclude_props:
+  - P297
+  min_value: 150000000000.0
+  extras:
+    country: P17
+hashtags:
+- fakten
+- ranking
+- inseln
+- natur
+icon: island

@@ -32,8 +32,14 @@ _blocked_hosts: dict[str, int] = {}
 BLOCK_AFTER = 3
 
 
-def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60):
-    """GET mit Wiederholung. Respektiert Retry-After, wartet aber höchstens `max_wait` Sekunden."""
+RETRY_STATUSES = (429, 500, 502, 503, 504)
+
+
+def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60, retry_on=RETRY_STATUSES):
+    """GET mit Wiederholung. Respektiert Retry-After, wartet aber höchstens `max_wait` Sekunden.
+
+    `retry_on` legt fest, bei welchen HTTP-Codes erneut versucht wird (z. B. nur 429, wenn ein
+    Timeout 504 sofort an eine Ausweichroute übergeben werden soll)."""
     host = urlparse(url).netloc
     if _blocked_hosts.get(host, 0) >= BLOCK_AFTER:
         raise FetchError(f"{host} ist in diesem Lauf blockiert (zu viele Anfragen)")
@@ -44,12 +50,14 @@ def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60):
             resp = _session.get(url, params=params, headers=headers, timeout=timeout)
         except requests.RequestException as exc:
             last = str(exc)
+            if 504 not in retry_on:      # Zeitüberschreitung soll sofort weitergereicht werden
+                break
         else:
             if resp.ok:
                 _blocked_hosts.pop(host, None)
                 return resp
             last = f"HTTP {resp.status_code}"
-            if resp.status_code not in (429, 500, 502, 503, 504):
+            if resp.status_code not in retry_on:
                 break
             retry_after = resp.headers.get("Retry-After", "")
             if retry_after.isdigit():

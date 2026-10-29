@@ -6,9 +6,10 @@ import math
 import random
 import re
 
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageOps
 
 from ..units import quantity
+from .icons import draw_icon
 from .theme import (
     ACCENT, ACCENT2, CARD, CONTENT_W, GOLD, H, MUTED, SUB_Y, TRACK, W, WHITE, X0,
     background, clamp, cover_crop, ease_in_out, ease_out_back, ease_out_cubic, fit_font, font,
@@ -16,9 +17,9 @@ from .theme import (
 )
 
 LABELS = {
-    "de": {"rank": "PLATZ", "top": "TOP", "photo": "Foto", "as_of": "Stand", "sources": "Quellen", "src_n": "{n} Quellen",
+    "de": {"rank": "PLATZ", "top": "TOP", "photo": "Foto", "image": "Bild", "as_of": "Stand", "sources": "Quellen", "src_n": "{n} Quellen",
            "mystery": "Platz 1", "cta": "Folgen für mehr Rankings!"},
-    "en": {"rank": "RANK", "top": "TOP", "photo": "Photo", "as_of": "As of", "sources": "Sources", "src_n": "{n} sources",
+    "en": {"rank": "RANK", "top": "TOP", "photo": "Photo", "image": "Image", "as_of": "As of", "sources": "Sources", "src_n": "{n} sources",
            "mystery": "Number 1", "cta": "Follow for more rankings!"},
 }
 
@@ -111,6 +112,9 @@ def header(frame, job, t, current_index: int | None):
     """Videotitel klein + Countdown-Fortschritt."""
     title = job["_header_title"]
     paste(frame, title, (X0, 112))
+    if job.get("_channel_layer") is not None:
+        layer = job["_channel_layer"]
+        paste(frame, layer, (X0 + CONTENT_W - layer.width, 112))
     n = job["n_items"]
     gap = 8
     seg_w = (CONTENT_W - gap * (n - 1)) / n
@@ -134,19 +138,57 @@ def chip(text: str, fnt, fg=WHITE, bg=(255, 255, 255, 28)) -> Image.Image:
     return img
 
 
-def placeholder_card(size, name: str, c1, c2) -> Image.Image:
-    """Grafische Karte, wenn kein frei lizenziertes Bild verfügbar ist."""
-    card = rounded_rect(size, 36, (*CARD, 255))
-    grad = gradient_fill(rounded_rect(size, 36, (255, 255, 255, 60)), c1, c2)
-    paste(card, grad, (0, 0), 0.55)
-    d = ImageDraw.Draw(card)
-    for i in range(-size[1], size[0], 46):  # diagonale Streifen
-        d.line((i, size[1], i + size[1], 0), fill=(255, 255, 255, 14), width=14)
-    initials = "".join(w[0] for w in re.findall(r"[\wÄÖÜäöü]+", name)[:2]).upper() or "?"
-    fnt = font("black", 300)
-    layer = text_layer(initials, fnt, fill=(255, 255, 255, 70))
-    paste(card, layer, ((size[0] - layer.width) / 2, (size[1] - layer.height) / 2 - 20))
-    return card
+class GraphicCard:
+    """Karte ohne Foto: Farbverlauf, wandernde Streifen und Themen-Icon – oder eine Flagge."""
+
+    def __init__(self, size, icon: str, c1, c2, flag: Image.Image | None = None):
+        self.size = size
+        w, h = size
+        base = rounded_rect(size, 36, (*CARD, 255))
+        grad = gradient_fill(rounded_rect(size, 36, (255, 255, 255, 255)), c1, c2)
+        paste(base, grad, (0, 0), 0.30 if flag else 0.55)
+        self.base = base
+        stripes = Image.new("RGBA", (w + 92, h), (0, 0, 0, 0))
+        d = ImageDraw.Draw(stripes)
+        for i in range(-h, w + 92, 46):
+            d.line((i, h, i + h, 0), fill=(255, 255, 255, 14), width=14)
+        self.stripes = stripes
+        self.mask = rounded_mask(size, 36)
+        self.flag = None
+        if flag is not None:
+            fw, fh = flag.size
+            scale = min((w - 140) / fw, (h - 120) / fh)
+            flag = flag.resize((max(1, int(fw * scale)), max(1, int(fh * scale))), Image.LANCZOS).convert("RGBA")
+            framed = Image.new("RGBA", (flag.width + 12, flag.height + 12), (255, 255, 255, 235))
+            framed.alpha_composite(flag, (6, 6))
+            self.flag = framed
+            self.flag_shadow = shadow(framed, 18, 170)
+            self.icon = None
+        else:
+            self.icon = draw_icon(icon, int(min(w, h) * 0.62))
+            glow = Image.new("RGBA", self.icon.size, (255, 255, 255, 0))
+            glow.putalpha(self.icon.getchannel("A").point(lambda a: a // 3))
+            self.icon_glow = glow.filter(ImageFilter.GaussianBlur(18))
+
+    def render(self, t: float, duration: float) -> Image.Image:
+        w, h = self.size
+        card = self.base.copy()
+        offset = int((t * 18) % 46)                       # Streifen wandern langsam
+        card.alpha_composite(self.stripes.crop((offset, 0, offset + w, h)))
+        p = ease_in_out(clamp(t / max(1.0, duration)))
+        if self.flag is not None:
+            scale = 1.0 + 0.04 * p
+            flag = self.flag.resize((int(self.flag.width * scale), int(self.flag.height * scale)), Image.BILINEAR)
+            x, y = (w - flag.width) / 2, (h - flag.height) / 2
+            paste(card, self.flag_shadow, (x - 36, y - 26))
+            paste(card, flag, (x, y))
+        else:
+            bob = math.sin(t * 1.6) * 8                      # Icon "schwebt" leicht
+            x, y = (w - self.icon.width) / 2, (h - self.icon.height) / 2 + bob
+            paste(card, self.icon_glow, (x, y))
+            paste(card, self.icon, (x, y))
+        card.putalpha(ImageChops.multiply(card.getchannel("A"), self.mask))
+        return card
 
 
 # --------------------------------------------------------------------------- Szenen
@@ -160,7 +202,10 @@ class Scene:
         c1, c2 = rank_colors(job.get("item", {}).get("rank", 99))
         job["_color1"], job["_color2"] = c1, c2
         self.c1, self.c2 = c1, c2
-        fnt, lines = fit_font(job["title"], "semibold", 34, CONTENT_W, 1, min_size=24)
+        channel = job.get("channel") or ""
+        job["_channel_layer"] = text_layer(channel, font("bold", 30), fill=(*WHITE, 200)) if channel else None
+        title_width = CONTENT_W - (job["_channel_layer"].width + 24 if channel else 0)
+        fnt, lines = fit_font(job["title"], "semibold", 34, title_width, 1, min_size=22)
         job["_header_title"] = text_layer(lines, fnt, fill=MUTED)
         self.subs = Subtitles(job["words"], job["text"], offset=self.lead,
                               highlight=GOLD if job.get("item", {}).get("rank") == 1 else ACCENT)
@@ -218,22 +263,29 @@ class ItemScene(Scene):
         self.item = it
         self.q = quantity(it["si_value"], it["unit"], it["wanted"])
         self.max_display = job["max_display"]
-        # Bild bzw. Platzhalter vorbereiten (Ken-Burns braucht Reserve um den Ausschnitt).
+        # Bild vorbereiten: Fotos füllen die Karte (Ken-Burns braucht Reserve um den Ausschnitt),
+        # Flaggen werden vollständig gezeigt, ohne Bild gibt es eine Grafik-Karte mit Themen-Icon.
         self.photo = None
+        flag = None
         if it.get("image_path"):
             try:
-                img = ImageOps.exif_transpose(Image.open(it["image_path"])).convert("RGB")
-                cw, ch = self.CARD_SIZE
-                self.photo = cover_crop(img, (int(cw * 1.18), int(ch * 1.18)))
+                img = ImageOps.exif_transpose(Image.open(it["image_path"]))
+                if it.get("image_kind") == "flag":
+                    flag = img.convert("RGBA")
+                else:
+                    cw, ch = self.CARD_SIZE
+                    self.photo = cover_crop(img.convert("RGB"), (int(cw * 1.18), int(ch * 1.18)))
             except Exception:
-                self.photo = None
-        self.placeholder = None if self.photo else placeholder_card(self.CARD_SIZE, it["name"], self.c1, self.c2)
+                self.photo, flag = None, None
+        self.graphic = None if self.photo else GraphicCard(self.CARD_SIZE, it.get("icon", "globe"),
+                                                           self.c1, self.c2, flag)
         self.card_mask = rounded_mask(self.CARD_SIZE, 36)
         self.card_shadow = shadow(rounded_rect(self.CARD_SIZE, 36, (0, 0, 0, 255)), 30, 180)
         self.credit = None
         if it.get("credit_short"):
             fnt = font("regular", 22)
-            full = f"{self.L['photo']}: {it['credit_short']}"
+            kind = self.L["image"] if it.get("image_kind") == "flag" else self.L["photo"]
+            full = f"{kind}: {it['credit_short']}"
             text = full
             while fnt.getlength(text + "…") > CONTENT_W - 80 and len(text) > 10:
                 text = text[:-1]
@@ -274,7 +326,7 @@ class ItemScene(Scene):
 
     def _card(self, t):
         if self.photo is None:
-            return self.placeholder
+            return self.graphic.render(t, self.job["duration"])
         cw, ch = self.CARD_SIZE
         p = ease_in_out(clamp(t / max(1.0, self.job["duration"])))
         zoom = 1.0 + 0.14 * p
@@ -383,6 +435,8 @@ class OutroScene(Scene):
         src_font = font("regular", 28)
         self.sources = text_layer(wrap(out["sources_line"], src_font, CONTENT_W), src_font, fill=MUTED)
         self.cta = chip(self.L["cta"], font("black", 48), fg=(10, 12, 28), bg=(*ACCENT, 255))
+        channel = job.get("channel") or ""
+        self.channel = text_layer(channel, font("black", 54), fill=(*WHITE, 255)) if channel else None
 
     def frame(self, t):
         f = background(t)
@@ -401,7 +455,10 @@ class OutroScene(Scene):
         pulse = 1 + 0.03 * math.sin(t * 5)
         s = max(0.01, pc * pulse)
         cta = self.cta.resize((max(1, int(self.cta.width * s)), max(1, int(self.cta.height * s))))
-        paste(f, cta, (X0 + (CONTENT_W - cta.width) / 2, min(y, SUB_Y - 160) + (self.cta.height - cta.height) / 2))
+        cta_y = min(y, SUB_Y - 160)
+        paste(f, cta, (X0 + (CONTENT_W - cta.width) / 2, cta_y + (self.cta.height - cta.height) / 2))
+        if self.channel is not None and cta_y + self.cta.height + 8 + self.channel.height < SUB_Y - 60:
+            paste(f, self.channel, (X0 + (CONTENT_W - self.channel.width) / 2, cta_y + self.cta.height + 8), opacity=pc)
         self.subs.draw(f, t)
         return f
 

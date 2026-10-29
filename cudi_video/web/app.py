@@ -168,6 +168,29 @@ def jobs(request: Request):
     return [*live, *_finished_from_disk()]
 
 
+@app.get("/review/{folder}", response_class=HTMLResponse)
+def review(folder: str, request: Request):
+    """Prüfbericht als lesbare Seite (auch auf dem Handy)."""
+    _check_token(request)
+    from .markdown import page
+
+    base = config.OUTPUT_DIR.resolve()
+    path = (base / folder / "review.md").resolve()
+    if base not in path.parents or not path.is_file():
+        raise HTTPException(404)
+    return page(path.read_text("utf-8"))
+
+
+@app.get("/api/check")
+def system_check(request: Request):
+    """Selbsttest über die Oberfläche (z. B. in der Cloud)."""
+    _check_token(request)
+    from ..check import run_checks
+
+    rows, ready = run_checks()
+    return {"ready": ready, "rows": rows}
+
+
 @app.get("/files/{folder}/{name}")
 def files(folder: str, name: str, request: Request):
     _check_token(request)

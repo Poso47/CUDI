@@ -146,8 +146,7 @@ def evaluate(item: RankItem, evidence: list[Evidence], tolerance: float) -> dict
     }
 
 
-def verify_item(spec: VideoSpec, item: RankItem, checkers) -> dict:
-    """Belege sammeln, auswerten und bei Bedarf den Wert korrigieren."""
+def _collect(spec: VideoSpec, item: RankItem, checkers) -> list[Evidence]:
     evidence: list[Evidence] = []
     for checker in checkers:
         if not checker.applies(spec, item):
@@ -156,7 +155,32 @@ def verify_item(spec: VideoSpec, item: RankItem, checkers) -> dict:
             evidence.extend(checker.check(spec, item))
         except (net.FetchError, KeyError, ValueError, TypeError) as exc:
             log.warning("%s für %s nicht verfügbar: %s", checker.name, item.qid, exc)
-    result = evaluate(item, evidence, TOLERANCE.get(spec.source.property, DEFAULT_TOLERANCE))
+    return evidence
+
+
+def _support(result: dict) -> tuple[int, int]:
+    """Wie gut ist ein Wert belegt? (Status-Güte, Anzahl unabhängiger Bestätigungen)"""
+    quality = {"bestätigt": 3, "korrigiert": 2, "nur eine Quelle": 1, "widersprüchlich": 0}[result["status"]]
+    return quality, len([s for s in result["sources"] if s != "Wikidata"])
+
+
+def verify_item(spec: VideoSpec, item: RankItem, checkers) -> dict:
+    """Belege sammeln, auswerten und bei Bedarf den Wert korrigieren.
+
+    Hat Wikidata mehrere gleichrangige Werte (z. B. zwei Höhen ohne Kennzeichnung), gewinnt
+    der Wert, den die unabhängigen Quellen am besten bestätigen."""
+    tolerance = TOLERANCE.get(spec.source.property, DEFAULT_TOLERANCE)
+    candidates = [item.value, *item.alternatives]
+    best = None
+    for value in candidates:
+        item.value = value
+        evidence = _collect(spec, item, checkers)
+        result = evaluate(item, evidence, tolerance)
+        if best is None or _support(result) > _support(best[1]):
+            best = (value, result)
+    item.value, result = best
+    if len(candidates) > 1:
+        result["alternatives"] = [v for v in candidates if v != item.value]
     item.verification = result
     if result["status"] == "korrigiert":
         item.value = result["value"]
@@ -164,29 +188,39 @@ def verify_item(spec: VideoSpec, item: RankItem, checkers) -> dict:
     return result
 
 
+def _warnings_for(spec: VideoSpec, item: RankItem, result: dict) -> list[str]:
+    """Hinweise für den Prüfbericht zu einem Platz."""
+    name = item.labels.get("de") or item.labels.get("en") or item.qid
+
+    def show(value: float) -> str:
+        return quantity(value, item.unit, spec.unit).display("de")
+
+    def listing(evidence_filter) -> str:
+        return "; ".join(f"{e['source']}: {show(e['value'])}" for e in result["evidence"] if evidence_filter(e))
+
+    out = []
+    if result.get("alternatives"):
+        others = ", ".join(show(v) for v in result["alternatives"])
+        out.append(f"{name}: Wikidata hat mehrere gleichrangige Werte ({others}) – gewählt wurde der am besten belegte.")
+    status = result["status"]
+    if status == "korrigiert":
+        out.append(f"{name}: Wikidata-Wert {show(result['original_value'])} ist veraltet oder weicht ab – "
+                   f"verwendet: {show(result['value'])} ({', '.join(result['sources'])})")
+    elif status == "widersprüchlich":
+        out.append(f"{name}: Quellen widersprechen sich ({listing(lambda e: e['value'] is not None)}) – bitte prüfen.")
+    elif status == "nur eine Quelle":
+        out.append(f"{name}: keine unabhängige Bestätigung gefunden (nur Wikidata).")
+    elif result["outliers"]:
+        out.append(f"{name}: Ausreißer ignoriert ({listing(lambda e: e['source'] in result['outliers'])}) – "
+                   f"{result['n_sources']} andere Quellen stimmen überein.")
+    return out
+
+
 def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Research:
     checkers = checkers_for(spec)
     for item in research.items:
         result = verify_item(spec, item, checkers)
-        name = item.labels.get("de") or item.labels.get("en") or item.qid
-        if result["status"] == "korrigiert":
-            old = quantity(result["original_value"], item.unit, spec.unit).display("de")
-            new = quantity(result["value"], item.unit, spec.unit).display("de")
-            research.warnings.append(
-                f"{name}: Wikidata-Wert {old} ist veraltet oder weicht ab – verwendet: {new} ({', '.join(result['sources'])})")
-        elif result["outliers"]:
-            details = "; ".join(
-                f"{e['source']}: {quantity(e['value'], item.unit, spec.unit).display('de')}"
-                for e in result["evidence"] if e["source"] in result["outliers"])
-            research.warnings.append(
-                f"{name}: Ausreißer ignoriert ({details}) – {result['n_sources']} andere Quellen stimmen überein.")
-        if result["status"] == "widersprüchlich":
-            details = "; ".join(
-                f"{e['source']}: {quantity(e['value'], item.unit, spec.unit).display('de')}"
-                for e in result["evidence"] if e["value"] is not None)
-            research.warnings.append(f"{name}: Quellen widersprechen sich ({details}) – bitte prüfen.")
-        elif result["status"] == "nur eine Quelle":
-            research.warnings.append(f"{name}: keine unabhängige Bestätigung gefunden (nur Wikidata).")
+        research.warnings.extend(_warnings_for(spec, item, result))
 
     # Korrigierte Werte können die Reihenfolge ändern.
     research.items.sort(key=lambda it: it.value, reverse=spec.source.order == "desc")

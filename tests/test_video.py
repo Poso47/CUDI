@@ -1,5 +1,7 @@
 """Tests für cudi_video (ohne Netzwerk)."""
 
+import re
+
 import pytest
 
 from cudi_video.models import RankItem, Research
@@ -415,3 +417,121 @@ def test_planner_world_scope_and_order(fake_lookup):
 def test_planner_rejects_unknown(fake_lookup, text):
     with pytest.raises(topics.PlanError):
         topics.plan_from_text(text)
+
+
+def test_pick_latest_prefers_architectural_height():
+    def b(value, criterion=None):
+        row = _binding("Q151765", value)
+        if criterion:
+            row["criterion"] = {"value": f"http://www.wikidata.org/entity/{criterion}"}
+        return row
+    items = pick_latest([b(300.1, "Q26970842"), b(259.0, "Q24192182")])   # Spitze vs. architektonisch
+    assert items["Q151765"].value == 259.0
+    tie = pick_latest([b(300.0), b(259.0)])                               # ohne Kennzeichnung
+    assert tie["Q151765"].value == 300.0 and tie["Q151765"].alternatives == [259.0]
+
+
+def test_query_is_lean_and_supports_require_any():
+    spec = make_spec(source={"type": "wikidata", "class": "Q8502", "property": "P2044", "where": {"P17": "Q183"},
+                             "require_any": ["P1619", "P571"]})
+    q = build_ranking_query(spec.source)
+    assert "?item wdt:P17 wd:Q183 ." in q
+    assert "hint:Query" not in q                          # Wikidatas Optimierer ist schneller (gemessen)
+    assert "UNION { FILTER NOT EXISTS" not in q           # Höhe hat Einheit -> nur normalisierter Wert
+    assert "FILTER EXISTS { { ?item wdt:P1619 [] } UNION { ?item wdt:P571 [] } }" in q
+    population = make_spec(source={"type": "wikidata", "class": "Q3624078", "property": "P1082"})
+    assert "psv:P1082" in build_ranking_query(population.source)
+
+
+# --------------------------------------------------------------------------- Sprachmodell-Pfad (simuliert)
+
+from cudi_video import llm as llm_module  # noqa: E402
+from cudi_video import script as script_module  # noqa: E402
+
+
+def _fake_llm(monkeypatch, continuation, verdict=True):
+    """Simuliertes Modell: übernimmt den vorgegebenen Satzanfang und hängt `continuation` an."""
+    def chat(system, user, temperature=0.4, timeout=120):
+        start = re.search(r'Beginne exakt mit: "(.*?)" Gib nur', user).group(1)
+        return f"{start} {continuation}"
+
+    monkeypatch.setattr(llm_module, "chat", chat)
+    monkeypatch.setattr(llm_module, "chat_json", lambda *a, **k: {"supported": verdict, "unsupported": []})
+
+
+def test_llm_text_is_used_when_checks_pass(monkeypatch):
+    spec, research = make_spec(), make_research()
+    _fake_llm(monkeypatch, "Ein beeindruckender Wolkenkratzer.")
+    script = build_script(spec, research, "de", use_llm=True)
+    assert script.mode == "llm"
+    assert script.segments[1].text == "Wir starten mit Platz 3: Turm C. Ein beeindruckender Wolkenkratzer."
+    assert all("übernommen" in c for c in script.checks)
+
+
+def test_llm_text_with_invented_number_is_rejected(monkeypatch):
+    spec, research = make_spec(), make_research()
+    _fake_llm(monkeypatch, "Er hat 999 Fenster.")      # 999 steht nirgends in den Fakten
+    script = build_script(spec, research, "de", use_llm=True)
+    assert "999" not in " ".join(s.text for s in script.segments)
+    assert all("Zahl ohne Beleg" in c for c in script.checks)
+
+
+def test_llm_text_rejected_by_fact_checker(monkeypatch):
+    spec, research = make_spec(), make_research()
+    _fake_llm(monkeypatch, "Er wurde von Aliens gebaut.", verdict=False)
+    script = build_script(spec, research, "de", use_llm=True)
+    assert "Aliens" not in " ".join(s.text for s in script.segments)
+    assert all("nicht belegt" in c for c in script.checks)
+
+
+def test_fallback_uses_search_index_when_query_times_out(monkeypatch):
+    from cudi_video import net
+    from cudi_video.sources import wikidata as wd
+
+    spec = make_spec(source={"type": "wikidata", "class": "Q8502", "property": "P2044", "where": {"P17": "Q183"}})
+    calls = {"search": [], "sparql": []}
+
+    def fake_sparql(query, cache_hours=6.0, retry_on=None):
+        calls["sparql"].append(query)
+        if "ORDER BY" in query:
+            raise net.FetchError("https://query.wikidata.org/sparql: HTTP 504")
+        return [_binding("Q3375", 2962.06), _binding("Q4168", 2713.0)]
+
+    def fake_get_json(url, params=None, **kw):
+        calls["search"].append(params["srsearch"])
+        return {"query": {"search": [{"title": "Q3375"}, {"title": "Q4168"}]}}
+
+    monkeypatch.setattr(wd, "_sparql", fake_sparql)
+    monkeypatch.setattr(wd.net, "get_json", fake_get_json)
+    rows = wd._ranking_bindings(spec.source, fresh=False)
+    assert calls["search"] == ["haswbstatement:P31=Q8502 haswbstatement:P2044 haswbstatement:P17=Q183"]
+    assert "VALUES ?item { wd:Q3375 wd:Q4168 }" in calls["sparql"][-1]
+    assert {wd._qid(r["item"]["value"]) for r in rows} == {"Q3375", "Q4168"}
+
+
+def test_fallback_resolves_continent_to_countries(monkeypatch):
+    from cudi_video.sources import wikidata as wd
+
+    spec = make_spec(source={"type": "wikidata", "class": "Q23397", "property": "P2046", "where": {"P17/P30": "Q46"}})
+    searches = []
+    monkeypatch.setattr(wd, "_countries_in", lambda continents: ["Q183", "Q40"])
+    monkeypatch.setattr(wd.net, "get_json", lambda url, params=None, **kw: searches.append(params) or {"query": {"search": []}})
+    wd._search_candidates(spec.source)
+    assert searches[0]["srsearch"].endswith("haswbstatement:P17=Q183|P17=Q40")
+    assert searches[0]["srsort"] == "incoming_links_desc"
+
+
+def test_fallback_explains_unsupported_paths():
+    from cudi_video.sources import wikidata as wd
+
+    spec = make_spec(source={"type": "wikidata", "class": "Q8502", "property": "P2044", "where": {"P4552/P361*": "Q1286"}})
+    with pytest.raises(wd.QueryTooHeavy):
+        wd._search_candidates(spec.source)
+
+
+def test_comparison_half_and_short_name():
+    ref = _ref(3.75e6, unit="Q25343", qid="Q260223", name="der Englische Garten in München", short="Englischer Garten")
+    monaco = comparison(RankItem(qid="Q235", value=2.08e6, unit="Q25343"), ref, "P2046", "de")
+    assert monaco["text"] == "etwa halb so groß wie der Englische Garten in München"
+    malta = comparison(RankItem(qid="Q233", value=316e6, unit="Q25343"), ref, "P2046", "de")
+    assert malta["chip"] == "84× Englischer Garten"

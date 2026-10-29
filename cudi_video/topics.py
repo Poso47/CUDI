@@ -20,6 +20,7 @@ class PlanError(ValueError):
 
 CLASSES = {
     "countries": {
+        "icon": "globe",
         "keywords": ["länder", "land", "staaten", "staat", "countries", "country", "nations", "states"],
         "source": {"class": "Q3624078"},
         "plural": {"de": "Länder", "en": "Countries"},
@@ -28,12 +29,19 @@ CLASSES = {
         "continent_path": "P30", "country_path": None,
         "extras": {"capital": "P36", "continent": "P30"},
         "flags": True,
+        # kleinste Länder: Vergleich mit einem Park statt mit Deutschland ("7,7-mal so groß wie …")
+        "compare": {"P2046:asc": {"de": {"qid": "Q260223", "name": "der Englische Garten in München", "short": "Englischer Garten"},
+                                  "en": {"qid": "Q160409", "name": "Central Park"}}},
         "hashtags": ["länder", "geografie"],
     },
     "buildings": {
+        "icon": "building",
         "keywords": ["gebäude", "wolkenkratzer", "hochhäuser", "hochhaus", "buildings", "building",
                      "skyscrapers", "skyscraper"],
-        "source": {"class": "Q11303", "extra_classes": ["Q18142"], "require_props": ["P1619"]},
+        # eröffnet ODER Baujahr bekannt (der Commerzbank Tower hat z. B. kein Eröffnungsdatum)
+        "source": {"class": "Q11303", "extra_classes": ["Q18142"], "require_any": ["P1619", "P571"]},
+        # bei Rankings eines Landes auch allgemeine Gebäude/Bürogebäude (z. B. Omniturm)
+        "country_extra_classes": ["Q41176", "Q1021645"],
         "plural": {"de": "Gebäude", "en": "Buildings"},
         "props": {"height": "P2048"},
         "default": "height",
@@ -42,6 +50,7 @@ CLASSES = {
         "hashtags": ["architektur", "wolkenkratzer"],
     },
     "mountains": {
+        "icon": "mountain",
         "keywords": ["berge", "berg", "gipfel", "mountains", "mountain", "peaks"],
         "source": {"class": "Q8502"},
         "plural": {"de": "Berge", "en": "Mountains"},
@@ -53,6 +62,7 @@ CLASSES = {
         "hashtags": ["berge", "natur"],
     },
     "lakes": {
+        "icon": "lake",
         "keywords": ["seen", "see", "lakes", "lake"],
         "source": {"class": "Q23397"},
         "plural": {"de": "Seen", "en": "Lakes"},
@@ -66,6 +76,7 @@ CLASSES = {
         "hashtags": ["seen", "natur"],
     },
     "islands": {
+        "icon": "island",
         "keywords": ["inseln", "insel", "islands", "island"],
         "source": {"class": "Q23442", "extra_classes": ["Q17308006"], "exclude_props": ["P297"]},
         "plural": {"de": "Inseln", "en": "Islands"},
@@ -77,6 +88,7 @@ CLASSES = {
         "hashtags": ["inseln", "natur"],
     },
     "waterfalls": {
+        "icon": "waterfall",
         "keywords": ["wasserfälle", "wasserfall", "waterfalls", "waterfall"],
         "source": {"class": "Q34038"},
         "plural": {"de": "Wasserfälle", "en": "Waterfalls"},
@@ -335,6 +347,8 @@ def plan_from_text(text: str, count: int | None = None) -> dict:
     title_en = f"The {{count}} {adj_en} {info['plural']['en']} {region_en}"
 
     source = {"type": "wikidata", "property": pid, "order": order, **info["source"]}
+    if scope == "country" and info.get("country_extra_classes"):
+        source["extra_classes"] = [*source.get("extra_classes", []), *info["country_extra_classes"]]
     if where:
         source["where"] = where
     if scope == "world" and order == "desc" and pid in info.get("world_min", {}):
@@ -355,9 +369,10 @@ def plan_from_text(text: str, count: int | None = None) -> dict:
         "source": source,
         "hashtags": ["fakten", "ranking", *info["hashtags"]],
     }
-    compare = info.get("compare", {}).get(pid)
+    compare = info.get("compare", {}).get(f"{pid}:{order}") or info.get("compare", {}).get(pid)
     if compare:
         spec["compare"] = compare
     if info.get("flags"):
         spec["image_prop"] = "P41"
+    spec["icon"] = "people" if pid == "P1082" else info["icon"]
     return spec

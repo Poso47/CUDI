@@ -3,6 +3,7 @@ title:
   de: Die {count} größten Seen der Welt
   en: The {count} Largest Lakes in the World
 count: 10
+icon: lake
 value_label: {de: Fläche, en: Area}
 unit: km2
 source:
@@ -13,3 +14,7 @@ source:
   exclude_classes: [Q55965244] # Urzeitseen, die es nicht mehr gibt
   extras: {basin: P205}
 hashtags: [fakten, ranking, natur, seen]
+# Vergleich mit einem bekannten See statt mit einem Land
+compare:
+  de: {qid: Q4127, name: der Bodensee}
+  en: {qid: Q6403, name: Lake Geneva}
