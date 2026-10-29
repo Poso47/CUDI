@@ -13,7 +13,9 @@ source:
   min_value: 10000000000 # ab 10.000 km² (in m²)
   exclude_classes: [Q55965244] # Urzeitseen, die es nicht mehr gibt
   extras: {basin: P205}
-hashtags: [fakten, ranking, natur, seen]
+hashtags:
+  de: [ranking, natur, seen]
+  en: [ranking, nature, lakes]
 # Vergleich mit einem bekannten See statt mit einem Land
 compare:
   de: {qid: Q4127, name: der Bodensee}

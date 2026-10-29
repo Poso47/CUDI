@@ -161,7 +161,9 @@ def run(
         meta = build_metadata(spec, research, script)
         meta_file = out / f"{spec.id}_{script.lang}_beschreibung.txt"
         meta_file.write_text(f"{meta['title']}\n\n{meta['description']}\n", "utf-8")
-        files.update({"metadata": meta, "description_file": meta_file.name})
+        caption_file = out / f"{spec.id}_{script.lang}_tiktok.txt"
+        caption_file.write_text(meta["caption"] + "\n", "utf-8")
+        files.update({"metadata": meta, "description_file": meta_file.name, "caption_file": caption_file.name})
         result["videos"][script.lang] = files
 
     (out / "review.md").write_text(build_review(spec, research, scripts), "utf-8")   # endgültige Texte

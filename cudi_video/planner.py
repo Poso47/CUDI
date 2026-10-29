@@ -68,7 +68,7 @@ def plan(topic: str, count: int = 10) -> dict:
         "count": count,
         "value_label": {"de": data.get("value_label_de", ""), "en": data.get("value_label_en", "")},
         "unit": unit,
-        "hashtags": data.get("hashtags", [])[:4],
+        "hashtags": {"de": data.get("hashtags", [])[:4]},
         "source": {
             "type": "wikidata", "class": data["class_qid"], "property": data["property"],
             "order": data.get("order", "desc"), "extras": {"country": "P17"},

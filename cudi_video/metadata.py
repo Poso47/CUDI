@@ -6,7 +6,7 @@ from .models import Research, Script
 from .script import as_of_year, format_date
 from .spec import VideoSpec
 from .units import quantity
-from .verify import compact_sources, confirmed_sources, source_label
+from .verify import all_sources, compact_sources, confirmed_sources, source_label
 
 DISCLOSURE = {
     "de": "ℹ️ Automatisch erstellt. Die Stimme ist KI-generiert. Alle Fakten stammen aus den unten genannten Quellen.",
@@ -18,6 +18,13 @@ SOURCE_LINKS = {
     "OpenStreetMap": "https://www.openstreetmap.org (ODbL)",
 }
 BASE_TAGS = {"de": ["shorts", "fakten", "top10", "wusstestdu"], "en": ["shorts", "facts", "top10", "didyouknow"]}
+# Kurztext für TikTok: Zeichenlimit, Links sind dort nicht klickbar – Quellen nur als Namen.
+CAPTION = {
+    "de": {"hook": "Welcher Platz hat dich überrascht? 👇", "checked": "✓ Geprüft mit", "and": "und",
+           "langs": "Sprachen", "as_of": "Stand", "note": "ℹ️ KI-Stimme · Bildnachweise im Video"},
+    "en": {"hook": "Which spot surprised you? 👇", "checked": "✓ Checked against", "and": "and",
+           "langs": "languages", "as_of": "as of", "note": "ℹ️ AI voice · image credits in the video"},
+}
 
 
 def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
@@ -26,7 +33,7 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
     items = sorted(research.items, key=lambda i: i.rank)
     retrieved = format_date(research.fetched_at[:10], lang)
 
-    tags = list(dict.fromkeys(BASE_TAGS[lang] + [t.lower().replace(" ", "") for t in spec.hashtags]))
+    tags = list(dict.fromkeys(BASE_TAGS[lang] + spec.tags_for(lang)))
     title = f"{spec.title[lang]} 🏆"
     if len(title) > 90:
         title = spec.title[lang][:88]
@@ -63,7 +70,24 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
         lines += ["", "📷 Bildnachweise:" if de else "📷 Image credits:"]
         lines += [f"• {name}: {credit}" for name, credit in credits]
     lines += ["", " ".join(f"#{t}" for t in tags)]
-    return {"title": title, "description": "\n".join(lines), "tags": tags}
+    return {"title": title, "description": "\n".join(lines), "tags": tags,
+            "caption": short_caption(spec, research, lang, tags)}
+
+
+def short_caption(spec: VideoSpec, research: Research, lang: str, tags: list[str]) -> str:
+    """TikTok-Text: Titel, geprüfte Quellen mit Stand, KI-Hinweis, Hashtags (ohne #shorts)."""
+    c = CAPTION[lang]
+    names, n_langs = all_sources(research, lang)
+    if n_langs:
+        names.append(f"Wikipedia ({n_langs} {c['langs']})")
+    sources = names[0] if len(names) == 1 else ", ".join(names[:-1]) + f" {c['and']} {names[-1]}"
+    retrieved = format_date(research.fetched_at[:10], lang)
+    return "\n".join([
+        f"{spec.title[lang]} 🏆 {c['hook']}", "",
+        f"{c['checked']} {sources} · {c['as_of']} {retrieved}",
+        c["note"], "",
+        " ".join(f"#{t}" for t in tags if t != "shorts"),
+    ])
 
 
 def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> str:

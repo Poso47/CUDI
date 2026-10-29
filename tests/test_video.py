@@ -729,3 +729,26 @@ def test_extras_drop_redundant_umbrella_values(monkeypatch):
     assert out["Q672"]["continent"]["en"] == "Oceania"
     assert out["Q1"]["country"]["en"] == "Sudan / South Sudan"
     assert out["Q2"]["country"]["en"] == "China"
+
+
+def test_tiktok_caption_is_short_and_names_sources():
+    from cudi_video.metadata import build_metadata
+    from cudi_video.models import Script
+
+    spec, research = make_spec(hashtags=["architektur"]), make_research()
+    research.items[0].verification = {"status": "bestätigt",
+                                      "sources": ["Wikidata", "Weltbank", "Wikipedia (fr)", "Wikipedia (ja)"]}
+    meta = build_metadata(spec, research, Script(lang="de", title="Test DE", segments=[]))
+    caption = meta["caption"]
+    assert caption.startswith("Test DE 🏆")
+    assert "✓ Geprüft mit Wikidata, Weltbank und Wikipedia (2 Sprachen) · Stand 29.10.2026" in caption
+    assert "#shorts" not in caption and "#architektur" in caption
+    assert len(caption) < 600 and "http" not in caption
+
+
+def test_hashtags_per_language():
+    spec = make_spec(hashtags={"de": ["länder", "Geografie"], "en": ["countries"]})
+    assert spec.tags_for("de") == ["länder", "geografie"] and spec.tags_for("en") == ["countries"]
+    assert make_spec(hashtags=["natur"]).tags_for("en") == ["natur"]          # Liste gilt für alle Sprachen
+    planned = VideoSpec.from_dict(topics.plan_from_text("die kleinsten Länder der Welt"))
+    assert "länder" not in planned.tags_for("en") and "countries" in planned.tags_for("en")

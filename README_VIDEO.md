@@ -10,7 +10,8 @@ Pro Video entstehen:
 | Datei | Wozu |
 |---|---|
 | `<id>_de.mp4` / `<id>_en.mp4` | fertiges Video (Lautheit auf ca. −14 LUFS normalisiert) |
-| `<id>_de_beschreibung.txt` | Titel + Beschreibung mit Ranking, Quellen, Bildnachweisen, KI-Hinweis, Hashtags |
+| `<id>_de_beschreibung.txt` | YouTube: Titel + Beschreibung mit Ranking, Quellen-Links, Bildnachweisen, KI-Hinweis, Hashtags |
+| `<id>_de_tiktok.txt` | TikTok: kurzer Text mit geprüften Quellen, Stand, KI-Hinweis, Hashtags |
 | `<id>_de_cover.jpg` | Vorschaubild |
 | `<id>_de.srt` | Untertitel zum Hochladen (YouTube) |
 | `review.md` | **Prüfbericht** – vor dem Hochladen lesen (in der Web-Oberfläche als Seite) |

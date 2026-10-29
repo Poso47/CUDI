@@ -12,4 +12,6 @@ source:
   property: P2048        # Höhe
   require_any: [P1619, P571]   # eröffnet oder Baujahr bekannt (Projekte/Baustellen sind ohnehin ausgeschlossen)
   extras: {country: P17, year: P1619, floors: P1101, architect: P84}
-hashtags: [fakten, ranking, architektur, wolkenkratzer]
+hashtags:
+  de: [ranking, architektur, wolkenkratzer]
+  en: [ranking, architecture, skyscrapers]

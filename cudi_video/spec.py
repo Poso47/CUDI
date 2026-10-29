@@ -45,13 +45,18 @@ class VideoSpec:
     value_label: dict[str, str] = field(default_factory=dict)  # "Höhe" / "Height"
     unit: str | None = None                    # Anzeige-Einheit erzwingen: m, km, km2, t, ...
     target_seconds: int = 170                  # Zielänge (YouTube Shorts: max. 180 s)
-    hashtags: list[str] = field(default_factory=list)
+    hashtags: list[str] | dict[str, list[str]] = field(default_factory=list)   # Liste = für alle Sprachen
     compare: dict | None = None                # Vergleichsobjekt je Sprache, z. B. {"de": {"qid": "Q4127", "name": "der Bodensee"}}
     image_prop: str = "P18"                    # Bild-Eigenschaft: P18 Foto, P41 Flagge
     icon: str | None = None                    # Icon ohne Foto: building, mountain, globe, people, lake, island, waterfall
 
     def to_dict(self) -> dict:
         return asdict(self)
+
+    def tags_for(self, lang: str) -> list[str]:
+        """Hashtags einer Sprache: {"de": [...], "en": [...]} oder eine Liste für alle Sprachen."""
+        tags = self.hashtags.get(lang, []) if isinstance(self.hashtags, dict) else self.hashtags
+        return [str(t).lower().replace(" ", "") for t in tags]
 
     @classmethod
     def from_dict(cls, data: dict) -> "VideoSpec":

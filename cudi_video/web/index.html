@@ -201,7 +201,8 @@ function renderJob(j) {
         <div class="links">
           <a href="${fileUrl(folder, v.video)}" download>Video</a>
           <a href="${fileUrl(folder, v.subtitles)}" download>Untertitel</a>
-          <button onclick="copyText(this, '${esc(folder)}', '${esc(v.description_file)}')">Titel + Beschreibung kopieren</button>
+          <button onclick="copyText(this, '${esc(folder)}', '${esc(v.description_file)}')">YouTube-Text kopieren</button>
+          ${v.caption_file ? `<button onclick="copyText(this, '${esc(folder)}', '${esc(v.caption_file)}')">TikTok-Text kopieren</button>` : ""}
         </div></div>`;
     }
     html += `</div>`;

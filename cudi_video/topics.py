@@ -32,7 +32,7 @@ CLASSES = {
         # kleinste Länder: Vergleich mit einem Park statt mit Deutschland ("7,7-mal so groß wie …")
         "compare": {"P2046:asc": {"de": {"qid": "Q260223", "name": "der Englische Garten in München", "short": "Englischer Garten"},
                                   "en": {"qid": "Q160409", "name": "Central Park"}}},
-        "hashtags": ["länder", "geografie"],
+        "hashtags": {"de": ["länder", "geografie"], "en": ["countries", "geography"]},
     },
     "buildings": {
         "icon": "building",
@@ -47,7 +47,7 @@ CLASSES = {
         "default": "height",
         "continent_path": "P17/P30", "country_path": "P17",
         "extras": {"country": "P17", "year": "P1619", "floors": "P1101"},
-        "hashtags": ["architektur", "wolkenkratzer"],
+        "hashtags": {"de": ["architektur", "wolkenkratzer"], "en": ["architecture", "skyscrapers"]},
     },
     "mountains": {
         "icon": "mountain",
@@ -59,7 +59,7 @@ CLASSES = {
         "continent_path": "P17/P30", "country_path": "P17", "range_path": "P4552/P361*",
         "extras": {"range": "P4552", "country": "P17"},
         "world_min": {"P2044": 7500},
-        "hashtags": ["berge", "natur"],
+        "hashtags": {"de": ["berge", "natur"], "en": ["mountains", "nature"]},
     },
     "lakes": {
         "icon": "lake",
@@ -73,7 +73,7 @@ CLASSES = {
         "world_min": {"P2046": 1e10, "P4511": 400},
         "compare": {"P2046": {"de": {"qid": "Q4127", "name": "der Bodensee"},
                               "en": {"qid": "Q6403", "name": "Lake Geneva"}}},
-        "hashtags": ["seen", "natur"],
+        "hashtags": {"de": ["seen", "natur"], "en": ["lakes", "nature"]},
     },
     "islands": {
         "icon": "island",
@@ -85,7 +85,7 @@ CLASSES = {
         "continent_path": "P17/P30", "country_path": "P17",
         "extras": {"country": "P17"},
         "world_min": {"P2046": 1.5e11},
-        "hashtags": ["inseln", "natur"],
+        "hashtags": {"de": ["inseln", "natur"], "en": ["islands", "nature"]},
     },
     "waterfalls": {
         "icon": "waterfall",
@@ -96,7 +96,7 @@ CLASSES = {
         "default": "height",
         "continent_path": "P17/P30", "country_path": "P17",
         "extras": {"country": "P17"},
-        "hashtags": ["wasserfall", "natur"],
+        "hashtags": {"de": ["wasserfall", "natur"], "en": ["waterfalls", "nature"]},
     },
 }
 
@@ -370,7 +370,7 @@ def plan_from_text(text: str, count: int | None = None) -> dict:
         "value_label": PROPERTY_INFO[pid]["label"],
         "unit": PROPERTY_INFO[pid]["unit"],
         "source": source,
-        "hashtags": ["fakten", "ranking", *info["hashtags"]],
+        "hashtags": {lang: ["ranking", *tags] for lang, tags in info["hashtags"].items()},
     }
     compare = info.get("compare", {}).get(f"{pid}:{order}") or info.get("compare", {}).get(pid)
     if compare:
