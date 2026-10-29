@@ -226,13 +226,14 @@ class WikipediaLangChecker(Checker):
         q = quantity(item.value, item.unit, spec.unit)
         url = item.wiki_url(self.lang) or ""
         symbol = q.unit.symbol if q.unit else ""
-        # Erst die Einleitung, dann die Infobox (eine Anfrage mehr, nur wenn nötig)
-        for where, read in (("Einleitung", lambda: text),
-                            ("Infobox", lambda: fetch_lead_text(self.lang, item.wiki_titles[self.lang]))):
+        # Erst die Einleitung, dann die Infobox (eine Anfrage mehr, nur wenn nötig). In der Infobox stehen
+        # mehr Zahlen gleicher Einheit (Fallhöhe neben Meereshöhe) – daher dort ein engeres Fenster.
+        for where, window, read in (("Einleitung", 0.3, lambda: text),
+                                    ("Infobox", 0.15, lambda: fetch_lead_text(self.lang, item.wiki_titles[self.lang]))):
             source_text = read()
             if symbol in UNIT_FACTORS:
                 # Wert mit Einheit auslesen -> kann bestätigen ODER widersprechen
-                found = closest_unit_value(source_text, q.value, symbol)
+                found = closest_unit_value(source_text, q.value, symbol, window=window)
                 if found is not None:
                     value, precision = found
                     return [Evidence(self.name, self.origin, url, value / q.unit.factor, None,

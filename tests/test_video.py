@@ -775,3 +775,14 @@ def test_wikipedia_checker_falls_back_to_infobox(monkeypatch):
     item.summary["en"] = "Lake Huron has a surface area of 59,600 km2."   # steht in der Einleitung -> keine Zusatzanfrage
     [ev] = checkers.WikipediaLangChecker("en").check(spec, item)
     assert lead_calls == ["Lake Huron"] and ev.note.startswith("Einleitung")
+
+
+def test_infobox_ignores_other_quantities_with_same_unit(monkeypatch):
+    from cudi_video.verify import checkers
+
+    monkeypatch.setattr(checkers, "fetch_summary", lambda lang, title: "A waterfall in Venezuela.")
+    monkeypatch.setattr(checkers, "fetch_lead_text", lambda lang, title: "Elevation 1,150 m Watercourse Kerepakupai Merú")
+    spec = make_spec(source={"type": "wikidata", "class": "Q34038", "property": "P2048"})
+    item = RankItem(qid="Q1", value=979.0, unit="Q11573", wiki_titles={"en": "Angel Falls"})
+    [ev] = checkers.WikipediaLangChecker("en").check(spec, item)
+    assert ev.value is None and ev.agrees is None        # 1.150 m Meereshöhe ist keine Fallhöhe
