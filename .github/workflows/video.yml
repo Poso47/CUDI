@@ -47,7 +47,7 @@ jobs:
       - name: Ergebnis hochladen
         uses: actions/upload-artifact@v4
         with:
-          name: cudi-video-${{ inputs.preset }}-${{ github.run_number }}
+          name: cudi-video-${{ github.run_number }}   # freie Themen können Zeichen enthalten, die hier nicht erlaubt sind
           path: |
             video_output/**/*.mp4
             video_output/**/*.jpg
