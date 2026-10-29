@@ -1,0 +1,57 @@
+# Video in der Cloud erzeugen – startbar vom Handy (GitHub-App: Actions -> "CUDI Video" -> Run workflow).
+name: CUDI Video
+
+on:
+  workflow_dispatch:
+    inputs:
+      preset:
+        description: "Vorlage (z. B. hoechste-gebaeude, groesste-laender, hoechste-berge, groesste-seen)"
+        required: true
+        default: hoechste-gebaeude
+      langs:
+        description: "Sprachen"
+        required: true
+        default: de,en
+      count:
+        description: "Anzahl Plätze (3-20)"
+        required: true
+        default: "10"
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: cudi_video/requirements.txt
+      - name: System-Pakete
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg fonts-inter
+      - name: Python-Pakete
+        run: pip install -r cudi_video/requirements.txt pytest
+      - name: Tests
+        run: python -m pytest tests/test_video.py -q
+      - name: Video erzeugen
+        env:
+          PRESET: ${{ inputs.preset }}
+          LANGS: ${{ inputs.langs }}
+          COUNT: ${{ inputs.count }}
+          # Optional: Sprachmodell über Repository-Secrets (Settings -> Secrets -> Actions)
+          CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
+          CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+          CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+        run: python -m cudi_video make "$PRESET" --langs "$LANGS" --count "$COUNT"
+      - name: Ergebnis hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: cudi-video-${{ inputs.preset }}-${{ github.run_number }}
+          path: |
+            video_output/**/*.mp4
+            video_output/**/*.jpg
+            video_output/**/*.srt
+            video_output/**/*.txt
+            video_output/**/review.md
+          retention-days: 14

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090c1e">
+<title>CUDI Video</title>
+<style>
+  :root {
+    --bg: #090c1e; --card: #161b36; --line: #2a3060; --text: #f1f5ff; --muted: #94a3b8;
+    --accent: #22d3ee; --accent2: #8b5cf6; --gold: #fbbf24; --err: #f87171;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 20px 16px 80px; }
+  h1 { font-size: 26px; margin: 4px 0 2px; }
+  h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; color: transparent; }
+  .sub { color: var(--muted); margin: 0 0 18px; font-size: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 14px; }
+  .tabs button { flex: 1; padding: 10px 6px; border-radius: 12px; border: 1px solid var(--line);
+                 background: transparent; color: var(--muted); font-weight: 600; font-size: 14px; }
+  .tabs button.on { background: var(--accent); color: #06121a; border-color: var(--accent); }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 10px 0 6px; font-weight: 600; }
+  select, input[type=text], input[type=number], input[type=password], textarea {
+    width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--line);
+    background: #0d1129; color: var(--text); font: inherit; }
+  textarea { min-height: 180px; font: 13px/1.4 ui-monospace, Consolas, monospace; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .check { display: inline-flex; gap: 8px; align-items: center; padding: 10px 14px; border: 1px solid var(--line);
+           border-radius: 12px; font-weight: 600; }
+  .primary { width: 100%; margin-top: 16px; padding: 15px; border: 0; border-radius: 14px; font-size: 17px; font-weight: 800;
+             background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #06121a; }
+  .primary:disabled { opacity: .5; }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 8px; }
+  .err { color: var(--err); font-size: 14px; margin-top: 10px; white-space: pre-wrap; }
+  .job h3 { margin: 0 0 4px; font-size: 17px; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .bar { height: 8px; background: #0d1129; border-radius: 6px; overflow: hidden; margin: 10px 0 4px; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .4s; }
+  .warn { background: #3b2a0a; border: 1px solid #7c5a12; color: #fde68a; border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-top: 10px; }
+  .vids { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 12px; }
+  video { width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 12px; }
+  .links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .links a, .links button { font-size: 13px; padding: 7px 10px; border-radius: 10px; border: 1px solid var(--line);
+                            color: var(--text); background: #0d1129; text-decoration: none; font-weight: 600; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>CUDI <span>Video</span></h1>
+  <p class="sub">Ranking-Faktenvideos für TikTok &amp; YouTube Shorts – mit Quellen, ohne Erfundenes.</p>
+
+  <section id="login" class="card hidden">
+    <label for="token">Zugangscode</label>
+    <input id="token" type="password" autocomplete="current-password">
+    <button class="primary" onclick="saveToken()">Anmelden</button>
+  </section>
+
+  <section id="app" class="hidden">
+    <div class="card">
+      <div class="tabs">
+        <button data-tab="preset" class="on">Vorlage</button>
+        <button data-tab="topic">Freies Thema</button>
+        <button data-tab="yaml">Eigene Vorgabe</button>
+      </div>
+      <div data-pane="preset">
+        <label for="preset">Ranking</label>
+        <select id="preset"></select>
+      </div>
+      <div data-pane="topic" class="hidden">
+        <label for="topic">Thema</label>
+        <input id="topic" type="text" placeholder="z. B. die größten Stadien der Welt">
+        <p class="hint" id="topicHint"></p>
+      </div>
+      <div data-pane="yaml" class="hidden">
+        <label for="yaml">Vorgabe (YAML, siehe Ordner presets/)</label>
+        <textarea id="yaml" spellcheck="false"></textarea>
+      </div>
+      <label>Sprachen</label>
+      <div class="row">
+        <span class="check"><input type="checkbox" id="lang_de" checked> Deutsch</span>
+        <span class="check"><input type="checkbox" id="lang_en" checked> Englisch</span>
+      </div>
+      <div class="row">
+        <div style="flex:1;min-width:140px">
+          <label for="count">Anzahl Plätze</label>
+          <input id="count" type="number" min="3" max="20" value="10">
+        </div>
+        <div style="flex:2;min-width:200px">
+          <label>&nbsp;</label>
+          <span class="check"><input type="checkbox" id="onlyScript"> Erst nur Skript prüfen</span>
+        </div>
+      </div>
+      <button class="primary" id="go" onclick="start()">Video erstellen</button>
+      <div class="err" id="formErr"></div>
+    </div>
+    <div id="jobs"></div>
+  </section>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+let token = "";
+try { token = localStorage.getItem("cudiToken") || ""; } catch (e) {}
+let tab = "preset";
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, { ...opts, headers: { "Content-Type": "application/json", "X-Token": token, ...(opts.headers || {}) } });
+  if (res.status === 401) { showLogin(); throw new Error("Zugangscode erforderlich"); }
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.detail || res.statusText);
+  return data;
+}
+function showLogin() { $("login").classList.remove("hidden"); $("app").classList.add("hidden"); }
+function saveToken() {
+  token = $("token").value.trim();
+  try { localStorage.setItem("cudiToken", token); } catch (e) {}
+  init();
+}
+function fileUrl(folder, name) { return `/files/${encodeURIComponent(folder)}/${encodeURIComponent(name)}` + (token ? `?token=${encodeURIComponent(token)}` : ""); }
+function esc(s) { return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]); }
+
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+  tab = b.dataset.tab;
+  document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelectorAll("[data-pane]").forEach(p => p.classList.toggle("hidden", p.dataset.pane !== tab));
+});
+
+async function init() {
+  try {
+    const info = await api("/api/info");
+    $("login").classList.add("hidden"); $("app").classList.remove("hidden");
+    $("preset").innerHTML = info.presets.map(p => `<option value="${esc(p.id)}">${esc(p.title.de || p.title.en)}</option>`).join("");
+    $("topicHint").textContent = info.llm
+      ? "Ein Sprachmodell schlägt eine Vorgabe vor; die Wikidata-IDs werden automatisch geprüft."
+      : "Für freie Themen ist kein Sprachmodell eingerichtet (CUDI_LLM_*). Nutze eine Vorlage oder eine eigene Vorgabe.";
+    if (!$("yaml").value) $("yaml").value = "id: mein-ranking\ntitle:\n  de: Mein Ranking\n  en: My Ranking\ncount: 10\nvalue_label: {de: Höhe, en: Height}\nunit: m\nsource:\n  type: wikidata\n  class: Q11303\n  property: P2048\n  require_props: [P1619]\n  extras: {country: P17}\n";
+    refresh();
+  } catch (e) { if (!$("login").classList.contains("hidden")) return; $("formErr").textContent = e.message; }
+}
+
+async function start() {
+  $("formErr").textContent = "";
+  const langs = ["de", "en"].filter(l => $("lang_" + l).checked);
+  if (!langs.length) { $("formErr").textContent = "Mindestens eine Sprache wählen."; return; }
+  const body = { langs, count: +$("count").value, only_script: $("onlyScript").checked };
+  if (tab === "preset") body.preset = $("preset").value;
+  if (tab === "topic") body.topic = $("topic").value.trim();
+  if (tab === "yaml") body.yaml_spec = $("yaml").value;
+  $("go").disabled = true;
+  try { await api("/api/jobs", { method: "POST", body: JSON.stringify(body) }); refresh(); }
+  catch (e) { $("formErr").textContent = e.message; }
+  finally { $("go").disabled = false; }
+}
+
+async function copyText(btn, folder, name) {
+  const res = await fetch(fileUrl(folder, name));
+  const text = await res.text();
+  try { await navigator.clipboard.writeText(text); btn.textContent = "Kopiert ✓"; }
+  catch (e) { window.open(fileUrl(folder, name)); }
+}
+
+function renderJob(j) {
+  const pct = Math.round((j.progress || 0) * 100);
+  let html = `<div class="card job"><h3>${esc(j.title)}</h3>
+    <div class="meta">${esc(j.status)} · ${esc(j.stage || "")} · ${esc(j.created)}</div>`;
+  if (j.status !== "fertig" && j.status !== "fehler") html += `<div class="bar"><i style="width:${pct}%"></i></div><div class="meta">${pct} %</div>`;
+  if (j.error) html += `<div class="err">${esc(j.error)}</div>`;
+  const r = j.result;
+  if (r) {
+    const folder = j.folder;
+    if (r.warnings && r.warnings.length) html += `<div class="warn">⚠️ Vor dem Hochladen prüfen:<br>${r.warnings.map(esc).join("<br>")}</div>`;
+    html += `<div class="links"><a href="${fileUrl(folder, "review.md")}" target="_blank">Prüfbericht</a></div>`;
+    html += `<div class="vids">`;
+    for (const [lang, v] of Object.entries(r.videos || {})) {
+      html += `<div><div class="meta">${lang.toUpperCase()} · ${v.duration} s</div>
+        <video controls playsinline preload="metadata" poster="${fileUrl(folder, v.cover)}" src="${fileUrl(folder, v.video)}"></video>
+        <div class="links">
+          <a href="${fileUrl(folder, v.video)}" download>Video</a>
+          <a href="${fileUrl(folder, v.subtitles)}" download>Untertitel</a>
+          <button onclick="copyText(this, '${esc(folder)}', '${esc(v.description_file)}')">Titel + Beschreibung kopieren</button>
+        </div></div>`;
+    }
+    html += `</div>`;
+  }
+  return html + `</div>`;
+}
+
+let timer = null;
+async function refresh() {
+  clearTimeout(timer);
+  try {
+    const jobs = await api("/api/jobs");
+    $("jobs").innerHTML = jobs.map(renderJob).join("");
+    if (jobs.some(j => j.status === "läuft" || j.status === "wartet")) timer = setTimeout(refresh, 2000);
+  } catch (e) {}
+}
+init();
+</script>
+</body>
+</html>

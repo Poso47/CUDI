@@ -1,0 +1,15 @@
+id: groesste-seen
+title:
+  de: Die {count} größten Seen der Welt
+  en: The {count} Largest Lakes in the World
+count: 10
+value_label: {de: Fläche, en: Area}
+unit: km2
+source:
+  type: wikidata
+  class: Q23397          # See
+  property: P2046        # Fläche
+  min_value: 10000000000 # ab 10.000 km² (in m²)
+  exclude_classes: [Q55965244] # Urzeitseen, die es nicht mehr gibt
+  extras: {basin: P205}
+hashtags: [fakten, ranking, natur, seen]

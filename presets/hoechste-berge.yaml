@@ -1,0 +1,14 @@
+id: hoechste-berge
+title:
+  de: Die {count} höchsten Berge der Welt
+  en: The {count} Highest Mountains in the World
+count: 10
+value_label: {de: Höhe, en: Elevation}
+unit: m
+source:
+  type: wikidata
+  class: Q8502           # Berg
+  property: P2044        # Höhe über dem Meeresspiegel
+  min_value: 7500
+  extras: {range: P4552, country: P17}
+hashtags: [fakten, ranking, natur, berge]
