@@ -21,7 +21,9 @@ log = logging.getLogger(__name__)
 CUT_SECTION = re.compile(r"^\s*(?:\*\*|__)?\s*(edit\s*\d*|e\.?t\.?a|tl\s*;?\s*dr|update\s*\d*)\b\s*[:\-–.]", re.I)
 META_LINE = re.compile(
     r"(throw\s*away|sorry for (the )?(formatting|format|grammar|spelling|length)|on mobile|english (is|isn'?t) "
-    r"(not )?my first language|long post ahead|first time posting|trigger warning|\btw:|\bcw:)", re.I)
+    r"(not )?my first language|long post ahead|first time posting|trigger warning|\btw:|\bcw:|"
+    r"wegwerf|sorry für (die )?(formatierung|rechtschreibung|länge)|(vom|am) handy geschrieben|"
+    r"wird (etwas|ein bisschen) länger|mein erster post)", re.I)
 
 
 def clean_text(text: str) -> tuple[str, list[str]]:
