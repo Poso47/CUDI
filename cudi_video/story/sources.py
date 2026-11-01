@@ -12,13 +12,14 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, fields
 
 from .. import config, net
-from .moods import MOODS, seconds_per_word
+from .moods import MOODS, language_of, seconds_per_word
 
 log = logging.getLogger(__name__)
 
 ARCTIC = "https://arctic-shift.photon-reddit.com/api"
 ARCTIC_FIELDS = "id,title,selftext,score,num_comments,over_18,created_utc,author,subreddit"
 REMOVED = {"", "[removed]", "[deleted]", "[ Removed by Reddit ]"}
+REMOVED_TITLE = re.compile(r"^\[\s*(removed|deleted)[^\]]*\]", re.I)   # z. B. „[ Removed by moderator ]“
 
 # Länge -> Ziel-Sekunden je Video; der Wortbereich ergibt sich aus dem Sprechtempo der Stimmung
 LENGTHS = {
@@ -70,11 +71,12 @@ class Post:
 
 def _post(data: dict, source: str) -> Post | None:
     text = html.unescape((data.get("selftext") or "").strip())
-    if text in REMOVED or data.get("removed_by_category"):
-        return None
+    title = html.unescape(data.get("title") or "").strip()
+    if text in REMOVED or data.get("removed_by_category") or REMOVED_TITLE.match(title):
+        return None                                  # gelöscht/entfernt – auch wenn das Archiv den Text noch hat
     return Post(
         id=str(data.get("id", "")), subreddit=data.get("subreddit") or "", author=data.get("author") or "",
-        title=html.unescape(data.get("title") or "").strip(), text=text, score=int(data.get("score") or 0),
+        title=title, text=text, score=int(data.get("score") or 0),
         num_comments=int(data.get("num_comments") or 0), over_18=bool(data.get("over_18")),
         created_utc=float(data.get("created_utc") or 0), source=source,
     )
@@ -188,7 +190,8 @@ def find_stories(plan: dict, length: str = "3min", limit: int = 6, allow_nsfw: b
             candidates = matching
         else:
             notes.append(f"Keine Story mit „{', '.join(keywords)}“ gefunden – zeige die beliebtesten passenden Storys.")
-    candidates.sort(key=lambda p: (relevance(p, keywords) > 0, p.score), reverse=True)
+    # Storys in Videosprache zuerst (keine Übersetzung nötig), dann passende Stichwörter, dann Upvotes
+    candidates.sort(key=lambda p: (language_of(p.text) == lang, relevance(p, keywords) > 0, p.score), reverse=True)
     if any(p.source == "archiv" for p in candidates[:limit]):
         notes.append("Quelle: Reddit-Archiv (Arctic Shift). Mit Reddit-Zugang (CUDI_REDDIT_CLIENT_ID/SECRET) "
                      "werden die Upvotes live abgefragt.")
