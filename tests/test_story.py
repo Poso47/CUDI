@@ -214,3 +214,28 @@ def test_captions_break_at_sentence_ends():
     groups = [" ".join(w["text"] for w in g) for g in caption_groups(words)]
     assert "woods The" not in " | ".join(groups)
     assert groups == ["I ran into", "the woods", "The setup was", "quiet", "almost too quiet"]
+
+
+def test_llm_editor_keeps_originals_where_details_were_invented(monkeypatch):
+    calls = []
+
+    def fake_chat_json(system, user, **kw):
+        calls.append(system)
+        if "Prüfe" in system:                                   # Prüfer: Szene 2 enthält Erfundenes
+            return {"added": [2]}
+        return {"title": "Jemand flüsterte meinen Namen", "scenes": [
+            {"text": "Letzten Sommer war ich allein zelten.", "visual": "a lonely tent in a dark forest", "query": "tent forest"},
+            {"text": "Ein Bär mit roten Augen stand vor dem Zelt.", "visual": "a bear", "query": "bear"},
+        ]}
+
+    monkeypatch.setattr(editor.llm, "available", lambda: True)
+    monkeypatch.setattr(editor.llm, "chat_json", fake_chat_json)
+    monkeypatch.setattr(editor, "translate", lambda texts, target, source="en": ([f"[de] {t}" for t in texts], "Test"))
+    monkeypatch.setattr(editor, "make_scenes", lambda text: ["Last summer I went camping alone.", "I heard footsteps."])
+    sk = editor.build_skeleton(make_post(), lang="de")
+    texts = [s["text"] for s in sk["parts"][0]["scenes"]]
+    assert texts[0] == "Letzten Sommer war ich allein zelten."            # geglättet übernommen
+    assert texts[1] == "[de] I heard footsteps." and "Bär" not in " ".join(texts)   # Erfundenes ersetzt
+    assert sk["editor"] == "KI-Lektorat" and sk["title"] == "Jemand flüsterte meinen Namen"
+    assert sk["parts"][0]["scenes"][0]["query"] == "tent forest"
+    assert len(calls) == 2
