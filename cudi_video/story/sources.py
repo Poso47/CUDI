@@ -19,6 +19,11 @@ log = logging.getLogger(__name__)
 ARCTIC = "https://arctic-shift.photon-reddit.com/api"
 ARCTIC_FIELDS = "id,title,selftext,score,num_comments,over_18,created_utc,author,subreddit"
 REMOVED = {"", "[removed]", "[deleted]", "[ Removed by Reddit ]"}
+# Heikle Themen, die TikTok/YouTube einschränken oder demonetarisieren – werden nicht vorgeschlagen
+SENSITIVE = re.compile(
+    r"\b(sex|sexual\w*|porn\w*|nude|naked|nsfw|orgasm\w*|masturbat\w*|penis|vagina|boobs?|horny|blowjob|"
+    r"rape[ds]?|raping|molest\w*|suicid\w*|self[- ]harm|kill myself|porno|nackt|orgasmus|vergewaltig\w*|"
+    r"missbrauch\w*|selbstmord|suizid\w*|ritzen)\b", re.I)
 REMOVED_TITLE = re.compile(r"^\[\s*(removed|deleted)[^\]]*\]", re.I)   # z. B. „[ Removed by moderator ]“
 
 # Länge -> Ziel-Sekunden je Video; der Wortbereich ergibt sich aus dem Sprechtempo der Stimmung
@@ -172,7 +177,8 @@ def find_stories(plan: dict, length: str = "3min", limit: int = 6, allow_nsfw: b
         for p in found:
             pool.setdefault(p.id, p)
     def usable(p: Post, lo: int, hi: int) -> bool:
-        return lo <= p.words <= hi and (allow_nsfw or not p.over_18) and len(p.title) >= 8
+        safe = allow_nsfw or not (p.over_18 or SENSITIVE.search(p.title) or SENSITIVE.search(p.text))
+        return lo <= p.words <= hi and safe and len(p.title) >= 8
 
     candidates = [p for p in pool.values() if usable(p, lo, hi)]
     if not candidates and length != "teile":

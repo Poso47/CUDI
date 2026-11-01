@@ -86,6 +86,7 @@ def test_find_stories_uses_archive_filters_and_ranks(monkeypatch):
         Post("b", "nosleep", "x", "Popular but unrelated tale", long_text, score=900),
         Post("c", "nosleep", "x", "Too short", "word " * 20, score=5000),
         Post("d", "nosleep", "x", "NSFW story here", long_text + " stalker", score=800, over_18=True),
+        Post("e", "nosleep", "x", "The stalker and the naked truth", long_text + " stalker", score=700),
     ]
     pool[0].id = "a"
     for post in pool:
@@ -98,7 +99,7 @@ def test_find_stories_uses_archive_filters_and_ranks(monkeypatch):
     monkeypatch.setattr(sources, "_arctic_candidates", lambda sub, rnd, **kw: [p for p in pool])
     posts, notes = sources.find_stories({"mood": "creepy", "subreddits": ["nosleep"], "keywords": ["stalker"]},
                                         length="3min", lang="en")
-    assert [p.id for p in posts] == ["a"]                       # relevant, passende Länge, nicht NSFW
+    assert [p.id for p in posts] == ["a"]                       # relevant, passende Länge, nicht NSFW/heikel
     assert any("Archiv" in n for n in notes)
 
 

@@ -190,8 +190,18 @@ def split_parts(scene_seconds: list[float], max_seconds: float, overhead: float 
 
 # --------------------------------------------------------------------------- Bilder/Clips je Szene
 
-# (Muster im englischen Text, Suchbegriff für Stockvideos, Motiv für KI-Bilder) – spezifisch vor allgemein
+DARK_MOODS = frozenset({"creepy", "suspense"})
+
+# (Muster im Text, Suchbegriff für Stockvideos, Motiv für KI-Bilder[, nur bei diesen Stimmungen])
 VISUALS = [
+    (r"\b(argu\w*|fight\w*|yell\w*|scream\w* at|furious|angry|streit\w*|stress|wütend|sauer|vorwürfe?)\b",
+     "couple arguing", "two people arguing in a living room, tense body language"),
+    (r"\b(cr(y|ied|ying)|tears|sobb\w*|weinen|weinte|geweint|tränen)\b", "person crying",
+     "a person crying alone by a window"),
+    (r"\b(laugh\w*|giggl\w*|lachen|lachte|gelacht)\b", "people laughing", "friends laughing together"),
+    (r"\b(thinking|wonder\w*|realiz\w*|überleg\w*|nachgedacht|nachdenk\w*|verstehe nicht)\b", "person thinking window",
+     "a person lost in thought looking out of a window"),
+    (r"\b(hug\w*|embrac\w*|umarm\w*)\b", "people hugging", "two people hugging warmly"),
     (r"\b(basement|cellar|keller)\b", "dark basement stairs", "a dark basement with a single hanging light bulb"),
     (r"\b(attic|dachboden)\b", "dusty attic", "a dusty attic with old boxes and a small window"),
     (r"\b(cemetery|graveyard|grave|friedhof|grab)\b", "cemetery fog", "an old cemetery covered in fog"),
@@ -213,10 +223,13 @@ VISUALS = [
     (r"\b(hallway|corridor|flur)\b", "dark hallway", "a long dark hallway with doors"),
     (r"\b(bathroom|shower|bathtub|badezimmer|dusche)\b", "bathroom mirror", "a bathroom with a fogged mirror"),
     (r"\b(mirror|reflection|spiegel)\b", "mirror reflection", "a mirror reflecting a dim room"),
-    (r"\b(eyes?|pupils?|stare|staring|stared|watching|augen?)\b", "eye close up", "a close-up of a human eye in dim light"),
-    (r"\b(shadow|figure|silhouette|ghost|gestalt|schatten|geist)\b", "shadow silhouette", "a dark silhouette standing at the end of a room"),
-    (r"\b(blood|knife|wound|blut|messer)\b", "red light dark", "a dim room lit by red light"),
-    (r"\b(doll|puppe|clown|mask|maske)\b", "old doll", "an old porcelain doll on a shelf"),
+    # Grusel-Motive nur bei Grusel/Spannung („in meinen Augen“ im Drama ist kein Augen-Close-up)
+    (r"\b(eyes?|pupils?|stare|staring|stared|watching)\b", "eye close up", "a close-up of a human eye in dim light",
+     DARK_MOODS),
+    (r"\b(shadow|figure|silhouette|ghost|gestalt|schatten|geist)\b", "shadow silhouette",
+     "a dark silhouette standing at the end of a room", DARK_MOODS),
+    (r"\b(blood|knife|wound|blut|messer)\b", "red light dark", "a dim room lit by red light", DARK_MOODS),
+    (r"\b(doll|puppe|clown|mask|maske)\b", "old doll", "an old porcelain doll on a shelf", DARK_MOODS),
     (r"\b(window|fenster)\b", "window night", "a window at night with something outside"),
     (r"\b(door|knock|knocking|doorbell|tür|klopfen|klingel)\b", "door opening", "a half-open door in a dim house"),
     (r"\b(stairs|staircase|treppe)\b", "staircase", "an old wooden staircase"),
@@ -238,7 +251,8 @@ VISUALS = [
     (r"\b(cat|kitten|katze)\b", "cat", "a cat in a house"),
     (r"\b(baby|toddler|kid|child|children|kind|kinder)\b", "child playing", "a child's room with toys"),
     (r"\b(police|cops?|officer|polizei)\b", "police lights", "police car lights at night"),
-    (r"\b(money|rent|salary|cash|geld|miete)\b", "money", "money on a table"),
+    (r"\b(money|rent|salary|cash|savings|debt|geld|miete|kosten|ersparnisse|finanz\w*|schulden)\b", "money",
+     "money and bills on a kitchen table"),
     (r"\b(rain|storm|thunder|regen|gewitter)\b", "rain storm", "heavy rain against a window"),
     (r"\b(snow|blizzard|winter|schnee)\b", "snow", "a snowy landscape"),
     (r"\b(apartment|neighbou?rs?|wohnung|nachbarn?)\b", "apartment building", "an apartment building at dusk"),
@@ -247,19 +261,18 @@ VISUALS = [
 ]
 
 
-def visual_for(text: str, mood: str, index: int) -> tuple[str, str]:
-    """(Suchbegriff für Stockvideos, Bild-Prompt) zur Szene – nach dem häufigsten passenden Motiv."""
-    best, best_hits = None, 0
+def visual_for(text: str, mood: str, index: int, avoid: set | frozenset = frozenset()) -> tuple[str, str]:
+    """(Suchbegriff für Stockvideos, Bild-Prompt) zur Szene – nach dem häufigsten passenden Motiv.
+
+    `avoid`: Motive der vorigen Szenen – damit nicht fünfmal hintereinander dasselbe Bild kommt."""
     low = text.lower()
-    for pattern, query, subject in VISUALS:
-        hits = len(re.findall(pattern, low))
-        if hits > best_hits:
-            best, best_hits = (query, subject), hits
+    ranked = sorted(((len(re.findall(entry[0], low)), -i, entry[1], entry[2])
+                     for i, entry in enumerate(VISUALS) if len(entry) < 4 or mood in entry[3]), reverse=True)
     m = MOODS[mood]
-    if best is None:
-        query = m["default_queries"][index % len(m["default_queries"])]
-        best = (query, query)
-    query, subject = best
+    options = [(query, subject) for hits, _, query, subject in ranked if hits > 0]
+    defaults = m["default_queries"][index % len(m["default_queries"]):] + m["default_queries"]
+    options += [(q, q) for q in defaults]
+    query, subject = next((o for o in options if o[0] not in avoid), options[0])
     if mood in ("creepy", "suspense") and "night" not in query and "dark" not in query:
         query = f"{query} dark"
     return query, f"{subject}, {m['image_style']}, vertical composition, no text"
@@ -315,7 +328,10 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
             notes.append(f"Übersetzt mit {provider}.")
         else:
             title_t, scenes_t = title, scenes_src
-        visuals_t = [visual_for(src, mood, i) for i, src in enumerate(scenes_src)]
+        visuals_t = []
+        for i, src in enumerate(scenes_src):
+            recent = {v[0].removesuffix(" dark") for v in visuals_t[-2:]}      # keine direkte Wiederholung
+            visuals_t.append(visual_for(src, mood, i, recent))
 
     seconds = [estimate_seconds(s, lang, rate, pause) for s in scenes_t]
     groups = split_parts(seconds, LENGTHS[length]["seconds"] if length == "kurz" else config.STORY_MAX_SECONDS)
