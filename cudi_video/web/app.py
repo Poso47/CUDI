@@ -181,6 +181,140 @@ def review(folder: str, request: Request):
     return page(path.read_text("utf-8"))
 
 
+# --------------------------------------------------------------------------- Reddit-Storys
+
+class StorySearch(BaseModel):
+    description: str = ""
+    mood: str | None = None
+    lang: str = "de"
+    length: str = "3min"
+    seed: int | None = None
+
+
+class StoryPrepare(BaseModel):
+    story: dict | None = None
+    url: str = ""
+    title: str = ""
+    text: str = ""
+    lang: str = "de"
+    mood: str | None = None
+    length: str = "3min"
+    visuals: str = "videos"
+    soften: bool = True
+
+
+class StoryRender(BaseModel):
+    folder: str
+    skeleton: dict | None = None
+
+
+class StoryAuto(BaseModel):
+    description: str = ""
+    mood: str | None = None
+    url: str = ""
+    lang: str = "de"
+    length: str = "3min"
+    visuals: str = "videos"
+    soften: bool = True
+
+
+def _story_folder(name: str) -> Path:
+    base = config.OUTPUT_DIR.resolve()
+    folder = (base / name).resolve()
+    if folder.parent != base or not (folder / "story.json").exists():
+        raise HTTPException(404, "Story-Ordner nicht gefunden")
+    return folder
+
+
+def _start_story_job(title: str, lang: str, fn, folder: str | None = None, **kw) -> dict:
+    job_id = uuid.uuid4().hex[:10]
+    with _lock:
+        _jobs[job_id] = {"id": job_id, "title": title, "status": "wartet", "stage": "In der Warteschlange",
+                         "progress": 0.0, "created": datetime.now().isoformat(timespec="seconds"),
+                         "langs": [lang], "folder": folder, "kind": "story"}
+
+    def run() -> None:
+        try:
+            _update(job_id, status="läuft")
+            result = fn(progress=lambda stage, f: _update(job_id, stage=stage, progress=round(f, 3)), **kw)
+            _update(job_id, status="fertig", progress=1.0, result=result, folder=Path(result["output_dir"]).name)
+        except Exception as exc:
+            log.exception("Story-Job %s fehlgeschlagen", job_id)
+            _update(job_id, status="fehler", error=f"{exc}", trace=traceback.format_exc()[-2000:])
+
+    _executor.submit(run)
+    return _jobs[job_id]
+
+
+@app.get("/api/story/info")
+def story_info(request: Request):
+    _check_token(request)
+    from ..story.moods import MOODS
+    from ..story.pipeline import lengths
+
+    return {
+        "moods": [{"id": k, "label": m["label"], "icon": m["icon"]} for k, m in MOODS.items()],
+        "lengths": lengths(),
+        "visuals": {"videos": "Videos bevorzugt", "images": "KI-Bilder", "gameplay": "Eigene Clips (z. B. Gameplay)"},
+        "stock_videos": bool(config.PEXELS_API_KEY or config.PIXABAY_API_KEY),
+        "reddit_login": bool(config.REDDIT_CLIENT_ID and config.REDDIT_CLIENT_SECRET),
+        "translation": "Sprachmodell" if llm.available() else "DeepL" if config.DEEPL_API_KEY else "MyMemory (begrenzt)",
+        "llm": llm.available(),
+    }
+
+
+@app.post("/api/story/search")
+def story_search(req: StorySearch, request: Request):
+    _check_token(request)
+    from ..story import pipeline
+
+    try:
+        return pipeline.search(req.description, req.mood, req.lang, req.length, seed=req.seed)
+    except Exception as exc:
+        raise HTTPException(400, str(exc))
+
+
+@app.post("/api/story/prepare")
+def story_prepare(req: StoryPrepare, request: Request):
+    _check_token(request)
+    from ..story import pipeline
+
+    try:
+        skeleton, folder = pipeline.prepare(story=req.story, url=req.url, text=req.text, title=req.title,
+                                            lang=req.lang, mood=req.mood, length=req.length, visuals=req.visuals,
+                                            soften=req.soften)
+    except Exception as exc:
+        raise HTTPException(400, str(exc))
+    return {"folder": folder.name, "skeleton": skeleton}
+
+
+@app.post("/api/story/render")
+def story_render(req: StoryRender, request: Request):
+    _check_token(request)
+    from ..story import pipeline
+
+    folder = _story_folder(req.folder)
+    skeleton = req.skeleton or pipeline.load_skeleton(folder)
+    try:
+        pipeline.validate_skeleton(skeleton)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+    return _start_story_job(skeleton["title"], skeleton["lang"], pipeline.render, folder=folder.name,
+                            folder_path=folder, skeleton=skeleton)
+
+
+@app.post("/api/story/auto")
+def story_auto(req: StoryAuto, request: Request):
+    _check_token(request)
+    from ..story import pipeline
+    from ..story.moods import MOODS
+
+    title = req.description or req.url or f"{MOODS.get(req.mood or 'creepy', MOODS['creepy'])['label']['de']}e Story"
+    return _start_story_job(f"Autopilot: {title[:60]}", req.lang, pipeline.autopilot, description=req.description,
+                            mood=req.mood, url=req.url, lang=req.lang, length=req.length, visuals=req.visuals,
+                            soften=req.soften)
+
+
 @app.get("/api/check")
 def system_check(request: Request):
     """Selbsttest über die Oberfläche (z. B. in der Cloud)."""

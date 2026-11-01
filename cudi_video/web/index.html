@@ -47,6 +47,25 @@
                             color: var(--text); background: #0d1129; text-decoration: none; font-weight: 600; }
   .hidden { display: none; }
   summary { cursor: pointer; font-weight: 700; }
+  .modes { display: flex; gap: 8px; margin-bottom: 14px; }
+  .modes button { flex: 1; padding: 12px; border-radius: 14px; border: 1px solid var(--line); background: var(--card);
+                  color: var(--muted); font-weight: 800; font-size: 15px; }
+  .modes button.on { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #06121a; border: 0; }
+  .moods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .moods button { padding: 12px 6px; border-radius: 14px; border: 1px solid var(--line); background: #0d1129;
+                  color: var(--text); font-weight: 700; font-size: 14px; }
+  .moods button.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+  .secondary { width: 100%; margin-top: 12px; padding: 13px; border-radius: 14px; border: 1px solid var(--accent);
+               background: transparent; color: var(--accent); font-size: 16px; font-weight: 800; }
+  .story { border-top: 1px solid var(--line); padding: 12px 0; }
+  .story b { display: block; }
+  .story button { margin-top: 8px; padding: 8px 14px; border-radius: 10px; border: 0; background: var(--accent);
+                  color: #06121a; font-weight: 800; }
+  .scene { border: 1px solid var(--line); border-radius: 12px; padding: 10px; margin: 8px 0; }
+  .scene textarea { min-height: 90px; font: 14px/1.4 system-ui, sans-serif; }
+  .scene input { margin-top: 6px; font-size: 13px; padding: 8px; }
+  .pill { display: inline-block; padding: 3px 9px; border-radius: 999px; background: #0d1129; border: 1px solid var(--line);
+          font-size: 12px; color: var(--muted); margin: 2px 4px 2px 0; }
 </style>
 </head>
 <body>
@@ -61,7 +80,40 @@
   </section>
 
   <section id="app" class="hidden">
-    <div class="card">
+    <div class="modes">
+      <button data-mode="ranking" class="on">📊 Rankings</button>
+      <button data-mode="story">📖 Reddit-Storys</button>
+    </div>
+    <div id="storyArea" class="hidden">
+      <div class="card">
+        <label>Was für eine Story?</label>
+        <div class="moods" id="moods"></div>
+        <label for="storyDesc">Oder beschreiben bzw. Reddit-Link einfügen</label>
+        <input id="storyDesc" type="text" placeholder="z. B. gruselige Story über einen Stalker im Wald">
+        <div class="row" style="margin-top:4px">
+          <div style="flex:1;min-width:140px"><label for="storyLang">Sprache</label>
+            <select id="storyLang"><option value="de">Deutsch</option><option value="en">Englisch</option></select></div>
+          <div style="flex:1;min-width:140px"><label for="storyLength">Länge</label><select id="storyLength"></select></div>
+          <div style="flex:1;min-width:160px"><label for="storyVisuals">Bilder</label><select id="storyVisuals"></select></div>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <span class="check"><input type="checkbox" id="storySoften" checked> Kraftausdrücke entschärfen</span>
+        </div>
+        <button class="secondary" onclick="findStories(false)">🔎 Storys finden</button>
+        <button class="primary" id="autoBtn" onclick="autopilot()">⚡ Autopilot: fertiges Video</button>
+        <p class="hint" id="storyHint"></p>
+        <div class="err" id="storyErr"></div>
+        <details style="margin-top:10px">
+          <summary>Eigenen Text einfügen</summary>
+          <label for="ownTitle">Titel</label><input id="ownTitle" type="text">
+          <label for="ownText">Story</label><textarea id="ownText" style="font-family:system-ui"></textarea>
+          <button class="secondary" onclick="prepareStory(null, true)">Skelett erstellen</button>
+        </details>
+      </div>
+      <div class="card hidden" id="storyList"></div>
+      <div class="card hidden" id="skeleton"></div>
+    </div>
+    <div class="card" id="rankingArea">
       <div class="tabs">
         <button data-tab="preset" class="on">Vorlage</button>
         <button data-tab="topic">Freies Thema</button>
@@ -132,9 +184,137 @@ document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
   document.querySelectorAll("[data-pane]").forEach(p => p.classList.toggle("hidden", p.dataset.pane !== tab));
 });
 
+let mode = "ranking", storyMood = null, storySeed = 0, storyFolder = null, storySkeleton = null, storyMoods = [];
+document.querySelectorAll(".modes button").forEach(b => b.onclick = () => {
+  mode = b.dataset.mode;
+  document.querySelectorAll(".modes button").forEach(x => x.classList.toggle("on", x === b));
+  $("storyArea").classList.toggle("hidden", mode !== "story");
+  $("rankingArea").classList.toggle("hidden", mode !== "ranking");
+});
+
+async function initStory() {
+  const info = await api("/api/story/info");
+  storyMoods = info.moods;
+  $("moods").innerHTML = info.moods.map(m => `<button data-mood="${m.id}">${m.icon} ${esc(m.label.de)}</button>`).join("") +
+    `<button data-mood="">🎲 Überrasch mich</button>`;
+  $("moods").querySelectorAll("button").forEach(b => b.onclick = () => {
+    storyMood = b.dataset.mood || storyMoods[Math.floor(Math.random() * storyMoods.length)].id;
+    $("moods").querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+  });
+  $("storyLength").innerHTML = Object.entries(info.lengths).map(([k, v]) => `<option value="${k}" ${k === "3min" ? "selected" : ""}>${esc(v)}</option>`).join("");
+  $("storyVisuals").innerHTML = Object.entries(info.visuals).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join("");
+  $("storyHint").textContent = (info.stock_videos ? "Echte Videoclips: aktiv (Pexels/Pixabay)." :
+      "Ohne Pexels/Pixabay-Schlüssel gibt es animierte KI-Bilder statt Videoclips.") +
+    ` Übersetzung: ${info.translation}.` + (info.llm ? " KI-Lektorat aktiv." : "");
+}
+
+function storyOptions() {
+  return { lang: $("storyLang").value, length: $("storyLength").value, visuals: $("storyVisuals").value,
+           soften: $("storySoften").checked };
+}
+function isLink(text) { return /reddit\.com|redd\.it/.test(text); }
+
+async function findStories(again) {
+  $("storyErr").textContent = "";
+  const desc = $("storyDesc").value.trim();
+  if (isLink(desc)) return prepareStory(null, false);
+  if (!desc && !storyMood) { $("storyErr").textContent = "Stimmung wählen oder Story beschreiben."; return; }
+  storySeed = again ? storySeed + 1 : Math.floor(Date.now() / 86400000);
+  const box = $("storyList");
+  box.classList.remove("hidden"); box.innerHTML = "Suche passende Storys …";
+  try {
+    const r = await api("/api/story/search", { method: "POST", body: JSON.stringify({ description: desc, mood: storyMood,
+      lang: $("storyLang").value, length: $("storyLength").value, seed: storySeed }) });
+    window._stories = r.stories;
+    box.innerHTML = `<b>Vorschläge</b> <span class="pill">${esc((storyMoods.find(m => m.id === r.plan.mood) || {}).label?.de || r.plan.mood)}</span>` +
+      (r.plan.keywords.length ? `<span class="pill">Stichwörter: ${esc(r.plan.keywords.join(", "))}</span>` : "") +
+      r.notes.map(n => `<p class="hint">${esc(n)}</p>`).join("") +
+      r.stories.map((st, i) => `<div class="story"><b>${esc(st.title)}</b>
+        <span class="meta">r/${esc(st.subreddit)} · ⬆ ${st.score} · ${st.words} Wörter</span><br>
+        <button onclick="prepareStory(${i}, false)">Diese nehmen</button></div>`).join("") +
+      `<button class="secondary" onclick="findStories(true)">Neue Vorschläge</button>`;
+  } catch (e) { box.innerHTML = ""; $("storyErr").textContent = e.message; }
+}
+
+async function prepareStory(index, own) {
+  $("storyErr").textContent = "";
+  const body = { ...storyOptions(), mood: storyMood || null };
+  if (own) { body.title = $("ownTitle").value; body.text = $("ownText").value; }
+  else if (index === null) body.url = $("storyDesc").value.trim();
+  else body.story = window._stories[index];
+  const box = $("skeleton");
+  box.classList.remove("hidden"); box.innerHTML = "Lektorat läuft …";
+  try {
+    const r = await api("/api/story/prepare", { method: "POST", body: JSON.stringify(body) });
+    storyFolder = r.folder; storySkeleton = r.skeleton;
+    renderSkeleton();
+    box.scrollIntoView({ behavior: "smooth" });
+  } catch (e) { box.innerHTML = ""; $("storyErr").textContent = e.message; }
+}
+
+function renderSkeleton() {
+  const sk = storySkeleton;
+  const moodSel = storyMoods.map(m => `<option value="${m.id}" ${m.id === sk.mood ? "selected" : ""}>${m.icon} ${esc(m.label.de)}</option>`).join("");
+  let html = `<b>Skelett prüfen &amp; anpassen</b>
+    <p class="meta">${esc(sk.post.subreddit ? "r/" + sk.post.subreddit + " · u/" + sk.post.author : "eigener Text")} ·
+      Stimme ${esc(sk.voice ? sk.voice.name : "automatisch")} · Lektorat: ${esc(sk.editor)}</p>
+    <label>Stimmung (Stimme, Musik, Look)</label><select id="skMood">${moodSel}</select>
+    <label>Titel</label><input id="skTitle" type="text" value="${esc(sk.title)}">`;
+  if (sk.rights.length) html += `<div class="warn">⚠️ ${sk.rights.map(esc).join("<br>⚠️ ")}</div>`;
+  if (sk.notes.length) html += `<p class="hint">Lektorat: ${sk.notes.map(esc).join(" · ")}</p>`;
+  sk.parts.forEach((part, pi) => {
+    html += `<label>${sk.parts.length > 1 ? `Teil ${pi + 1} · ca. ${part.estimated_seconds} s` : `ca. ${part.estimated_seconds} s`}</label>`;
+    part.scenes.forEach((sc, si) => {
+      html += `<div class="scene"><textarea data-p="${pi}" data-s="${si}" data-k="text">${esc(sc.text)}</textarea>
+        <input data-p="${pi}" data-s="${si}" data-k="query" value="${esc(sc.query)}" title="Suchbegriff für Clip/Bild"></div>`;
+    });
+    html += `<p class="hint">Abschluss: ${esc(part.outro)}</p>`;
+  });
+  html += `<button class="primary" id="renderBtn" onclick="renderStory()">🎬 Video erstellen</button>`;
+  $("skeleton").innerHTML = html;
+}
+
+function collectSkeleton() {
+  const sk = JSON.parse(JSON.stringify(storySkeleton));
+  const mood = $("skMood").value;
+  if (mood !== sk.mood) { sk.mood = mood; sk.voice = null; }           // Stimme passt der Server an
+  const title = $("skTitle").value.trim();
+  if (title && title !== sk.title) { sk.parts[0].intro = sk.parts[0].intro.replace(sk.title, title); sk.title = title; }
+  $("skeleton").querySelectorAll("[data-k]").forEach(el => {
+    const scene = sk.parts[+el.dataset.p].scenes[+el.dataset.s];
+    scene[el.dataset.k] = el.value.trim();
+    if (el.dataset.k === "query") scene.prompt = scene.prompt.replace(/^[^,]*/, el.value.trim());
+  });
+  return sk;
+}
+
+async function renderStory() {
+  $("renderBtn").disabled = true;
+  try {
+    await api("/api/story/render", { method: "POST", body: JSON.stringify({ folder: storyFolder, skeleton: collectSkeleton() }) });
+    refresh(); $("jobs").scrollIntoView({ behavior: "smooth" });
+  } catch (e) { $("storyErr").textContent = e.message; }
+  finally { $("renderBtn").disabled = false; }
+}
+
+async function autopilot() {
+  $("storyErr").textContent = "";
+  const desc = $("storyDesc").value.trim();
+  if (!desc && !storyMood) { $("storyErr").textContent = "Stimmung wählen oder Story beschreiben."; return; }
+  $("autoBtn").disabled = true;
+  try {
+    const body = { ...storyOptions(), mood: storyMood || null };
+    if (isLink(desc)) body.url = desc; else body.description = desc;
+    await api("/api/story/auto", { method: "POST", body: JSON.stringify(body) });
+    refresh(); $("jobs").scrollIntoView({ behavior: "smooth" });
+  } catch (e) { $("storyErr").textContent = e.message; }
+  finally { $("autoBtn").disabled = false; }
+}
+
 async function init() {
   try {
     const info = await api("/api/info");
+    initStory().catch(e => { $("storyErr").textContent = e.message; });
     $("login").classList.add("hidden"); $("app").classList.remove("hidden");
     $("preset").innerHTML = info.presets.map(p => `<option value="${esc(p.id)}">${esc(p.title.de || p.title.en)}</option>`).join("");
     $("topicHint").textContent = "Möglich: " + info.topics + "." +

@@ -28,12 +28,12 @@ if os.environ.get("SSL_CERT_FILE"):
 TICKS_PER_SECOND = 10_000_000  # edge-tts liefert Offsets in 100-ns-Einheiten
 
 
-async def _synthesize(text: str, voice: str, out_path: Path, rate: str) -> list[dict]:
+async def _synthesize(text: str, voice: str, out_path: Path, rate: str, pitch: str = "+0Hz") -> list[dict]:
     words: list[dict] = []
     for attempt in range(3):
         words.clear()
         try:
-            comm = edge_tts.Communicate(text, voice, rate=rate, boundary="WordBoundary")
+            comm = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, boundary="WordBoundary")
             with open(out_path, "wb") as f:
                 async for chunk in comm.stream():
                     if chunk["type"] == "audio":
@@ -58,7 +58,7 @@ MAX_PAUSE = 0.28        # edge-tts pausiert nach jedem Punkt ~1 s – für Short
 SILENCE_RMS = 0.01      # ~ -40 dB
 
 
-def tighten_pauses(mp3: Path, words: list[dict], wav: Path) -> tuple[list[dict], float]:
+def tighten_pauses(mp3: Path, words: list[dict], wav: Path, max_pause: float = MAX_PAUSE) -> tuple[list[dict], float]:
     """Lange Pausen kürzen und die Wort-Zeitstempel entsprechend verschieben."""
     raw = subprocess.run(
         ["ffmpeg", "-loglevel", "error", "-i", str(mp3), "-f", "f32le", "-ac", "1", "-ar", str(SAMPLE_RATE), "-"],
@@ -71,7 +71,7 @@ def tighten_pauses(mp3: Path, words: list[dict], wav: Path) -> tuple[list[dict],
     silent = rms < SILENCE_RMS
     keep = np.ones(len(audio), dtype=bool)
     cuts: list[tuple[float, float]] = []                       # (Zeitpunkt, entfernte Sekunden)
-    max_win = int(MAX_PAUSE * 100)
+    max_win = int(max_pause * 100)
     i = 0
     while i < n_win:
         if silent[i]:
@@ -119,3 +119,25 @@ def voice_script(script: Script, out_dir: Path, voice: str | None = None, rate: 
     voice = voice or config.VOICES[script.lang]
     asyncio.run(_voice_script(script, out_dir, voice, rate or config.VOICE_RATE))
     return script
+
+
+async def _voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str, pitch: str, max_pause: float,
+                       parallel: int = 4) -> list[tuple[Path, list[dict], float]]:
+    sem = asyncio.Semaphore(parallel)
+
+    async def one(i: int, text: str):
+        async with sem:
+            mp3 = out_dir / f"{i:03d}.mp3"
+            words = await _synthesize(text, voice, mp3, rate, pitch)
+            wav = mp3.with_suffix(".wav")
+            new_words, duration = tighten_pauses(mp3, words, wav, max_pause)
+            return wav, new_words, duration
+
+    return list(await asyncio.gather(*(one(i, t) for i, t in enumerate(texts))))
+
+
+def voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str = "+0%", pitch: str = "+0Hz",
+                max_pause: float = MAX_PAUSE) -> list[tuple[Path, list[dict], float]]:
+    """Mehrere Texte vertonen (z. B. Story-Szenen): je Text (WAV, Wort-Zeitstempel, Dauer)."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    return asyncio.run(_voice_texts(texts, out_dir, voice, rate, pitch, max_pause))

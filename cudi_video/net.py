@@ -97,12 +97,31 @@ def get_json(url, params=None, headers=None, cache_hours=12.0, **kw):
     return data
 
 
+def cached_file(url, suffix="", cache_hours=24.0 * 30) -> Path | None:
+    """Pfad der zwischengespeicherten Datei – oder None, wenn sie (noch) nicht da ist."""
+    path = _cache_path("files", url).with_suffix(suffix)
+    if path.exists() and path.stat().st_size and time.time() - path.stat().st_mtime < cache_hours * 3600:
+        return path
+    return None
+
+
 def download(url, suffix="", cache_hours=24.0 * 30, **kw) -> Path:
     """Datei herunterladen und im Cache ablegen; gibt den lokalen Pfad zurück."""
     path = _cache_path("files", url).with_suffix(suffix)
-    if path.exists() and path.stat().st_size and time.time() - path.stat().st_mtime < cache_hours * 3600:
+    if cached_file(url, suffix, cache_hours):
         return path
     resp = get(url, **kw)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(resp.content)
     return path
+
+
+def post(url, data=None, auth=None, timeout=30) -> requests.Response:
+    """Einfacher POST (z. B. Reddit-Anmeldung); Fehler als FetchError."""
+    try:
+        resp = _session.post(url, data=data, auth=auth, timeout=timeout)
+    except requests.RequestException as exc:
+        raise FetchError(f"{url}: {exc}") from exc
+    if not resp.ok:
+        raise FetchError(f"{url}: HTTP {resp.status_code}")
+    return resp

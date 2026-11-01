@@ -5,6 +5,9 @@ Beispiele:
   python -m cudi_video make hoechste-gebaeude       # Video (DE + EN) erzeugen
   python -m cudi_video make "die tiefsten Seen der Welt" --count 7   # freies Thema
   python -m cudi_video make presets/meins.yaml --langs de --nur-skript
+  python -m cudi_video story "gruselige Story über einen Stalker im Wald"   # Reddit-Story-Video (Autopilot)
+  python -m cudi_video story --stimmung funny --suchen                      # nur Vorschläge anzeigen
+  python -m cudi_video story https://www.reddit.com/r/tifu/comments/abc123/ --nur-skelett
   python -m cudi_video web                          # Web-Oberfläche (auch fürs Handy)
   python -m cudi_video check                        # Selbsttest (bei Problemen zuerst ausführen)
 """
@@ -50,6 +53,17 @@ def main(argv=None) -> int:
     mk.add_argument("--streng", action="store_true",
                     help="abbrechen, wenn ein Platz nicht von mindestens einer unabhängigen Quelle bestätigt ist")
 
+    st = sub.add_parser("story", help="Reddit-Story-Video erzeugen")
+    st.add_argument("wunsch", nargs="?", default="", help="Beschreibung („lustige Story über meinen Chef“) oder Reddit-Link")
+    st.add_argument("--stimmung", choices=["creepy", "suspense", "funny", "drama", "revenge", "wholesome"])
+    st.add_argument("--sprache", default="de", choices=["de", "en"])
+    st.add_argument("--laenge", default="3min", choices=["kurz", "3min", "teile"])
+    st.add_argument("--bilder", default="videos", choices=["videos", "images", "gameplay"])
+    st.add_argument("--suchen", action="store_true", help="nur passende Storys anzeigen")
+    st.add_argument("--nur-skelett", action="store_true", help="Skelett erstellen (story.json zum Bearbeiten), noch kein Video")
+    st.add_argument("--ordner", help="bearbeitetes Skelett aus diesem Ausgabeordner rendern")
+    st.add_argument("--nicht-entschaerfen", action="store_true", help="Kraftausdrücke nicht ersetzen")
+
     chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
     chk.add_argument("--ohne-netz", action="store_true", help="nur lokale Prüfungen")
     chk.add_argument("--ohne-stimme", action="store_true", help="KI-Stimme nicht testen")
@@ -66,6 +80,9 @@ def main(argv=None) -> int:
         except (AttributeError, ValueError):
             pass
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", datefmt="%H:%M:%S")
+
+    if args.cmd == "story":
+        return _story(args)
 
     if args.cmd == "check":
         from .check import print_report, run_checks
@@ -111,6 +128,52 @@ def main(argv=None) -> int:
         uvicorn.run("cudi_video.web.app:app", host=args.host, port=args.port)
         return 0
     return 1
+
+
+def _story(args) -> int:
+    from .story import pipeline
+
+    def progress(stage: str, f: float) -> None:
+        print(f"  {f:4.0%}  {stage}", flush=True)
+
+    soften = not args.nicht_entschaerfen
+    link = args.wunsch if "reddit.com" in args.wunsch or "redd.it" in args.wunsch else ""
+    if args.ordner:
+        result = pipeline.render(Path(args.ordner), progress=progress)
+    elif args.suchen:
+        found = pipeline.search(args.wunsch, args.stimmung, args.sprache, args.laenge)
+        print(f"Stimmung: {found['plan']['mood']} · Stichwörter: {', '.join(found['plan']['keywords']) or '–'}")
+        for note in found["notes"]:
+            print(f"  ℹ️  {note}")
+        for st in found["stories"]:
+            print(f"  ⬆ {st['score']:>6}  r/{st['subreddit']:<20} {st['words']:>5} Wörter  {st['title'][:70]}\n"
+                  f"           {st['url']}")
+        return 0
+    elif args.nur_skelett:
+        story = None
+        if not link:
+            found = pipeline.search(args.wunsch, args.stimmung, args.sprache, args.laenge, limit=1)
+            if not found["stories"]:
+                print(" ".join(found["notes"]))
+                return 1
+            story = found["stories"][0]
+        skeleton, folder = pipeline.prepare(story=story, url=link, lang=args.sprache, mood=args.stimmung,
+                                            length=args.laenge, visuals=args.bilder, soften=soften)
+        print(f"Skelett: {folder / 'story.json'} ({len(skeleton['parts'])} Teil(e), Stimmung {skeleton['mood']})")
+        for note in skeleton["notes"] + skeleton["rights"]:
+            print(f"  ℹ️  {note}")
+        print(f"Anpassen und dann rendern mit:  python -m cudi_video story --ordner \"{folder}\"")
+        return 0
+    else:
+        result = pipeline.autopilot(description="" if link else args.wunsch, mood=args.stimmung, url=link,
+                                    lang=args.sprache, length=args.laenge, visuals=args.bilder, soften=soften,
+                                    progress=progress)
+    print(f"\nAusgabe: {result['output_dir']}")
+    for key, files in result["videos"].items():
+        print(f"  {key}: {files['video']} ({files['duration']} s)")
+    for w in result["warnings"]:
+        print(f"  ⚠️  {w}")
+    return 0
 
 
 def _lan_address() -> str | None:

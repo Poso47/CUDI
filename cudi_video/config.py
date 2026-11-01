@@ -50,3 +50,18 @@ SUPPORTED_LANGS = ("de", "en")
 CHECK_LANGS = [l for l in os.environ.get("CUDI_CHECK_LANGS", "en,de,fr,es,ru,ar,zh,ja").split(",") if l]
 OVERPASS_URL = os.environ.get("CUDI_OVERPASS_URL", "https://overpass-api.de/api/interpreter")
 FACTCHECK_API_KEY = os.environ.get("CUDI_FACTCHECK_API_KEY", "")   # Google Fact Check Tools (kostenlos)
+
+# Reddit-Storys
+# Reddit-Zugang (kostenlos, https://www.reddit.com/prefs/apps -> "script"-App). Ohne Zugang wird das
+# öffentliche Reddit und als Ausweichweg das Archiv Arctic Shift genutzt.
+REDDIT_CLIENT_ID = os.environ.get("CUDI_REDDIT_CLIENT_ID", "")
+REDDIT_CLIENT_SECRET = os.environ.get("CUDI_REDDIT_CLIENT_SECRET", "")
+# Stockvideos (kostenlose Schlüssel): https://www.pexels.com/api/ und https://pixabay.com/api/docs/
+PEXELS_API_KEY = os.environ.get("CUDI_PEXELS_API_KEY", "")
+PIXABAY_API_KEY = os.environ.get("CUDI_PIXABAY_API_KEY", "")
+# KI-Bilder (Pollinations): ohne Zugang klein (576×1024) mit Logo und nur ein Bild gleichzeitig; mit kostenlosem
+# Zugang (https://auth.pollinations.ai) groß und ohne Logo.
+POLLINATIONS_TOKEN = os.environ.get("CUDI_POLLINATIONS_TOKEN", "")
+# Übersetzung englischer Storys für deutsche Videos (DeepL API Free: 500.000 Zeichen/Monat kostenlos)
+DEEPL_API_KEY = os.environ.get("CUDI_DEEPL_API_KEY", "")
+STORY_MAX_SECONDS = float(os.environ.get("CUDI_STORY_MAX_SECONDS", "179"))   # je Teil (YouTube Shorts: 3 min)
