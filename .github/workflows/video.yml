@@ -1,5 +1,7 @@
-# Video in der Cloud erzeugen – startbar vom Handy (GitHub-App: Actions -> "CUDI Video" -> Run workflow).
+# Ranking-Video in der Cloud erzeugen – startbar vom Handy (CUDI-App-Seite in Claude oder GitHub-App).
 name: CUDI Video
+
+run-name: "Ranking: ${{ inputs.preset }} (${{ inputs.langs }}, Top ${{ inputs.count }}${{ inputs.streng && ', streng' || '' }}${{ inputs.nur_skript && ', nur Skript' || '' }})"
 
 on:
   workflow_dispatch:
@@ -16,6 +18,17 @@ on:
         description: "Anzahl Plätze (3-20)"
         required: true
         default: "10"
+      streng:
+        description: "Streng: nur mehrfach bestätigte Fakten"
+        type: boolean
+        default: false
+      nur_skript:
+        description: "Erst nur Skript und Prüfbericht (kein Video)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write          # Ergebnis-Zusammenfassung im Zweig cudi-ergebnisse (für die CUDI-App-Seite)
 
 jobs:
   render:
@@ -31,20 +44,31 @@ jobs:
       - name: System-Pakete
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg fonts-inter
       - name: Python-Pakete
-        run: pip install -r cudi_video/requirements.txt pytest
-      - name: Tests
-        run: python -m pytest tests/test_video.py -q
+        run: pip install -r cudi_video/requirements.txt
       - name: Video erzeugen
         env:
           PRESET: ${{ inputs.preset }}
           LANGS: ${{ inputs.langs }}
           COUNT: ${{ inputs.count }}
+          STRENG: ${{ inputs.streng }}
+          NUR_SKRIPT: ${{ inputs.nur_skript }}
           # Optional: Sprachmodell über Repository-Secrets (Settings -> Secrets -> Actions)
           CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
           CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
           CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
-        run: python -m cudi_video make "$PRESET" --langs "$LANGS" --count "$COUNT"
+          CUDI_CHANNEL: ${{ secrets.CUDI_CHANNEL }}
+          CUDI_FACTCHECK_API_KEY: ${{ secrets.CUDI_FACTCHECK_API_KEY }}
+        run: |
+          set -o pipefail
+          ARGS=(--langs "$LANGS" --count "$COUNT")
+          if [ "$STRENG" = "true" ]; then ARGS+=(--streng); fi
+          if [ "$NUR_SKRIPT" = "true" ]; then ARGS+=(--nur-skript); fi
+          python -m cudi_video make "$PRESET" "${ARGS[@]}" 2>&1 | tee cudi.log
+      - name: Ergebnis für die CUDI-App ablegen
+        if: always()
+        run: python .github/scripts/publish_result.py video_output cudi.log ranking
       - name: Ergebnis hochladen
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cudi-video-${{ github.run_number }}   # freie Themen können Zeichen enthalten, die hier nicht erlaubt sind
@@ -54,4 +78,5 @@ jobs:
             video_output/**/*.srt
             video_output/**/*.txt
             video_output/**/review.md
+          if-no-files-found: ignore
           retention-days: 14

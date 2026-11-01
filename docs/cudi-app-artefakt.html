@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CUDI App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Eine Welt: dunkles Filmset. Das Kühne steckt in der Filmklappe oben; alles andere bleibt ruhig.
+     Layout: eine schmale Spalte fürs Handy – Klappe, Bereichswahl, ein Bereich zur Zeit. */
+  :root {
+    --ink: #0c0e16;
+    --panel: #151926;
+    --line: #2a3045;
+    --paper: #f3f0e8;
+    --muted: #9aa3b8;
+    --accent: #2fd6f0;
+    --warn: #f5b23d;
+    --ok: #4ade80;
+    --bad: #f87171;
+    --display: "Unbounded", "Arial Black", system-ui, sans-serif;
+    --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--ink); color: var(--paper); font: 16px/1.5 var(--body);
+    padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+             max(32px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  }
+  main { max-width: 540px; margin: 0 auto; display: grid; gap: 18px; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  [hidden] { display: none !important; }
+
+  header { display: grid; gap: 12px; }
+  .clapper { height: 30px; border-radius: 10px 10px 4px 4px; background: #e9e6dd; position: relative; overflow: hidden;
+             transform-origin: 10px 30px; animation: clap .7s cubic-bezier(.3,1.6,.5,1) .15s both; }
+  .clapper::before { content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(-55deg, #111 0 22px, #e9e6dd 22px 44px); }
+  @keyframes clap { from { transform: rotate(-12deg); } to { transform: rotate(0); } }
+  @media (prefers-reduced-motion: reduce) { .clapper { animation: none; } }
+  .titlebar { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .mark { font: 800 32px/1 var(--display); letter-spacing: -0.02em; margin: 0; }
+  .mark span { color: var(--accent); }
+  .tag { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line);
+          color: var(--muted); white-space: nowrap; }
+  .pill.ok { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, var(--line)); }
+  .pill.warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 45%, var(--line)); }
+  .pill.bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, var(--line)); }
+  .pill.run { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+
+  nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: var(--panel); border: 1px solid var(--line);
+        border-radius: 14px; padding: 5px; }
+  nav button { border: 0; border-radius: 10px; padding: 10px 4px; background: transparent; color: var(--muted);
+               font: 700 13px var(--body); cursor: pointer; }
+  nav button[aria-selected="true"] { background: var(--accent); color: #04141a; }
+
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: grid; gap: 12px; }
+  .card h2 { font: 800 18px/1.25 var(--display); margin: 0; text-wrap: balance; }
+  .lead { color: var(--muted); font-size: 14px; margin: 0; }
+  label, .label { font-weight: 700; font-size: 14px; display: block; margin-bottom: 6px; }
+  input[type=text], input[type=url], input[type=number], select {
+    width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink);
+    color: var(--paper); font: 16px var(--body); }
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+  .checks { display: flex; gap: 8px; flex-wrap: wrap; }
+  .check { display: inline-flex; gap: 8px; align-items: center; padding: 10px 14px; border: 1px solid var(--line);
+           border-radius: 12px; font-weight: 700; background: var(--ink); }
+  .moods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .moods button { padding: 12px 4px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink);
+                  color: var(--paper); font: 700 14px var(--body); cursor: pointer; }
+  .moods button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+  .go { width: 100%; padding: 16px; border: 0; border-radius: 14px; background: var(--accent); color: #04141a;
+        font: 800 17px var(--display); cursor: pointer; }
+  .go:disabled { opacity: .5; cursor: default; }
+  .note { font-size: 14px; border-radius: 12px; padding: 10px 12px; margin: 0; border: 1px solid var(--line); }
+  .note.ok { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, var(--line)); }
+  .note.warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, var(--line)); }
+  .note.bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 40%, var(--line)); }
+  .hint { color: var(--muted); font-size: 13px; margin: 0; }
+  .or { text-align: center; color: var(--muted); font-size: 13px; margin: -2px 0; }
+
+  .runs { display: grid; gap: 10px; list-style: none; margin: 0; padding: 0; }
+  .runs > li { border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: var(--ink); display: grid; gap: 8px; }
+  .runs .top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+  .runs b { overflow-wrap: anywhere; }
+  .runs .meta { color: var(--muted); font-size: 13px; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .actions a, .actions button { font: 700 13px var(--body); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line);
+                                background: var(--panel); color: var(--paper); text-decoration: none; cursor: pointer; }
+  .actions .dl { background: var(--accent); color: #04141a; border-color: var(--accent); }
+  .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .link-btn { background: none; border: 0; color: var(--accent); font: 700 14px var(--body); padding: 0; cursor: pointer; }
+
+  .bigopen { display: block; text-align: center; text-decoration: none; padding: 16px; border-radius: 14px;
+             background: var(--accent); color: #04141a; font: 800 18px var(--display); }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pair a { display: block; text-align: center; text-decoration: none; padding: 12px 6px; border-radius: 12px;
+            border: 1px solid var(--line); color: var(--paper); font-weight: 700; background: var(--ink); }
+  ol.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: s; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: start; }
+  ol.steps li::before { content: counter(s); font: 800 14px/32px var(--display); text-align: center; width: 32px; height: 32px;
+                        border-radius: 50%; background: var(--ink); color: var(--accent); border: 1px solid var(--line); }
+  ol.steps p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+  code { font: 600 13px ui-monospace, Consolas, monospace; color: var(--paper); background: var(--ink);
+         border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .result { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 10px; }
+  .result h3 { font: 800 15px/1.3 var(--display); margin: 0; }
+  .textbox { display: grid; gap: 6px; }
+  .textbox pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.45 var(--body); color: var(--paper);
+                 background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; max-height: 220px; overflow: auto; }
+  .review { font-size: 14px; line-height: 1.5; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+            padding: 10px 12px; max-height: 420px; overflow: auto; overflow-wrap: anywhere; }
+  .review h4 { font: 800 14px/1.3 var(--display); margin: 12px 0 6px; }
+  .review p { margin: 4px 0; }
+  .review ul { margin: 4px 0; padding-left: 18px; }
+  .errbox { color: var(--bad); white-space: pre-wrap; font: 13px/1.45 ui-monospace, Consolas, monospace;
+            background: var(--panel); border: 1px solid color-mix(in srgb, var(--bad) 40%, var(--line)); border-radius: 10px; padding: 10px; }
+  footer { color: var(--muted); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="clapper" aria-hidden="true"></div>
+    <div class="titlebar">
+      <div>
+        <h1 class="mark">CUDI<span>.</span></h1>
+        <p class="tag">Videos für TikTok &amp; Shorts – direkt von hier</p>
+      </div>
+      <div class="pills">
+        <span class="pill" id="ghState">GitHub …</span>
+      </div>
+    </div>
+  </header>
+
+  <nav role="tablist" aria-label="Bereiche">
+    <button role="tab" id="tab-ranking" aria-controls="ranking" aria-selected="true">Ranking</button>
+    <button role="tab" id="tab-story" aria-controls="story" aria-selected="false">Story</button>
+    <button role="tab" id="tab-videos" aria-controls="videos" aria-selected="false">Videos</button>
+    <button role="tab" id="tab-app" aria-controls="app" aria-selected="false">Volle App</button>
+  </nav>
+
+  <!-- Ranking -->
+  <section class="card" id="ranking" role="tabpanel" aria-labelledby="tab-ranking">
+    <h2>Ranking-Video</h2>
+    <p class="lead">Top-Liste mit geprüften Fakten. Gerendert wird kostenlos in der Cloud (GitHub), fertig in etwa 15 Minuten.</p>
+    <form id="rankingForm" novalidate>
+      <div style="display:grid;gap:12px">
+        <div>
+          <label for="preset">Vorlage</label>
+          <select id="preset">
+            <option value="groesste-inseln">Die 10 größten Inseln der Welt</option>
+            <option value="groesste-laender">Die 10 größten Länder der Welt</option>
+            <option value="groesste-seen">Die 10 größten Seen der Welt</option>
+            <option value="hoechste-berge">Die 10 höchsten Berge der Welt</option>
+            <option value="hoechste-gebaeude" selected>Die 10 höchsten Gebäude der Welt</option>
+            <option value="hoechste-wasserfaelle">Die 10 höchsten Wasserfälle der Welt</option>
+            <option value="kleinste-laender">Die 10 kleinsten Länder der Welt</option>
+            <option value="meiste-einwohner">Die 10 Länder mit den meisten Einwohnern</option>
+            <option value="tiefste-seen">Die 10 tiefsten Seen der Welt</option>
+          </select>
+        </div>
+        <p class="or">oder</p>
+        <div>
+          <label for="topic">Eigenes Thema</label>
+          <input id="topic" type="text" placeholder="z. B. die höchsten Berge in Europa" autocomplete="off">
+        </div>
+        <div class="row">
+          <div>
+            <span class="label">Sprachen</span>
+            <div class="checks">
+              <label class="check" for="langDe"><input type="checkbox" id="langDe" checked> Deutsch</label>
+              <label class="check" for="langEn"><input type="checkbox" id="langEn" checked> Englisch</label>
+            </div>
+          </div>
+          <div>
+            <label for="count">Plätze</label>
+            <input id="count" type="number" min="3" max="20" value="10" inputmode="numeric">
+          </div>
+        </div>
+        <div class="checks">
+          <label class="check" for="strict"><input type="checkbox" id="strict"> Streng: nur mehrfach bestätigte Fakten</label>
+          <label class="check" for="onlyScript"><input type="checkbox" id="onlyScript"> Erst nur Skript und Prüfbericht</label>
+        </div>
+        <button class="go" id="rankingGo" type="submit">Ranking-Video erstellen</button>
+        <p class="note" id="rankingMsg" hidden role="status"></p>
+      </div>
+    </form>
+  </section>
+
+  <!-- Story -->
+  <section class="card" id="story" role="tabpanel" aria-labelledby="tab-story" hidden>
+    <h2>Reddit-Story-Video</h2>
+    <p class="lead">Stimmung antippen oder beschreiben – CUDI sucht eine passende Story, erzählt sie im richtigen Ton und baut das Video.</p>
+    <form id="storyForm" novalidate>
+      <div style="display:grid;gap:12px">
+        <div>
+          <span class="label">Stimmung</span>
+          <div class="moods" id="moods">
+            <button type="button" data-mood="creepy" aria-pressed="false">👻 Gruselig</button>
+            <button type="button" data-mood="suspense" aria-pressed="false">⚡ Spannend</button>
+            <button type="button" data-mood="funny" aria-pressed="false">😂 Lustig</button>
+            <button type="button" data-mood="drama" aria-pressed="false">🔥 Drama</button>
+            <button type="button" data-mood="revenge" aria-pressed="false">😈 Rache</button>
+            <button type="button" data-mood="wholesome" aria-pressed="false">💛 Herzlich</button>
+          </div>
+        </div>
+        <div>
+          <label for="wish">Beschreibung oder Reddit-Link</label>
+          <input id="wish" type="text" placeholder="z. B. gruselige Story über einen Stalker im Wald" autocomplete="off">
+        </div>
+        <div class="row">
+          <div>
+            <label for="storyLang">Sprache</label>
+            <select id="storyLang"><option value="de">Deutsch</option><option value="en">Englisch</option></select>
+          </div>
+          <div>
+            <label for="storyLength">Länge</label>
+            <select id="storyLength">
+              <option value="kurz">Kurz (bis 1 Minute)</option>
+              <option value="3min" selected>Bis 3 Minuten</option>
+              <option value="teile">Lang, in Teilen</option>
+            </select>
+          </div>
+          <div>
+            <label for="storyVisuals">Bilder</label>
+            <select id="storyVisuals">
+              <option value="videos">Videos bevorzugt</option>
+              <option value="images">KI-Bilder</option>
+              <option value="gameplay">Eigene Clips</option>
+            </select>
+          </div>
+        </div>
+        <div class="checks">
+          <label class="check" for="soften"><input type="checkbox" id="soften" checked> Heikles entschärfen (umschreiben statt weglassen)</label>
+        </div>
+        <button class="go" id="storyGo" type="submit">Story-Video erstellen</button>
+        <p class="note" id="storyMsg" hidden role="status"></p>
+        <p class="hint">Deutsche Videos aus englischen Storys brauchen eine Übersetzung (kostenloser Gemini- oder DeepL-Schlüssel als Secret). Drama-Storys gibt es direkt auf Deutsch.</p>
+      </div>
+    </form>
+  </section>
+
+  <!-- Videos -->
+  <section class="card" id="videos" role="tabpanel" aria-labelledby="tab-videos" hidden>
+    <div class="toolbar">
+      <h2>Meine Videos</h2>
+      <button class="link-btn" id="refreshBtn" type="button">Aktualisieren</button>
+    </div>
+    <p class="note" id="videosMsg" hidden role="status"></p>
+    <ul class="runs" id="runList"></ul>
+    <p class="hint" id="runsHint">Fertige Videos kommen als ZIP (Videos, Untertitel, Texte zum Hochladen, Prüfbericht). Sie bleiben 14 Tage abrufbar.</p>
+  </section>
+
+  <!-- Volle App -->
+  <section class="card" id="app" role="tabpanel" aria-labelledby="tab-app" hidden>
+    <h2>Volle App</h2>
+    <p class="lead">Für Feinarbeit: Story-Vorschläge durchblättern, das Skelett Szene für Szene anpassen, Videos direkt ansehen.</p>
+    <div id="appReady" hidden style="display:grid;gap:10px">
+      <a class="bigopen" id="openApp" href="#">App öffnen</a>
+      <div class="pair">
+        <a id="openRanking" href="#">Rankings</a>
+        <a id="openStory" href="#">Reddit-Storys</a>
+      </div>
+      <p class="hint" id="addressLine"></p>
+      <button class="link-btn" id="changeBtn" type="button">Adresse ändern</button>
+    </div>
+    <form id="urlForm" novalidate style="display:grid;gap:10px">
+      <div>
+        <label for="appUrl">Adresse deiner App</label>
+        <input id="appUrl" type="url" inputmode="url" autocomplete="url" placeholder="https://dein-name-cudi-video.hf.space">
+      </div>
+      <p class="note bad" id="urlErr" hidden role="alert"></p>
+      <button class="go" type="submit">Adresse speichern</button>
+    </form>
+    <ol class="steps">
+      <li><div><b>Hugging-Face-Konto und Token</b>
+        <p>Kostenlos <a href="https://huggingface.co/join">registrieren</a>, unter <a href="https://huggingface.co/settings/tokens">Access Tokens</a> einen Token mit <b>Write</b>-Recht anlegen.</p></div></li>
+      <li><div><b>Secrets auf GitHub</b>
+        <p>In den <a href="https://github.com/Poso47/CUDI/settings/secrets/actions">Repository-Secrets</a> <code>HF_TOKEN</code> und <code>CUDI_VIDEO_TOKEN</code> (dein Zugangscode) anlegen.</p></div></li>
+      <li><div><b>App bereitstellen</b>
+        <p><a href="https://github.com/Poso47/CUDI/actions/workflows/cloud-app.yml">Actions → CUDI Cloud-App</a> → „Run workflow“. Nach 3–5 Minuten zeigt der Lauf die Adresse – oben speichern.</p></div></li>
+    </ol>
+    <p class="hint">Zu Hause geht auch die Adresse, die <code>CUDI_VIDEO.bat</code> am PC anzeigt.</p>
+  </section>
+
+  <footer>Gerendert wird in der Cloud. Diese Seite startet Aufträge über deine GitHub-Verbindung in Claude.</footer>
+</main>
+<script>
+(function () {
+  const OWNER = "Poso47", REPO = "CUDI", BRANCH = "main", GH = "github";
+  const WORKFLOWS = { ranking: "video.yml", story: "story.yml" };
+  const $ = (id) => document.getElementById(id);
+  let mcp = null, db = null, unwatch = null, appUrl = "", mood = "";
+
+  /* ---------- Bereiche (Tabs, mit #name in der Adresse) ---------- */
+  const TABS = ["ranking", "story", "videos", "app"];
+  function showTab(name) {
+    if (!TABS.includes(name)) name = "ranking";
+    TABS.forEach((t) => {
+      $(t).hidden = t !== name;
+      $("tab-" + t).setAttribute("aria-selected", String(t === name));
+    });
+    if (name === "videos") startWatch();
+  }
+  TABS.forEach((t) => $("tab-" + t).addEventListener("click", () => {
+    showTab(t);
+    try { history.replaceState(null, "", "#" + t); } catch (e) { location.hash = t; }
+  }));
+  window.addEventListener("hashchange", () => showTab(location.hash.slice(1)));
+
+  /* ---------- Meldungen ---------- */
+  function note(id, text, kind) {
+    const el = $(id);
+    el.textContent = text;
+    el.className = "note " + (kind || "");
+    el.hidden = !text;
+  }
+  function ghPill(text, kind) { const p = $("ghState"); p.textContent = text; p.className = "pill " + (kind || ""); }
+
+  // Jede Fehlerart hat ihre eigene Lösung (keine Sammelmeldung)
+  function explain(err) {
+    const code = err && err.code;
+    if (code === "server_not_connected" || code === "server_not_found" || code === "selection_required")
+      return ["GitHub ist in Claude nicht verbunden. In claude.ai unter Einstellungen → Konnektoren GitHub hinzufügen.", "bad"];
+    if (code === "needs_reauth") return ["Die GitHub-Verbindung ist abgelaufen. In claude.ai unter Einstellungen → Konnektoren GitHub neu verbinden.", "bad"];
+    if (code === "not_in_manifest" || code === "approval_required" || code === "consent_required")
+      return ["Diese Seite braucht deine Erlaubnis für GitHub. Tippe noch einmal und erlaube den Zugriff, wenn Claude fragt.", "warn"];
+    if (code === "blocked_by_policy") return ["GitHub ist für dein Konto durch eine Richtlinie gesperrt.", "bad"];
+    if (code === "server_unavailable" || code === "rate_limited") return ["GitHub antwortet gerade nicht. Bitte in einer Minute noch einmal versuchen.", "warn"];
+    if (code === "not_granted" || code === "capability_disabled" || code === "capability_removed")
+      return ["Aufträge lassen sich nur starten, wenn diese Seite in Claude (App oder claude.ai) geöffnet ist.", "warn"];
+    if (code === "tool_error") {
+      const msg = String(err.message || "");
+      if (/404|not found|Not Found/i.test(msg))
+        return ["Der Cloud-Ablauf ist auf GitHub noch nicht da. Pull Request #3 übernehmen (mergen), dann geht es.", "bad"];
+      if (/422|unexpected inputs|Unexpected/i.test(msg))
+        return ["GitHub hat die Eingaben abgelehnt: " + msg.slice(0, 160), "bad"];
+      return ["GitHub meldet einen Fehler: " + msg.slice(0, 160), "bad"];
+    }
+    return ["Das hat nicht geklappt" + (err && err.message ? ": " + String(err.message).slice(0, 160) : ".") + " Bitte noch einmal versuchen.", "warn"];
+  }
+
+  async function needMcp(msgId) {
+    if (mcp) return true;
+    note(msgId, "Aufträge lassen sich nur starten, wenn diese Seite in Claude (App oder claude.ai) geöffnet ist.", "warn");
+    return false;
+  }
+
+  async function startWorkflow(kind, inputs, msgId, button) {
+    if (!(await needMcp(msgId))) return;
+    button.disabled = true;
+    note(msgId, "Wird gestartet …", "");
+    try {
+      await mcp.callTool(GH, "actions_run_trigger", {
+        method: "run_workflow", owner: OWNER, repo: REPO, workflow_id: WORKFLOWS[kind], ref: BRANCH, inputs: inputs,
+      });
+      note(msgId, "Gestartet! Das Video erscheint unter „Videos“ – meist nach 10 bis 20 Minuten fertig.", "ok");
+      ghPill("GitHub verbunden", "ok");
+      try { await mcp.invalidate(GH, "actions_list"); } catch (e) { /* nichts zwischengespeichert */ }
+    } catch (err) {
+      const [text, kind2] = explain(err);
+      note(msgId, text, kind2);
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  /* ---------- Ranking ---------- */
+  $("rankingForm").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const langs = [["de", $("langDe").checked], ["en", $("langEn").checked]].filter((x) => x[1]).map((x) => x[0]);
+    if (!langs.length) { note("rankingMsg", "Mindestens eine Sprache wählen.", "warn"); return; }
+    const count = Math.round(Number($("count").value));
+    if (!(count >= 3 && count <= 20)) { note("rankingMsg", "Plätze: bitte eine Zahl von 3 bis 20.", "warn"); return; }
+    const topic = $("topic").value.trim();
+    startWorkflow("ranking", { preset: topic || $("preset").value, langs: langs.join(","), count: String(count),
+                               streng: $("strict").checked, nur_skript: $("onlyScript").checked },
+                  "rankingMsg", $("rankingGo"));
+  });
+
+  /* ---------- Story ---------- */
+  $("moods").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+    mood = mood === b.dataset.mood ? "" : b.dataset.mood;
+    $("moods").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.mood === mood)));
+  }));
+  $("storyForm").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const wish = $("wish").value.trim();
+    if (!wish && !mood) { note("storyMsg", "Stimmung antippen oder kurz beschreiben, was für eine Story es sein soll.", "warn"); return; }
+    startWorkflow("story", {
+      wunsch: wish.slice(0, 300), stimmung: mood || "auto", sprache: $("storyLang").value,
+      laenge: $("storyLength").value, bilder: $("storyVisuals").value, entschaerfen: $("soften").checked,
+    }, "storyMsg", $("storyGo"));
+  });
+
+  /* ---------- Videos (Läufe) ---------- */
+  function ago(iso) {
+    const s = (Date.now() - new Date(iso).getTime()) / 1000;
+    if (!isFinite(s)) return "";
+    if (s < 90) return "gerade eben";
+    if (s < 3600) return "vor " + Math.round(s / 60) + " Min.";
+    if (s < 86400) return "vor " + Math.round(s / 3600) + " Std.";
+    return "vor " + Math.round(s / 86400) + " Tag(en)";
+  }
+  function runState(r) {
+    if (r.status === "completed") {
+      if (r.conclusion === "success") return ["fertig", "ok"];
+      if (r.conclusion === "cancelled") return ["abgebrochen", ""];
+      return ["Fehler", "bad"];
+    }
+    if (r.status === "in_progress") return ["läuft", "run"];
+    return ["wartet", "warn"];
+  }
+  function runsFrom(payload) {
+    const list = (payload && (payload.workflow_runs || payload.runs)) || (Array.isArray(payload) ? payload : []);
+    return list.filter((r) => /(video|story)\.yml$/.test(r.path || "") || /^(Ranking|Story):/.test(r.display_title || ""));
+  }
+  function renderRuns(runs) {
+    const ul = $("runList");
+    ul.textContent = "";
+    if (!runs.length) {
+      const li = document.createElement("li");
+      li.innerHTML = '<span class="meta">Noch keine Videos. Starte eins unter „Ranking“ oder „Story“.</span>';
+      ul.appendChild(li);
+      return;
+    }
+    runs.slice(0, 12).forEach((r) => {
+      const [label, kind] = runState(r);
+      const li = document.createElement("li");
+      const top = document.createElement("div"); top.className = "top";
+      const title = document.createElement("b"); title.textContent = r.display_title || r.name || "Video";
+      const pill = document.createElement("span"); pill.className = "pill " + kind; pill.textContent = label;
+      top.append(title, pill);
+      const meta = document.createElement("div"); meta.className = "meta";
+      meta.textContent = "#" + (r.run_number || "") + " · " + ago(r.created_at);
+      const actions = document.createElement("div"); actions.className = "actions";
+      const panel = document.createElement("div"); panel.className = "result"; panel.hidden = true;
+      if (r.status === "completed" && r.conclusion === "success") {
+        const dl = document.createElement("button"); dl.type = "button"; dl.className = "dl"; dl.textContent = "Download vorbereiten";
+        dl.addEventListener("click", () => prepareDownload(r, actions, dl));
+        actions.appendChild(dl);
+      }
+      if (r.status === "completed") {
+        const show = document.createElement("button"); show.type = "button";
+        show.textContent = r.conclusion === "success" ? "Ergebnis ansehen" : "Was ist schiefgelaufen?";
+        show.addEventListener("click", () => showResult(r, panel, show));
+        actions.appendChild(show);
+      }
+      const view = document.createElement("a"); view.href = r.html_url || ("https://github.com/" + OWNER + "/" + REPO + "/actions");
+      view.textContent = "Auf GitHub ansehen";
+      actions.appendChild(view);
+      li.append(top, meta, actions, panel);
+      ul.appendChild(li);
+    });
+  }
+  function findUrl(obj) {
+    if (!obj) return "";
+    if (typeof obj === "string") return /^https:\/\//.test(obj) ? obj : "";
+    for (const key of ["download_url", "url", "archive_download_url", "location", "href"]) {
+      if (typeof obj[key] === "string" && /^https:\/\//.test(obj[key])) return obj[key];
+    }
+    for (const value of Object.values(obj)) {
+      if (value && typeof value === "object") { const u = findUrl(value); if (u) return u; }
+    }
+    return "";
+  }
+  async function prepareDownload(run, actions, button) {
+    button.disabled = true; button.textContent = "Wird vorbereitet …";
+    try {
+      const list = await mcp.callTool(GH, "actions_list", {
+        method: "list_workflow_run_artifacts", owner: OWNER, repo: REPO, resource_id: String(run.id) });
+      const arts = ((list.payload && list.payload.artifacts) || []).filter((a) => !a.expired);
+      if (!arts.length) { button.textContent = "Kein Ergebnis mehr (abgelaufen)"; return; }
+      const art = arts[0];
+      const got = await mcp.callTool(GH, "actions_get", {
+        method: "download_workflow_run_artifact", owner: OWNER, repo: REPO, resource_id: String(art.id) });
+      const url = findUrl(got.payload) || findUrl(got.content && got.content.map((c) => c.text).join(" ").match(/https:\/\/\S+/));
+      const link = document.createElement("a");
+      link.className = "dl";
+      if (url) {
+        link.href = url;
+        link.textContent = "ZIP herunterladen (" + Math.max(1, Math.round((art.size_in_bytes || 0) / 1048576)) + " MB)";
+      } else {
+        link.href = run.html_url;
+        link.textContent = "Auf GitHub herunterladen";
+      }
+      button.replaceWith(link);
+    } catch (err) {
+      const [text] = explain(err);
+      button.textContent = "Nochmal versuchen";
+      button.disabled = false;
+      note("videosMsg", text, "warn");
+    }
+  }
+  /* ---------- Ergebnis eines Laufs (Zweig cudi-ergebnisse) ---------- */
+  function parseResult(res) {
+    const tryJson = (t) => { try { const o = JSON.parse(t); return o && typeof o === "object" ? o : null; } catch (e) { return null; } };
+    if (res && res.payload && typeof res.payload === "object" && res.payload.run_id) return res.payload;
+    for (const block of (res && res.content) || []) {
+      const text = (block.resource && block.resource.text) || block.text || "";
+      const found = tryJson(text);
+      if (found && found.run_id) return found;
+      if (found && typeof found.content === "string") {          // GitHub-API-Form: Base64-Inhalt
+        try {
+          const bytes = Uint8Array.from(atob(found.content.replace(/\s/g, "")), (c) => c.charCodeAt(0));
+          const decoded = tryJson(new TextDecoder().decode(bytes));
+          if (decoded) return decoded;
+        } catch (e) { /* weiter */ }
+      }
+    }
+    return null;
+  }
+  function esc(t) { return String(t || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]); }
+  function markdownLite(md) {
+    const lines = esc(md).split("\n");
+    let html = "", inList = false;
+    for (let line of lines) {
+      line = line.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/_(.+?)_/g, "<i>$1</i>")
+                 .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2">$1</a>');
+      const bullet = /^\s*[-*] (.*)/.exec(line) || /^\s*\d+\. (.*)/.exec(line);
+      if (bullet) { if (!inList) { html += "<ul>"; inList = true; } html += "<li>" + bullet[1] + "</li>"; continue; }
+      if (inList) { html += "</ul>"; inList = false; }
+      const head = /^#{1,4} (.*)/.exec(line);
+      if (head) html += "<h4>" + head[1] + "</h4>";
+      else if (line.trim()) html += "<p>" + line + "</p>";
+    }
+    return html + (inList ? "</ul>" : "");
+  }
+  function textBox(label, text) {
+    const box = document.createElement("div"); box.className = "textbox";
+    const head = document.createElement("div"); head.className = "toolbar";
+    const b = document.createElement("b"); b.textContent = label;
+    const copy = document.createElement("button"); copy.type = "button"; copy.className = "link-btn"; copy.textContent = "Kopieren";
+    const pre = document.createElement("pre"); pre.textContent = text;
+    copy.addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(text); copy.textContent = "Kopiert ✓"; }
+      catch (e) {                                    // ohne Zwischenablage: Text markieren
+        const range = document.createRange(); range.selectNodeContents(pre);
+        const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+        copy.textContent = "Markiert – jetzt kopieren";
+      }
+      setTimeout(() => { copy.textContent = "Kopieren"; }, 2500);
+    });
+    head.append(b, copy);
+    box.append(head, pre);
+    return box;
+  }
+  async function showResult(run, panel, button) {
+    if (!panel.hidden) { panel.hidden = true; return; }
+    if (!mcp) { note("videosMsg", "Ergebnisse lassen sich nur in Claude laden.", "warn"); return; }
+    button.disabled = true;
+    panel.hidden = false;
+    panel.textContent = "Wird geladen …";
+    try {
+      const res = await mcp.callTool(GH, "get_file_contents", {
+        owner: OWNER, repo: REPO, path: "runs/" + run.id + ".json", ref: "refs/heads/cudi-ergebnisse" });
+      const data = parseResult(res);
+      panel.textContent = "";
+      if (!data) { panel.textContent = "Für diesen Lauf gibt es keine Zusammenfassung (älterer Lauf). „Auf GitHub ansehen“ zeigt alles."; return; }
+      if (!data.ok) {
+        const h = document.createElement("h3"); h.textContent = "Fehlermeldung";
+        const box = document.createElement("div"); box.className = "errbox"; box.textContent = data.error || "Unbekannter Fehler";
+        panel.append(h, box);
+        return;
+      }
+      const h = document.createElement("h3"); h.textContent = data.title || run.display_title || "Ergebnis";
+      panel.appendChild(h);
+      (data.videos || []).forEach((v) => {
+        const line = document.createElement("p"); line.className = "hint";
+        line.textContent = (v.key || "").toUpperCase() + " · " + (v.duration ? v.duration + " s" : "") + " · " + (v.file || "");
+        panel.appendChild(line);
+        if (v.youtube) panel.appendChild(textBox("YouTube-Text " + (v.key || ""), v.youtube));
+        if (v.tiktok) panel.appendChild(textBox("TikTok-Text " + (v.key || ""), v.tiktok));
+      });
+      if ((data.warnings || []).length) {
+        const w = document.createElement("div"); w.className = "note warn";
+        w.textContent = "Vor dem Hochladen prüfen: " + data.warnings.slice(0, 4).join(" · ");
+        panel.appendChild(w);
+      }
+      if (data.review) {
+        const rh = document.createElement("h3"); rh.textContent = "Prüfbericht";
+        const rv = document.createElement("div"); rv.className = "review"; rv.innerHTML = markdownLite(data.review);
+        panel.append(rh, rv);
+      }
+    } catch (err) {
+      const msg = String((err && err.message) || "");
+      panel.textContent = /404|not found|No commit found/i.test(msg)
+        ? "Für diesen Lauf gibt es keine Zusammenfassung (älterer Lauf). „Auf GitHub ansehen“ zeigt alles."
+        : explain(err)[0];
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  function startWatch() {
+    if (unwatch || !mcp) {
+      if (!mcp) note("videosMsg", "Die Liste erscheint, wenn diese Seite in Claude geöffnet ist und GitHub verbunden ist.", "warn");
+      return;
+    }
+    unwatch = mcp.watchTool(GH, "actions_list", {
+      method: "list_workflow_runs", owner: OWNER, repo: REPO, perPage: 30,
+      workflow_runs_filter: { event: "workflow_dispatch" },
+    }, (ev) => {
+      if (ev.type === "data") {
+        note("videosMsg", "", "");
+        ghPill("GitHub verbunden", "ok");
+        renderRuns(runsFrom(ev.result.payload));
+      } else {
+        const [text, kind] = explain(ev.error);
+        if (["server_not_connected", "needs_reauth", "blocked_by_policy", "not_in_manifest", "approval_required"].includes(ev.error.code)) {
+          $("runList").textContent = "";
+          ghPill("GitHub nicht verbunden", "bad");
+        }
+        note("videosMsg", text, kind);
+      }
+    }, { refetchInterval: 30000, cache: { staleTime: 0, gcTime: 300000 } });
+  }
+  $("refreshBtn").addEventListener("click", async () => {
+    if (!mcp) { startWatch(); return; }
+    try { await mcp.invalidate(GH, "actions_list"); } catch (e) { /* weiter */ }
+    if (!unwatch) startWatch();
+  });
+
+  /* ---------- Volle App: Adresse merken ---------- */
+  const LOCAL_KEY = "cudiAppUrl";
+  function localGet() { try { return localStorage.getItem(LOCAL_KEY) || ""; } catch (e) { return ""; } }
+  function localSet(v) { try { localStorage.setItem(LOCAL_KEY, v); } catch (e) { /* ohne Speicher geht es auch */ } }
+  function normalize(raw) {
+    let url = (raw || "").trim();
+    if (!url) return "";
+    if (!/^https?:\/\//i.test(url)) url = (/^(\d{1,3}\.){3}\d{1,3}(:\d+)?/.test(url) ? "http://" : "https://") + url;
+    try {
+      const u = new URL(url);
+      if (!/^https?:$/.test(u.protocol) || (!u.hostname.includes(".") && u.hostname !== "localhost")) return "";
+      return u.origin + u.pathname.replace(/\/+$/, "");
+    } catch (e) { return ""; }
+  }
+  function showApp(url) {
+    appUrl = url;
+    $("appReady").hidden = !url;
+    $("urlForm").hidden = Boolean(url);
+    if (!url) return;
+    $("openApp").href = url + "/";
+    $("openRanking").href = url + "/";
+    $("openStory").href = url + "/#story";
+    $("addressLine").textContent = url;
+    $("appUrl").value = url;
+  }
+  $("urlForm").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const url = normalize($("appUrl").value);
+    if (!url) { $("urlErr").textContent = "Das ist keine gültige Adresse. Beispiel: https://dein-name-cudi-video.hf.space"; $("urlErr").hidden = false; return; }
+    $("urlErr").hidden = true;
+    localSet(url);
+    showApp(url);
+    if (db) {
+      try { await db.doc("config/app").set({ url: url, updated: new Date().toISOString() }); } catch (e) { /* lokal reicht */ }
+    }
+  });
+  $("changeBtn").addEventListener("click", () => { $("appReady").hidden = true; $("urlForm").hidden = false; $("appUrl").focus(); });
+
+  /* ---------- Start ---------- */
+  showApp(localGet());
+  showTab(location.hash.slice(1) || "ranking");
+  ghPill("GitHub …", "");
+
+  const use = window.claude && window.claude.use;
+  if (typeof use !== "function") {
+    ghPill("Nur in Claude", "warn");
+    return;
+  }
+  Promise.resolve(use("mcp")).then((ns) => {
+    mcp = ns;
+    if (!mcp) { ghPill("Nur in Claude", "warn"); return; }
+    ghPill("GitHub bereit", "");
+    if (!$("videos").hidden) startWatch();
+  }).catch(() => ghPill("Nur in Claude", "warn"));
+  Promise.resolve(use("db")).then((ns) => {
+    db = ns;
+    if (!db) return;
+    db.doc("config/app").onSnapshot((snap) => {
+      const data = snap.exists ? snap.data() : null;
+      const url = data && typeof data.url === "string" ? normalize(data.url) : "";
+      if (url && url !== appUrl) { localSet(url); showApp(url); }
+    }, () => { /* Ablage nicht erreichbar – lokale Kopie bleibt */ });
+  }).catch(() => { db = null; });
+})();
+</script>
+</body>
+</html>
