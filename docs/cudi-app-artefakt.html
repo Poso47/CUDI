@@ -78,7 +78,13 @@
   .moods button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
   .go { width: 100%; padding: 16px; border: 0; border-radius: 14px; background: var(--accent); color: #04141a;
         font: 800 17px var(--display); cursor: pointer; }
-  .go:disabled { opacity: .5; cursor: default; }
+  .go:disabled, .go[aria-disabled="true"] { opacity: .5; cursor: default; }
+  a.go { display: block; text-align: center; text-decoration: none; }
+  details.fallback { font-size: 14px; color: var(--muted); }
+  details.fallback summary { cursor: pointer; font-weight: 700; }
+  details.fallback pre { margin: 8px 0; white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.45 var(--body);
+                          color: var(--paper); background: var(--ink); border: 1px solid var(--line); border-radius: 10px;
+                          padding: 10px; max-height: 220px; overflow: auto; }
   .note { font-size: 14px; border-radius: 12px; padding: 10px 12px; margin: 0; border: 1px solid var(--line); }
   .note.ok { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, var(--line)); }
   .note.warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, var(--line)); }
@@ -135,7 +141,7 @@
         <p class="tag">Videos für TikTok &amp; Shorts – direkt von hier</p>
       </div>
       <div class="pills">
-        <span class="pill" id="ghState">GitHub …</span>
+        <span class="pill ok">☁️ Cloud</span>
       </div>
     </div>
   </header>
@@ -189,8 +195,14 @@
           <label class="check" for="strict"><input type="checkbox" id="strict"> Streng: nur mehrfach bestätigte Fakten</label>
           <label class="check" for="onlyScript"><input type="checkbox" id="onlyScript"> Erst nur Skript und Prüfbericht</label>
         </div>
-        <button class="go" id="rankingGo" type="submit">Ranking-Video erstellen</button>
+        <a class="go" id="rankingGo" href="#" target="_blank" rel="noopener">Ranking-Video erstellen</a>
         <p class="note" id="rankingMsg" hidden role="status"></p>
+        <p class="hint">GitHub öffnet den fertig ausgefüllten Auftrag – dort nur noch <b>„Create“</b> tippen. Das Ergebnis kommt in denselben Auftrag.</p>
+        <details class="fallback"><summary>Auftrag auf GitHub leer?</summary>
+          <p>Dann diesen Text kopieren, auf GitHub <a href="https://github.com/Poso47/CUDI/issues/new" target="_blank" rel="noopener">neues Issue</a> öffnen, einfügen und absenden (Titel beliebig):</p>
+          <pre id="rankingText"></pre>
+          <button class="link-btn" type="button" data-copy="rankingText">Text kopieren</button>
+        </details>
       </div>
     </form>
   </section>
@@ -241,8 +253,14 @@
         <div class="checks">
           <label class="check" for="soften"><input type="checkbox" id="soften" checked> Heikles entschärfen (umschreiben statt weglassen)</label>
         </div>
-        <button class="go" id="storyGo" type="submit">Story-Video erstellen</button>
+        <a class="go" id="storyGo" href="#" target="_blank" rel="noopener">Story-Video erstellen</a>
         <p class="note" id="storyMsg" hidden role="status"></p>
+        <p class="hint">GitHub öffnet den fertig ausgefüllten Auftrag – dort nur noch <b>„Create“</b> tippen. Das Ergebnis kommt in denselben Auftrag.</p>
+        <details class="fallback"><summary>Auftrag auf GitHub leer?</summary>
+          <p>Dann diesen Text kopieren, auf GitHub <a href="https://github.com/Poso47/CUDI/issues/new" target="_blank" rel="noopener">neues Issue</a> öffnen, einfügen und absenden (Titel beliebig):</p>
+          <pre id="storyText"></pre>
+          <button class="link-btn" type="button" data-copy="storyText">Text kopieren</button>
+        </details>
         <p class="hint">Deutsche Videos aus englischen Storys brauchen eine Übersetzung (kostenloser Gemini- oder DeepL-Schlüssel als Secret). Drama-Storys gibt es direkt auf Deutsch.</p>
       </div>
     </form>
@@ -250,13 +268,16 @@
 
   <!-- Videos -->
   <section class="card" id="videos" role="tabpanel" aria-labelledby="tab-videos" hidden>
-    <div class="toolbar">
-      <h2>Meine Videos</h2>
-      <button class="link-btn" id="refreshBtn" type="button">Aktualisieren</button>
+    <h2>Meine Videos</h2>
+    <p class="lead">Jeder Auftrag ist ein Eintrag auf GitHub: <b>offen</b> = läuft gerade (oder ist fehlgeschlagen), <b>geschlossen</b> = fertig.
+      Im Auftrag stehen die Download-Links, die Texte für YouTube und TikTok zum Kopieren und der Prüfbericht.</p>
+    <a class="bigopen" href="https://github.com/Poso47/CUDI/issues?q=is%3Aissue+label%3Acudi" target="_blank" rel="noopener">Meine Aufträge</a>
+    <div class="pair">
+      <a href="https://github.com/Poso47/CUDI/releases/tag/cudi-videos" target="_blank" rel="noopener">Alle Videos</a>
+      <a href="https://github.com/Poso47/CUDI/actions" target="_blank" rel="noopener">Fortschritt</a>
     </div>
-    <p class="note" id="videosMsg" hidden role="status"></p>
-    <ul class="runs" id="runList"></ul>
-    <p class="hint" id="runsHint">Fertige Videos kommen als ZIP (Videos, Untertitel, Texte zum Hochladen, Prüfbericht). Sie bleiben 14 Tage abrufbar.</p>
+    <p class="hint">„Alle Videos“ gibt es ab dem ersten fertigen Video. Tipp: In der GitHub-App die Benachrichtigungen einschalten –
+      dann meldet sich dein Handy, sobald ein Video fertig ist.</p>
   </section>
 
   <!-- Volle App -->
@@ -291,14 +312,13 @@
     <p class="hint">Zu Hause geht auch die Adresse, die <code>CUDI_VIDEO.bat</code> am PC anzeigt.</p>
   </section>
 
-  <footer>Gerendert wird in der Cloud. Diese Seite startet Aufträge über deine GitHub-Verbindung in Claude.</footer>
+  <footer>Gerendert wird kostenlos in der Cloud (GitHub). Gestartet wird über einen vorausgefüllten Auftrag – ohne Verbindung in Claude.</footer>
 </main>
 <script>
 (function () {
-  const OWNER = "Poso47", REPO = "CUDI", BRANCH = "main", GH = "github";
-  const WORKFLOWS = { ranking: "video.yml", story: "story.yml" };
+  const REPO = "https://github.com/Poso47/CUDI";
   const $ = (id) => document.getElementById(id);
-  let mcp = null, db = null, unwatch = null, appUrl = "", mood = "";
+  let db = null, appUrl = "", mood = "";
 
   /* ---------- Bereiche (Tabs, mit #name in der Adresse) ---------- */
   const TABS = ["ranking", "story", "videos", "app"];
@@ -308,7 +328,6 @@
       $(t).hidden = t !== name;
       $("tab-" + t).setAttribute("aria-selected", String(t === name));
     });
-    if (name === "videos") startWatch();
   }
   TABS.forEach((t) => $("tab-" + t).addEventListener("click", () => {
     showTab(t);
@@ -316,318 +335,96 @@
   }));
   window.addEventListener("hashchange", () => showTab(location.hash.slice(1)));
 
-  /* ---------- Meldungen ---------- */
   function note(id, text, kind) {
     const el = $(id);
     el.textContent = text;
     el.className = "note " + (kind || "");
     el.hidden = !text;
   }
-  function ghPill(text, kind) { const p = $("ghState"); p.textContent = text; p.className = "pill " + (kind || ""); }
 
-  // Jede Fehlerart hat ihre eigene Lösung (keine Sammelmeldung)
-  function explain(err) {
-    const code = err && err.code;
-    if (code === "server_not_connected" || code === "server_not_found" || code === "selection_required")
-      return ["GitHub ist in Claude nicht verbunden. In claude.ai unter Einstellungen → Konnektoren GitHub hinzufügen.", "bad"];
-    if (code === "needs_reauth") return ["Die GitHub-Verbindung ist abgelaufen. In claude.ai unter Einstellungen → Konnektoren GitHub neu verbinden.", "bad"];
-    if (code === "not_in_manifest" || code === "approval_required" || code === "consent_required")
-      return ["Diese Seite braucht deine Erlaubnis für GitHub. Tippe noch einmal und erlaube den Zugriff, wenn Claude fragt.", "warn"];
-    if (code === "blocked_by_policy") return ["GitHub ist für dein Konto durch eine Richtlinie gesperrt.", "bad"];
-    if (code === "server_unavailable" || code === "rate_limited") return ["GitHub antwortet gerade nicht. Bitte in einer Minute noch einmal versuchen.", "warn"];
-    if (code === "not_granted" || code === "capability_disabled" || code === "capability_removed")
-      return ["Aufträge lassen sich nur starten, wenn diese Seite in Claude (App oder claude.ai) geöffnet ist.", "warn"];
-    if (code === "tool_error") {
-      const msg = String(err.message || "");
-      if (/404|not found|Not Found/i.test(msg))
-        return ["Der Cloud-Ablauf ist auf GitHub noch nicht da. Pull Request #3 übernehmen (mergen), dann geht es.", "bad"];
-      if (/422|unexpected inputs|Unexpected/i.test(msg))
-        return ["GitHub hat die Eingaben abgelehnt: " + msg.slice(0, 160), "bad"];
-      return ["GitHub meldet einen Fehler: " + msg.slice(0, 160), "bad"];
-    }
-    return ["Das hat nicht geklappt" + (err && err.message ? ": " + String(err.message).slice(0, 160) : ".") + " Bitte noch einmal versuchen.", "warn"];
+  /* ---------- Auftrag: vorausgefülltes GitHub-Issue ----------
+     Der Ablauf „CUDI Auftrag“ liest die Zeilen „Feld: Wert“ unter der Kennung cudi-auftrag,
+     startet das Video und meldet das Ergebnis im selben Issue. */
+  const FOOT = "\n\n👉 Jetzt nur noch auf „Create“ (bzw. „Submit new issue“) tippen. CUDI startet automatisch " +
+               "und meldet sich hier, sobald das Video fertig ist – meist nach 10 bis 20 Minuten.";
+  const yn = (b) => (b ? "ja" : "nein");
+  function issueUrl(order) {
+    return REPO + "/issues/new?labels=cudi&title=" + encodeURIComponent(order.title) + "&body=" + encodeURIComponent(order.body);
   }
 
-  async function needMcp(msgId) {
-    if (mcp) return true;
-    note(msgId, "Aufträge lassen sich nur starten, wenn diese Seite in Claude (App oder claude.ai) geöffnet ist.", "warn");
-    return false;
-  }
-
-  async function startWorkflow(kind, inputs, msgId, button) {
-    if (!(await needMcp(msgId))) return;
-    button.disabled = true;
-    note(msgId, "Wird gestartet …", "");
-    try {
-      await mcp.callTool(GH, "actions_run_trigger", {
-        method: "run_workflow", owner: OWNER, repo: REPO, workflow_id: WORKFLOWS[kind], ref: BRANCH, inputs: inputs,
-      });
-      note(msgId, "Gestartet! Das Video erscheint unter „Videos“ – meist nach 10 bis 20 Minuten fertig.", "ok");
-      ghPill("GitHub verbunden", "ok");
-      try { await mcp.invalidate(GH, "actions_list"); } catch (e) { /* nichts zwischengespeichert */ }
-    } catch (err) {
-      const [text, kind2] = explain(err);
-      note(msgId, text, kind2);
-    } finally {
-      button.disabled = false;
-    }
-  }
-
-  /* ---------- Ranking ---------- */
-  $("rankingForm").addEventListener("submit", (ev) => {
-    ev.preventDefault();
+  function rankingOrder() {
     const langs = [["de", $("langDe").checked], ["en", $("langEn").checked]].filter((x) => x[1]).map((x) => x[0]);
-    if (!langs.length) { note("rankingMsg", "Mindestens eine Sprache wählen.", "warn"); return; }
+    if (!langs.length) return { error: "Mindestens eine Sprache wählen." };
     const count = Math.round(Number($("count").value));
-    if (!(count >= 3 && count <= 20)) { note("rankingMsg", "Plätze: bitte eine Zahl von 3 bis 20.", "warn"); return; }
-    const topic = $("topic").value.trim();
-    startWorkflow("ranking", { preset: topic || $("preset").value, langs: langs.join(","), count: String(count),
-                               streng: $("strict").checked, nur_skript: $("onlyScript").checked },
-                  "rankingMsg", $("rankingGo"));
-  });
+    if (!(count >= 3 && count <= 20)) return { error: "Plätze: bitte eine Zahl von 3 bis 20." };
+    const topic = $("topic").value.trim().replace(/\s+/g, " ").slice(0, 120);
+    const sel = $("preset");
+    const label = topic || sel.options[sel.selectedIndex].text;
+    const body = ["<!-- cudi-auftrag -->", "Art: Ranking", "Vorlage: " + sel.value, "Thema: " + topic,
+                  "Sprachen: " + langs.join(","), "Plätze: " + count, "Streng: " + yn($("strict").checked),
+                  "Nur Skript: " + yn($("onlyScript").checked)].join("\n") + FOOT;
+    return { title: ("CUDI: Ranking – " + label).slice(0, 120), body: body };
+  }
 
-  /* ---------- Story ---------- */
+  function storyOrder() {
+    const wish = $("wish").value.trim().replace(/\s+/g, " ").slice(0, 300);
+    if (!wish && !mood) return { error: "Stimmung antippen oder kurz beschreiben, was für eine Story es sein soll." };
+    const btn = mood ? $("moods").querySelector('[data-mood="' + mood + '"]') : null;
+    const label = [btn ? btn.textContent.trim() : "", wish].filter(Boolean).join(" – ");
+    const body = ["<!-- cudi-auftrag -->", "Art: Story", "Stimmung: " + (mood || "auto"), "Wunsch: " + wish,
+                  "Sprache: " + $("storyLang").value, "Länge: " + $("storyLength").value,
+                  "Bilder: " + $("storyVisuals").value, "Entschärfen: " + yn($("soften").checked)].join("\n") + FOOT;
+    return { title: ("CUDI: Story – " + label).slice(0, 120), body: body };
+  }
+
+  // Der Knopf ist ein echter Link (öffnet GitHub); er wird bei jeder Eingabe neu zusammengesetzt.
+  function bind(formId, linkId, msgId, textId, build) {
+    const link = $(linkId);
+    function update() {
+      const order = build();
+      if (order.error) {
+        link.removeAttribute("href");
+        link.setAttribute("aria-disabled", "true");
+        $(textId).textContent = "";
+      } else {
+        link.href = issueUrl(order);
+        link.removeAttribute("aria-disabled");
+        $(textId).textContent = order.body;
+        if ($(msgId).classList.contains("warn")) note(msgId, "", "");
+      }
+      return order;
+    }
+    $(formId).addEventListener("input", update);
+    $(formId).addEventListener("change", update);
+    $(formId).addEventListener("submit", (ev) => { ev.preventDefault(); link.focus(); });
+    link.addEventListener("click", (ev) => {
+      const order = update();
+      if (order.error) { ev.preventDefault(); note(msgId, order.error, "warn"); return; }
+      note(msgId, "GitHub öffnet den Auftrag – dort „Create“ tippen. Das Ergebnis erscheint im Auftrag und unter „Videos“.", "ok");
+    });
+    update();
+    return update;
+  }
+  bind("rankingForm", "rankingGo", "rankingMsg", "rankingText", rankingOrder);
+  const updateStory = bind("storyForm", "storyGo", "storyMsg", "storyText", storyOrder);
+
   $("moods").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
     mood = mood === b.dataset.mood ? "" : b.dataset.mood;
     $("moods").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.mood === mood)));
+    updateStory();
   }));
-  $("storyForm").addEventListener("submit", (ev) => {
-    ev.preventDefault();
-    const wish = $("wish").value.trim();
-    if (!wish && !mood) { note("storyMsg", "Stimmung antippen oder kurz beschreiben, was für eine Story es sein soll.", "warn"); return; }
-    startWorkflow("story", {
-      wunsch: wish.slice(0, 300), stimmung: mood || "auto", sprache: $("storyLang").value,
-      laenge: $("storyLength").value, bilder: $("storyVisuals").value, entschaerfen: $("soften").checked,
-    }, "storyMsg", $("storyGo"));
-  });
 
-  /* ---------- Videos (Läufe) ---------- */
-  function ago(iso) {
-    const s = (Date.now() - new Date(iso).getTime()) / 1000;
-    if (!isFinite(s)) return "";
-    if (s < 90) return "gerade eben";
-    if (s < 3600) return "vor " + Math.round(s / 60) + " Min.";
-    if (s < 86400) return "vor " + Math.round(s / 3600) + " Std.";
-    return "vor " + Math.round(s / 86400) + " Tag(en)";
-  }
-  function runState(r) {
-    if (r.status === "completed") {
-      if (r.conclusion === "success") return ["fertig", "ok"];
-      if (r.conclusion === "cancelled") return ["abgebrochen", ""];
-      return ["Fehler", "bad"];
+  // Notfall: Auftragstext kopieren (falls GitHub das Formular leer öffnet)
+  document.querySelectorAll("[data-copy]").forEach((btn) => btn.addEventListener("click", async () => {
+    const pre = $(btn.dataset.copy);
+    try { await navigator.clipboard.writeText(pre.textContent); btn.textContent = "Kopiert ✓"; }
+    catch (e) {
+      const range = document.createRange(); range.selectNodeContents(pre);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      btn.textContent = "Markiert – jetzt kopieren";
     }
-    if (r.status === "in_progress") return ["läuft", "run"];
-    return ["wartet", "warn"];
-  }
-  function runsFrom(payload) {
-    const list = (payload && (payload.workflow_runs || payload.runs)) || (Array.isArray(payload) ? payload : []);
-    return list.filter((r) => /(video|story)\.yml$/.test(r.path || "") || /^(Ranking|Story):/.test(r.display_title || ""));
-  }
-  function renderRuns(runs) {
-    const ul = $("runList");
-    ul.textContent = "";
-    if (!runs.length) {
-      const li = document.createElement("li");
-      li.innerHTML = '<span class="meta">Noch keine Videos. Starte eins unter „Ranking“ oder „Story“.</span>';
-      ul.appendChild(li);
-      return;
-    }
-    runs.slice(0, 12).forEach((r) => {
-      const [label, kind] = runState(r);
-      const li = document.createElement("li");
-      const top = document.createElement("div"); top.className = "top";
-      const title = document.createElement("b"); title.textContent = r.display_title || r.name || "Video";
-      const pill = document.createElement("span"); pill.className = "pill " + kind; pill.textContent = label;
-      top.append(title, pill);
-      const meta = document.createElement("div"); meta.className = "meta";
-      meta.textContent = "#" + (r.run_number || "") + " · " + ago(r.created_at);
-      const actions = document.createElement("div"); actions.className = "actions";
-      const panel = document.createElement("div"); panel.className = "result"; panel.hidden = true;
-      if (r.status === "completed" && r.conclusion === "success") {
-        const dl = document.createElement("button"); dl.type = "button"; dl.className = "dl"; dl.textContent = "Download vorbereiten";
-        dl.addEventListener("click", () => prepareDownload(r, actions, dl));
-        actions.appendChild(dl);
-      }
-      if (r.status === "completed") {
-        const show = document.createElement("button"); show.type = "button";
-        show.textContent = r.conclusion === "success" ? "Ergebnis ansehen" : "Was ist schiefgelaufen?";
-        show.addEventListener("click", () => showResult(r, panel, show));
-        actions.appendChild(show);
-      }
-      const view = document.createElement("a"); view.href = r.html_url || ("https://github.com/" + OWNER + "/" + REPO + "/actions");
-      view.textContent = "Auf GitHub ansehen";
-      actions.appendChild(view);
-      li.append(top, meta, actions, panel);
-      ul.appendChild(li);
-    });
-  }
-  function findUrl(obj) {
-    if (!obj) return "";
-    if (typeof obj === "string") return /^https:\/\//.test(obj) ? obj : "";
-    for (const key of ["download_url", "url", "archive_download_url", "location", "href"]) {
-      if (typeof obj[key] === "string" && /^https:\/\//.test(obj[key])) return obj[key];
-    }
-    for (const value of Object.values(obj)) {
-      if (value && typeof value === "object") { const u = findUrl(value); if (u) return u; }
-    }
-    return "";
-  }
-  async function prepareDownload(run, actions, button) {
-    button.disabled = true; button.textContent = "Wird vorbereitet …";
-    try {
-      const list = await mcp.callTool(GH, "actions_list", {
-        method: "list_workflow_run_artifacts", owner: OWNER, repo: REPO, resource_id: String(run.id) });
-      const arts = ((list.payload && list.payload.artifacts) || []).filter((a) => !a.expired);
-      if (!arts.length) { button.textContent = "Kein Ergebnis mehr (abgelaufen)"; return; }
-      const art = arts[0];
-      const got = await mcp.callTool(GH, "actions_get", {
-        method: "download_workflow_run_artifact", owner: OWNER, repo: REPO, resource_id: String(art.id) });
-      const url = findUrl(got.payload) || findUrl(got.content && got.content.map((c) => c.text).join(" ").match(/https:\/\/\S+/));
-      const link = document.createElement("a");
-      link.className = "dl";
-      if (url) {
-        link.href = url;
-        link.textContent = "ZIP herunterladen (" + Math.max(1, Math.round((art.size_in_bytes || 0) / 1048576)) + " MB)";
-      } else {
-        link.href = run.html_url;
-        link.textContent = "Auf GitHub herunterladen";
-      }
-      button.replaceWith(link);
-    } catch (err) {
-      const [text] = explain(err);
-      button.textContent = "Nochmal versuchen";
-      button.disabled = false;
-      note("videosMsg", text, "warn");
-    }
-  }
-  /* ---------- Ergebnis eines Laufs (Zweig cudi-ergebnisse) ---------- */
-  function parseResult(res) {
-    const tryJson = (t) => { try { const o = JSON.parse(t); return o && typeof o === "object" ? o : null; } catch (e) { return null; } };
-    if (res && res.payload && typeof res.payload === "object" && res.payload.run_id) return res.payload;
-    for (const block of (res && res.content) || []) {
-      const text = (block.resource && block.resource.text) || block.text || "";
-      const found = tryJson(text);
-      if (found && found.run_id) return found;
-      if (found && typeof found.content === "string") {          // GitHub-API-Form: Base64-Inhalt
-        try {
-          const bytes = Uint8Array.from(atob(found.content.replace(/\s/g, "")), (c) => c.charCodeAt(0));
-          const decoded = tryJson(new TextDecoder().decode(bytes));
-          if (decoded) return decoded;
-        } catch (e) { /* weiter */ }
-      }
-    }
-    return null;
-  }
-  function esc(t) { return String(t || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]); }
-  function markdownLite(md) {
-    const lines = esc(md).split("\n");
-    let html = "", inList = false;
-    for (let line of lines) {
-      line = line.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/_(.+?)_/g, "<i>$1</i>")
-                 .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2">$1</a>');
-      const bullet = /^\s*[-*] (.*)/.exec(line) || /^\s*\d+\. (.*)/.exec(line);
-      if (bullet) { if (!inList) { html += "<ul>"; inList = true; } html += "<li>" + bullet[1] + "</li>"; continue; }
-      if (inList) { html += "</ul>"; inList = false; }
-      const head = /^#{1,4} (.*)/.exec(line);
-      if (head) html += "<h4>" + head[1] + "</h4>";
-      else if (line.trim()) html += "<p>" + line + "</p>";
-    }
-    return html + (inList ? "</ul>" : "");
-  }
-  function textBox(label, text) {
-    const box = document.createElement("div"); box.className = "textbox";
-    const head = document.createElement("div"); head.className = "toolbar";
-    const b = document.createElement("b"); b.textContent = label;
-    const copy = document.createElement("button"); copy.type = "button"; copy.className = "link-btn"; copy.textContent = "Kopieren";
-    const pre = document.createElement("pre"); pre.textContent = text;
-    copy.addEventListener("click", async () => {
-      try { await navigator.clipboard.writeText(text); copy.textContent = "Kopiert ✓"; }
-      catch (e) {                                    // ohne Zwischenablage: Text markieren
-        const range = document.createRange(); range.selectNodeContents(pre);
-        const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
-        copy.textContent = "Markiert – jetzt kopieren";
-      }
-      setTimeout(() => { copy.textContent = "Kopieren"; }, 2500);
-    });
-    head.append(b, copy);
-    box.append(head, pre);
-    return box;
-  }
-  async function showResult(run, panel, button) {
-    if (!panel.hidden) { panel.hidden = true; return; }
-    if (!mcp) { note("videosMsg", "Ergebnisse lassen sich nur in Claude laden.", "warn"); return; }
-    button.disabled = true;
-    panel.hidden = false;
-    panel.textContent = "Wird geladen …";
-    try {
-      const res = await mcp.callTool(GH, "get_file_contents", {
-        owner: OWNER, repo: REPO, path: "runs/" + run.id + ".json", ref: "refs/heads/cudi-ergebnisse" });
-      const data = parseResult(res);
-      panel.textContent = "";
-      if (!data) { panel.textContent = "Für diesen Lauf gibt es keine Zusammenfassung (älterer Lauf). „Auf GitHub ansehen“ zeigt alles."; return; }
-      if (!data.ok) {
-        const h = document.createElement("h3"); h.textContent = "Fehlermeldung";
-        const box = document.createElement("div"); box.className = "errbox"; box.textContent = data.error || "Unbekannter Fehler";
-        panel.append(h, box);
-        return;
-      }
-      const h = document.createElement("h3"); h.textContent = data.title || run.display_title || "Ergebnis";
-      panel.appendChild(h);
-      (data.videos || []).forEach((v) => {
-        const line = document.createElement("p"); line.className = "hint";
-        line.textContent = (v.key || "").toUpperCase() + " · " + (v.duration ? v.duration + " s" : "") + " · " + (v.file || "");
-        panel.appendChild(line);
-        if (v.youtube) panel.appendChild(textBox("YouTube-Text " + (v.key || ""), v.youtube));
-        if (v.tiktok) panel.appendChild(textBox("TikTok-Text " + (v.key || ""), v.tiktok));
-      });
-      if ((data.warnings || []).length) {
-        const w = document.createElement("div"); w.className = "note warn";
-        w.textContent = "Vor dem Hochladen prüfen: " + data.warnings.slice(0, 4).join(" · ");
-        panel.appendChild(w);
-      }
-      if (data.review) {
-        const rh = document.createElement("h3"); rh.textContent = "Prüfbericht";
-        const rv = document.createElement("div"); rv.className = "review"; rv.innerHTML = markdownLite(data.review);
-        panel.append(rh, rv);
-      }
-    } catch (err) {
-      const msg = String((err && err.message) || "");
-      panel.textContent = /404|not found|No commit found/i.test(msg)
-        ? "Für diesen Lauf gibt es keine Zusammenfassung (älterer Lauf). „Auf GitHub ansehen“ zeigt alles."
-        : explain(err)[0];
-    } finally {
-      button.disabled = false;
-    }
-  }
-
-  function startWatch() {
-    if (unwatch || !mcp) {
-      if (!mcp) note("videosMsg", "Die Liste erscheint, wenn diese Seite in Claude geöffnet ist und GitHub verbunden ist.", "warn");
-      return;
-    }
-    unwatch = mcp.watchTool(GH, "actions_list", {
-      method: "list_workflow_runs", owner: OWNER, repo: REPO, perPage: 30,
-      workflow_runs_filter: { event: "workflow_dispatch" },
-    }, (ev) => {
-      if (ev.type === "data") {
-        note("videosMsg", "", "");
-        ghPill("GitHub verbunden", "ok");
-        renderRuns(runsFrom(ev.result.payload));
-      } else {
-        const [text, kind] = explain(ev.error);
-        if (["server_not_connected", "needs_reauth", "blocked_by_policy", "not_in_manifest", "approval_required"].includes(ev.error.code)) {
-          $("runList").textContent = "";
-          ghPill("GitHub nicht verbunden", "bad");
-        }
-        note("videosMsg", text, kind);
-      }
-    }, { refetchInterval: 30000, cache: { staleTime: 0, gcTime: 300000 } });
-  }
-  $("refreshBtn").addEventListener("click", async () => {
-    if (!mcp) { startWatch(); return; }
-    try { await mcp.invalidate(GH, "actions_list"); } catch (e) { /* weiter */ }
-    if (!unwatch) startWatch();
-  });
+    setTimeout(() => { btn.textContent = "Text kopieren"; }, 2500);
+  }));
 
   /* ---------- Volle App: Adresse merken ---------- */
   const LOCAL_KEY = "cudiAppUrl";
@@ -670,28 +467,20 @@
   /* ---------- Start ---------- */
   showApp(localGet());
   showTab(location.hash.slice(1) || "ranking");
-  ghPill("GitHub …", "");
 
+  // Gemerkte App-Adresse geräteübergreifend (nur in Claude verfügbar; ohne geht es lokal weiter)
   const use = window.claude && window.claude.use;
-  if (typeof use !== "function") {
-    ghPill("Nur in Claude", "warn");
-    return;
+  if (typeof use === "function") {
+    Promise.resolve(use("db")).then((ns) => {
+      db = ns;
+      if (!db) return;
+      db.doc("config/app").onSnapshot((snap) => {
+        const data = snap.exists ? snap.data() : null;
+        const url = data && typeof data.url === "string" ? normalize(data.url) : "";
+        if (url && url !== appUrl) { localSet(url); showApp(url); }
+      }, () => { /* Ablage nicht erreichbar – lokale Kopie bleibt */ });
+    }).catch(() => { db = null; });
   }
-  Promise.resolve(use("mcp")).then((ns) => {
-    mcp = ns;
-    if (!mcp) { ghPill("Nur in Claude", "warn"); return; }
-    ghPill("GitHub bereit", "");
-    if (!$("videos").hidden) startWatch();
-  }).catch(() => ghPill("Nur in Claude", "warn"));
-  Promise.resolve(use("db")).then((ns) => {
-    db = ns;
-    if (!db) return;
-    db.doc("config/app").onSnapshot((snap) => {
-      const data = snap.exists ? snap.data() : null;
-      const url = data && typeof data.url === "string" ? normalize(data.url) : "";
-      if (url && url !== appUrl) { localSet(url); showApp(url); }
-    }, () => { /* Ablage nicht erreichbar – lokale Kopie bleibt */ });
-  }).catch(() => { db = null; });
 })();
 </script>
 </body>

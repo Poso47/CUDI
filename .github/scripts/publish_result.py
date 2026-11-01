@@ -45,7 +45,7 @@ def summary(output: Path | None, log: Path, kind: str) -> dict:
         for key, files in result.get("videos", {}).items():
             meta = files.get("metadata", {})
             data["videos"].append({
-                "key": key, "file": files.get("video", ""), "duration": files.get("duration"),
+                "key": key, "file": files.get("video", ""), "cover": files.get("cover", ""), "duration": files.get("duration"),
                 "title": meta.get("title", ""),
                 "youtube": read(output / files["description_file"]) if files.get("description_file") else "",
                 "tiktok": read(output / files["caption_file"]) if files.get("caption_file") else "",

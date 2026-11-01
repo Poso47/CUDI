@@ -1,7 +1,7 @@
 # Reddit-Story-Video in der Cloud erzeugen – startbar vom Handy (CUDI-App-Seite in Claude oder GitHub-App).
 name: CUDI Story
 
-run-name: "Story: ${{ inputs.wunsch || inputs.stimmung }} (${{ inputs.sprache }}, ${{ inputs.laenge }})"
+run-name: "Story: ${{ inputs.wunsch || inputs.stimmung }} (${{ inputs.sprache }}, ${{ inputs.laenge }})${{ inputs.issue && format(' · Auftrag #{0}', inputs.issue) || '' }}"
 
 on:
   workflow_dispatch:
@@ -34,9 +34,14 @@ on:
         description: "Heikles entschärfen (umschreiben statt weglassen)"
         type: boolean
         default: true
+      issue:
+        description: "Auftrag (Issue-Nummer) – das Ergebnis wird dort gemeldet (setzt die CUDI-App-Seite)"
+        required: false
+        default: ""
 
 permissions:
-  contents: write          # Ergebnis-Zusammenfassung im Zweig cudi-ergebnisse (für die CUDI-App-Seite)
+  contents: write          # Ergebnis-Zusammenfassung (Zweig cudi-ergebnisse) und Videos im Release „CUDI-Videos“
+  issues: write            # Ergebnis im Auftrag melden
 
 jobs:
   render:
@@ -94,3 +99,9 @@ jobs:
             video_output/**/review.md
           if-no-files-found: ignore
           retention-days: 14
+      - name: Ergebnis im Auftrag melden
+        if: always() && inputs.issue != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ inputs.issue }}
+        run: python .github/scripts/report_issue.py video_output cudi.log story "$ISSUE"

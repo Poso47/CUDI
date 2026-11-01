@@ -1,7 +1,7 @@
 # Ranking-Video in der Cloud erzeugen – startbar vom Handy (CUDI-App-Seite in Claude oder GitHub-App).
 name: CUDI Video
 
-run-name: "Ranking: ${{ inputs.preset }} (${{ inputs.langs }}, Top ${{ inputs.count }}${{ inputs.streng && ', streng' || '' }}${{ inputs.nur_skript && ', nur Skript' || '' }})"
+run-name: "Ranking: ${{ inputs.preset }} (${{ inputs.langs }}, Top ${{ inputs.count }}${{ inputs.streng && ', streng' || '' }}${{ inputs.nur_skript && ', nur Skript' || '' }})${{ inputs.issue && format(' · Auftrag #{0}', inputs.issue) || '' }}"
 
 on:
   workflow_dispatch:
@@ -26,9 +26,14 @@ on:
         description: "Erst nur Skript und Prüfbericht (kein Video)"
         type: boolean
         default: false
+      issue:
+        description: "Auftrag (Issue-Nummer) – das Ergebnis wird dort gemeldet (setzt die CUDI-App-Seite)"
+        required: false
+        default: ""
 
 permissions:
-  contents: write          # Ergebnis-Zusammenfassung im Zweig cudi-ergebnisse (für die CUDI-App-Seite)
+  contents: write          # Ergebnis-Zusammenfassung (Zweig cudi-ergebnisse) und Videos im Release „CUDI-Videos“
+  issues: write            # Ergebnis im Auftrag melden
 
 jobs:
   render:
@@ -80,3 +85,9 @@ jobs:
             video_output/**/review.md
           if-no-files-found: ignore
           retention-days: 14
+      - name: Ergebnis im Auftrag melden
+        if: always() && inputs.issue != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ inputs.issue }}
+        run: python .github/scripts/report_issue.py video_output cudi.log ranking "$ISSUE"

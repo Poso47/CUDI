@@ -117,14 +117,23 @@ Fragt die Windows-Firewall beim ersten Start nach Zugriff, „Zulassen“ (priva
 4. Nach 3–5 Minuten läuft die App unter `https://<dein-name>-cudi-video.hf.space` (der Lauf zeigt die Adresse an).
    Der Space ist standardmäßig privat: am Handy einmal bei Hugging Face anmelden. Variable
    `HF_SPACE_PRIVATE=false` macht ihn öffentlich (die App bleibt durch den Zugangscode geschützt).
-5. Die Adresse in die CUDI-Startseite (Artefakt in der Claude-App) eintragen oder zum Startbildschirm hinzufügen.
+5. Die Adresse in der CUDI-App-Seite (Claude) unter „Volle App“ eintragen oder zum Startbildschirm hinzufügen.
 
 Hinweis: Der kostenlose Space hat 2 CPU-Kerne (ein Video dauert dann einige Minuten), schläft nach
 Inaktivität ein und speichert Videos nicht dauerhaft – fertige Videos also direkt herunterladen.
 
-**C) Per GitHub Actions:** In der GitHub-App → *Actions* → „CUDI Video“ → *Run workflow*, Vorlage wählen.
-Nach ein paar Minuten liegt das Ergebnis als ZIP unter dem Lauf (*Artifacts*). (Der Workflow muss
-dafür im Haupt-Branch liegen.)
+**C) Mit der CUDI-App-Seite in Claude (am bequemsten, ohne Einrichtung):** Die Seite
+(Quelltext `docs/cudi-app-artefakt.html`) hat alle Optionen für Rankings und Storys. Der Knopf
+„… erstellen“ öffnet auf GitHub einen fertig ausgefüllten Auftrag (Issue) – dort nur noch „Create“
+tippen. Der Ablauf „CUDI Auftrag“ prüft den Auftrag (nur der Besitzer des Repositorys darf Aufträge
+geben), startet „CUDI Video“ bzw. „CUDI Story“ und meldet das Ergebnis im selben Issue:
+Download-Links (die Videos liegen im Release „CUDI-Videos“), TikTok- und YouTube-Text zum Kopieren,
+Hinweise und Prüfbericht. Offene Aufträge laufen noch (oder sind fehlgeschlagen), geschlossene sind
+fertig. Es wird keine GitHub-Verbindung in Claude gebraucht, nur der normale GitHub-Login am Handy.
+Die Abläufe müssen dafür im Haupt-Branch (`main`) liegen.
+
+**D) Direkt per GitHub Actions:** In der GitHub-App → *Actions* → „CUDI Video“ oder „CUDI Story“ →
+*Run workflow*. Nach ein paar Minuten liegt das Ergebnis als ZIP unter dem Lauf (*Artifacts*).
 
 ## Einstellungen (Umgebungsvariablen)
 
