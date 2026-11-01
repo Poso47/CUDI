@@ -157,8 +157,9 @@ durch die Anzahl der Plätze ersetzt.
 
 Wichtige Felder: `class` / `extra_classes`, `property` (z. B. `P2048` Höhe), `order`,
 `where` (z. B. `{"P30": "Q46"}` = Europa), `require_any`, `exclude_classes`, `exclude_props`,
-`min_value`, `extras` (Zusatzinfos), `compare` (Vergleichsobjekt), `image_prop` (`P41` = Flaggen),
-`icon`.
+`exclude_values` (z. B. `{"P30": ["Q51"]}` = nichts in der Antarktis), `min_value`, `extras`
+(Zusatzinfos), `compare` (Vergleichsobjekt), `image_prop` (`P41` = Flaggen), `icon`, `hashtags`
+(je Sprache: `{de: [...], en: [...]}`).
 
 Eigene Hintergrundmusik: MP3 in `video_assets/music/` legen (nur lizenzfreie Musik). Tipp für
 TikTok: ohne Musik exportieren und in der App einen aktuellen Sound hinzufügen – das hilft der Reichweite.
