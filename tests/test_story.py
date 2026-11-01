@@ -253,3 +253,10 @@ def test_llm_editor_keeps_originals_where_details_were_invented(monkeypatch):
     assert sk["editor"] == "KI-Lektorat" and sk["title"] == "Jemand flüsterte meinen Namen"
     assert sk["parts"][0]["scenes"][0]["query"] == "tent forest"
     assert len(calls) == 2
+
+
+def test_contractions_without_apostrophes_are_fixed():
+    text, notes = editor.speakable("so im sitting there and i didnt know it wasnt muted. thats on me")
+    assert text == "so I'm sitting there and I didn't know it wasn't muted. that's on me"
+    assert any("Apostroph" in n for n in notes)
+    assert editor.speakable("I live in an IM chat and a dim room")[0] == "I live in an IM chat and a dim room"

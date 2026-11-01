@@ -71,6 +71,14 @@ ABBREVIATIONS = {
 DROP_TOKENS = re.compile(r"\s*\b(lol|lmao|lmfao|rofl|smh|jk)\b", re.I)
 SLANG = {r"\bu\b": "you", r"\bur\b": "your", r"\brn\b": "right now", r"\bb/c\b": "because", r"\bbc\b": "because",
          r"\bw/o\b": "without", r"\bw/\s?": "with ", r"\bppl\b": "people", r"\bthx\b": "thanks", r"\bpls\b": "please"}
+# Kurzformen ohne Apostroph („im“, „didnt“) – die Stimme läse sonst „im“ wie das deutsche Wort
+CONTRACTIONS = {
+    "im": "I'm", "ive": "I've", "dont": "don't", "didnt": "didn't", "doesnt": "doesn't", "cant": "can't",
+    "wont": "won't", "isnt": "isn't", "wasnt": "wasn't", "werent": "weren't", "arent": "aren't",
+    "couldnt": "couldn't", "wouldnt": "wouldn't", "shouldnt": "shouldn't", "havent": "haven't", "hasnt": "hasn't",
+    "hadnt": "hadn't", "youre": "you're", "theyre": "they're", "thats": "that's", "whats": "what's",
+    "theres": "there's", "hes": "he's", "shes": "she's", "youve": "you've", "theyve": "they've",
+}
 AGE_TAG = re.compile(r"\s*[\(\[]\s*(?:(\d{1,2})\s*(?:[mfwdMFWD]|nb|NB|enby)?|(?:[mfwdMFWD]|nb|NB)\s*(\d{1,2}))\s*[\)\]]")
 ABBREVIATIONS_DE = {
     "BIDA": "Bin ich das A-Loch", "WIBTA": "Wäre ich das A-Loch", "SchwiMu": "Schwiegermutter",
@@ -111,6 +119,14 @@ def speakable(text: str, soften: bool = True, lang: str = "en") -> tuple[str, li
     if lang == "en":
         for pattern, repl in SLANG.items():
             text = re.sub(pattern, repl, text)
+        fixed = 0
+        for short, full in CONTRACTIONS.items():
+            text, n = re.subn(rf"\b{short}\b", full, text)          # nur kleingeschrieben: „IM“ bleibt
+            fixed += n
+        text, n = re.subn(r"(?<![\w'’])i(?![\w'’])", "I", text)
+        fixed += n
+        if fixed:
+            notes.append(f"{fixed} Kurzform(en) ohne Apostroph korrigiert (z. B. „im“ → „I'm“).")
     text = DROP_TOKENS.sub("", text)
     ages = len(AGE_TAG.findall(text))
     text = AGE_TAG.sub(lambda m: f", {m.group(1) or m.group(2)},", text)
