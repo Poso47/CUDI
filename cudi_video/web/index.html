@@ -316,6 +316,8 @@ async function init() {
   try {
     const info = await api("/api/info");
     initStory().catch(e => { $("storyErr").textContent = e.message; });
+    // Direkt-Links von der Startseite: …/#story öffnet die Reddit-Storys
+    if (location.hash === "#story") document.querySelector('.modes button[data-mode="story"]').click();
     $("login").classList.add("hidden"); $("app").classList.remove("hidden");
     $("preset").innerHTML = info.presets.map(p => `<option value="${esc(p.id)}">${esc(p.title.de || p.title.en)}</option>`).join("");
     $("topicHint").textContent = "Möglich: " + info.topics + "." +

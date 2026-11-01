@@ -108,11 +108,16 @@ fürs Handy an („Vom Handy im selben WLAN öffnen: http://192.168…:8000“).
 setzen: `set CUDI_VIDEO_TOKEN=meinCode`.
 Fragt die Windows-Firewall beim ersten Start nach Zugriff, „Zulassen“ (privates Netzwerk) wählen.
 
-**B) Unterwegs, kostenlos in der Cloud – Hugging Face Spaces:**
-1. Auf huggingface.co einen neuen *Space* anlegen, SDK „Docker“, Sichtbarkeit „Private“.
-2. Die Dateien `Dockerfile`, `.dockerignore`, `cudi_video/` und `presets/` hochladen (oder das Repo verbinden).
-3. Unter *Settings → Variables and secrets* das Secret `CUDI_VIDEO_TOKEN` setzen (**wichtig**, sonst kann jeder rendern).
-4. Space-Adresse am Handy öffnen, unter „Systemtest“ prüfen und als App zum Startbildschirm hinzufügen.
+**B) Jederzeit und überall – als Cloud-App (kostenlos, Hugging Face Spaces):**
+1. Kostenloses Konto auf huggingface.co → *Settings → Access Tokens* → Token mit **Write**-Recht anlegen.
+2. Auf GitHub im Repository: *Settings → Secrets and variables → Actions* → Secrets `HF_TOKEN` (der Token)
+   und `CUDI_VIDEO_TOKEN` (dein selbst gewählter Zugangscode) anlegen. Optional weitere Schlüssel
+   (z. B. `CUDI_PEXELS_API_KEY`, `CUDI_LLM_API_KEY`) – sie werden in die App übernommen.
+3. *Actions → „CUDI Cloud-App“ → Run workflow* (später automatisch bei jeder Änderung auf `main`).
+4. Nach 3–5 Minuten läuft die App unter `https://<dein-name>-cudi-video.hf.space` (der Lauf zeigt die Adresse an).
+   Der Space ist standardmäßig privat: am Handy einmal bei Hugging Face anmelden. Variable
+   `HF_SPACE_PRIVATE=false` macht ihn öffentlich (die App bleibt durch den Zugangscode geschützt).
+5. Die Adresse in die CUDI-Startseite (Artefakt in der Claude-App) eintragen oder zum Startbildschirm hinzufügen.
 
 Hinweis: Der kostenlose Space hat 2 CPU-Kerne (ein Video dauert dann einige Minuten), schläft nach
 Inaktivität ein und speichert Videos nicht dauerhaft – fertige Videos also direkt herunterladen.
