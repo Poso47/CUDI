@@ -3,6 +3,7 @@
 import hashlib
 import json
 import logging
+import threading
 import time
 from pathlib import Path
 from urllib.parse import urlparse
@@ -26,18 +27,45 @@ def _cache_path(kind: str, key: str) -> Path:
     return config.CACHE_DIR / kind / digest
 
 
-# Hosts, die in diesem Lauf wiederholt blockiert haben, werden übersprungen,
-# damit optionale Anreicherung die Pipeline nicht minutenlang aufhält.
-_blocked_hosts: dict[str, int] = {}
+# Hosts, die wiederholt gedrosselt haben (429 trotz Wartens), werden eine Weile übersprungen,
+# damit optionale Anreicherung die Pipeline nicht minutenlang aufhält. Die Sperre läuft nach
+# BLOCK_SECONDS ab: danach wird wieder angefragt – eine lange laufende Web-App erholt sich so von
+# selbst. Scheitert der nächste Versuch erneut, gilt die Sperre sofort wieder.
+_blocked_hosts: dict[str, int] = {}       # Host -> Anzahl erschöpfter 429-Serien
+_blocked_at: dict[str, float] = {}        # Host -> Beginn der aktuellen Sperre
+_block_lock = threading.Lock()
 BLOCK_AFTER = 3
+BLOCK_SECONDS = 300.0
 
 
 RETRY_STATUSES = (429, 500, 502, 503, 504)
 
 
 def reset_blocks() -> None:
-    """Sperren aufheben, z. B. für einen bewusst späteren zweiten Versuch."""
-    _blocked_hosts.clear()
+    """Sperren aufheben – zu Beginn jedes Auftrags und vor einem bewusst späteren zweiten Versuch."""
+    with _block_lock:
+        _blocked_hosts.clear()
+        _blocked_at.clear()
+
+
+def is_blocked(host: str) -> bool:
+    with _block_lock:
+        return (_blocked_hosts.get(host, 0) >= BLOCK_AFTER
+                and time.monotonic() - _blocked_at.get(host, 0.0) < BLOCK_SECONDS)
+
+
+def _note_throttled(host: str) -> None:
+    with _block_lock:
+        _blocked_hosts[host] = _blocked_hosts.get(host, 0) + 1
+        if _blocked_hosts[host] >= BLOCK_AFTER:
+            _blocked_at[host] = time.monotonic()
+
+
+def _note_ok(host: str) -> None:
+    if host in _blocked_hosts:
+        with _block_lock:
+            _blocked_hosts.pop(host, None)
+            _blocked_at.pop(host, None)
 
 
 def _block_key(host: str) -> str:
@@ -54,8 +82,8 @@ def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60, re
     `retry_on` legt fest, bei welchen HTTP-Codes erneut versucht wird (z. B. nur 429, wenn ein
     Timeout 504 sofort an eine Ausweichroute übergeben werden soll)."""
     host = _block_key(urlparse(url).netloc)
-    if _blocked_hosts.get(host, 0) >= BLOCK_AFTER:
-        raise FetchError(f"{host} ist in diesem Lauf blockiert (zu viele Anfragen)")
+    if is_blocked(host):
+        raise FetchError(f"{host} drosselt gerade (zu viele Anfragen) – Pause bis zu {BLOCK_SECONDS / 60:.0f} Minuten")
     delay = 3.0
     last = None
     for attempt in range(retries + 1):
@@ -67,7 +95,7 @@ def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60, re
                 break
         else:
             if resp.ok:
-                _blocked_hosts.pop(host, None)
+                _note_ok(host)
                 return resp
             last = f"HTTP {resp.status_code}"
             if resp.status_code not in retry_on:
@@ -81,7 +109,7 @@ def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60, re
             time.sleep(wait)
             delay *= 2
     if last == "HTTP 429":
-        _blocked_hosts[host] = _blocked_hosts.get(host, 0) + 1
+        _note_throttled(host)
     raise FetchError(f"{url}: {last}")
 
 

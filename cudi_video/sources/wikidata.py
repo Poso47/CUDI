@@ -79,6 +79,24 @@ def _value_pattern(p: str) -> list[str]:
     ]
 
 
+def _latest_only(p: str) -> list[str]:
+    """Nur die neueste Aussage je Objekt: keine andere gültige Aussage mit späterem Stichtag (P585).
+
+    Steht direkt in der Abfrage, also vor Wertfiltern, Sortierung und LIMIT: ältere (größere) Werte
+    können so weder als aktuell durchrutschen noch mit Zeitreihen die Kandidatenliste füllen.
+    Aussagen ohne Stichtag zählen nur, wenn keine Aussage einen hat (wie in pick_latest).
+    Der eigene Stichtag wird im NOT EXISTS neu gebunden: Wikidatas Blazegraph sieht dort die
+    OPTIONAL-Variable ?date nicht zuverlässig (gemessen: Iran fiel sonst ganz heraus)."""
+    value = f"psn:{p}" if p in UNIT_PROPERTIES else f"ps:{p}"
+    return [
+        f"  FILTER NOT EXISTS {{ ?st pq:P585 ?ownDate . ?item p:{p} ?newer .",
+        f"    ?newer {value} [] ; pq:P585 ?newerDate ; wikibase:rank ?newerRank .",
+        "    FILTER(?newerRank != wikibase:DeprecatedRank && ?newerDate > ?ownDate) }",
+        f"  FILTER(BOUND(?date) || NOT EXISTS {{ ?item p:{p} ?dated . ?dated {value} [] ; pq:P585 [] ;",
+        "    wikibase:rank ?datedRank . FILTER(?datedRank != wikibase:DeprecatedRank) })",
+    ]
+
+
 def build_ranking_query(src: WikidataSource, limit: int = CANDIDATE_LIMIT) -> str:
     """Alle (nicht veralteten) Aussagen zur Eigenschaft, sortiert nach Wert.
 
@@ -110,6 +128,7 @@ def build_ranking_query(src: WikidataSource, limit: int = CANDIDATE_LIMIT) -> st
         *_value_pattern(p),
         "  OPTIONAL { ?st pq:P585 ?date }",
         "  OPTIONAL { ?st pq:P1013 ?criterion }",
+        *_latest_only(p),
     ]
     lines += _filter_lines(src)
     direction = "DESC" if src.order == "desc" else "ASC"
@@ -214,6 +233,7 @@ def _statements_for(src: WikidataSource, qids: list[str]) -> list[dict]:
             *_value_pattern(src.property),
             "  OPTIONAL { ?st pq:P585 ?date }",
             "  OPTIONAL { ?st pq:P1013 ?criterion }",
+            *_latest_only(src.property),
             *_filter_lines(src),
             "}",
         ])

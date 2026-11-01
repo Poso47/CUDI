@@ -127,14 +127,16 @@ NON_FREE = ("non-free", "fair use", "copyrighted", "all rights reserved")
 
 
 def commons_photo(query: str, used: set) -> Visual | None:
-    """Frei lizenziertes Foto von Wikimedia Commons (ohne Schlüssel) – Hochformat bevorzugt."""
-    from bs4 import BeautifulSoup
+    """Frei lizenziertes Foto von Wikimedia Commons (ohne Schlüssel) – Hochformat bevorzugt.
+
+    Nur Bilder mit Urheber (oder gemeinfrei): die Lizenz verlangt sonst eine Namensnennung."""
+    from ..enrich import credit_author
 
     data = net.get_json("https://commons.wikimedia.org/w/api.php", params={
         "action": "query", "format": "json", "formatversion": 2, "generator": "search",
         "gsrsearch": f"{query} filetype:bitmap", "gsrnamespace": 6, "gsrlimit": 20, "prop": "imageinfo",
         "iiprop": "url|size|extmetadata", "iiurlwidth": 1080,
-        "iiextmetadatafilter": "LicenseShortName|Artist",
+        "iiextmetadatafilter": "LicenseShortName|Artist|Attribution|AttributionRequired",
     }, cache_hours=24 * 7, retries=2, max_wait=20)
     pages = sorted(data.get("query", {}).get("pages", []), key=lambda pg: pg.get("index", 99))
     candidates = []
@@ -145,12 +147,14 @@ def commons_photo(query: str, used: set) -> Visual | None:
         if (not license_name or any(x in license_name.lower() for x in NON_FREE) or page["title"] in used
                 or (info.get("width") or 0) < 800 or (info.get("height") or 0) < 800 or not info.get("thumburl")):
             continue
+        artist = credit_author(meta, license_name)
+        if not artist:
+            continue
         portrait = info["height"] >= info["width"]
-        candidates.append((not portrait, page, info, license_name, meta))
+        candidates.append((not portrait, page, info, license_name, artist))
     if not candidates:
         return None
-    _, page, info, license_name, meta = min(candidates, key=lambda c: c[0])
-    artist = BeautifulSoup(meta.get("Artist", {}).get("value", "") or "unbekannt", "lxml").get_text(" ", strip=True)
+    _, page, info, license_name, artist = min(candidates, key=lambda c: c[0])
     path = net.download(info["thumburl"], suffix=".jpg", retries=2, max_wait=20)
     used.add(page["title"])
     return Visual("image", str(path), f"Foto: {artist[:60]} – {license_name} – Wikimedia Commons", query)

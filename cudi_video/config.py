@@ -11,6 +11,26 @@ CACHE_DIR = Path(os.environ.get("CUDI_VIDEO_CACHE", PROJECT_DIR / ".video_cache"
 PRESETS_DIR = Path(os.environ.get("CUDI_VIDEO_PRESETS", PROJECT_DIR / "presets"))
 ASSETS_DIR = Path(os.environ.get("CUDI_VIDEO_ASSETS", PROJECT_DIR / "video_assets"))
 
+
+def new_output_folder(name: str) -> Path:
+    """Eigener Ausgabeordner je Lauf: <Zeitstempel>_<name>, bei Gleichstand <name>-2, -3 …
+
+    mkdir ohne exist_ok ist atomar: zwei gleichzeitige Läufe (CLI und Web-App, zwei Fenster)
+    bekommen nie denselben Ordner und überschreiben sich nicht gegenseitig.
+    """
+    from datetime import datetime
+
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    for n in range(1, 1000):
+        folder = OUTPUT_DIR / (f"{stamp}_{name}" if n == 1 else f"{stamp}_{name}-{n}")
+        try:
+            folder.mkdir()
+            return folder
+        except FileExistsError:
+            continue
+    raise RuntimeError(f"Kein freier Ausgabeordner für {name} in {OUTPUT_DIR}")
+
 # Wikimedia verlangt einen aussagekräftigen User-Agent mit Kontaktmöglichkeit.
 USER_AGENT = os.environ.get(
     "CUDI_VIDEO_USER_AGENT",

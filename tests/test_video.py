@@ -7,7 +7,7 @@ import pytest
 from cudi_video.models import RankItem, Research
 from cudi_video.render.video import _srt_time
 from cudi_video.script import (
-    _sentences, build_script, has_risky_claims, numbers_supported, usable_summary_sentences,
+    _sentences, build_script, has_risky_claims, has_risky_numbers, numbers_supported, usable_summary_sentences,
 )
 from cudi_video.sources.wikidata import build_ranking_query, check_consistency, pick_latest
 from cudi_video.spec import VideoSpec, list_presets
@@ -81,6 +81,41 @@ def test_risky_sentences_are_rejected(sentence):
 
 def test_safe_sentence_is_kept():
     assert not has_risky_claims("Das Gebäude wurde 2010 eröffnet.")
+
+
+@pytest.mark.parametrize("sentence", [
+    "Der Gipfel wurde 1953 von Edmund Hillary und Tenzing Norgay erstmals bestiegen.",
+    "Im Jahr 1883 brach der Vulkan aus.",
+    "Seit 1990 gehört der See zum Weltnaturerbe.",
+    "Am 28. August 1883 brach der Vulkan aus.",
+    "Construction began in 1931 and ended in 1933.",
+    "In the 1990s the lake shrank.",
+    "Von 1950 bis 1960 wurde der Damm gebaut.",
+    "It was completed on May 1, 1931.",
+    "Der Damm wurde zwischen 1931 und 1936 gebaut.",
+    "Ende der 1990er Jahre sank der Wasserspiegel.",
+])
+def test_dates_are_not_risky_numbers(sentence):
+    assert not has_risky_numbers(sentence)
+
+
+@pytest.mark.parametrize("sentence", [
+    "Der Fluss ist 2000 Kilometer lang.",          # sieht aus wie ein Jahr, ist aber eine Länge
+    "Rund 2000 Menschen leben am See.",
+    "Der See ist 1642 m tief.",
+    "Die Insel hat 1500 Einwohner.",
+    "The river is 2000 km long.",
+    "About 1500 people live there.",
+    "Es wurden 2000 neue Häuser gebaut.",
+    "Der See liegt in 1500 m Höhe.",
+    "Vor 2000 Jahren entstand der See.",
+    "The lake has a depth of 1642 metres.",
+    "Mit 2000 bis 3000 Besuchern täglich ist er beliebt.",
+    "Seit 2010 stieg der Pegel um 1500 %.",
+    "Der Gipfel liegt über der 2000-Meter-Marke.",
+])
+def test_year_like_quantities_are_risky(sentence):
+    assert has_risky_numbers(sentence)
 
 
 def test_summary_filter_drops_conflicting_numbers():

@@ -163,7 +163,7 @@ try { token = localStorage.getItem("cudiToken") || ""; } catch (e) {}
 let tab = "preset";
 
 async function api(path, opts = {}) {
-  const res = await fetch(path, { ...opts, headers: { "Content-Type": "application/json", "X-Token": token, ...(opts.headers || {}) } });
+  const res = await fetch(path, { ...opts, headers: { "Content-Type": "application/json", "X-Token": encodeURIComponent(token), ...(opts.headers || {}) } });
   if (res.status === 401) { showLogin(); throw new Error("Zugangscode erforderlich"); }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.detail || res.statusText);
@@ -410,12 +410,39 @@ async function runCheck() {
   finally { $("checkBtn").disabled = false; }
 }
 
+// Auftragskarten gezielt aktualisieren: nur Karten, deren Stand sich geändert hat, werden neu
+// gezeichnet. Fertige Videos bleiben dieselben Elemente – die Wiedergabe läuft beim Abfragen weiter.
+const cards = new Map();   // Auftrags-ID -> { el, sig }
+function syncJobs(jobs) {
+  const box = $("jobs");
+  const seen = new Set();
+  let prev = null;
+  for (const j of jobs) {
+    seen.add(j.id);
+    const sig = JSON.stringify([j.status, j.stage || "", Math.round((j.progress || 0) * 100), j.error || "",
+                                j.folder || "", j.result ? 1 : 0]);
+    let card = cards.get(j.id);
+    if (!card || card.sig !== sig) {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = renderJob(j);
+      const el = tmp.firstElementChild;
+      if (card) card.el.replaceWith(el);
+      card = { el, sig };
+      cards.set(j.id, card);
+    }
+    const slot = prev ? prev.nextElementSibling : box.firstElementChild;
+    if (slot !== card.el) box.insertBefore(card.el, slot);   // nur bei geänderter Reihenfolge verschieben
+    prev = card.el;
+  }
+  for (const [id, card] of cards) if (!seen.has(id)) { card.el.remove(); cards.delete(id); }
+}
+
 let timer = null;
 async function refresh() {
   clearTimeout(timer);
   try {
     const jobs = await api("/api/jobs");
-    $("jobs").innerHTML = jobs.map(renderJob).join("");
+    syncJobs(jobs);
     if (jobs.some(j => j.status === "läuft" || j.status === "wartet")) timer = setTimeout(refresh, 2000);
   } catch (e) {}
 }

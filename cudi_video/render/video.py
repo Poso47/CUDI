@@ -159,6 +159,20 @@ def _music_track(length: int) -> np.ndarray | None:
     return np.tile(track, reps)[:length]
 
 
+def moving_average(x: "np.ndarray", width: int) -> "np.ndarray":
+    """Gleitender Mittelwert in linearer Zeit über kumulierte Summen.
+
+    Ergebnis wie np.convolve(x, np.ones(width) / width, mode="same"), aber ohne width-fache
+    Rechenarbeit je Sample (bei 3 Minuten 48 kHz sonst Milliarden Rechenschritte)."""
+    n = len(x)
+    half = (width - 1) // 2
+    sums = np.concatenate(([0.0], np.cumsum(x, dtype=np.float64)))
+    idx = np.arange(n)
+    hi = np.minimum(idx + half + 1, n)
+    lo = np.maximum(idx - (width - 1 - half), 0)
+    return ((sums[hi] - sums[lo]) / width).astype(np.float32)
+
+
 def build_audio(script: Script, jobs: list[dict], out_path: Path) -> None:
     total = int(sum(j["duration"] for j in jobs) * SAMPLE_RATE) + SAMPLE_RATE
     voice = np.zeros(total, dtype=np.float32)
@@ -177,9 +191,9 @@ def build_audio(script: Script, jobs: list[dict], out_path: Path) -> None:
     music = _music_track(total)
     if music is not None:
         # Musik leiser, während gesprochen wird ("Ducking").
-        env = np.convolve(np.abs(voice), np.ones(4800) / 4800, mode="same")
+        env = moving_average(np.abs(voice), 4800)
         duck = np.where(env > 0.01, 0.35, 1.0).astype(np.float32)
-        duck = np.convolve(duck, np.ones(9600) / 9600, mode="same")
+        duck = moving_average(duck, 9600)
         mix += music / (np.abs(music).max() + 1e-9) * 0.16 * duck
     peak = np.abs(mix).max() or 1.0
     mix = mix / peak * 0.89

@@ -21,7 +21,9 @@ from .models import RankItem, Research
 log = logging.getLogger(__name__)
 
 THUMB_WIDTH = 1280
-NON_FREE = re.compile(r"non-free|fair use|copyrighted", re.I)
+NON_FREE = re.compile(r"non-free|fair use|copyrighted|all rights reserved", re.I)
+PUBLIC_DOMAIN = re.compile(r"public domain|^pd\b|cc0|no restrictions|gemeinfrei", re.I)
+UNKNOWN_AUTHOR = re.compile(r"^\W*(unknown|unbekannt|anonym\w*|n/?a|none|not (stated|given)|see (below|source))\b", re.I)
 RETRY_PAUSE = 20        # Sekunden Pause vor dem zweiten Versuch, wenn Wikimedia gedrosselt hat
 
 
@@ -36,6 +38,25 @@ def fetch_summary(lang: str, title: str) -> str | None:
 
 def _strip_html(html: str) -> str:
     return unescape(BeautifulSoup(html or "", "lxml").get_text(" ", strip=True))
+
+
+def credit_author(meta: dict, license_name: str) -> str | None:
+    """Urheber für den Bildnachweis aus den Commons-Metadaten.
+
+    None, wenn die Lizenz eine Namensnennung verlangt (CC BY, CC BY-SA, GFDL …), aber kein
+    brauchbarer Urheber angegeben ist – solche Bilder werden nicht verwendet. Gemeinfreie Bilder
+    (Public Domain, CC0) dürfen auch ohne Urheber genutzt werden."""
+    author = ""
+    for field in ("Artist", "Attribution"):
+        text = _strip_html(meta.get(field, {}).get("value", ""))
+        if text and not UNKNOWN_AUTHOR.search(text):
+            author = text
+            break
+    if author:
+        return author
+    flag = str(meta.get("AttributionRequired", {}).get("value", "")).lower()
+    required = flag == "true" if flag in ("true", "false") else not PUBLIC_DOMAIN.search(license_name)
+    return None if required else "Urheber unbekannt"
 
 
 def fetch_license(filename: str) -> dict | None:
@@ -55,10 +76,13 @@ def fetch_license(filename: str) -> dict | None:
         return None
     meta = info.get("extmetadata", {})
     license_name = meta.get("LicenseShortName", {}).get("value", "")
-    artist = _strip_html(meta.get("Artist", {}).get("value", ""))
     if not license_name or NON_FREE.search(license_name):
         return None
-    return {"license": license_name, "artist": artist or "unbekannt", "width": info.get("width", 0)}
+    artist = credit_author(meta, license_name)
+    if not artist:
+        log.info("Bild %s nicht verwendet: %s verlangt Namensnennung, Urheber fehlt", filename, license_name)
+        return None
+    return {"license": license_name, "artist": artist, "width": info.get("width", 0)}
 
 
 def thumb_url(filename: str, width: int) -> str:

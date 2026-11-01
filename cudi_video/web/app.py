@@ -11,6 +11,7 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import unquote
 
 import yaml
 from fastapi import FastAPI, HTTPException, Request
@@ -28,11 +29,23 @@ _jobs: dict[str, dict] = {}
 _lock = threading.Lock()
 
 
+def _token_variants(given: str) -> set[str]:
+    """Der Code kann URL-kodiert (Oberfläche), roh (Latin-1) oder als UTF-8-Bytes im Header ankommen."""
+    variants = {given, unquote(given)}
+    try:
+        variants.add(given.encode("latin-1").decode("utf-8"))
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        pass
+    return variants
+
+
 def _check_token(request: Request) -> None:
     if not config.WEB_TOKEN:
         return
     given = request.headers.get("X-Token") or request.query_params.get("token") or ""
-    if not hmac.compare_digest(given, config.WEB_TOKEN):
+    expected = config.WEB_TOKEN.encode("utf-8")
+    # Bytes vergleichen: compare_digest nimmt nur ASCII-Text, Codes wie „München“ würden sonst abstürzen
+    if not any(hmac.compare_digest(v.encode("utf-8"), expected) for v in _token_variants(given)):
         raise HTTPException(401, "Zugangscode fehlt oder ist falsch")
 
 
@@ -138,24 +151,30 @@ def create_job(req: JobRequest, request: Request):
             "created": datetime.now().isoformat(timespec="seconds"), "langs": spec.langs,
         }
     _executor.submit(_run_job, job_id, spec, req.only_script, req.strict)
-    return _jobs[job_id]
+    with _lock:
+        return dict(_jobs[job_id])
 
 
-def _finished_from_disk() -> list[dict]:
-    """Fertige Ergebnisse früherer Läufe (z. B. nach Neustart) anzeigen."""
+def _finished_from_disk(known: set[str]) -> list[dict]:
+    """Fertige Ergebnisse früherer Läufe (z. B. nach Neustart) anzeigen. `known`: Ordner laufender Aufträge."""
     items = []
     if not config.OUTPUT_DIR.exists():
         return items
-    known = {j.get("folder") for j in _jobs.values()}
-    for folder in sorted(config.OUTPUT_DIR.iterdir(), reverse=True)[:30]:
+    folders = [f for f in config.OUTPUT_DIR.iterdir() if f.is_dir() and not f.name.startswith("_")]
+    for folder in sorted(folders, reverse=True)[:30]:
         res = folder / "result.json"
         if folder.name in known or not res.exists():
             continue
-        spec = json.loads((folder / "spec.json").read_text("utf-8"))
+        try:
+            spec = json.loads((folder / "spec.json").read_text("utf-8"))
+            title = spec["title"].get("de") or next(iter(spec["title"].values()))
+            result = json.loads(res.read_text("utf-8"))
+        except (OSError, ValueError, KeyError, AttributeError, StopIteration) as exc:
+            log.warning("Ordner %s übersprungen (unvollständig): %s", folder.name, exc)
+            continue
         items.append({
             "id": "disk-" + folder.name, "folder": folder.name, "status": "fertig", "progress": 1.0,
-            "title": spec["title"].get("de") or next(iter(spec["title"].values())),
-            "stage": "Fertig", "result": json.loads(res.read_text("utf-8")), "created": folder.name[:15],
+            "title": title, "stage": "Fertig", "result": result, "created": folder.name[:15],
         })
     return items
 
@@ -163,9 +182,10 @@ def _finished_from_disk() -> list[dict]:
 @app.get("/api/jobs")
 def jobs(request: Request):
     _check_token(request)
-    with _lock:
-        live = sorted(_jobs.values(), key=lambda j: j["created"], reverse=True)
-    return [*live, *_finished_from_disk()]
+    with _lock:   # Kopien unter der Sperre: der Auftrags-Thread ändert die Einträge gleichzeitig
+        live = [dict(j) for j in sorted(_jobs.values(), key=lambda j: j["created"], reverse=True)]
+    known = {j.get("folder") for j in live}
+    return [*live, *_finished_from_disk(known)]
 
 
 @app.get("/review/{folder}", response_class=HTMLResponse)
@@ -243,7 +263,8 @@ def _start_story_job(title: str, lang: str, fn, folder: str | None = None, **kw)
             _update(job_id, status="fehler", error=f"{exc}", trace=traceback.format_exc()[-2000:])
 
     _executor.submit(run)
-    return _jobs[job_id]
+    with _lock:
+        return dict(_jobs[job_id])
 
 
 @app.get("/api/story/info")

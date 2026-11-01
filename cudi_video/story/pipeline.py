@@ -11,10 +11,9 @@ import json
 import logging
 import re
 import zlib
-from datetime import datetime
 from pathlib import Path
 
-from .. import config
+from .. import config, net
 from .editor import build_skeleton
 from .moods import MOODS, narrator_gender, plan_from_description, subreddits_for, voice_for
 from .render import render_part
@@ -42,9 +41,7 @@ def _slug(text: str) -> str:
 
 
 def new_folder(title: str) -> Path:
-    folder = config.OUTPUT_DIR / f"{datetime.now():%Y%m%d-%H%M%S}_story-{_slug(title)}"
-    folder.mkdir(parents=True, exist_ok=True)
-    return folder
+    return config.new_output_folder(f"story-{_slug(title)}")
 
 
 # --------------------------------------------------------------------------- 1. Suchen
@@ -52,6 +49,7 @@ def new_folder(title: str) -> Path:
 def search(description: str = "", mood: str | None = None, lang: str = "de", length: str = "3min",
            seed: int | None = None, limit: int = 6) -> dict:
     """Storys zu einer Beschreibung oder Stimmung. Ergebnis für die Oberfläche (Liste + Hinweise)."""
+    net.reset_blocks()                       # jeder Auftrag beginnt ohne alte Drosselungs-Sperren
     plan = plan_from_description(description, lang) if description.strip() else {
         "mood": mood or "creepy", "subreddits": subreddits_for(mood or "creepy", lang), "keywords": [],
         "description": ""}
@@ -68,6 +66,7 @@ def search(description: str = "", mood: str | None = None, lang: str = "de", len
 def prepare(story: dict | None = None, url: str = "", text: str = "", title: str = "", lang: str = "de",
             mood: str | None = None, length: str = "3min", visuals: str = "videos", soften: bool = True) -> tuple[dict, Path]:
     """Skelett aus einer gefundenen Story, einem Link oder eigenem Text. Speichert story.json."""
+    net.reset_blocks()
     if story:
         post = Post.from_dict(story)
     elif url:
@@ -107,6 +106,7 @@ def validate_skeleton(skeleton: dict) -> None:
 
 def render(folder_path: Path, skeleton: dict | None = None, progress=lambda stage, f: None) -> dict:
     """Alle Teile rendern. Ein übergebenes (bearbeitetes) Skelett ersetzt story.json."""
+    net.reset_blocks()
     folder = folder_path
     if skeleton is not None:
         validate_skeleton(skeleton)

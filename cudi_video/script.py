@@ -126,11 +126,102 @@ def has_risky_claims(sentence: str) -> bool:
     return bool(RISKY_WORDS.search(sentence) or NOT_NEUTRAL.search(sentence)) or has_risky_numbers(sentence)
 
 
+_MONTHS = (r"(?:januar|jänner|februar|märz|april|mai|juni|juli|august|september|oktober|november|dezember"
+           r"|january|february|march|may|june|july|october|december|jan|feb|mär|mar|apr|jun|jul|aug|sept?|okt|oct"
+           r"|nov|dez|dec)\.?")
+# Wörter direkt vor einer Jahreszahl: eindeutig (Jahr, Monat) ...
+_YEAR_SURE = re.compile(r"(?:\b(?:jahre?s?|year)|\b" + _MONTHS + r"(?:\s+\d{1,2}(?:st|nd|rd|th)?,?)?)\s*$", re.I)
+# ... typische Zeitangaben ("seit 1990", "in 1931", "Ende 1883") ...
+_YEAR_LEAD = re.compile(
+    r"\b(?:seit|since|ab|bis|until|till|vor|before|nach|after|um|in|im|by|during|während|anfang|ende|mitte"
+    r"|frühjahr|sommer|herbst|winter|spring|summer|autumn|fall|early|late|mid)\s*$", re.I)
+# ... Verben, nach denen im Deutschen oft ein Jahr steht ("wurde 2010 eröffnet") – aber auch Mengen
+# ("hat 1500 Einwohner"), daher nur mit unverdächtigem Folgewort.
+_YEAR_AUX = re.compile(r"\b(?:wurde|wurden|war|waren|ist|sind|hat|hatte|hatten|haben|erst|bereits|schon|zuletzt"
+                       r"|erstmals)\s*$", re.I)
+_RANGE_START = re.compile(r"\b(?:von|vom|from|zwischen|between)\s*$", re.I)
+_RANGE_NEXT = re.compile(r"(?:\b(?:bis|to|und|and)|[–—/-])\s*$", re.I)
+# Einheiten und Zählwörter: davor steht eine Menge, keine Jahreszahl
+_UNITS = {
+    "km", "m", "cm", "mm", "kg", "g", "t", "ha", "mi", "ft", "yd", "sq", "qm", "km²", "m²", "m³", "km³", "mio", "mrd",
+    "prozent", "percent", "meter", "metern", "metres", "meters", "metre", "kilometer", "kilometern", "kilometres",
+    "kilometers", "kilometre", "quadratkilometer", "quadratkilometern", "square", "fuß", "feet", "foot", "miles",
+    "meilen", "tonnen", "tons", "tonnes", "einwohner", "einwohnern", "menschen", "personen", "people", "persons",
+    "inhabitants", "residents", "jahre", "jahren", "years", "tage", "tagen", "days", "stunden", "hours", "minuten",
+    "minutes", "mal", "times", "arten", "species", "millionen", "million", "milliarden", "billion", "hektar",
+    "hectares", "acres", "liter", "litres", "liters", "grad", "degrees", "stufen", "steps", "stockwerke", "etagen",
+    "floors", "storeys", "stories", "inseln", "islands", "seen", "lakes", "besucher", "visitors", "kubikkilometer",
+    "kubikmeter", "höhenmeter",
+}
+# Wörter, die nach einer Jahreszahl stehen dürfen, auch wenn danach ein Name/Nomen folgt
+_FUNCTION_WORDS = {
+    "von", "durch", "in", "im", "am", "an", "auf", "mit", "nach", "bei", "unter", "über", "zum", "zur", "als", "und",
+    "oder", "bis", "der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer", "eines", "er",
+    "sie", "es", "man", "wurde", "wurden", "the", "a", "an", "and", "or", "to", "by", "on", "at", "for", "with",
+    "from", "as", "when", "after", "before", "it", "he", "she", "they", "its", "his", "her", "their", "this", "that",
+    "there", "which", "who", "was", "were", "is", "are", "has", "had",
+}
+_WORD = re.compile(r"\s*([^\W\d_][\w²³-]*)", re.U)
+
+
+def _is_year(digits: str, before: str, after: str, prev_year: bool) -> bool:
+    """Steht hier eine Jahreszahl (Datumsangabe) – oder eine Menge, die wie ein Jahr aussieht?"""
+    if not re.fullmatch(r"1\d{3}|20\d{2}", digits):
+        return False
+    if re.match(r"-?(?:er|ern|s)\b|er-", after):                # 1990er, 1990s, 1990er-Jahre
+        return True
+    if re.match(r"\s*[%‰°€$£]|-[^\W\d_]", after):               # "2000 %", "1500 €", "2000-Meter-Marke"
+        return False
+    if not before.strip():
+        lead = "aux"                                              # Satzanfang: "1953 bestiegen …"
+    elif _YEAR_SURE.search(before):
+        lead = "sure"
+    elif _RANGE_START.search(before):
+        return bool(re.match(r"\s*(?:bis|to|und|and|[–—-])", after))   # "von 1950 bis …"
+    elif _YEAR_LEAD.search(before) or (prev_year and _RANGE_NEXT.search(before)):
+        lead = "lead"
+    elif _YEAR_AUX.search(before):
+        lead = "aux"
+    else:
+        return False                                              # "Der Fluss ist rund 2000 …"
+    first = _WORD.match(after)
+    if not first:
+        return True                                               # Satzende, Komma, Klammer …
+    word = first.group(1)
+    if word.lower() in _UNITS:
+        return False                                              # "2000 Kilometer", "1500 m"
+    if word[0].isupper():
+        return lead == "sure"                                     # "seit 1990 Teil …" lieber nicht
+    following = _WORD.match(after[first.end():])
+    if following and following.group(1)[0].isupper() and word.lower() not in _FUNCTION_WORDS:
+        return False                                              # "2000 neue Häuser"
+    return True
+
+
+def _is_day(digits: str, before: str, after: str) -> bool:
+    """Tag in einem Datum: "28. August", "August 28, 1883"."""
+    if not re.fullmatch(r"[1-9]|[12]\d|3[01]", digits):
+        return False
+    return bool(re.match(r"\.\s*" + _MONTHS + r"(?:\s|$)", after, re.I)
+                or (re.search(r"\b" + _MONTHS + r"\s*$", before, re.I) and re.match(r"\s*(?:,|\.|$)", after)))
+
+
 def has_risky_numbers(sentence: str) -> bool:
-    """Zahlen außer Jahreszahlen könnten den Wikidata-Werten widersprechen -> Satz nicht verwenden."""
-    for num in re.findall(r"\d[\d.,]*", sentence):
-        digits = num.rstrip(".,")
-        if not re.fullmatch(r"1\d{3}|20\d{2}", digits):
+    """Zahlen könnten den Wikidata-Werten widersprechen -> Satz nicht verwenden.
+
+    Ausgenommen sind nur erkennbare Datumsangaben: Jahreszahlen mit Datums-Zusammenhang („im Jahr
+    1953“, „seit 1990“, „wurde 2010 eröffnet“, „1883–1886“, „1990er“) und Tage („28. August“).
+    „Der Fluss ist 2000 Kilometer lang“ enthält keine Jahreszahl und wird verworfen."""
+    prev_year = False
+    for m in re.finditer(r"\d[\d.,]*", sentence):
+        raw = m.group()
+        digits = raw.rstrip(".,")
+        before, after = sentence[:m.start()], raw[len(digits):] + sentence[m.end():]
+        if _is_year(digits, before, after, prev_year):
+            prev_year = True
+        elif _is_day(digits, before, after):
+            prev_year = False
+        else:
             return True
     return False
 

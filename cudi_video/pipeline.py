@@ -4,11 +4,10 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime
 from pathlib import Path
 from typing import Callable
 
-from . import config
+from . import config, net
 from .compare import load_references
 from .enrich import enrich
 from .metadata import build_metadata, build_review
@@ -33,10 +32,7 @@ def _save(path: Path, data: dict) -> None:
 
 
 def new_output_dir(spec: VideoSpec) -> Path:
-    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    out = config.OUTPUT_DIR / f"{stamp}_{spec.id}"
-    out.mkdir(parents=True, exist_ok=True)
-    return out
+    return config.new_output_folder(spec.id)
 
 
 def research_stage(spec: VideoSpec, out: Path, fresh: bool = True, images: bool = True,
@@ -122,6 +118,7 @@ def run(
 
     langs = langs or spec.langs
     spec.langs = langs
+    net.reset_blocks()                       # Drosselungen früherer Aufträge gelten hier nicht
     out = out or new_output_dir(spec)
     _save(out / "spec.json", spec.to_dict())
 
