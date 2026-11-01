@@ -1,4 +1,4 @@
-# CUDI Video – Ranking-Faktenvideos für TikTok & YouTube Shorts
+# CUDI Video – Ranking-Faktenvideos und Reddit-Storys für TikTok & YouTube Shorts
 
 CUDI Video erstellt kostenlos animierte **Top-10-Faktenvideos** (Hochformat 1080×1920, höchstens
 3 Minuten) auf **Deutsch und Englisch** – aus einer Vorlage oder einem frei eingetippten Thema wie
@@ -172,6 +172,64 @@ TikTok: ohne Musik exportieren und in der App einen aktuellen Sound hinzufügen 
 * YouTube verlangt für die Monetarisierung eigenständige Inhalte: lieber abwechslungsreiche Themen
   als viele fast gleiche Videos.
 
+## Reddit-Storys
+
+Zweiter Modus neben den Rankings: aus Reddit-Storys werden fertig erzählte Videos – im Stil der
+bekannten Story-Kanäle (Post-Karte am Anfang, große Wort-für-Wort-Untertitel, ein Bild oder Clip pro
+Erzähl-Beat, leise Musik, lange Storys in Teilen mit Cliffhanger).
+
+**So geht's (Web-Oberfläche → „📖 Reddit-Storys“):**
+
+1. Stimmung antippen (👻 Gruselig, ⚡ Spannend, 😂 Lustig, 🔥 Drama, 😈 Rache, 💛 Herzerwärmend)
+   oder beschreiben: „gruselige Story über einen Stalker im Wald“ – oder einen Reddit-Link einfügen.
+2. **Storys finden** zeigt Vorschläge (Upvotes, Länge) – **Autopilot** macht direkt das fertige Video.
+3. Das **Skelett** prüfen und anpassen: Lektorat-Notizen, Szenentexte, Suchbegriffe für Bilder/Clips,
+   Stimmung. Dann **Video erstellen**.
+
+Kommandozeile:
+
+```bash
+python -m cudi_video story "gruselige Story über einen Stalker im Wald"        # Autopilot
+python -m cudi_video story --stimmung funny --suchen                           # nur Vorschläge
+python -m cudi_video story https://www.reddit.com/r/tifu/comments/... --nur-skelett
+python -m cudi_video story --ordner video_output/<ordner>                      # bearbeitetes Skelett rendern
+```
+
+**Erzählt je nach Stimmung:** Gruselig = tiefe Stimme, langsam, lange Pausen, dunkler Look mit
+Filmkorn, dröhnende Klangfläche mit Herzschlag. Lustig = locker und schneller, knallige Farben,
+gezupfte Musik. Drama, Rache, Spannung und Herzerwärmendes haben jeweils eigene Stimme, Musik und Look.
+Die Musik erzeugt CUDI selbst – keine Lizenzfragen.
+
+**Lektorat („Profi-Durchsicht“):** Edits, TL;DR und Meta-Sätze („sorry for formatting“) fliegen raus,
+Abkürzungen (AITA, MIL, „(25F)“) werden vorlesbar, Kraftausdrücke auf Wunsch entschärft, die Story wird
+in Szenen und – wenn nötig – Teile gegliedert. Jede Änderung steht im Skelett und im Prüfbericht.
+Inhaltlich wird nichts hinzugefügt; ein optionales Sprachmodell darf glätten und kürzen, seine Fassung
+wird gegen das Original geprüft.
+
+**Bilder und Clips** (Einstellung „Bilder“): *Videos bevorzugt* nutzt echte Stockvideos von Pexels
+oder Pixabay (kostenloser Schlüssel nötig), sonst KI-Bilder mit Kamerafahrt, sonst frei lizenzierte
+Fotos von Wikimedia Commons (mit Urheberangabe im Video). *Eigene Clips* nimmt Videos aus
+`video_assets/backgrounds/` (z. B. eigene Gameplay-Aufnahmen; Unterordner je Stimmung möglich).
+
+**Quellen:** Mit Reddit-Zugang live über die offizielle API, sonst das öffentliche Reddit, als
+Ausweichweg das Archiv Arctic Shift (Upvotes dort nach ca. 36 Stunden aktuell). Deutsche
+Drama-Storys kommen direkt aus r/BinIchDasArschloch, r/beziehungen und r/Ratschlag; andere
+Stimmungen nutzen englische Storys und übersetzen sie (Sprachmodell, DeepL oder MyMemory).
+
+| Variable (alle optional) | Wirkung |
+|---|---|
+| `CUDI_PEXELS_API_KEY` / `CUDI_PIXABAY_API_KEY` | echte Videoclips statt KI-Bilder (kostenlos: pexels.com/api, pixabay.com/api/docs) |
+| `CUDI_REDDIT_CLIENT_ID` / `CUDI_REDDIT_CLIENT_SECRET` | Reddit live (reddit.com/prefs/apps → „script“-App) |
+| `CUDI_POLLINATIONS_TOKEN` | KI-Bilder groß und ohne Logo (kostenloser Zugang: auth.pollinations.ai) |
+| `CUDI_DEEPL_API_KEY` | Übersetzung englischer Storys für deutsche Videos (DeepL API Free) |
+| `CUDI_STORY_MAX_SECONDS=179` | Höchstlänge je Teil |
+
+**Rechte:** Die Storys gehören ihren Autoren. CUDI nennt Autor und Link im Video (Post-Karte) und in der
+Beschreibung. **r/nosleep erlaubt Vertonungen nur mit Erlaubnis des Autors** – der Prüfbericht weist
+darauf hin. Für monetarisierte Kanäle die Autoren am besten immer kurz anfragen. KI-Stimme und
+KI-Bilder sind in der Beschreibung gekennzeichnet; bei YouTube/TikTok zusätzlich die Kennzeichnung für
+KI-Inhalte setzen, wenn verlangt.
+
 ## Probleme?
 
 `CUDI_VIDEO_TEST.bat` bzw. `python -m cudi_video check` ausführen. Der Selbsttest prüft ffmpeg,
@@ -192,6 +250,7 @@ cudi_video/
   tts.py                KI-Stimme mit Wort-Zeitstempeln, Pausen-Straffung
   render/               Infografik-Szenen (Pillow) -> ffmpeg, Tonmischung, Untertitel, Icons
   metadata.py           Titel, Beschreibung, Hashtags, Prüfbericht
+  story/                Reddit-Storys: Quelle, Stimmungen, Lektorat, Bilder/Clips, Musik, Render
   check.py              Selbsttest
   pipeline.py           alle Stufen; Zwischenergebnisse als JSON
   web/                  Web-Oberfläche (PC + Handy)

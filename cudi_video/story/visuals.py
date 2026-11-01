@@ -87,7 +87,9 @@ def pixabay(query: str, used: set) -> Visual | None:
 
 _ai_lock = threading.Lock()
 _ai_last = [0.0]
+_ai_failures = [0]
 AI_INTERVAL = 16.0          # ohne Zugang erlaubt Pollinations nur etwa ein Bild alle 15 Sekunden
+AI_MAX_FAILURES = 2         # danach in diesem Lauf keine KI-Bilder mehr anfragen (Dienst überlastet)
 
 
 def ai_image(prompt: str, seed: int) -> Visual | None:
@@ -96,6 +98,8 @@ def ai_image(prompt: str, seed: int) -> Visual | None:
     url = f"https://image.pollinations.ai/prompt/{quote(prompt[:400])}?{size}&seed={seed}&model=flux"
     headers = {"Authorization": f"Bearer {config.POLLINATIONS_TOKEN}"} if config.POLLINATIONS_TOKEN else None
     cached = net.cached_file(url, ".jpg")
+    if cached is None and _ai_failures[0] >= AI_MAX_FAILURES:
+        return None
     try:
         if cached is None:
             with _ai_lock:                          # nacheinander und mit Abstand – sonst 402/503
@@ -110,9 +114,46 @@ def ai_image(prompt: str, seed: int) -> Visual | None:
         with Image.open(cached) as img:
             img.verify()
     except Exception as exc:                        # Bild ist optional
+        _ai_failures[0] += 1
         log.warning("KI-Bild nicht verfügbar (%s): %s", prompt[:60], exc)
         return None
+    _ai_failures[0] = 0
     return Visual("image", str(cached), "KI-Bild (Pollinations)", prompt)
+
+
+# --------------------------------------------------------------------------- freie Fotos (Wikimedia Commons)
+
+NON_FREE = ("non-free", "fair use", "copyrighted", "all rights reserved")
+
+
+def commons_photo(query: str, used: set) -> Visual | None:
+    """Frei lizenziertes Foto von Wikimedia Commons (ohne Schlüssel) – Hochformat bevorzugt."""
+    from bs4 import BeautifulSoup
+
+    data = net.get_json("https://commons.wikimedia.org/w/api.php", params={
+        "action": "query", "format": "json", "formatversion": 2, "generator": "search",
+        "gsrsearch": f"{query} filetype:bitmap", "gsrnamespace": 6, "gsrlimit": 20, "prop": "imageinfo",
+        "iiprop": "url|size|extmetadata", "iiurlwidth": 1080,
+        "iiextmetadatafilter": "LicenseShortName|Artist",
+    }, cache_hours=24 * 7, retries=2, max_wait=20)
+    pages = sorted(data.get("query", {}).get("pages", []), key=lambda pg: pg.get("index", 99))
+    candidates = []
+    for page in pages:
+        info = (page.get("imageinfo") or [{}])[0]
+        meta = info.get("extmetadata", {})
+        license_name = meta.get("LicenseShortName", {}).get("value", "")
+        if (not license_name or any(x in license_name.lower() for x in NON_FREE) or page["title"] in used
+                or (info.get("width") or 0) < 800 or (info.get("height") or 0) < 800 or not info.get("thumburl")):
+            continue
+        portrait = info["height"] >= info["width"]
+        candidates.append((not portrait, page, info, license_name, meta))
+    if not candidates:
+        return None
+    _, page, info, license_name, meta = min(candidates, key=lambda c: c[0])
+    artist = BeautifulSoup(meta.get("Artist", {}).get("value", "") or "unbekannt", "lxml").get_text(" ", strip=True)
+    path = net.download(info["thumburl"], suffix=".jpg", retries=2, max_wait=20)
+    used.add(page["title"])
+    return Visual("image", str(path), f"Foto: {artist[:60]} – {license_name} – Wikimedia Commons", query)
 
 
 # --------------------------------------------------------------------------- eigene Clips
@@ -139,9 +180,9 @@ def own_clip(mood: str, rnd: random.Random) -> Visual | None:
 # --------------------------------------------------------------------------- Auswahl je Szene
 
 ORDER = {
-    "videos": ("stock", "ai", "own"),
-    "images": ("ai", "stock", "own"),
-    "gameplay": ("own", "stock", "ai"),
+    "videos": ("stock", "ai", "photo", "own"),
+    "images": ("ai", "photo", "stock", "own"),
+    "gameplay": ("own", "stock", "ai", "photo"),
 }
 
 
@@ -149,6 +190,7 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
                  progress=lambda done, total: None) -> tuple[list[Visual], list[str]]:
     """Ein Bild/Clip je Szene. Gibt (Visuals, Hinweise) zurück."""
     notes: list[str] = []
+    _ai_failures[0] = 0
     rnd = random.Random(seed)
     used: set = set()
     order = ORDER.get(mode, ORDER["videos"])
@@ -166,6 +208,8 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
                     found = pexels(scene["query"], used) or pixabay(scene["query"], used)
                 elif source == "ai":
                     found = ai_image(scene["prompt"], seed * 1000 + i)
+                elif source == "photo":
+                    found = commons_photo(scene["query"].replace(" dark", ""), used)
                 else:
                     found = own_clip(mood, random.Random(seed * 1000 + i))
             except net.FetchError as exc:
@@ -183,6 +227,9 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
         for done, future in enumerate(futures, start=1):
             visuals[futures[future]] = future.result()
             progress(done, total)
+    if _ai_failures[0] >= AI_MAX_FAILURES:
+        notes.append("Der KI-Bilddienst war überlastet – stattdessen freie Fotos von Wikimedia Commons "
+                     "(mit Urheberangabe). Später erneut versuchen oder einen Pollinations-Zugang eintragen.")
     missing = sum(1 for v in visuals if v.kind == "none")
     if missing:
         notes.append(f"{missing} Szene(n) ohne Bild/Clip – dort läuft ein animierter Farbverlauf.")

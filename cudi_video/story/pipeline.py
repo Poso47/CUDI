@@ -180,6 +180,9 @@ def metadata(skeleton: dict, part_index: int, visuals: list[Visual]) -> dict:
         visual_line.append("Bilder: KI-generierte Symbolbilder" if de else "Images: AI-generated illustrations")
     if stock:
         visual_line.append(("Videos: " if de else "Footage: ") + ", ".join(stock))
+    photos = sorted({v.credit.removeprefix("Foto: ") for v in visuals if v.credit.startswith("Foto:")})
+    if photos:
+        visual_line.append(("Fotos: " if de else "Photos: ") + "; ".join(photos))
     tags = [*TAGS[mood][lang], "shorts"]
     lines = [skeleton["title"] + part, ""]
     if credit:

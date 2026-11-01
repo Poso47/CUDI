@@ -57,6 +57,11 @@ def check_local() -> list[dict]:
                              "" if found else "Inter installieren oder .ttf/.otf nach video_assets/fonts/ legen"))
     except Exception as exc:
         rows.append(_row(False, "Schriften", str(exc)))
+    if shutil.which("ffmpeg"):
+        filters = subprocess.run(["ffmpeg", "-hide_banner", "-filters"], capture_output=True, text=True).stdout
+        ok = " subtitles " in filters
+        rows.append(_row(ok, "ffmpeg-Untertitel (libass)", "vorhanden" if ok else "fehlt",
+                         "" if ok else "Für Story-Videos ein ffmpeg mit libass nutzen (winget install Gyan.FFmpeg)"))
     try:
         config.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         probe = config.OUTPUT_DIR / ".schreibtest"
@@ -102,6 +107,16 @@ def check_network() -> list[dict]:
                             cache_hours=0, retries=1)
         return f"{len(data.get('elements', []))} Objekt(e)"
 
+    def reddit_archive():
+        data = net.get_json("https://arctic-shift.photon-reddit.com/api/posts/search",
+                            params={"subreddit": "tifu", "limit": 1, "fields": "id,title"}, cache_hours=0, retries=1)
+        return f"{len(data.get('data') or [])} Story geladen"
+
+    def ai_images():
+        resp = net.get("https://image.pollinations.ai/prompt/test?width=64&height=64&seed=1", retries=1, timeout=90,
+                       retry_on=(429, 503))
+        return f"{len(resp.content) // 1024} KB"
+
     checks = [
         ("Wikidata (Pflicht)", wikidata, "Internet/Firewall prüfen – ohne Wikidata keine Rankings"),
         ("Wikipedia", wikipedia, "Ohne Wikipedia: weniger Zusatzsätze und Bestätigungen"),
@@ -109,6 +124,8 @@ def check_network() -> list[dict]:
         ("Weltbank", worldbank, "Ohne Weltbank: weniger Bestätigungen bei Ländern"),
         ("CIA World Factbook", factbook, "Ohne Factbook: weniger Bestätigungen bei Ländern"),
         ("OpenStreetMap", overpass, "Ohne OSM: weniger Bestätigungen bei Höhen"),
+        ("Reddit-Archiv (Storys)", reddit_archive, "Ohne Archiv: Reddit-Zugang eintragen oder Story-Text einfügen"),
+        ("KI-Bilder (Storys)", ai_images, "Ohne KI-Bilder: Stockvideos (Pexels/Pixabay) oder Commons-Fotos"),
     ]
     rows = []
     for name, fn, hint in checks:
@@ -143,6 +160,11 @@ def check_optional() -> list[dict]:
         rows.append(_row(None, "Sprachmodell", "nicht eingerichtet (optional)"))
     rows.append(_row(None if not config.FACTCHECK_API_KEY else True, "Faktencheck-Suche",
                      "eingerichtet" if config.FACTCHECK_API_KEY else "nicht eingerichtet (optional)"))
+    rows.append(_row(True if config.PEXELS_API_KEY or config.PIXABAY_API_KEY else None, "Stockvideos (Storys)",
+                     "eingerichtet" if config.PEXELS_API_KEY or config.PIXABAY_API_KEY else
+                     "nicht eingerichtet – kostenloser Pexels-Schlüssel bringt echte Videoclips"))
+    rows.append(_row(True if config.REDDIT_CLIENT_ID else None, "Reddit-Zugang (Storys)",
+                     "eingerichtet" if config.REDDIT_CLIENT_ID else "nicht eingerichtet (optional, Archiv reicht)"))
     rows.append(_row(None if not config.WEB_TOKEN else True, "Zugangscode Web",
                      "gesetzt" if config.WEB_TOKEN else "nicht gesetzt (für Cloud/WLAN empfohlen)"))
     return rows

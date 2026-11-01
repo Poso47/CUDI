@@ -186,7 +186,8 @@ def caption_groups(words: list[dict], max_words: int = 3, max_chars: int = 18) -
 
 
 def build_ass(path: Path, words: list[dict], font_name: str, mood: str, label: str | None,
-              end_text: str | None, end_start: float, total: float) -> Path:
+              end_text: str | None, end_start: float, total: float,
+              credits: list[tuple[float, float, str]] = ()) -> Path:
     """ASS-Datei: Wort-für-Wort-Untertitel mit hervorgehobenem aktuellem Wort, Teil-Label, Abschluss-Text."""
     colors = MOODS[mood]["colors"]
     hi = _ass_color(colors["highlight"])
@@ -200,6 +201,7 @@ def build_ass(path: Path, words: list[dict], font_name: str, mood: str, label: s
         "0,0,1,8,4,5,70,70,0,1",
         f"Style: Label,{font_name},46,&H00FFFFFF,&H000000FF,&H00000000,&H64000000,-1,0,0,0,100,100,2,0,1,5,2,8,60,60,150,1",
         f"Style: End,{font_name},104,{hi},&H000000FF,&H00000000,&H78000000,-1,0,0,0,100,100,0,0,1,9,4,5,70,70,0,1",
+        f"Style: Credit,{font_name},26,&H30FFFFFF,&H000000FF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,3,6,0,7,40,40,230,1",
         "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
     ]
     groups = caption_groups(words)
@@ -220,6 +222,8 @@ def build_ass(path: Path, words: list[dict], font_name: str, mood: str, label: s
             lines.append(f"Dialogue: 1,{_ass_time(start)},{_ass_time(end)},Caption,,0,0,0,,{text}")
     if label:
         lines.append(f"Dialogue: 2,{_ass_time(0)},{_ass_time(total)},Label,,0,0,0,,{_escape(label)}")
+    for start, end, credit in credits:                  # Urheberangabe für frei lizenzierte Fotos
+        lines.append(f"Dialogue: 0,{_ass_time(start)},{_ass_time(end)},Credit,,0,0,0,,{_escape(credit)}")
     if end_text:
         lines.append(f"Dialogue: 3,{_ass_time(end_start)},{_ass_time(total)},End,,0,0,0,,"
                      f"{{\\an5\\pos({W // 2},{CAPTION_Y - 260})\\fad(250,0)}}{_escape(end_text)}")
@@ -329,7 +333,9 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
     label = (f"{'TEIL' if lang == 'de' else 'PART'} {part_index + 1}/{n_parts}") if n_parts > 1 else None
     last = part_index == n_parts - 1
     end_text = None if last else ("TEIL" if lang == "de" else "PART") + f" {part_index + 2} " + ("FOLGT" if lang == "de" else "SOON")
-    build_ass(work / "captions.ass", story_words, font_name, mood, label, end_text, starts[-1], total)
+    credits = [(bounds[i], bounds[i + 1], visuals[i].credit.removesuffix(" – Wikimedia Commons"))
+               for i in range(n) if visuals[i].credit.startswith("Foto:")]
+    build_ass(work / "captions.ass", story_words, font_name, mood, label, end_text, starts[-1], total, credits)
     progress(0.75)
 
     filters = (
