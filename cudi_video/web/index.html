@@ -97,7 +97,7 @@
           <div style="flex:1;min-width:160px"><label for="storyVisuals">Bilder</label><select id="storyVisuals"></select></div>
         </div>
         <div class="row" style="margin-top:12px">
-          <span class="check"><input type="checkbox" id="storySoften" checked> Kraftausdrücke entschärfen</span>
+          <span class="check"><input type="checkbox" id="storySoften" checked> Heikles entschärfen (umschreiben statt weglassen)</span>
         </div>
         <button class="secondary" onclick="findStories(false)">🔎 Storys finden</button>
         <button class="primary" id="autoBtn" onclick="autopilot()">⚡ Autopilot: fertiges Video</button>
@@ -230,7 +230,8 @@ async function findStories(again) {
       (r.plan.keywords.length ? `<span class="pill">Stichwörter: ${esc(r.plan.keywords.join(", "))}</span>` : "") +
       r.notes.map(n => `<p class="hint">${esc(n)}</p>`).join("") +
       r.stories.map((st, i) => `<div class="story"><b>${esc(st.title)}</b>
-        <span class="meta">r/${esc(st.subreddit)} · ⬆ ${st.score} · ${st.words} Wörter</span><br>
+        <span class="meta">r/${esc(st.subreddit)} · ⬆ ${st.score} · ${st.words} Wörter</span>
+        ${st.sensitive ? `<span class="pill">heikle Stellen werden umschrieben</span>` : ""}<br>
         <button onclick="prepareStory(${i}, false)">Diese nehmen</button></div>`).join("") +
       `<button class="secondary" onclick="findStories(true)">Neue Vorschläge</button>`;
   } catch (e) { box.innerHTML = ""; $("storyErr").textContent = e.message; }

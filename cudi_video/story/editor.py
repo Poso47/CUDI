@@ -98,6 +98,49 @@ SOFTEN = [
     (r"\bpiss(ed)? off\b", r"tick\1 off"),
 ]
 
+# Heikle Stellen andeuten statt aussprechen – die Handlung bleibt, nur die Wörter werden TikTok-tauglich.
+# Ersetzungen sind so gewählt, dass der Satz grammatisch bleibt („we had sex“ -> „we got intimate“).
+_HAVE = {"had": "got", "have": "get", "having": "getting", "has": "gets"}
+_MOLEST = {"molest": "abuse", "molested": "abused", "molesting": "abusing", "molester": "abuser"}
+SENSITIVE_EN = [
+    (r"\bsexual (harassment|assault|abuse)\b", r"\1"), (r"\bsexually (harassed|assaulted|abused)\b", r"\1"),
+    (r"\b(had|have|having|has) sex\b", lambda m: f"{_HAVE[m.group(1).lower()]} intimate"),
+    (r"\bsexually\b", "intimately"), (r"\bsexual\b", "intimate"), (r"\bsex\b", "intimacy"),
+    (r"\bporn\w*\b", "adult videos"), (r"\b(naked|nude)\b", "without clothes"), (r"\bhorny\b", "in the mood"),
+    (r"\b(boobs?|breasts?)\b", "chest"), (r"\b(penis|vagina|genitals?)\b", "private parts"),
+    (r"\bmasturbat\w*\b", "touching themselves"), (r"\borgasm\w*\b", "climax"), (r"\bblowjobs?\b", "something intimate"),
+    (r"\brapist\b", "attacker"), (r"\braped\b", "assaulted"), (r"\braping\b", "assaulting"), (r"\brapes?\b", "assault"),
+    (r"\b(molest|molested|molesting|molester)\b", lambda m: _MOLEST[m.group(1).lower()]),
+    (r"\bcommit(?:ted|s)? suicide\b", "unalived themselves"), (r"\bsuicidal\b", "in a very dark place"),
+    (r"\bsuicide\b", "unaliving"), (r"\b(kill|killed) (myself|himself|herself|themselves)\b",
+                                    lambda m: f"{'unalived' if m.group(1).lower() == 'killed' else 'unalive'} {m.group(2)}"),
+    (r"\bself[- ]harm\w*\b", "hurting themselves"),
+]
+_SEXUELL = {"sexuell": "intim", "sexuelle": "intime", "sexuellen": "intimen", "sexueller": "intimer", "sexuelles": "intimes"}
+_SEX_VERB = {"haben": "intim werden", "hatten": "intim wurden", "hatte": "intim wurde", "gehabt": "intim geworden",
+             "hat": "intim wird"}
+_HATTEN = {"hatten": "wurden", "hatte": "wurde", "haben": "werden", "hat": "wird", "habt": "werdet"}
+SENSITIVE_DE = [
+    (r"\b(sexuelle[nmrs]?) (Belästigung|Übergriff\w*|Missbrauch\w*|Gewalt)\b", r"\2"),
+    (r"\b(hatten|hatte|haben|hat|habt) Sex\b", lambda m: f"{_HATTEN[m.group(1)]} intim"),
+    (r"\bSex (haben|hatten|hatte|gehabt|hat)\b", lambda m: _SEX_VERB[m.group(1)]),
+    (r"\b(sexuell|sexuelle|sexuellen|sexueller|sexuelles)\b", lambda m: _SEXUELL[m.group(1).lower()]),
+    (r"\bSex\b", "Intimität"), (r"\bPorno\w*\b", "Erwachsenenfilm"), (r"\bnackt\b", "unbekleidet"),
+    (r"\bBrüste\b", "Oberkörper"), (r"\b(Penis|Vagina|Genitalien)\b", "Intimbereich"),
+    (r"\bvergewaltigt\b", "angegriffen"), (r"\bvergewaltigen\b", "angreifen"), (r"\bVergewaltigung(en)?\b", "Übergriff"),
+    (r"\b(Selbstmord|Suizid) begangen\b", "sich das Leben genommen"), (r"\b(Selbstmord|Suizid)\b", "Freitod"),
+    (r"\bsuizidal\b", "an einem sehr dunklen Punkt"), (r"\britzen\b", "sich verletzen"),
+]
+
+
+def soften_sensitive(text: str, lang: str = "en") -> tuple[str, int]:
+    """Heikle Wörter umschreiben (angedeutet statt ausgesprochen). Gibt (Text, Anzahl) zurück."""
+    count = 0
+    for pattern, repl in (SENSITIVE_DE if lang == "de" else SENSITIVE_EN):
+        text, n = re.subn(pattern, repl, text, flags=0 if lang == "de" else re.I)
+        count += n
+    return text, count
+
 
 def speakable(text: str, soften: bool = True, lang: str = "en") -> tuple[str, list[str]]:
     """Abkürzungen ausschreiben, Altersangaben glätten, optional Kraftausdrücke entschärfen."""
@@ -144,6 +187,10 @@ def speakable(text: str, soften: bool = True, lang: str = "en") -> tuple[str, li
             count += n
         if count:
             notes.append(f"{count} Kraftausdruck/-ausdrücke entschärft (TikTok/YouTube werten sonst ab).")
+        text, count = soften_sensitive(text, lang)
+        if count:
+            notes.append(f"{count} heikle Stelle(n) umschrieben – angedeutet statt ausgesprochen, "
+                         "die Handlung bleibt gleich.")
     return text, notes
 
 
@@ -331,7 +378,7 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
     editor = "Regeln"
     if use_llm:
         try:
-            title_t, scenes_t, visuals_t = _llm_edit(title, scenes_src, lang, mood)
+            title_t, scenes_t, visuals_t = _llm_edit(title, scenes_src, lang, mood, soften)
             editor = "KI-Lektorat"
             notes.append("KI-Lektorat: für die Erzählung geglättet und gekürzt, ohne neue Inhalte (geprüft).")
         except Exception as exc:                  # Lektorat per Regeln bleibt immer möglich
@@ -388,7 +435,7 @@ LLM_EDIT = (
     "Du bekommst die Szenen einer Reddit-Story. Schreibe jede Szene als gesprochenen Text in der Zielsprache "
     "um: natürlich, flüssig, {style}. Kürzen ist erlaubt (Füllsätze, Wiederholungen). VERBOTEN: neue "
     "Ereignisse, Personen, Orte, Zahlen oder Details erfinden – nur was im Original steht. Behalte die "
-    "Ich-Perspektive. Antworte NUR mit JSON: {{\"title\": \"...\", \"scenes\": [{{\"text\": \"...\", "
+    "Ich-Perspektive. {soften}Antworte NUR mit JSON: {{\"title\": \"...\", \"scenes\": [{{\"text\": \"...\", "
     "\"visual\": \"englische Bildbeschreibung, 8-15 Wörter, ohne Namen\", \"query\": \"2-3 englische Wörter "
     "für eine Stockvideo-Suche\"}}]}} – genau so viele Szenen wie im Original."
 )
@@ -400,16 +447,20 @@ STYLE = {
     "revenge": "genüsslich, selbstbewusst, mit Vorfreude auf die Pointe",
     "wholesome": "warm, herzlich, ruhig",
 }
+SOFTEN_HINT = ("Heikle Stellen (Sex, Gewalt, Selbstverletzung, Drogen, Kraftausdrücke) TikTok-tauglich umschreiben: "
+               "andeuten statt aussprechen, so dass man versteht, was gemeint ist – die Handlung bleibt gleich. ")
 LLM_CHECK = (
     "Prüfe, ob die neue Fassung Inhalte enthält, die NICHT im Original stehen (neue Ereignisse, Personen, Orte, "
-    "Zahlen). Kürzungen und Umformulierungen sind erlaubt. Antworte NUR mit JSON: {\"added\": [Szenennummern ab 1]}."
+    "Zahlen). Kürzungen, Umformulierungen und Umschreibungen heikler Stellen sind erlaubt. Antworte NUR mit JSON: "
+    "{\"added\": [Szenennummern ab 1]}."
 )
 
 
-def _llm_edit(title: str, scenes: list[str], lang: str, mood: str) -> tuple[str, list[str], list[tuple[str, str]]]:
+def _llm_edit(title: str, scenes: list[str], lang: str, mood: str,
+              soften: bool = True) -> tuple[str, list[str], list[tuple[str, str]]]:
     target = {"de": "Deutsch", "en": "Englisch"}[lang]
     numbered = "\n".join(f"{i}. {s}" for i, s in enumerate(scenes, start=1))
-    data = llm.chat_json(LLM_EDIT.format(style=STYLE[mood]),
+    data = llm.chat_json(LLM_EDIT.format(style=STYLE[mood], soften=SOFTEN_HINT if soften else ""),
                          f"Zielsprache: {target}\nTitel: {title}\n\nSzenen:\n{numbered}", temperature=0.5)
     new = data["scenes"]
     if len(new) != len(scenes):

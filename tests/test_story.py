@@ -99,7 +99,8 @@ def test_find_stories_uses_archive_filters_and_ranks(monkeypatch):
     monkeypatch.setattr(sources, "_arctic_candidates", lambda sub, rnd, **kw: [p for p in pool])
     posts, notes = sources.find_stories({"mood": "creepy", "subreddits": ["nosleep"], "keywords": ["stalker"]},
                                         length="3min", lang="en")
-    assert [p.id for p in posts] == ["a"]                       # relevant, passende Länge, nicht NSFW/heikel
+    assert [p.id for p in posts] == ["a", "e"]                  # relevant, passende Länge, nicht NSFW
+    assert posts[1].sensitive and not posts[0].sensitive        # heikle Story bleibt – wird umschrieben
     assert any("Archiv" in n for n in notes)
 
 
@@ -260,3 +261,15 @@ def test_contractions_without_apostrophes_are_fixed():
     assert text == "so I'm sitting there and I didn't know it wasn't muted. that's on me"
     assert any("Apostroph" in n for n in notes)
     assert editor.speakable("I live in an IM chat and a dim room")[0] == "I live in an IM chat and a dim room"
+
+
+def test_sensitive_passages_are_rephrased_not_removed():
+    text, notes = editor.speakable("We had sex for the first time and she was naked. Later he killed himself. "
+                                   "It was sexual harassment.")
+    assert text == ("We got intimate for the first time and she was without clothes. Later he unalived himself. "
+                    "It was harassment.")
+    assert any("umschrieben" in n for n in notes)
+    de, _ = editor.speakable("Wir hatten Sex und sie war nackt. Er hat Suizid begangen. Es war sexuelle Belästigung.",
+                             lang="de")
+    assert de == "Wir wurden intim und sie war unbekleidet. Er hat sich das Leben genommen. Es war Belästigung."
+    assert editor.speakable("We had sex.", soften=False)[0] == "We had sex."          # nur auf Wunsch

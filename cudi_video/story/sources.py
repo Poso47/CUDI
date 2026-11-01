@@ -19,7 +19,8 @@ log = logging.getLogger(__name__)
 ARCTIC = "https://arctic-shift.photon-reddit.com/api"
 ARCTIC_FIELDS = "id,title,selftext,score,num_comments,over_18,created_utc,author,subreddit"
 REMOVED = {"", "[removed]", "[deleted]", "[ Removed by Reddit ]"}
-# Heikle Themen, die TikTok/YouTube einschränken oder demonetarisieren – werden nicht vorgeschlagen
+# Heikle Themen, die TikTok/YouTube einschränken – solche Storys bleiben in der Auswahl; das Lektorat
+# umschreibt die Stellen (angedeutet statt ausgesprochen). Hier nur zur Markierung in der Vorschlagsliste.
 SENSITIVE = re.compile(
     r"\b(sex|sexual\w*|porn\w*|nude|naked|nsfw|orgasm\w*|masturbat\w*|penis|vagina|boobs?|horny|blowjob|"
     r"rape[ds]?|raping|molest\w*|suicid\w*|self[- ]harm|kill myself|porno|nackt|orgasmus|vergewaltig\w*|"
@@ -65,8 +66,12 @@ class Post:
     def words(self) -> int:
         return len(self.text.split())
 
+    @property
+    def sensitive(self) -> bool:
+        return bool(SENSITIVE.search(self.title) or SENSITIVE.search(self.text))
+
     def to_dict(self) -> dict:
-        return {**asdict(self), "url": self.url, "words": self.words}
+        return {**asdict(self), "url": self.url, "words": self.words, "sensitive": self.sensitive}
 
     @classmethod
     def from_dict(cls, data: dict) -> "Post":
@@ -177,8 +182,9 @@ def find_stories(plan: dict, length: str = "3min", limit: int = 6, allow_nsfw: b
         for p in found:
             pool.setdefault(p.id, p)
     def usable(p: Post, lo: int, hi: int) -> bool:
-        safe = allow_nsfw or not (p.over_18 or SENSITIVE.search(p.title) or SENSITIVE.search(p.text))
-        return lo <= p.words <= hi and safe and len(p.title) >= 8
+        # NSFW-markierte Posts bleiben draußen (dort trägt das heikle Thema die ganze Story);
+        # einzelne heikle Stellen in anderen Storys umschreibt das Lektorat.
+        return lo <= p.words <= hi and (allow_nsfw or not p.over_18) and len(p.title) >= 8
 
     candidates = [p for p in pool.values() if usable(p, lo, hi)]
     if not candidates and length != "teile":

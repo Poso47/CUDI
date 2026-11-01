@@ -201,8 +201,11 @@ gezupfte Musik. Drama, Rache, Spannung und Herzerwärmendes haben jeweils eigene
 Die Musik erzeugt CUDI selbst – keine Lizenzfragen.
 
 **Lektorat („Profi-Durchsicht“):** Edits, TL;DR und Meta-Sätze („sorry for formatting“) fliegen raus,
-Abkürzungen (AITA, MIL, „(25F)“) werden vorlesbar, Kraftausdrücke auf Wunsch entschärft, die Story wird
-in Szenen und – wenn nötig – Teile gegliedert. Jede Änderung steht im Skelett und im Prüfbericht.
+Abkürzungen (AITA, MIL, „(25F)“, „im“ → „I'm“) werden vorlesbar, die Story wird in Szenen und – wenn
+nötig – Teile gegliedert. **Heikles wird umschrieben statt weggelassen** (Option „Heikles entschärfen“):
+Kraftausdrücke und anzügliche oder belastende Stellen werden angedeutet statt ausgesprochen („we had
+sex“ → „we got intimate“, „Sex hatten“ → „intim wurden“) – die Handlung bleibt gleich, und solche Storys
+bleiben in der Auswahl. Nur von Reddit als NSFW markierte Posts werden nicht vorgeschlagen. Jede Änderung steht im Skelett und im Prüfbericht.
 Inhaltlich wird nichts hinzugefügt; ein optionales Sprachmodell darf glätten und kürzen, seine Fassung
 wird gegen das Original geprüft.
 
