@@ -50,6 +50,18 @@ def test_detect_mood_and_language():
     assert language_of("I was walking home and it was dark.") == "en"
 
 
+def test_german_stories_and_narrator_voice():
+    from cudi_video.story.moods import narrator_gender, voice_for
+
+    text = "Ich (m40) habe meinen Benziner verkauft. Das führt zu Streit mit meiner Partnerin (w38) und ihrer Tochter."
+    assert detect_mood("beziehungen", "Beziehungskrise", text) == "drama"
+    assert detect_mood("", "Rache am Chef", "Mein Chef hat mich gekündigt, also habe ich es ihm heimgezahlt. Karma.") == "revenge"
+    assert narrator_gender(text) == "m" and narrator_gender("I (24F) went camping") == "f"
+    assert narrator_gender("My BF (26M) said no") is None                     # nur der Ich-Erzähler zählt
+    assert voice_for("drama", "de", "m")[0] == "de-DE-ConradNeural"
+    assert voice_for("drama", "de")[0] == "de-DE-KatjaNeural"
+
+
 def test_creepy_is_told_slower_than_funny():
     assert seconds_per_word("creepy", "en") > seconds_per_word("funny", "en")
     lo, hi = word_range("3min", "creepy", "en")
@@ -133,7 +145,8 @@ def test_visuals_follow_the_scene():
 def test_build_skeleton_rules_only(monkeypatch):
     monkeypatch.setattr(editor.llm, "available", lambda: False)
     sk = editor.build_skeleton(make_post(), lang="en", length="3min")
-    assert sk["mood"] == "creepy" and sk["voice"]["name"] == "en-US-ChristopherNeural"
+    assert sk["mood"] == "creepy" and sk["voice"]["name"] == "en-US-AriaNeural"   # Erzählerin „I (24F)“
+    assert any("weiblich" in n for n in sk["notes"])
     assert sk["title"].startswith("Someone whispered")
     assert len(sk["parts"]) == 1 and sk["parts"][0]["intro"] == sk["title"]
     scenes = sk["parts"][0]["scenes"]
@@ -147,7 +160,7 @@ def test_build_skeleton_translates_when_needed(monkeypatch):
     monkeypatch.setattr(editor.llm, "available", lambda: False)
     monkeypatch.setattr(editor, "translate", lambda texts, target, source="en": ([f"[de] {t}" for t in texts], "Test"))
     sk = editor.build_skeleton(make_post(), lang="de")
-    assert sk["title"].startswith("[de]") and sk["voice"]["name"] == "de-DE-KillianNeural"
+    assert sk["title"].startswith("[de]") and sk["voice"]["name"] == "de-DE-AmalaNeural"
     assert any("Übersetzt mit Test" in n for n in sk["notes"])
     assert sk["parts"][0]["scenes"][0]["source"].startswith("So last summer")   # Bildsuche nutzt das Original
 

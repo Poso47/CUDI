@@ -18,7 +18,9 @@ MOODS: dict[str, dict] = {
                   "schaurig", "paranormal", "dämon", "albtraum", "nosleep", "gänsehaut"],
         "signals": ["scream", "blood", "shadow", "whisper", "footsteps", "knock", "figure", "ghost", "dead",
                     "corpse", "basement", "woods", "eyes", "smile", "door", "night", "dark", "creature",
-                    "stalk", "watching", "noise", "cold", "silence"],
+                    "stalk", "watching", "noise", "cold", "silence",
+                    "schrei", "blut", "schatten", "flüster", "schritte", "klopf", "gestalt", "leiche", "keller",
+                    "wald", "augen", "dunkel", "nacht", "stille", "kreatur", "beobacht"],
         "voice": {"de": ("de-DE-KillianNeural", "-12%", "-6Hz"), "en": ("en-US-ChristopherNeural", "-12%", "-6Hz")},
         "pause": 0.6, "music": "drone",
         # KI-Bilder sind schon düster – nur entsättigen, leicht Kontrast, Vignette und Korn (nicht abdunkeln)
@@ -35,7 +37,9 @@ MOODS: dict[str, dict] = {
         "words": ["spannend", "spannung", "thriller", "krimi", "mysteriös", "rätsel", "verfolgt", "suspense",
                   "mystery", "thrilling", "verschwunden", "polizei"],
         "signals": ["police", "followed", "stranger", "missing", "car", "phone", "call", "detective", "suddenly",
-                    "found", "investigation", "chase", "locked", "secret"],
+                    "found", "investigation", "chase", "locked", "secret",
+                    "polizei", "verfolg", "fremde", "vermisst", "anruf", "plötzlich", "gefunden", "ermittl",
+                    "geheim", "flucht"],
         "voice": {"de": ("de-DE-ConradNeural", "-3%", "-2Hz"), "en": ("en-US-GuyNeural", "-3%", "-2Hz")},
         "pause": 0.45, "music": "pulse",
         "grade": "eq=saturation=0.75:contrast=1.12:brightness=-0.03,vignette=PI/4.5",
@@ -51,7 +55,8 @@ MOODS: dict[str, dict] = {
         "words": ["lustig", "witzig", "komisch", "peinlich", "funny", "hilarious", "lachen", "humor", "tifu",
                   "fail", "dumm", "kevin", "absurd"],
         "signals": ["laugh", "lol", "hilarious", "embarrass", "accidentally", "awkward", "fart", "poop", "oops",
-                    "funny", "dumb", "idiot", "kevin", "ridiculous", "joke"],
+                    "funny", "dumb", "idiot", "kevin", "ridiculous", "joke",
+                    "lach", "peinlich", "versehentlich", "furz", "lustig", "witzig", "dumm", "lächerlich"],
         "voice": {"de": ("de-DE-FlorianMultilingualNeural", "+8%", "+2Hz"), "en": ("en-US-BrianNeural", "+8%", "+2Hz")},
         "pause": 0.3, "music": "pluck",
         "grade": "eq=saturation=1.3:brightness=0.03:contrast=1.04",
@@ -68,7 +73,10 @@ MOODS: dict[str, dict] = {
         "words": ["drama", "streit", "beziehung", "familie", "hochzeit", "schwiegermutter", "betrug", "fremdgehen",
                   "aita", "arschloch", "ex", "trennung", "affäre"],
         "signals": ["wife", "husband", "boyfriend", "girlfriend", "wedding", "mother-in-law", "cheat", "divorce",
-                    "sister", "brother", "family", "aita", "fiance", "parents", "inheritance"],
+                    "sister", "brother", "family", "aita", "fiance", "parents", "inheritance",
+                    "freundin", "partner", "ehemann", "ehefrau", "schwieger", "hochzeit", "familie", "mutter",
+                    "vater", "schwester", "bruder", "beziehung", "streit", "trennung", "betrog", "tochter", "sohn",
+                    "stief", "eltern", "verlobt"],
         "voice": {"de": ("de-DE-KatjaNeural", "+4%", "+0Hz"), "en": ("en-US-AriaNeural", "+4%", "+0Hz")},
         "pause": 0.35, "music": "pad",
         "grade": "eq=saturation=0.9:contrast=1.06,colorbalance=bs=0.04:rs=-0.02",
@@ -84,7 +92,8 @@ MOODS: dict[str, dict] = {
         "words": ["rache", "revenge", "karma", "heimzahlen", "vergeltung", "petty", "genugtuung", "chef",
                   "vermieter", "nachbar"],
         "signals": ["revenge", "karma", "boss", "landlord", "hoa", "manager", "complied", "policy", "fired",
-                    "neighbor", "entitled", "lawyer", "payback"],
+                    "neighbor", "entitled", "lawyer", "payback",
+                    "rache", "karma", "chef", "vermieter", "kündig", "nachbar", "anwalt", "heimgezahlt", "vorschrift"],
         "voice": {"de": ("de-DE-ConradNeural", "+5%", "+0Hz"), "en": ("en-US-AndrewNeural", "+5%", "+0Hz")},
         "pause": 0.32, "music": "beat",
         "grade": "eq=saturation=1.05:contrast=1.14,vignette=PI/5",
@@ -100,7 +109,9 @@ MOODS: dict[str, dict] = {
         "words": ["herzerwärmend", "schön", "rührend", "wholesome", "glücklich", "hilfsbereit", "freundlich",
                   "dankbar", "liebe", "positiv", "berührend"],
         "signals": ["kind", "grateful", "stranger", "helped", "thank", "tears", "smile", "love", "donated",
-                    "surprise", "hug", "proud", "adopted"],
+                    "surprise", "hug", "proud", "adopted",
+                    "freundlich", "dankbar", "geholfen", "danke", "tränen", "lächel", "liebe", "gespendet", "umarm",
+                    "stolz"],
         "voice": {"de": ("de-DE-SeraphinaMultilingualNeural", "+0%", "+0Hz"), "en": ("en-US-AvaNeural", "+0%", "+0Hz")},
         "pause": 0.4, "music": "warm",
         "grade": "colorbalance=rs=0.06:gs=0.02:bs=-0.05,eq=saturation=1.1:brightness=0.03",
@@ -113,6 +124,31 @@ MOODS: dict[str, dict] = {
 }
 
 DEFAULT_MOOD = "creepy"
+
+# Stimme passend zum Ich-Erzähler („Ich (m40)“ -> männlich), im Stil der Stimmung
+VOICES_BY_GENDER = {
+    "creepy": {"de": {"m": "de-DE-KillianNeural", "f": "de-DE-AmalaNeural"},
+               "en": {"m": "en-US-ChristopherNeural", "f": "en-US-AriaNeural"}},
+    "suspense": {"de": {"m": "de-DE-ConradNeural", "f": "de-DE-KatjaNeural"},
+                 "en": {"m": "en-US-GuyNeural", "f": "en-US-AriaNeural"}},
+    "funny": {"de": {"m": "de-DE-FlorianMultilingualNeural", "f": "de-DE-SeraphinaMultilingualNeural"},
+              "en": {"m": "en-US-BrianNeural", "f": "en-US-EmmaNeural"}},
+    "drama": {"de": {"m": "de-DE-ConradNeural", "f": "de-DE-KatjaNeural"},
+              "en": {"m": "en-US-AndrewNeural", "f": "en-US-AriaNeural"}},
+    "revenge": {"de": {"m": "de-DE-ConradNeural", "f": "de-DE-KatjaNeural"},
+                "en": {"m": "en-US-AndrewNeural", "f": "en-US-AvaNeural"}},
+    "wholesome": {"de": {"m": "de-DE-FlorianMultilingualNeural", "f": "de-DE-SeraphinaMultilingualNeural"},
+                  "en": {"m": "en-US-AndrewNeural", "f": "en-US-AvaNeural"}},
+}
+NARRATOR = re.compile(r"\b(?:I|I'm|Ich|ich)\s*[\(\[]\s*(?:(\d{1,2})\s*([MFWmfw])|([MFWmfw])\s*(\d{1,2}))\s*[\)\]]")
+
+
+def narrator_gender(text: str) -> str | None:
+    """„I (25F)“ / „Ich (m40)“ -> "f" / "m"; sonst None."""
+    match = NARRATOR.search(text[:3000])
+    if not match:
+        return None
+    return "m" if (match.group(2) or match.group(3)).lower() == "m" else "f"
 
 # Häufige Wörter aus deutschen Beschreibungen -> englische Suchbegriffe (die Storys sind meist englisch)
 DE_EN = {
@@ -206,7 +242,8 @@ def plan_from_description(description: str, lang: str = "en") -> dict:
     }
 
 
-SUBREDDIT_MOOD = {sub.lower(): key for key, mood in MOODS.items() for sub in mood["subreddits"]}
+SUBREDDIT_MOOD = {sub.lower(): key for key, mood in MOODS.items()
+                  for sub in [*mood.get("subreddits_de", []), *mood["subreddits"]]}
 
 
 def detect_mood(subreddit: str, title: str, text: str) -> str:
@@ -220,8 +257,12 @@ def detect_mood(subreddit: str, title: str, text: str) -> str:
     return best if scores[best] >= 2 else (by_sub or DEFAULT_MOOD)
 
 
-def voice_for(mood: str, lang: str) -> tuple[str, str, str]:
-    return MOODS[mood]["voice"][lang]
+def voice_for(mood: str, lang: str, gender: str | None = None) -> tuple[str, str, str]:
+    """(Stimme, Tempo, Tonhöhe) – bei bekanntem Erzähler-Geschlecht die passende Stimme der Stimmung."""
+    name, rate, pitch = MOODS[mood]["voice"][lang]
+    if gender:
+        name = VOICES_BY_GENDER[mood][lang][gender]
+    return name, rate, pitch
 
 
 WORDS_PER_SECOND = {"de": 2.25, "en": 2.55}      # gesprochen bei normalem Tempo (edge-tts)

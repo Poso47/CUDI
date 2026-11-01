@@ -225,7 +225,7 @@ async function findStories(again) {
   try {
     const r = await api("/api/story/search", { method: "POST", body: JSON.stringify({ description: desc, mood: storyMood,
       lang: $("storyLang").value, length: $("storyLength").value, seed: storySeed }) });
-    window._stories = r.stories;
+    window._stories = r.stories; window._plan = r.plan;
     box.innerHTML = `<b>Vorschläge</b> <span class="pill">${esc((storyMoods.find(m => m.id === r.plan.mood) || {}).label?.de || r.plan.mood)}</span>` +
       (r.plan.keywords.length ? `<span class="pill">Stichwörter: ${esc(r.plan.keywords.join(", "))}</span>` : "") +
       r.notes.map(n => `<p class="hint">${esc(n)}</p>`).join("") +
@@ -238,7 +238,7 @@ async function findStories(again) {
 
 async function prepareStory(index, own) {
   $("storyErr").textContent = "";
-  const body = { ...storyOptions(), mood: storyMood || null };
+  const body = { ...storyOptions(), mood: storyMood || (index !== null && window._plan ? window._plan.mood : null) };
   if (own) { body.title = $("ownTitle").value; body.text = $("ownText").value; }
   else if (index === null) body.url = $("storyDesc").value.trim();
   else body.story = window._stories[index];

@@ -16,7 +16,7 @@ from pathlib import Path
 
 from .. import config
 from .editor import build_skeleton
-from .moods import MOODS, plan_from_description, subreddits_for
+from .moods import MOODS, narrator_gender, plan_from_description, subreddits_for, voice_for
 from .render import render_part
 from .sources import LENGTHS, Post, fetch_post, find_stories, post_from_text
 from .visuals import Visual, pick_visuals
@@ -111,7 +111,8 @@ def render(folder_path: Path, skeleton: dict | None = None, progress=lambda stag
     if skeleton is not None:
         validate_skeleton(skeleton)
         if not skeleton.get("voice"):              # Stimmung wurde geändert -> passende Stimme
-            name, rate, pitch = MOODS[skeleton["mood"]]["voice"][skeleton["lang"]]
+            gender = narrator_gender(skeleton["post"].get("text", ""))
+            name, rate, pitch = voice_for(skeleton["mood"], skeleton["lang"], gender)
             skeleton["voice"] = {"name": name, "rate": rate, "pitch": pitch, "pause": MOODS[skeleton["mood"]]["pause"]}
         save_skeleton(folder, skeleton)
     skeleton = load_skeleton(folder)

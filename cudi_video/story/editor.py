@@ -11,7 +11,7 @@ import logging
 import re
 
 from .. import config, llm
-from .moods import MOODS, WORDS_PER_SECOND, detect_mood, language_of, rate_factor
+from .moods import MOODS, WORDS_PER_SECOND, detect_mood, language_of, narrator_gender, rate_factor, voice_for
 from .sources import LENGTHS, Post, rights_note
 
 log = logging.getLogger(__name__)
@@ -291,7 +291,10 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
     text, more = speakable(text, soften, source_lang)
     notes += more
     title, _ = speakable(clean_text(post.title)[0], soften, source_lang)
-    voice, rate, pitch = MOODS[mood]["voice"][lang]
+    gender = narrator_gender(post.text)
+    voice, rate, pitch = voice_for(mood, lang, gender)
+    if gender:
+        notes.append(f"Erzählerstimme passend zum Ich-Erzähler ({'männlich' if gender == 'm' else 'weiblich'}).")
     pause = MOODS[mood]["pause"]
 
     use_llm = llm.available() if use_llm is None else use_llm
