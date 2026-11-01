@@ -21,7 +21,8 @@ MOODS: dict[str, dict] = {
                     "stalk", "watching", "noise", "cold", "silence"],
         "voice": {"de": ("de-DE-KillianNeural", "-12%", "-6Hz"), "en": ("en-US-ChristopherNeural", "-12%", "-6Hz")},
         "pause": 0.6, "music": "drone",
-        "grade": "eq=saturation=0.35:brightness=-0.07:contrast=1.18,vignette=PI/3.6,noise=alls=6:allf=t",
+        # KI-Bilder sind schon düster – nur entsättigen, leicht Kontrast, Vignette und Korn (nicht abdunkeln)
+        "grade": "eq=saturation=0.45:brightness=-0.01:contrast=1.08,vignette=PI/4.5,noise=alls=6:allf=t",
         "colors": {"text": "FFFFFF", "highlight": "E8283A", "card": (20, 20, 24)},
         "image_style": "dark cinematic horror photograph, eerie atmosphere, fog, low light, muted colors, film grain",
         "default_queries": ["dark forest night", "abandoned house", "dark hallway", "foggy road night", "flickering light"],

@@ -8,6 +8,7 @@ unter der Stimme, bei langen Storys „Teil 1/2“ mit Cliffhanger.
 from __future__ import annotations
 
 import logging
+import re
 import shutil
 import subprocess
 import wave
@@ -118,7 +119,7 @@ def post_card(skeleton: dict, part_no: int, n_parts: int, path: Path) -> Path:
 
 def _gradient(mood: str, path: Path, index: int) -> Path:
     accent = tuple(int(MOODS[mood]["colors"]["highlight"][i:i + 2], 16) for i in (0, 2, 4))
-    base = (12, 12, 18) if mood in ("creepy", "suspense") else (28, 24, 40)
+    base = (34, 34, 44) if mood in ("creepy", "suspense") else (40, 34, 58)
     img = theme.linear_gradient((W, H), base, tuple(int(b * 0.7 + a * 0.3) for a, b in zip(accent, base)),
                                 vertical=index % 2 == 0)
     img.convert("RGB").save(path, quality=92)
@@ -171,13 +172,33 @@ def _escape(text: str) -> str:
     return text.replace("\\", "").replace("{", "(").replace("}", ")")
 
 
+def mark_punctuation(words: list[dict], text: str) -> list[dict]:
+    """Satzzeichen aus dem Text an die Wörter der Stimme hängen – edge-tts liefert Wörter ohne sie."""
+    tokens = re.findall(r"\S+", text)
+    out, ti = [], 0
+    for w in words:
+        key = re.sub(r"\W", "", w["text"]).lower()
+        punct = ""
+        for j in range(ti, min(ti + 4, len(tokens))):          # kleiner Vorgriff, falls Wörter zusammengefasst sind
+            if key and key in re.sub(r"\W", "", tokens[j]).lower():
+                ti = j + 1
+                tail = tokens[j].rstrip("\"'”’)]»")
+                punct = tail[-1] if tail[-1:] in (".", ",", "!", "?", ";", ":", "…") else ""
+                break
+        out.append({**w, "punct": punct})
+    return out
+
+
 def caption_groups(words: list[dict], max_words: int = 3, max_chars: int = 18) -> list[list[dict]]:
-    """Wörter zu kurzen Untertitel-Häppchen (TikTok-Stil); Satzzeichen beenden ein Häppchen."""
+    """Wörter zu kurzen Untertitel-Häppchen (TikTok-Stil); ein Satzende beendet immer ein Häppchen."""
     groups, current = [], []
     for w in words:
         current.append(w)
         text = " ".join(x["text"] for x in current)
-        if len(current) >= max_words or len(text) >= max_chars or w["text"][-1:] in ".,!?…:;":
+        punct = w.get("punct") or w["text"][-1:]
+        sentence_end = punct in (".", "!", "?", "…")
+        pause = punct in (",", ";", ":")
+        if len(current) >= max_words or len(text) >= max_chars or sentence_end or pause:
             groups.append(current)
             current = []
     if current:
@@ -309,7 +330,7 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
         t += duration + gap
     total = t - gap + TAIL
     words = [{**w, "start": w["start"] + s, "end": w["end"] + s}
-             for (_, ws, _), s in zip(voiced, starts) for w in ws]
+             for (_, ws, _), s, text in zip(voiced, starts, texts) for w in mark_punctuation(ws, text)]
     intro_end = starts[1] - gap / 2
     story_words = [w for w in words if w["start"] >= intro_end - 0.05]        # Titel steht auf der Karte
 

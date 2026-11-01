@@ -202,3 +202,15 @@ def test_metadata_credits_author_and_ai():
     assert "KI-generierte Symbolbilder" in meta["description"] and "KI-Stimme" in meta["caption"]
     with pytest.raises(ValueError):
         validate_skeleton({**sk, "parts": [{"scenes": [{"text": " "}]}]})
+
+
+def test_captions_break_at_sentence_ends():
+    from cudi_video.story.render import caption_groups, mark_punctuation
+
+    text = "I ran into the woods. The setup was quiet, almost too quiet."
+    spoken = ["I", "ran", "into", "the", "woods", "The", "setup", "was", "quiet", "almost", "too", "quiet"]
+    words = mark_punctuation([{"text": w, "start": i, "end": i + 0.5} for i, w in enumerate(spoken)], text)
+    assert words[4]["punct"] == "." and words[8]["punct"] == ","
+    groups = [" ".join(w["text"] for w in g) for g in caption_groups(words)]
+    assert "woods The" not in " | ".join(groups)
+    assert groups == ["I ran into", "the woods", "The setup was", "quiet", "almost too quiet"]
