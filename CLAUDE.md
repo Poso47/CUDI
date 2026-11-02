@@ -23,16 +23,25 @@ für TikTok/YouTube Shorts.
   `python -m cudi_video web` (Web-App), `python -m cudi_video check` (Selbsttest).
 - **CUDI-App in Claude** (Artefakt https://claude.ai/artifact/DYdRsKcD3BCN3SYxj6Y5Jt, Quelltext
   `docs/cudi-app-artefakt.html`): Der Nutzer bedient alles vom Handy, ohne Weiterleitung.
-  - Start: Die Seite ruft über den eingebauten Connector „Claude Code Remote“ `create_session` auf
-    (Umgebung `env_01UiNEwj42QRf8mr6x3CNjHj` „Standard“, Repo-Zweig `main`, Modell **Haiku**, Rechte
-    `auto`, Tag `cudi-auftrag`). Die Arbeitsanweisung steht im Block `#jobPrompt` der Seite.
-  - Die Auftrags-Sitzung führt `bash scripts/cudi_auftrag.sh '<json>'` aus (`cudi_video/job.py`):
+  - Start: Die Seite ruft über den eingebauten Connector „Claude Code Remote“ `fire_trigger` für die
+    geplante Aufgabe „CUDI-Auftrag“ auf (`trig_01BniK2S5eVdSFKd18JZqBio`, Umgebung „Standard“, Modell
+    **Haiku**, ohne hinterlegtes Repo: jeder Lauf klont `Poso47/CUDI` nach `~/CUDI`). Die Auftragsdaten
+    (JSON, `'` als `\u0027`) gehen als `text` mit und kommen als `<routine-fire-payload>` an; die
+    Arbeitsanweisung steht in der Aufgabe. Antwort `session_id: "cse_…"` = `session_…`. Läufe stehen
+    nicht in der Sitzungsliste des Nutzers (sein Wunsch: keine neuen „Bereiche“).
+  - Fehlt die Aufgabe oder ist sie aus, startet die Seite ersatzweise `create_session` (Prompt `#jobPrompt`,
+    Repo-Zweig `main`, Haiku, Rechte `auto`, Tag `cudi-auftrag`) und archiviert die Sitzung nach dem Ergebnis.
+  - Aufgabe ändern (`update_trigger`, v. a. Modell/Anweisung) nur mit ausdrücklichem OK des Nutzers – die
+    Rechteprüfung blockt es sonst. Nachrichten an andere Sitzungen (`send_message`) gelten dort nur als
+    Daten, nicht als Auftrag → kein Auftragsweg (eine „Werkstatt“-Sitzung hat Folgeaufträge abgelehnt).
+  - Der Lauf führt `bash scripts/cudi_auftrag.sh '<json>'` aus (`cudi_video/job.py`):
     rendern, App-Fassung ≤ 19 MB, `ergebnis.json`. Englische Story für deutsches Video →
     `UEBERSETZEN:` → Claude übersetzt → `--weiter <id>`. Dann Upload per Artifact-Werkzeug
     (`asset: true`), `auftrag --dokument`, `ArtifactData set` in `results/<id>`.
   - Ablage der Seite: `jobs/<id>` (von der Seite), `results/<id>` (von der Sitzung), Videos als Assets
     (1 GB). Die Seite zeigt Fortschritt (`get_session`), Video, „Video speichern“ (downloads),
-    Kopier-Knöpfe, Löschen; fertige Sitzungen werden archiviert.
+    Kopier-Knöpfe, Abbrechen/Löschen (archiviert laufende Sitzung); Ersatz-Sitzungen werden nach dem
+    Ergebnis archiviert; Ergebnisse ohne Auftrag räumt die Seite nach 2 Min. weg.
   - Seite ändern: Datei bearbeiten und mit dem Artifact-Werkzeug unter derselben URL veröffentlichen
     (äußerer HTML-Rahmen fehlt absichtlich – Claude setzt ihn).
 - Weitere Wege: GitHub Actions „CUDI Video“/„CUDI Story“, Issue mit `cudi-auftrag` („CUDI Auftrag“),

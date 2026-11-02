@@ -124,8 +124,10 @@ Inaktivität ein und speichert Videos nicht dauerhaft – fertige Videos also di
 
 **C) Mit der CUDI-App-Seite in Claude (am bequemsten, alles in der App):** Die Seite
 (Quelltext `docs/cudi-app-artefakt.html`) hat alle Optionen für Rankings und Storys. „… erstellen“
-startet über den eingebauten Connector „Claude Code Remote“ eine eigene Claude-Sitzung in der
-Cloud-Umgebung. Sie führt `bash scripts/cudi_auftrag.sh '<auftrag>'` aus (`python -m cudi_video
+startet über den eingebauten Connector „Claude Code Remote“ einen Lauf der geplanten Aufgabe
+„CUDI-Auftrag“ in der Claude-Cloud – solche Läufe erscheinen nicht als neue Sitzungen in deiner
+Sitzungsliste (fehlt die Aufgabe, startet die App ersatzweise eine eigene Sitzung und archiviert sie
+danach). Der Lauf führt `bash scripts/cudi_auftrag.sh '<auftrag>'` aus (`python -m cudi_video
 auftrag`): prüft die Eingaben, rendert, erstellt eine App-Fassung ≤ 19 MB (1080×1920) und legt Video,
 Titelbild, TikTok-/YouTube-Text, Hinweise und Prüfbericht in der Ablage der Seite ab. Unter „Videos“
 siehst du den Fortschritt, schaust das Video an, speicherst es aufs Handy (Teilen-Menü) und kopierst
