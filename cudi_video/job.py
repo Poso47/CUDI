@@ -24,6 +24,7 @@ import os
 import re
 import shutil
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -37,6 +38,7 @@ MAX_REVIEW = 40_000
 MOODS = ("auto", "creepy", "suspense", "funny", "drama", "revenge", "wholesome")
 TRANSLATION_FILE = "uebersetzen.json"
 EXIT_TRANSLATE = 3
+RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch nach einer Störung
 
 
 class OrderError(ValueError):
@@ -211,6 +213,11 @@ def _story(order: dict, folder: Path, progress) -> dict:
     return result
 
 
+def _transient(exc: Exception) -> bool:
+    """Vorübergehende Störung (Netz, Dienst, Prozess) – nicht: falsche Eingaben oder eine gelöschte Story."""
+    return isinstance(exc, json.JSONDecodeError) or not isinstance(exc, (OrderError, ValueError))
+
+
 def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
     """Auftrag ausführen. Rückgabe (Exit-Code, ergebnis.json-Daten oder None bei Übersetzungsbedarf)."""
     from .story.translate import CLAUDE_FILE_ENV, TranslationNeeded
@@ -226,16 +233,26 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
             last[0] = stage
             print(f"  {fraction:4.0%} {stage}", flush=True)
 
-    try:
-        result = _ranking(order, folder, progress) if order["art"] == "ranking" else _story(order, folder, progress)
-        data = _summary(order, result)
-    except TranslationNeeded as need:
-        translation.write_text(json.dumps({"quelle": need.source, "ziel": need.target, "texte": need.texts,
-                                           "uebersetzt": []}, ensure_ascii=False, indent=1), "utf-8")
-        return EXIT_TRANSLATE, None
-    except Exception as exc:                                  # Fehler kommen als Meldung in die App
-        log.exception("Auftrag %s fehlgeschlagen", order["id"])
-        data = _summary(order, None, f"{type(exc).__name__}: {exc}"[:1500])
+    for attempt in (1, 2):                                    # eine vorübergehende Störung heilt sich selbst
+        try:
+            result = _ranking(order, folder, progress) if order["art"] == "ranking" else _story(order, folder, progress)
+            data = _summary(order, result)
+            break
+        except TranslationNeeded as need:
+            translation.write_text(json.dumps({"quelle": need.source, "ziel": need.target, "texte": need.texts,
+                                               "uebersetzt": []}, ensure_ascii=False, indent=1), "utf-8")
+            return EXIT_TRANSLATE, None
+        except Exception as exc:                              # Fehler kommen als Meldung in die App
+            log.exception("Auftrag %s fehlgeschlagen (Versuch %d)", order["id"], attempt)
+            if attempt == 1 and _transient(exc):
+                print(f"  Störung ({type(exc).__name__}) – neuer Versuch in {RETRY_PAUSE} s", flush=True)
+                time.sleep(RETRY_PAUSE)
+                from . import net
+                net.reset_blocks()
+                last[0] = ""
+                continue
+            data = _summary(order, None, f"{type(exc).__name__}: {exc}"[:1500])
+            break
     (folder / "ergebnis.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), "utf-8")
     return (0 if data["ok"] else 1), data
 

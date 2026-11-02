@@ -115,3 +115,28 @@ def test_main_prints_lines_for_the_session(tmp_path, monkeypatch, capsys):
     assert job.main(args) == 0
     out = capsys.readouterr().out
     assert 'DATEIEN: ["/x/a_app.mp4", "/x/a.jpg", "/x/b_app.mp4"]' in out and "ERGEBNIS:" in out
+
+
+def test_transient_failure_is_retried_once_but_input_errors_are_not(tmp_path, monkeypatch):
+    monkeypatch.setattr(job.time, "sleep", lambda s: None)
+    calls = {"n": 0}
+
+    def flaky(order, folder, progress):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            raise ConnectionError("Dienst kurz weg")
+        return {"output_dir": str(tmp_path), "videos": {}, "warnings": []}
+
+    monkeypatch.setattr(job, "_ranking", flaky)
+    order = {"id": "rt1", "art": "ranking"}
+    code, data = job.run_order(order, tmp_path / "a")
+    assert code == 0 and data["ok"] and calls["n"] == 2
+
+    def bad(order, folder, progress):
+        calls["n"] += 1
+        raise ValueError("Die Story wurde gelöscht oder hat keinen Text (nur Bild/Link).")
+
+    calls["n"] = 0
+    monkeypatch.setattr(job, "_ranking", bad)
+    code, data = job.run_order(order, tmp_path / "b")
+    assert code == 1 and calls["n"] == 1 and "gelöscht" in data["fehler"]

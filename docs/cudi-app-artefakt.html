@@ -553,7 +553,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       try {
         watches.set(session, mcp.watchTool(CFG.server, "get_session", { session_id: session }, (ev) => {
           if (ev.type === "data") noteBucket(session, ev.result.payload);
-          render(); archiveDone();
+          render(); archiveDone(); autoRetry();
         }, { refetchInterval: 30000 }));
       } catch (e) { /* ohne Statusabfrage zeigt die Karte nur „läuft“ */ }
     }
@@ -572,6 +572,38 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       if (!job || !job.session || job.weg === "aufgabe" || done.has(job.session)) continue;
       rememberArchived(job.session);
       mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => { /* bleibt sichtbar */ });
+    }
+  }
+
+  // Vorübergehende Störung (Fehler oder ohne Ergebnis): einmal automatisch neu starten – gleiche Karte,
+  // „2. Versuch“. Nicht bei Eingabefehlern, gelöschter Story oder vollem Speicher.
+  const NO_RETRY = /Unbekannte|Mindestens eine Sprache|Plätze:|Stimmung wählen|ungültig|gültige Kennung|JSON-Objekt|gelöscht oder hat keinen Text|Speicher voll|Neustart ging nicht/i;
+  const retrying = new Set();
+  function autoRetry() {
+    if (!mcp || !db) return;
+    for (const [id, job] of jobs) {
+      if (job.versuch || retrying.has(id) || !job.auftrag || !job.session) continue;
+      const state = stateOf(id), res = results.get(id);
+      if (state !== "fehler" && state !== "ohne") continue;
+      if (res && (NO_RETRY.test(res.fehler || "") || (res.videos || []).some((v) => v.video_url))) continue;
+      retrying.add(id);
+      (async () => {
+        const ref = db.doc("jobs/" + id);
+        try {
+          await ref.update({ versuch: 2 });                    // zuerst festhalten: nie zweimal neu starten
+          if (!res && !archivedSet().has(job.session)) {        // alter Lauf darf nicht weiterrendern
+            rememberArchived(job.session);
+            mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => {});
+          }
+          if (res) await db.doc("results/" + id).delete();
+          const started = await dispatch(id, Object.assign({}, job.auftrag, { id: id }), job.label);
+          await ref.update({ session: started.session, weg: started.weg, gestartet: new Date().toISOString(), versuch: 2 });
+        } catch (err) {
+          await db.doc("results/" + id).set({ id: id, art: job.art || "", ok: false, titel: "", videos: [], hinweise: [],
+            pruefbericht: "", fehler: "Automatischer Neustart ging nicht: " + explain(err),
+            fertig: new Date().toISOString() }).catch(() => {});
+        }
+      })();
     }
   }
 
@@ -673,7 +705,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
     if (state === "laeuft") {
       const info = document.createElement("p"); info.className = "hint";
-      info.textContent = "Läuft seit " + minutes(job.gestartet) + " Min. – meist 10 bis 20 Minuten. Du kannst die App solange schließen.";
+      info.textContent = (job.versuch === 2 ? "2. Versuch nach einer Störung – " : "") + "Läuft seit " +
+        minutes(job.gestartet) + " Min. – meist 10 bis 20 Minuten. Du kannst die App solange schließen.";
       li.appendChild(info);
     } else if (state === "wartet") {
       const info = document.createElement("p"); info.className = "note warn";
@@ -758,7 +791,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   function signature(id) {
     const job = jobs.get(id) || {}, res = results.get(id), state = stateOf(id);
-    return JSON.stringify([state, res ? res.fertig || 1 : 0, job.label || "", state === "laeuft" ? minutes(job.gestartet) : 0]);
+    return JSON.stringify([state, res ? res.fertig || 1 : 0, job.label || "", state === "laeuft" ? minutes(job.gestartet) : 0,
+                           job.versuch || 1, job.session || ""]);
   }
   // Nur geänderte Karten neu zeichnen – ein laufendes Video wird nie neu geladen
   // Viele Videos: die neuesten zuerst, ältere per Knopf nachladen (alle bleiben speicher- und löschbar)
@@ -866,11 +900,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     db.collection("jobs").orderBy("gestartet", "desc").limit(200).onSnapshot((snap) => {
       clearTimeout(loading); note("videosMsg", "", "");
       jobs.clear(); snap.docs.forEach((d) => jobs.set(d.id, d.data()));
-      syncWatches(); render(); setTimeout(() => { archiveDone(); cleanupOrphans(); }, 0);
+      syncWatches(); render(); setTimeout(() => { archiveDone(); cleanupOrphans(); autoRetry(); }, 0);
     }, (e) => { clearTimeout(loading); note("videosMsg", "Die Auftragsliste ist gerade nicht erreichbar.", "warn"); });
     db.collection("results").limit(200).onSnapshot((snap) => {
       results.clear(); snap.docs.forEach((d) => results.set(d.id, d.data()));
-      syncWatches(); render(); setTimeout(() => { archiveDone(); cleanupOrphans(); }, 0);
+      syncWatches(); render(); setTimeout(() => { archiveDone(); cleanupOrphans(); autoRetry(); }, 0);
     }, () => { /* Meldung kommt über die Auftragsliste */ });
     db.doc("config/app").onSnapshot((snap) => {
       const data = snap.exists ? snap.data() : null;
