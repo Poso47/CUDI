@@ -101,6 +101,7 @@
   .confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 14px; }
   details.more summary { cursor: pointer; font-weight: 700; font-size: 14px; }
   .runs { display: grid; gap: 10px; list-style: none; margin: 0; padding: 0; }
+  .jobs > li.more-li { border: none; background: none; padding: 0; display: block; text-align: center; }
   .runs > li { border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: var(--ink); display: grid; gap: 8px; }
   .runs .top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
   .runs b { overflow-wrap: anywhere; }
@@ -449,7 +450,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
           { trigger_id: CFG.aufgabe, text: JSON.stringify(order).replace(/'/g, "\\u0027") });
       } catch (err) {
         if (err && CONSENT.includes(err.code)) throw err;   // Erlaubnis fehlt: Meldung zeigen
-        /* Aufgabe fehlt oder ist aus: unten eigene Sitzung */
+        // Nur ausweichen, wenn die Aufgabe sicher fehlt oder aus ist. Bei unklaren Fehlern (z. B. verlorene
+        // Antwort) könnte der Lauf schon laufen – dann Meldung zeigen statt doppelt zu rendern.
+        const msg = String((err && err.message) || "");
+        if (!(err && err.code === "tool_error" &&
+              /not.?found|404|disabled|deaktiv|nicht gefunden|does not exist|no longer|ended/i.test(msg))) throw err;
       }
       // Gestartet ist gestartet – auch ohne lesbare Kennung nie doppelt starten
       if (fired) return { session: sessionIdFrom(fired.payload), weg: "aufgabe" };
@@ -468,6 +473,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     try {
       await ref.set({ id: id, art: order.art, label: built.label, auftrag: order, session: "", gestartet: new Date().toISOString() });
       const started = await dispatch(id, order, built.label);
+      const still = await ref.get().catch(() => null);         // während des Starts abgebrochen?
+      if (still && !still.exists) {
+        if (started.session) mcp.callTool(CFG.server, "archive_session", { session_id: started.session }).catch(() => {});
+        note(msgId, "Abgebrochen.", "");
+        return;
+      }
       await ref.update({ session: started.session, weg: started.weg });
       note(msgId, "Gestartet! Fortschritt und Ergebnis siehst du unter „Videos“ – meist nach 5 bis 20 Minuten.", "ok");
       setTimeout(() => goTab("videos"), 900);
@@ -554,7 +565,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   // Ergebnisse ohne Auftrag (Auftrag gelöscht, bevor der Lauf fertig war): Dateien und Eintrag entfernen
   const orphansDone = new Set();
   function cleanupOrphans() {
-    if (!db) return;
+    if (!db || !assets) return;                    // erst mit Ablage: sonst blieben Videos ohne Verweis liegen
     for (const [id, res] of results) {
       if (jobs.has(id) || orphansDone.has(id) || minutes(res.fertig) < 2) continue;
       orphansDone.add(id);
@@ -608,6 +619,10 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   async function removeJob(id) {
     const job = jobs.get(id), res = results.get(id);
+    if (res && (res.videos || []).length && !assets) {
+      note("videosMsg", "Die Ablage lädt noch – bitte gleich noch einmal tippen.", "warn");
+      return;
+    }
     try {
       if (res && assets) {
         for (const v of res.videos || []) {
@@ -729,13 +744,20 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     return JSON.stringify([state, res ? res.fertig || 1 : 0, job.label || "", state === "laeuft" ? minutes(job.gestartet) : 0]);
   }
   // Nur geänderte Karten neu zeichnen – ein laufendes Video wird nie neu geladen
+  // Viele Videos: die neuesten zuerst, ältere per Knopf nachladen (alle bleiben speicher- und löschbar)
+  let shown = 20;
+  const moreLi = document.createElement("li"); moreLi.className = "more-li";
+  const moreBtn = document.createElement("button"); moreBtn.type = "button";
+  moreBtn.addEventListener("click", () => { shown += 20; render(); });
+  moreLi.appendChild(moreBtn);
   function render() {
     const ul = $("jobList");
-    const ids = [...jobs.keys()].sort((a, b) => {
+    const all = [...jobs.keys()].sort((a, b) => {
       const ta = (jobs.get(a) || {}).gestartet || (results.get(a) || {}).fertig || "";
       const tb = (jobs.get(b) || {}).gestartet || (results.get(b) || {}).fertig || "";
       return tb.localeCompare(ta);
     });
+    const ids = all.slice(0, shown);
     if (!ids.length) {
       if (cards.size) { cards.clear(); }
       ul.innerHTML = '<li><span class="meta">Noch keine Aufträge. Starte unter „Ranking“ oder „Story“ ein Video – es erscheint dann hier mit Fortschritt, Vorschau, „Video speichern“ und den Texten für YouTube und TikTok.</span></li>';
@@ -757,8 +779,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       prev = card.el;
     }
     for (const [id, card] of cards) if (!ids.includes(id)) { card.el.remove(); cards.delete(id); }
+    if (all.length > shown) { moreBtn.textContent = "Ältere Videos anzeigen (" + (all.length - shown) + ")"; ul.appendChild(moreLi); }
+    else moreLi.remove();
   }
   setInterval(() => { if (!$("videos").hidden) render(); }, 60000);       // „läuft seit … Min.“
+  setInterval(() => cleanupOrphans(), 60000);                               // spät eintreffende Ergebnisse
 
   async function updateMeter() {
     if (!assets) return;
@@ -816,12 +841,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     pill(mcp ? "Cloud bereit" : "nur in Claude", mcp ? "ok" : "warn");
     syncWatches();
   }).catch(() => pill("nur in Claude", "warn"));
-  Promise.resolve(claude.use("assets")).then((ns) => { assets = ns; updateMeter(); }).catch(() => { assets = null; });
+  Promise.resolve(claude.use("assets")).then((ns) => { assets = ns; updateMeter(); cleanupOrphans(); }).catch(() => { assets = null; });
   Promise.resolve(claude.use("downloads")).then((ns) => { downloads = ns; }).catch(() => { downloads = null; });
   Promise.resolve(claude.use("db")).then((ns) => {
     db = ns;
     if (!db) { clearTimeout(loading); return; }
-    db.collection("jobs").orderBy("gestartet", "desc").limit(40).onSnapshot((snap) => {
+    db.collection("jobs").orderBy("gestartet", "desc").limit(200).onSnapshot((snap) => {
       clearTimeout(loading); note("videosMsg", "", "");
       jobs.clear(); snap.docs.forEach((d) => jobs.set(d.id, d.data()));
       syncWatches(); render(); setTimeout(() => { archiveDone(); cleanupOrphans(); }, 0);
