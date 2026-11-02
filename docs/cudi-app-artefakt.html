@@ -424,11 +424,20 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const id = newId();
     const order = Object.assign({ id: id }, built.order);
     try {
-      const res = await mcp.callTool(CFG.server, "create_session", {
+      const params = {
         environment_id: CFG.environment, source_url: CFG.repo, source_revision: CFG.branch,
         prompt: jobPrompt(id, order), title: ("CUDI-Auftrag: " + built.label).slice(0, 90),
         model: CFG.model, permission_mode: "auto", tags: ["cudi-auftrag"],
-      });
+      };
+      let res;
+      try {
+        res = await mcp.callTool(CFG.server, "create_session", params);
+      } catch (err) {
+        // Nimmt Claude den Rechte-Modus für Aufträge aus der App nicht an: Standard der Umgebung verwenden
+        if (!(err && err.code === "tool_error" && /permission/i.test(String(err.message || "")))) throw err;
+        delete params.permission_mode;
+        res = await mcp.callTool(CFG.server, "create_session", params);
+      }
       await db.doc("jobs/" + id).set({ id: id, art: order.art, label: built.label, auftrag: order,
                                        session: sessionIdFrom(res.payload), gestartet: new Date().toISOString() });
       note(msgId, "Gestartet! Fortschritt und Ergebnis siehst du unter „Videos“ – meist nach 10 bis 20 Minuten.", "ok");
