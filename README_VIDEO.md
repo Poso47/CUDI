@@ -122,18 +122,19 @@ Fragt die Windows-Firewall beim ersten Start nach Zugriff, „Zulassen“ (priva
 Hinweis: Der kostenlose Space hat 2 CPU-Kerne (ein Video dauert dann einige Minuten), schläft nach
 Inaktivität ein und speichert Videos nicht dauerhaft – fertige Videos also direkt herunterladen.
 
-**C) Mit der CUDI-App-Seite in Claude (am bequemsten, ohne Einrichtung):** Die Seite
-(Quelltext `docs/cudi-app-artefakt.html`) hat alle Optionen für Rankings und Storys. Der Knopf
-„… erstellen“ öffnet auf GitHub einen fertig ausgefüllten Auftrag (Issue) – dort nur noch „Create“
-tippen. Der Ablauf „CUDI Auftrag“ prüft den Auftrag (nur der Besitzer des Repositorys darf Aufträge
-geben), startet „CUDI Video“ bzw. „CUDI Story“ und meldet das Ergebnis im selben Issue:
-Download-Links (die Videos liegen im Release „CUDI-Videos“), TikTok- und YouTube-Text zum Kopieren,
-Hinweise und Prüfbericht. Offene Aufträge laufen noch (oder sind fehlgeschlagen), geschlossene sind
-fertig. Es wird keine GitHub-Verbindung in Claude gebraucht, nur der normale GitHub-Login am Handy.
-Die Abläufe müssen dafür im Haupt-Branch (`main`) liegen.
+**C) Mit der CUDI-App-Seite in Claude (am bequemsten, alles in der App):** Die Seite
+(Quelltext `docs/cudi-app-artefakt.html`) hat alle Optionen für Rankings und Storys. „… erstellen“
+startet über den eingebauten Connector „Claude Code Remote“ eine eigene Claude-Sitzung in der
+Cloud-Umgebung. Sie führt `bash scripts/cudi_auftrag.sh '<auftrag>'` aus (`python -m cudi_video
+auftrag`): prüft die Eingaben, rendert, erstellt eine App-Fassung ≤ 19 MB (1080×1920) und legt Video,
+Titelbild, TikTok-/YouTube-Text, Hinweise und Prüfbericht in der Ablage der Seite ab. Unter „Videos“
+siehst du den Fortschritt, schaust das Video an, speicherst es aufs Handy (Teilen-Menü) und kopierst
+die Texte. Englische Storys für deutsche Videos übersetzt Claude im Auftrag selbst – ohne Schlüssel.
+Jeder Auftrag zählt zu deinem Claude-Nutzungslimit (kleine Sitzung mit einem schnellen Modell).
 
-**D) Direkt per GitHub Actions:** In der GitHub-App → *Actions* → „CUDI Video“ oder „CUDI Story“ →
-*Run workflow*. Nach ein paar Minuten liegt das Ergebnis als ZIP unter dem Lauf (*Artifacts*).
+**D) Per GitHub (ohne Claude):** In der GitHub-App → *Actions* → „CUDI Video“ oder „CUDI Story“ →
+*Run workflow* – oder ein Issue mit der Kennung `cudi-auftrag` anlegen (Ablauf „CUDI Auftrag“, das
+Ergebnis kommt als Kommentar mit Download-Links). Die Abläufe müssen dafür auf `main` liegen.
 
 ## Einstellungen (Umgebungsvariablen)
 

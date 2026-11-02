@@ -408,8 +408,10 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       .split("@@URL@@").join(CFG.artifact);
   }
   function sessionIdFrom(payload) {
-    const text = typeof payload === "string" ? payload : JSON.stringify(payload || "");
-    const m = /session_[A-Za-z0-9]+/.exec(text);
+    // Antwort von create_session: {"ccr": {"id": "session_…", …}} – sonst die erste Sitzungskennung im Text
+    const direct = payload && typeof payload === "object" && ((payload.ccr && payload.ccr.id) || payload.session_id || payload.id);
+    if (typeof direct === "string" && /^session_/.test(direct)) return direct;
+    const m = /session_[A-Za-z0-9]+/.exec(typeof payload === "string" ? payload : JSON.stringify(payload || ""));
     return m ? m[0] : "";
   }
   const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
