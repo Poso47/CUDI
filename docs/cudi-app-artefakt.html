@@ -513,7 +513,9 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const b = (job && buckets.get(job.session)) || "";
     if (b === "BLOCKED") return "wartet";
     if (b === "FAILED") return "fehler";
-    if ((b === "COMPLETED" || b === "REVIEW_READY" || b === "IDLE") && job && minutes(job.gestartet) > 5) return "ohne";
+    // Läufe wirken „bereit“, während das Skript im Hintergrund noch rendert; Fehler meldet der Lauf selbst als
+    // Ergebnis. „Ohne Ergebnis“ daher erst nach der Laufzeitgrenze des Skripts (60 Min.).
+    if ((b === "COMPLETED" || b === "REVIEW_READY" || b === "IDLE") && job && minutes(job.gestartet) > 60) return "ohne";
     return "laeuft";
   }
 
@@ -549,7 +551,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     }
   }
 
-  // Ergebnisse ohne Auftrag (abgebrochen, bevor die Werkstatt fertig war): Dateien und Eintrag entfernen
+  // Ergebnisse ohne Auftrag (Auftrag gelöscht, bevor der Lauf fertig war): Dateien und Eintrag entfernen
   const orphansDone = new Set();
   function cleanupOrphans() {
     if (!db) return;
