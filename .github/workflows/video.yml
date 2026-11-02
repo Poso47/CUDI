@@ -1,0 +1,93 @@
+# Ranking-Video in der Cloud erzeugen – startbar vom Handy (CUDI-App-Seite in Claude oder GitHub-App).
+name: CUDI Video
+
+run-name: "Ranking: ${{ inputs.preset }} (${{ inputs.langs }}, Top ${{ inputs.count }}${{ inputs.streng && ', streng' || '' }}${{ inputs.nur_skript && ', nur Skript' || '' }})${{ inputs.issue && format(' · Auftrag #{0}', inputs.issue) || '' }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      preset:
+        description: "Vorlage (groesste-laender, meiste-einwohner, kleinste-laender, hoechste-gebaeude, hoechste-berge, groesste-seen, tiefste-seen, groesste-inseln, hoechste-wasserfaelle) oder freies Thema"
+        required: true
+        default: hoechste-gebaeude
+      langs:
+        description: "Sprachen"
+        required: true
+        default: de,en
+      count:
+        description: "Anzahl Plätze (3-20)"
+        required: true
+        default: "10"
+      streng:
+        description: "Streng: nur mehrfach bestätigte Fakten"
+        type: boolean
+        default: false
+      nur_skript:
+        description: "Erst nur Skript und Prüfbericht (kein Video)"
+        type: boolean
+        default: false
+      issue:
+        description: "Auftrag (Issue-Nummer) – das Ergebnis wird dort gemeldet (setzt die CUDI-App-Seite)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write          # Ergebnis-Zusammenfassung (Zweig cudi-ergebnisse) und Videos im Release „CUDI-Videos“
+  issues: write            # Ergebnis im Auftrag melden
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: cudi_video/requirements.txt
+      - name: System-Pakete
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg fonts-inter
+      - name: Python-Pakete
+        run: pip install -r cudi_video/requirements.txt
+      - name: Video erzeugen
+        env:
+          PRESET: ${{ inputs.preset }}
+          LANGS: ${{ inputs.langs }}
+          COUNT: ${{ inputs.count }}
+          STRENG: ${{ inputs.streng }}
+          NUR_SKRIPT: ${{ inputs.nur_skript }}
+          # Optional: Sprachmodell über Repository-Secrets (Settings -> Secrets -> Actions)
+          CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
+          CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+          CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+          CUDI_CHANNEL: ${{ secrets.CUDI_CHANNEL }}
+          CUDI_FACTCHECK_API_KEY: ${{ secrets.CUDI_FACTCHECK_API_KEY }}
+        run: |
+          set -o pipefail
+          ARGS=(--langs "$LANGS" --count "$COUNT")
+          if [ "$STRENG" = "true" ]; then ARGS+=(--streng); fi
+          if [ "$NUR_SKRIPT" = "true" ]; then ARGS+=(--nur-skript); fi
+          python -m cudi_video make "$PRESET" "${ARGS[@]}" 2>&1 | tee cudi.log
+      - name: Ergebnis für die CUDI-App ablegen
+        if: always()
+        run: python .github/scripts/publish_result.py video_output cudi.log ranking
+      - name: Ergebnis hochladen
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cudi-video-${{ github.run_number }}   # freie Themen können Zeichen enthalten, die hier nicht erlaubt sind
+          path: |
+            video_output/**/*.mp4
+            video_output/**/*.jpg
+            video_output/**/*.srt
+            video_output/**/*.txt
+            video_output/**/review.md
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Ergebnis im Auftrag melden
+        if: always() && inputs.issue != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ inputs.issue }}
+        run: python .github/scripts/report_issue.py video_output cudi.log ranking "$ISSUE"
