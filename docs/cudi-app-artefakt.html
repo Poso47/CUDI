@@ -513,9 +513,9 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const b = (job && buckets.get(job.session)) || "";
     if (b === "BLOCKED") return "wartet";
     if (b === "FAILED") return "fehler";
-    // Läufe wirken „bereit“, während das Skript im Hintergrund noch rendert; Fehler meldet der Lauf selbst als
-    // Ergebnis. „Ohne Ergebnis“ daher erst nach der Laufzeitgrenze des Skripts (60 Min.).
-    if ((b === "COMPLETED" || b === "REVIEW_READY" || b === "IDLE") && job && minutes(job.gestartet) > 60) return "ohne";
+    // Zwischen zwei Schritten wirkt ein Lauf kurz „bereit“; Fehler meldet der Lauf selbst als Ergebnis.
+    // „Ohne Ergebnis“ daher erst, wenn er nach 15 Min. ruht und nichts geliefert hat.
+    if ((b === "COMPLETED" || b === "REVIEW_READY" || b === "IDLE") && job && minutes(job.gestartet) > 15) return "ohne";
     return "laeuft";
   }
 
