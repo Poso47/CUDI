@@ -145,7 +145,8 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
         return data
     out = Path(result["output_dir"])
     data["ordner"] = str(out)
-    data["hinweise"] = list(result.get("warnings", []))[:20]
+    from . import tts
+    data["hinweise"] = (tts.take_notes() + list(result.get("warnings", [])))[:20]
     spec = out / "spec.json"
     if spec.exists():
         titles = json.loads(spec.read_text("utf-8")).get("title", {})

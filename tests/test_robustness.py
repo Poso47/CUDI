@@ -213,3 +213,34 @@ def test_tts_retries_until_the_free_service_delivers(tmp_path, monkeypatch):
     calls["n"] = -100                                                    # scheitert immer
     with pytest.raises(RuntimeError, match="No audio was received"):
         asyncio.run(tts._synthesize("Hallo", "de-DE-X", tmp_path / "b.mp3", "+0%"))
+
+
+def test_piper_takes_over_the_whole_video_when_edge_tts_is_down(tmp_path, monkeypatch):
+    """Microsoft-Dienst aus: alle Abschnitte mit der Offline-Ersatzstimme, Hinweis fürs Ergebnis."""
+    from cudi_video import tts
+
+    async def down(*a, **k):
+        raise RuntimeError("Sprachausgabe fehlgeschlagen (No audio was received.)")
+
+    class Chunk:
+        audio_int16_bytes = (np.sin(np.arange(3200) / 5) * 8000).astype(np.int16).tobytes()   # 0,2 s Ton
+
+    class FakeVoice:
+        class config:
+            sample_rate = 16000
+
+        def synthesize(self, text, syn_config=None):
+            yield Chunk()
+
+    used = []
+    monkeypatch.setattr(tts, "_synthesize", down)
+    monkeypatch.setattr(tts, "_piper_voice", lambda key: used.append(key) or FakeVoice())
+    monkeypatch.setattr(tts, "_piper_config", lambda scale: None)
+    tts.take_notes()
+    res = tts.voice_texts(["Hallo Welt. Wie geht es?", "Zweiter Text!"], tmp_path, "de-DE-KatjaNeural")
+    assert used[0] == ("de", "f") and len(res) == 2
+    wav, words, duration = res[0]
+    assert wav.exists() and [w["text"] for w in words] == ["Hallo", "Welt", "Wie", "geht", "es"]
+    assert 0.3 < duration < 0.5 and words[0]["start"] == 0 and words[-1]["end"] <= 0.41
+    assert any("Ersatzstimme" in n for n in tts.take_notes())
+    assert tts.piper_key("en-US-AndrewNeural") == ("en", "m")
