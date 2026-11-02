@@ -462,10 +462,38 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     return { session: await createSession(id, order, label), weg: "sitzung" };
   }
 
+  // Volle Ablage verhindern: Ein Auftrag braucht Platz für Video(s) und Titelbild (Teile/2 Sprachen: mehrere)
+  const NEED_MB = 80;
+  async function freeMB() {
+    if (!assets) return Infinity;
+    try { const { usage } = await assets.list(); return (usage.maxBytes - usage.bytes) / 1048576; }
+    catch (e) { return Infinity; }
+  }
+  function offerCleanup(msgId, free, retry) {
+    note(msgId, "Speicher fast voll: noch " + Math.max(0, Math.round(free)) + " MB frei, ein Auftrag braucht bis zu " +
+      NEED_MB + " MB. ", "warn");
+    const btn = document.createElement("button"); btn.type = "button"; btn.className = "dl";
+    btn.textContent = "Älteste Videos löschen und starten";
+    btn.addEventListener("click", async () => {
+      btn.disabled = true;
+      const oldest = [...results.entries()].filter(([id, r]) => jobs.has(id) && (r.videos || []).length)
+        .sort((a, b) => String(a[1].fertig || "").localeCompare(String(b[1].fertig || "")));
+      for (const [id] of oldest) {
+        if ((await freeMB()) >= NEED_MB + 20) break;
+        await removeJob(id);
+      }
+      note(msgId, "", "");
+      retry();
+    });
+    $(msgId).appendChild(btn);
+  }
+
   async function startJob(built, msgId, button) {
     if (built.error) { note(msgId, built.error, "warn"); return; }
     if (!mcp || !db) { note(msgId, "Aufträge starten nur, wenn die App in Claude geöffnet ist (App oder claude.ai).", "warn"); return; }
     button.disabled = true;
+    const free = await freeMB();
+    if (free < NEED_MB) { button.disabled = false; offerCleanup(msgId, free, () => startJob(built, msgId, button)); return; }
     note(msgId, "Auftrag wird gestartet …", "");
     const id = newId();
     const order = Object.assign({ id: id }, built.order);
