@@ -49,6 +49,12 @@ für TikTok/YouTube Shorts.
 - Weitere Wege: GitHub Actions „CUDI Video“/„CUDI Story“, Issue mit `cudi-auftrag` („CUDI Auftrag“),
   Hugging Face Space („CUDI Cloud-App“, optional, braucht Secret HF_TOKEN).
 - Kosten: alles kostenlose Dienste; App-Aufträge zählen nur zum Claude-Nutzungslimit des Nutzers.
+- **Keine Fehlschläge** (Wunsch des Nutzers) – kostenlose Ausweichwege, siehe README „Probleme?“:
+  edge-tts 6 Versuche → Piper offline (`tts.PIPER_VOICES`, Modelle in `video_output/_piper`, `piper-tts`
+  wird bei Bedarf installiert); Story: Reddit-JSON (Cloud: 403) → Arctic Shift → Reddit-RSS (gedrosselt);
+  Beschreibung ohne Treffer → beliebte Story der Stimmung; `job.run_order` wiederholt Störungen einmal
+  (`RETRY_PAUSE`); App startet Fehler/ohne Ergebnis einmal automatisch neu (`versuch: 2`) und prüft
+  vor dem Start ≥ 80 MB freie Ablage.
 
 ## Entwickeln
 
