@@ -130,7 +130,7 @@ auftrag`): prüft die Eingaben, rendert, erstellt eine App-Fassung ≤ 19 MB (10
 Titelbild, TikTok-/YouTube-Text, Hinweise und Prüfbericht in der Ablage der Seite ab. Unter „Videos“
 siehst du den Fortschritt, schaust das Video an, speicherst es aufs Handy (Teilen-Menü) und kopierst
 die Texte. Englische Storys für deutsche Videos übersetzt Claude im Auftrag selbst – ohne Schlüssel.
-Jeder Auftrag zählt zu deinem Claude-Nutzungslimit (kleine Sitzung mit einem schnellen Modell).
+Jeder Auftrag läuft mit dem kleinsten Claude-Modell (Haiku) und zählt nur zu deinem Claude-Nutzungslimit – keine Zusatzkosten.
 
 **D) Per GitHub (ohne Claude):** In der GitHub-App → *Actions* → „CUDI Video“ oder „CUDI Story“ →
 *Run workflow* – oder ein Issue mit der Kennung `cudi-auftrag` anlegen (Ablauf „CUDI Auftrag“, das
