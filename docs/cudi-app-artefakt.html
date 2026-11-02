@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CUDI App</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
@@ -28,8 +24,9 @@
   html, body { margin: 0; }
   body {
     background: var(--ink); color: var(--paper); font: 16px/1.5 var(--body);
-    padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
-             max(32px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    padding-block: 16px 32px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
   }
   main { max-width: 540px; margin: 0 auto; display: grid; gap: 18px; }
   a { color: var(--accent); }
@@ -130,8 +127,6 @@
             background: var(--panel); border: 1px solid color-mix(in srgb, var(--bad) 40%, var(--line)); border-radius: 10px; padding: 10px; }
   footer { color: var(--muted); font-size: 12px; text-align: center; }
 </style>
-</head>
-<body>
 <main>
   <header>
     <div class="clapper" aria-hidden="true"></div>
@@ -320,6 +315,8 @@
   const $ = (id) => document.getElementById(id);
   let db = null, appUrl = "", mood = "";
 
+  document.documentElement.lang = "de";
+
   /* ---------- Bereiche (Tabs, mit #name in der Adresse) ---------- */
   const TABS = ["ranking", "story", "videos", "app"];
   function showTab(name) {
@@ -469,9 +466,8 @@
   showTab(location.hash.slice(1) || "ranking");
 
   // Gemerkte App-Adresse geräteübergreifend (nur in Claude verfügbar; ohne geht es lokal weiter)
-  const use = window.claude && window.claude.use;
-  if (typeof use === "function") {
-    Promise.resolve(use("db")).then((ns) => {
+  if (window.claude && typeof window.claude.use === "function") {
+    Promise.resolve(window.claude.use("db")).then((ns) => {
       db = ns;
       if (!db) return;
       db.doc("config/app").onSnapshot((snap) => {
@@ -483,5 +479,3 @@
   }
 })();
 </script>
-</body>
-</html>
