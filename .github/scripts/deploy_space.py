@@ -34,6 +34,9 @@ def main() -> int:
     token = os.environ.get("HF_TOKEN", "")
     access_code = os.environ.get("CUDI_VIDEO_TOKEN", "")
     if not token:
+        if os.environ.get("GITHUB_EVENT_NAME") == "push":     # automatischer Lauf: Hugging Face ist optional
+            print("::notice::Hugging Face ist nicht eingerichtet (Secret HF_TOKEN fehlt) – Bereitstellung übersprungen.")
+            return 0
         print("::error::Secret HF_TOKEN fehlt (Hugging Face → Settings → Access Tokens → Write).")
         return 1
     if not access_code:
