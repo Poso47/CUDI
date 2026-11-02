@@ -462,16 +462,21 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     return { session: await createSession(id, order, label), weg: "sitzung" };
   }
 
-  // Volle Ablage verhindern: Ein Auftrag braucht Platz für Video(s) und Titelbild (Teile/2 Sprachen: mehrere)
-  const NEED_MB = 80;
+  // Volle Ablage verhindern: Platz für alle Videos eines Auftrags (je ≤ 19 MB + Titelbild). Rankings: je
+  // Sprache ein Video; Storys: bis zu 2 Teile, „Lang, in Teilen“ bis zu 6 Teile.
+  function needMB(order) {
+    const o = order || {};
+    const videos = o.art === "ranking" ? Math.max(1, (o.sprachen || []).length) : (o.laenge === "teile" ? 6 : 2);
+    return videos * 20 + 10;
+  }
   async function freeMB() {
     if (!assets) return Infinity;
     try { const { usage } = await assets.list(); return (usage.maxBytes - usage.bytes) / 1048576; }
     catch (e) { return Infinity; }
   }
-  function offerCleanup(msgId, free, retry) {
-    note(msgId, "Speicher fast voll: noch " + Math.max(0, Math.round(free)) + " MB frei, ein Auftrag braucht bis zu " +
-      NEED_MB + " MB. ", "warn");
+  function offerCleanup(msgId, free, need, retry) {
+    note(msgId, "Speicher fast voll: noch " + Math.max(0, Math.round(free)) + " MB frei, dieser Auftrag braucht bis zu " +
+      need + " MB. ", "warn");
     const btn = document.createElement("button"); btn.type = "button"; btn.className = "dl";
     btn.textContent = "Älteste Videos löschen und starten";
     btn.addEventListener("click", async () => {
@@ -479,7 +484,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       const oldest = [...results.entries()].filter(([id, r]) => jobs.has(id) && (r.videos || []).length)
         .sort((a, b) => String(a[1].fertig || "").localeCompare(String(b[1].fertig || "")));
       for (const [id] of oldest) {
-        if ((await freeMB()) >= NEED_MB + 20) break;
+        if ((await freeMB()) >= need + 10) break;
         await removeJob(id);
       }
       note(msgId, "", "");
@@ -492,8 +497,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (built.error) { note(msgId, built.error, "warn"); return; }
     if (!mcp || !db) { note(msgId, "Aufträge starten nur, wenn die App in Claude geöffnet ist (App oder claude.ai).", "warn"); return; }
     button.disabled = true;
-    const free = await freeMB();
-    if (free < NEED_MB) { button.disabled = false; offerCleanup(msgId, free, () => startJob(built, msgId, button)); return; }
+    const free = await freeMB(), need = needMB(built.order);
+    if (free < need) { button.disabled = false; offerCleanup(msgId, free, need, () => startJob(built, msgId, button)); return; }
     note(msgId, "Auftrag wird gestartet …", "");
     const id = newId();
     const order = Object.assign({ id: id }, built.order);
@@ -605,7 +610,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   // Vorübergehende Störung (Fehler oder ohne Ergebnis): einmal automatisch neu starten – gleiche Karte,
   // „2. Versuch“. Nicht bei Eingabefehlern, gelöschter Story oder vollem Speicher.
-  const NO_RETRY = /Unbekannte|Mindestens eine Sprache|Plätze:|Stimmung wählen|ungültig|gültige Kennung|JSON-Objekt|gelöscht oder hat keinen Text|Speicher voll|Neustart ging nicht/i;
+  const NO_RETRY = /Unbekannte|Mindestens eine Sprache|Plätze:|Stimmung wählen|ungültig|gültige Kennung|JSON-Objekt|gelöscht oder hat keinen Text|Reddit-Link|Speicher voll|Neustart ging nicht/i;
   const retrying = new Set();
   function autoRetry() {
     if (!mcp || !db) return;
@@ -613,22 +618,38 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       if (job.versuch || retrying.has(id) || !job.auftrag || !job.session) continue;
       const state = stateOf(id), res = results.get(id);
       if (state !== "fehler" && state !== "ohne") continue;
-      if (res && (NO_RETRY.test(res.fehler || "") || (res.videos || []).some((v) => v.video_url))) continue;
+      if (res && (res.wiederholbar === false || NO_RETRY.test(res.fehler || "") ||
+                  (res.videos || []).some((v) => v.video_url))) continue;
       retrying.add(id);
       (async () => {
         const ref = db.doc("jobs/" + id);
         try {
-          await ref.update({ versuch: 2 });                    // zuerst festhalten: nie zweimal neu starten
+          if ((await freeMB()) < needMB(job.auftrag)) return;   // kein Platz: Karte zeigt „Neu starten“ (mit Aufräumen)
+          // Nur ein Gerät darf neu starten: frisch lesen, Marke setzen, kurz warten, Marke prüfen
+          const fresh = await ref.get();
+          if (!fresh.exists || (fresh.data() || {}).versuch) return;
+          const token = Math.random().toString(36).slice(2);
+          await ref.update({ versuch: 2, neustart: token });
+          await new Promise((r) => setTimeout(r, 1500));
+          const mine = await ref.get();
+          if (!mine.exists || (mine.data() || {}).neustart !== token) return;
           if (!res && !archivedSet().has(job.session)) {        // alter Lauf darf nicht weiterrendern
             rememberArchived(job.session);
-            mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => {});
+            await mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => {});
           }
           if (res) await db.doc("results/" + id).delete();
           const started = await dispatch(id, Object.assign({}, job.auftrag, { id: id }), job.label);
+          const still = await ref.get().catch(() => null);       // während des Neustarts gelöscht?
+          if (still && !still.exists) {
+            if (started.session) mcp.callTool(CFG.server, "archive_session", { session_id: started.session }).catch(() => {});
+            return;
+          }
           await ref.update({ session: started.session, weg: started.weg, gestartet: new Date().toISOString(), versuch: 2 });
         } catch (err) {
+          const still = await ref.get().catch(() => null);
+          if (!still || !still.exists) return;                   // gelöscht: kein verwaistes Ergebnis anlegen
           await db.doc("results/" + id).set({ id: id, art: job.art || "", ok: false, titel: "", videos: [], hinweise: [],
-            pruefbericht: "", fehler: "Automatischer Neustart ging nicht: " + explain(err),
+            pruefbericht: "", fehler: "Automatischer Neustart ging nicht: " + explain(err), wiederholbar: false,
             fertig: new Date().toISOString() }).catch(() => {});
         }
       })();
@@ -919,6 +940,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     mcp = ns;
     pill(mcp ? "Cloud bereit" : "nur in Claude", mcp ? "ok" : "warn");
     syncWatches();
+    autoRetry();                                   // Fehler, die vor der Verbindung geladen wurden
   }).catch(() => pill("nur in Claude", "warn"));
   Promise.resolve(claude.use("assets")).then((ns) => { assets = ns; updateMeter(); cleanupOrphans(); }).catch(() => { assets = null; });
   Promise.resolve(claude.use("downloads")).then((ns) => { downloads = ns; }).catch(() => { downloads = null; });

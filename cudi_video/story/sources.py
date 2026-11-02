@@ -236,7 +236,9 @@ def find_stories(plan: dict, length: str = "3min", limit: int = 6, allow_nsfw: b
     def usable(p: Post, lo: int, hi: int) -> bool:
         # NSFW-markierte Posts bleiben draußen (dort trägt das heikle Thema die ganze Story);
         # einzelne heikle Stellen in anderen Storys umschreibt das Lektorat.
-        return lo <= p.words <= hi and (allow_nsfw or not p.over_18) and len(p.title) >= 8
+        # RSS kennt kein NSFW-Kennzeichen: dort heikle Storys vorsichtshalber ganz auslassen
+        safe = allow_nsfw or (not p.over_18 and not (p.source == "rss" and p.sensitive))
+        return lo <= p.words <= hi and safe and len(p.title) >= 8
 
     candidates = [p for p in pool.values() if usable(p, lo, hi)]
     if not candidates and length != "teile":
@@ -293,8 +295,8 @@ def fetch_post(ref: str) -> Post:
         if post is None:                                     # Archiv aus oder ohne Eintrag: Reddit-RSS
             try:
                 post = next(iter(_rss_entries(f"https://www.reddit.com/comments/{pid}/.rss")), None)
-            except (net.FetchError, ET.ParseError):
-                post = None
+            except (net.FetchError, ET.ParseError) as exc:   # Netzstörung ist kein „gelöscht“ -> wiederholbar
+                raise net.FetchError(f"Reddit gerade nicht erreichbar (Archiv und RSS): {exc}") from exc
     if post is None:
         raise ValueError("Die Story wurde gelöscht oder hat keinen Text (nur Bild/Link).")
     return post

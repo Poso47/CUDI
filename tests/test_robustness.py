@@ -244,3 +244,33 @@ def test_piper_takes_over_the_whole_video_when_edge_tts_is_down(tmp_path, monkey
     assert 0.3 < duration < 0.5 and words[0]["start"] == 0 and words[-1]["end"] <= 0.41
     assert any("Ersatzstimme" in n for n in tts.take_notes())
     assert tts.piper_key("en-US-AndrewNeural") == ("en", "m")
+
+
+def test_piper_takes_over_at_once_when_one_section_is_exhausted(tmp_path, monkeypatch):
+    """Kompletter Ausfall: nicht auf die Wiederholungen jedes Abschnitts warten."""
+    import asyncio
+    import time as _time
+    from cudi_video import tts
+
+    async def edge(text, *a, **k):
+        if text.startswith("A"):
+            raise RuntimeError("Sprachausgabe fehlgeschlagen (No audio was received.)")
+        await asyncio.sleep(30)                                  # die anderen hängen noch in ihren Versuchen
+
+    class Chunk:
+        audio_int16_bytes = (np.sin(np.arange(1600) / 5) * 8000).astype(np.int16).tobytes()
+
+    class FakeVoice:
+        class config:
+            sample_rate = 16000
+
+        def synthesize(self, text, syn_config=None):
+            yield Chunk()
+
+    monkeypatch.setattr(tts, "_synthesize", edge)
+    monkeypatch.setattr(tts, "_piper_voice", lambda key: FakeVoice())
+    monkeypatch.setattr(tts, "_piper_config", lambda scale: None)
+    start = _time.time()
+    res = tts.voice_texts(["A eins.", "B zwei.", "C drei.", "D vier."], tmp_path, "en-US-AndrewNeural")
+    assert len(res) == 4 and _time.time() - start < 10
+    tts.take_notes()

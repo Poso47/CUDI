@@ -140,3 +140,21 @@ def test_transient_failure_is_retried_once_but_input_errors_are_not(tmp_path, mo
     monkeypatch.setattr(job, "_ranking", bad)
     code, data = job.run_order(order, tmp_path / "b")
     assert code == 1 and calls["n"] == 1 and "gelöscht" in data["fehler"]
+
+
+def test_result_says_whether_an_error_is_worth_repeating(tmp_path, monkeypatch):
+    monkeypatch.setattr(job.time, "sleep", lambda s: None)
+    monkeypatch.setattr(job.config, "OUTPUT_DIR", tmp_path)
+
+    def bad(order, folder, progress):
+        raise ValueError("Das sieht nicht nach einem Reddit-Link aus.")
+
+    def down(order, folder, progress):
+        raise ConnectionError("weg")
+
+    for fn, expected in ((bad, False), (down, True)):
+        monkeypatch.setattr(job, "_ranking", fn)
+        folder = job.job_folder("w" + str(expected))
+        code, data = job.run_order({"id": "w" + str(expected), "art": "ranking"}, folder)
+        assert code == 1 and data["wiederholbar"] is expected
+        assert job.document(folder, {})["wiederholbar"] is expected

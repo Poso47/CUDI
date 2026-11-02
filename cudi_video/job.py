@@ -252,6 +252,7 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
                 last[0] = ""
                 continue
             data = _summary(order, None, f"{type(exc).__name__}: {exc}"[:1500])
+            data["wiederholbar"] = _transient(exc)
             break
     (folder / "ergebnis.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), "utf-8")
     return (0 if data["ok"] else 1), data
@@ -284,10 +285,12 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
                        "youtube": v.get("youtube", ""), "tiktok": v.get("tiktok", "")})
     ok = bool(data.get("ok"))
     error = data.get("fehler", "")
+    repeatable = bool(data.get("wiederholbar", True))
     if ok and videos and not all(v["video_url"] for v in videos):
         error = "Das Video ist fertig, ließ sich aber nicht in die App laden (Speicher voll?)."
-        ok = False
+        ok, repeatable = False, False
     return {"id": data["id"], "art": data.get("art", ""), "ok": ok, "titel": data.get("titel", ""), "fehler": error,
+            "wiederholbar": ok or repeatable,
             "videos": videos, "hinweise": data.get("hinweise", []), "pruefbericht": data.get("pruefbericht", ""),
             "fertig": datetime.now(timezone.utc).isoformat(timespec="seconds")}
 

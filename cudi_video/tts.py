@@ -214,10 +214,14 @@ async def _speak_all(texts: list[str], out_dir: Path, voice: str, rate: str, pit
             mp3 = out_dir / f"{i:03d}.mp3"
             return mp3, await _synthesize(text, voice, mp3, rate, pitch)
 
-    results = await asyncio.gather(*(one(i, t) for i, t in enumerate(texts)), return_exceptions=True)
-    failed = next((r for r in results if isinstance(r, BaseException)), None)
+    tasks = [asyncio.create_task(one(i, t)) for i, t in enumerate(texts)]
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_EXCEPTION)
+    failed = next((t.exception() for t in done if t.exception() is not None), None)
     if failed is None:
-        return results
+        return [t.result() for t in tasks]
+    for t in pending:                                       # Dienst ist aus: nicht auf jeden Abschnitt warten
+        t.cancel()
+    await asyncio.gather(*pending, return_exceptions=True)
     log.warning("edge-tts liefert nichts (%s) – Ersatzstimme Piper für alle Abschnitte", failed)
     try:
         spoken = []

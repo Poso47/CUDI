@@ -305,3 +305,23 @@ def test_reddit_rss_is_the_fallback_when_the_archive_is_down(monkeypatch):
                         title="A long enough title", text="word " * 120, source="rss")])
     found, notes = sources.find_stories({"mood": "funny", "subreddits": ["tifu"], "keywords": []}, length="kurz")
     assert [p.id for p in found] == ["r1"] and any("RSS" in n for n in notes)
+
+
+def test_rss_hides_sensitive_stories_and_outage_is_not_deleted(monkeypatch):
+    def blocked(*a, **k):
+        raise sources.net.FetchError("weg")
+
+    monkeypatch.setattr(sources, "_reddit_candidates", blocked)
+    monkeypatch.setattr(sources, "_arctic_candidates", lambda *a, **k: [])
+    monkeypatch.setattr(sources, "_rss_candidates", lambda sub, kw: [
+        Post(id="heikel", subreddit=sub, author="a", title="A long enough title", text="suicide " + "word " * 120,
+             source="rss"),
+        Post(id="ok", subreddit=sub, author="a", title="Another fine title", text="word " * 120, source="rss")])
+    found, _ = sources.find_stories({"mood": "funny", "subreddits": ["tifu"], "keywords": []}, length="kurz")
+    assert [p.id for p in found] == ["ok"]                   # RSS ohne NSFW-Kennzeichen: heikle raus
+
+    monkeypatch.setattr(sources, "_reddit", blocked)
+    monkeypatch.setattr(sources.net, "get_json", blocked)
+    monkeypatch.setattr(sources, "_rss_entries", blocked)
+    with pytest.raises(sources.net.FetchError):              # Netzausfall -> wiederholbar, nicht „gelöscht“
+        sources.fetch_post("https://www.reddit.com/r/tifu/comments/abc123/x/")
