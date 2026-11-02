@@ -25,10 +25,12 @@ für TikTok/YouTube Shorts.
   `docs/cudi-app-artefakt.html`): Der Nutzer bedient alles vom Handy, ohne Weiterleitung.
   - Start: Die Seite ruft über den eingebauten Connector „Claude Code Remote“ `fire_trigger` für die
     geplante Aufgabe „CUDI-Auftrag“ auf (`trig_01BniK2S5eVdSFKd18JZqBio`, Umgebung „Standard“, Modell
-    **Haiku**, ohne hinterlegtes Repo: jeder Lauf klont `Poso47/CUDI` nach `~/CUDI`). Die Auftragsdaten
-    (JSON, `'` als `\u0027`) gehen als `text` mit und kommen als `<routine-fire-payload>` an; die
-    Arbeitsanweisung steht in der Aufgabe. Antwort `session_id: "cse_…"` = `session_…`. Läufe stehen
-    nicht in der Sitzungsliste des Nutzers (sein Wunsch: keine neuen „Bereiche“).
+    **Haiku**, ohne hinterlegtes Repo: jeder Lauf klont `Poso47/CUDI` (Zweig `main`!) in seinen
+    Arbeitsordner – nur Dateien dort lassen sich gemeinsam per `file_paths` hochladen). Die Auftragsdaten
+    (JSON, `'` als `\u0027`) gehen als `text` mit und kommen als eigene Nachricht `<routine-fire-payload>`
+    kurz nach der Anweisung an. Antwort `session_id: "cse_…"` = `session_…`. Läufe stehen nicht in der
+    Sitzungsliste des Nutzers (sein Wunsch: keine neuen „Bereiche“); während das Skript im Hintergrund
+    rendert, meldet `get_session` „WORKING“.
   - Fehlt die Aufgabe oder ist sie aus, startet die Seite ersatzweise `create_session` (Prompt `#jobPrompt`,
     Repo-Zweig `main`, Haiku, Rechte `auto`, Tag `cudi-auftrag`) und archiviert die Sitzung nach dem Ergebnis.
   - Aufgabe ändern (`update_trigger`, v. a. Modell/Anweisung) nur mit ausdrücklichem OK des Nutzers – die
