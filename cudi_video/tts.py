@@ -28,9 +28,15 @@ if os.environ.get("SSL_CERT_FILE"):
 TICKS_PER_SECOND = 10_000_000  # edge-tts liefert Offsets in 100-ns-Einheiten
 
 
+TTS_ATTEMPTS = 6        # der Gratis-Dienst liefert zeitweise „No audio was received“ – meist klappt es kurz danach
+
+
 async def _synthesize(text: str, voice: str, out_path: Path, rate: str, pitch: str = "+0Hz") -> list[dict]:
     words: list[dict] = []
-    for attempt in range(3):
+    last = "keine Audiodaten"
+    for attempt in range(TTS_ATTEMPTS):
+        if attempt:
+            await asyncio.sleep(min(2 ** attempt, 30))     # 2, 4, 8, 16, 30 s ≈ 1 Minute Geduld
         words.clear()
         try:
             comm = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, boundary="WordBoundary")
@@ -47,10 +53,11 @@ async def _synthesize(text: str, voice: str, out_path: Path, rate: str, pitch: s
                         })
             if out_path.stat().st_size > 0:
                 return words
-        except Exception as exc:  # Netzwerkfehler -> erneut versuchen
+            last = "keine Audiodaten"
+        except Exception as exc:  # Netzwerk-/Dienstfehler -> erneut versuchen
+            last = f"{type(exc).__name__}: {exc}"
             log.warning("TTS-Versuch %d fehlgeschlagen: %s", attempt + 1, exc)
-        await asyncio.sleep(2 * (attempt + 1))
-    raise RuntimeError(f"Sprachausgabe fehlgeschlagen für: {text[:60]}…")
+    raise RuntimeError(f"Sprachausgabe fehlgeschlagen für: {text[:60]}… ({last[:160]})")
 
 
 SAMPLE_RATE = 48_000
@@ -100,7 +107,7 @@ def tighten_pauses(mp3: Path, words: list[dict], wav: Path, max_pause: float = M
     return new_words, len(pcm) / SAMPLE_RATE
 
 
-async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 4) -> None:
+async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 2) -> None:
     sem = asyncio.Semaphore(parallel)
 
     async def one(i, seg):
@@ -122,7 +129,7 @@ def voice_script(script: Script, out_dir: Path, voice: str | None = None, rate: 
 
 
 async def _voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str, pitch: str, max_pause: float,
-                       parallel: int = 4) -> list[tuple[Path, list[dict], float]]:
+                       parallel: int = 2) -> list[tuple[Path, list[dict], float]]:
     sem = asyncio.Semaphore(parallel)
 
     async def one(i: int, text: str):

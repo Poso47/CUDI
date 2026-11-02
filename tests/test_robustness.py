@@ -183,3 +183,33 @@ def test_jobs_list_returns_copies_and_skips_broken_folders(tmp_path, monkeypatch
     assert [j["id"] for j in listed] == ["a1", "disk-20261101-120000_test"]
     listed[0]["status"] = "verändert"                     # Kopie: der Auftrag selbst bleibt unberührt
     assert app._jobs["a1"]["status"] == "läuft"
+
+
+def test_tts_retries_until_the_free_service_delivers(tmp_path, monkeypatch):
+    """Gratis-Sprachdienst liefert zeitweise nichts: weiter versuchen, Ursache in der Meldung."""
+    import asyncio
+    from cudi_video import tts
+
+    calls = {"n": 0}
+
+    class Flaky:
+        def __init__(self, *a, **k):
+            calls["n"] += 1
+
+        async def stream(self):
+            if calls["n"] < 4:
+                raise RuntimeError("No audio was received.")
+            yield {"type": "audio", "data": b"ID3"}
+            yield {"type": "WordBoundary", "offset": 0, "duration": 5_000_000, "text": "Hallo"}
+
+    async def no_sleep(_):
+        return None
+
+    monkeypatch.setattr(tts.edge_tts, "Communicate", Flaky)
+    monkeypatch.setattr(tts.asyncio, "sleep", no_sleep)
+    words = asyncio.run(tts._synthesize("Hallo", "de-DE-X", tmp_path / "a.mp3", "+0%"))
+    assert calls["n"] == 4 and words[0]["text"] == "Hallo"
+
+    calls["n"] = -100                                                    # scheitert immer
+    with pytest.raises(RuntimeError, match="No audio was received"):
+        asyncio.run(tts._synthesize("Hallo", "de-DE-X", tmp_path / "b.mp3", "+0%"))
