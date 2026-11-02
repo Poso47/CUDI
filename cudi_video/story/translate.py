@@ -7,6 +7,7 @@ MyMemory (ohne Schlüssel, ca. 5.000 Zeichen pro Tag). Ohne Übersetzung bleibt 
 from __future__ import annotations
 
 import json
+import os
 import re
 
 from .. import config, llm, net
@@ -16,6 +17,34 @@ NAMES = {"de": "Deutsch", "en": "Englisch"}
 
 class TranslationUnavailable(RuntimeError):
     pass
+
+
+class TranslationNeeded(TranslationUnavailable):
+    """Auftrag aus der CUDI-App: Claude übersetzt selbst (besser als der Gratis-Dienst, ohne Schlüssel)."""
+
+    def __init__(self, texts: list[str], target: str, source: str):
+        super().__init__(f"{len(texts)} Texte für Claude zum Übersetzen nach {NAMES[target]}")
+        self.texts, self.target, self.source = texts, target, source
+
+
+# Im Auftragsmodus (CUDI-App) zeigt diese Variable auf die Übersetzungsdatei der Auftrags-Sitzung:
+# {"texte": [...], "uebersetzt": [...]} – fehlt sie oder ein Text, wird TranslationNeeded geworfen.
+CLAUDE_FILE_ENV = "CUDI_CLAUDE_UEBERSETZUNG"
+
+
+def _from_claude(texts: list[str]) -> list[str] | None:
+    path = os.environ.get(CLAUDE_FILE_ENV)
+    if not path or not os.path.exists(path):
+        return None
+    try:
+        data = json.loads(open(path, encoding="utf-8").read())
+        pairs = dict(zip(data.get("texte", []), data.get("uebersetzt", [])))
+    except (OSError, ValueError, AttributeError):
+        return None
+    if len(data.get("uebersetzt", [])) != len(data.get("texte", [])):
+        return None
+    out = [pairs.get(t) for t in texts]
+    return [str(t) for t in out] if all(isinstance(t, str) and t.strip() for t in out) else None
 
 
 def _llm(texts: list[str], target: str) -> list[str]:
@@ -70,18 +99,26 @@ def translate(texts: list[str], target: str, source: str = "en") -> tuple[list[s
     """Gibt (Übersetzungen, Dienst) zurück oder wirft TranslationUnavailable."""
     if target == source:
         return list(texts), "keine Übersetzung nötig"
+    claude_mode = bool(os.environ.get(CLAUDE_FILE_ENV))
+    if claude_mode:
+        done = _from_claude(texts)
+        if done is not None:
+            return done, "Claude"
     attempts = []
     if llm.available():
         attempts.append(("Sprachmodell", lambda: _llm(texts, target)))
     if config.DEEPL_API_KEY:
         attempts.append(("DeepL", lambda: _deepl(texts, target, source)))
-    attempts.append(("MyMemory", lambda: _mymemory(texts, target, source)))
+    if not claude_mode:                        # im Auftragsmodus übersetzt Claude statt des Gratis-Dienstes
+        attempts.append(("MyMemory", lambda: _mymemory(texts, target, source)))
     errors = []
     for name, run in attempts:
         try:
             return run(), name
         except Exception as exc:               # nächster Dienst
             errors.append(f"{name}: {exc}")
+    if claude_mode:
+        raise TranslationNeeded(list(texts), target, source)
     raise TranslationUnavailable(
         f"Übersetzung nach {NAMES[target]} nicht möglich ({'; '.join(errors)}). Lösung: kostenlosen "
         "Gemini-Schlüssel (CUDI_LLM_*) oder DeepL-Free-Schlüssel (CUDI_DEEPL_API_KEY) eintragen – oder eine "

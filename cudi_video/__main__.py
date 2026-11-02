@@ -8,6 +8,7 @@ Beispiele:
   python -m cudi_video story "gruselige Story über einen Stalker im Wald"   # Reddit-Story-Video (Autopilot)
   python -m cudi_video story --stimmung funny --suchen                      # nur Vorschläge anzeigen
   python -m cudi_video story https://www.reddit.com/r/tifu/comments/abc123/ --nur-skelett
+  python -m cudi_video auftrag '{"id": "a1b2", "art": "story", "stimmung": "creepy"}'   # Auftrag der CUDI-App
   python -m cudi_video web                          # Web-Oberfläche (auch fürs Handy)
   python -m cudi_video check                        # Selbsttest (bei Problemen zuerst ausführen)
 """
@@ -64,6 +65,12 @@ def main(argv=None) -> int:
     st.add_argument("--ordner", help="bearbeitetes Skelett aus diesem Ausgabeordner rendern")
     st.add_argument("--nicht-entschaerfen", action="store_true", help="Kraftausdrücke nicht ersetzen")
 
+    au = sub.add_parser("auftrag", help="Auftrag aus der CUDI-App (läuft in einer Claude-Cloud-Sitzung)")
+    au.add_argument("auftrag", nargs="?", default="", help="Auftrag als JSON")
+    au.add_argument("--weiter", metavar="ID", help="nach Claudes Übersetzung weiterrendern")
+    au.add_argument("--dokument", metavar="ID", help="Dokument für die Ablage der App-Seite bauen")
+    au.add_argument("--adressen", help='hochgeladene Dateien als JSON {"datei": "url"}')
+
     chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
     chk.add_argument("--ohne-netz", action="store_true", help="nur lokale Prüfungen")
     chk.add_argument("--ohne-stimme", action="store_true", help="KI-Stimme nicht testen")
@@ -83,6 +90,11 @@ def main(argv=None) -> int:
 
     if args.cmd == "story":
         return _story(args)
+
+    if args.cmd == "auftrag":
+        from .job import main as job_main
+
+        return job_main(args)
 
     if args.cmd == "check":
         from .check import print_report, run_checks
