@@ -499,6 +499,18 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   /* ---------- Meine Videos: Aufträge, Fortschritt, Ergebnisse ---------- */
   const jobs = new Map(), results = new Map(), buckets = new Map(), watches = new Map(), cards = new Map();
+  // Seit wann ruht eine Sitzung? (Zeit des letzten Sitzungs-Updates, sonst der ersten Beobachtung)
+  const idleFrom = new Map(), IDLE = new Set(["COMPLETED", "REVIEW_READY", "IDLE"]);
+  function noteBucket(session, payload) {
+    const b = bucketOf(payload);
+    buckets.set(session, b);
+    if (!IDLE.has(b)) { idleFrom.delete(session); return; }
+    if (!idleFrom.has(session)) {
+      const m = /"updated_at"\s*:\s*"([^"]+)"/.exec(typeof payload === "string" ? payload : JSON.stringify(payload || {}));
+      const t = m ? Date.parse(m[1]) : NaN;
+      idleFrom.set(session, isNaN(t) ? Date.now() : Math.min(t, Date.now()));
+    }
+  }
   const ARCHIVED_KEY = "cudiArchiviert";
   function archivedSet() { try { return new Set(JSON.parse(localStorage.getItem(ARCHIVED_KEY) || "[]")); } catch (e) { return new Set(); } }
   function rememberArchived(session) {
@@ -524,9 +536,10 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const b = (job && buckets.get(job.session)) || "";
     if (b === "BLOCKED") return "wartet";
     if (b === "FAILED") return "fehler";
-    // Zwischen zwei Schritten wirkt ein Lauf kurz „bereit“; Fehler meldet der Lauf selbst als Ergebnis.
-    // „Ohne Ergebnis“ daher erst, wenn er nach 15 Min. ruht und nichts geliefert hat.
-    if ((b === "COMPLETED" || b === "REVIEW_READY" || b === "IDLE") && job && minutes(job.gestartet) > 15) return "ohne";
+    // Zwischen zwei Schritten ruht ein Lauf kurz; Fehler meldet er selbst als Ergebnis. „Ohne Ergebnis“ erst,
+    // wenn er seit 10 Min. ununterbrochen ruht (gemessen ab seinem letzten Update, nicht ab dem Auftragsstart).
+    const since = job && idleFrom.get(job.session);
+    if (IDLE.has(b) && job && since && minutes(job.gestartet) > 5 && Date.now() - since >= 10 * 60000) return "ohne";
     return "laeuft";
   }
 
@@ -539,7 +552,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       if (watches.has(session) || !mcp || watches.size >= 30) continue;
       try {
         watches.set(session, mcp.watchTool(CFG.server, "get_session", { session_id: session }, (ev) => {
-          if (ev.type === "data") buckets.set(session, bucketOf(ev.result.payload));
+          if (ev.type === "data") noteBucket(session, ev.result.payload);
           render(); archiveDone();
         }, { refetchInterval: 30000 }));
       } catch (e) { /* ohne Statusabfrage zeigt die Karte nur „läuft“ */ }
@@ -631,8 +644,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       }
       // Läuft der Auftrag noch, seine Sitzung beenden (Archivieren gibt sie frei); fertige Ersatz-Sitzungen
       // ebenso wegräumen. Ein doch noch eintreffendes Ergebnis räumt cleanupOrphans() weg.
-      const running = ["laeuft", "wartet"].includes(stateOf(id));
-      if (job && job.session && mcp && !archivedSet().has(job.session) && (running || job.weg !== "aufgabe")) {
+      // Ohne Ergebnis kann der Lauf noch arbeiten: immer beenden. Fertige Aufgaben-Läufe bleiben unberührt.
+      if (job && job.session && mcp && !archivedSet().has(job.session) && (!res || job.weg !== "aufgabe")) {
         rememberArchived(job.session);
         await mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => {});
       }
@@ -675,6 +688,10 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       if (job.auftrag) {
         const again = document.createElement("button"); again.type = "button"; again.className = "dl"; again.textContent = "Neu starten";
         again.addEventListener("click", () => {
+          if (!res && job.session && mcp && !archivedSet().has(job.session)) {     // alter Lauf darf nicht weiterrendern
+            rememberArchived(job.session);
+            mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => {});
+          }
           const order = Object.assign({}, job.auftrag); delete order.id;
           startJob({ order: order, label: job.label || "Auftrag" }, "videosMsg", again);
         });
@@ -729,7 +746,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       ask.innerHTML = "<span>" + (state === "laeuft" || state === "wartet" ? "Auftrag abbrechen und entfernen?" : "Video und Texte löschen?") + "</span>";
       const yes = document.createElement("button"); yes.type = "button"; yes.className = "dl"; yes.textContent = "Ja";
       const no = document.createElement("button"); no.type = "button"; no.textContent = "Nein";
-      yes.addEventListener("click", () => { yes.disabled = true; removeJob(id); });
+      yes.addEventListener("click", async () => { yes.disabled = true; try { await removeJob(id); } finally { yes.disabled = false; } });
       no.addEventListener("click", () => ask.replaceWith(actions));
       ask.append(yes, no);
       actions.replaceWith(ask);
