@@ -187,21 +187,28 @@ def _story(order: dict, folder: Path, progress) -> dict:
     link = wish if re.search(r"reddit\.com|redd\.it", wish) else ""
     state = json.loads(state_file.read_text("utf-8")) if state_file.exists() else None
     if state is None:
-        story = None
+        story, note = None, ""
         if not link:
             progress("Story suchen", 0.02)
             found = pipeline.search(wish, mood, order["sprache"], order["laenge"], limit=3)
+            if not found["stories"] and wish:              # Beschreibung zu speziell: beliebte Story der Stimmung
+                mood = mood or found["plan"]["mood"]
+                found = pipeline.search("", mood, order["sprache"], order["laenge"], limit=3)
+                note = "Zur Beschreibung fand sich keine Story – stattdessen eine beliebte Story der Stimmung."
             if not found["stories"]:
                 raise RuntimeError(" ".join(found["notes"]) or "Keine passende Story gefunden.")
             story = found["stories"][0]
             mood = mood or found["plan"]["mood"]
-        state = {"story": story, "link": link, "mood": mood}
+        state = {"story": story, "link": link, "mood": mood, "hinweis": note}
         state_file.write_text(json.dumps(state, ensure_ascii=False), "utf-8")
     progress("Skelett und Lektorat", 0.06)
     _, story_folder = pipeline.prepare(story=state["story"], url=state["link"], lang=order["sprache"],
                                        mood=state["mood"], length=order["laenge"], visuals=order["bilder"],
                                        soften=order["entschaerfen"])
-    return pipeline.render(story_folder, progress=lambda stage, f: progress(stage, 0.1 + 0.85 * f))
+    result = pipeline.render(story_folder, progress=lambda stage, f: progress(stage, 0.1 + 0.85 * f))
+    if state.get("hinweis"):
+        result.setdefault("warnings", []).insert(0, state["hinweis"])
+    return result
 
 
 def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
