@@ -9,6 +9,8 @@ Die CUDI-App-Seite startet für jeden Auftrag eine Claude-Sitzung in der Cloud. 
 
 Zeilen, auf die die Sitzung achtet:
   UEBERSETZEN: <datei>   Story in anderer Sprache und kein Übersetzungsdienst: Claude übersetzt die Texte
+  SCHREIBEN: <datei>     (nur mit CUDI_SCHREIBEN=1) Claude deutet ein freies Thema oder erzählt das Ranking
+                         (handoff.py); der Code prüft jede Antwort und hat immer einen Ausweichweg
   DATEIEN: [...]         in die App hochzuladen (App-Fassungen ≤ 19 MB und Titelbilder)
   ERGEBNIS: <datei>      Ergebnis (auch bei Fehlern – dann mit Fehlermeldung)
 
@@ -28,7 +30,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from . import config
+from . import config, handoff
 
 log = logging.getLogger(__name__)
 
@@ -39,6 +41,7 @@ MAX_REVIEW = 40_000
 MOODS = ("auto", "creepy", "suspense", "funny", "drama", "revenge", "wholesome")
 TRANSLATION_FILE = "uebersetzen.json"
 EXIT_TRANSLATE = 3
+EXIT_WRITE = 4
 RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch nach einer Störung
 # Story in zwei Schritten: „skelett“ (suchen, übersetzen, Lektorat -> Skelett in die App) und „video“
 # (aus dem in der App bearbeiteten Skelett rendern). Leer = alles in einem Lauf.
@@ -207,7 +210,19 @@ def _ranking(order: dict, folder: Path, progress) -> dict:
     from .__main__ import _load
     from .pipeline import run
 
-    spec = _load(order["thema"] or order["vorlage"], order["plaetze"])
+    from .planner import plan_with_claude
+    from .spec import VideoSpec
+    from .topics import PlanError
+
+    try:
+        spec = _load(order["thema"] or order["vorlage"], order["plaetze"])
+    except PlanError as exc:                             # Thema außerhalb der Vorlagen: Claude deutet es
+        planned = plan_with_claude(order["thema"], order["plaetze"]) if order["thema"] else None
+        if planned is None:
+            raise
+        spec = VideoSpec.from_dict(planned)
+        print(f"  Thema verstanden: {spec.title['de']}", flush=True)
+        log.info("Thema per Claude geplant (Stichwort-Planer: %s): %s", exc, planned)
     if order.get("laenge") == "lang":                    # bis 10 Minuten: mehr Plätze, ausführlicher erzählt
         spec.target_seconds = int(min(config.LONG_MAX_SECONDS - 10, 30 + 22 * order["plaetze"]))
     out = folder / "video"
@@ -346,6 +361,7 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
     (folder / "auftrag.json").write_text(json.dumps(order, ensure_ascii=False, indent=1), "utf-8")
     translation = folder / TRANSLATION_FILE
     os.environ[CLAUDE_FILE_ENV] = str(translation)        # Story-Übersetzung übernimmt Claude (s. translate.py)
+    os.environ[handoff.DIR_ENV] = str(folder)              # Schreibaufgaben (Thema deuten, erzählen) ebenso
     last = [""]
 
     def progress(stage: str, fraction: float) -> None:
@@ -358,6 +374,9 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
             result = _ranking(order, folder, progress) if order["art"] == "ranking" else _story(order, folder, progress)
             data = _summary(order, result)
             break
+        except handoff.WritingNeeded as need:
+            (folder / "schreiben_offen.txt").write_text(str(need.path), "utf-8")
+            return EXIT_WRITE, None
         except TranslationNeeded as need:
             translation.write_text(json.dumps({"quelle": need.source, "ziel": need.target, "texte": need.texts,
                                                "uebersetzt": []}, ensure_ascii=False, indent=1), "utf-8")
@@ -451,6 +470,12 @@ def main(args) -> int:
                         format="%(asctime)s %(levelname)s %(message)s", force=True)
     print(f"Auftrag {order['id']} ({order['art']}) – Ordner {folder}", flush=True)
     code, data = run_order(order, folder)
+    if code == EXIT_WRITE:
+        path = (folder / "schreiben_offen.txt").read_text("utf-8").strip()
+        print(f"SCHREIBEN: {path}")
+        print("Bitte die Aufgabe aus „anleitung“ nur mit „daten“ erledigen, das Ergebnis als „antwort“ in dieselbe "
+              f"Datei schreiben und dann ausführen: CUDI_SCHREIBEN=1 bash scripts/cudi_auftrag.sh --weiter {order['id']}")
+        return code
     if code == EXIT_TRANSLATE:
         print(f"UEBERSETZEN: {folder / TRANSLATION_FILE}")
         print("Bitte die Liste „texte“ übersetzen, als „uebersetzt“ (gleiche Länge) in dieselbe Datei schreiben "

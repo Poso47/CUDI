@@ -1,0 +1,129 @@
+"""Ranking als kleine Geschichte erzählen – geschrieben von Claude in der Auftrags-Sitzung, geprüft vom Code.
+
+Claude bekommt je Platz nur geprüfte Daten (Wert aus dem Quellen-Abgleich, belegter Vergleich, Zusatzinfos,
+Wikipedia-Einleitung) und schreibt daraus einen erzählenden Sprechertext. Der Code übernimmt einen Text nur,
+wenn er mit dem vorgegebenen Satz beginnt, den geprüften Wert nennt, keine Zahl ohne Beleg enthält, neutral
+bleibt und ins Zeitbudget passt – sonst gilt für diesen Platz der Textbaustein.
+"""
+
+from __future__ import annotations
+
+import re
+
+from . import handoff
+from .models import Research
+from .script import NOT_NEUTRAL, _digits, numbers_supported, rank_sentence
+from .spec import VideoSpec
+
+WIKI_CHARS = 900
+
+INSTRUCTIONS = (
+    "Schreibe für jedes Ranking-Video (je Sprache in „daten“) zu jedem Platz einen Sprechertext für TikTok/YouTube "
+    "Shorts – erzählt wie eine kleine Geschichte statt einer Aufzählung: ein überraschendes Detail, ein Bild im "
+    "Kopf, ein Übergang, der neugierig auf den nächsten Platz macht. Regeln: (1) Beginne exakt mit „start“. "
+    "(2) Nenne den Wert genau wie in „wert“ (gleiche Zahl und Einheit). (3) Verwende NUR Fakten aus „wert“, "
+    "„vergleich“, „beschreibung“, „zusatz“ und „wikipedia“ dieses Platzes – nichts dazuerfinden, keine anderen "
+    "Zahlen, keine Rang- oder Superlativ-Aussagen außer dem Platz selbst (z. B. nicht „das zweithöchste“). "
+    "(4) Keine Quellen nennen, neutral bleiben, keine Wertungen über Politik oder Menschen. (5) Ungefähr „woerter“ "
+    "Wörter (höchstens 20 % mehr), kurze Sätze, gut vorlesbar, in der Sprache des Videos (de = Deutsch, "
+    "en = Englisch). (6) Prüfe danach jeden Satz: Steht diese Aussage wirklich in den Daten des Platzes? Wenn nicht, "
+    "streiche sie – der Code verwirft sonst den ganzen Text (auch Namen und Hauptwörter, die nicht in den Daten "
+    "stehen). Antwort: JSON-Objekt {Sprache: {Platznummer als Text: Sprechertext}}, z. B. "
+    "{\"de\": {\"10\": \"…\", \"9\": \"…\"}, \"en\": {\"10\": \"…\"}}."
+)
+
+# Erzählwörter, die keine Fakten behaupten (alles andere Großgeschriebene muss in den Daten des Platzes stehen)
+FREE_WORDS = {
+    "de": set("""platz plätze meter metern kilometer kilometern stockwerk stockwerke stockwerken etage etagen turm türme
+        türmen gebäude gebäudes wolkenkratzer höhe jahr jahre jahren welt stadt land name namen top spitze himmel wolken
+        blick mal größe fläche tiefe länge breite einwohner menschen ende anfang zahl zahlen ranking liste nummer hälfte
+        vergleich bau eröffnung architekt architekten wert rekord überraschung moment frage antwort augen kopf weg
+        quadratkilometer quadratkilometern tonnen grad prozent millionen milliarden tausend hundert januar februar märz
+        april mai juni juli august september oktober november dezember nummer finale sieger vorgänger nachfolger
+        nachbar platzierung rangliste""".split()),
+    "en": set("""number top i floors floor meters metres kilometers kilometres feet world city country year years
+        january february march april may june july august september october november december""".split()),
+}
+WORD = re.compile(r"[^\W\d_][\w'’-]*", re.U)
+
+
+def unknown_words(text: str, place: dict) -> list[str]:
+    """Großgeschriebene Wörter (deutsche Hauptwörter, Namen) mitten im Satz, die in den Daten nicht vorkommen."""
+    lang = place.get("sprache", "de")
+    known = " ".join(str(v) for k, v in place.items() if k != "woerter").lower()
+    out = []
+    for sentence in re.split(r"(?<=[.!?:–—])\s+", text):
+        for i, word in enumerate(WORD.findall(sentence)):
+            if i == 0 or not word[0].isupper():
+                continue
+            parts = [p for p in re.split(r"[-'’]", word.lower()) if p]      # „US-Büro“: jeder Teil einzeln
+            if all(p in FREE_WORDS[lang] or p in known or (len(p) >= 5 and p[:5] in known) for p in parts):
+                continue
+            out.append(word)
+    return out
+
+
+RANK_CLAIM = re.compile(
+    r"(zweit|dritt|viert|fünft|second|third|fourth|fifth)[\s-]?"
+    r"(höchst|größt|grösst|längst|tiefst|schwerst|tallest|highest|largest|biggest|longest|deepest|heaviest)", re.I)
+
+
+def place_data(facts: dict, item, lang: str, word_budget: int, first: bool) -> dict:
+    comp = (facts.get("comparison") or {}).get("text") or ""
+    return {
+        "platz": facts["rank"],
+        "start": rank_sentence(facts["rank"], facts["name"], lang, first),
+        "name": facts["name"],
+        "wert": facts["value_spoken"],
+        "vergleich": comp,
+        "beschreibung": facts["description"],
+        "zusatz": [f"{label}: {value}" for label, value in facts["extras"]],
+        "wikipedia": (item.summary.get(lang) or "")[:WIKI_CHARS],
+        "woerter": word_budget,
+        "sprache": lang,
+    }
+
+
+def places_for(spec: VideoSpec, research: Research, lang: str) -> list[dict]:
+    """Daten je Platz in Countdown-Reihenfolge – genau so, wie build_script sie später prüft."""
+    from .script import distinct_precision, item_facts, word_budget
+
+    budget = word_budget(spec, research)
+    reference = research.references.get(lang)
+    precision = distinct_precision(spec, research.items, lang)
+    countdown = sorted(research.items, key=lambda it: it.rank, reverse=True)
+    return [place_data(item_facts(spec, item, lang, reference, precision.get(item.qid, 0)), item, lang, budget, i == 0)
+            for i, item in enumerate(countdown)]
+
+
+def request(spec: VideoSpec, research: Research, langs: list[str]) -> dict:
+    """Erzählte Texte {Sprache: {Platz: Text}} von Claude oder {} (nicht aktiv / keine Antwort)."""
+    if not handoff.enabled() or not research.items:
+        return {}
+    data = {lang: {"titel": spec.title[lang], "plaetze": places_for(spec, research, lang)} for lang in langs}
+    answer = handoff.request("erzaehlen", INSTRUCTIONS, data)
+    if not isinstance(answer, dict):
+        return {}
+    return {lang: {str(k): v for k, v in texts.items()} for lang, texts in answer.items() if isinstance(texts, dict)}
+
+
+def check(text, place: dict) -> str | None:
+    """Erzählten Text übernehmen? Gibt den Grund der Ablehnung zurück, sonst None."""
+    if not isinstance(text, str) or not text.strip():
+        return "kein Text"
+    text = text.strip()
+    if not text.startswith(place["start"]):
+        return "falscher Anfang"
+    if not _digits(place["wert"]) <= _digits(text):
+        return "geprüfter Wert fehlt"
+    if not numbers_supported(text, {k: v for k, v in place.items() if k != "woerter"}):
+        return "Zahl ohne Beleg"
+    if NOT_NEUTRAL.search(text) or RANK_CLAIM.search(text):
+        return "Wertung oder Rang-Aussage"
+    words = len(text.split())
+    if words > place["woerter"] * 1.35 + 5:
+        return f"zu lang ({words} Wörter)"
+    unknown = unknown_words(text, place)
+    if unknown:
+        return "nicht belegt: " + ", ".join(unknown[:3])
+    return None

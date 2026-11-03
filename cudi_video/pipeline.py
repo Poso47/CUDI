@@ -60,7 +60,8 @@ def _faster(rate: str, extra: int) -> str:
     return f"{int(rate.strip('%')) + extra:+d}%"
 
 
-def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out: Path, use_llm) -> Script:
+def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out: Path, use_llm,
+                       narration: dict | None = None) -> Script:
     """Vertonen und sicherstellen, dass das Video unter dem Shorts-Limit bleibt.
 
     Nach der ersten Vertonung wird das echte Sprechtempo gemessen und die reichhaltigste
@@ -77,6 +78,14 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
     if total <= limit:
         return script
 
+    rates = [config.VOICE_RATE, _faster(config.VOICE_RATE, 7), _faster(config.VOICE_RATE, 14)]
+    if narration:                      # erzählte Texte zuerst nur etwas schneller sprechen, bevor gekürzt wird
+        for rate in rates[1:]:
+            voice_script(script, audio_dir, rate=rate)
+            total = video_seconds(script)
+            if total <= limit:
+                return script
+
     pauses = sum(LEAD[s.kind] + TAIL[s.kind] for s in script.segments)
     # Sprechtempo je Abschnitt messen (Zahlen und lange Wörter dauern länger als der Durchschnitt)
     rates_per_segment = [s.duration / max(1, len(s.text.split())) for s in script.segments]
@@ -86,7 +95,6 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
         return pauses + speech / speed
 
     candidates = [(scale, detail) for detail in (2, 1, 0) for scale in ((0.8, 0.6, 0.4) if detail == 2 else (1.0,))]
-    rates = [config.VOICE_RATE, _faster(config.VOICE_RATE, 7), _faster(config.VOICE_RATE, 14)]
     for rate_index, rate in enumerate(rates):
         speed = 1 + 0.07 * rate_index                     # grobe Schätzung des Tempogewinns
         for scale, detail in candidates:
@@ -132,9 +140,11 @@ def run(
         research = research_stage(spec, out, fresh=fresh, images=images, strict=strict)
 
     progress("Skript", 0.15)
+    from .narrate import request as narrate_request
+    narration = narrate_request(spec, research, langs) if use_llm is not False else {}   # Claude erzählt (App)
     scripts: list[Script] = []
     for lang in langs:
-        script = build_script(spec, research, lang, use_llm=use_llm)
+        script = build_script(spec, research, lang, use_llm=use_llm, narration=narration.get(lang) or None)
         _save(out / f"script_{lang}.json", script.to_dict())
         scripts.append(script)
     (out / "review.md").write_text(build_review(spec, research, scripts), "utf-8")
@@ -149,7 +159,7 @@ def run(
     for i, script in enumerate(scripts):
         base = 0.2 + i * share
         progress(f"Stimme ({script.lang})", base)
-        script = voice_within_limit(spec, research, script, out, use_llm)
+        script = voice_within_limit(spec, research, script, out, use_llm, narration=narration.get(script.lang) or None)
         scripts[i] = script
         _save(out / f"script_{script.lang}.json", script.to_dict())
 

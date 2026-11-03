@@ -81,3 +81,105 @@ def plan(topic: str, count: int = 10) -> dict:
 
 def describe(spec: dict) -> str:
     return json.dumps(spec, ensure_ascii=False, indent=2)
+
+
+# --------------------------------------------------------------------------- Claude in der App-Sitzung
+
+CLAUDE_PLAN = (
+    "Deute den Video-Wunsch aus „wunsch“ als Ranking: alle Dinge EINER Art (eine Wikidata-Klasse), sortiert nach "
+    "EINER Zahl-Eigenschaft aus „eigenschaften“. Antworte mit einem JSON-Objekt: "
+    "{\"klasse_qid\": \"Q…\", \"klasse_en\": \"englischer Wikidata-Name der Klasse\", "
+    "\"weitere_klassen\": [{\"qid\": \"Q…\", \"en\": \"…\"}] (optional, höchstens 6 wichtige Unterklassen, z. B. "
+    "Hängebrücke zu Brücke), \"eigenschaft\": \"P…\", \"reihenfolge\": \"desc\" oder \"asc\", "
+    "\"land_qid\": \"Q…\" und \"land_en\": \"…\" (nur wenn auf ein Land begrenzt), "
+    "\"kontinent\": \"Europa|Asien|Afrika|Nordamerika|Südamerika|Ozeanien\" (nur wenn auf einen Kontinent begrenzt), "
+    "\"titel_de\": \"Die {count} … \", \"titel_en\": \"The {count} …\", \"wert_de\": \"z. B. Länge\", "
+    "\"wert_en\": \"z. B. Length\", \"hashtags_de\": [3 Wörter], \"hashtags_en\": [3 words]}. Nimm nur Wikidata-IDs, "
+    "bei denen du dir sicher bist – der Code prüft jede ID gegen ihren englischen Namen. Passt der Wunsch nicht zu "
+    "einem Zahlen-Ranking, antworte {\"fehler\": \"kurze Erklärung auf Deutsch mit einem passenden Vorschlag\"}."
+)
+
+
+class PlanFailed(ValueError):          # Eingabe passt nicht -> nicht wiederholen
+    pass
+
+
+def _search(label: str) -> str | None:
+    """Wikidata-ID zu einem englischen Namen (erster Treffer mit passendem Namen)."""
+    from . import net
+
+    try:
+        data = net.get_json("https://www.wikidata.org/w/api.php",
+                            params={"action": "wbsearchentities", "search": label, "language": "en",
+                                    "type": "item", "limit": 5, "format": "json"}, cache_hours=24 * 7)
+    except net.FetchError:
+        return None
+    for hit in data.get("search", []):
+        if _norm(hit.get("label", "")) & _norm(label):
+            return hit["id"]
+    return None
+
+
+def _checked_qid(qid, label) -> str | None:
+    """ID nur übernehmen, wenn ihr englischer Name zum angegebenen passt – sonst nach dem Namen suchen."""
+    label = str(label or "").strip()
+    if isinstance(qid, str) and re.fullmatch(r"Q\d+", qid) and label and _norm(_label(qid)) & _norm(label):
+        return qid
+    return _search(label) if label else None
+
+
+CONTINENT_QIDS = {"europa": "Q46", "asien": "Q48", "afrika": "Q15", "nordamerika": "Q49", "südamerika": "Q18",
+                  "suedamerika": "Q18", "ozeanien": "Q55643"}
+
+
+def plan_with_claude(topic: str, count: int) -> dict | None:
+    """Freies Thema, das der Stichwort-Planer nicht kennt: Claude (Auftrags-Sitzung) deutet es, der Code prüft
+    Klasse, Eigenschaft und Region gegen Wikidata. None = Claude nicht verfügbar."""
+    from . import handoff
+    from .topics import _slug
+
+    props = {pid: name for pid, (name, _) in PROPERTIES.items()}
+    answer = handoff.request("planen", CLAUDE_PLAN, {"wunsch": topic, "plaetze": count, "eigenschaften": props})
+    if not isinstance(answer, dict):
+        return None
+    if answer.get("fehler"):
+        raise PlanFailed(str(answer["fehler"])[:300])
+    pid = answer.get("eigenschaft")
+    if pid not in PROPERTIES:
+        raise PlanFailed("Zu diesem Wunsch fand sich keine passende Zahl zum Sortieren.")
+    cls = _checked_qid(answer.get("klasse_qid"), answer.get("klasse_en"))
+    if not cls:
+        raise PlanFailed(f"Die Art „{answer.get('klasse_en', '')}“ gibt es bei Wikidata so nicht.")
+    extra = [q for q in (_checked_qid(c.get("qid"), c.get("en")) for c in (answer.get("weitere_klassen") or [])[:6]
+                         if isinstance(c, dict)) if q and q != cls]
+    source = {"type": "wikidata", "class": cls, "property": pid,
+              "order": "asc" if answer.get("reihenfolge") == "asc" else "desc",
+              "extras": {"country": "P17"}, "min_sitelinks": 2}
+    if extra:
+        source["extra_classes"] = list(dict.fromkeys(extra))
+    if answer.get("land_en"):
+        country = _checked_qid(answer.get("land_qid"), answer.get("land_en"))
+        if not country:
+            raise PlanFailed(f"Das Land „{answer['land_en']}“ wurde nicht gefunden.")
+        source["country"] = country
+        source["extras"] = {}
+    continent = CONTINENT_QIDS.get(str(answer.get("kontinent") or "").strip().lower())
+    if continent and not source.get("country"):
+        source["where"] = {"P17/P30": continent}
+
+    def title(key: str, fallback: str) -> str:
+        text = re.sub(r"\s+", " ", str(answer.get(key) or fallback)).strip()[:90]
+        return text if "{count}" in text else re.sub(r"^(Die|The)\s+", r"\1 {count} ", text, count=1)
+
+    tags = {lang: [re.sub(r"[^\wäöüß]", "", str(t).lower()) for t in (answer.get(f"hashtags_{lang}") or [])[:4]]
+            for lang in ("de", "en")}
+    title_de = title("titel_de", f"Die {{count}} Plätze: {topic}")
+    return {
+        "id": _slug(title_de.replace("{count}", str(count)))[:50] or "thema",
+        "title": {"de": title_de, "en": title("titel_en", f"The {{count}}: {topic}")},
+        "count": count,
+        "value_label": {"de": str(answer.get("wert_de") or "")[:30], "en": str(answer.get("wert_en") or "")[:30]},
+        "unit": PROPERTIES[pid][1],
+        "hashtags": {lang: ["ranking", *[t for t in tags[lang] if t]] for lang in tags},
+        "source": source,
+    }

@@ -10,8 +10,8 @@ Pro Video entstehen:
 | Datei | Wozu |
 |---|---|
 | `<id>_de.mp4` / `<id>_en.mp4` | fertiges Video (Lautheit auf ca. −14 LUFS normalisiert) |
-| `<id>_de_beschreibung.txt` | YouTube: Titel + Beschreibung mit Ranking, Quellen-Links, Bildnachweisen, KI-Hinweis, Hashtags |
-| `<id>_de_tiktok.txt` | TikTok: kurzer Text mit geprüften Quellen, Stand, KI-Hinweis, Hashtags |
+| `<id>_de_beschreibung.txt` | YouTube: Titel + Beschreibung mit Ranking, Bildnachweisen, Lizenz- und KI-Hinweis, Hashtags (Quellen nur im Prüfbericht) |
+| `<id>_de_tiktok.txt` | TikTok: kurzer Text mit KI-Hinweis und Hashtags |
 | `<id>_de_cover.jpg` | Vorschaubild |
 | `<id>_de.srt` | Untertitel zum Hochladen (YouTube) |
 | `review.md` | **Prüfbericht** – vor dem Hochladen lesen (in der Web-Oberfläche als Seite) |
@@ -42,6 +42,11 @@ python -m cudi_video web                                    # Web-Oberfläche
 
 **Vorlagen** (`presets/`): größte Länder, meiste Einwohner, kleinste Länder, höchste Gebäude,
 höchste Berge, größte Seen, tiefste Seen, größte Inseln, höchste Wasserfälle.
+
+**In der CUDI-App** deutet Claude auch Themen außerhalb dieser Liste („die längsten Brücken Deutschlands“):
+Klasse, Zahl-Eigenschaft und Region werden gegen Wikidata geprüft, dann läuft der normale Quellen-Abgleich.
+Dort erzählt Claude das Ranking außerdem als kleine Geschichte – jeder Text wird geprüft (geprüfter Wert,
+keine Zahl und kein Hauptwort ohne Beleg), sonst gilt der Textbaustein.
 
 **Freie Themen** – ohne KI-Schlüssel, aber nur für Themen mit geprüfter Datenqualität:
 
@@ -87,7 +92,7 @@ Sprachmodell (siehe unten) werden weitere Themen versucht.
 | Wikipedia EN, DE, FR, ES, RU, AR, ZH, JA | acht Sprachgemeinschaften | liest den Wert samt Einheit aus der Einleitung, sonst aus der Infobox – kann bestätigen **oder widersprechen** |
 | Google Fact Check Tools (optional) | Faktencheck-Redaktionen (Correctiv, AFP, Snopes …) | gibt es Faktenchecks zum Eintrag? |
 
-Ergebnis je Platz (Prüfbericht mit allen Werten und Links; im Video als Chip „✓ 4 Quellen“):
+Ergebnis je Platz (nur im Prüfbericht mit allen Werten und Links – die Quellen sind für uns, nicht fürs Publikum):
 
 * **bestätigt** – mindestens eine unabhängige Quelle stimmt überein; einzelne Ausreißer werden bei
   klarer Mehrheit benannt, aber nicht übernommen (Beispiel: Weltbank meldete Kanada mit 15,6 Mio. km²).

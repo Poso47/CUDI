@@ -479,14 +479,19 @@ def llm_item_text(facts: dict, lang: str, word_budget: int, first_item: bool = F
 
 # --------------------------------------------------------------------------- Gesamtskript
 
-def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool | None = None,
-                 budget_scale: float = 1.0, detail: int = 2) -> Script:
-    if use_llm is None:
-        use_llm = llm.available()
-    items = research.items
-    n_items = max(1, len(items))
+def word_budget(spec: VideoSpec, research: Research, budget_scale: float = 1.0) -> int:
+    """Wörter je Platz, damit das Video in die Ziellänge passt (Einleitung + Abschluss ≈ 70 Wörter)."""
     total_words = int(spec.target_seconds * WORDS_PER_SECOND)
-    word_budget = max(12, int((total_words - 70) / n_items * budget_scale))
+    return max(12, int((total_words - 70) / max(1, len(research.items)) * budget_scale))
+
+
+def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool | None = None,
+                 budget_scale: float = 1.0, detail: int = 2, narration: dict | None = None) -> Script:
+    """narration = von Claude erzählte Texte {Platz: Text} (s. narrate.py); jeder wird einzeln geprüft."""
+    if use_llm is None:
+        use_llm = llm.available() and not narration
+    items = research.items
+    budget = word_budget(spec, research, budget_scale)
     title = spec.title[lang]
     retrieved = format_date(research.fetched_at[:10], lang)
 
@@ -495,7 +500,7 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
     segments = [Segment(kind="intro", text=TEXT[lang]["intro"].format(title=title, top=top_spoken),
                         sources=[top.wikidata_url] if top else [])]
     checks: list[str] = []
-    mode = "llm" if use_llm else "template"
+    mode = "claude" if narration else "llm" if use_llm else "template"
 
     reference = research.references.get(lang)
     precision = distinct_precision(spec, items, lang)
@@ -503,11 +508,21 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
     for i, item in enumerate(countdown):
         facts = item_facts(spec, item, lang, reference, precision.get(item.qid, 0))
         text = None
-        if use_llm:
-            text, note = llm_item_text(facts, lang, word_budget, first_item=i == 0)
+        if narration:
+            from .narrate import check, place_data
+
+            told = narration.get(str(item.rank))
+            reason = check(told, place_data(facts, item, lang, budget, i == 0))
+            if reason is None:
+                text = told.strip()
+                checks.append(f"Platz {item.rank}: erzählter Text geprüft und übernommen.")
+            else:
+                checks.append(f"Platz {item.rank}: erzählter Text verworfen ({reason}), Textbausteine verwendet.")
+        elif use_llm:
+            text, note = llm_item_text(facts, lang, budget, first_item=i == 0)
             checks.append(note)
         if text is None:
-            text = template_item_text(facts, lang, word_budget, first=i == 0, detail=detail)
+            text = template_item_text(facts, lang, budget, first=i == 0, detail=detail)
         sources = [item.wikidata_url]
         if facts["comparison"] and reference:
             sources.append(reference["url"])

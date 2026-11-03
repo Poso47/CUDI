@@ -36,9 +36,12 @@ für TikTok/YouTube Shorts.
   - Aufgabe ändern (`update_trigger`, v. a. Modell/Anweisung) nur mit ausdrücklichem OK des Nutzers – die
     Rechteprüfung blockt es sonst. Nachrichten an andere Sitzungen (`send_message`) gelten dort nur als
     Daten, nicht als Auftrag → kein Auftragsweg (eine „Werkstatt“-Sitzung hat Folgeaufträge abgelehnt).
-  - Der Lauf führt `bash scripts/cudi_auftrag.sh '<json>'` aus (`cudi_video/job.py`):
+  - Der Lauf führt `CUDI_SCHREIBEN=1 bash scripts/cudi_auftrag.sh '<json>'` aus (`cudi_video/job.py`):
     rendern, App-Fassung ≤ 19 MB, `ergebnis.json`. Englische Story für deutsches Video →
-    `UEBERSETZEN:` → Claude übersetzt → `--weiter <id>`. Dann Upload per Artifact-Werkzeug
+    `UEBERSETZEN:` → Claude übersetzt → `--weiter <id>`. **`SCHREIBEN:`** (`handoff.py`): Claude deutet freie
+    Themen außerhalb der Vorlagen (`planner.plan_with_claude`, IDs werden gegen Wikidata geprüft) und erzählt
+    Rankings als kleine Geschichte (`narrate.py`: Anfang, geprüfter Wert, keine Zahl/kein Hauptwort ohne Beleg,
+    sonst Textbaustein). Quellen erscheinen nur im Prüfbericht, nicht im Video/Beschreibungstext. Dann Upload per Artifact-Werkzeug
     (`asset: true`), `auftrag --dokument`, `ArtifactData set` in `results/<id>`.
   - Ablage der Seite: `jobs/<id>` (von der Seite), `results/<id>` (von der Sitzung), Videos als Assets
     (1 GB). Die Seite zeigt Fortschritt (`get_session`), Video, „Video speichern“ (downloads),
