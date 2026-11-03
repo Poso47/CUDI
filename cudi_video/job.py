@@ -9,6 +9,8 @@ Die CUDI-App-Seite startet für jeden Auftrag eine Claude-Sitzung in der Cloud. 
 
 Zeilen, auf die die Sitzung achtet:
   UEBERSETZEN: <datei>   Story in anderer Sprache und kein Übersetzungsdienst: Claude übersetzt die Texte
+  SCHREIBEN: <datei>     (nur mit CUDI_SCHREIBEN=1) Claude deutet ein freies Thema oder erzählt das Ranking
+                         (handoff.py); der Code prüft jede Antwort und hat immer einen Ausweichweg
   DATEIEN: [...]         in die App hochzuladen (App-Fassungen ≤ 19 MB und Titelbilder)
   ERGEBNIS: <datei>      Ergebnis (auch bei Fehlern – dann mit Fehlermeldung)
 
@@ -28,16 +30,18 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from . import config
+from . import config, handoff
 
 log = logging.getLogger(__name__)
 
 APP_BUDGET = 19 * 1024 * 1024          # Ablage der App-Seite: 20 MiB je Datei, etwas Luft
+LONG_APP_BUDGET = 150 * 1024 * 1024    # lange Videos (> 3 Min.): ganze Datei, in Stücken ≤ APP_BUDGET abgelegt
 AUDIO_BPS = 96_000
 MAX_REVIEW = 40_000
 MOODS = ("auto", "creepy", "suspense", "funny", "drama", "revenge", "wholesome")
 TRANSLATION_FILE = "uebersetzen.json"
 EXIT_TRANSLATE = 3
+EXIT_WRITE = 4
 RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch nach einer Störung
 # Story in zwei Schritten: „skelett“ (suchen, übersetzen, Lektorat -> Skelett in die App) und „video“
 # (aus dem in der App bearbeiteten Skelett rendern). Leer = alles in einem Lauf.
@@ -79,14 +83,18 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
         langs = [l for l in ("de", "en") if l in (raw.get("sprachen") or ["de", "en"])]
         if not langs:
             raise OrderError("Mindestens eine Sprache wählen.")
+        length = str(raw.get("laenge") or "")
+        if length not in ("", "lang"):
+            raise OrderError("Länge: leer (bis 3 Minuten) oder „lang“ (bis 10 Minuten).")
+        most = 30 if length == "lang" else 20                 # lange Videos: mehr Plätze
         try:
             count = int(raw.get("plaetze", 10))
         except (TypeError, ValueError):
-            raise OrderError("Plätze: bitte eine Zahl von 3 bis 20.") from None
-        if not 3 <= count <= 20:
-            raise OrderError("Plätze: bitte eine Zahl von 3 bis 20.")
+            raise OrderError(f"Plätze: bitte eine Zahl von 3 bis {most}.") from None
+        if not 3 <= count <= most:
+            raise OrderError(f"Plätze: bitte eine Zahl von 3 bis {most}.")
         return {"id": job_id, "art": "ranking", "thema": topic, "vorlage": preset, "sprachen": langs,
-                "plaetze": count, "streng": _flag(raw.get("streng"), False),
+                "plaetze": count, "streng": _flag(raw.get("streng"), False), "laenge": length,
                 "nur_skript": _flag(raw.get("nur_skript"), False)}
     if kind == "story":
         wish = _text(raw.get("wunsch"), 300)
@@ -98,7 +106,7 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
         lang = raw.get("sprache") or "de"
         length = raw.get("laenge") or "3min"
         visuals = raw.get("bilder") or "videos"
-        if lang not in ("de", "en") or length not in ("kurz", "3min", "teile") or visuals not in ("videos", "images", "gameplay"):
+        if lang not in ("de", "en") or length not in ("kurz", "3min", "teile", "lang") or visuals not in ("videos", "images", "gameplay"):
             raise OrderError("Sprache, Länge oder Bilder ungültig.")
         step = str(raw.get("schritt") or "")
         if step not in STEPS:
@@ -138,6 +146,23 @@ def app_version(src: Path, dst: Path, budget: int = APP_BUDGET) -> Path:
     raise RuntimeError(f"{src.name}: App-Fassung bleibt über {budget / 1048576:.0f} MB")
 
 
+def split_for_app(path: Path, size: int = APP_BUDGET) -> list[Path]:
+    """Datei in Stücke ≤ size teilen (Ablage: 20 MiB je Datei). Die App setzt die Bytes wieder zusammen –
+    das ergibt genau die ursprüngliche MP4-Datei. Kleine Dateien bleiben ein Stück."""
+    if path.stat().st_size <= size:
+        return [path]
+    chunks = []
+    with open(path, "rb") as src:
+        for n in range(1, 1000):
+            data = src.read(size)
+            if not data:
+                break
+            chunk = path.with_name(f"{path.stem}_stueck{n:02d}.mp4")
+            chunk.write_bytes(data)
+            chunks.append(chunk)
+    return chunks
+
+
 # --------------------------------------------------------------------------- Rendern
 
 def _read(path: Path, limit: int = 20_000) -> str:
@@ -165,10 +190,13 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
         data["titel"] = titles.get("de") or next(iter(titles.values()), "")
     for key, files in result.get("videos", {}).items():
         video = out / files["video"]
-        app = app_version(video, video.with_name(video.stem + "_app.mp4"))
+        long_video = (files.get("duration") or _duration(video)) > 185
+        app = app_version(video, video.with_name(video.stem + "_app.mp4"), LONG_APP_BUDGET if long_video else APP_BUDGET)
+        chunks = split_for_app(app)
         cover = out / files["cover"] if files.get("cover") and (out / files["cover"]).exists() else None
         data["videos"].append({
             "key": key, "video": str(app), "cover": str(cover) if cover else None,
+            "teile": [str(c) for c in chunks] if len(chunks) > 1 else [],
             "dauer": files.get("duration"), "mb": round(app.stat().st_size / 1048576, 1),
             "youtube": _read(out / files["description_file"]) if files.get("description_file") else "",
             "tiktok": _read(out / files["caption_file"]) if files.get("caption_file") else "",
@@ -182,7 +210,21 @@ def _ranking(order: dict, folder: Path, progress) -> dict:
     from .__main__ import _load
     from .pipeline import run
 
-    spec = _load(order["thema"] or order["vorlage"], order["plaetze"])
+    from .planner import plan_with_claude
+    from .spec import VideoSpec
+    from .topics import PlanError
+
+    try:
+        spec = _load(order["thema"] or order["vorlage"], order["plaetze"])
+    except PlanError as exc:                             # Thema außerhalb der Vorlagen: Claude deutet es
+        planned = plan_with_claude(order["thema"], order["plaetze"]) if order["thema"] else None
+        if planned is None:
+            raise
+        spec = VideoSpec.from_dict(planned)
+        print(f"  Thema verstanden: {spec.title['de']}", flush=True)
+        log.info("Thema per Claude geplant (Stichwort-Planer: %s): %s", exc, planned)
+    if order.get("laenge") == "lang":                    # bis 10 Minuten: mehr Plätze, ausführlicher erzählt
+        spec.target_seconds = int(min(config.LONG_MAX_SECONDS - 10, 30 + 22 * order["plaetze"]))
     out = folder / "video"
     out.mkdir(parents=True, exist_ok=True)
     return run(spec, out=out, langs=order["sprachen"], render=not order["nur_skript"], strict=order["streng"],
@@ -215,7 +257,7 @@ def fit_parts(skeleton: dict) -> list[str]:
 
     lang, mood, title = skeleton["lang"], skeleton["mood"], skeleton["title"]
     per_word = seconds_per_word(mood, lang)
-    limit = config.STORY_MAX_SECONDS - OVERHEAD_SECONDS
+    limit = (config.LONG_MAX_SECONDS if skeleton.get("length") == "lang" else config.STORY_MAX_SECONDS) - OVERHEAD_SECONDS
     secs = lambda scene: len(str(scene.get("text", "")).split()) * per_word
     next_outro = re.compile(re.escape(OUTRO_NEXT[lang]).replace(r"\{n\}", r"\d+"))
     final = next((p["outro"] for p in reversed(skeleton["parts"]) if p.get("outro") and not next_outro.fullmatch(p["outro"])),
@@ -319,6 +361,7 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
     (folder / "auftrag.json").write_text(json.dumps(order, ensure_ascii=False, indent=1), "utf-8")
     translation = folder / TRANSLATION_FILE
     os.environ[CLAUDE_FILE_ENV] = str(translation)        # Story-Übersetzung übernimmt Claude (s. translate.py)
+    os.environ[handoff.DIR_ENV] = str(folder)              # Schreibaufgaben (Thema deuten, erzählen) ebenso
     last = [""]
 
     def progress(stage: str, fraction: float) -> None:
@@ -331,6 +374,9 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
             result = _ranking(order, folder, progress) if order["art"] == "ranking" else _story(order, folder, progress)
             data = _summary(order, result)
             break
+        except handoff.WritingNeeded as need:
+            (folder / "schreiben_offen.txt").write_text(str(need.path), "utf-8")
+            return EXIT_WRITE, None
         except TranslationNeeded as need:
             translation.write_text(json.dumps({"quelle": need.source, "ziel": need.target, "texte": need.texts,
                                                "uebersetzt": []}, ensure_ascii=False, indent=1), "utf-8")
@@ -352,7 +398,8 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
 
 
 def uploads(data: dict) -> list[str]:
-    return [p for v in data.get("videos", []) for p in (v["video"], v.get("cover")) if p]
+    """Hochzuladende Dateien: je Video die App-Fassung (bei langen Videos ihre Stücke) und das Titelbild."""
+    return [p for v in data.get("videos", []) for p in (*(v.get("teile") or [v["video"]]), v.get("cover")) if p]
 
 
 # --------------------------------------------------------------------------- Dokument für die App
@@ -373,13 +420,16 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
     for v in data.get("videos", []):
         url = addresses.get(v["video"]) or addresses.get(Path(v["video"]).name) or ""
         cover = (addresses.get(v["cover"]) or addresses.get(Path(v["cover"]).name) or "") if v.get("cover") else ""
-        videos.append({"key": v["key"], "video_url": url, "cover_url": cover, "dauer": v.get("dauer"),
+        parts = [addresses.get(p) or addresses.get(Path(p).name) or "" for p in v.get("teile") or []]
+        if parts:
+            url = ""                                       # langes Video: nur als Stücke in der Ablage
+        videos.append({"key": v["key"], "video_url": url, "teile_urls": parts, "cover_url": cover, "dauer": v.get("dauer"),
                        "mb": v.get("mb"), "datei": Path(v["video"]).name.replace("_app.mp4", ".mp4"),
                        "youtube": v.get("youtube", ""), "tiktok": v.get("tiktok", "")})
     ok = bool(data.get("ok"))
     error = data.get("fehler", "")
     repeatable = bool(data.get("wiederholbar", True))
-    if ok and videos and not all(v["video_url"] for v in videos):
+    if ok and videos and not all(v["video_url"] or (v["teile_urls"] and all(v["teile_urls"])) for v in videos):
         error = "Das Video ist fertig, ließ sich aber nicht in die App laden (Speicher voll?)."
         ok, repeatable = False, False
     doc = {"id": data["id"], "art": data.get("art", ""), "ok": ok, "titel": data.get("titel", ""), "fehler": error,
@@ -420,6 +470,12 @@ def main(args) -> int:
                         format="%(asctime)s %(levelname)s %(message)s", force=True)
     print(f"Auftrag {order['id']} ({order['art']}) – Ordner {folder}", flush=True)
     code, data = run_order(order, folder)
+    if code == EXIT_WRITE:
+        path = (folder / "schreiben_offen.txt").read_text("utf-8").strip()
+        print(f"SCHREIBEN: {path}")
+        print("Bitte die Aufgabe aus „anleitung“ nur mit „daten“ erledigen, das Ergebnis als „antwort“ in dieselbe "
+              f"Datei schreiben und dann ausführen: CUDI_SCHREIBEN=1 bash scripts/cudi_auftrag.sh --weiter {order['id']}")
+        return code
     if code == EXIT_TRANSLATE:
         print(f"UEBERSETZEN: {folder / TRANSLATION_FILE}")
         print("Bitte die Liste „texte“ übersetzen, als „uebersetzt“ (gleiche Länge) in dieselbe Datei schreiben "

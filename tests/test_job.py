@@ -15,7 +15,7 @@ def test_ranking_order_is_normalised():
     order = job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "thema": "",
                              "sprachen": ["en", "de", "fr"], "plaetze": "7", "streng": True}, PRESETS)
     assert order == {"id": "abc123", "art": "ranking", "thema": "", "vorlage": "hoechste-gebaeude",
-                     "sprachen": ["de", "en"], "plaetze": 7, "streng": True, "nur_skript": False}
+                     "sprachen": ["de", "en"], "plaetze": 7, "streng": True, "nur_skript": False, "laenge": ""}
 
 
 def test_story_order_cleans_text_and_keeps_defaults():
@@ -241,3 +241,64 @@ def test_fit_parts_keeps_every_part_short_and_numbers_them():
     short["title"] = "Anderer Titel"
     assert job.fit_parts(short) == [] and short["parts"][0]["intro"] == "Anderer Titel"
     assert short["parts"][0]["outro"] == "Folge für mehr."
+
+
+def test_long_videos_more_places_and_files_in_pieces(tmp_path, monkeypatch):
+    base = {"id": "lang1", "art": "ranking", "vorlage": "hoechste-gebaeude"}
+    assert job.parse_order({**base, "laenge": "lang", "plaetze": 30}, PRESETS)["plaetze"] == 30
+    with pytest.raises(job.OrderError, match="3 bis 20"):
+        job.parse_order({**base, "plaetze": 25}, PRESETS)
+    assert job.parse_order({"id": "lang2", "art": "story", "stimmung": "creepy", "laenge": "lang"}, PRESETS)["laenge"] == "lang"
+
+    big = tmp_path / "v_app.mp4"
+    big.write_bytes(bytes(range(256)) * 400)                      # 102 400 Bytes
+    chunks = job.split_for_app(big, size=40_000)
+    assert [c.name for c in chunks] == ["v_app_stueck01.mp4", "v_app_stueck02.mp4", "v_app_stueck03.mp4"]
+    assert b"".join(c.read_bytes() for c in chunks) == big.read_bytes()       # wieder zusammengesetzt = Original
+    assert job.split_for_app(chunks[2], size=40_000) == [chunks[2]]
+
+    data = {"videos": [{"key": "de", "video": str(big), "cover": "/x/c.jpg", "teile": [str(c) for c in chunks]}]}
+    assert job.uploads(data) == [str(c) for c in chunks] + ["/x/c.jpg"]
+    monkeypatch.setattr(job.config, "OUTPUT_DIR", tmp_path)
+    folder = job.job_folder("lang1")
+    folder.mkdir()
+    (folder / "ergebnis.json").write_text(json.dumps({"id": "lang1", "art": "ranking", "ok": True, "fehler": "",
+                                                      **data}))
+    doc = job.document(folder, {str(c): f"/_blob/{i}" for i, c in enumerate(chunks)} | {"/x/c.jpg": "/_blob/c"})
+    assert doc["ok"] and doc["videos"][0]["teile_urls"] == ["/_blob/0", "/_blob/1", "/_blob/2"]
+    assert doc["videos"][0]["video_url"] == ""
+    doc = job.document(folder, {str(chunks[0]): "/_blob/0"})                 # ein Stück fehlt
+    assert not doc["ok"]
+
+
+def test_long_story_parts_may_run_ten_minutes():
+    text = " ".join(["Ein ziemlich langer Satz mit genau zehn Wörtern hier drin."] * 60)   # ~600 Wörter
+    sk = json.loads(json.dumps(SKELETON))
+    sk["length"] = "lang"
+    sk["parts"][0]["scenes"][0]["text"] = text
+    assert job.fit_parts(sk) == [] and len(sk["parts"]) == 1                 # passt am Stück (≤ 10 Min.)
+
+
+def test_long_ranking_supports_up_to_30_places():
+    """Langmodus: 21–30 Plätze laden sich über Vorlage und freies Thema (nicht still auf 20 gekürzt)."""
+    from cudi_video.__main__ import _load
+    from cudi_video.topics import plan_from_text
+
+    assert _load("hoechste-gebaeude", 25).count == 25
+    assert plan_from_text("die höchsten Berge der Welt", 30)["count"] == 30
+    assert plan_from_text("die 25 höchsten Berge der Welt")["count"] == 20      # ohne Langmodus höchstens 20
+
+
+def test_factbook_region_cache_is_thread_safe(tmp_path, monkeypatch):
+    import threading
+
+    from cudi_video import config
+    from cudi_video.verify.checkers import FactbookChecker
+
+    monkeypatch.setattr(config, "CACHE_DIR", tmp_path)
+    threads = [threading.Thread(target=FactbookChecker._remember, args=(f"c{i}", "europe")) for i in range(20)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert len(FactbookChecker._regions()) == 20                 # kein Eintrag verloren, gültiges JSON

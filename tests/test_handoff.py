@@ -1,0 +1,125 @@
+"""Schreibaufträge an Claude: erzählte Ranking-Texte und freie Themen – streng geprüft, immer mit Ausweichweg."""
+
+import json
+
+import pytest
+
+from cudi_video import handoff, narrate, planner
+from cudi_video.script import build_script
+from tests.test_video import make_research, make_spec
+
+
+@pytest.fixture
+def writing(tmp_path, monkeypatch):
+    monkeypatch.setenv(handoff.ENV, "1")
+    monkeypatch.setenv(handoff.DIR_ENV, str(tmp_path))
+    return tmp_path
+
+
+def answer(path, data):
+    task = json.loads(path.read_text("utf-8"))
+    task["antwort"] = data
+    path.write_text(json.dumps(task, ensure_ascii=False), "utf-8")
+
+
+def test_inactive_without_flag(monkeypatch):
+    monkeypatch.delenv(handoff.ENV, raising=False)
+    assert narrate.request(make_spec(), make_research(), ["de"]) == {}
+
+
+def test_narration_is_asked_once_then_checked(writing):
+    spec, research = make_spec(), make_research()
+    with pytest.raises(handoff.WritingNeeded) as need:
+        narrate.request(spec, research, ["de"])
+    task = json.loads(need.value.path.read_text("utf-8"))
+    places = task["daten"]["de"]["plaetze"]
+    assert [p["platz"] for p in places] == [3, 2, 1] and places[-1]["wert"].startswith("828")
+    assert "Turm A ist ein Gebäude" in places[-1]["wikipedia"]
+    good = (places[-1]["start"] + " Mit 828 Metern ragt Turm A über alles hinaus. Ganz oben wartet eine "
+            "Aussichtsplattform – und eröffnet wurde er 2010.")
+    answer(need.value.path, {"de": {
+        "1": good,
+        "2": places[1]["start"] + " Ganze 679 Meter, gebaut 1999.",               # 1999 steht nirgends -> Baustein
+        "3": "Platz 3 ist Turm C mit 632 Metern.",                                  # falscher Anfang -> Baustein
+    }})
+    narration = narrate.request(spec, research, ["de"])
+    script = build_script(spec, research, "de", use_llm=False, narration=narration["de"])
+    texts = {s.rank: s.text for s in script.segments if s.kind == "item"}
+    assert texts[1] == good and script.mode == "claude"
+    assert "1999" not in texts[2] and texts[3].startswith("Wir starten mit Platz 3")
+    assert sum("übernommen" in c for c in script.checks) == 1 and sum("verworfen" in c for c in script.checks) == 2
+
+
+def test_narration_rejects_missing_value_rank_claims_and_length():
+    place = {"start": "Platz 2: Turm B.", "wert": "679 Meter", "wikipedia": "", "woerter": 20, "platz": 2}
+    assert narrate.check("Platz 2: Turm B. Sehr hoch.", place) == "geprüfter Wert fehlt"
+    assert narrate.check("Platz 2: Turm B. 679 Meter – das zweithöchste Gebäude.", place) == "Wertung oder Rang-Aussage"
+    assert narrate.check("Platz 2: Turm B. 679 Meter. " + "Wort " * 40, place).startswith("zu lang")
+    assert narrate.check("Platz 2: Turm B. Stolze 679 Meter hoch!", place) is None
+
+
+def test_plan_with_claude_checks_ids(writing, monkeypatch):
+    labels = {"Q12280": "bridge", "Q12570": "suspension bridge", "Q183": "Germany"}
+    monkeypatch.setattr(planner, "_label", lambda q: labels.get(q, "something else"))
+    monkeypatch.setattr(planner, "_search", lambda label: None)
+    with pytest.raises(handoff.WritingNeeded) as need:
+        planner.plan_with_claude("die längsten Brücken Deutschlands", 10)
+    assert "P2043" in json.loads(need.value.path.read_text("utf-8"))["daten"]["eigenschaften"]
+    answer(need.value.path, {"klasse_qid": "Q12280", "klasse_en": "bridge", "eigenschaft": "P2043",
+                             "weitere_klassen": [{"qid": "Q12570", "en": "suspension bridge"}, {"qid": "Q1", "en": "x"}],
+                             "land_qid": "Q183", "land_en": "Germany", "titel_de": "Die längsten Brücken Deutschlands",
+                             "titel_en": "The {count} Longest Bridges in Germany", "hashtags_de": ["Brücken", "#bau"]})
+    spec = planner.plan_with_claude("die längsten Brücken Deutschlands", 10)
+    src = spec["source"]
+    assert src["class"] == "Q12280" and src["extra_classes"] == ["Q12570"] and src["country"] == "Q183"
+    assert spec["title"]["de"] == "Die {count} längsten Brücken Deutschlands" and spec["unit"] == "km"
+    assert spec["hashtags"]["de"] == ["ranking", "brücken", "bau"]
+    from cudi_video.spec import VideoSpec
+    assert VideoSpec.from_dict(spec).title["de"] == "Die 10 längsten Brücken Deutschlands"
+
+
+def test_plan_with_claude_rejects_wrong_ids_and_explains(writing, monkeypatch):
+    monkeypatch.setattr(planner, "_label", lambda q: "human")
+    monkeypatch.setattr(planner, "_search", lambda label: None)
+    with pytest.raises(handoff.WritingNeeded) as need:
+        planner.plan_with_claude("die schönsten Sonnenuntergänge", 10)
+    answer(need.value.path, {"fehler": "Schönheit lässt sich nicht messen – wie wäre es mit den höchsten Bergen?"})
+    with pytest.raises(planner.PlanFailed, match="nicht messen"):
+        planner.plan_with_claude("die schönsten Sonnenuntergänge", 10)
+    answer(need.value.path, {"klasse_qid": "Q5", "klasse_en": "bridge", "eigenschaft": "P2043"})
+    with pytest.raises(planner.PlanFailed, match="gibt es bei Wikidata"):
+        planner.plan_with_claude("die schönsten Sonnenuntergänge", 10)
+
+
+def test_job_prints_schreiben_and_resumes(writing, monkeypatch, capsys):
+    """Freies Thema ohne Vorlage: der Auftrag hält mit SCHREIBEN an und läuft mit --weiter weiter."""
+    from types import SimpleNamespace
+
+    from cudi_video import job
+
+    monkeypatch.setattr(job, "job_folder", lambda job_id: writing / f"auftrag-{job_id}")
+    monkeypatch.setattr(planner, "_label", lambda q: "bridge")
+    calls = []
+    monkeypatch.setattr(job, "RETRY_PAUSE", 0)
+    monkeypatch.setattr("cudi_video.pipeline.run", lambda spec, **kw: calls.append(spec) or
+                        {"videos": {}, "warnings": [], "output_dir": str(kw["out"])})
+    order = json.dumps({"id": "brueckentest", "art": "ranking", "thema": "die längsten Brücken", "sprachen": ["de"],
+                        "nur_skript": True})
+    code = job.main(SimpleNamespace(dokument=None, weiter=None, auftrag=order, adressen=None))
+    out = capsys.readouterr().out
+    assert code == job.EXIT_WRITE and "SCHREIBEN:" in out and not calls
+    path = writing / "auftrag-brueckentest" / "schreiben_planen.json"
+    answer(path, {"klasse_qid": "Q12280", "klasse_en": "bridge", "eigenschaft": "P2043",
+                  "titel_de": "Die {count} längsten Brücken der Welt", "titel_en": "The {count} Longest Bridges"})
+    assert job.main(SimpleNamespace(dokument=None, weiter="brueckentest", auftrag=None, adressen=None)) == 0
+    assert len(calls) == 1 and calls[0].source.cls == "Q12280" and calls[0].title["de"] == "Die 10 längsten Brücken der Welt"
+
+
+def test_narration_rejects_invented_details():
+    place = {"start": "Platz 4: Abraj Al Bait.", "wert": "607 Meter", "woerter": 30, "platz": 4, "sprache": "de",
+             "wikipedia": "Die Abraj Al Bait sind eine Hochhausgruppe in Mekka, entworfen vom US-amerikanischen Architekturbüro X.",
+             "beschreibung": "", "zusatz": [], "vergleich": ""}
+    assert narrate.check("Platz 4: Abraj Al Bait. 607 Meter in Mekka. Ganz oben thront eine riesige Uhr.",
+                         place).startswith("nicht belegt: Uhr")
+    assert narrate.check("Platz 4: Abraj Al Bait. 607 Meter hoch, entworfen von einem US-Büro – mitten in Mekka.",
+                         place) is None

@@ -355,7 +355,7 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
     last = part_index == n_parts - 1
     end_text = None if last else ("TEIL" if lang == "de" else "PART") + f" {part_index + 2} " + ("FOLGT" if lang == "de" else "SOON")
     credits = [(bounds[i], bounds[i + 1], visuals[i].credit.removesuffix(" – Wikimedia Commons"))
-               for i in range(n) if visuals[i].credit.startswith("Foto:")]
+               for i in range(n) if visuals[i].credit.startswith(("Foto:", "Clip:"))]
     build_ass(work / "captions.ass", story_words, font_name, mood, label, end_text, starts[-1], total, credits)
     progress(0.75)
 

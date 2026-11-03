@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import threading
 from dataclasses import asdict, dataclass
 
 from bs4 import BeautifulSoup
@@ -101,10 +102,27 @@ class FactbookChecker(Checker):
     def applies(self, spec, item):
         return spec.source.property in self.PROPS and "fips" in item.codes
 
+    _cache_lock = threading.Lock()        # Faktencheck läuft parallel: Region-Cache nur nacheinander lesen/schreiben
+
+    @classmethod
+    def _regions(cls) -> dict:
+        cache = config.CACHE_DIR / "factbook_regions.json"
+        try:
+            return json.loads(cache.read_text()) if cache.exists() else {}
+        except ValueError:
+            return {}
+
+    @classmethod
+    def _remember(cls, code: str, region: str) -> None:
+        with cls._cache_lock:
+            regions = cls._regions()
+            regions[code] = region
+            net._atomic_write(config.CACHE_DIR / "factbook_regions.json", json.dumps(regions).encode())
+
     def _load(self, fips: str) -> tuple[dict, str] | None:
         code = fips.lower()
-        cache = config.CACHE_DIR / "factbook_regions.json"
-        regions = json.loads(cache.read_text()) if cache.exists() else {}
+        with self._cache_lock:
+            regions = self._regions()
         order = ([regions[code]] if code in regions else []) + [r for r in self.REGIONS if r != regions.get(code)]
         for region in order:
             url = f"{self.BASE}/{region}/{code}.json"
@@ -112,9 +130,8 @@ class FactbookChecker(Checker):
                 data = net.get_json(url, cache_hours=24 * 7, retries=0)
             except net.FetchError:
                 continue
-            regions[code] = region
-            cache.parent.mkdir(parents=True, exist_ok=True)
-            cache.write_text(json.dumps(regions))
+            if regions.get(code) != region:
+                self._remember(code, region)
             return data, url
         return None
 
@@ -159,14 +176,30 @@ class OSMChecker(Checker):
     name = "OpenStreetMap"
     origin = "weltweite Kartografie-Community"
     TAGS = {"P2048": "height", "P2044": "ele"}
+    MAX_FAILURES = 2                     # Overpass hängt öfter: danach in diesem Lauf überspringen
+    _slot = threading.Semaphore(1)        # Overpass erlaubt nur wenige gleichzeitige Abfragen je Rechner
+    _failures = [0]
+
+    @classmethod
+    def reset(cls) -> None:
+        cls._failures[0] = 0
 
     def applies(self, spec, item):
-        return spec.source.property in self.TAGS
+        return spec.source.property in self.TAGS and self._failures[0] < self.MAX_FAILURES
 
     def check(self, spec, item):
         tag = self.TAGS[spec.source.property]
         query = f'[out:json][timeout:25];nwr["wikidata"="{item.qid}"];out tags 5;'
-        data = net.get_json(config.OVERPASS_URL, params={"data": query}, cache_hours=24 * 7, retries=1, max_wait=10)
+        with self._slot:
+            if self._failures[0] >= self.MAX_FAILURES:
+                return []
+            try:
+                data = net.get_json(config.OVERPASS_URL, params={"data": query}, cache_hours=24 * 7, retries=1,
+                                    max_wait=10, timeout=30)
+            except net.FetchError:
+                self._failures[0] += 1
+                raise
+            self._failures[0] = 0
         for el in data.get("elements", []):
             raw = el.get("tags", {}).get(tag, "")
             if not raw or re.search(r"ft|'|\"", raw):

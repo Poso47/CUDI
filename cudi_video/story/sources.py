@@ -35,6 +35,7 @@ LENGTHS = {
     "kurz": {"label": "Kurz (bis 1 Minute)", "seconds": 60},
     "3min": {"label": "Bis 3 Minuten", "seconds": config.STORY_MAX_SECONDS},
     "teile": {"label": "Lang, in Teilen", "seconds": config.STORY_MAX_SECONDS, "parts": 6},
+    "lang": {"label": "Lang (bis 10 Minuten, am Stück)", "seconds": config.LONG_MAX_SECONDS},
 }
 OVERHEAD_SECONDS = 9            # Titel + Abspann
 
@@ -45,7 +46,7 @@ def word_range(length: str, mood: str, lang: str) -> tuple[int, int]:
     per_video = int((spec["seconds"] - OVERHEAD_SECONDS) / seconds_per_word(mood, lang))
     if length == "teile":
         return int(per_video * 0.9), per_video * spec["parts"]
-    return int(per_video * (0.4 if length == "kurz" else 0.45)), per_video
+    return int(per_video * {"kurz": 0.4, "lang": 0.3}.get(length, 0.45)), per_video
 
 
 @dataclass

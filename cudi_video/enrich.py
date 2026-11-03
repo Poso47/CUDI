@@ -138,7 +138,11 @@ def _enrich_item(item: RankItem, langs: list[str], images: bool) -> bool:
 
 
 def enrich(research: Research, langs: list[str], images: bool = True) -> Research:
-    failed = [item for item in research.items if not _enrich_item(item, langs, images)]
+    from concurrent.futures import ThreadPoolExecutor
+
+    with ThreadPoolExecutor(max_workers=4) as pool:            # mehrere Plätze gleichzeitig
+        done = list(pool.map(lambda it: _enrich_item(it, langs, images), research.items))
+    failed = [item for item, ok in zip(research.items, done) if not ok]
     if failed:
         # Wikimedia drosselt zeitweise – nach einer kurzen Pause klappt es meist.
         log.info("Zweiter Versuch für %d Einträge in %d s", len(failed), RETRY_PAUSE)

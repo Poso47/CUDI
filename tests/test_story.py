@@ -325,3 +325,29 @@ def test_rss_hides_sensitive_stories_and_outage_is_not_deleted(monkeypatch):
     monkeypatch.setattr(sources, "_rss_entries", blocked)
     with pytest.raises(sources.net.FetchError):              # Netzausfall -> wiederholbar, nicht „gelöscht“
         sources.fetch_post("https://www.reddit.com/r/tifu/comments/abc123/x/")
+
+
+def test_commons_clips_only_when_the_title_fits(monkeypatch, tmp_path):
+    from cudi_video.story import visuals
+
+    def page(index, title, duration=12, license_name="CC0", artist="Jane Doe"):
+        return {"index": index, "title": title, "videoinfo": [{"duration": duration, "extmetadata": {
+            "LicenseShortName": {"value": license_name}, "Artist": {"value": artist}},
+            "derivatives": [{"src": f"https://x/{index}_480.webm", "type": 'video/webm; codecs="vp9"', "height": 480},
+                            {"src": f"https://x/{index}_1080.webm", "type": 'video/webm; codecs="vp9"', "height": 1080},
+                            {"src": f"https://x/{index}_2160.webm", "type": 'video/webm; codecs="vp9"', "height": 2160}]}]}
+
+    feeds = {"forest night": [page(1, "File:WP25 The Birthday Cake Song.webm")],
+             "forest": [page(2, "File:Forest walk lecture.webm"), page(3, "File:Misty forest at dawn.webm")]}
+    monkeypatch.setattr(visuals.net, "get_json",
+                        lambda url, params, **k: {"query": {"pages": feeds.get(params["gsrsearch"].replace(" filetype:video", ""), [])}})
+    loaded = []
+    monkeypatch.setattr(visuals.net, "download", lambda src, **k: loaded.append(src) or (tmp_path / "c.webm"))
+    used = set()
+    clip = visuals.commons_video("dark forest night", used)
+    assert clip and clip.kind == "video" and loaded == ["https://x/3_1080.webm"]   # passender Titel, ≤ 1080p
+    assert clip.credit.startswith("Clip: ") and "Wikimedia Commons" in clip.credit
+    assert visuals.commons_video("dark forest night", used) is None                 # nicht zweimal derselbe Clip
+    feeds["ocean"] = [page(4, "File:Ocean waves.webm", duration=90)]
+    visuals.commons_video("ocean", set())
+    assert loaded[-1] == "https://x/4_480.webm"                                      # langer Clip: höchstens 720p
