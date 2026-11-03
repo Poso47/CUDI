@@ -220,3 +220,24 @@ def test_video_step_renders_the_skeleton_edited_in_the_app(tmp_path, monkeypatch
     (tmp_path / "cudi_skelette" / "skelette" / "vid1.json").unlink()
     with pytest.raises(RuntimeError, match="nicht angekommen"):
         job.app_skeleton("vid1", wait=0)
+
+
+def test_fit_parts_keeps_every_part_short_and_numbers_them():
+    from cudi_video.story.editor import OUTRO_NEXT
+
+    long_text = " ".join(["Ein ziemlich langer Satz mit genau zehn Wörtern hier drin."] * 60)   # ~600 Wörter
+    sk = json.loads(json.dumps(SKELETON))
+    sk["title"] = "Neuer Titel"
+    sk["parts"] = [{"intro": "Teil 2. Alter Titel", "outro": OUTRO_NEXT["de"].format(n=3), "estimated_seconds": 50,
+                    "scenes": [{"text": long_text, "source": "", "query": "q", "prompt": "q"}]}]
+    notes = job.fit_parts(sk)
+    assert len(sk["parts"]) >= 2 and notes
+    assert sk["parts"][0]["intro"] == "Neuer Titel" and sk["parts"][1]["intro"] == "Teil 2. Neuer Titel"
+    assert sk["parts"][0]["outro"] == OUTRO_NEXT["de"].format(n=2)
+    assert "kommt bald" not in sk["parts"][-1]["outro"]                     # Schluss statt Ankündigung
+    assert all(p["estimated_seconds"] <= job.config.STORY_MAX_SECONDS for p in sk["parts"])
+
+    short = json.loads(json.dumps(SKELETON))
+    short["title"] = "Anderer Titel"
+    assert job.fit_parts(short) == [] and short["parts"][0]["intro"] == "Anderer Titel"
+    assert short["parts"][0]["outro"] == "Folge für mehr."

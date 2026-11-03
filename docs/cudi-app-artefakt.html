@@ -580,6 +580,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   function stateOf(id) {
     const job = jobs.get(id), res = results.get(id);
+    if (job && job.wechsel) return "laeuft";                    // Skelett -> Video wird gerade gestartet
+    if (res && res.schritt === "skelett" && job && job.auftrag && job.auftrag.schritt === "video") return "laeuft";
     if (res) return res.ok ? (res.schritt === "skelett" ? "skelett" : "fertig") : "fehler";
     const b = (job && buckets.get(job.session)) || "";
     if (b === "BLOCKED") return "wartet";
@@ -617,7 +619,9 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const done = archivedSet();
     for (const [id] of results) {
       const job = jobs.get(id);
-      if (!job || !job.session || job.weg === "aufgabe" || done.has(job.session)) continue;
+      if (!job || !job.session || job.weg === "aufgabe" || job.wechsel || done.has(job.session)) continue;
+      const res = results.get(id);                                   // altes Skelett-Ergebnis gehört nicht zum Videolauf
+      if (res && res.schritt === "skelett" && job.auftrag && job.auftrag.schritt === "video") continue;
       rememberArchived(job.session);
       mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => { /* bleibt sichtbar */ });
     }
@@ -668,7 +672,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       rememberArchived(job.session);
       await mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => {});
     }
-    if (res) await db.doc("results/" + id).delete();
+    if (res) {
+      for (const v of res.videos || []) for (const u of [v.video_url, v.cover_url]) {
+        if (assetId(u)) { if (!assets) throw new Error("Die Ablage lädt noch – gleich noch einmal versuchen."); await assets.delete(assetId(u)).catch(() => {}); }
+      }
+      await db.doc("results/" + id).delete();
+    }
     const started = await dispatch(id, Object.assign({}, job.auftrag, { id: id }), job.label);
     const still = await ref.get().catch(() => null);
     if (still && !still.exists) {
@@ -712,24 +721,28 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     intro.textContent = "Prüfe die Story, ändere Texte oder Bildideen, lösche oder ergänze Szenen – dann „Video erstellen“." +
       (sk.post && sk.post.subreddit ? " Quelle: r/" + sk.post.subreddit + (sk.post.author ? " · u/" + sk.post.author : "") : "");
     const moodLabel = add(document.createElement("label")); moodLabel.textContent = "Stimmung (Stimme, Musik, Look)";
-    const moodSel = add(document.createElement("select"));
+    const moodSel = add(document.createElement("select")); moodSel.id = "skMood-" + id; moodLabel.htmlFor = moodSel.id;
     for (const [value, label] of Object.entries(MOOD_LABELS)) {
       const o = document.createElement("option"); o.value = value; o.textContent = label; o.selected = value === sk.mood; moodSel.appendChild(o);
     }
     moodSel.addEventListener("change", () => { sk.mood = moodSel.value; sk.voice = null; scheduleSave(id); });
     const titleLabel = add(document.createElement("label")); titleLabel.textContent = "Titel";
     const titleIn = add(document.createElement("input")); titleIn.type = "text"; titleIn.value = sk.title || "";
+    titleIn.id = "skTitle-" + id; titleLabel.htmlFor = titleIn.id;
     titleIn.addEventListener("input", () => {
       const t = titleIn.value.trim();
       if (!t) return;
-      if (sk.parts[0] && sk.parts[0].intro && sk.title) sk.parts[0].intro = sk.parts[0].intro.split(sk.title).join(t);
+      if (sk.title) for (const part of sk.parts) if (part.intro) part.intro = part.intro.split(sk.title).join(t);   // alle Teile
       sk.title = t; scheduleSave(id);
     });
     if ((sk.rights || []).length) { const r = add(document.createElement("p")); r.className = "note warn"; r.textContent = "⚠️ " + sk.rights.join(" · "); }
     sk.parts.forEach((part, pi) => {
       const head = add(document.createElement("div")); head.className = "part";
-      const est = () => (sk.parts.length > 1 ? "Teil " + (pi + 1) + " · " : "") + "ca. " +
-        Math.round(part.scenes.reduce((n, s) => n + words(s.text), 0) * secPerWord) + " s";
+      const est = () => {
+        const sec = Math.round(part.scenes.reduce((n, s) => n + words(s.text), 0) * secPerWord);
+        return (sk.parts.length > 1 ? "Teil " + (pi + 1) + " · " : "") + "ca. " + sec + " s" +
+          (sec > 175 ? " – wird automatisch in mehrere Teile aufgeteilt" : "");
+      };
       head.textContent = est();
       if (part.intro) { const h = add(document.createElement("p")); h.className = "hint"; h.textContent = "Einstieg: " + part.intro; }
       part.scenes.forEach((scene, si) => {
@@ -753,7 +766,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         del.addEventListener("click", () => {
           if (part.scenes.length === 1 && sk.parts.length === 1) { note("videosMsg", "Die letzte Szene bleibt – sonst gibt es kein Video.", "warn"); return; }
           part.scenes.splice(si, 1);
-          if (!part.scenes.length) sk.parts.splice(pi, 1);
+          if (!part.scenes.length) {
+            const final = sk.parts[sk.parts.length - 1].outro;            // Schluss des letzten Teils bleibt am Ende
+            sk.parts.splice(pi, 1);
+            renumberParts(sk, final);
+          }
           scheduleSave(id); drawSkeleton(id, sk, res, box);
         });
         bar.append(q, plus, del);
@@ -771,6 +788,34 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     });
     row.append(go, reset);
   }
+  // Videoschritt gescheitert: zurück zum gespeicherten Skelett (gleiche Karte), anpassen und erneut starten
+  async function backToSkeleton(id, btn) {
+    const job = jobs.get(id), res = results.get(id);
+    if (!job || !db) return;
+    btn.disabled = true;
+    try {
+      const saved = await db.doc("skelette/" + id).get();
+      if (!saved.exists) throw new Error("Das Skelett ist nicht mehr gespeichert – bitte „Neu starten“.");
+      const sk = saved.data();
+      if (res) for (const v of res.videos || []) for (const u of [v.video_url, v.cover_url]) if (assets && assetId(u)) await assets.delete(assetId(u)).catch(() => {});
+      skeletons.set(id, sk);
+      await db.doc("jobs/" + id).update({ auftrag: Object.assign({}, job.auftrag, { schritt: "skelett" }), versuch: 2 });
+      await db.doc("results/" + id).set({ id: id, art: "story", ok: true, schritt: "skelett", skelett: sk, titel: sk.title || "",
+        videos: [], hinweise: [], pruefbericht: "", fehler: "", wiederholbar: true, fertig: new Date().toISOString() });
+    } catch (err) {
+      note("videosMsg", explain(err), "warn");
+      btn.disabled = false;
+    }
+  }
+  function renumberParts(sk, final) {
+    const n = sk.parts.length, en = sk.lang === "en";
+    sk.parts.forEach((p, i) => {
+      const base = String(p.intro || sk.title || "").replace(/^(Teil|Part)\s+\d+\.\s*/i, "");
+      p.intro = i === 0 ? base : (en ? "Part " : "Teil ") + (i + 1) + ". " + base;
+      p.outro = i === n - 1 ? final : (en ? "Part " + (i + 2) + " is coming soon – follow so you don't miss it!"
+                                         : "Teil " + (i + 2) + " kommt bald – folge, damit du ihn nicht verpasst!");
+    });
+  }
   async function videoFromSkeleton(id, sk, btn) {
     const job = jobs.get(id);
     if (!job || !mcp || !db) { note("videosMsg", "Aufträge starten nur, wenn die App in Claude geöffnet ist (App oder claude.ai).", "warn"); return; }
@@ -781,20 +826,24 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const free = await freeMB(), need = needMB(order);
     if (free < need) { offerCleanup("videosMsg", free, need, () => videoFromSkeleton(id, sk, btn)); return; }
     btn.disabled = true;
+    const ref = db.doc("jobs/" + id);
     try {
+      await ref.update({ wechsel: true });                           // währenddessen nichts archivieren/neu starten
       clearTimeout(saveTimers.get(id));
       await db.doc("skelette/" + id).set(sk);                        // die Cloud holt genau diesen Stand
       const started = await dispatch(id, order, job.label);
-      const ref = db.doc("jobs/" + id);
       const still = await ref.get().catch(() => null);
       if (still && !still.exists) {
         if (started.session) mcp.callTool(CFG.server, "archive_session", { session_id: started.session }).catch(() => {});
         return;
       }
-      await ref.update({ auftrag: order, session: started.session, weg: started.weg, gestartet: new Date().toISOString(), versuch: 0 });
       await db.doc("results/" + id).delete().catch(() => {});
+      retrying.delete(id);                                            // neuer Schritt: wieder ein Automatik-Versuch
+      await ref.update({ auftrag: order, session: started.session, weg: started.weg, gestartet: new Date().toISOString(),
+                         versuch: 0, wechsel: false });
       note("videosMsg", "Video wird aus deinem Skelett erstellt – meist 5 bis 15 Minuten.", "ok");
     } catch (err) {
+      await ref.update({ wechsel: false }).catch(() => {});
       note("videosMsg", explain(err), "bad");
       btn.disabled = false;
     }
@@ -916,6 +965,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       const box = document.createElement("div"); box.className = "errbox";
       box.textContent = (res && res.fehler) || (state === "ohne" ? "Der Auftrag ist ohne Ergebnis beendet." : "Die Cloud-Sitzung ist abgebrochen.");
       li.appendChild(box);
+      if (job.auftrag && job.auftrag.schritt === "video") {
+        const edit = document.createElement("button"); edit.type = "button"; edit.textContent = "Skelett bearbeiten";
+        edit.addEventListener("click", () => backToSkeleton(id, edit));
+        actions.appendChild(edit);
+      }
       if (job.auftrag) {
         const again = document.createElement("button"); again.type = "button"; again.className = "dl"; again.textContent = "Neu starten";
         again.addEventListener("click", async () => {

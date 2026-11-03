@@ -206,6 +206,58 @@ def app_skeleton(job_id: str, wait: int = 60) -> dict:
         time.sleep(5)                                   # kommt die Datei gerade erst an: kurz warten
 
 
+def fit_parts(skeleton: dict) -> list[str]:
+    """Nach der Bearbeitung in der App: Teile so ordnen, dass jeder ≤ Höchstlänge bleibt (zu lange Szenen
+    satzweise teilen, Szenen auf Teile verteilen), Einstiege/Abschlüsse passend zu Titel und Teilezahl."""
+    from .story.editor import FOLLOW, INTRO_PART, OUTRO_NEXT
+    from .story.moods import MOODS, seconds_per_word
+    from .story.sources import OVERHEAD_SECONDS
+
+    lang, mood, title = skeleton["lang"], skeleton["mood"], skeleton["title"]
+    per_word = seconds_per_word(mood, lang)
+    limit = config.STORY_MAX_SECONDS - OVERHEAD_SECONDS
+    secs = lambda scene: len(str(scene.get("text", "")).split()) * per_word
+    next_outro = re.compile(re.escape(OUTRO_NEXT[lang]).replace(r"\{n\}", r"\d+"))
+    final = next((p["outro"] for p in reversed(skeleton["parts"]) if p.get("outro") and not next_outro.fullmatch(p["outro"])),
+                 f"{MOODS[mood]['outro'][lang]} {FOLLOW[lang]}")
+    notes = []
+    scenes = []
+    for scene in (s for p in skeleton["parts"] for s in p["scenes"]):
+        if secs(scene) <= limit:
+            scenes.append(scene)
+            continue
+        chunk = []                                           # sehr lange Szene: satzweise aufteilen
+        for sentence in re.split(r"(?<=[.!?…])\s+", str(scene["text"]).strip()):
+            if chunk and secs({"text": " ".join(chunk + [sentence])}) > limit:
+                scenes.append({**scene, "text": " ".join(chunk)})
+                chunk = []
+            chunk.append(sentence)
+        if chunk:
+            scenes.append({**scene, "text": " ".join(chunk)})
+    too_long = any(sum(secs(s) for s in p["scenes"]) > limit for p in skeleton["parts"])
+    if too_long:                                             # neu verteilen, sonst die Aufteilung behalten
+        groups, current, total = [], [], 0.0
+        for scene in scenes:
+            if current and total + secs(scene) > limit:
+                groups.append(current)
+                current, total = [], 0.0
+            current.append(scene)
+            total += secs(scene)
+        if current:
+            groups.append(current)
+        notes.append(f"Nach deinen Änderungen war ein Teil zu lang für ein Video – verteilt auf {len(groups)} Teile.")
+    else:
+        groups = [p["scenes"] for p in skeleton["parts"]]
+    n = len(groups)
+    skeleton["parts"] = [{
+        "intro": title if i == 1 else f"{INTRO_PART[lang].format(n=i)} {title}",
+        "scenes": group,
+        "outro": final if i == n else OUTRO_NEXT[lang].format(n=i + 1),
+        "estimated_seconds": round(sum(secs(s) for s in group) + OVERHEAD_SECONDS),
+    } for i, group in enumerate(groups, 1)]
+    return notes
+
+
 def _story(order: dict, folder: Path, progress) -> dict:
     """Story suchen (Auswahl wird gemerkt, damit ein Weiterlauf dieselbe nimmt), Skelett, Video."""
     from .story import pipeline
@@ -214,8 +266,11 @@ def _story(order: dict, folder: Path, progress) -> dict:
         progress("Skelett übernehmen", 0.02)
         skeleton = app_skeleton(order["id"])
         pipeline.validate_skeleton(skeleton)            # Eingabefehler -> klare Meldung, keine Wiederholung
-        return pipeline.render(pipeline.new_folder(skeleton["title"]), skeleton=skeleton,
-                               progress=lambda stage, f: progress(stage, 0.05 + 0.9 * f))
+        notes = fit_parts(skeleton)                     # Länge, Teilnummern, Titel in allen Teilen
+        result = pipeline.render(pipeline.new_folder(skeleton["title"]), skeleton=skeleton,
+                                 progress=lambda stage, f: progress(stage, 0.05 + 0.9 * f))
+        result.setdefault("warnings", [])[:0] = notes
+        return result
 
     state_file = folder / "story_auswahl.json"
     mood = None if order["stimmung"] == "auto" else order["stimmung"]
