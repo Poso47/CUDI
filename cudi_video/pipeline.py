@@ -69,7 +69,8 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
     from .render.video import LEAD, TAIL
     from .tts import voice_script
 
-    limit = min(spec.target_seconds + 8, MAX_SECONDS)
+    cap = config.LONG_MAX_SECONDS if spec.target_seconds > MAX_SECONDS else MAX_SECONDS   # „Lang“: bis 10 Min.
+    limit = min(spec.target_seconds + 8, cap)
     audio_dir = out / f"audio_{script.lang}"
     voice_script(script, audio_dir)
     total = video_seconds(script)

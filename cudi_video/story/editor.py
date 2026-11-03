@@ -397,7 +397,7 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
             visuals_t.append(visual_for(src, mood, i, recent))
 
     seconds = [estimate_seconds(s, lang, rate, pause) for s in scenes_t]
-    groups = split_parts(seconds, LENGTHS[length]["seconds"] if length == "kurz" else config.STORY_MAX_SECONDS)
+    groups = split_parts(seconds, LENGTHS[length]["seconds"] if length in ("kurz", "lang") else config.STORY_MAX_SECONDS)
     if len(groups) > 1:
         notes.append(f"Story ist zu lang für ein Video ({sum(seconds) / 60:.1f} min) – aufgeteilt in "
                      f"{len(groups)} Teile mit Cliffhanger.")
