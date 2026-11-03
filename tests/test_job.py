@@ -158,3 +158,65 @@ def test_result_says_whether_an_error_is_worth_repeating(tmp_path, monkeypatch):
         code, data = job.run_order({"id": "w" + str(expected), "art": "ranking"}, folder)
         assert code == 1 and data["wiederholbar"] is expected
         assert job.document(folder, {})["wiederholbar"] is expected
+
+
+SKELETON = {"version": 1, "lang": "de", "mood": "creepy", "title": "Der Beobachter", "voice": None, "visuals": "images",
+            "post": {"id": "abc", "text": "I (25F) saw him."}, "notes": [], "rights": ["Rechte-Hinweis"],
+            "parts": [{"intro": "Der Beobachter", "outro": "Folge für mehr.", "estimated_seconds": 40,
+                       "scenes": [{"text": "Es war dunkel.", "source": "", "query": "dark forest", "prompt": "dark forest"}]}]}
+
+
+def test_story_order_accepts_the_two_steps():
+    base = {"id": "step1", "art": "story", "stimmung": "creepy"}
+    assert job.parse_order(base, PRESETS)["schritt"] == ""
+    assert job.parse_order({**base, "schritt": "skelett"}, PRESETS)["schritt"] == "skelett"
+    assert job.parse_order({**base, "schritt": "video"}, PRESETS)["schritt"] == "video"
+    with pytest.raises(job.OrderError, match="Schritt"):
+        job.parse_order({**base, "schritt": "rendern"}, PRESETS)
+
+
+def test_skeleton_step_returns_the_skeleton_for_the_app(tmp_path, monkeypatch):
+    from cudi_video.story import pipeline
+
+    monkeypatch.setattr(job.config, "OUTPUT_DIR", tmp_path)
+    story_dir = tmp_path / "story"
+    story_dir.mkdir()
+    (story_dir / "spec.json").write_text(json.dumps({"title": {"de": "Der Beobachter"}}))
+    monkeypatch.setattr(pipeline, "search", lambda *a, **k: {"stories": [{"id": "abc"}], "plan": {"mood": "creepy"},
+                                                               "notes": []})
+    monkeypatch.setattr(pipeline, "prepare", lambda **k: (SKELETON, story_dir))
+    monkeypatch.setattr(pipeline, "render", lambda *a, **k: pytest.fail("Schritt 1 rendert nicht"))
+    order = job.parse_order({"id": "skel1", "art": "story", "stimmung": "creepy", "schritt": "skelett"}, PRESETS)
+    folder = job.job_folder("skel1")
+    code, data = job.run_order(order, folder)
+    assert code == 0 and data["ok"] and data["schritt"] == "skelett" and data["skelett"]["title"] == "Der Beobachter"
+    assert job.uploads(data) == [] and "Rechte-Hinweis" in data["hinweise"]
+    doc = job.document(folder, {})
+    assert doc["ok"] and doc["schritt"] == "skelett" and doc["skelett"]["parts"][0]["scenes"][0]["text"] == "Es war dunkel."
+
+
+def test_video_step_renders_the_skeleton_edited_in_the_app(tmp_path, monkeypatch):
+    from cudi_video.story import pipeline
+
+    monkeypatch.setattr(job.config, "OUTPUT_DIR", tmp_path / "out")
+    repo = tmp_path / "CUDI"
+    repo.mkdir()
+    monkeypatch.chdir(repo)
+    edited = json.loads(json.dumps(SKELETON))
+    edited["parts"][0]["scenes"][0]["text"] = "Vom Nutzer geändert."
+    (tmp_path / "cudi_skelette" / "skelette").mkdir(parents=True)
+    (tmp_path / "cudi_skelette" / "skelette" / "vid1.json").write_text(json.dumps(edited), "utf-8")
+    seen = {}
+
+    def render(folder, skeleton=None, progress=None):
+        seen["text"] = skeleton["parts"][0]["scenes"][0]["text"]
+        return {"output_dir": str(folder), "videos": {}, "warnings": []}
+
+    monkeypatch.setattr(pipeline, "render", render)
+    monkeypatch.setattr(pipeline, "search", lambda *a, **k: pytest.fail("Schritt 2 sucht nicht neu"))
+    order = job.parse_order({"id": "vid1", "art": "story", "stimmung": "creepy", "schritt": "video"}, PRESETS)
+    code, data = job.run_order(order, job.job_folder("vid1"))
+    assert code == 0 and seen["text"] == "Vom Nutzer geändert."
+    (tmp_path / "cudi_skelette" / "skelette" / "vid1.json").unlink()
+    with pytest.raises(RuntimeError, match="nicht angekommen"):
+        job.app_skeleton("vid1", wait=0)

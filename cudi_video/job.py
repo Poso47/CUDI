@@ -39,6 +39,10 @@ MOODS = ("auto", "creepy", "suspense", "funny", "drama", "revenge", "wholesome")
 TRANSLATION_FILE = "uebersetzen.json"
 EXIT_TRANSLATE = 3
 RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch nach einer Störung
+# Story in zwei Schritten: „skelett“ (suchen, übersetzen, Lektorat -> Skelett in die App) und „video“
+# (aus dem in der App bearbeiteten Skelett rendern). Leer = alles in einem Lauf.
+STEPS = ("", "skelett", "video")
+SKELETON_DIR = "cudi_skelette"         # dorthin legt die Sitzung das bearbeitete Skelett (ArtifactData out_dir)
 
 
 class OrderError(ValueError):
@@ -96,8 +100,12 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
         visuals = raw.get("bilder") or "videos"
         if lang not in ("de", "en") or length not in ("kurz", "3min", "teile") or visuals not in ("videos", "images", "gameplay"):
             raise OrderError("Sprache, Länge oder Bilder ungültig.")
+        step = str(raw.get("schritt") or "")
+        if step not in STEPS:
+            raise OrderError("Unbekannter Schritt – „skelett“, „video“ oder leer.")
         return {"id": job_id, "art": "story", "wunsch": wish, "stimmung": mood, "sprache": lang,
-                "laenge": length, "bilder": visuals, "entschaerfen": _flag(raw.get("entschaerfen"), True)}
+                "laenge": length, "bilder": visuals, "entschaerfen": _flag(raw.get("entschaerfen"), True),
+                "schritt": step}
     raise OrderError("Unbekannte Art – „ranking“ oder „story“.")
 
 
@@ -149,6 +157,8 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
     data["ordner"] = str(out)
     from . import tts
     data["hinweise"] = (tts.take_notes() + list(result.get("warnings", [])))[:20]
+    if result.get("skelett"):
+        data["schritt"], data["skelett"] = "skelett", result["skelett"]
     spec = out / "spec.json"
     if spec.exists():
         titles = json.loads(spec.read_text("utf-8")).get("title", {})
@@ -179,9 +189,33 @@ def _ranking(order: dict, folder: Path, progress) -> dict:
                progress=progress)
 
 
+def app_skeleton(job_id: str, wait: int = 60) -> dict:
+    """Das in der App bearbeitete Skelett (Sammlung „skelette“, von der Sitzung als Datei abgelegt)."""
+    root = Path(__file__).resolve().parent.parent
+    candidates = [base / SKELETON_DIR / "skelette" / f"{job_id}.json"
+                  for base in dict.fromkeys((Path.cwd().parent, root.parent, Path.cwd(), Path.home()))]
+    candidates.append(config.OUTPUT_DIR / "app" / "skelette" / f"{job_id}.json")
+    deadline = time.time() + wait
+    while True:
+        for path in candidates:
+            if path.exists():
+                data = json.loads(path.read_text("utf-8"))
+                return data["data"] if isinstance(data.get("data"), dict) and "parts" not in data else data
+        if time.time() >= deadline:
+            raise RuntimeError("Das bearbeitete Skelett ist nicht angekommen – bitte in der App erneut „Video erstellen“.")
+        time.sleep(5)                                   # kommt die Datei gerade erst an: kurz warten
+
+
 def _story(order: dict, folder: Path, progress) -> dict:
     """Story suchen (Auswahl wird gemerkt, damit ein Weiterlauf dieselbe nimmt), Skelett, Video."""
     from .story import pipeline
+
+    if order.get("schritt") == "video":                 # aus dem in der App bearbeiteten Skelett rendern
+        progress("Skelett übernehmen", 0.02)
+        skeleton = app_skeleton(order["id"])
+        pipeline.validate_skeleton(skeleton)            # Eingabefehler -> klare Meldung, keine Wiederholung
+        return pipeline.render(pipeline.new_folder(skeleton["title"]), skeleton=skeleton,
+                               progress=lambda stage, f: progress(stage, 0.05 + 0.9 * f))
 
     state_file = folder / "story_auswahl.json"
     mood = None if order["stimmung"] == "auto" else order["stimmung"]
@@ -204,9 +238,13 @@ def _story(order: dict, folder: Path, progress) -> dict:
         state = {"story": story, "link": link, "mood": mood, "hinweis": note}
         state_file.write_text(json.dumps(state, ensure_ascii=False), "utf-8")
     progress("Skelett und Lektorat", 0.06)
-    _, story_folder = pipeline.prepare(story=state["story"], url=state["link"], lang=order["sprache"],
-                                       mood=state["mood"], length=order["laenge"], visuals=order["bilder"],
-                                       soften=order["entschaerfen"])
+    skeleton, story_folder = pipeline.prepare(story=state["story"], url=state["link"], lang=order["sprache"],
+                                              mood=state["mood"], length=order["laenge"], visuals=order["bilder"],
+                                              soften=order["entschaerfen"])
+    if order.get("schritt") == "skelett":               # erst prüfen und anpassen lassen, dann rendern
+        progress("Skelett fertig", 1.0)
+        return {"output_dir": str(story_folder), "skelett": skeleton, "videos": {}, "kind": "story",
+                "warnings": [w for w in [state.get("hinweis")] if w] + list(skeleton.get("rights", []))}
     result = pipeline.render(story_folder, progress=lambda stage, f: progress(stage, 0.1 + 0.85 * f))
     if state.get("hinweis"):
         result.setdefault("warnings", []).insert(0, state["hinweis"])
@@ -289,10 +327,13 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
     if ok and videos and not all(v["video_url"] for v in videos):
         error = "Das Video ist fertig, ließ sich aber nicht in die App laden (Speicher voll?)."
         ok, repeatable = False, False
-    return {"id": data["id"], "art": data.get("art", ""), "ok": ok, "titel": data.get("titel", ""), "fehler": error,
+    doc = {"id": data["id"], "art": data.get("art", ""), "ok": ok, "titel": data.get("titel", ""), "fehler": error,
             "wiederholbar": ok or repeatable,
             "videos": videos, "hinweise": data.get("hinweise", []), "pruefbericht": data.get("pruefbericht", ""),
             "fertig": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    if data.get("skelett"):                       # Schritt 1 einer Story: Skelett zum Prüfen in der App
+        doc["schritt"], doc["skelett"] = "skelett", data["skelett"]
+    return doc
 
 
 # --------------------------------------------------------------------------- Kommandozeile
