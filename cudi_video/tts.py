@@ -1,12 +1,16 @@
-"""KI-Stimme mit edge-tts (kostenlos) inklusive Wort-Zeitstempeln für die Untertitel."""
+"""KI-Stimme mit edge-tts (kostenlos) inklusive Wort-Zeitstempeln für die Untertitel.
+
+Fällt der Gratis-Dienst aus, spricht Piper (quelloffen, offline, ebenfalls kostenlos) das ganze Video."""
 
 from __future__ import annotations
 
 import asyncio
 import logging
 import os
+import re
 import ssl
 import subprocess
+import sys
 import wave
 from pathlib import Path
 
@@ -15,7 +19,7 @@ import numpy as np
 import edge_tts
 import edge_tts.communicate
 
-from . import config
+from . import config, net
 from .models import Script
 
 log = logging.getLogger(__name__)
@@ -107,18 +111,136 @@ def tighten_pauses(mp3: Path, words: list[dict], wav: Path, max_pause: float = M
     return new_words, len(pcm) / SAMPLE_RATE
 
 
-async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 2) -> None:
+# --------------------------------------------------------------------------- Ersatzstimme (Piper)
+# Kostenlose, quelloffene Stimmen, die offline laufen (Modell einmalig von Hugging Face, ~60 MB).
+# Ein Video bekommt dann durchgehend die Ersatzstimme – kein Stimmwechsel mitten im Video.
+PIPER_BASE = "https://huggingface.co/rhasspy/piper-voices/resolve/main/"
+PIPER_VOICES = {("de", "m"): "de/de_DE/thorsten/medium/de_DE-thorsten-medium",
+                ("de", "f"): "de/de_DE/kerstin/low/de_DE-kerstin-low",
+                ("en", "m"): "en/en_US/ryan/medium/en_US-ryan-medium",
+                ("en", "f"): "en/en_US/amy/medium/en_US-amy-medium"}
+FEMALE_VOICES = ("amala", "katja", "seraphina", "aria", "emma", "ava", "jenny", "michelle", "sonia", "libby")
+PUNCT = ".,!?;:…\"'„“”«»()–-"
+NOTES: list[str] = []            # Hinweise fürs Ergebnis (z. B. Ersatzstimme) – abholen mit take_notes()
+_piper_cache: dict = {}
+
+
+def take_notes() -> list[str]:
+    notes = list(dict.fromkeys(NOTES))
+    NOTES.clear()
+    return notes
+
+
+def piper_key(edge_voice: str) -> tuple[str, str]:
+    """Sprache und Geschlecht der edge-Stimme (z. B. de-DE-KatjaNeural -> ("de", "f"))."""
+    lang = "de" if edge_voice.lower().startswith("de-") else "en"
+    return lang, ("f" if edge_voice.split("-")[-1].lower().startswith(FEMALE_VOICES) else "m")
+
+
+def _pip_install(package: str) -> None:
+    for extra in ([], ["--break-system-packages"]):
+        if subprocess.run([sys.executable, "-m", "pip", "install", "-q", "--disable-pip-version-check", *extra,
+                           package], capture_output=True).returncode == 0:
+            return
+
+
+def _piper_voice(key: tuple[str, str]):
+    if key in _piper_cache:
+        return _piper_cache[key]
+    try:
+        from piper import PiperVoice
+    except ImportError:                                   # nur bei Bedarf installieren
+        _pip_install("piper-tts")
+        from piper import PiperVoice
+    folder = config.OUTPUT_DIR / "_piper"
+    folder.mkdir(parents=True, exist_ok=True)
+    name = PIPER_VOICES[key]
+    model = folder / (Path(name).name + ".onnx")
+    for path, url in ((model, PIPER_BASE + name + ".onnx"),
+                      (model.with_name(model.name + ".json"), PIPER_BASE + name + ".onnx.json")):
+        if not path.exists() or path.stat().st_size < 1000:
+            tmp = path.with_suffix(path.suffix + ".part")
+            tmp.write_bytes(net.get(url, timeout=300, retries=4).content)
+            tmp.replace(path)
+    _piper_cache[key] = PiperVoice.load(str(model))
+    return _piper_cache[key]
+
+
+def _piper_config(length_scale: float):
+    from piper import SynthesisConfig
+    return SynthesisConfig(length_scale=length_scale)
+
+
+def _percent(value: str) -> float:
+    m = re.match(r"\s*([+-]?\d+(?:\.\d+)?)\s*%", value or "")
+    return float(m.group(1)) if m else 0.0
+
+
+def piper_synthesize(text: str, edge_voice: str, out_wav: Path, rate: str = "+0%") -> list[dict]:
+    """Text mit Piper vertonen. Wortzeiten: je Satz exakt, im Satz nach Wortlänge verteilt."""
+    voice = _piper_voice(piper_key(edge_voice))
+    cfg = _piper_config(min(2.0, max(0.5, 1.0 / (1.0 + _percent(rate) / 100))))
+    sample_rate = voice.config.sample_rate
+    pcm, words, t = [], [], 0.0
+    for sentence in (s for s in re.split(r"(?<=[.!?…])\s+", text.strip()) if s.strip()):
+        audio = b"".join(c.audio_int16_bytes for c in voice.synthesize(sentence, syn_config=cfg))
+        duration = len(audio) / 2 / sample_rate
+        tokens = [w.strip(PUNCT) for w in sentence.split() if w.strip(PUNCT)]
+        weights = [len(w) + 2 for w in tokens]
+        total, pos = sum(weights) or 1, t
+        for word, weight in zip(tokens, weights):
+            part = duration * weight / total
+            words.append({"text": word, "start": round(pos, 3), "end": round(pos + 0.9 * part, 3)})
+            pos += part
+        pcm.append(audio)
+        t += duration
+    if not pcm or not any(pcm):
+        raise RuntimeError(f"Ersatzstimme lieferte nichts für: {text[:60]}…")
+    with wave.open(str(out_wav), "wb") as f:
+        f.setnchannels(1)
+        f.setsampwidth(2)
+        f.setframerate(sample_rate)
+        f.writeframes(b"".join(pcm))
+    return words
+
+
+async def _speak_all(texts: list[str], out_dir: Path, voice: str, rate: str, pitch: str,
+                     parallel: int = 2) -> list[tuple[Path, list[dict]]]:
+    """Alle Texte mit edge-tts; liefert ein Text nichts, alle mit der Ersatzstimme (einheitlicher Klang)."""
     sem = asyncio.Semaphore(parallel)
 
-    async def one(i, seg):
+    async def one(i: int, text: str):
         async with sem:
-            mp3 = out_dir / f"{i:02d}_{seg.kind}.mp3"
-            words = await _synthesize(seg.text, voice, mp3, rate)
-            wav = mp3.with_suffix(".wav")
-            seg.words, seg.duration = tighten_pauses(mp3, words, wav)
-            seg.audio_path = str(wav)
+            mp3 = out_dir / f"{i:03d}.mp3"
+            return mp3, await _synthesize(text, voice, mp3, rate, pitch)
 
-    await asyncio.gather(*(one(i, seg) for i, seg in enumerate(script.segments)))
+    tasks = [asyncio.create_task(one(i, t)) for i, t in enumerate(texts)]
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_EXCEPTION)
+    failed = next((t.exception() for t in done if t.exception() is not None), None)
+    if failed is None:
+        return [t.result() for t in tasks]
+    for t in pending:                                       # Dienst ist aus: nicht auf jeden Abschnitt warten
+        t.cancel()
+    await asyncio.gather(*pending, return_exceptions=True)
+    log.warning("edge-tts liefert nichts (%s) – Ersatzstimme Piper für alle Abschnitte", failed)
+    try:
+        spoken = []
+        for i, text in enumerate(texts):
+            path = out_dir / f"{i:03d}.piper.wav"
+            spoken.append((path, piper_synthesize(text, voice, path, rate)))
+    except Exception as exc:
+        raise RuntimeError(f"Sprachausgabe fehlgeschlagen ({failed}); Ersatzstimme ebenfalls: "
+                           f"{type(exc).__name__}: {exc}"[:400]) from exc
+    NOTES.append("Ersatzstimme (Piper) verwendet: Der kostenlose Microsoft-Sprachdienst antwortete gerade nicht.")
+    return spoken
+
+
+async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 2) -> None:
+    spoken = await _speak_all([seg.text for seg in script.segments], out_dir, voice, rate, "+0Hz", parallel)
+    for i, (seg, (src, words)) in enumerate(zip(script.segments, spoken)):
+        wav = out_dir / f"{i:02d}_{seg.kind}.wav"
+        seg.words, seg.duration = tighten_pauses(src, words, wav)
+        seg.audio_path = str(wav)
 
 
 def voice_script(script: Script, out_dir: Path, voice: str | None = None, rate: str | None = None) -> Script:
@@ -130,17 +252,13 @@ def voice_script(script: Script, out_dir: Path, voice: str | None = None, rate: 
 
 async def _voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str, pitch: str, max_pause: float,
                        parallel: int = 2) -> list[tuple[Path, list[dict], float]]:
-    sem = asyncio.Semaphore(parallel)
-
-    async def one(i: int, text: str):
-        async with sem:
-            mp3 = out_dir / f"{i:03d}.mp3"
-            words = await _synthesize(text, voice, mp3, rate, pitch)
-            wav = mp3.with_suffix(".wav")
-            new_words, duration = tighten_pauses(mp3, words, wav, max_pause)
-            return wav, new_words, duration
-
-    return list(await asyncio.gather(*(one(i, t) for i, t in enumerate(texts))))
+    spoken = await _speak_all(texts, out_dir, voice, rate, pitch, parallel)
+    result = []
+    for i, (src, words) in enumerate(spoken):
+        wav = out_dir / f"{i:03d}.wav"
+        new_words, duration = tighten_pauses(src, words, wav, max_pause)
+        result.append((wav, new_words, duration))
+    return result
 
 
 def voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str = "+0%", pitch: str = "+0Hz",

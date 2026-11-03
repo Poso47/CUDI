@@ -13,12 +13,20 @@ if ! python3 -c "$CHECK" 2>/dev/null; then
   echo "Pakete werden installiert …"
   python3 -m pip --version > /dev/null 2>&1 || python3 -m ensurepip -q > /tmp/cudi_pip.log 2>&1 \
     || (apt-get update -qq && apt-get install -y -qq python3-pip) >> /tmp/cudi_pip.log 2>&1
-  pyinstall || pyinstall --break-system-packages || pyinstall --user --break-system-packages || true
+  for pause in 0 15 45; do                              # Paketserver kurz gestört: später erneut
+    sleep "$pause"
+    pyinstall || pyinstall --break-system-packages || pyinstall --user --break-system-packages || true
+    python3 -c "$CHECK" 2>/dev/null && break
+  done
   python3 -c "$CHECK" 2>/dev/null || { echo "FEHLER: Python-Pakete ließen sich nicht installieren:"; tail -5 /tmp/cudi_pip.log; }
 fi
 if ! command -v ffmpeg > /dev/null; then
   echo "ffmpeg wird installiert …"
-  (apt-get update -qq && apt-get install -y -qq ffmpeg fonts-inter) > /tmp/cudi_apt.log 2>&1 || echo "FEHLER: ffmpeg fehlt"
+  for pause in 0 20; do
+    sleep "$pause"
+    (apt-get update -qq && apt-get install -y -qq ffmpeg fonts-inter) > /tmp/cudi_apt.log 2>&1 && break
+  done
+  command -v ffmpeg > /dev/null || echo "FEHLER: ffmpeg fehlt"
 fi
 if [ "${1:-}" = "--weiter" ]; then
   exec python3 -m cudi_video auftrag --weiter "${2:-}"

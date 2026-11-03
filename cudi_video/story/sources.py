@@ -1,5 +1,6 @@
-"""Reddit-Storys holen: offizielle API (mit kostenlosem Zugang), öffentliches Reddit oder das Archiv
-Arctic Shift (ohne Schlüssel, Upvotes nach ca. 36 Stunden aktuell). Dazu Link-Import und eigener Text."""
+"""Reddit-Storys holen: offizielle API (mit kostenlosem Zugang), öffentliches Reddit, das Archiv
+Arctic Shift (ohne Schlüssel, Upvotes nach ca. 36 Stunden aktuell) oder – wenn das Archiv ausfällt –
+die öffentlichen RSS-Feeds von Reddit (gehen auch aus der Cloud). Dazu Link-Import und eigener Text."""
 
 from __future__ import annotations
 
@@ -8,7 +9,9 @@ import logging
 import random
 import re
 import time
+import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 from dataclasses import asdict, dataclass, fields
 
 from .. import config, net
@@ -158,6 +161,55 @@ def _arctic_candidates(subreddit: str, rnd: random.Random, windows: int = 6, spa
         return [p for batch in pool.map(lambda e: _arctic_window(subreddit, e, span_hours), ends) for p in batch]
 
 
+# --------------------------------------------------------------------------- Reddit-RSS (Ausweichquelle)
+
+ATOM = "{http://www.w3.org/2005/Atom}"
+
+
+def _html_text(fragment: str) -> str:
+    """Beitragstext aus dem HTML eines RSS-Eintrags (ohne „submitted by … [link] [comments]“)."""
+    m = (re.search(r'<div class="md">(.*?)</div>\s*<!-- SC_ON -->', fragment, re.S)
+         or re.search(r'<div class="md">(.*)</div>', fragment, re.S))
+    body = re.sub(r"</p>\s*<p>|<br\s*/?>|</li>\s*<li>", "\n\n", m.group(1) if m else "")
+    return html.unescape(re.sub(r"<[^>]+>", "", body)).strip()
+
+
+def _rss_entries(url: str, params: dict | None = None) -> list[Post]:
+    """Beiträge eines Reddit-Atom-Feeds (Upvotes und NSFW-Kennzeichen fehlen dort)."""
+    resp = net.get(url, params=params, retries=4, max_wait=20, timeout=30)   # Reddit drosselt RSS streng
+    posts = []
+    for entry in ET.fromstring(resp.content).findall(f"{ATOM}entry"):
+        ident = entry.findtext(f"{ATOM}id") or ""
+        if not ident.startswith("t3_"):                      # Kommentare (Feed eines einzelnen Beitrags)
+            continue
+        category = entry.find(f"{ATOM}category")
+        published = entry.findtext(f"{ATOM}published") or ""
+        try:
+            created = datetime.fromisoformat(published).timestamp()
+        except ValueError:
+            created = 0.0
+        post = _post({"id": ident[3:], "title": entry.findtext(f"{ATOM}title") or "",
+                      "selftext": _html_text(entry.findtext(f"{ATOM}content") or ""),
+                      "author": (entry.findtext(f"{ATOM}author/{ATOM}name") or "").removeprefix("/u/"),
+                      "subreddit": category.get("term", "") if category is not None else "",
+                      "created_utc": created}, "rss")
+        if post:
+            posts.append(post)
+    return posts
+
+
+def _rss_candidates(subreddit: str, keywords: list[str]) -> list[Post]:
+    base = f"https://www.reddit.com/r/{subreddit}"
+    try:
+        if keywords:
+            return _rss_entries(f"{base}/search.rss", {"q": " OR ".join(keywords), "restrict_sr": 1, "sort": "top",
+                                                      "t": "all", "limit": 100})
+        return _rss_entries(f"{base}/top/.rss", {"t": "year", "limit": 100})
+    except (net.FetchError, ET.ParseError) as exc:
+        log.warning("Reddit-RSS für r/%s nicht erreichbar: %s", subreddit, exc)
+        return []
+
+
 # --------------------------------------------------------------------------- Suche
 
 def relevance(post: Post, keywords: list[str]) -> int:
@@ -178,13 +230,15 @@ def find_stories(plan: dict, length: str = "3min", limit: int = 6, allow_nsfw: b
             found = _reddit_candidates(sub, keywords)
         except (net.FetchError, KeyError, TypeError) as exc:
             log.info("Reddit für r/%s nicht verfügbar (%s) – nutze das Archiv", sub, exc)
-            found = _arctic_candidates(sub, rnd)
+            found = _arctic_candidates(sub, rnd) or _rss_candidates(sub, keywords)   # Archiv aus -> RSS
         for p in found:
             pool.setdefault(p.id, p)
     def usable(p: Post, lo: int, hi: int) -> bool:
         # NSFW-markierte Posts bleiben draußen (dort trägt das heikle Thema die ganze Story);
         # einzelne heikle Stellen in anderen Storys umschreibt das Lektorat.
-        return lo <= p.words <= hi and (allow_nsfw or not p.over_18) and len(p.title) >= 8
+        # RSS kennt kein NSFW-Kennzeichen: dort heikle Storys vorsichtshalber ganz auslassen
+        safe = allow_nsfw or (not p.over_18 and not (p.source == "rss" and p.sensitive))
+        return lo <= p.words <= hi and safe and len(p.title) >= 8
 
     candidates = [p for p in pool.values() if usable(p, lo, hi)]
     if not candidates and length != "teile":
@@ -204,6 +258,8 @@ def find_stories(plan: dict, length: str = "3min", limit: int = 6, allow_nsfw: b
             notes.append(f"Keine Story mit „{', '.join(keywords)}“ gefunden – zeige die beliebtesten passenden Storys.")
     # Storys in Videosprache zuerst (keine Übersetzung nötig), dann passende Stichwörter, dann Upvotes
     candidates.sort(key=lambda p: (language_of(p.text) == lang, relevance(p, keywords) > 0, p.score), reverse=True)
+    if any(p.source == "rss" for p in candidates[:limit]):
+        notes.append("Quelle: Reddit-RSS (das Archiv war nicht erreichbar).")
     if any(p.source == "archiv" for p in candidates[:limit]):
         notes.append("Quelle: Reddit-Archiv (Arctic Shift). Mit Reddit-Zugang (CUDI_REDDIT_CLIENT_ID/SECRET) "
                      "werden die Upvotes live abgefragt.")
@@ -229,10 +285,18 @@ def fetch_post(ref: str) -> Post:
         data = _reddit(f"/comments/{pid}", {"limit": 1})
         post = _post(data[0]["data"]["children"][0]["data"], "reddit")
     except (net.FetchError, KeyError, IndexError, TypeError):
-        data = net.get_json(f"{ARCTIC}/posts/ids", params={"ids": pid, "fields": ARCTIC_FIELDS}, cache_hours=24,
-                            retries=3, max_wait=30)
-        items = data.get("data") or []
-        post = _post(items[0], "archiv") if items else None
+        try:
+            data = net.get_json(f"{ARCTIC}/posts/ids", params={"ids": pid, "fields": ARCTIC_FIELDS}, cache_hours=24,
+                                retries=3, max_wait=30)
+            items = data.get("data") or []
+            post = _post(items[0], "archiv") if items else None
+        except net.FetchError:
+            post = None
+        if post is None:                                     # Archiv aus oder ohne Eintrag: Reddit-RSS
+            try:
+                post = next(iter(_rss_entries(f"https://www.reddit.com/comments/{pid}/.rss")), None)
+            except (net.FetchError, ET.ParseError) as exc:   # Netzstörung ist kein „gelöscht“ -> wiederholbar
+                raise net.FetchError(f"Reddit gerade nicht erreichbar (Archiv und RSS): {exc}") from exc
     if post is None:
         raise ValueError("Die Story wurde gelöscht oder hat keinen Text (nur Bild/Link).")
     return post

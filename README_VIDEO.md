@@ -257,6 +257,17 @@ Schriften, Pakete, die KI-Stimme und jede Datenquelle einzeln und nennt bei Fehl
 Fällt eine optionale Quelle aus (Wikipedia, Commons, Weltbank …), entsteht trotzdem ein Video –
 nur mit weniger Bestätigungen bzw. Grafik statt Foto.
 
+**Ausfallsicher – alles kostenlos:**
+
+| Wenn … | dann … |
+|---|---|
+| der Microsoft-Sprachdienst (edge-tts) nicht antwortet | bis zu 6 Versuche (≈ 1 Minute), danach spricht die Offline-Stimme **Piper** das ganze Video (quelloffen, Modell einmalig von Hugging Face) – Hinweis im Ergebnis |
+| das Reddit-Archiv ausfällt (Reddit selbst sperrt Cloud-Rechner) | Storys kommen über die öffentlichen **RSS-Feeds** von Reddit – auch für Links |
+| eine Beschreibung keine Story findet | eine beliebte Story derselben Stimmung (Hinweis im Ergebnis) |
+| eine vorübergehende Störung den Auftrag abbricht | der Auftrag wiederholt sich nach 60 s einmal selbst; scheitert der Lauf trotzdem oder endet ohne Ergebnis, startet die App ihn einmal automatisch neu („2. Versuch“) |
+| die App-Ablage (1 GB) fast voll ist | die App startet nicht ins Leere, sondern bietet „Älteste Videos löschen und starten“ an |
+| der Paketserver kurz gestört ist | Installation mit Pausen erneut |
+
 ## Aufbau
 
 ```

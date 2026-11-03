@@ -24,6 +24,7 @@ import os
 import re
 import shutil
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -37,6 +38,7 @@ MAX_REVIEW = 40_000
 MOODS = ("auto", "creepy", "suspense", "funny", "drama", "revenge", "wholesome")
 TRANSLATION_FILE = "uebersetzen.json"
 EXIT_TRANSLATE = 3
+RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch nach einer Störung
 
 
 class OrderError(ValueError):
@@ -145,7 +147,8 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
         return data
     out = Path(result["output_dir"])
     data["ordner"] = str(out)
-    data["hinweise"] = list(result.get("warnings", []))[:20]
+    from . import tts
+    data["hinweise"] = (tts.take_notes() + list(result.get("warnings", [])))[:20]
     spec = out / "spec.json"
     if spec.exists():
         titles = json.loads(spec.read_text("utf-8")).get("title", {})
@@ -186,21 +189,33 @@ def _story(order: dict, folder: Path, progress) -> dict:
     link = wish if re.search(r"reddit\.com|redd\.it", wish) else ""
     state = json.loads(state_file.read_text("utf-8")) if state_file.exists() else None
     if state is None:
-        story = None
+        story, note = None, ""
         if not link:
             progress("Story suchen", 0.02)
             found = pipeline.search(wish, mood, order["sprache"], order["laenge"], limit=3)
+            if not found["stories"] and wish:              # Beschreibung zu speziell: beliebte Story der Stimmung
+                mood = mood or found["plan"]["mood"]
+                found = pipeline.search("", mood, order["sprache"], order["laenge"], limit=3)
+                note = "Zur Beschreibung fand sich keine Story – stattdessen eine beliebte Story der Stimmung."
             if not found["stories"]:
                 raise RuntimeError(" ".join(found["notes"]) or "Keine passende Story gefunden.")
             story = found["stories"][0]
             mood = mood or found["plan"]["mood"]
-        state = {"story": story, "link": link, "mood": mood}
+        state = {"story": story, "link": link, "mood": mood, "hinweis": note}
         state_file.write_text(json.dumps(state, ensure_ascii=False), "utf-8")
     progress("Skelett und Lektorat", 0.06)
     _, story_folder = pipeline.prepare(story=state["story"], url=state["link"], lang=order["sprache"],
                                        mood=state["mood"], length=order["laenge"], visuals=order["bilder"],
                                        soften=order["entschaerfen"])
-    return pipeline.render(story_folder, progress=lambda stage, f: progress(stage, 0.1 + 0.85 * f))
+    result = pipeline.render(story_folder, progress=lambda stage, f: progress(stage, 0.1 + 0.85 * f))
+    if state.get("hinweis"):
+        result.setdefault("warnings", []).insert(0, state["hinweis"])
+    return result
+
+
+def _transient(exc: Exception) -> bool:
+    """Vorübergehende Störung (Netz, Dienst, Prozess) – nicht: falsche Eingaben oder eine gelöschte Story."""
+    return isinstance(exc, json.JSONDecodeError) or not isinstance(exc, (OrderError, ValueError))
 
 
 def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
@@ -218,16 +233,27 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
             last[0] = stage
             print(f"  {fraction:4.0%} {stage}", flush=True)
 
-    try:
-        result = _ranking(order, folder, progress) if order["art"] == "ranking" else _story(order, folder, progress)
-        data = _summary(order, result)
-    except TranslationNeeded as need:
-        translation.write_text(json.dumps({"quelle": need.source, "ziel": need.target, "texte": need.texts,
-                                           "uebersetzt": []}, ensure_ascii=False, indent=1), "utf-8")
-        return EXIT_TRANSLATE, None
-    except Exception as exc:                                  # Fehler kommen als Meldung in die App
-        log.exception("Auftrag %s fehlgeschlagen", order["id"])
-        data = _summary(order, None, f"{type(exc).__name__}: {exc}"[:1500])
+    for attempt in (1, 2):                                    # eine vorübergehende Störung heilt sich selbst
+        try:
+            result = _ranking(order, folder, progress) if order["art"] == "ranking" else _story(order, folder, progress)
+            data = _summary(order, result)
+            break
+        except TranslationNeeded as need:
+            translation.write_text(json.dumps({"quelle": need.source, "ziel": need.target, "texte": need.texts,
+                                               "uebersetzt": []}, ensure_ascii=False, indent=1), "utf-8")
+            return EXIT_TRANSLATE, None
+        except Exception as exc:                              # Fehler kommen als Meldung in die App
+            log.exception("Auftrag %s fehlgeschlagen (Versuch %d)", order["id"], attempt)
+            if attempt == 1 and _transient(exc):
+                print(f"  Störung ({type(exc).__name__}) – neuer Versuch in {RETRY_PAUSE} s", flush=True)
+                time.sleep(RETRY_PAUSE)
+                from . import net
+                net.reset_blocks()
+                last[0] = ""
+                continue
+            data = _summary(order, None, f"{type(exc).__name__}: {exc}"[:1500])
+            data["wiederholbar"] = _transient(exc)
+            break
     (folder / "ergebnis.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), "utf-8")
     return (0 if data["ok"] else 1), data
 
@@ -259,10 +285,12 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
                        "youtube": v.get("youtube", ""), "tiktok": v.get("tiktok", "")})
     ok = bool(data.get("ok"))
     error = data.get("fehler", "")
+    repeatable = bool(data.get("wiederholbar", True))
     if ok and videos and not all(v["video_url"] for v in videos):
         error = "Das Video ist fertig, ließ sich aber nicht in die App laden (Speicher voll?)."
-        ok = False
+        ok, repeatable = False, False
     return {"id": data["id"], "art": data.get("art", ""), "ok": ok, "titel": data.get("titel", ""), "fehler": error,
+            "wiederholbar": ok or repeatable,
             "videos": videos, "hinweise": data.get("hinweise", []), "pruefbericht": data.get("pruefbericht", ""),
             "fertig": datetime.now(timezone.utc).isoformat(timespec="seconds")}
 

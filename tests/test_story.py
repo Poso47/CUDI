@@ -273,3 +273,55 @@ def test_sensitive_passages_are_rephrased_not_removed():
                              lang="de")
     assert de == "Wir wurden intim und sie war unbekleidet. Er hat sich das Leben genommen. Es war Belästigung."
     assert editor.speakable("We had sex.", soften=False)[0] == "We had sex."          # nur auf Wunsch
+
+
+FEED = """<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
+<entry><author><name>/u/erzaehler</name></author><category term="tifu" label="r/tifu"/>
+<content type="html">&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;p&gt;First paragraph &amp;amp; more.&lt;/p&gt;
+&lt;p&gt;Second one.&lt;/p&gt;&lt;/div&gt;&lt;!-- SC_ON --&gt; &amp;#32; submitted by &lt;a href="x"&gt; /u/erzaehler &lt;/a&gt;</content>
+<id>t3_abc123</id><published>2026-01-02T03:04:05+00:00</published><title>TIFU by testing feeds</title></entry>
+<entry><content type="html">&lt;div class="md"&gt;&lt;p&gt;[removed]&lt;/p&gt;&lt;/div&gt;</content><id>t3_gone</id><title>x</title></entry>
+<entry><content type="html">a comment</content><id>t1_comment</id><title>re</title></entry>
+</feed>"""
+
+
+def test_reddit_rss_is_the_fallback_when_the_archive_is_down(monkeypatch):
+    class Resp:
+        content = FEED.encode()
+
+    monkeypatch.setattr(sources.net, "get", lambda *a, **k: Resp())
+    posts = sources._rss_entries("https://www.reddit.com/r/tifu/top/.rss")
+    assert [p.id for p in posts] == ["abc123"]                       # gelöscht und Kommentar fliegen raus
+    p = posts[0]
+    assert p.text == "First paragraph & more.\n\nSecond one." and p.author == "erzaehler" and p.subreddit == "tifu"
+    assert p.source == "rss" and p.created_utc > 0
+
+    def blocked(*a, **k):
+        raise sources.net.FetchError("403")
+
+    monkeypatch.setattr(sources, "_reddit_candidates", blocked)
+    monkeypatch.setattr(sources, "_arctic_candidates", lambda *a, **k: [])           # Archiv aus
+    monkeypatch.setattr(sources, "_rss_candidates", lambda sub, kw: [Post(id="r1", subreddit=sub, author="a",
+                        title="A long enough title", text="word " * 120, source="rss")])
+    found, notes = sources.find_stories({"mood": "funny", "subreddits": ["tifu"], "keywords": []}, length="kurz")
+    assert [p.id for p in found] == ["r1"] and any("RSS" in n for n in notes)
+
+
+def test_rss_hides_sensitive_stories_and_outage_is_not_deleted(monkeypatch):
+    def blocked(*a, **k):
+        raise sources.net.FetchError("weg")
+
+    monkeypatch.setattr(sources, "_reddit_candidates", blocked)
+    monkeypatch.setattr(sources, "_arctic_candidates", lambda *a, **k: [])
+    monkeypatch.setattr(sources, "_rss_candidates", lambda sub, kw: [
+        Post(id="heikel", subreddit=sub, author="a", title="A long enough title", text="suicide " + "word " * 120,
+             source="rss"),
+        Post(id="ok", subreddit=sub, author="a", title="Another fine title", text="word " * 120, source="rss")])
+    found, _ = sources.find_stories({"mood": "funny", "subreddits": ["tifu"], "keywords": []}, length="kurz")
+    assert [p.id for p in found] == ["ok"]                   # RSS ohne NSFW-Kennzeichen: heikle raus
+
+    monkeypatch.setattr(sources, "_reddit", blocked)
+    monkeypatch.setattr(sources.net, "get_json", blocked)
+    monkeypatch.setattr(sources, "_rss_entries", blocked)
+    with pytest.raises(sources.net.FetchError):              # Netzausfall -> wiederholbar, nicht „gelöscht“
+        sources.fetch_post("https://www.reddit.com/r/tifu/comments/abc123/x/")
