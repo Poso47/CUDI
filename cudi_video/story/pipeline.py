@@ -174,13 +174,13 @@ def metadata(skeleton: dict, part_index: int, visuals: list[Visual]) -> dict:
     title = f"{skeleton['title']}{part} {icon}"[:95]
     credit = (f"Story: u/{post['author']} auf r/{post['subreddit']}" if de else
               f"Story: u/{post['author']} on r/{post['subreddit']}") if post.get("author") else ""
-    kinds = {v.kind for v in visuals}
     stock = sorted({v.credit for v in visuals if v.credit.startswith(("Pexels", "Pixabay"))})
+    clips = sorted({v.credit.removeprefix("Clip: ") for v in visuals if v.credit.startswith("Clip:")})
     visual_line = []
-    if "image" in kinds:
+    if any(v.credit.startswith("KI-Bild") for v in visuals):
         visual_line.append("Bilder: KI-generierte Symbolbilder" if de else "Images: AI-generated illustrations")
-    if stock:
-        visual_line.append(("Videos: " if de else "Footage: ") + ", ".join(stock))
+    if stock or clips:
+        visual_line.append(("Videos: " if de else "Footage: ") + "; ".join([*stock, *clips]))
     photos = sorted({v.credit.removeprefix("Foto: ") for v in visuals if v.credit.startswith("Foto:")})
     if photos:
         visual_line.append(("Fotos: " if de else "Photos: ") + "; ".join(photos))

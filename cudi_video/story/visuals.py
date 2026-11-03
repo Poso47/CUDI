@@ -1,8 +1,9 @@
 """Bilder und Clips je Szene.
 
-Reihenfolge („Videos bevorzugt“): Stockvideos von Pexels/Pixabay (kostenlose Schlüssel, freie Lizenz),
-KI-Bilder von Pollinations (ohne Schlüssel, werden im Video animiert), eigene Clips aus
-video_assets/backgrounds (z. B. eigene Gameplay-Aufnahmen), sonst ein Farbverlauf.
+Reihenfolge („Videos bevorzugt“): Stockvideos von Pexels/Pixabay (kostenlose Schlüssel, freie Lizenz) oder –
+ohne Schlüssel – freie Clips von Wikimedia Commons (nur wenn der Titel zum Suchbegriff passt), KI-Bilder von
+Pollinations (ohne Schlüssel, werden im Video animiert), eigene Clips aus video_assets/backgrounds
+(z. B. eigene Gameplay-Aufnahmen), sonst ein Farbverlauf.
 """
 
 from __future__ import annotations
@@ -10,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import logging
 import random
+import re
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -160,6 +162,64 @@ def commons_photo(query: str, used: set) -> Visual | None:
     return Visual("image", str(path), f"Foto: {artist[:60]} – {license_name} – Wikimedia Commons", query)
 
 
+# --------------------------------------------------------------------------- freie Clips (Wikimedia Commons)
+
+CLIP_SKIP = ("interview", "lecture", "speech", "conference", "presentation", "talk", "song", "music", "trailer",
+             "news", "documentary", "podcast", "webinar", "tutorial", "wikipedia", "wikimania", "session", "slides")
+QUERY_STOP = {"dark", "close", "view", "shot", "scene", "with", "from", "into", "over", "under", "very", "light"}
+
+
+def _query_words(query: str) -> list[str]:
+    return [w for w in re.findall(r"[a-z]{4,}", query.lower()) if w not in QUERY_STOP]
+
+
+def _best_derivative(info: dict) -> str:
+    """Größte WebM-Ableitung (Commons rechnet jedes Video in mehrere Größen um): bis 1080p bei kurzen Clips,
+    bis 720p bei längeren – sonst wären es schnell 50 MB und mehr für ein paar Sekunden Bild."""
+    top = 1080 if (info.get("duration") or 0) <= 30 else 720
+    ders = [d for d in info.get("derivatives", []) if "webm" in (d.get("type") or "")
+            and 480 <= (d.get("height") or 0) <= top and d.get("src")]
+    return max(ders, key=lambda d: d["height"])["src"] if ders else ""
+
+
+def commons_video(query: str, used: set) -> Visual | None:
+    """Frei lizenzierter Videoclip von Wikimedia Commons (ohne Schlüssel) – nur, wenn der Dateititel ein
+    Wort des Suchbegriffs enthält (sonst lieber ein KI-Bild als ein unpassender Clip); mit Urheberangabe."""
+    from ..enrich import credit_author
+
+    words = _query_words(query)
+    if not words:
+        return None
+    searches = [" ".join(words)] + (words if len(words) > 1 else [])
+    for search in searches:
+        data = net.get_json("https://commons.wikimedia.org/w/api.php", params={
+            "action": "query", "format": "json", "formatversion": 2, "generator": "search",
+            "gsrsearch": f"{search} filetype:video", "gsrnamespace": 6, "gsrlimit": 15, "prop": "videoinfo",
+            "viprop": "url|size|mime|derivatives|extmetadata",
+            "viextmetadatafilter": "LicenseShortName|Artist|Attribution|AttributionRequired",
+        }, cache_hours=24 * 7, retries=2, max_wait=20)
+        for page in sorted(data.get("query", {}).get("pages", []), key=lambda pg: pg.get("index", 99)):
+            title = page.get("title", "")
+            low = title.lower()
+            if title in used or not any(w in low for w in words) or any(x in low for x in CLIP_SKIP):
+                continue
+            info = (page.get("videoinfo") or [{}])[0]
+            if not 3 <= (info.get("duration") or 0) <= 120:
+                continue
+            meta = info.get("extmetadata", {})
+            license_name = meta.get("LicenseShortName", {}).get("value", "")
+            if not license_name or any(x in license_name.lower() for x in NON_FREE):
+                continue
+            artist = credit_author(meta, license_name)
+            src = _best_derivative(info)
+            if not artist or not src:
+                continue
+            path = net.download(src, suffix=".webm", retries=2, max_wait=20, timeout=180)
+            used.add(title)
+            return Visual("video", str(path), f"Clip: {artist[:60]} – {license_name} – Wikimedia Commons", query)
+    return None
+
+
 # --------------------------------------------------------------------------- eigene Clips
 
 def own_clips(mood: str) -> list[Path]:
@@ -200,8 +260,9 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
     order = ORDER.get(mode, ORDER["videos"])
     has_stock = bool(config.PEXELS_API_KEY or config.PIXABAY_API_KEY)
     if "stock" in order and not has_stock and mode == "videos":
-        notes.append("Für echte Videoclips einen kostenlosen Pexels- oder Pixabay-Schlüssel eintragen "
-                     "(CUDI_PEXELS_API_KEY / CUDI_PIXABAY_API_KEY) – bis dahin animierte KI-Bilder.")
+        notes.append("Videoclips kommen ohne Schlüssel von Wikimedia Commons (frei, mit Urheberangabe), wo passende "
+                     "vorhanden sind – sonst animierte KI-Bilder. Mit einem kostenlosen Pexels- oder Pixabay-Schlüssel "
+                     "(CUDI_PEXELS_API_KEY / CUDI_PIXABAY_API_KEY) gibt es mehr passende Clips.")
     if mode == "gameplay" and not own_clips(mood):
         notes.append("Keine eigenen Clips in video_assets/backgrounds gefunden – nutze Stockvideos/KI-Bilder.")
 
@@ -209,7 +270,8 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
         for source in order:
             try:
                 if source == "stock":
-                    found = pexels(scene["query"], used) or pixabay(scene["query"], used)
+                    found = (pexels(scene["query"], used) or pixabay(scene["query"], used)
+                             or commons_video(scene["query"], used))
                 elif source == "ai":
                     found = ai_image(scene["prompt"], seed * 1000 + i)
                 elif source == "photo":
