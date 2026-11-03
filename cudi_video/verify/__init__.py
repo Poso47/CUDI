@@ -288,7 +288,7 @@ def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Researc
         for it in alone:
             research.warnings.append(f"{it.labels.get('de') or it.qid}: nicht verwendet – keine unabhängige Bestätigung.")
         research.items = [it for it in research.items if it not in alone]
-        if len(research.items) < 3:
+        if len(research.items) < min(3, spec.count):
             raise ValueError("Zu diesem Thema ließen sich nicht genug Werte unabhängig bestätigen "
                              f"({len(research.items)} von {spec.count}). Bitte ein bekannteres Thema wählen.")
 
