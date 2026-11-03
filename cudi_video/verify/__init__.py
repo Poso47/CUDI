@@ -256,11 +256,20 @@ def unconfirmed_conflict(result: dict) -> bool:
         e["agrees"] and e["source"] != "Wikidata" for e in result["evidence"])
 
 
+VERIFY_WORKERS = 4                   # Plätze gleichzeitig prüfen (je Platz bis zu ~10 Quellen nacheinander)
+
+
 def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Research:
+    from concurrent.futures import ThreadPoolExecutor
+
+    from .checkers import OSMChecker
+
+    OSMChecker.reset()
     checkers = checkers_for(spec)
     notes: dict[str, list[str]] = {}
-    for item in research.items:
-        result = verify_item(spec, item, checkers)
+    with ThreadPoolExecutor(max_workers=VERIFY_WORKERS) as pool:
+        results = list(pool.map(lambda it: verify_item(spec, it, checkers), research.items))
+    for item, result in zip(research.items, results):
         notes[item.qid] = _warnings_for(spec, item, result)
 
     # Werte, denen widersprochen wird und die niemand bestätigt (z. B. Kommafehler 1.112 m statt 111 m),

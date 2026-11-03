@@ -3,6 +3,7 @@
 import hashlib
 import json
 import logging
+import os
 import threading
 import time
 from pathlib import Path
@@ -76,6 +77,16 @@ def _block_key(host: str) -> str:
     return host
 
 
+HOST_PARALLEL = 2                       # höchstens so viele gleichzeitige Abrufe je Server (Faktencheck parallel)
+_slots: dict = {}
+_slots_lock = threading.Lock()
+
+
+def _slot(host: str) -> threading.Semaphore:
+    with _slots_lock:
+        return _slots.setdefault(host, threading.Semaphore(HOST_PARALLEL))
+
+
 def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60, retry_on=RETRY_STATUSES):
     """GET mit Wiederholung. Respektiert Retry-After, wartet aber höchstens `max_wait` Sekunden.
 
@@ -88,7 +99,8 @@ def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60, re
     last = None
     for attempt in range(retries + 1):
         try:
-            resp = _session.get(url, params=params, headers=headers, timeout=timeout)
+            with _slot(host):
+                resp = _session.get(url, params=params, headers=headers, timeout=timeout)
         except requests.RequestException as exc:
             last = str(exc)
             if 504 not in retry_on:      # Zeitüberschreitung soll sofort weitergereicht werden
@@ -120,9 +132,16 @@ def get_json(url, params=None, headers=None, cache_hours=12.0, **kw):
     if cache_hours and path.exists() and time.time() - path.stat().st_mtime < cache_hours * 3600:
         return json.loads(path.read_text("utf-8"))
     data = get(url, params=params, headers=headers, **kw).json()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data), "utf-8")
+    _atomic_write(path, json.dumps(data).encode("utf-8"))
     return data
+
+
+def _atomic_write(path: Path, data: bytes) -> None:
+    """Erst in eine eigene Zwischendatei, dann umbenennen – parallele Abrufe zerschießen den Cache nicht."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(f"{path.name}.{os.getpid()}.{threading.get_ident()}.tmp")
+    tmp.write_bytes(data)
+    os.replace(tmp, path)
 
 
 def cached_file(url, suffix="", cache_hours=24.0 * 30) -> Path | None:
@@ -139,8 +158,7 @@ def download(url, suffix="", cache_hours=24.0 * 30, **kw) -> Path:
     if cached_file(url, suffix, cache_hours):
         return path
     resp = get(url, **kw)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(resp.content)
+    _atomic_write(path, resp.content)
     return path
 
 
