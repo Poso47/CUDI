@@ -482,13 +482,14 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   }
 
   // Volle Ablage verhindern: Platz für alle Videos eines Auftrags (je ≤ 19 MB + Titelbild). Rankings: je
-  // Sprache ein Video; Storys: bis zu 2 Teile, „Lang, in Teilen“ bis zu 6 Teile.
+  // Sprache ein Video; Storys: bis zu 2 Teile, „Lang, in Teilen“ bis zu 6 Teile, „Lang“ bis zu 2 lange Teile
+  // (sehr lange Storys oder ein verlängertes Skelett teilen sich bei 10 Minuten).
   function needMB(order) {
     const o = order || {};
     if (o.art === "story" && o.schritt === "skelett") return 0;          // Skelett: noch kein Video
     const per = o.laenge === "lang" ? 160 : 20;                         // lange Videos bis ~150 MB
     const videos = o.art === "ranking" ? Math.max(1, (o.sprachen || []).length)
-      : (o.laenge === "teile" ? 6 : o.laenge === "lang" ? 1 : 2);
+      : (o.laenge === "teile" ? 6 : 2);
     return videos * per + 10;
   }
   async function freeMB() {
@@ -683,6 +684,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       await mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => {});
     }
     if (res) {
+      forgetVideos(res);
       for (const v of res.videos || []) for (const u of [...urlsOf(v), v.cover_url]) {
         if (assetId(u)) { if (!assets) throw new Error("Die Ablage lädt noch – gleich noch einmal versuchen."); await assets.delete(assetId(u)).catch(() => {}); }
       }
@@ -807,6 +809,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       const saved = await db.doc("skelette/" + id).get();
       if (!saved.exists) throw new Error("Das Skelett ist nicht mehr gespeichert – bitte „Neu starten“.");
       const sk = saved.data();
+      forgetVideos(res);
       if (res) for (const v of res.videos || []) for (const u of [...urlsOf(v), v.cover_url]) if (assets && assetId(u)) await assets.delete(assetId(u)).catch(() => {});
       skeletons.set(id, sk);
       await db.doc("jobs/" + id).update({ auftrag: Object.assign({}, job.auftrag, { schritt: "skelett" }), versuch: 2 });
@@ -870,6 +873,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         // Nie auf die Liste allein verlassen (lädt evtl. später oder ist begrenzt): Auftrag direkt nachsehen
         const job = await db.doc("jobs/" + id).get().catch(() => null);
         if (!job || job.exists) return;
+        forgetVideos(res);
         for (const v of res.videos || []) for (const u of [...urlsOf(v), v.cover_url]) if (assets && assetId(u)) await assets.delete(assetId(u)).catch(() => {});
         await db.doc("results/" + id).delete().catch(() => {});
         updateMeter();
@@ -888,10 +892,18 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   }
   // Lange Videos liegen in Stücken (je ≤ 19 MB) in der Ablage – hier wieder zu einer MP4-Datei verbunden
   function urlsOf(v) { return v.teile_urls && v.teile_urls.length ? v.teile_urls : (v.video_url ? [v.video_url] : []); }
-  const blobCache = new Map();
+  // Zusammengesetzte Videos belegen viel Arbeitsspeicher: nur das zuletzt geladene behalten, Abspiel-Adressen
+  // freigeben, sobald ihre Videokarte verschwunden ist, und beim Löschen/Neustart eines Auftrags vergessen.
+  const blobCache = new Map(), liveUrls = [];
+  function playUrl(blob, el) {
+    for (let i = liveUrls.length - 1; i >= 0; i--) if (!liveUrls[i][1].isConnected) { URL.revokeObjectURL(liveUrls[i][0]); liveUrls.splice(i, 1); }
+    const url = URL.createObjectURL(blob); liveUrls.push([url, el]); return url;
+  }
+  function forgetVideos(res) { for (const v of (res && res.videos) || []) blobCache.delete(urlsOf(v).join("|")); }
   async function videoBlob(v, onStep) {
     const urls = urlsOf(v), key = urls.join("|");
     if (blobCache.has(key)) return blobCache.get(key);
+    blobCache.clear();
     const parts = [];
     for (let i = 0; i < urls.length; i++) {
       if (onStep) onStep(i + 1, urls.length);
@@ -939,6 +951,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     }
     try {
       if (res && assets) {
+        forgetVideos(res);
         for (const v of res.videos || []) {
           for (const u of [...urlsOf(v), v.cover_url]) if (assetId(u)) await assets.delete(assetId(u)).catch(() => {});
         }
@@ -1037,7 +1050,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
             try {
               const blob = await videoBlob(v, (i, n) => { play.textContent = "Lädt " + i + "/" + n + " …"; });
               const video = document.createElement("video");
-              video.controls = true; video.playsInline = true; video.src = URL.createObjectURL(blob);
+              video.controls = true; video.playsInline = true; video.src = playUrl(blob, video);
               holder.replaceWith(video); video.play().catch(() => {});
             } catch (err) {
               play.disabled = false; play.textContent = "▶ Erneut laden";

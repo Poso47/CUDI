@@ -90,8 +90,8 @@ class VideoSpec:
                 raise ValueError(f"Sprache {lang!r} wird nicht unterstützt")
             if lang not in self.title:
                 raise ValueError(f"Titel für Sprache {lang!r} fehlt")
-        if not 3 <= self.count <= 20:
-            raise ValueError("count muss zwischen 3 und 20 liegen")
+        if not 3 <= self.count <= 30:                    # über 20 nur im Langmodus (parse_order prüft das)
+            raise ValueError("count muss zwischen 3 und 30 liegen")
         where_ids = [q for v in self.source.where.values() for q in ([v] if isinstance(v, str) else v)]
         where_ids += [q for v in self.source.exclude_values.values() for q in v]
         for qid in [self.source.cls, self.source.country, *self.source.exclude_classes, *self.source.extra_classes,

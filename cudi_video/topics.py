@@ -286,7 +286,7 @@ def plan_from_text(text: str, count: int | None = None) -> dict:
     if n is None:
         m = re.search(r"\b(\d{1,2})\b", low)
         n = int(m.group(1)) if m else next((v for w, v in NUMBER_WORDS.items() if re.search(rf"\b{w}\b", low)), 10)
-    n = max(3, min(20, n))
+    n = max(3, min(30 if count else 20, n))          # über 20 nur ausdrücklich (Langmodus)
 
     # Klasse ("Länder"/"states" kann auch Teil eines Ländernamens sein -> andere Themen haben Vorrang)
     matches = [key for key, info in CLASSES.items()

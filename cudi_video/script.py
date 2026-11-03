@@ -56,8 +56,8 @@ TEXT = {
         "corrected": "Aktuelle Zahl laut {sources}.",
         "and": "und",
         "outro": (
-            "Das war unser Ranking. Geprüft mit {sources}, abgerufen am {date}. "
-            "Welcher Platz hat dich überrascht? Schreib es in die Kommentare und folge für mehr Rankings!"
+            "Das war unser Ranking. Welcher Platz hat dich am meisten überrascht? "
+            "Schreib es in die Kommentare und folge für mehr Rankings!"
         ),
         "wiki_langs": "Wikipedia in {n} Sprachen",
     },
@@ -72,8 +72,8 @@ TEXT = {
         "corrected": "Latest figure according to {sources}.",
         "and": "and",
         "outro": (
-            "That was our ranking. Checked against {sources}, retrieved on {date}. "
-            "Which spot surprised you? Tell us in the comments and follow for more rankings!"
+            "That was our ranking. Which spot surprised you the most? "
+            "Tell us in the comments and follow for more rankings!"
         ),
         "wiki_langs": "Wikipedia in {n} languages",
     },

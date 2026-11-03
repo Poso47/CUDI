@@ -1,4 +1,4 @@
-"""Titel, Beschreibung (mit Quellen + Bildnachweisen), Hashtags und Prüfbericht."""
+"""Titel, Beschreibung (mit Bildnachweisen), Hashtags und Prüfbericht (mit allen Quellen)."""
 
 from __future__ import annotations
 
@@ -9,8 +9,8 @@ from .units import quantity
 from .verify import all_sources, compact_sources, confirmed_sources, source_label
 
 DISCLOSURE = {
-    "de": "ℹ️ Automatisch erstellt. Die Stimme ist KI-generiert. Alle Fakten stammen aus den unten genannten Quellen.",
-    "en": "ℹ️ Created automatically. The voice is AI-generated. All facts come from the sources listed below.",
+    "de": "ℹ️ Die Stimme ist KI-generiert. Alle Zahlen sind mit mehreren unabhängigen Quellen abgeglichen.",
+    "en": "ℹ️ The voice is AI-generated. Every figure was cross-checked with several independent sources.",
 }
 SOURCE_LINKS = {
     "Weltbank": "https://data.worldbank.org",
@@ -44,27 +44,11 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
         year = as_of_year(spec, it)
         as_of = f" ({'Stand' if de else 'as of'} {year})" if year else ""
         lines.append(f"{it.rank}. {it.labels[lang]} – {value}{as_of}")
-        confirmed = confirmed_sources(it)
-        if len(confirmed) >= 2:
-            lines.append(f"   ✓ {compact_sources(confirmed, lang)}")
-    lines += ["", DISCLOSURE[lang], "",
-              ("📚 Quellen (abgerufen am " if de else "📚 Sources (retrieved ") + retrieved + "):"]
-    lines.append("• Wikidata (CC0): " + ", ".join(it.qid for it in items))
-    used = {src for it in items for src in confirmed_sources(it)}
-    for name, url in SOURCE_LINKS.items():
-        if name in used:
-            lines.append(f"• {source_label(name, lang)}: {url}")
-    ref = research.references.get(lang)
-    if ref and any(ref.get("qid") != it.qid for it in items):
-        lines.append(("• Vergleichswert: " if de else "• Comparison: ") + f"{ref['name']} ({ref['url']})")
-    langs = sorted(src[len("Wikipedia ("):-1] for src in used if src.startswith("Wikipedia ("))
-    if langs:
-        lines.append(("• Abgleich mit Wikipedia-Sprachversionen: " if de else "• Cross-checked with Wikipedia editions: ")
-                     + ", ".join(langs))
+    lines += ["", DISCLOSURE[lang]]
     wiki_used = [it.wiki_url(lang) for it in items if it.summary.get(lang) and it.wiki_url(lang)]
-    if wiki_used:
-        lines.append("• Wikipedia (CC BY-SA 4.0):")
-        lines += [f"  {u}" for u in wiki_used]
+    if wiki_used:      # übernommene Wikipedia-Inhalte: Lizenz verlangt die Nennung
+        lines.append(("📖 Infos: Wikipedia (CC BY-SA 4.0), Wikidata (CC0)" if de
+                      else "📖 Info: Wikipedia (CC BY-SA 4.0), Wikidata (CC0)"))
     credits = [(it.labels[lang], it.image_credit) for it in items if it.image_credit]
     if credits:
         lines += ["", "📷 Bildnachweise:" if de else "📷 Image credits:"]
@@ -75,16 +59,10 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
 
 
 def short_caption(spec: VideoSpec, research: Research, lang: str, tags: list[str]) -> str:
-    """TikTok-Text: Titel, geprüfte Quellen mit Stand, KI-Hinweis, Hashtags (ohne #shorts)."""
+    """TikTok-Text: Titel, KI-Hinweis, Hashtags (ohne #shorts). Quellen stehen nur im Prüfbericht."""
     c = CAPTION[lang]
-    names, n_langs = all_sources(research, lang)
-    if n_langs:
-        names.append(f"Wikipedia ({n_langs} {c['langs']})")
-    sources = names[0] if len(names) == 1 else ", ".join(names[:-1]) + f" {c['and']} {names[-1]}"
-    retrieved = format_date(research.fetched_at[:10], lang)
     return "\n".join([
         f"{spec.title[lang]} 🏆 {c['hook']}", "",
-        f"{c['checked']} {sources} · {c['as_of']} {retrieved}",
         c["note"], "",
         " ".join(f"#{t}" for t in tags if t != "shorts"),
     ])

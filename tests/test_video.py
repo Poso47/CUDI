@@ -139,9 +139,9 @@ def test_template_script_uses_only_data():
     assert [s.rank for s in script.segments[1:-1]] == [3, 2, 1]          # Countdown
     assert "828 Meter" in script.segments[0].text
     assert "830" not in " ".join(s.text for s in script.segments)        # Wikipedia-Zahl verworfen
-    assert "29.10.2026" in script.segments[-1].text
+    assert "Quellen" not in script.segments[-1].text and "Wikidata" not in script.segments[-1].text
     en = build_script(spec, research, "en", use_llm=False)
-    assert "October 29, 2026" in en.segments[-1].text
+    assert en.segments[-1].text.startswith("That was our ranking.")
     assert "tallest" not in " ".join(s.text for s in en.segments)
 
 
@@ -766,8 +766,8 @@ def test_extras_drop_redundant_umbrella_values(monkeypatch):
     assert out["Q2"]["country"]["en"] == "China"
 
 
-def test_tiktok_caption_is_short_and_names_sources():
-    from cudi_video.metadata import build_metadata
+def test_tiktok_caption_is_short_without_sources():
+    from cudi_video.metadata import build_metadata, build_review
     from cudi_video.models import Script
 
     spec, research = make_spec(hashtags=["architektur"]), make_research()
@@ -776,7 +776,8 @@ def test_tiktok_caption_is_short_and_names_sources():
     meta = build_metadata(spec, research, Script(lang="de", title="Test DE", segments=[]))
     caption = meta["caption"]
     assert caption.startswith("Test DE 🏆")
-    assert "✓ Geprüft mit Wikidata, Weltbank und Wikipedia (2 Sprachen) · Stand 29.10.2026" in caption
+    assert "Weltbank" not in caption and "Geprüft" not in caption          # Quellen nur im Prüfbericht
+    assert "Weltbank" not in meta["description"] and "Quellen-Abgleich" in build_review(spec, research, [])
     assert "#shorts" not in caption and "#architektur" in caption
     assert len(caption) < 600 and "http" not in caption
 

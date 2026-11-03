@@ -102,10 +102,27 @@ class FactbookChecker(Checker):
     def applies(self, spec, item):
         return spec.source.property in self.PROPS and "fips" in item.codes
 
+    _cache_lock = threading.Lock()        # Faktencheck läuft parallel: Region-Cache nur nacheinander lesen/schreiben
+
+    @classmethod
+    def _regions(cls) -> dict:
+        cache = config.CACHE_DIR / "factbook_regions.json"
+        try:
+            return json.loads(cache.read_text()) if cache.exists() else {}
+        except ValueError:
+            return {}
+
+    @classmethod
+    def _remember(cls, code: str, region: str) -> None:
+        with cls._cache_lock:
+            regions = cls._regions()
+            regions[code] = region
+            net._atomic_write(config.CACHE_DIR / "factbook_regions.json", json.dumps(regions).encode())
+
     def _load(self, fips: str) -> tuple[dict, str] | None:
         code = fips.lower()
-        cache = config.CACHE_DIR / "factbook_regions.json"
-        regions = json.loads(cache.read_text()) if cache.exists() else {}
+        with self._cache_lock:
+            regions = self._regions()
         order = ([regions[code]] if code in regions else []) + [r for r in self.REGIONS if r != regions.get(code)]
         for region in order:
             url = f"{self.BASE}/{region}/{code}.json"
@@ -113,9 +130,8 @@ class FactbookChecker(Checker):
                 data = net.get_json(url, cache_hours=24 * 7, retries=0)
             except net.FetchError:
                 continue
-            regions[code] = region
-            cache.parent.mkdir(parents=True, exist_ok=True)
-            cache.write_text(json.dumps(regions))
+            if regions.get(code) != region:
+                self._remember(code, region)
             return data, url
         return None
 

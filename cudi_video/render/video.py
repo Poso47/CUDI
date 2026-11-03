@@ -17,7 +17,7 @@ from ..models import Research, Script
 from ..script import as_of_year, extras_lines, format_date
 from ..spec import VideoSpec
 from ..units import quantity
-from ..verify import all_sources, confirmed_sources
+from ..verify import confirmed_sources
 from .icons import icon_for
 
 log = logging.getLogger(__name__)
@@ -45,15 +45,11 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
     top = items.get(1)
     rows = [(it.rank, it.labels[lang], quantity(it.value, it.unit, spec.unit).display(lang))
             for it in sorted(research.items, key=lambda i: i.rank)]
-    names, n_langs = all_sources(research, lang)
-    if n_langs:
-        names.append(f"Wikipedia ({n_langs} {'Sprachen' if lang == 'de' else 'languages'})")
-    if any(i.image_path for i in research.items):
-        names.append("Wikimedia Commons")
-    sources = " · ".join(names)
+    # Quellen dienen der Prüfung (Prüfbericht) – im Video steht nur der Stand und der Bildnachweis.
     as_of = format_date(research.fetched_at[:10], lang)
-    sources_line = (f"Quellen: {sources} · Abgerufen am {as_of}" if lang == "de"
-                    else f"Sources: {sources} · Retrieved {as_of}")
+    images = any(i.image_path for i in research.items)
+    sources_line = (f"Stand: {as_of}" + (" · Bilder: Wikimedia Commons" if images else "") if lang == "de"
+                    else f"As of {as_of}" + (" · Images: Wikimedia Commons" if images else ""))
 
     jobs = []
     for i, seg in enumerate(script.segments):

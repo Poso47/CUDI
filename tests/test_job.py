@@ -277,3 +277,28 @@ def test_long_story_parts_may_run_ten_minutes():
     sk["length"] = "lang"
     sk["parts"][0]["scenes"][0]["text"] = text
     assert job.fit_parts(sk) == [] and len(sk["parts"]) == 1                 # passt am Stück (≤ 10 Min.)
+
+
+def test_long_ranking_supports_up_to_30_places():
+    """Langmodus: 21–30 Plätze laden sich über Vorlage und freies Thema (nicht still auf 20 gekürzt)."""
+    from cudi_video.__main__ import _load
+    from cudi_video.topics import plan_from_text
+
+    assert _load("hoechste-gebaeude", 25).count == 25
+    assert plan_from_text("die höchsten Berge der Welt", 30)["count"] == 30
+    assert plan_from_text("die 25 höchsten Berge der Welt")["count"] == 20      # ohne Langmodus höchstens 20
+
+
+def test_factbook_region_cache_is_thread_safe(tmp_path, monkeypatch):
+    import threading
+
+    from cudi_video import config
+    from cudi_video.verify.checkers import FactbookChecker
+
+    monkeypatch.setattr(config, "CACHE_DIR", tmp_path)
+    threads = [threading.Thread(target=FactbookChecker._remember, args=(f"c{i}", "europe")) for i in range(20)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert len(FactbookChecker._regions()) == 20                 # kein Eintrag verloren, gültiges JSON
