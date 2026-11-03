@@ -1,0 +1,22 @@
+# Höchste Wasserfälle (Gesamthöhe). Angaben schwanken je nach Messmethode – Prüfbericht beachten.
+# Erzeugt aus dem freien Thema: "die höchsten Wasserfälle der Welt"
+id: hoechste-wasserfaelle
+title:
+  de: Die {count} höchsten Wasserfälle der Welt
+  en: The {count} Tallest Waterfalls in the World
+count: 10
+value_label:
+  de: Höhe
+  en: Height
+unit: m
+source:
+  type: wikidata
+  property: P2048
+  order: desc
+  class: Q34038
+  extras:
+    country: P17
+hashtags:
+  de: [ranking, wasserfall, natur]
+  en: [ranking, waterfalls, nature]
+icon: waterfall

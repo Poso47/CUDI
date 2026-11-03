@@ -204,3 +204,8 @@ config/knowledge_base.json
 config/cudi_bridge.log
 cudi_logs/
 .venv/
+# CUDI Video
+video_output/
+.video_cache/
+# Von der Cloud-Sitzung abgelegtes, in der App bearbeitetes Story-Skelett
+cudi_skelette/

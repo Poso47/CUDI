@@ -1,0 +1,39 @@
+# CUDI als dauerhaft erreichbare App (kostenlos, Hugging Face Spaces) – danach jederzeit vom Handy nutzbar.
+# Einmalig: Repository-Secrets HF_TOKEN (Hugging Face, Schreibrecht) und CUDI_VIDEO_TOKEN (dein Zugangscode).
+# Optional: Variablen HF_SPACE_NAME (Standard cudi-video), HF_SPACE_PRIVATE (Standard true) und Schlüssel als Secrets.
+name: CUDI Cloud-App
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["cudi_video/**", "presets/**", "Dockerfile", ".github/workflows/cloud-app.yml", ".github/scripts/deploy_space.py"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Werkzeug für Hugging Face
+        run: pip install "huggingface_hub>=0.25,<1"
+      - name: App bereitstellen
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          CUDI_VIDEO_TOKEN: ${{ secrets.CUDI_VIDEO_TOKEN }}
+          HF_SPACE_NAME: ${{ vars.HF_SPACE_NAME }}
+          HF_SPACE_PRIVATE: ${{ vars.HF_SPACE_PRIVATE }}
+          CUDI_PEXELS_API_KEY: ${{ secrets.CUDI_PEXELS_API_KEY }}
+          CUDI_PIXABAY_API_KEY: ${{ secrets.CUDI_PIXABAY_API_KEY }}
+          CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
+          CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+          CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+          CUDI_DEEPL_API_KEY: ${{ secrets.CUDI_DEEPL_API_KEY }}
+          CUDI_REDDIT_CLIENT_ID: ${{ secrets.CUDI_REDDIT_CLIENT_ID }}
+          CUDI_REDDIT_CLIENT_SECRET: ${{ secrets.CUDI_REDDIT_CLIENT_SECRET }}
+          CUDI_POLLINATIONS_TOKEN: ${{ secrets.CUDI_POLLINATIONS_TOKEN }}
+          CUDI_CHANNEL: ${{ secrets.CUDI_CHANNEL }}
+        run: python .github/scripts/deploy_space.py

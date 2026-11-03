@@ -1,0 +1,36 @@
+# Aufträge aus der CUDI-App-Seite in Claude: Die Seite öffnet ein vorausgefülltes Issue, nach
+# „Absenden“ startet dieser Ablauf das passende Video („CUDI Video“ oder „CUDI Story“). Das Ergebnis
+# – Download-Links, Texte für YouTube/TikTok, Prüfbericht – erscheint als Kommentar im Issue.
+# Dafür braucht die App-Seite keine GitHub-Verbindung in Claude, nur den normalen GitHub-Login.
+name: CUDI Auftrag
+
+run-name: "Auftrag #${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  actions: write           # Cloud-Ablauf starten
+  issues: write            # Rückmeldung im Auftrag
+  contents: read
+
+jobs:
+  starten:
+    # nur Aufträge der App-Seite (Kennung im Text) vom Besitzer oder Mitarbeitenden – fremde Issues
+    # lösen gar nichts aus; auftrag.py prüft das zusätzlich
+    if: >-
+      contains(github.event.issue.body, 'cudi-auftrag') &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github/scripts
+            presets
+      - name: Auftrag prüfen und starten
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 .github/scripts/auftrag.py

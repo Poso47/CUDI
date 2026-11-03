@@ -1,0 +1,25 @@
+# Automatische Tests bei jeder Änderung (zeigt im Pull Request, ob alles grün ist).
+name: Tests
+
+on:
+  push:
+    branches: [main, feature/video-generator]
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: cudi_video/requirements.txt
+      - name: ffmpeg (Tests der App-Fassung kodieren echte Videos)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg
+      - name: Python-Pakete
+        run: pip install -r cudi_video/requirements.txt pytest pypdf python-docx
+      - name: Tests
+        run: python -m pytest tests -q
