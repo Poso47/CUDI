@@ -131,7 +131,9 @@ danach). Der Lauf führt `bash scripts/cudi_auftrag.sh '<auftrag>'` aus (`python
 auftrag`): prüft die Eingaben, rendert, erstellt eine App-Fassung ≤ 19 MB (1080×1920) und legt Video,
 Titelbild, TikTok-/YouTube-Text, Hinweise und Prüfbericht in der Ablage der Seite ab. Unter „Videos“
 siehst du den Fortschritt, schaust das Video an, speicherst es aufs Handy (Teilen-Menü) und kopierst
-die Texte. Englische Storys für deutsche Videos übersetzt Claude im Auftrag selbst – ohne Schlüssel.
+die Texte. Bei Storys zeigt die App zuerst das **Skelett** (Häkchen „Skelett vorher ansehen“): Titel,
+Stimmung, jede Szene mit Text und Bildidee – ändern, Szenen löschen oder ergänzen, dann „Video
+erstellen“. Ohne Häkchen entsteht das Video in einem Rutsch. Englische Storys für deutsche Videos übersetzt Claude im Auftrag selbst – ohne Schlüssel.
 Jeder Auftrag läuft mit dem kleinsten Claude-Modell (Haiku) und zählt nur zu deinem Claude-Nutzungslimit – keine Zusatzkosten.
 
 **D) Per GitHub (ohne Claude):** In der GitHub-App → *Actions* → „CUDI Video“ oder „CUDI Story“ →

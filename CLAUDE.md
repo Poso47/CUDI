@@ -15,7 +15,7 @@ für TikTok/YouTube Shorts.
   Infografik-Render + edge-tts. Grundsatz: **nichts erfinden**, widersprochene Werte fliegen raus.
 - **Reddit-Storys** (`cudi_video/story/`): Suche per Stimmung/Beschreibung/Link (Arctic-Shift-Archiv),
   Lektorat (heikle Stellen umschreiben statt weglassen), Skelett, Bilder/Clips, Stimme je Stimmung.
-- Später geplant: Story-Skelett in der App anpassen, längere Videos, Cartoon-Figuren.
+- Später geplant: längere Videos, Cartoon-Figuren.
 
 ## Bedienung
 
@@ -44,6 +44,11 @@ für TikTok/YouTube Shorts.
     (1 GB). Die Seite zeigt Fortschritt (`get_session`), Video, „Video speichern“ (downloads),
     Kopier-Knöpfe, Abbrechen/Löschen (archiviert laufende Sitzung); Ersatz-Sitzungen werden nach dem
     Ergebnis archiviert; Ergebnisse ohne Auftrag räumt die Seite nach 2 Min. weg.
+  - **Story-Skelett in der App** (Häkchen „Skelett vorher ansehen“, Standard): Auftrag `"schritt":"skelett"`
+    liefert das Skelett als Ergebnis (`results/<id>` mit `schritt`/`skelett`); die Karte zeigt einen Editor
+    (Stimmung, Titel, Szenentexte, Bildideen, ＋/✕), Arbeitsstand in `skelette/<id>`. „Video erstellen“ startet
+    dieselbe Kennung mit `"schritt":"video"`: Die Sitzung holt `skelette/<id>` per `ArtifactData get` mit
+    `out_dir "cudi_skelette"` als Datei (nie abschreiben), `job.app_skeleton` liest sie, `validate_skeleton` prüft.
   - Seite ändern: Datei bearbeiten und mit dem Artifact-Werkzeug unter derselben URL veröffentlichen
     (äußerer HTML-Rahmen fehlt absichtlich – Claude setzt ihn).
 - Weitere Wege: GitHub Actions „CUDI Video“/„CUDI Story“, Issue mit `cudi-auftrag` („CUDI Auftrag“),
