@@ -47,6 +47,9 @@ class CUDIEventBus:
         self.running = False
         self.worker_task = None
         self.lock = threading.RLock()
+        # Eigener Event-Loop im Hintergrund-Thread (siehe start_sync)
+        self._loop = None
+        self._thread = None
         
         # Event-Statistiken
         self.stats = {
@@ -71,26 +74,42 @@ class CUDIEventBus:
         print("[EVENT-BUS] Started")
         
     def start_sync(self):
-        """Startet Event-Bus synchron"""
+        """Startet den Event-Bus aus synchronem Code (z. B. der GUI).
+
+        Der Worker läuft in einem eigenen Daemon-Thread mit eigenem Event-Loop.
+        Früher wurde hier asyncio.run() mit der Endlosschleife aufgerufen, was
+        den aufrufenden GUI-Hauptthread dauerhaft blockiert hat.
+        """
         if self.running:
             return
-            
+
         self.running = True
-        print("📊 Event-Bus synchron aktiviert")
-        
-        # Background task für Event-Processing starten
-        try:
-            loop = asyncio.get_event_loop()
-            if loop.is_running():
-                # Loop läuft bereits, Task erstellen
-                self.worker_task = asyncio.create_task(self._process_events())
-            else:
-                # Neuen Loop starten
-                asyncio.run(self._process_events())
-        except:
-            # Fallback: Events werden im Hauptthread verarbeitet
-            print("📊 Event-Bus im Hauptthread-Modus")
-        
+        ready = threading.Event()
+
+        def _run_loop():
+            self._loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(self._loop)
+            # Queue an den Loop dieses Threads binden
+            self.event_queue = asyncio.Queue()
+            ready.set()
+            try:
+                self._loop.run_until_complete(self._process_events())
+            finally:
+                self._loop.close()
+                self._loop = None
+
+        self._thread = threading.Thread(target=_run_loop, name="CUDIEventBus", daemon=True)
+        self._thread.start()
+        ready.wait(timeout=5)
+        print("📊 Event-Bus im Hintergrund-Thread aktiviert")
+
+    def stop_sync(self, timeout: float = 3.0):
+        """Stoppt den mit start_sync() gestarteten Hintergrund-Thread."""
+        self.running = False
+        if self._thread and self._thread.is_alive() and self._thread is not threading.current_thread():
+            self._thread.join(timeout)
+        self._thread = None
+
     async def stop(self):
         """Stoppt Event-Bus"""
         self.running = False
@@ -169,6 +188,18 @@ class CUDIEventBus:
                   priority: EventPriority = EventPriority.NORMAL,
                   source: str = "system") -> str:
         """Synchrone Event-Emission für Non-Async Kontext"""
+        loop = self._loop
+        if loop is not None and loop.is_running():
+            coro = self.emit(event_type, data, priority, source)
+            if threading.current_thread() is self._thread:
+                # Aufruf aus einem Handler im Bus-Thread: nicht auf sich selbst warten
+                loop.create_task(coro)
+                return f"task_{int(time.time())}"
+            try:
+                return asyncio.run_coroutine_threadsafe(coro, loop).result(timeout=2)
+            except Exception as e:
+                print(f"⚠️ Event-Emission fehlgeschlagen: {event_type}: {e}")
+                return f"failed_{int(time.time()*1000)}"
         try:
             loop = asyncio.get_event_loop()
             if loop.is_running():

@@ -17,8 +17,9 @@ pyttsx3>=2.90
 SpeechRecognition>=3.8.1
 pyaudio>=0.2.11
 
-# GUI (bereits in Python enthalten)
-# tkinter
+# GUI: Hauptoberfläche (cudi_supreme_gui.py) nutzt PySide6
+PySide6>=6.5.0
+# tkinter (bereits in Python enthalten; Hilfe-System, Plugin-Dialog)
 
 # Datenbank (bereits in Python enthalten)
 # sqlite3
