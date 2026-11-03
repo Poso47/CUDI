@@ -281,6 +281,16 @@ def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Researc
         research.warnings.append(f"{it.labels.get('de') or it.qid}: nicht verwendet – widersprüchliche Angaben "
                                  f"ohne unabhängige Bestätigung ({shown}).")
     research.items = [it for it in research.items if it not in rejected]
+    if spec.confirmed_only:
+        # Freie Themen: Klasse/Eigenschaft sind nicht von Hand geprüft (z. B. Aquädukt mit der Länge der ganzen
+        # Wasserleitung) – nur Werte, die mindestens eine unabhängige Quelle bestätigt, kommen ins Video.
+        alone = [it for it in research.items if it.verification.get("status") not in STATUS_OK]
+        for it in alone:
+            research.warnings.append(f"{it.labels.get('de') or it.qid}: nicht verwendet – keine unabhängige Bestätigung.")
+        research.items = [it for it in research.items if it not in alone]
+        if len(research.items) < 3:
+            raise ValueError("Zu diesem Thema ließen sich nicht genug Werte unabhängig bestätigen "
+                             f"({len(research.items)} von {spec.count}). Bitte ein bekannteres Thema wählen.")
 
     # Korrigierte Werte können die Reihenfolge ändern – erst jetzt auf die gewünschte Anzahl kürzen.
     research.items.sort(key=lambda it: it.value, reverse=spec.source.order == "desc")

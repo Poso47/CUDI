@@ -50,6 +50,7 @@ class VideoSpec:
     compare: dict | None = None                # Vergleichsobjekt je Sprache, z. B. {"de": {"qid": "Q4127", "name": "der Bodensee"}}
     image_prop: str = "P18"                    # Bild-Eigenschaft: P18 Foto, P41 Flagge
     icon: str | None = None                    # Icon ohne Foto: building, mountain, globe, people, lake, island, waterfall
+    confirmed_only: bool = False               # nur unabhängig bestätigte Werte (freie Themen: Wikidata-Daten ungeprüft)
 
     def to_dict(self) -> dict:
         return asdict(self)

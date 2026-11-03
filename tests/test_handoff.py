@@ -40,14 +40,19 @@ def test_narration_is_asked_once_then_checked(writing):
     answer(need.value.path, {"de": {
         "1": good,
         "2": places[1]["start"] + " Ganze 679 Meter, gebaut 1999.",               # 1999 steht nirgends -> Baustein
-        "3": "Platz 3 ist Turm C mit 632 Metern.",                                  # falscher Anfang -> Baustein
+        "3": "Wir starten mit Platz 3, Turm C: 632 Meter, eine lange Linie über dem Wasser.",   # Komma statt Punkt ok
     }})
+    with pytest.raises(handoff.WritingNeeded) as fix:                # abgelehnte Plätze gehen einmal zurück
+        narrate.request(spec, research, ["de"])
+    retry = json.loads(fix.value.path.read_text("utf-8"))["daten"]["de"]["plaetze"]
+    assert sorted(p["platz"] for p in retry) == [2] and retry[0]["grund"] == "Zahl ohne Beleg"
+    answer(fix.value.path, {"de": {"2": places[1]["start"] + " Ganze 679 Meter, gebaut 1998."}})   # wieder falsch
     narration = narrate.request(spec, research, ["de"])
     script = build_script(spec, research, "de", use_llm=False, narration=narration["de"])
     texts = {s.rank: s.text for s in script.segments if s.kind == "item"}
     assert texts[1] == good and script.mode == "claude"
-    assert "1999" not in texts[2] and texts[3].startswith("Wir starten mit Platz 3")
-    assert sum("übernommen" in c for c in script.checks) == 1 and sum("verworfen" in c for c in script.checks) == 2
+    assert "1999" not in texts[2] and "1998" not in texts[2] and "Linie" in texts[3]
+    assert sum("übernommen" in c for c in script.checks) == 2 and sum("verworfen" in c for c in script.checks) == 1
 
 
 def test_narration_rejects_missing_value_rank_claims_and_length():
@@ -123,3 +128,25 @@ def test_narration_rejects_invented_details():
                          place).startswith("nicht belegt: Uhr")
     assert narrate.check("Platz 4: Abraj Al Bait. 607 Meter hoch, entworfen von einem US-Büro – mitten in Mekka.",
                          place) is None
+
+
+def test_free_topics_keep_only_confirmed_values(monkeypatch):
+    """Freie Themen: Werte ohne unabhängige Bestätigung (z. B. Aquädukt 17 km) fliegen raus, der Nächste rückt nach."""
+    from cudi_video import verify as verify_module
+
+    spec, research = make_spec(), make_research()
+    spec.confirmed_only, spec.count = True, 2
+    status = {"Q1": "nur eine Quelle", "Q2": "bestätigt", "Q3": "bestätigt"}
+
+    def fake(spec, item, checkers):
+        item.verification = {"status": status[item.qid], "sources": [], "evidence": [], "outliers": []}
+        return item.verification
+
+    monkeypatch.setattr(verify_module, "verify_item", fake)
+    verify_module.verify(spec, research)
+    assert [it.qid for it in research.items] == ["Q2", "Q3"] and research.items[0].rank == 1
+    assert any("Turm A: nicht verwendet" in w for w in research.warnings)
+    spec.count, research = 3, make_research()
+    status["Q2"] = "nur eine Quelle"
+    with pytest.raises(ValueError, match="nicht genug"):
+        verify_module.verify(spec, research)

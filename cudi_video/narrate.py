@@ -40,8 +40,12 @@ FREE_WORDS = {
         vergleich bau eröffnung architekt architekten wert rekord überraschung moment frage antwort augen kopf weg
         quadratkilometer quadratkilometern tonnen grad prozent millionen milliarden tausend hundert januar februar märz
         april mai juni juli august september oktober november dezember nummer finale sieger vorgänger nachfolger
-        nachbar platzierung rangliste""".split()),
+        nachbar platzierung rangliste wasser linie schluss bauwerk bauwerke brücke brücken straße straßen fluss ufer
+        meer berg berge tal reise strecke seite teil stück bild ziel ort orte region gegend zeit zeiten geschichte
+        jahrhundert jahrhunderte jahrzehnt jahrzehnte tag tage nacht menge kurve form farbe licht sonne natur riese
+        riesen gigant giganten koloss superlativ""".split()),
     "en": set("""number top i floors floor meters metres kilometers kilometres feet world city country year years
+        bridge bridges river water building tower
         january february march april may june july august september october november december""".split()),
 }
 WORD = re.compile(r"[^\W\d_][\w'’-]*", re.U)
@@ -61,6 +65,19 @@ def unknown_words(text: str, place: dict) -> list[str]:
                 continue
             out.append(word)
     return out
+
+
+def _plain(text: str) -> str:
+    return re.sub(r"[\W_]+", "", text.lower())
+
+
+INSTRUCTIONS_FIX = (
+    "Einige erzählte Ranking-Texte wurden von der Prüfung abgelehnt. Für jeden Platz in „daten“ stehen dein Text "
+    "(„vorher“) und der Grund („grund“). Schreibe den Text neu, sodass er die Regeln erfüllt: exakt mit „start“ "
+    "beginnen, den Wert aus „wert“ nennen, nur Fakten und Wörter aus den Daten des Platzes, keine anderen Zahlen, "
+    "keine Rang-Aussagen, ungefähr „woerter“ Wörter. Bei „nicht belegt: …“ diese Wörter weglassen oder durch Wörter "
+    "aus den Daten ersetzen. Antwort im selben Format: {Sprache: {Platznummer als Text: Sprechertext}}."
+)
 
 
 RANK_CLAIM = re.compile(
@@ -101,10 +118,34 @@ def request(spec: VideoSpec, research: Research, langs: list[str]) -> dict:
     if not handoff.enabled() or not research.items:
         return {}
     data = {lang: {"titel": spec.title[lang], "plaetze": places_for(spec, research, lang)} for lang in langs}
-    answer = handoff.request("erzaehlen", INSTRUCTIONS, data)
+    texts = _texts(handoff.request("erzaehlen", INSTRUCTIONS, data))
+    if not texts:
+        return {}
+    # Eine Korrekturrunde: abgelehnte Plätze mit Grund zurück an Claude, dann gilt, was die Prüfung besteht.
+    retry = {}
+    for lang in langs:
+        failed = []
+        for place in data[lang]["plaetze"]:
+            text = texts.get(lang, {}).get(str(place["platz"]))
+            reason = check(text, place)
+            if reason:
+                failed.append({**place, "vorher": text if isinstance(text, str) else "", "grund": reason})
+        if failed:
+            retry[lang] = {"titel": data[lang]["titel"], "plaetze": failed}
+    if retry:
+        fixed = _texts(handoff.request("erzaehlen_korrektur", INSTRUCTIONS_FIX, retry))
+        for lang, by_rank in fixed.items():
+            places = {str(p["platz"]): p for p in retry.get(lang, {}).get("plaetze", [])}
+            for rank, text in by_rank.items():
+                if rank in places and check(text, places[rank]) is None:
+                    texts.setdefault(lang, {})[rank] = text
+    return texts
+
+
+def _texts(answer) -> dict:
     if not isinstance(answer, dict):
         return {}
-    return {lang: {str(k): v for k, v in texts.items()} for lang, texts in answer.items() if isinstance(texts, dict)}
+    return {lang: {str(k): v for k, v in by_rank.items()} for lang, by_rank in answer.items() if isinstance(by_rank, dict)}
 
 
 def check(text, place: dict) -> str | None:
@@ -112,7 +153,7 @@ def check(text, place: dict) -> str | None:
     if not isinstance(text, str) or not text.strip():
         return "kein Text"
     text = text.strip()
-    if not text.startswith(place["start"]):
+    if not _plain(text).startswith(_plain(place["start"])):     # Satzzeichen dürfen abweichen
         return "falscher Anfang"
     if not _digits(place["wert"]) <= _digits(text):
         return "geprüfter Wert fehlt"
