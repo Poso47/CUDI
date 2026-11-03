@@ -78,13 +78,14 @@ def _block_key(host: str) -> str:
 
 
 HOST_PARALLEL = 2                       # höchstens so viele gleichzeitige Abrufe je Server (Faktencheck parallel)
+HOST_PARALLEL_SPECIAL = {"wikimedia.org": 1}   # Commons/Bilder drosseln anonyme Abrufe besonders schnell
 _slots: dict = {}
 _slots_lock = threading.Lock()
 
 
 def _slot(host: str) -> threading.Semaphore:
     with _slots_lock:
-        return _slots.setdefault(host, threading.Semaphore(HOST_PARALLEL))
+        return _slots.setdefault(host, threading.Semaphore(HOST_PARALLEL_SPECIAL.get(host, HOST_PARALLEL)))
 
 
 def get(url, params=None, headers=None, retries=4, max_wait=30.0, timeout=60, retry_on=RETRY_STATUSES):
