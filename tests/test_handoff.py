@@ -423,3 +423,18 @@ def test_unconfirmed_places_are_rechecked_after_throttling(monkeypatch):
     verify_module.verify(spec, research)
     assert calls == {"Q1": 2, "Q2": 2, "Q3": 2}
     assert all(it.verification["status"] == "bestätigt" for it in research.items)
+
+
+def test_title_count_follows_usable_places(monkeypatch):
+    """Probelauf 25 Berge: ein widersprüchlicher Wert flog raus, der Titel sagte trotzdem „25“."""
+    from cudi_video import verify as verify_module
+
+    def fake(spec, item, checkers):
+        item.verification = {"status": "bestätigt", "sources": [], "evidence": [], "outliers": []}
+        return item.verification
+
+    monkeypatch.setattr(verify_module, "verify_item", fake)
+    spec, research = make_spec(), make_research()
+    spec.count, spec.title = 4, {"de": "Die 4 höchsten Türme", "en": "The 4 Tallest Towers"}
+    verify_module.verify(spec, research)                       # nur 3 Kandidaten vorhanden
+    assert spec.count == 3 and spec.title["en"] == "The 3 Tallest Towers"

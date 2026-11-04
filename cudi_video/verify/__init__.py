@@ -313,6 +313,10 @@ def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Researc
     research.items.sort(key=lambda it: it.value, reverse=spec.source.order == "desc")
     dropped = research.items[spec.count:]
     research.items = research.items[:spec.count]
+    if 0 < len(research.items) < spec.count:      # z. B. ein Wert verworfen: ehrliche Top 24 statt „Top 25“
+        research.warnings.append(f"Nur {len(research.items)} von {spec.count} Plätzen verwendbar – "
+                                 f"Titel und Zählung angepasst.")
+        spec.shrink_to(len(research.items))
     for pos, it in enumerate(research.items, start=1):
         it.rank = pos
         research.warnings.extend(notes.get(it.qid, []))
