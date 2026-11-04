@@ -11,6 +11,7 @@ Status je Platz:
 
 from __future__ import annotations
 
+
 import logging
 import statistics
 
@@ -288,9 +289,13 @@ def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Researc
         for it in alone:
             research.warnings.append(f"{it.labels.get('de') or it.qid}: nicht verwendet – keine unabhängige Bestätigung.")
         research.items = [it for it in research.items if it not in alone]
-        if len(research.items) < min(3, spec.count):
+        found = len(research.items)
+        if found < min(3, spec.count):
             raise ValueError("Zu diesem Thema ließen sich nicht genug Werte unabhängig bestätigen "
-                             f"({len(research.items)} von {spec.count}). Bitte ein bekannteres Thema wählen.")
+                             f"({found} von {spec.count}). Bitte ein bekannteres Thema wählen.")
+        if found < spec.count:                 # lieber eine ehrliche Top 4 als eine Top 5 mit Lücke
+            research.warnings.append(f"Nur {found} von {spec.count} Plätzen unabhängig bestätigt – Video zeigt die Top {found}.")
+            spec.shrink_to(found)
 
     # Korrigierte Werte können die Reihenfolge ändern – erst jetzt auf die gewünschte Anzahl kürzen.
     research.items.sort(key=lambda it: it.value, reverse=spec.source.order == "desc")

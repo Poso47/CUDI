@@ -46,7 +46,7 @@ def test_narration_is_asked_once_then_checked(writing):
         narrate.request(spec, research, ["de"])
     retry = json.loads(fix.value.path.read_text("utf-8"))["daten"]["de"]["plaetze"]
     assert sorted(p["platz"] for p in retry) == [2] and retry[0]["grund"] == "Zahl ohne Beleg"
-    answer(fix.value.path, {"de": {"2": places[1]["start"] + " Ganze 679 Meter, gebaut 1998."}})   # wieder falsch
+    answer(fix.value.path, {"de": {"2": places[1]["start"] + " Ganze 679 Meter, gebaut 1999."}})   # unverändert falsch
     narration = narrate.request(spec, research, ["de"])
     script = build_script(spec, research, "de", use_llm=False, narration=narration["de"])
     texts = {s.rank: s.text for s in script.segments if s.kind == "item"}
@@ -146,7 +146,12 @@ def test_free_topics_keep_only_confirmed_values(monkeypatch):
     verify_module.verify(spec, research)
     assert [it.qid for it in research.items] == ["Q2", "Q3"] and research.items[0].rank == 1
     assert any("Turm A: nicht verwendet" in w for w in research.warnings)
+    spec.count, research = 4, make_research()           # 3 von 4 bestätigt -> ehrliche Top 3 statt Lücke
+    spec.title = {"de": "Die 4 höchsten Türme", "en": "The 4 Tallest Towers"}
+    status["Q1"] = "bestätigt"
+    verify_module.verify(spec, research)
+    assert spec.count == 3 and spec.title["de"] == "Die 3 höchsten Türme" and len(research.items) == 3
     spec.count, research = 3, make_research()
-    status["Q2"] = "nur eine Quelle"
+    status["Q1"] = status["Q2"] = "nur eine Quelle"
     with pytest.raises(ValueError, match="nicht genug"):
         verify_module.verify(spec, research)

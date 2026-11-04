@@ -55,6 +55,12 @@ class VideoSpec:
     def to_dict(self) -> dict:
         return asdict(self)
 
+    def shrink_to(self, found: int) -> None:
+        """Weniger bestätigte Plätze als bestellt: Anzahl und Zahl im Titel ehrlich anpassen (Top 4 statt Top 5)."""
+        if 0 < found < self.count:
+            self.title = {lang: re.sub(rf"\b{self.count}\b", str(found), t, count=1) for lang, t in self.title.items()}
+            self.count = found
+
     def tags_for(self, lang: str) -> list[str]:
         """Hashtags einer Sprache: {"de": [...], "en": [...]} oder eine Liste für alle Sprachen."""
         tags = self.hashtags.get(lang, []) if isinstance(self.hashtags, dict) else self.hashtags

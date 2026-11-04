@@ -135,7 +135,8 @@ def request(spec: VideoSpec, research: Research, langs: list[str]) -> dict:
     if retry:
         fixed = _texts(handoff.request("erzaehlen_korrektur", INSTRUCTIONS_FIX, retry))
         for lang, by_rank in fixed.items():
-            places = {str(p["platz"]): p for p in retry.get(lang, {}).get("plaetze", [])}
+            places = {str(p["platz"]): {k: v for k, v in p.items() if k not in ("vorher", "grund")}   # kein Selbstbeleg
+                      for p in retry.get(lang, {}).get("plaetze", [])}
             for rank, text in by_rank.items():
                 if rank in places and check(text, places[rank]) is None:
                     texts.setdefault(lang, {})[rank] = text
