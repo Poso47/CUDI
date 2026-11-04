@@ -14,6 +14,7 @@ from . import handoff
 from .models import Research
 from .script import NOT_NEUTRAL, _digits, numbers_supported, rank_sentence
 from .spec import VideoSpec
+from .retention import NARRATION_RULES
 from .textcheck import invented_people
 
 WIKI_CHARS = 900
@@ -30,8 +31,8 @@ INSTRUCTIONS = (
     "en = Englisch). (6) Prüfe danach jeden Satz: Steht diese Aussage wirklich in den Daten des Platzes? Wenn nicht, "
     "streiche sie – der Code verwirft sonst den ganzen Text (auch Namen und Hauptwörter, die nicht in den Daten "
     "stehen). Antwort: JSON-Objekt {Sprache: {Platznummer als Text: Sprechertext}}, z. B. "
-    "{\"de\": {\"10\": \"…\", \"9\": \"…\"}, \"en\": {\"10\": \"…\"}}."
-)
+    "{\"de\": {\"10\": \"…\", \"9\": \"…\"}, \"en\": {\"10\": \"…\"}}. "
+) + NARRATION_RULES
 
 # Erzählwörter, die keine Fakten behaupten (alles andere Großgeschriebene muss in den Daten des Platzes stehen)
 FREE_WORDS = {

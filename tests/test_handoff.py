@@ -451,3 +451,20 @@ def test_claude_title_with_number_gets_count_placeholder_once(writing, monkeypat
                              "titel_de": "Die 5 längsten Brücken der Welt", "titel_en": "The 5 Longest Bridges"})
     spec = planner.plan_with_claude("die längsten Brücken der Welt", 5)
     assert spec["title"] == {"de": "Die {count} längsten Brücken der Welt", "en": "The {count} Longest Bridges"}
+
+
+def test_claude_reads_simple_wish_with_count_and_angle(writing, monkeypatch):
+    """Einfacher Satz: Claude wählt den messbaren Blickwinkel, die Anzahl aus dem Satz gilt, Deutung im Bericht."""
+    monkeypatch.setattr(planner, "_label", lambda q: "river")
+    monkeypatch.setattr(planner, "_search", lambda label: None)
+    with pytest.raises(handoff.WritingNeeded) as need:
+        planner.plan_with_claude("mach was über die gefährlichsten Flüsse, top 7", 10)
+    assert "Redakteur" in json.loads(need.value.path.read_text("utf-8"))["anleitung"]
+    answer(need.value.path, {"blickwinkel": "„Gefährlich“ ist nicht messbar – ich zeige die längsten Flüsse.",
+                             "anzahl": 7, "klasse_qid": "Q4022", "klasse_en": "river", "eigenschaft": "P2043",
+                             "spitzenreiter": [{"qid": "Q4022", "en": "river"}],
+                             "titel_de": "Die {count} längsten Flüsse der Erde", "titel_en": "The {count} Longest Rivers"})
+    spec = planner.plan_with_claude("mach was über die gefährlichsten Flüsse, top 7", 10)
+    assert spec["count"] == 7 and "längsten Flüsse" in spec["angle"]
+    from cudi_video.spec import VideoSpec
+    assert VideoSpec.from_dict(spec).title["de"] == "Die 7 längsten Flüsse der Erde"

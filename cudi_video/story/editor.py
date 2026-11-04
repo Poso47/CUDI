@@ -505,7 +505,7 @@ def _llm_edit(title: str, scenes: list[str], lang: str, mood: str,
 CLAUDE_EDIT = (
     "Du bist Lektor und Sprecher für Reddit-Story-Videos (TikTok/YouTube Shorts). Schreibe jede Szene aus "
     "„szenen“ als gesprochenen Text in der Zielsprache „zielsprache“ (de = Deutsch, en = Englisch) neu: natürlich, "
-    "flüssig, im Stil „stil“, die Ich-Perspektive bleibt. Kürzen ist erlaubt (Füllsätze, Wiederholungen), Spannung "
+    "flüssig, im Stil „stil“, die Ich-Perspektive bleibt; folge dabei den Regeln in „spannung“. Kürzen ist erlaubt (Füllsätze, Wiederholungen), Spannung "
     "aufbauen ist erwünscht. VERBOTEN: neue Ereignisse, Personen, Orte, Zahlen oder Details erfinden – nur was in den "
     "Szenen steht. Ist „entschaerfen“ true: heikle Stellen (Sex, Gewalt, Selbstverletzung, Drogen, Kraftausdrücke) "
     "TikTok-tauglich umschreiben – andeuten statt aussprechen, so dass man versteht, was gemeint ist; die Handlung "
@@ -570,13 +570,16 @@ def _edit_problem(new, source: str, lang: str, source_lang: str, context: str) -
     return None
 
 
+from ..retention import story_rules  # noqa: E402
+
+
 def claude_edit(title: str, scenes: list[str], lang: str, source_lang: str, mood: str, soften: bool):
     """Lektorat durch Claude in der Auftrags-Sitzung. Rückgabe (Titel, Szenen, Bilder, Hook, Notizen, Figur) oder None.
 
     Jede Szene wird einzeln geprüft; eine abgelehnte Szene bekommt die Regel-Fassung (bei anderer Zielsprache
     übersetzt). Wirft handoff.WritingNeeded, solange Claude noch nicht geantwortet hat."""
     data = {"titel": title, "zielsprache": lang, "originalsprache": source_lang, "stimmung": mood,
-            "stil": STYLE[mood], "entschaerfen": bool(soften), "szenen": scenes}
+            "stil": STYLE[mood], "spannung": story_rules(mood), "entschaerfen": bool(soften), "szenen": scenes}
     answer = handoff.request("lektorat", CLAUDE_EDIT, data)
     if not isinstance(answer, dict) or not isinstance(answer.get("szenen"), list) or len(answer["szenen"]) != len(scenes):
         if answer is not None:

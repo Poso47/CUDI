@@ -274,6 +274,14 @@ def supported_topics() -> str:
             "weltweit, je Kontinent, je Land oder (Berge) je Gebirge")
 
 
+def count_in_text(text: str) -> int | None:
+    """„Top 7 höchste Berge“ / „die fünf größten Seen“ -> 7 / 5 (nur 3–30, sonst None)."""
+    low = _norm(text)
+    m = re.search(r"\b(\d{1,2})\b", low)
+    n = int(m.group(1)) if m else next((v for w, v in NUMBER_WORDS.items() if re.search(rf"\b{w}\b", low)), None)
+    return n if n and 3 <= n <= 30 else None
+
+
 def plan_from_text(text: str, count: int | None = None) -> dict:
     """Freitext -> Vorgabe als Dict (wie eine YAML-Vorlage). Wirft PlanError bei Unklarheit."""
     raw = text.strip()
@@ -281,11 +289,8 @@ def plan_from_text(text: str, count: int | None = None) -> dict:
     if not low:
         raise PlanError("Bitte ein Thema eingeben.")
 
-    # Anzahl
-    n = count
-    if n is None:
-        m = re.search(r"\b(\d{1,2})\b", low)
-        n = int(m.group(1)) if m else next((v for w, v in NUMBER_WORDS.items() if re.search(rf"\b{w}\b", low)), 10)
+    # Anzahl: eine Zahl im Wunsch („Top 7 …“, „die fünf größten …“) hat Vorrang vor der Einstellung
+    n = count_in_text(raw) or count or 10
     n = max(3, min(30 if count else 20, n))          # über 20 nur ausdrücklich (Langmodus)
 
     # Klasse ("Länder"/"states" kann auch Teil eines Ländernamens sein -> andere Themen haben Vorrang)

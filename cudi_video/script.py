@@ -497,7 +497,11 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
 
     top = items[0] if items else None
     top_spoken = spoken_with_noun(spec, top.value, top.unit, lang) if top else ""   # bewusst gerundet (Hook)
-    segments = [Segment(kind="intro", text=TEXT[lang]["intro"].format(title=title, top=top_spoken),
+    from . import retention
+    from .render.icons import icon_for
+
+    segments = [Segment(kind="intro", text=retention.hook(spec, lang, title, top_spoken) if top else
+                        TEXT[lang]["intro"].format(title=title, top=top_spoken),
                         sources=[top.wikidata_url] if top else [])]
     checks: list[str] = []
     mode = "claude" if narration else "llm" if use_llm else "template"
@@ -505,6 +509,11 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
     reference = research.references.get(lang)
     precision = distinct_precision(spec, items, lang)
     countdown = sorted(items, key=lambda it: it.rank, reverse=True)   # Countdown: letzter Platz zuerst
+    # Zwischen-Aufhänger am Ende der Plätze (aus geprüften Werten berechnet, z. B. Abstand Platz 2 zu Platz 1)
+    bridge = retention.bridges(spec, countdown, lang,
+                               lambda v: spoken_with_noun(spec, v, top.unit, lang)) if top and detail > 0 else {}
+    if detail == 1:                                  # beim Kürzen bleibt nur der stärkste: Abstand zu Platz 1
+        bridge = {rank: text for rank, text in bridge.items() if rank == 2}
     for i, item in enumerate(countdown):
         facts = item_facts(spec, item, lang, reference, precision.get(item.qid, 0))
         text = None
@@ -528,11 +537,13 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
             sources.append(reference["url"])
         if facts["summary_sentences"] and item.wiki_url(lang):
             sources.append(item.wiki_url(lang))
+        if bridge.get(item.rank):
+            text = f"{text.rstrip()} {bridge[item.rank]}"
         segments.append(Segment(kind="item", text=text, rank=item.rank, sources=sources))
 
     names, n_langs = all_sources(research, lang)
     if n_langs:
         names.append(TEXT[lang]["wiki_langs"].format(n=n_langs))
     source_text = _join(" / ".join(names), lang)
-    segments.append(Segment(kind="outro", text=TEXT[lang]["outro"].format(sources=source_text, date=retrieved)))
+    segments.append(Segment(kind="outro", text=retention.outro(spec, lang, icon_for(spec.icon, spec.source.property))))
     return Script(lang=lang, title=title, segments=segments, mode=mode, checks=checks)

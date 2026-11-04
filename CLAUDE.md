@@ -18,6 +18,8 @@ für TikTok/YouTube Shorts.
   Lektorat (heikle Stellen umschreiben statt weglassen), Skelett, Bilder/Clips, Stimme je Stimmung.
 - Rankings mit echten Videoclips (`media.py`: Pexels/Pixabay mit Schlüssel, NASA, Commons; je Platz bis 3
   Ausschnitte, `render/clipreel.py`), Fotos sonst Commons → Openverse/NASA (Namensabgleich, nur kommerziell nutzbar).
+- Spannungsbogen (`retention.py`): Hook mit Neugierlücke, Zwischen-Aufhänger aus geprüften Werten, Kommentarfrage
+  je Thema; Regeln für Claude-Texte (`NARRATION_RULES`) und Storys je Stimmung (`story_rules`). Zahl im Wunsch = Anzahl.
 - Lange Videos bis 10 Min. (App-Fassung in Stücken ≤ 19 MB), Maskottchen „CUDI“ (`mascot.py`, lippensynchron
   zur Sprachspur, abschaltbar: Auftrag `maskottchen`, `CUDI_MASCOT`), Story-Bilder „cartoon“ (gleiche Hauptfigur
   `figur`, gleicher Seed).
