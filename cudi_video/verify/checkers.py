@@ -2,7 +2,7 @@
 
 Jeder Prüfer liefert "Evidence": entweder einen eigenen Wert (Weltbank, Factbook,
 OpenStreetMap) oder nur die Aussage, ob der Wert dort genannt wird (Wikipedia in
-anderen Sprachen). Fällt eine Quelle aus, wird sie übersprungen.
+anderen Sprachen, Webseiten aus den Einzelnachweisen). Fällt eine Quelle aus, wird sie übersprungen.
 """
 
 from __future__ import annotations
@@ -285,6 +285,111 @@ class WikipediaLangChecker(Checker):
         return [Evidence(self.name, self.origin, url, None, None, agrees=None, note="Wert im Artikel nicht genannt")]
 
 
+# --------------------------------------------------------------------------- Quellen außerhalb Wikipedias
+
+def _domain(url: str) -> str:
+    from urllib.parse import urlparse
+    host = urlparse(url).netloc.lower().split(":")[0]
+    return host[4:] if host.startswith("www.") else host
+
+
+class ExternalSourcesChecker(Checker):
+    """Liest die Einzelnachweise/Weblinks des Wikipedia-Artikels und prüft den Wert auf den verlinkten Seiten
+    selbst (Fachdatenbanken, Behörden, Lexika, Presse) – Wikipedia ist hier nur das Verzeichnis, nicht der Beleg.
+
+    Eine Seite zählt nur als Bestätigung, wenn sie den Wert (mit Einheit) nennt. Nennt sie einen anderen Wert,
+    wird das im Prüfbericht vermerkt, aber nicht als Widerspruch gewertet: Webseiten nennen oft Zahlen anderer
+    Bauwerke, Teilstrecken oder ältere Stände."""
+
+    name = "Web"
+    origin = "unabhängige Quelle außerhalb Wikipedias"
+    LANGS = ("en", "de")
+    MAX_PAGES = 5               # höchstens so viele Seiten je Platz laden
+    MAX_DOMAINS = 2             # so viele bestätigende Websites reichen
+    TIMEOUT = 10
+    TOLERANCE = 0.01
+    SKIP = re.compile(r"(wikipedia|wikimedia|wikidata|wiktionary|wikisource|wikivoyage|archive\.org|archive\.(today|is|ph)"
+                      r"|google\.|facebook\.|twitter\.|(^|\.)x\.com$|instagram\.|youtube\.|youtu\.be|tiktok\.|linkedin\."
+                      r"|doi\.org|jstor\.org|worldcat\.org|openstreetmap\.|viaf\.org|d-nb\.info|id\.loc\.gov|isni\.org"
+                      r"|bnf\.fr|wmflabs|toolforge|geohack|amazon\.|ebay\.|flickr\.|pinterest\.|reddit\.|imdb\.com"
+                      r"|semanticscholar|handle\.net|ncbi\.nlm|pubmed|archive-it)", re.I)
+    PREFERRED = ("skyscrapercenter.com", "ctbuh.org", "emporis", "peakbagger.com", "britannica.com", ".gov", "gov.",
+                 "structurae", "summitpost.org", "highbridge", "unesco.org", "nationalgeographic", "guinnessworldrecords",
+                 "worldatlas.com", "bbc.", "reuters.com", "nytimes.com", "spiegel.de", "zeit.de", "faz.net")
+
+    def applies(self, spec, item):
+        return any(lang in item.wiki_titles for lang in self.LANGS)
+
+    @classmethod
+    def links(cls, item: RankItem) -> list[str]:
+        """Verlinkte Webseiten der Artikel (en, de), bevorzugte Fachquellen zuerst, je Website nur eine."""
+        urls: list[str] = []
+        for lang in cls.LANGS:
+            title = item.wiki_titles.get(lang)
+            if not title:
+                continue
+            try:
+                data = net.get_json(f"https://{lang}.wikipedia.org/w/api.php",
+                                    params={"action": "query", "prop": "extlinks", "titles": title, "ellimit": 200,
+                                            "redirects": 1, "format": "json", "formatversion": 2},
+                                    cache_hours=24, retries=1, max_wait=10)
+            except net.FetchError:
+                continue
+            for page in data.get("query", {}).get("pages", []):
+                urls += [link.get("url", "") for link in page.get("extlinks", [])]
+        seen, out = set(), []
+        for url in urls:
+            if url.startswith("//"):
+                url = "https:" + url
+            domain = _domain(url)
+            if not url.startswith("http") or not domain or domain in seen or cls.SKIP.search(domain) \
+                    or url.lower().split("?")[0].endswith((".pdf", ".jpg", ".png", ".zip", ".xls", ".xlsx")):
+                continue
+            seen.add(domain)
+            out.append(url)
+        return sorted(out, key=lambda u: not any(p in _domain(u) for p in cls.PREFERRED))
+
+    @classmethod
+    def page_text(cls, url: str) -> str:
+        path = net.download(url, suffix=".html", retries=0, timeout=cls.TIMEOUT, max_wait=0)
+        raw = path.read_bytes()[:3_000_000]
+        soup = BeautifulSoup(raw, "lxml")
+        for junk in soup.select("script, style, noscript, nav, footer"):
+            junk.decompose()
+        return soup.get_text(" ", strip=True)[:400_000]
+
+    def check(self, spec, item):
+        q = quantity(item.value, item.unit, spec.unit)
+        symbol = q.unit.symbol if q.unit else ""
+        out: list[Evidence] = []
+        confirmed = 0
+        for url in self.links(item)[: self.MAX_PAGES]:
+            domain = _domain(url)
+            try:
+                text = self.page_text(url)
+            except (net.FetchError, OSError, ValueError):
+                continue
+            source = f"Web: {domain}"
+            if symbol in UNIT_FACTORS:
+                found = closest_unit_value(text, q.value, symbol, window=0.15)
+                if found is None:
+                    continue
+                value, precision = found
+                if abs(value - q.value) <= max(self.TOLERANCE * abs(q.value), precision):
+                    out.append(Evidence(source, self.origin, url, value / q.unit.factor, None,
+                                        note=f"{value:g} {symbol}", precision=precision / q.unit.factor))
+                    confirmed += 1
+                else:
+                    out.append(Evidence(source, self.origin, url, None, None, agrees=None,
+                                        note=f"nennt {value:g} {symbol} – nicht gewertet"))
+            elif mentions_value(text, q.value):
+                out.append(Evidence(source, self.origin, url, None, None, agrees=True, note="Wert genannt"))
+                confirmed += 1
+            if confirmed >= self.MAX_DOMAINS:
+                break
+        return out
+
+
 # --------------------------------------------------------------------------- Faktencheck-Plattformen
 
 class FactCheckSearch:
@@ -319,4 +424,6 @@ def checkers_for(spec: VideoSpec, with_wikipedia: bool = True) -> list[Checker]:
     checkers: list[Checker] = [WikidataChecker(), WorldBankChecker(), FactbookChecker(), OSMChecker()]
     if with_wikipedia:
         checkers += [WikipediaLangChecker(lang) for lang in config.CHECK_LANGS]
+    if config.CHECK_WEB:
+        checkers.append(ExternalSourcesChecker())
     return checkers
