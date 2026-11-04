@@ -93,3 +93,14 @@ def make_pdf(path: Path, pages):
     out += f"trailer\n<< /Size {len(objects) + 1} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n".encode()
     path.write_bytes(bytes(out))
     return path
+
+
+@pytest.fixture(autouse=True)
+def _cudi_video_offline(monkeypatch):
+    """CUDI-Video-Tests laufen ohne Netz: keine Clip-Suche und keine Webseiten-Prüfung nebenbei."""
+    try:
+        from cudi_video import config as video_config
+    except ImportError:
+        return
+    monkeypatch.setattr(video_config, "RANKING_CLIPS", False)
+    monkeypatch.setattr(video_config, "CHECK_WEB", False)

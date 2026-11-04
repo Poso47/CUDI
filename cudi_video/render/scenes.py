@@ -17,9 +17,9 @@ from .theme import (
 )
 
 LABELS = {
-    "de": {"rank": "PLATZ", "top": "TOP", "photo": "Foto", "image": "Bild", "as_of": "Stand", "sources": "Quellen", "src_n": "{n} Quellen",
+    "de": {"rank": "PLATZ", "top": "TOP", "photo": "Foto", "image": "Bild", "clip": "Video", "as_of": "Stand", "sources": "Quellen", "src_n": "{n} Quellen",
            "mystery": "Platz 1", "cta": "Folgen für mehr Rankings!"},
-    "en": {"rank": "RANK", "top": "TOP", "photo": "Photo", "image": "Image", "as_of": "As of", "sources": "Sources", "src_n": "{n} sources",
+    "en": {"rank": "RANK", "top": "TOP", "photo": "Photo", "image": "Image", "clip": "Video", "as_of": "As of", "sources": "Sources", "src_n": "{n} sources",
            "mystery": "Number 1", "cta": "Follow for more rankings!"},
 }
 
@@ -306,14 +306,16 @@ class ItemScene(Scene):
         self.card_shadow = shadow(rounded_rect(self.card_size, 36, (0, 0, 0, 255)), 30, 180)
         self.credit = None
         if it.get("credit_short"):
-            fnt = font("regular", 22)
             kind = self.L["image"] if it.get("image_kind") == "flag" else self.L["photo"]
-            full = f"{kind}: {it['credit_short']}"
-            text = full
-            while fnt.getlength(text + "…") > CONTENT_W - 80 and len(text) > 10:
-                text = text[:-1]
-            self.credit = chip(text if text == full else text.rstrip() + "…", fnt,
-                               fg=(230, 230, 240), bg=(0, 0, 0, 150))
+            self.credit = self._credit_chip(f"{kind}: {it['credit_short']}")
+        # Echte Videoclips: mehrere kurze Ausschnitte hintereinander statt Foto-Zoom
+        self.reel, self.clip_credits = None, {}
+        if it.get("clips"):
+            from .clipreel import ClipReel
+
+            self.reel = ClipReel(it["clips"], self.card_size, job["duration"], job["fps"])
+            self.clip_credits = {c.get("credit", ""): self._credit_chip(f"{self.L['clip']}: {c['credit_short']}")
+                                 for c in it["clips"] if c.get("credit_short")}
         # Rang-Badge
         B = self.BADGE
         badge = rounded_rect((B, B), 54, (*self.c1, 255))
@@ -343,7 +345,21 @@ class ItemScene(Scene):
         return [(rnd.uniform(0, W), rnd.uniform(-H, 0), rnd.uniform(220, 420), rnd.uniform(0, 6.28),
                  rnd.choice(colors), rnd.uniform(10, 20)) for _ in range(90)]
 
+    @staticmethod
+    def _credit_chip(full: str):
+        fnt = font("regular", 22)
+        text = full
+        while fnt.getlength(text + "…") > CONTENT_W - 80 and len(text) > 10:
+            text = text[:-1]
+        return chip(text if text == full else text.rstrip() + "…", fnt, fg=(230, 230, 240), bg=(0, 0, 0, 150))
+
     def _card(self, t):
+        if self.reel is not None:
+            img = self.reel.frame_at(t)
+            if img is not None:
+                crop = img.convert("RGBA")
+                crop.putalpha(self.card_mask)
+                return crop
         if self.photo is None:
             return self.graphic.render(t, self.job["duration"])
         cw, ch = self.card_size
@@ -365,8 +381,9 @@ class ItemScene(Scene):
         cy = self.CARD_Y + (1 - pc) * 50
         paste(f, self.card_shadow, (X0 - 60, cy - 50), opacity=pc)
         paste(f, self._card(t), (X0, cy), opacity=pc)
-        if self.credit:
-            paste(f, self.credit, (X0 + 18, cy + self.card_size[1] - self.credit.height - 16), opacity=pc)
+        credit = self.clip_credits.get(self.reel.credit_at(t)) if self.reel is not None and self.reel.last else self.credit
+        if credit:
+            paste(f, credit, (X0 + 18, cy + self.card_size[1] - credit.height - 16), opacity=pc)
         # Rang-Badge springt auf die Ecke
         pb = ease_out_back(progress(t, 0.15, 0.45))
         if pb > 0:

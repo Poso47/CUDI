@@ -21,6 +21,7 @@ class RankItem:
     summary: dict[str, str] = field(default_factory=dict)            # Wikipedia-Einleitung je Sprache
     image_path: str | None = None
     image_credit: str | None = None
+    clips: list[dict] = field(default_factory=list)              # kurze Videoclips [{path, credit, duration}]
     codes: dict[str, str] = field(default_factory=dict)          # {"iso3": "RUS", "fips": "RS"}
     alternatives: list[float] = field(default_factory=list)      # gleichrangige andere Werte in Wikidata
     has_build_date: bool | None = None                           # Eröffnungs-/Baudatum vorhanden (Gebäude)
