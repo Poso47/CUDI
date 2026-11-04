@@ -45,7 +45,8 @@ für TikTok/YouTube Shorts.
     Rankings als kleine Geschichte (`narrate.py`: Anfang, geprüfter Wert, keine Zahl/kein Hauptwort ohne Beleg,
     sonst Textbaustein; abgelehnte Plätze gehen einmal zur Korrektur zurück). Freie Themen (`confirmed_only`):
     nur unabhängig bestätigte Werte, sonst ehrliche Top N; Claude nennt bekannte Spitzenreiter (`seed_items`,
-    Kennung gegen Wikidata geprüft), weil die Ausweichroute bei riesigen Klassen (Brücken) nicht alle findet. Storys: `editor.claude_edit` (Lektorat, Titel,
+    Kennung gegen Wikidata geprüft, Objektart samt Unterklassen geprüft), weil die Ausweichroute bei riesigen Klassen
+    (Brücken) nicht alle findet; lässt Haiku sie leer, fragt der Code einmal gezielt nur nach den Namen. Storys: `editor.claude_edit` (Lektorat, Titel,
     Einstieg/`hook`, Bildideen; je Szene geprüft auf neue Zahlen/Namen/Länge, sonst Regel-Fassung).
     Quellen erscheinen nur im Prüfbericht, nicht im Video/Beschreibungstext. Dann Upload per Artifact-Werkzeug
     (`asset: true`), `auftrag --dokument`, `ArtifactData set` in `results/<id>`.
@@ -75,6 +76,9 @@ für TikTok/YouTube Shorts.
 - Tests: `python -m pytest tests -q` (lokal ~15 s; GitHub-Workflow „Tests“ installiert ffmpeg).
 - Ausgaben nur in `video_output/` (gitignored); Arbeitsdateien in `video_output/_work/`.
 - Commits auf Deutsch, Push auf den eigenen Zweig; PRs nur auf Wunsch, Merge nur mit OK des Nutzers.
+- Textprüfungen für Claude-Texte (Zahlen werttreu, Vornamen, ganze Wörter als Beleg): `cudi_video/textcheck.py`.
+- Probeläufe in der Cloud: Auftrag als `jobs/<id>` anlegen (ArtifactData), `fire_trigger` mit dem JSON, dann
+  `jobs/<id>.session` setzen; Ergebnis in `results/<id>`, Videos als Assets (Artifact read mit `path` = Asset-ID).
 - Stolperfallen: kein `pkill -f <muster>`, wenn das Muster im selben Befehl steht (beendet die eigene
-  Shell) – PIDs verwenden. Wikidata-SPARQL: Blazegraph sieht OPTIONAL-Variablen in `NOT EXISTS` nicht
+  Shell) – PIDs verwenden. `update_trigger`/`delete_trigger` blockt die Rechteprüfung ohne ausdrückliches OK. Wikidata-SPARQL: Blazegraph sieht OPTIONAL-Variablen in `NOT EXISTS` nicht
   zuverlässig (eigenen Stichtag dort neu binden). Pollinations nur nacheinander (sonst 402).
