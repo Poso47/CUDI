@@ -18,10 +18,10 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
-SIZE = 280                     # Breite der Figur im 1080×1920-Video
+SIZE = 230                     # Breite der Figur im 1080×1920-Video (unter den Untertiteln)
 CANVAS = (SIZE, int(SIZE * 1.18))
 MOUTH_LEVELS = 8
-BOTTOM_MARGIN = 190            # Abstand zum unteren Rand (Platz für Bedienelemente von TikTok/Shorts)
+BOTTOM_MARGIN = 110            # Abstand zum unteren Rand (Untertitel enden bei y ≈ 1460)
 
 BODY = (34, 211, 238)          # Türkis wie die Akzentfarbe der Videos
 BODY_DARK = (99, 102, 241)
