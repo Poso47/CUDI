@@ -71,6 +71,8 @@ def _note_ok(host: str) -> None:
 
 def _block_key(host: str) -> str:
     """Wikimedia drosselt pro Domain: alle Sprachversionen von Wikipedia teilen sich eine Sperre."""
+    if host == "upload.wikimedia.org":      # Bilddateien drosseln getrennt – sperren nicht die Commons-API mit
+        return host
     for domain in ("wikipedia.org", "wikimedia.org"):
         if host.endswith(domain):
             return domain
@@ -78,7 +80,7 @@ def _block_key(host: str) -> str:
 
 
 HOST_PARALLEL = 2                       # höchstens so viele gleichzeitige Abrufe je Server (Faktencheck parallel)
-HOST_PARALLEL_SPECIAL = {"wikimedia.org": 1}   # Commons/Bilder drosseln anonyme Abrufe besonders schnell
+HOST_PARALLEL_SPECIAL = {"wikimedia.org": 1, "upload.wikimedia.org": 1}   # Commons/Bilder drosseln anonyme Abrufe besonders schnell
 _slots: dict = {}
 _slots_lock = threading.Lock()
 

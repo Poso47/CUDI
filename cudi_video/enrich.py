@@ -135,6 +135,10 @@ def fetch_image(item: RankItem) -> bool:
         log.warning("Bildlizenz nicht abrufbar (%s): %s", item.image_file, exc)
         return False
     if not lic:
+        other = page_image(item) if item.image_kind == "photo" else None
+        if other and other != item.image_file:          # z. B. Wikidata-Foto ohne Urheber -> Artikelbild
+            item.image_file = other
+            return fetch_image(item)
         IMAGE_ERRORS[item.qid] = "keine freie Lizenz/kein Urheber"
         return True
     big = lic["width"] > THUMB_WIDTH or item.image_file.lower().endswith(".svg")
@@ -176,11 +180,15 @@ def _enrich_item(item: RankItem, langs: list[str], images: bool) -> bool:
     return ok
 
 
+IMAGE_PAUSE = 1.0              # Sekunden zwischen zwei Bildern (Wikimedia drosselt Bild-Downloads aus Rechenzentren)
+IMAGE_RETRY_PAUSES = (45, 90)  # weitere Versuche für gedrosselte Bilder – ein Video ohne Fotos ist ein Fehlschlag
+
+
 def enrich(research: Research, langs: list[str], images: bool = True) -> Research:
     from concurrent.futures import ThreadPoolExecutor
 
-    with ThreadPoolExecutor(max_workers=4) as pool:            # mehrere Plätze gleichzeitig
-        done = list(pool.map(lambda it: _enrich_item(it, langs, images), research.items))
+    with ThreadPoolExecutor(max_workers=4) as pool:            # Einleitungen: mehrere Plätze gleichzeitig
+        done = list(pool.map(lambda it: _enrich_item(it, langs, False), research.items))
     failed = [item for item, ok in zip(research.items, done) if not ok]
     if failed:
         # Wikimedia drosselt zeitweise – nach einer kurzen Pause klappt es meist.
@@ -188,7 +196,23 @@ def enrich(research: Research, langs: list[str], images: bool = True) -> Researc
         time.sleep(RETRY_PAUSE)
         net.reset_blocks()
         for item in failed:
-            _enrich_item(item, langs, images)
+            _enrich_item(item, langs, False)
+    if images:
+        pending = [it for it in research.items if not it.image_path]
+        for pause in (0, *IMAGE_RETRY_PAUSES):                   # Bilder nacheinander, bei Drosselung später erneut
+            if not pending:
+                break
+            if pause:
+                log.info("Bilder: %d gedrosselt – neuer Versuch in %d s", len(pending), pause)
+                time.sleep(pause)
+                net.reset_blocks()
+            retry = []
+            for i, item in enumerate(pending):
+                if i:
+                    time.sleep(IMAGE_PAUSE)
+                if not fetch_image(item):
+                    retry.append(item)
+            pending = retry
     missing = [f"{it.labels.get(langs[0], it.qid)} ({IMAGE_ERRORS[it.qid]})" if it.qid in IMAGE_ERRORS
                else it.labels.get(langs[0], it.qid) for it in research.items if not it.image_path]
     if missing:

@@ -438,3 +438,16 @@ def test_title_count_follows_usable_places(monkeypatch):
     spec.count, spec.title = 4, {"de": "Die 4 höchsten Türme", "en": "The 4 Tallest Towers"}
     verify_module.verify(spec, research)                       # nur 3 Kandidaten vorhanden
     assert spec.count == 3 and spec.title["en"] == "The 3 Tallest Towers"
+
+
+def test_claude_title_with_number_gets_count_placeholder_once(writing, monkeypatch):
+    """Cloud-Probe: Haiku schrieb „Die 5 längsten Brücken der Welt“ -> Titel wurde „Die 5 5 längsten …“."""
+    monkeypatch.setattr(planner, "_label", lambda q: "bridge")
+    monkeypatch.setattr(planner, "_search", lambda label: None)
+    with pytest.raises(handoff.WritingNeeded) as need:
+        planner.plan_with_claude("die längsten Brücken der Welt", 5)
+    answer(need.value.path, {"klasse_qid": "Q12280", "klasse_en": "bridge", "eigenschaft": "P2043",
+                             "spitzenreiter": [{"qid": "Q12280", "en": "bridge"}],
+                             "titel_de": "Die 5 längsten Brücken der Welt", "titel_en": "The 5 Longest Bridges"})
+    spec = planner.plan_with_claude("die längsten Brücken der Welt", 5)
+    assert spec["title"] == {"de": "Die {count} längsten Brücken der Welt", "en": "The {count} Longest Bridges"}
