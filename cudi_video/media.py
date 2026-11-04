@@ -84,7 +84,8 @@ def names_match(item: RankItem, text: str) -> bool:
     words = re.findall(r"[^\W_]+", text.lower())
     hay = set(words)
     # Wortfolgen nur innerhalb eines Schlagworts/Satzteils: „yellow, river“ (zwei Tags) ist nicht „yellow river“
-    flat = "|".join(f" {' '.join(re.findall(r'[^\W_]+', part))} " for part in re.split(r"[,;|/]", text.lower()))
+    parts = [" ".join(re.findall(r"[^\W_]+", part)) for part in re.split(r"[,;|/]", text.lower())]
+    flat = "|".join(f" {part} " for part in parts)
     names = [n for n in {item.labels.get("en", ""), item.labels.get("de", "")} if n]
     sets = [key_tokens(n) for n in names]
     best = max((len(t) for t in sets), default=0)
