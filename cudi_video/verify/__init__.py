@@ -11,7 +11,6 @@ Status je Platz:
 
 from __future__ import annotations
 
-
 import logging
 import statistics
 
