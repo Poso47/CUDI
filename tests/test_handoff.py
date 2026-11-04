@@ -364,3 +364,41 @@ def test_plan_asks_once_more_for_known_leaders(writing, monkeypatch):
     answer(more.value.path, {"spitzenreiter": ["Danyang–Kunshan Grand Bridge", "Tianjin Grand Bridge", "Unknown"]})
     spec = planner.plan_with_claude("die längsten Brücken der Welt", 5)
     assert spec["source"]["seed_items"] == ["Q595768", "Q1066786"]
+
+
+def test_length_in_meters_confirms_kilometers():
+    """Probelauf Brücken: „79,732 m“ im Artikel bestätigt 79,7 km (vorher „Wert im Artikel nicht genannt“)."""
+    from cudi_video.verify.numbers import closest_unit_value
+
+    assert closest_unit_value("The bridge is 79,732 m (261,588 ft) long.", 79.732, "km") == (79.732, 0.001)
+    assert closest_unit_value("Die Brücke ist 79.732 m lang.", 79.732, "km") == (79.732, 0.001)
+    assert closest_unit_value("Turm, 50 m hoch", 79.732, "km") is None
+
+
+def test_items_without_german_name_keep_their_rank(monkeypatch):
+    """Changhua-Kaohsiung-Viadukt (Platz 2) hat keine deutsche Bezeichnung – englischer Name statt Weglassen."""
+    from cudi_video.models import RankItem
+    from cudi_video.sources import wikidata
+
+    spec = make_spec()
+    spec.langs, spec.count = ["de"], 2
+    monkeypatch.setattr(wikidata, "_ranking_bindings", lambda src, fresh: [])
+    monkeypatch.setattr(wikidata, "pick_latest", lambda rows: {
+        "Q1": RankItem(qid="Q1", value=164800, unit="Q11573"), "Q2": RankItem(qid="Q2", value=157315, unit="Q11573"),
+        "Q3": RankItem(qid="Q3", value=150000, unit="Q11573"), "Q4": RankItem(qid="Q4", value=113700, unit="Q11573")})
+    details = {
+        "Q1": {"labels": {"de": "Große Brücke Danyang–Kunshan", "en": "Danyang–Kunshan Grand Bridge"},
+               "wiki_titles": {"de": "Große Brücke Danyang–Kunshan", "en": "Danyang–Kunshan Grand Bridge"}},
+        "Q2": {"labels": {"en": "Changhua-Kaohsiung Viaduct"}, "wiki_titles": {"en": "Changhua–Kaohsiung Viaduct"}},
+        "Q3": {"labels": {"en": "Some obscure viaduct"}, "wiki_titles": {}},          # ohne Artikel: weiter weg
+        "Q4": {"labels": {"de": "Große Brücke von Tianjin", "en": "Tianjin Grand Bridge"},
+               "wiki_titles": {"de": "Große Brücke von Tianjin", "en": "Tianjin Grand Bridge"}},
+    }
+    for d in details.values():
+        d.update(descriptions={}, image_file=None, image_kind=None, built=None)
+    monkeypatch.setattr(wikidata, "_details", lambda qids, langs, image_prop="P18": {q: details[q] for q in qids})
+    monkeypatch.setattr(wikidata, "_extras", lambda qids, extras, langs: {})
+    research = wikidata.fetch_ranking(spec)
+    names = [it.labels["de"] for it in research.items]
+    assert names[:2] == ["Große Brücke Danyang–Kunshan", "Changhua–Kaohsiung Viaduct"]
+    assert "Some obscure viaduct" not in names
