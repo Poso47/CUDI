@@ -14,6 +14,7 @@ from . import handoff
 from .models import Research
 from .script import NOT_NEUTRAL, _digits, numbers_supported, rank_sentence
 from .spec import VideoSpec
+from .textcheck import invented_people
 
 WIKI_CHARS = 900
 
@@ -175,7 +176,8 @@ def check(text, place: dict) -> str | None:
     words = len(text.split())
     if words > place["woerter"] * 1.35 + 5:
         return f"zu lang ({words} Wörter)"
-    unknown = unknown_words(text, place)
+    unknown = invented_people(text, " ".join(str(v) for k, v in place.items() if k != "woerter")) \
+        or unknown_words(text, place)
     if unknown:
         return "nicht belegt: " + ", ".join(unknown[:3])
     return None
