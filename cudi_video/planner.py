@@ -89,21 +89,42 @@ CLAUDE_PLAN = (
     "Deute den Video-Wunsch aus „wunsch“ als Ranking: alle Dinge EINER Art (eine Wikidata-Klasse), sortiert nach "
     "EINER Zahl-Eigenschaft aus „eigenschaften“. Antworte mit einem JSON-Objekt: "
     "{\"klasse_qid\": \"Q…\", \"klasse_en\": \"englischer Wikidata-Name der Klasse\", "
-    "\"weitere_klassen\": [{\"qid\": \"Q…\", \"en\": \"…\"}] (höchstens 6 wichtige Unterklassen, unter denen "
-    "die Spitzenreiter oft eingetragen sind, z. B. Viadukt und Eisenbahnbrücke zu Brücke), \"eigenschaft\": \"P…\", \"reihenfolge\": \"desc\" oder \"asc\", "
+    "\"weitere_klassen\": [{\"qid\": \"\", \"en\": \"…\"}] (2–6 wichtige Unterklassen, unter denen "
+    "die Spitzenreiter oft eingetragen sind, z. B. viaduct und railway bridge zu bridge), \"eigenschaft\": \"P…\", \"reihenfolge\": \"desc\" oder \"asc\", "
     "\"land_qid\": \"Q…\" und \"land_en\": \"…\" (nur wenn auf ein Land begrenzt), "
     "\"kontinent\": \"Europa|Asien|Afrika|Nordamerika|Südamerika|Ozeanien\" (nur wenn auf einen Kontinent begrenzt), "
-    "\"spitzenreiter\": [{\"qid\": \"Q…\", \"en\": \"…\"}] (bis zu 12 Einträge, von denen du sicher weißt, dass sie "
-    "bei diesem Ranking ganz vorne liegen – z. B. die bekannten Rekordhalter; der Code prüft ihre Werte), "
+    "\"spitzenreiter\": [{\"qid\": \"\", \"en\": \"…\"}] (WICHTIG: 5–12 Einträge, die nach deinem Wissen bei diesem "
+    "Ranking ganz vorne liegen – z. B. die bekannten Rekordhalter; der Code prüft ihre Werte mit unabhängigen Quellen), "
     "\"titel_de\": \"Die {count} … \", \"titel_en\": \"The {count} …\", \"wert_de\": \"z. B. Länge\", "
-    "\"wert_en\": \"z. B. Length\", \"hashtags_de\": [3 Wörter], \"hashtags_en\": [3 words]}. Nimm nur Wikidata-IDs, "
-    "bei denen du dir sicher bist – der Code prüft jede ID gegen ihren englischen Namen. Passt der Wunsch nicht zu "
+    "\"wert_en\": \"z. B. Length\", \"hashtags_de\": [3 Wörter], \"hashtags_en\": [3 words]}. Bei „qid“ nur IDs, "
+    "bei denen du dir sicher bist, sonst leer lassen – der englische Name (wie in der englischen Wikipedia) reicht, "
+    "der Code sucht und prüft die ID selbst. Passt der Wunsch nicht zu "
     "einem Zahlen-Ranking, antworte {\"fehler\": \"kurze Erklärung auf Deutsch mit einem passenden Vorschlag\"}."
 )
 
 
 class PlanFailed(ValueError):          # Eingabe passt nicht -> nicht wiederholen
     pass
+
+
+CLAUDE_SEEDS = (
+    "Für ein Ranking-Video fehlen noch die bekannten Spitzenreiter. Nenne 5–12 Einträge, die nach deinem Wissen bei "
+    "diesem Ranking („wunsch“: Art „art“, sortiert nach „eigenschaft“, Richtung „reihenfolge“, Region „region“) ganz "
+    "vorne liegen – nur die englischen Namen wie in der englischen Wikipedia, keine Zahlen. Antwort: "
+    "{\"spitzenreiter\": [\"Name 1\", \"Name 2\"]}. Der Code sucht die Einträge bei Wikidata und prüft ihre Werte "
+    "mit unabhängigen Quellen – ein falscher Name schadet also nicht."
+)
+
+
+def _seed_names(answer) -> list[tuple[str, str]]:
+    """(qid, englischer Name) aus Objekten {"qid","en"} oder reinen Namen."""
+    out = []
+    for c in (answer or [])[:12]:
+        if isinstance(c, dict):
+            out.append((c.get("qid") or "", str(c.get("en") or "")))
+        elif isinstance(c, str):
+            out.append(("", c))
+    return [(q, n.strip()) for q, n in out if n.strip()]
 
 
 def _search(label: str) -> str | None:
@@ -161,8 +182,14 @@ def plan_with_claude(topic: str, count: int) -> dict | None:
               "extras": {"country": "P17"}, "min_sitelinks": 2}
     if extra:
         source["extra_classes"] = list(dict.fromkeys(extra))
-    seeds = [q for q in (_checked_qid(c.get("qid"), c.get("en")) for c in (answer.get("spitzenreiter") or [])[:12]
-                         if isinstance(c, dict)) if q]
+    named = _seed_names(answer.get("spitzenreiter"))
+    if not named:                                 # vergessen? einmal gezielt nachfragen (nur Namen)
+        region = answer.get("land_en") or answer.get("kontinent") or "world"
+        extra_answer = handoff.request("spitzenreiter", CLAUDE_SEEDS, {
+            "wunsch": topic, "art": answer.get("klasse_en"), "eigenschaft": PROPERTIES[pid][0],
+            "reihenfolge": source["order"], "region": region})
+        named = _seed_names(extra_answer.get("spitzenreiter") if isinstance(extra_answer, dict) else extra_answer)
+    seeds = [q for q in (_checked_qid(qid, name) for qid, name in named) if q]
     if seeds:
         source["seed_items"] = list(dict.fromkeys(seeds))
     if answer.get("land_en"):

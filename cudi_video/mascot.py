@@ -154,13 +154,44 @@ def blink_frames(frames: int, fps: int, seed: int = 7) -> set[int]:
     return out
 
 
+_SPRITES: dict = {}
+
+
+def sprite(level: int, blink: bool) -> Image.Image:
+    """Figur je Mundstufe/Blinzeln – einmal je Prozess gezeichnet."""
+    key = (level, blink)
+    if key not in _SPRITES:
+        _SPRITES[key] = draw(level / (MOUTH_LEVELS - 1), blink)
+    return _SPRITES[key]
+
+
+def bob(i: int, fps: int, level: int) -> int:
+    """Leichtes Wippen; beim Sprechen ein kleines Stück höher."""
+    return int(round(8 + 6 * math.sin(i / fps * 2.2) + (level > 0) * -2))
+
+
+def levels_for(samples: np.ndarray, rate: int, fps: int, frames: int, lead: float = 0.0) -> list[int]:
+    """Mundstufen für einen Abschnitt, dessen Stimme nach `lead` Sekunden beginnt."""
+    pad = np.zeros(int(round(lead * rate)), dtype=np.float32)
+    return mouth_levels(np.concatenate([pad, samples.astype(np.float32)]), rate, fps, frames)
+
+
+def compose(frame: Image.Image, i: int, fps: int, level: int, blinks: set[int]) -> Image.Image:
+    """CUDI direkt in ein Videobild zeichnen (Rankings: kein zusätzlicher Kodierdurchgang)."""
+    x, y = overlay_position(frame.width, frame.height)
+    figure = sprite(level, i in blinks)
+    if frame.mode != "RGBA":
+        frame = frame.convert("RGBA")
+    frame.alpha_composite(figure, (x, y + bob(i, fps, level)))
+    return frame
+
+
 def render_layer(voice_wav: Path, duration: float, fps: int, out: Path, seed: int = 7) -> Path:
     """Video-Ebene mit Transparenz: CUDI spricht synchron zur Sprachspur."""
     samples, rate = _read_wav(voice_wav)
     frames = max(1, int(round(duration * fps)))
     levels = mouth_levels(samples, rate, fps, frames)
     blinks = blink_frames(frames, fps, seed)
-    sprites = {(m, b): draw(m / (MOUTH_LEVELS - 1), b) for m in range(MOUTH_LEVELS) for b in (False, True)}
     w, h = CANVAS[0], CANVAS[1] + 16               # Platz zum Wippen
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgba", "-s", f"{w}x{h}",
            "-r", str(fps), "-i", "-", "-c:v", "qtrle", "-pix_fmt", "argb", str(out)]
@@ -168,8 +199,7 @@ def render_layer(voice_wav: Path, duration: float, fps: int, out: Path, seed: in
     try:
         for i in range(frames):
             frame = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-            bob = int(round(8 + 6 * math.sin(i / fps * 2.2) + (levels[i] > 0) * -2))
-            frame.alpha_composite(sprites[(levels[i], i in blinks)], (0, bob))
+            frame.alpha_composite(sprite(levels[i], i in blinks), (0, bob(i, fps, levels[i])))
             proc.stdin.write(frame.tobytes())
     finally:
         proc.stdin.close()

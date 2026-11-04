@@ -279,8 +279,8 @@ def cartoon_prompt(prompt: str, mood: str, figure: str) -> str:
     subject = re.sub(r"(\s*,\s*)+", ", ", subject).strip(" ,")[:150]
     who = f", the main character is {figure[:110]}" if figure and PERSON.search(subject) else ""
     # Stil zuerst: der Bilddienst bekommt höchstens 400 Zeichen – die Cartoon-Vorgaben dürfen nicht wegfallen
-    return (f"2D cartoon illustration, clean bold outlines, flat shading, consistent character design, vertical, "
-            f"no text: {subject}{who}, {CARTOON_STYLE.get(mood, '')}")
+    return (f"flat 2D cartoon, cel shading, thick clean outlines, simple shapes, comic book style, consistent "
+            f"character design, vertical, no text: {subject}{who}, {CARTOON_STYLE.get(mood, '')}")
 
 
 def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int = 1,
