@@ -17,7 +17,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from .. import config
+from .. import config, mascot
 from ..render import theme
 from ..tts import voice_texts
 from .moods import MOODS
@@ -360,17 +360,22 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
     build_ass(work / "captions.ass", story_words, font_name, mood, label, end_text, starts[-1], total, credits)
     progress(0.75)
 
+    extra_inputs, under_subs = [], ""
+    if mascot.enabled(skeleton.get("maskottchen")):          # CUDI spricht mit (unter den Untertiteln)
+        mascot.render_layer(work / "voice.wav", total, FPS, work / "mascot.mov", seed=part_index + 3)
+        mx, my = mascot.overlay_position(W, H)
+        extra_inputs, under_subs = ["-i", "mascot.mov"], f"[vc];[vc][4:v]overlay={mx}:{my}:eof_action=pass"
     filters = (
         f"[1:v]format=rgba,fade=t=in:st=0:d=0.35:alpha=1,fade=t=out:st={max(intro_end - 0.35, 0.1):.2f}:d=0.35:alpha=1[card];"
         f"[0:v]{MOODS[mood]['grade']}[graded];"
-        f"[graded][card]overlay=(W-w)/2:{CARD_Y}:eof_action=pass,subtitles=captions.ass:fontsdir=fonts[v];"
+        f"[graded][card]overlay=(W-w)/2:{CARD_Y}:eof_action=pass{under_subs},subtitles=captions.ass:fontsdir=fonts[v];"
         f"[2:a]{AFMT},asplit=2[vo][sc];"
         f"[3:a]loudnorm=I=-30:TP=-8:LRA=11,{AFMT}[mu];"            # Musik leise und gleich laut je Stil
         "[mu][sc]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=450[duck];"   # beim Sprechen leiser
         f"[vo][duck]amix=inputs=2:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=11,{AFMT}[a]"
     )
     _run(["ffmpeg", "-y", "-loglevel", "error", "-i", "visual.mp4", "-loop", "1", "-t", f"{intro_end:.2f}",
-          "-i", "card.png", "-i", "voice.wav", "-i", "music.wav", "-filter_complex", filters,
+          "-i", "card.png", "-i", "voice.wav", "-i", "music.wav", *extra_inputs, "-filter_complex", filters,
           "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-preset", "medium", "-crf", "21", "-maxrate", "9M",
           "-bufsize", "18M", "-pix_fmt", "yuv420p",
           "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-t", f"{total:.2f}", "-movflags", "+faststart",

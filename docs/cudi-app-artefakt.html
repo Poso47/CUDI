@@ -216,6 +216,7 @@
         <div class="checks">
           <label class="check" for="strict"><input type="checkbox" id="strict"> Streng: nur mehrfach bestätigte Fakten</label>
           <label class="check" for="onlyScript"><input type="checkbox" id="onlyScript"> Erst nur Skript und Prüfbericht</label>
+          <label class="check" for="mascotRank"><input type="checkbox" id="mascotRank" checked> Maskottchen „CUDI“ erzählt mit</label>
         </div>
         <button class="go" id="rankingGo" type="submit">Ranking-Video erstellen</button>
         <p class="note" id="rankingMsg" hidden role="status"></p>
@@ -264,12 +265,14 @@
               <option value="videos">Videos bevorzugt</option>
               <option value="images">KI-Bilder</option>
               <option value="gameplay">Eigene Clips</option>
+              <option value="cartoon">Cartoon (gleiche Hauptfigur)</option>
             </select>
           </div>
         </div>
         <div class="checks">
           <label class="check" for="soften"><input type="checkbox" id="soften" checked> Heikles entschärfen (umschreiben statt weglassen)</label>
           <label class="check" for="skeletonFirst"><input type="checkbox" id="skeletonFirst" checked> Skelett vorher ansehen und anpassen</label>
+          <label class="check" for="mascotStory"><input type="checkbox" id="mascotStory" checked> Maskottchen „CUDI“ erzählt mit</label>
         </div>
         <button class="go" id="storyGo" type="submit">Skelett erstellen</button>
         <p class="note" id="storyMsg" hidden role="status"></p>
@@ -412,7 +415,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     return {
       label: topic || sel.options[sel.selectedIndex].text,
       order: { art: "ranking", vorlage: sel.value, thema: topic, sprachen: langs, plaetze: count,
-               streng: $("strict").checked, nur_skript: $("onlyScript").checked, laenge: long ? "lang" : "" },
+               streng: $("strict").checked, nur_skript: $("onlyScript").checked, laenge: long ? "lang" : "",
+               maskottchen: $("mascotRank").checked },
     };
   }
   function storyOrder() {
@@ -423,7 +427,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       label: [btn ? btn.textContent.trim() : "Story", wish].filter(Boolean).join(" – "),
       order: { art: "story", wunsch: wish, stimmung: mood || "auto", sprache: $("storyLang").value,
                laenge: $("storyLength").value, bilder: $("storyVisuals").value, entschaerfen: $("soften").checked,
-               schritt: $("skeletonFirst").checked ? "skelett" : "" },
+               schritt: $("skeletonFirst").checked ? "skelett" : "", maskottchen: $("mascotStory").checked },
     };
   }
   function jobPrompt(id, order) {
@@ -749,6 +753,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       if (sk.title) for (const part of sk.parts) if (part.intro) part.intro = part.intro.split(sk.title).join(t);   // alle Teile
       sk.title = t; scheduleSave(id);
     });
+    if (sk.visuals === "cartoon") {                        // gleiche Hauptfigur in allen Cartoon-Bildern
+      const fl = add(document.createElement("label")); fl.textContent = "Hauptfigur (Cartoon-Bilder, englisch)";
+      const fi = add(document.createElement("input")); fi.type = "text"; fi.id = "skFigure-" + id; fl.htmlFor = fi.id;
+      fi.value = sk.figur || ""; fi.maxLength = 200; fi.placeholder = "z. B. a man in his thirties with a gray hoodie";
+      fi.addEventListener("input", () => { sk.figur = fi.value.trim(); scheduleSave(id); });
+    }
     if ((sk.rights || []).length) { const r = add(document.createElement("p")); r.className = "note warn"; r.textContent = "⚠️ " + sk.rights.join(" · "); }
     sk.parts.forEach((part, pi) => {
       const head = add(document.createElement("div")); head.className = "part";

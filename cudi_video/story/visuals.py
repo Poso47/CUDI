@@ -247,12 +247,41 @@ ORDER = {
     "videos": ("stock", "ai", "photo", "own"),
     "images": ("ai", "photo", "stock", "own"),
     "gameplay": ("own", "stock", "ai", "photo"),
+    "cartoon": ("ai", "photo", "own", "stock"),
+}
+
+# Cartoon-Stil: gleiche Zeichenart und – wo eine Person vorkommt – dieselbe Hauptfigur in jeder Szene
+CARTOON_STYLE = {
+    "creepy": "dark moody palette, deep blues and greens, eerie but not gory",
+    "suspense": "tense dramatic lighting, strong contrast",
+    "funny": "bright playful colors, exaggerated expressions",
+    "drama": "warm emotional colors, expressive faces",
+    "revenge": "bold confident colors, smug expressions",
+    "wholesome": "soft pastel colors, gentle warm light",
+}
+PERSON = re.compile(r"\b(man|woman|person|people|guy|girl|boy|narrator|figure|he|she|they|i|me|someone|couple|"
+                    r"friend|husband|wife|mother|father|mom|dad|kid|child|teen|student|driver|neighbor)\b", re.I)
+FIGURES = {
+    "m": "a man in his thirties with short dark hair, stubble and a gray hoodie",
+    "f": "a woman in her thirties with shoulder-length brown hair and a green jacket",
+    "": "a young adult with short brown hair and a yellow raincoat",
 }
 
 
+def cartoon_prompt(prompt: str, mood: str, figure: str) -> str:
+    """Szenen-Bildidee als Cartoon: Foto-Stil der Stimmung raus, Zeichenstil und Hauptfigur rein."""
+    from .moods import MOODS
+
+    subject = prompt.replace(MOODS[mood]["image_style"], "").replace("vertical composition", "").replace("no text", "")
+    subject = re.sub(r"(\s*,\s*)+", ", ", subject).strip(" ,")
+    who = f", the main character is {figure}" if figure and PERSON.search(subject) else ""
+    return (f"{subject}{who}, 2D cartoon illustration, clean bold outlines, flat shading, consistent character design, "
+            f"{CARTOON_STYLE.get(mood, '')}, vertical composition, no text")
+
+
 def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int = 1,
-                 progress=lambda done, total: None) -> tuple[list[Visual], list[str]]:
-    """Ein Bild/Clip je Szene. Gibt (Visuals, Hinweise) zurück."""
+                 progress=lambda done, total: None, figure: str = "") -> tuple[list[Visual], list[str]]:
+    """Ein Bild/Clip je Szene. Gibt (Visuals, Hinweise) zurück. figure: Hauptfigur im Cartoon-Modus."""
     notes: list[str] = []
     _ai_failures[0] = 0
     rnd = random.Random(seed)
@@ -272,6 +301,8 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
                 if source == "stock":
                     found = (pexels(scene["query"], used) or pixabay(scene["query"], used)
                              or commons_video(scene["query"], used))
+                elif source == "ai" and mode == "cartoon":   # gleicher Seed: gleiche Zeichenart in allen Szenen
+                    found = ai_image(cartoon_prompt(scene["prompt"], mood, figure), seed * 1000)
                 elif source == "ai":
                     found = ai_image(scene["prompt"], seed * 1000 + i)
                 elif source == "photo":

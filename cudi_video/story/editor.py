@@ -13,6 +13,7 @@ import re
 from .. import config, handoff, llm
 from .moods import MOODS, WORDS_PER_SECOND, detect_mood, language_of, narrator_gender, rate_factor, voice_for
 from .sources import LENGTHS, Post, rights_note
+from .visuals import FIGURES
 
 log = logging.getLogger(__name__)
 
@@ -376,10 +377,11 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
     use_llm = llm.available() if use_llm is None else use_llm
     scenes_src = make_scenes(text)
     editor = "Regeln"
-    hook = ""
+    hook, figure = "", ""
     edited = claude_edit(title, scenes_src, lang, source_lang, mood, soften) if handoff.enabled() else None
     if edited:                                    # CUDI-App: Claude lektoriert (kostenlos), der Code prüft
-        title_t, scenes_t, visuals_t, hook, edit_notes = edited
+        title_t, scenes_t, visuals_t, hook, edit_notes = edited[:5]
+        figure = edited[5] if len(edited) > 5 else ""
         editor = "Claude-Lektorat"
         notes += edit_notes
         use_llm = False
@@ -428,6 +430,7 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
         "visuals": visuals,
         "title": title_t,
         "hook": hook,                       # Einstieg in Teil 1 (gesprochen, während die Story-Karte steht)
+        "figur": figure or FIGURES.get(gender or "", FIGURES[""]),   # Hauptfigur der Cartoon-Bilder (englisch)
         "parts": parts,
         "notes": notes,
         "rights": rights_note(post),
@@ -500,9 +503,11 @@ CLAUDE_EDIT = (
     "TikTok-tauglich umschreiben – andeuten statt aussprechen, so dass man versteht, was gemeint ist; die Handlung "
     "bleibt gleich. Schreibe außerdem: „titel“ (kurz, macht neugierig, höchstens 60 Zeichen, verrät nicht das Ende) "
     "und „hook“ (1–2 kurze Sätze für die ersten Sekunden, die sofort neugierig machen – aus der Story, ohne das Ende "
-    "zu verraten, keine Frage an die Zuschauer). Zu jeder Szene: „bild“ (englische Bildbeschreibung, 8–15 Wörter, "
+    "zu verraten, keine Frage an die Zuschauer) und „figur“ (Aussehen der Hauptfigur/Erzählperson auf Englisch, "
+    "8–20 Wörter, z. B. Alter, Haare, Kleidung – passend zur Story, sonst neutral; für gleichbleibende Cartoon-Bilder). "
+    "Zu jeder Szene: „bild“ (englische Bildbeschreibung, 8–15 Wörter, "
     "ohne Namen) und „suche“ (2–3 englische Wörter für eine Stockvideo-Suche). Antwort: {\"titel\": \"…\", "
-    "\"hook\": \"…\", \"szenen\": [{\"text\": \"…\", \"bild\": \"…\", \"suche\": \"…\"}]} – genau so viele "
+    "\"hook\": \"…\", \"figur\": \"…\", \"szenen\": [{\"text\": \"…\", \"bild\": \"…\", \"suche\": \"…\"}]} – genau so viele "
     "Szenen wie in „szenen“, gleiche Reihenfolge."
 )
 EDIT_FREE = {"i", "i'm", "i've", "i'd", "i'll", "mr", "mrs", "ms", "dr", "oh", "god", "ok", "okay", "no", "yes", "mom",
@@ -558,7 +563,7 @@ def _edit_problem(new, source: str, lang: str, source_lang: str, context: str) -
 
 
 def claude_edit(title: str, scenes: list[str], lang: str, source_lang: str, mood: str, soften: bool):
-    """Lektorat durch Claude in der Auftrags-Sitzung. Rückgabe (Titel, Szenen, Bilder, Hook, Notizen) oder None.
+    """Lektorat durch Claude in der Auftrags-Sitzung. Rückgabe (Titel, Szenen, Bilder, Hook, Notizen, Figur) oder None.
 
     Jede Szene wird einzeln geprüft; eine abgelehnte Szene bekommt die Regel-Fassung (bei anderer Zielsprache
     übersetzt). Wirft handoff.WritingNeeded, solange Claude noch nicht geantwortet hat."""
@@ -612,4 +617,7 @@ def claude_edit(title: str, scenes: list[str], lang: str, source_lang: str, mood
     if rejected:
         notes.append("Szenen in Regel-Fassung (Lektorat nicht übernommen): "
                      + ", ".join(f"{i + 1} ({why})" for i, why in rejected))
-    return title_t, texts, visuals, hook, notes
+    figure = answer.get("figur")
+    figure = figure.strip() if isinstance(figure, str) and re.fullmatch(r"[A-Za-z0-9 ,.'’-]{10,200}", figure.strip()) \
+        and 3 <= len(figure.split()) <= 30 else ""
+    return title_t, texts, visuals, hook, notes, figure

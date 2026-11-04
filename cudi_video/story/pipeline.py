@@ -102,6 +102,10 @@ def validate_skeleton(skeleton: dict) -> None:
                 raise ValueError("Leere Szene – Text eintragen oder Szene löschen")
     if not isinstance(skeleton.get("hook", ""), str) or len(skeleton.get("hook") or "") > 400:
         raise ValueError("Der Einstieg ist zu lang (höchstens 400 Zeichen)")
+    if not isinstance(skeleton.get("figur", ""), str) or len(skeleton.get("figur") or "") > 200:
+        raise ValueError("Die Beschreibung der Hauptfigur ist zu lang (höchstens 200 Zeichen)")
+    if skeleton.get("visuals", "videos") not in ("videos", "images", "gameplay", "cartoon"):
+        raise ValueError("Unbekannte Bilder-Einstellung")
 
 
 # --------------------------------------------------------------------------- 3. Video
@@ -124,7 +128,8 @@ def render(folder_path: Path, skeleton: dict | None = None, progress=lambda stag
     progress("Bilder und Clips", 0.02)
     visuals, notes = pick_visuals(all_scenes, mood, skeleton.get("visuals", "videos"),
                                   seed=zlib.crc32((skeleton["post"].get("id") or skeleton["title"]).encode()) % 10_000,
-                                  progress=lambda d, t: progress("Bilder und Clips", 0.02 + 0.2 * d / t))
+                                  progress=lambda d, t: progress("Bilder und Clips", 0.02 + 0.2 * d / t),
+                                  figure=str(skeleton.get("figur") or ""))
     result = {"output_dir": str(folder), "warnings": [*skeleton.get("rights", []), *notes], "videos": {}, "kind": "story"}
     base = f"story_{_slug(skeleton['title'])[:30]}_{lang}"
     offset = 0

@@ -15,7 +15,10 @@ def test_ranking_order_is_normalised():
     order = job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "thema": "",
                              "sprachen": ["en", "de", "fr"], "plaetze": "7", "streng": True}, PRESETS)
     assert order == {"id": "abc123", "art": "ranking", "thema": "", "vorlage": "hoechste-gebaeude",
-                     "sprachen": ["de", "en"], "plaetze": 7, "streng": True, "nur_skript": False, "laenge": ""}
+                     "sprachen": ["de", "en"], "plaetze": 7, "streng": True, "nur_skript": False, "laenge": "",
+                     "maskottchen": True}
+    assert job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "maskottchen": False},
+                           PRESETS)["maskottchen"] is False
 
 
 def test_story_order_cleans_text_and_keeps_defaults():
@@ -302,3 +305,30 @@ def test_factbook_region_cache_is_thread_safe(tmp_path, monkeypatch):
     for t in threads:
         t.join()
     assert len(FactbookChecker._regions()) == 20                 # kein Eintrag verloren, gültiges JSON
+
+
+def test_mascot_layer_moves_mouth_with_voice(tmp_path):
+    """Maskottchen: Mund folgt der Stimme (in Pausen zu), blinzelt, Ebene mit Transparenz entsteht."""
+    import shutil
+    import wave
+
+    import numpy as np
+
+    from cudi_video import mascot
+
+    rate, fps = 24000, 30
+    t = np.arange(rate * 2) / rate
+    voice = np.where(t < 1.0, 0.4 * np.sin(2 * np.pi * 180 * t), 0.0).astype(np.float32)   # 1 s Sprache, 1 s Pause
+    levels = mascot.mouth_levels(voice, rate, fps, 2 * fps)
+    assert max(levels[:fps]) >= mascot.MOUTH_LEVELS - 2 and max(levels[fps + 8:]) == 0
+    assert len(mascot.blink_frames(fps * 10, fps)) > 0
+    img = mascot.draw(0.5, False)
+    assert img.mode == "RGBA" and img.size == mascot.CANVAS and img.getpixel((0, 0))[3] == 0
+    assert not mascot.enabled(False) and mascot.enabled(True)
+    if shutil.which("ffmpeg"):
+        wav = tmp_path / "voice.wav"
+        with wave.open(str(wav), "wb") as f:
+            f.setnchannels(1), f.setsampwidth(2), f.setframerate(rate)
+            f.writeframes((voice * 32767).astype(np.int16).tobytes())
+        out = mascot.render_layer(wav, 2.0, fps, tmp_path / "m.mov")
+        assert out.exists() and out.stat().st_size > 1000

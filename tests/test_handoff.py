@@ -204,7 +204,7 @@ def test_story_edit_rejects_new_numbers_and_translates_fallback(writing, monkeyp
                                          "with fog", "suche": "dark forest"},
                                         {"text": "Dann sah ich ein Licht zwischen den Bäumen.", "bild": "a faint light "
                                          "between dark trees at night", "suche": "light trees night"}]})
-    title, texts, visuals, hook, notes = editor.claude_edit("The light", scenes, "de", "en", "creepy", True)
+    title, texts, visuals, hook, notes, figure = editor.claude_edit("The light", scenes, "de", "en", "creepy", True)
     assert texts[0] == "DE: " + scenes[0] and texts[1] == "Der Wald war still und leer." and title == "Das Licht"
     assert hook and visuals[1][0] == "dark forest" and visuals[0][0] != "!!!"
     assert any("1 (neue Zahl)" in n for n in notes)
@@ -218,3 +218,15 @@ def test_story_edit_falls_back_to_rules_when_mostly_wrong(writing):
         editor.claude_edit("T", scenes, "en", "en", "creepy", True)
     answer(need.value.path, {"titel": "T", "szenen": [{"text": ""}, {"text": ""}, {"text": "Three scenes here now."}]})
     assert editor.claude_edit("T", scenes, "en", "en", "creepy", True) is None
+
+
+def test_cartoon_prompts_keep_one_main_character():
+    from cudi_video.story.visuals import FIGURES, cartoon_prompt
+
+    figure = FIGURES["m"]
+    with_person = cartoon_prompt("a lonely man at a telescope, dark cinematic horror photograph, eerie atmosphere, fog, "
+                                 "low light, muted colors, film grain, vertical composition, no text", "creepy", figure)
+    assert "photograph" not in with_person and "2D cartoon illustration" in with_person
+    assert figure in with_person and with_person.endswith("no text")
+    no_person = cartoon_prompt("an empty field beside a dark lake, vertical composition, no text", "creepy", figure)
+    assert figure not in no_person and no_person.startswith("an empty field beside a dark lake")

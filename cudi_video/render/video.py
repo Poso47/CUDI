@@ -11,7 +11,7 @@ from pathlib import Path
 
 import numpy as np
 
-from .. import config
+from .. import config, mascot
 from ..compare import comparison
 from ..models import Research, Script
 from ..script import as_of_year, extras_lines, format_date
@@ -169,7 +169,8 @@ def moving_average(x: "np.ndarray", width: int) -> "np.ndarray":
     return ((sums[hi] - sums[lo]) / width).astype(np.float32)
 
 
-def build_audio(script: Script, jobs: list[dict], out_path: Path) -> None:
+def build_audio(script: Script, jobs: list[dict], out_path: Path, voice_path: Path | None = None) -> None:
+    """Ton aus Stimme, Übergängen und Musik. voice_path: zusätzlich nur die Stimme (für das Maskottchen)."""
     total = int(sum(j["duration"] for j in jobs) * SAMPLE_RATE) + SAMPLE_RATE
     voice = np.zeros(total, dtype=np.float32)
     fx = np.zeros(total, dtype=np.float32)
@@ -183,6 +184,12 @@ def build_audio(script: Script, jobs: list[dict], out_path: Path) -> None:
             s = int(t * SAMPLE_RATE)
             fx[s:s + len(whoosh)] += whoosh[: max(0, total - s)]
         t += job["duration"]
+    if voice_path is not None:
+        with wave.open(str(voice_path), "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(SAMPLE_RATE)
+            w.writeframes((np.clip(voice, -1, 1) * 32767).astype(np.int16).tobytes())
     mix = voice + fx
     music = _music_track(total)
     if music is not None:
@@ -246,14 +253,23 @@ def render_video(spec: VideoSpec, research: Research, script: Script, out_dir: P
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat_list),
                     "-c", "copy", str(video_only)], check=True)
 
-    audio = work / "audio.wav"
-    build_audio(script, jobs, audio)
+    audio, voice = work / "audio.wav", work / "voice.wav"
+    with_mascot = mascot.enabled()
+    build_audio(script, jobs, audio, voice if with_mascot else None)
 
     final = out_dir / f"{spec.id}_{script.lang}.mp4"
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video_only), "-i", str(audio),
+    video_args = ["-c:v", "copy"]
+    inputs = ["-i", str(video_only), "-i", str(audio)]
+    if with_mascot:                                   # CUDI erzählt mit: Ebene unten mittig, Bild neu kodieren
+        layer = mascot.render_layer(voice, sum(j["duration"] for j in jobs), config.FPS, work / "mascot.mov")
+        mx, my = mascot.overlay_position(config.WIDTH, config.HEIGHT)
+        inputs += ["-i", str(layer)]
+        video_args = ["-filter_complex", f"[0:v][2:v]overlay={mx}:{my}:eof_action=pass[v]", "-map", "[v]",
+                      "-map", "1:a", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p"]
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", *inputs,
                     # Lautheit wie auf TikTok/YouTube üblich (ca. -14 LUFS), damit das Video nicht leiser wirkt
                     "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", str(SAMPLE_RATE),
-                    "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
+                    *video_args, "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
                     str(final)], check=True)
 
     cover = out_dir / f"{spec.id}_{script.lang}_cover.jpg"
