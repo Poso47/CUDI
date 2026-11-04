@@ -60,21 +60,58 @@ def key_tokens(name: str) -> list[str]:
     return out or [w for w in words if len(w) >= 3]
 
 
+TYPE_WORDS = {"river", "fluss", "strom", "lake", "see", "mountain", "berg", "peak", "gipfel", "island", "insel",
+              "waterfall", "falls", "wasserfall", "bridge", "brücke", "tower", "turm", "building", "skyscraper",
+              "gebäude", "wolkenkratzer", "volcano", "vulkan", "glacier", "gletscher", "desert", "wüste", "dam",
+              "damm", "talsperre", "canyon", "cave", "höhle", "sea", "meer", "ocean", "ozean", "city", "stadt",
+              "country", "land", "forest", "wald", "park", "stadium", "stadion", "palace", "palast", "castle",
+              "burg", "schloss", "church", "kirche", "temple", "tempel", "statue", "ship", "schiff", "train", "zug"}
+
+
+def type_words(item: RankItem) -> set[str]:
+    """Art des Objekts aus Namen und Wikidata-Beschreibung („major river in Africa“ -> river)."""
+    text = " ".join([item.labels.get("en", ""), item.labels.get("de", ""),
+                     item.descriptions.get("en", ""), item.descriptions.get("de", "")]).lower()
+    return set(re.findall(r"[^\W_]+", text)) & TYPE_WORDS
+
+
 def names_match(item: RankItem, text: str) -> bool:
     """Stehen alle unterscheidenden Wörter des Namens im Text? Gezählt wird der spezifischste Name (en/de mit den
     meisten unterscheidenden Wörtern): „The Clock Towers“ ließe nur „clock“ übrig und passte auf jeden Uhrturm –
-    daher muss hier „Abraj Al Bait“ (abraj, bait) passen."""
-    hay = set(re.findall(r"[^\W_]+", text.lower()))
+    daher muss hier „Abraj Al Bait“ (abraj, bait) passen. Bleibt nur EIN unterscheidendes Wort („Nile“,
+    „Yellow River“), muss zusätzlich die Art im Text stehen – sonst passen „Lily of the Nile“ oder eine gelbe
+    Straßenbahn."""
+    words = re.findall(r"[^\W_]+", text.lower())
+    hay = set(words)
+    # Wortfolgen nur innerhalb eines Schlagworts/Satzteils: „yellow, river“ (zwei Tags) ist nicht „yellow river“
+    flat = "|".join(f" {' '.join(re.findall(r'[^\W_]+', part))} " for part in re.split(r"[,;|/]", text.lower()))
     names = [n for n in {item.labels.get("en", ""), item.labels.get("de", "")} if n]
     sets = [key_tokens(n) for n in names]
     best = max((len(t) for t in sets), default=0)
-    return any(t and len(t) == best and all(w in hay for w in t) for t in sets)
+    if best > 1:
+        return any(len(t) == best and all(w in hay for w in t) for t in sets)
+    kinds = type_words(item)
+    for name, tokens in zip(names, sets):
+        if not tokens or not all(w in hay for w in tokens):
+            continue
+        name_words = re.findall(r"[^\W_]+", name.lower())
+        if set(name_words) & TYPE_WORDS:                 # „Yellow River“: genau diese Wortfolge
+            if f" {' '.join(w for w in name_words if w not in ('the', 'der', 'die', 'das'))} " in flat:
+                return True
+        elif not kinds or kinds & hay:                    # „Nile“: dazu die Art („river“) irgendwo im Text
+            return True
+    return False
 
 
 def search_name(item: RankItem) -> str:
     """Suchbegriff: der spezifischste Name (en/de) – „Abraj Al Bait“ statt „The Clock Towers“."""
     names = [n for n in (item.labels.get("en", ""), item.labels.get("de", "")) if n]
-    return max(names, key=lambda n: len(key_tokens(n)), default="")
+    name = max(names, key=lambda n: len(key_tokens(n)), default="")
+    words = set(re.findall(r"[^\W_]+", name.lower()))
+    english = sorted(k for k in type_words(item) if k.isascii() and k not in ("see", "land", "berg", "park"))
+    if len(key_tokens(name)) == 1 and english and not (words & TYPE_WORDS):
+        name = f"{name} {english[0]}"                  # „Nile“ -> „Nile river“: Stockseiten finden das Richtige
+    return name
 
 
 def _cc_name(code: str, version: str) -> str:

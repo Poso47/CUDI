@@ -115,7 +115,13 @@ Ohne Clip zeigt die Karte das beste freie Foto mit Zoom: Wikidata-/Wikipedia-Fot
 gesperrt, ohne Urheber oder kleiner als 1200 px, dann **Openverse** (Flickr u. a., nur Lizenzen mit
 kommerzieller Nutzung und Bearbeitung) und **NASA**. Ein Bild oder Clip zählt nur, wenn die unterscheidenden
 Wörter des Namens im Titel/den Schlagworten stehen (keine fremde Brücke unter falschem Namen); Karten, Logos
-und Wappen werden aussortiert.
+und Wappen werden aussortiert. Es zählt der spezifischste Name („Abraj Al Bait“ statt „The Clock Towers“); bei
+nur einem unterscheidenden Wort muss zusätzlich die Art passen („Nile“ + „river“ – nicht „Lily of the Nile“) bzw.
+der ganze Name als Wortfolge in einem Schlagwort stehen („Yellow River“ – keine gelbe Straßenbahn am Fluss).
+
+**Freie Themen ohne Lücken:** Fehlt einem Platz die unabhängige Bestätigung, endet das Ranking davor (ehrliche
+Top 4 statt einer Top 5, in der Platz 5 gar nicht der Fünfte ist). Liegt die Lücke ganz oben, werden nur
+bestätigte Werte gezeigt und der Titel behauptet keine Vollständigkeit („5 der längsten …“).
 
 ## Quellen-Abgleich
 

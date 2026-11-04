@@ -146,9 +146,11 @@ def test_free_topics_keep_only_confirmed_values(monkeypatch):
 
     monkeypatch.setattr(verify_module, "verify_item", fake)
     monkeypatch.setattr(verify_module, "RECHECK_PAUSE", 0)
+    spec.title = {"de": "Die 2 höchsten Türme", "en": "The 2 Tallest Towers"}
     verify_module.verify(spec, research)
     assert [it.qid for it in research.items] == ["Q2", "Q3"] and research.items[0].rank == 1
     assert any("Turm A: nicht verwendet" in w for w in research.warnings)
+    assert spec.title["de"] == "2 der höchsten Türme"           # Spitze fehlt -> keine Vollständigkeit behaupten
     spec.count, research = 4, make_research()           # 3 von 4 bestätigt -> ehrliche Top 3 statt Lücke
     spec.title = {"de": "Die 4 höchsten Türme", "en": "The 4 Tallest Towers"}
     status["Q1"] = "bestätigt"
@@ -158,6 +160,30 @@ def test_free_topics_keep_only_confirmed_values(monkeypatch):
     status["Q1"] = status["Q2"] = "nur eine Quelle"
     with pytest.raises(ValueError, match="nicht genug"):
         verify_module.verify(spec, research)
+
+
+def test_free_topics_never_skip_an_unconfirmed_place(monkeypatch):
+    """Cloud-Probe Flüsse: Mekong unbestätigt -> Paraná rückte fälschlich auf Platz 5. Jetzt endet die Liste davor."""
+    from cudi_video import verify as verify_module
+    from cudi_video.models import RankItem, Research
+
+    values = {"Q1": 6650, "Q2": 6400, "Q3": 6300, "Q4": 5464, "Q5": 4909, "Q6": 4880}
+    research = Research(spec_id="t", fetched_at="", items=[
+        RankItem(qid=q, value=v, unit="Q828224", labels={"de": q}) for q, v in values.items()])
+    spec = make_spec()
+    spec.confirmed_only, spec.count = True, 5
+    spec.title = {"de": "Die 5 längsten Flüsse", "en": "The 5 Longest Rivers"}
+
+    def fake(spec, item, checkers):
+        item.verification = {"status": "nur eine Quelle" if item.qid == "Q5" else "bestätigt",
+                             "sources": [], "evidence": [], "outliers": []}
+        return item.verification
+
+    monkeypatch.setattr(verify_module, "verify_item", fake)
+    monkeypatch.setattr(verify_module, "RECHECK_PAUSE", 0)
+    verify_module.verify(spec, research)
+    assert [it.qid for it in research.items] == ["Q1", "Q2", "Q3", "Q4"]
+    assert spec.count == 4 and spec.title["de"] == "Die 4 längsten Flüsse"
 
 
 STORY = ("I bought a telescope after my divorce. Every night I drove out to Blue Springs to look at the stars. "

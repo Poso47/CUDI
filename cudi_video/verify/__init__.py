@@ -268,6 +268,15 @@ def unconfirmed_conflict(result: dict) -> bool:
         e["agrees"] and e["source"] != "Wikidata" for e in result["evidence"])
 
 
+def _partial_title(title: str, lang: str) -> str:
+    """„Die 5 längsten Flüsse“ -> „5 der längsten Flüsse“ (keine Vollständigkeit behaupten, Zahl bleibt anpassbar)."""
+    import re
+
+    if lang == "de":
+        return re.sub(r"^Die\s+(\{count\}|\d+)\s+", r"\1 der ", title, count=1)
+    return re.sub(r"^The\s+(\{count\}|\d+)\s+", r"\1 of the ", title, count=1)
+
+
 VERIFY_WORKERS = 4                   # Plätze gleichzeitig prüfen (je Platz bis zu ~10 Quellen nacheinander)
 RECHECK_PAUSE = 30                   # Sekunden vor der Nachprüfung unbestätigter Plätze (Drosselung abklingen lassen)
 
@@ -308,10 +317,28 @@ def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Researc
     if spec.confirmed_only:
         # Freie Themen: Klasse/Eigenschaft sind nicht von Hand geprüft (z. B. Aquädukt mit der Länge der ganzen
         # Wasserleitung) – nur Werte, die mindestens eine unabhängige Quelle bestätigt, kommen ins Video.
-        alone = [it for it in research.items if it.verification.get("status") not in STATUS_OK]
-        for it in alone:
-            research.warnings.append(f"{it.labels.get('de') or it.qid}: nicht verwendet – keine unabhängige Bestätigung.")
-        research.items = [it for it in research.items if it not in alone]
+        # Ein unbestätigter Platz darf nicht einfach übersprungen werden – sonst rückt der Nächste auf einen Rang,
+        # der ihm nicht zusteht (Cloud-Probe Flüsse: Mekong gestrichen, Paraná fälschlich Platz 5). Ehrlich ist
+        # nur die lückenlose Spitze bis zum ersten unbestätigten Platz.
+        ordered = sorted(research.items, key=lambda it: it.value, reverse=spec.source.order == "desc")
+        first_gap = next((i for i, it in enumerate(ordered) if it.verification.get("status") not in STATUS_OK),
+                         len(ordered))
+        confirmed = [it for it in ordered if it.verification.get("status") in STATUS_OK]
+        if first_gap >= min(3, spec.count) or len(confirmed) < min(3, spec.count):
+            if first_gap < min(spec.count, len(ordered)):
+                gap = ordered[first_gap]
+                research.warnings.append(f"{gap.labels.get('de') or gap.qid}: keine unabhängige Bestätigung – das "
+                                         f"Ranking endet davor, damit kein Platz übersprungen wird.")
+            research.items = ordered[:first_gap] if first_gap >= min(3, spec.count) else confirmed
+        else:
+            # Lücke ganz oben (z. B. Aquädukt mit der Länge der ganzen Wasserleitung): unbestätigte Werte weglassen,
+            # aber keine Vollständigkeit behaupten – „5 der längsten …“ statt „Die 5 längsten …“.
+            for it in ordered[:spec.count]:
+                if it not in confirmed:
+                    research.warnings.append(f"{it.labels.get('de') or it.qid}: nicht verwendet – keine unabhängige "
+                                             f"Bestätigung; Titel ohne Vollständigkeitsanspruch.")
+            research.items = confirmed
+            spec.title = {lang: _partial_title(t, lang) for lang, t in spec.title.items()}
         found = len(research.items)
         if found < min(3, spec.count):
             raise ValueError("Zu diesem Thema ließen sich nicht genug Werte unabhängig bestätigen "
