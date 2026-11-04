@@ -108,16 +108,7 @@ def build_ranking_query(src: WikidataSource, limit: int = CANDIDATE_LIMIT) -> st
     p = src.property
     instance = "wdt:P31/wdt:P279*" if src.subclasses else "wdt:P31"
     classes = " ".join(f"wd:{c}" for c in dict.fromkeys([src.cls, *src.extra_classes]))
-    region: list[str] = []
-    if src.country:
-        region.append(f"  ?item wdt:P17 wd:{src.country} .")
-    for i, (path, qids) in enumerate(src.where.items()):
-        sparql_path = "/".join("wdt:" + part for part in path.split("/"))
-        if isinstance(qids, str):
-            region.append(f"  ?item {sparql_path} wd:{qids} .")
-        else:
-            values = " ".join(f"wd:{q}" for q in qids)
-            region.append(f"  VALUES ?where{i} {{ {values} }} ?item {sparql_path} ?where{i} .")
+    region = _region_lines(src)
     lines = [
         "SELECT ?item ?value ?unit ?rank ?date ?criterion WHERE {",
         f"  VALUES ?cls {{ {classes} }}",
@@ -134,6 +125,20 @@ def build_ranking_query(src: WikidataSource, limit: int = CANDIDATE_LIMIT) -> st
     direction = "DESC" if src.order == "desc" else "ASC"
     lines.append(f"}} ORDER BY {direction}(?value) LIMIT {int(limit)}")
     return "\n".join(lines)
+
+
+def _region_lines(src: WikidataSource) -> list[str]:
+    region: list[str] = []
+    if src.country:
+        region.append(f"  ?item wdt:P17 wd:{src.country} .")
+    for i, (path, qids) in enumerate(src.where.items()):
+        sparql_path = "/".join("wdt:" + part for part in path.split("/"))
+        if isinstance(qids, str):
+            region.append(f"  ?item {sparql_path} wd:{qids} .")
+        else:
+            values = " ".join(f"wd:{q}" for q in qids)
+            region.append(f"  VALUES ?where{i} {{ {values} }} ?item {sparql_path} ?where{i} .")
+    return region
 
 
 def _filter_lines(src: WikidataSource) -> list[str]:
@@ -220,14 +225,16 @@ def _search_candidates(src: WikidataSource) -> list[str]:
     return list(dict.fromkeys(q for q in found if re.fullmatch(r"Q\d+", q)))
 
 
-def _statements_for(src: WikidataSource, qids: list[str]) -> list[dict]:
-    """Aussagen zur Eigenschaft für eine feste Liste von Objekten (in kleinen Paketen)."""
+def _statements_for(src: WikidataSource, qids: list[str], region: bool = False) -> list[dict]:
+    """Aussagen zur Eigenschaft für eine feste Liste von Objekten (in kleinen Paketen).
+    region=True: zusätzlich Land/Kontinent prüfen (bei Kandidaten, die nicht aus der Klassen-Suche stammen)."""
     rows: list[dict] = []
     for i in range(0, len(qids), BATCH):
         values = " ".join(f"wd:{q}" for q in qids[i:i + BATCH])
         query = "\n".join([
             "SELECT ?item ?value ?unit ?rank ?date ?criterion WHERE {",
             f"  VALUES ?item {{ {values} }}",
+            *(_region_lines(src) if region else []),
             f"  ?item p:{src.property} ?st .",
             "  ?st wikibase:rank ?rank . FILTER(?rank != wikibase:DeprecatedRank)",
             *_value_pattern(src.property),
@@ -242,17 +249,29 @@ def _statements_for(src: WikidataSource, qids: list[str]) -> list[dict]:
 
 
 def _ranking_bindings(src: WikidataSource, fresh: bool) -> list[dict]:
-    """Hauptabfrage; bei Zeitüberschreitung Ausweichroute über den Suchindex."""
+    """Hauptabfrage; bei Zeitüberschreitung Ausweichroute über den Suchindex. Bekannte Spitzenreiter
+    (seed_items) kommen immer dazu – die Ausweichroute findet bei riesigen Klassen nicht alle."""
+    seeds = _seed_bindings(src)
     try:
         # Bei Zeitüberschreitung (5xx) nicht dieselbe schwere Abfrage wiederholen, nur bei Drosselung (429)
-        return _sparql(build_ranking_query(src), cache_hours=0 if fresh else 6.0, retry_on=(429,))
+        return _sparql(build_ranking_query(src), cache_hours=0 if fresh else 6.0, retry_on=(429,)) + seeds
     except net.FetchError as exc:
         if not re.search(r"HTTP 5\d\d|timed out|Read timed out", str(exc)):
             raise
         log.warning("Wikidata-Abfrage zu langsam (%s) – nutze den Suchindex als Ausweichroute", exc)
     qids = _search_candidates(src)
     log.info("Suchindex: %d Kandidaten", len(qids))
-    return _statements_for(src, qids)
+    return _statements_for(src, qids) + seeds
+
+
+def _seed_bindings(src: WikidataSource) -> list[dict]:
+    if not src.seed_items:
+        return []
+    try:
+        return _statements_for(src, list(dict.fromkeys(src.seed_items)), region=True)
+    except net.FetchError as exc:                 # Ergänzung – darf den Auftrag nicht aufhalten
+        log.warning("Spitzenreiter nicht abrufbar: %s", exc)
+        return []
 
 
 def pick_latest(bindings: list[dict]) -> dict[str, RankItem]:

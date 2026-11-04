@@ -230,3 +230,27 @@ def test_cartoon_prompts_keep_one_main_character():
     assert figure in with_person and with_person.endswith("no text")
     no_person = cartoon_prompt("an empty field beside a dark lake, vertical composition, no text", "creepy", figure)
     assert figure not in no_person and no_person.startswith("an empty field beside a dark lake")
+
+
+def test_known_leaders_are_always_candidates(monkeypatch):
+    """Freie Themen: von Claude genannte Spitzenreiter kommen dazu, auch wenn die Klassen-Suche sie nicht findet."""
+    from cudi_video.sources import wikidata
+    from cudi_video.spec import WikidataSource
+
+    def row(qid, value):
+        return {"item": {"value": f"http://www.wikidata.org/entity/{qid}"}, "value": {"value": str(value)},
+                "unit": {"value": "http://www.wikidata.org/entity/Q11573"},
+                "rank": {"value": "http://wikiba.se/ontology#NormalRank"}}
+
+    queries = []
+
+    def sparql(query, **kw):
+        queries.append(query)
+        return [row("Q999", 164800)] if "VALUES ?item" in query else [row("Q1", 12700), row("Q2", 4800)]
+
+    monkeypatch.setattr(wikidata, "_sparql", sparql)
+    src = WikidataSource(cls="Q12280", property="P2043", seed_items=["Q999"], country="Q148")
+    found = wikidata.pick_latest(wikidata._ranking_bindings(src, fresh=False))
+    assert set(found) == {"Q1", "Q2", "Q999"} and found["Q999"].value == 164800
+    seed_query = next(q for q in queries if "VALUES ?item" in q)
+    assert "wdt:P17 wd:Q148" in seed_query                     # Region gilt auch für Spitzenreiter

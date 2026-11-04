@@ -351,3 +351,29 @@ def test_commons_clips_only_when_the_title_fits(monkeypatch, tmp_path):
     feeds["ocean"] = [page(4, "File:Ocean waves.webm", duration=90)]
     visuals.commons_video("ocean", set())
     assert loaded[-1] == "https://x/4_480.webm"                                      # langer Clip: höchstens 720p
+    # mehrere Suchwörter: ein einzelnes passendes Wort reicht nicht (kein Rafting-Clip für „river path fog“)
+    feeds["river path"] = [page(5, "File:Whitewater river rafting.webm")]
+    feeds["river"] = [page(6, "File:River rafting trip.webm")]
+    feeds["path"] = [page(7, "File:Garden path.webm"), page(8, "File:Misty river path at dawn.webm")]
+    clip = visuals.commons_video("river path fog", set())
+    assert clip and loaded[-1] == "https://x/8_1080.webm"
+
+
+def test_cartoon_reuses_last_drawing_instead_of_a_photo(monkeypatch):
+    """Cartoon: fällt ein KI-Bild aus, kommt das vorige Cartoon-Bild statt eines unpassenden Fotos."""
+    from cudi_video.story import visuals
+
+    prompts = []
+
+    def ai(prompt, seed):
+        prompts.append((prompt, seed))
+        return None if len(prompts) == 2 else visuals.Visual("image", f"/tmp/{len(prompts)}.jpg", "KI-Bild", prompt)
+
+    monkeypatch.setattr(visuals, "ai_image", ai)
+    monkeypatch.setattr(visuals, "commons_photo", lambda *a, **k: visuals.Visual("image", "/tmp/photo.jpg", "Foto: x", "p"))
+    scenes = [{"text": "t", "query": "man telescope", "prompt": "a man with a telescope, vertical composition, no text"},
+              {"text": "t", "query": "dark lake", "prompt": "a dark lake, vertical composition, no text"},
+              {"text": "t", "query": "car", "prompt": "a car at night, vertical composition, no text"}]
+    found, _ = visuals.pick_visuals(scenes, "creepy", "cartoon", seed=3, figure=visuals.FIGURES["m"])
+    assert [v.path for v in found] == ["/tmp/1.jpg", "/tmp/1.jpg", "/tmp/3.jpg"]
+    assert {seed for _, seed in prompts} == {3000} and "cartoon" in prompts[0][0] and visuals.FIGURES["m"] in prompts[0][0]

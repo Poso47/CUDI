@@ -166,7 +166,8 @@ def commons_photo(query: str, used: set) -> Visual | None:
 
 CLIP_SKIP = ("interview", "lecture", "speech", "conference", "presentation", "talk", "song", "music", "trailer",
              "news", "documentary", "podcast", "webinar", "tutorial", "wikipedia", "wikimania", "session", "slides")
-QUERY_STOP = {"dark", "close", "view", "shot", "scene", "with", "from", "into", "over", "under", "very", "light"}
+QUERY_STOP = {"dark", "close", "view", "shot", "scene", "with", "from", "into", "over", "under", "very", "light",
+              "line", "part", "side", "back", "front", "time", "night", "life"}
 
 
 def _query_words(query: str) -> list[str]:
@@ -201,7 +202,9 @@ def commons_video(query: str, used: set) -> Visual | None:
         for page in sorted(data.get("query", {}).get("pages", []), key=lambda pg: pg.get("index", 99)):
             title = page.get("title", "")
             low = title.lower()
-            if title in used or not any(w in low for w in words) or any(x in low for x in CLIP_SKIP):
+            # Bei mehreren Suchwörtern müssen mindestens zwei im Titel stehen – sonst kommt z. B. für
+            # „dark tree line“ ein Rafting-Clip, nur weil „line“ im Titel steht.
+            if title in used or sum(w in low for w in words) < min(2, len(words)) or any(x in low for x in CLIP_SKIP):
                 continue
             info = (page.get("videoinfo") or [{}])[0]
             if not 3 <= (info.get("duration") or 0) <= 120:
@@ -247,7 +250,7 @@ ORDER = {
     "videos": ("stock", "ai", "photo", "own"),
     "images": ("ai", "photo", "stock", "own"),
     "gameplay": ("own", "stock", "ai", "photo"),
-    "cartoon": ("ai", "photo", "own", "stock"),
+    "cartoon": ("ai", "repeat", "photo", "own", "stock"),   # lieber das vorige Cartoon-Bild als ein Foto
 }
 
 # Cartoon-Stil: gleiche Zeichenart und – wo eine Person vorkommt – dieselbe Hauptfigur in jeder Szene
@@ -295,8 +298,14 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
     if mode == "gameplay" and not own_clips(mood):
         notes.append("Keine eigenen Clips in video_assets/backgrounds gefunden – nutze Stockvideos/KI-Bilder.")
 
+    last_ai: list[Visual | None] = [None]
+
     def one(i: int, scene: dict) -> Visual:
         for source in order:
+            if source == "repeat":
+                if last_ai[0] is not None:
+                    return last_ai[0]
+                continue
             try:
                 if source == "stock":
                     found = (pexels(scene["query"], used) or pixabay(scene["query"], used)
@@ -313,6 +322,8 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
                 log.warning("%s für Szene %d nicht verfügbar: %s", source, i + 1, exc)
                 found = None
             if found:
+                if found.kind == "image" and source == "ai":
+                    last_ai[0] = found
                 return found
         return Visual("none", None, "", scene.get("query", ""))
 

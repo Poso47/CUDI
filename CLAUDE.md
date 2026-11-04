@@ -44,7 +44,8 @@ für TikTok/YouTube Shorts.
     Themen außerhalb der Vorlagen (`planner.plan_with_claude`, IDs werden gegen Wikidata geprüft) und erzählt
     Rankings als kleine Geschichte (`narrate.py`: Anfang, geprüfter Wert, keine Zahl/kein Hauptwort ohne Beleg,
     sonst Textbaustein; abgelehnte Plätze gehen einmal zur Korrektur zurück). Freie Themen (`confirmed_only`):
-    nur unabhängig bestätigte Werte, sonst ehrliche Top N. Storys: `editor.claude_edit` (Lektorat, Titel,
+    nur unabhängig bestätigte Werte, sonst ehrliche Top N; Claude nennt bekannte Spitzenreiter (`seed_items`,
+    Kennung gegen Wikidata geprüft), weil die Ausweichroute bei riesigen Klassen (Brücken) nicht alle findet. Storys: `editor.claude_edit` (Lektorat, Titel,
     Einstieg/`hook`, Bildideen; je Szene geprüft auf neue Zahlen/Namen/Länge, sonst Regel-Fassung).
     Quellen erscheinen nur im Prüfbericht, nicht im Video/Beschreibungstext. Dann Upload per Artifact-Werkzeug
     (`asset: true`), `auftrag --dokument`, `ArtifactData set` in `results/<id>`.
