@@ -25,7 +25,8 @@ log = logging.getLogger(__name__)
 
 # Erlaubte Abweichung zwischen Quellen. Bevölkerungszahlen sind Schätzungen mit
 # unterschiedlichem Stichtag, Flächen werden je nach Gewässern leicht anders gezählt.
-TOLERANCE = {"P1082": 0.05, "P2046": 0.01}
+TOLERANCE = {"P1082": 0.05, "P2046": 0.01,
+             "P2043": 0.02}   # Längen (Flüsse, Brücken) hängen von der Messmethode ab: 6.300 vs. 6.236 km ist kein Widerspruch
 OUTDATED_YEARS = 1.5   # so viel älter als die neueste Quelle -> Wikidata-Wert gilt als veraltet
 DEFAULT_TOLERANCE = 0.01
 
@@ -320,7 +321,8 @@ def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Researc
         # Ein unbestätigter Platz darf nicht einfach übersprungen werden – sonst rückt der Nächste auf einen Rang,
         # der ihm nicht zusteht (Cloud-Probe Flüsse: Mekong gestrichen, Paraná fälschlich Platz 5). Ehrlich ist
         # nur die lückenlose Spitze bis zum ersten unbestätigten Platz.
-        ordered = sorted(research.items, key=lambda it: it.value, reverse=spec.source.order == "desc")
+        # Auch wegen Widerspruch verworfene Werte sind Lücken (Cloud-Probe: Jangtse fehlte, alle rückten auf)
+        ordered = sorted(research.items + rejected, key=lambda it: it.value, reverse=spec.source.order == "desc")
         first_gap = next((i for i, it in enumerate(ordered) if it.verification.get("status") not in STATUS_OK),
                          len(ordered))
         confirmed = [it for it in ordered if it.verification.get("status") in STATUS_OK]
