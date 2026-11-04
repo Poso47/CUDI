@@ -1033,3 +1033,24 @@ def test_name_match_uses_most_specific_name():
     assert names_match(abraj, "Abraj Al Bait towers in Mecca")
     baikal = RankItem(qid="Q5513", value=1, unit="1", labels={"en": "Lake Baikal", "de": "Baikalsee"})
     assert names_match(baikal, "sunrise over lake baikal")
+
+
+def test_single_word_names_need_the_kind_of_object():
+    """Cloud-Probe Flüsse: „Yellow River“ -> gelbe Straßenbahn, „Nile“ -> Schmucklilie („Lily of the Nile“)."""
+    from cudi_video.media import names_match
+
+    nile = RankItem(qid="Q3392", value=6650, unit="Q828224", labels={"en": "Nile", "de": "Nil"},
+                    descriptions={"en": "major river in northeastern Africa"})
+    assert not names_match(nile, "agapanthus lily of the nile flower purple")
+    assert names_match(nile, "felucca sailing on the nile river at sunset")
+    yellow = RankItem(qid="Q7355", value=5464, unit="Q828224", labels={"en": "Yellow River", "de": "Gelber Fluss"})
+    assert not names_match(yellow, "yellow tram budapest city street")
+    assert names_match(yellow, "yellow river loess plateau china")
+
+
+def test_name_phrase_must_stay_within_one_tag():
+    from cudi_video.media import names_match
+
+    yellow = RankItem(qid="Q7355", value=5464, unit="Q828224", labels={"en": "Yellow River", "de": "Gelber Fluss"})
+    assert not names_match(yellow, "mountains, forest, autumn, yellow, river, stream")
+    assert names_match(yellow, "yellow river, china, loess")
