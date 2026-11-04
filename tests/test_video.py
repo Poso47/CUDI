@@ -920,3 +920,22 @@ def test_report_warns_when_only_wikipedia_confirms():
                              checkers.Evidence("Wikipedia (en)", "", "", 828.0)], 0.01)
     assert result["status"] == "bestätigt" and result["n_extern"] == 0
     assert any("außerhalb Wikipedias" in w for w in _warnings_for(spec, item, result))
+
+
+def test_missing_wikidata_image_falls_back_to_article_image(monkeypatch, tmp_path):
+    from cudi_video import enrich as enrich_mod
+
+    monkeypatch.setattr(enrich_mod.net, "get_json", lambda *a, **k: {"query": {"pages": [{"pageimage": "Cangde_Bridge.jpg"}]}})
+    monkeypatch.setattr(enrich_mod, "fetch_license", lambda f: {"license": "CC0", "artist": "X", "width": 800})
+    tries = []
+
+    def fake_download(url, **kw):
+        tries.append(url)
+        if len(tries) == 1:
+            raise enrich_mod.net.FetchError("HTTP 429")
+        return tmp_path / "b.img"
+
+    monkeypatch.setattr(enrich_mod.net, "download", fake_download)
+    item = RankItem(qid="Q20063766", value=1, unit="1", wiki_titles={"en": "Cangde Grand Bridge"})
+    assert enrich_mod.fetch_image(item) is True
+    assert item.image_file == "Cangde Bridge.jpg" and "960px" in tries[1] and item.image_path

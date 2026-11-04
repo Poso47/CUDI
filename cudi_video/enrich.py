@@ -99,20 +99,59 @@ def original_url(filename: str) -> str:
     return f"https://upload.wikimedia.org/wikipedia/commons/{md5[0]}/{md5[:2]}/{quote(name)}"
 
 
+def page_image(item: RankItem) -> str | None:
+    """Artikelbild der Wikipedia (en, de) als Ersatz, wenn Wikidata kein Bild nennt (nur Commons-Dateien)."""
+    for lang in ("en", "de"):
+        title = item.wiki_titles.get(lang)
+        if not title:
+            continue
+        try:
+            data = net.get_json(f"https://{lang}.wikipedia.org/w/api.php",
+                                params={"action": "query", "prop": "pageimages", "piprop": "name", "titles": title,
+                                        "redirects": 1, "format": "json", "formatversion": 2},
+                                cache_hours=24 * 7, retries=1, max_wait=10)
+        except net.FetchError:
+            continue
+        for page in data.get("query", {}).get("pages", []):
+            if page.get("pageimage"):
+                return page["pageimage"].replace("_", " ")
+    return None
+
+
+IMAGE_ERRORS: dict[str, str] = {}      # Grund je Platz, warum kein Bild geladen wurde (für den Prüfbericht)
+
+
 def fetch_image(item: RankItem) -> bool:
     """Bild mit Lizenz laden. False, wenn es an der Verbindung scheiterte (neuer Versuch lohnt sich)."""
+    if not item.image_file and item.image_kind == "photo":
+        item.image_file = page_image(item)
     if not item.image_file:
+        IMAGE_ERRORS[item.qid] = "kein Bild in Wikidata/Wikipedia"
         return True
     try:
         lic = fetch_license(item.image_file)
-        if not lic:
-            return True
-        use_thumb = lic["width"] > THUMB_WIDTH or item.image_file.lower().endswith(".svg")
-        url = thumb_url(item.image_file, THUMB_WIDTH) if use_thumb else original_url(item.image_file)
-        path = net.download(url, suffix=".img", retries=2, max_wait=15)
     except net.FetchError as exc:
-        log.warning("Bild nicht geladen (%s): %s", item.image_file, exc)
+        IMAGE_ERRORS[item.qid] = f"Lizenz nicht abrufbar ({exc})"
+        log.warning("Bildlizenz nicht abrufbar (%s): %s", item.image_file, exc)
         return False
+    if not lic:
+        IMAGE_ERRORS[item.qid] = "keine freie Lizenz/kein Urheber"
+        return True
+    big = lic["width"] > THUMB_WIDTH or item.image_file.lower().endswith(".svg")
+    urls = [thumb_url(item.image_file, THUMB_WIDTH) if big else original_url(item.image_file),
+            thumb_url(item.image_file, 960)]          # Ersatz: kleinere Standardgröße
+    path, error = None, ""
+    for url in urls:
+        try:
+            path = net.download(url, suffix=".img", retries=2, max_wait=15)
+            break
+        except net.FetchError as exc:
+            error = str(exc)
+    if path is None:
+        IMAGE_ERRORS[item.qid] = f"Download fehlgeschlagen ({error})"
+        log.warning("Bild nicht geladen (%s): %s", item.image_file, error)
+        return False
+    IMAGE_ERRORS.pop(item.qid, None)
     item.image_path = str(path)
     item.image_credit = f"{lic['artist']} – {lic['license']} – Wikimedia Commons: File:{item.image_file}"
     return True
@@ -150,7 +189,8 @@ def enrich(research: Research, langs: list[str], images: bool = True) -> Researc
         net.reset_blocks()
         for item in failed:
             _enrich_item(item, langs, images)
-    missing = [it.labels.get(langs[0], it.qid) for it in research.items if not it.image_path]
+    missing = [f"{it.labels.get(langs[0], it.qid)} ({IMAGE_ERRORS[it.qid]})" if it.qid in IMAGE_ERRORS
+               else it.labels.get(langs[0], it.qid) for it in research.items if not it.image_path]
     if missing:
         research.warnings.append(f"Ohne Bild (Grafik-Platzhalter): {', '.join(missing)}")
     return research

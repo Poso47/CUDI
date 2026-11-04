@@ -202,10 +202,10 @@ def _collect(spec: VideoSpec, item: RankItem, checkers) -> list[Evidence]:
     return evidence
 
 
-def _support(result: dict) -> tuple[int, int]:
-    """Wie gut ist ein Wert belegt? (Status-Güte, Anzahl unabhängiger Bestätigungen)"""
+def _support(result: dict) -> tuple[int, int, int]:
+    """Wie gut ist ein Wert belegt? (Status-Güte, Quellen außerhalb Wikipedias, alle unabhängigen Bestätigungen)"""
     quality = {"bestätigt": 3, "korrigiert": 2, "nur eine Quelle": 1, "widersprüchlich": 0}[result["status"]]
-    return quality, len([s for s in result["sources"] if s != "Wikidata"])
+    return quality, len(external_sources(result["sources"])), len([s for s in result["sources"] if s != "Wikidata"])
 
 
 def verify_item(spec: VideoSpec, item: RankItem, checkers) -> dict:

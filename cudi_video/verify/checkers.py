@@ -304,10 +304,10 @@ class ExternalSourcesChecker(Checker):
     name = "Web"
     origin = "unabhängige Quelle außerhalb Wikipedias"
     LANGS = ("en", "de")
-    MAX_PAGES = 5               # höchstens so viele Seiten je Platz laden
+    MAX_PAGES = 6               # höchstens so viele Seiten je Platz laden
     MAX_DOMAINS = 2             # so viele bestätigende Websites reichen
     TIMEOUT = 10
-    TOLERANCE = 0.01
+    TOLERANCE = 0.002           # Webseite muss den Wert fast genau nennen (sonst eigene Rundung als Toleranz)
     SKIP = re.compile(r"(wikipedia|wikimedia|wikidata|wiktionary|wikisource|wikivoyage|archive\.org|archive\.(today|is|ph)"
                       r"|google\.|facebook\.|twitter\.|(^|\.)x\.com$|instagram\.|youtube\.|youtu\.be|tiktok\.|linkedin\."
                       r"|doi\.org|jstor\.org|worldcat\.org|openstreetmap\.|viaf\.org|d-nb\.info|id\.loc\.gov|isni\.org"

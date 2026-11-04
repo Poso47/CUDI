@@ -90,6 +90,7 @@ Sprachmodell (siehe unten) werden weitere Themen versucht.
 | CIA World Factbook | US-Regierung | Fläche, Einwohner von Staaten |
 | OpenStreetMap | weltweite Kartografie-Community | Gebäude- und Berghöhen |
 | Wikipedia EN, DE, FR, ES, RU, AR, ZH, JA | acht Sprachgemeinschaften | liest den Wert samt Einheit aus der Einleitung, sonst aus der Infobox – kann bestätigen **oder widersprechen** |
+| Webseiten aus den Einzelnachweisen | Fachdatenbanken (Skyscraper Center, Peakbagger …), Behörden, Lexika, Presse | Wikipedia ist nur das Verzeichnis: bis zu 6 verlinkte Seiten je Platz werden selbst geladen; zählt nur, wenn die Seite den Wert (± 0,2 %) nennt. Fehlt eine Quelle außerhalb Wikipedias, warnt der Prüfbericht. Abschalten: `CUDI_CHECK_WEB=0` |
 | Google Fact Check Tools (optional) | Faktencheck-Redaktionen (Correctiv, AFP, Snopes …) | gibt es Faktenchecks zum Eintrag? |
 
 Ergebnis je Platz (nur im Prüfbericht mit allen Werten und Links – die Quellen sind für uns, nicht fürs Publikum):
