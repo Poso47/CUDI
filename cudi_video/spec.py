@@ -53,6 +53,7 @@ class VideoSpec:
     image_prop: str = "P18"                    # Bild-Eigenschaft: P18 Foto, P41 Flagge
     icon: str | None = None                    # Icon ohne Foto: building, mountain, globe, people, lake, island, waterfall
     confirmed_only: bool = False               # nur unabhängig bestätigte Werte (freie Themen: Wikidata-Daten ungeprüft)
+    angle: str = ""                            # freie Themen: Claudes Deutung des Wunsches (für den Prüfbericht)
 
     def to_dict(self) -> dict:
         return asdict(self)

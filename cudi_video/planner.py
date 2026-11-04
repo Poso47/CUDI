@@ -86,8 +86,16 @@ def describe(spec: dict) -> str:
 # --------------------------------------------------------------------------- Claude in der App-Sitzung
 
 CLAUDE_PLAN = (
-    "Deute den Video-Wunsch aus „wunsch“ als Ranking: alle Dinge EINER Art (eine Wikidata-Klasse), sortiert nach "
+    "Du bist Redakteur eines Fakten-Kanals für TikTok/YouTube Shorts. „wunsch“ ist oft nur ein einfacher Satz oder "
+    "ein Stichwort („mach was über Berge“, „riesige Schiffe“, „Video über Wüsten in Afrika“). Denke mit: Was will "
+    "die Person sehen, und welcher EINDEUTIG MESSBARE Blickwinkel daraus ist am spannendsten? Nicht messbare Wünsche "
+    "(„gefährlichste“, „schönste“, „berühmteste“) übersetzt du in die nächstliegende messbare Zahl (z. B. Höhe, Länge, "
+    "Fläche, Tiefe, Einwohner, Geschwindigkeit, Kapazität) und nennst sie im Titel ehrlich. Nennt der Wunsch eine "
+    "Anzahl („Top 7“, „fünf“), gib sie als „anzahl“ zurück. Der Titel soll neugierig machen, konkret und kurz sein "
+    "(höchstens 50 Zeichen) und darf nichts versprechen, was die Zahl nicht zeigt. "
+    "Deute den Video-Wunsch als Ranking: alle Dinge EINER Art (eine Wikidata-Klasse), sortiert nach "
     "EINER Zahl-Eigenschaft aus „eigenschaften“. Antworte mit einem JSON-Objekt: "
+    "{\"blickwinkel\": \"ein Satz: was du daraus machst und warum\", \"anzahl\": Zahl oder null, "
     "{\"klasse_qid\": \"Q…\", \"klasse_en\": \"englischer Wikidata-Name der Klasse\", "
     "\"weitere_klassen\": [{\"qid\": \"\", \"en\": \"…\"}] (2–6 wichtige Unterklassen, unter denen "
     "die Spitzenreiter oft eingetragen sind, z. B. viaduct und railway bridge zu bridge), \"eigenschaft\": \"P…\", \"reihenfolge\": \"desc\" oder \"asc\", "
@@ -213,6 +221,9 @@ def plan_with_claude(topic: str, count: int) -> dict | None:
     tags = {lang: [re.sub(r"[^\wäöüß]", "", str(t).lower()) for t in (answer.get(f"hashtags_{lang}") or [])[:4]]
             for lang in ("de", "en")}
     title_de = title("titel_de", f"Die {{count}} Plätze: {topic}")
+    wanted = answer.get("anzahl")
+    if isinstance(wanted, int) and 3 <= wanted <= 30:       # „Top 7 …“ im Wunsch hat Vorrang vor der Einstellung
+        count = wanted
     return {
         "id": _slug(title_de.replace("{count}", str(count)))[:50] or "thema",
         "title": {"de": title_de, "en": title("titel_en", f"The {{count}}: {topic}")},
@@ -222,4 +233,5 @@ def plan_with_claude(topic: str, count: int) -> dict | None:
         "hashtags": {lang: ["ranking", *[t for t in tags[lang] if t]] for lang in tags},
         "source": source,
         "confirmed_only": True,
+        "angle": str(answer.get("blickwinkel") or "")[:300],     # Claudes Deutung – steht im Prüfbericht
     }

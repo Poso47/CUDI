@@ -81,6 +81,26 @@ Sprachmodell (siehe unten) werden weitere Themen versucht.
 * **Bilder nur mit freier Lizenz** (Wikimedia Commons), Urheber und Lizenz stehen im Video und in der
   Beschreibung. Länder zeigen Flaggen, ohne Bild gibt es eine Grafik mit Themen-Icon.
 
+## Spannungsbogen (Zuschauer bleiben dran)
+
+Jedes Video folgt einem psychologisch aufgebauten Bogen (`cudi_video/retention.py`), passend zu Format und Thema –
+mit ehrlicher Spannung statt Köder (alle Zahlen bleiben geprüft):
+
+* **Aufhänger mit Neugierlücke** (Loewenstein 1994): Der Rekordwert wird genannt, aber nicht, wem er gehört
+  („Stell dir vor: 828 Meter! Genau so viel schafft Platz eins …“); Varianten wechseln je Video.
+* **Zwischen-Aufhänger**: am Anfang („Aber das ist erst der Anfang.“), vor den Top 3, etwa alle drei Plätze und vor
+  der Auflösung – dort aus den geprüften Werten berechnet („Nur noch 149 Meter trennen Platz zwei von Platz eins.“).
+  Beim Kürzen fallen sie zuerst weg (der Abstand zu Platz 1 bleibt am längsten).
+* **Erzählte Texte**: Bild im Kopf zuerst, direkte Ansprache, kurze Sätze, Sinneseindrücke.
+* **Schluss**: Höhepunkt, dann eine Kommentarfrage zum Thema („Welchen dieser Berge würdest du besteigen?“).
+* **Storys**: Einstieg mitten im spannendsten Moment, jede Szene endet offen, Auflösung zuletzt – je Stimmung
+  eigene Regeln (Grusel: Andeutungen; Humor: Pointe am Satzende; Drama: Gefühle zeigen statt benennen …).
+
+**Eigene Themen in einfachen Sätzen** („mach was über Wüsten in Afrika“, „Top 7 längste Flüsse“): Eine Zahl im
+Satz bestimmt die Anzahl der Plätze. Unbekannte Themen deutet Claude wie ein Redakteur – nicht messbare Wünsche
+(„gefährlichste“, „schönste“) werden ehrlich in die nächstliegende messbare Zahl übersetzt; die Deutung steht
+im Prüfbericht. Danach läuft der volle Quellen-Abgleich.
+
 ## Bilder und Videoclips in Rankings
 
 Jeder Platz bekommt nach Möglichkeit **echte Videoclips**: bis zu 3 kurze Ausschnitte, die in der Bildkarte

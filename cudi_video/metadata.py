@@ -73,6 +73,8 @@ def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> 
     """Markdown-Bericht für die Freigabe vor dem Hochladen."""
     out = [f"# Prüfbericht: {spec.title.get('de') or next(iter(spec.title.values()))}", "",
            f"Daten abgerufen: {research.fetched_at}", ""]
+    if spec.angle:
+        out += [f"**Deutung des Themas:** {spec.angle}", ""]
     counts: dict[str, int] = {}
     for it in research.items:
         status = (it.verification or {}).get("status", "nicht geprüft")

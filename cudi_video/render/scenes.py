@@ -314,8 +314,10 @@ class ItemScene(Scene):
             from .clipreel import ClipReel
 
             self.reel = ClipReel(it["clips"], self.card_size, job["duration"], job["fps"])
-            self.clip_credits = {c.get("credit", ""): self._credit_chip(f"{self.L['clip']}: {c['credit_short']}")
-                                 for c in it["clips"] if c.get("credit_short")}
+            self.clip_credits = {
+                c.get("credit", ""): self._credit_chip(
+                    f"{self.L['photo'] if c.get('kind') == 'image' else self.L['clip']}: {c['credit_short']}")
+                for c in it["clips"] if c.get("credit_short")}
         # Rang-Badge
         B = self.BADGE
         badge = rounded_rect((B, B), 54, (*self.c1, 255))

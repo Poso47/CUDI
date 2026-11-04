@@ -141,7 +141,7 @@ def test_template_script_uses_only_data():
     assert "830" not in " ".join(s.text for s in script.segments)        # Wikipedia-Zahl verworfen
     assert "Quellen" not in script.segments[-1].text and "Wikidata" not in script.segments[-1].text
     en = build_script(spec, research, "en", use_llm=False)
-    assert en.segments[-1].text.startswith("That was our ranking.")
+    assert en.segments[-1].text.startswith("Which of these buildings")        # Kommentarfrage zum Thema
     assert "tallest" not in " ".join(s.text for s in en.segments)
 
 
@@ -500,7 +500,8 @@ def test_llm_text_is_used_when_checks_pass(monkeypatch):
     _fake_llm(monkeypatch, "Ein beeindruckender Wolkenkratzer.")
     script = build_script(spec, research, "de", use_llm=True)
     assert script.mode == "llm"
-    assert script.segments[1].text == "Wir starten mit Platz 3: Turm C. Ein beeindruckender Wolkenkratzer."
+    assert script.segments[1].text == ("Wir starten mit Platz 3: Turm C. Ein beeindruckender Wolkenkratzer. "
+                                       "Aber das ist erst der Anfang.")                     # Zwischen-Aufhänger
     assert all("übernommen" in c for c in script.checks)
 
 
@@ -981,3 +982,54 @@ def test_duplicates_keep_the_better_placed_entry(monkeypatch):
 
     monkeypatch.setattr(wikidata, "_sparql", broken)
     assert wikidata._duplicates(["Q1", "Q2"]) == set()
+
+
+def test_item_card_mixes_clip_and_moving_stills(tmp_path):
+    """Nur ein Clip: dazu Fotos als langsam schwenkende Standbilder – Nachweis „Foto“ statt „Video“."""
+    import subprocess
+
+    from PIL import Image
+
+    from cudi_video.render.scenes import make_scene
+
+    clip = tmp_path / "rot.mp4"
+    subprocess.run(["ffmpeg", "-loglevel", "error", "-f", "lavfi", "-i", "color=c=red:s=640x360:d=4:r=30",
+                    "-pix_fmt", "yuv420p", str(clip)], check=True)
+    photo = tmp_path / "blau.jpg"
+    Image.new("RGB", (1600, 900), (0, 0, 255)).save(photo)
+    clips = [{"path": str(clip), "duration": 4.0, "credit": "rot – CC0 – Test", "credit_short": "rot", "kind": "video"},
+             {"path": str(photo), "duration": 0, "credit": "blau – CC0 – Test", "credit_short": "blau", "kind": "image"}]
+    item = {"rank": 3, "name": "Turm C", "si_value": 632.0, "unit": "Q11573", "wanted": "m", "value_label": "Höhe",
+            "as_of": None, "extras": [], "image_path": str(photo), "image_kind": "photo", "credit_short": None,
+            "icon": "building", "n_sources": 2, "compare_chip": None, "clips": clips}
+    scene = make_scene(_job("item", item=item, frames=180, duration=6.0))
+    assert scene._card(1.0).convert("RGB").getpixel((300, 280))[0] > 200
+    later = scene._card(5.0).convert("RGB").getpixel((300, 280))
+    assert later[2] > 200 > later[0] and scene.reel.credit_at(5.0).startswith("blau")
+
+
+def test_retention_arc_uses_only_verified_numbers():
+    """Spannungsbogen: Aufhänger mit Neugierlücke, Übergänge an festen Stellen, Abstand Platz 2 → 1 aus den Daten."""
+    from cudi_video import retention
+
+    spec = make_spec()
+    items = [RankItem(qid=f"Q{r}", value=v, unit="Q11573", rank=r) for r, v in
+             [(5, 541.3), (4, 601.0), (3, 632.0), (2, 678.9), (1, 828.0)]]
+    out = retention.bridges(spec, items, "de", lambda v: f"{round(v)} Meter")
+    assert out == {5: "Aber das ist erst der Anfang.", 4: "Merk dir diese Zahl – gleich wird sie übertroffen.",
+                   2: "Nur noch 149 Meter trennen Platz zwei von Platz eins."}
+    assert 1 not in out and 3 not in out                       # Auflösung und Top-3-Ansage bleiben unberührt
+    hook = retention.hook(spec, "de", "Die 5 höchsten Türme", "828 Meter")
+    assert "828 Meter" in hook and hook == retention.hook(spec, "de", "Die 5 höchsten Türme", "828 Meter")
+    assert retention.outro(spec, "de", "mountain").startswith("Welchen dieser Berge")
+
+
+def test_name_match_uses_most_specific_name():
+    """Cloud-Probe: „The Clock Towers“ (Abraj Al Bait) passte auf ein NASA-Foto eines Uhrturms in Washington."""
+    from cudi_video.media import names_match
+
+    abraj = RankItem(qid="Q189476", value=607, unit="Q11573", labels={"en": "The Clock Towers", "de": "Abraj Al Bait"})
+    assert not names_match(abraj, "Supermoon Old Post Office and Clock Tower Washington")
+    assert names_match(abraj, "Abraj Al Bait towers in Mecca")
+    baikal = RankItem(qid="Q5513", value=1, unit="1", labels={"en": "Lake Baikal", "de": "Baikalsee"})
+    assert names_match(baikal, "sunrise over lake baikal")
