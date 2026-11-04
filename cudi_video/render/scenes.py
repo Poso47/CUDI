@@ -430,20 +430,28 @@ class OutroScene(Scene):
         fnt, lines = fit_font(job["title"], "black", 64, CONTENT_W, 2, min_size=40)
         self.title = gradient_fill(text_layer(lines, fnt), WHITE, (200, 220, 255), vertical=True)
         rows = out["rows"]
-        self.row_h = min(80, int(740 / max(1, len(rows))))
-        name_font = font("semibold", min(40, self.row_h - 30))
-        value_font = font("bold", min(40, self.row_h - 30))
+        # Lange Rankings (bis 30 Plätze): zwei Spalten, sonst würden Zeilen und Schrift zu klein
+        self.cols = 1 if len(rows) <= 12 else 2
+        self.per_col = max(1, math.ceil(len(rows) / self.cols))
+        self.gap = 24 if self.cols > 1 else 0
+        self.col_w = (CONTENT_W - self.gap * (self.cols - 1)) // self.cols
+        self.row_h = max(44, min(80, int((740 if self.cols == 1 else 800) / self.per_col)))
+        size = max(18, min(40, self.row_h - 30))
+        name_font = font("semibold", size)
+        value_font = font("bold", size)
         self.rows = []
         for rank, name, value in rows:
             c1, _ = rank_colors(rank)
-            row = rounded_rect((CONTENT_W, self.row_h - 10), 22, (255, 255, 255, 18))
+            row = rounded_rect((self.col_w, self.row_h - 10), 22 if self.row_h > 50 else 14, (255, 255, 255, 18))
             d = ImageDraw.Draw(row)
-            d.rounded_rectangle((10, 8, 10 + self.row_h - 26, self.row_h - 18), 14, fill=c1)
+            badge = self.row_h - 26
+            d.rounded_rectangle((10, 8, 10 + badge, self.row_h - 18), 14 if badge > 30 else 8, fill=c1)
             num = str(rank)
-            nf = font("black", int((self.row_h - 26) * 0.6))
-            d.text((10 + (self.row_h - 26 - nf.getlength(num)) / 2, 8 + (self.row_h - 26) * 0.17), num, font=nf, fill=(10, 12, 28))
+            nf = font("black", max(12, int(badge * 0.6)))
+            d.text((10 + (badge - nf.getlength(num)) / 2, 8 + (badge - sum(nf.getmetrics())) / 2), num, font=nf,
+                   fill=(10, 12, 28))
             vw = value_font.getlength(value)
-            max_name = CONTENT_W - self.row_h - vw - 60
+            max_name = self.col_w - self.row_h - vw - 40
             label = name
             while name_font.getlength(label) > max_name and len(label) > 4:
                 label = label[:-2]
@@ -451,7 +459,7 @@ class OutroScene(Scene):
                 label = label.rstrip() + "…"
             ty = (self.row_h - 10 - sum(name_font.getmetrics())) / 2
             d.text((self.row_h + 6, ty), label, font=name_font, fill=WHITE)
-            d.text((CONTENT_W - vw - 24, ty), value, font=value_font, fill=c1)
+            d.text((self.col_w - vw - 18, ty), value, font=value_font, fill=c1)
             self.rows.append(row)
         src_font = font("regular", 28)
         self.sources = text_layer(wrap(out["sources_line"], src_font, CONTENT_W), src_font, fill=MUTED)
@@ -463,12 +471,13 @@ class OutroScene(Scene):
         f = background(t)
         pt = ease_out_cubic(progress(t, 0.0, 0.4))
         paste(f, self.title, (X0, 140 + (1 - pt) * 30), opacity=pt)
-        y = 160 + self.title.height + 30
+        y0 = 160 + self.title.height + 30
+        step = min(0.08, 1.6 / max(1, len(self.rows)))      # lange Listen bauen sich schneller auf
         for i, row in enumerate(self.rows):
-            pr = ease_out_cubic(progress(t, 0.2 + i * 0.08, 0.35))
-            paste(f, row, (X0 + (1 - pr) * 120, y), opacity=pr)
-            y += self.row_h
-        y += 16
+            col, r = divmod(i, self.per_col)
+            pr = ease_out_cubic(progress(t, 0.2 + i * step, 0.35))
+            paste(f, row, (X0 + col * (self.col_w + self.gap) + (1 - pr) * 120, y0 + r * self.row_h), opacity=pr)
+        y = y0 + self.per_col * self.row_h + 16
         ps = progress(t, 1.0, 0.5)
         paste(f, self.sources, (X0, y), opacity=ps)
         y += self.sources.height + 24

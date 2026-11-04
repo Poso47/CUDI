@@ -332,3 +332,19 @@ def test_mascot_layer_moves_mouth_with_voice(tmp_path):
             f.writeframes((voice * 32767).astype(np.int16).tobytes())
         out = mascot.render_layer(wav, 2.0, fps, tmp_path / "m.mov")
         assert out.exists() and out.stat().st_size > 1000
+
+
+def test_mascot_is_drawn_into_ranking_frames():
+    """Rankings: CUDI kommt direkt ins Bild (kein zweiter Kodierdurchgang für lange Videos)."""
+    import numpy as np
+    from PIL import Image
+
+    from cudi_video import mascot
+
+    frame = Image.new("RGB", (1080, 1920), (10, 12, 28))
+    x, y = mascot.overlay_position()
+    out = mascot.compose(frame, 0, 30, mascot.MOUTH_LEVELS - 1, set())
+    cx, cy = x + mascot.CANVAS[0] // 2, y + mascot.CANVAS[1] // 2
+    assert out.getpixel((cx, cy))[:3] != (10, 12, 28) and out.getpixel((5, 5))[:3] == (10, 12, 28)
+    levels = mascot.levels_for(np.ones(4800, dtype=np.float32) * 0.3, 24000, 30, 30, lead=0.5)
+    assert max(levels[:12]) == 0 and max(levels[15:20]) > 0              # erst nach der Pause spricht CUDI

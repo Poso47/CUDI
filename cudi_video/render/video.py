@@ -60,6 +60,7 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
             "text": seg.text, "words": seg.words, "lead": lead,
             "frames": frames, "duration": frames / config.FPS, "fps": config.FPS,
             "n_items": len(research.items), "max_display": max_display, "channel": config.CHANNEL,
+            "voice_path": seg.audio_path, "mascot": mascot.enabled(),   # CUDI wird direkt ins Bild gezeichnet
             "out": str(work / f"part_{i:02d}.mp4"),
         }
         if seg.kind == "intro" and top:
@@ -89,6 +90,10 @@ def render_part(job: dict) -> str:
     from .scenes import make_scene
 
     scene = make_scene(job)
+    levels, blinks = None, set()
+    if job.get("mascot") and job.get("voice_path"):
+        levels = mascot.levels_for(_decode(job["voice_path"]), SAMPLE_RATE, job["fps"], job["frames"], job["lead"])
+        blinks = mascot.blink_frames(job["frames"], job["fps"], seed=job["index"] + 7)
     cmd = [
         "ffmpeg", "-y", "-loglevel", "error",
         "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{config.WIDTH}x{config.HEIGHT}", "-r", str(job["fps"]),
@@ -100,6 +105,8 @@ def render_part(job: dict) -> str:
     try:
         for n in range(job["frames"]):
             frame = scene.frame(n / job["fps"])
+            if levels is not None:
+                frame = mascot.compose(frame, n, job["fps"], levels[n], blinks)
             proc.stdin.write(frame.convert("RGB").tobytes())
     finally:
         proc.stdin.close()
@@ -253,23 +260,14 @@ def render_video(spec: VideoSpec, research: Research, script: Script, out_dir: P
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat_list),
                     "-c", "copy", str(video_only)], check=True)
 
-    audio, voice = work / "audio.wav", work / "voice.wav"
-    with_mascot = mascot.enabled()
-    build_audio(script, jobs, audio, voice if with_mascot else None)
+    audio = work / "audio.wav"
+    build_audio(script, jobs, audio)          # das Maskottchen ist schon in den Bildern (render_part)
 
     final = out_dir / f"{spec.id}_{script.lang}.mp4"
-    video_args = ["-c:v", "copy"]
-    inputs = ["-i", str(video_only), "-i", str(audio)]
-    if with_mascot:                                   # CUDI erzählt mit: Ebene unten mittig, Bild neu kodieren
-        layer = mascot.render_layer(voice, sum(j["duration"] for j in jobs), config.FPS, work / "mascot.mov")
-        mx, my = mascot.overlay_position(config.WIDTH, config.HEIGHT)
-        inputs += ["-i", str(layer)]
-        video_args = ["-filter_complex", f"[0:v][2:v]overlay={mx}:{my}:eof_action=pass[v]", "-map", "[v]",
-                      "-map", "1:a", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p"]
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", *inputs,
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video_only), "-i", str(audio),
                     # Lautheit wie auf TikTok/YouTube üblich (ca. -14 LUFS), damit das Video nicht leiser wirkt
                     "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", str(SAMPLE_RATE),
-                    *video_args, "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
+                    "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
                     str(final)], check=True)
 
     cover = out_dir / f"{spec.id}_{script.lang}_cover.jpg"

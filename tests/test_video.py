@@ -860,3 +860,19 @@ def test_contradicted_unconfirmed_value_is_rejected():
     split = evaluate(crater, [_ev("Wikidata", 594.0, precision=1), _ev("Wikipedia (en)", 594.0, precision=1),
                               _ev("Wikipedia (ar)", 655.0, precision=1), _ev("Wikipedia (zh)", 655.0, precision=1)], 0.01)
     assert split["status"] == "widersprüchlich" and not unconfirmed_conflict(split)
+
+
+@pytest.mark.parametrize("n", [12, 25, 30])
+def test_long_rankings_render_outro_and_header(tmp_path, n):
+    """Probelauf „25 höchste Berge“: Abschlussliste mit vielen Plätzen (vorher Schriftgröße 0 -> Absturz)."""
+    from cudi_video.render.scenes import make_scene
+    from cudi_video.render.theme import H, W
+
+    rows = [(i, f"Sehr langer Bergname Nummer {i}", f"{8000 - i * 10} m") for i in range(1, n + 1)]
+    outro = make_scene(_job("outro", n_items=n, outro={"rows": rows, "sources_line": "Stand: heute"}))
+    assert outro.frame(4.0).size == (W, H)
+    assert outro.cols == (1 if n <= 12 else 2) and outro.row_h >= 44
+    item = {"rank": n, "name": "Berg", "si_value": 7000.0, "unit": "Q11573", "wanted": "m", "value_label": "Höhe",
+            "as_of": None, "extras": [], "image_path": None, "image_kind": "photo", "credit_short": None,
+            "icon": "mountain", "n_sources": 2, "compare_chip": None}
+    assert make_scene(_job("item", n_items=n, item=item)).frame(0.8).size == (W, H)

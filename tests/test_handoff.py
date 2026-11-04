@@ -228,12 +228,12 @@ def test_cartoon_prompts_keep_one_main_character():
     figure = FIGURES["m"]
     with_person = cartoon_prompt("a lonely man at a telescope, dark cinematic horror photograph, eerie atmosphere, fog, "
                                  "low light, muted colors, film grain, vertical composition, no text", "creepy", figure)
-    assert "photograph" not in with_person and with_person.startswith("2D cartoon illustration")   # Stil zuerst
-    assert figure in with_person and "no text" in with_person[:120]
+    assert "photograph" not in with_person and with_person.startswith("flat 2D cartoon")   # Stil zuerst
+    assert figure in with_person and "no text" in with_person[:160]
     no_person = cartoon_prompt("an empty field beside a dark lake, vertical composition, no text", "creepy", figure)
     assert figure not in no_person and "an empty field beside a dark lake" in no_person
     long = cartoon_prompt("a man " + "very " * 80 + "tall, vertical composition, no text", "creepy", "x " * 150)
-    assert long[:400].startswith("2D cartoon illustration") and "no text" in long[:400]   # Stil übersteht die Kürzung
+    assert long[:400].startswith("flat 2D cartoon") and "no text" in long[:400]   # Stil übersteht die Kürzung
 
 
 def test_known_leaders_are_always_candidates(monkeypatch):
