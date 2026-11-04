@@ -44,6 +44,7 @@ class Research:
     query: str = ""
     warnings: list[str] = field(default_factory=list)
     references: dict = field(default_factory=dict)   # Vergleichsobjekt je Sprache
+    partial: bool = False          # Lücke an der Spitze: Titel ohne Vollständigkeitsanspruch („5 der längsten …“)
 
     def to_dict(self) -> dict:
         return asdict(self)

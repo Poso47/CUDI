@@ -136,6 +136,10 @@ def run(
     if research_file.exists():
         research = Research.from_dict(json.loads(research_file.read_text("utf-8")))
         spec.shrink_to(len(research.items))       # wie nach dem Abgleich (Fortsetzen nach einer Schreibaufgabe)
+        if research.partial:                      # Cloud-Probe Flüsse 4: „5 der längsten“ ging beim Fortsetzen verloren
+            from .verify import _partial_title
+
+            spec.title = {lang: _partial_title(t, lang) for lang, t in spec.title.items()}
     else:
         progress("Quellen-Abgleich", 0.05)
         research = research_stage(spec, out, fresh=fresh, images=images, strict=strict)
