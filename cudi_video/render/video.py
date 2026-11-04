@@ -43,7 +43,8 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
     displays = [quantity(it.value, it.unit, spec.unit).value for it in research.items]
     max_display = max((abs(v) for v in displays), default=1.0)
     top = items.get(1)
-    rows = [(it.rank, it.labels[lang], quantity(it.value, it.unit, spec.unit).display(lang))
+    facts = spec.kind == "facts"
+    rows = [(it.rank, it.labels[lang], "" if facts else quantity(it.value, it.unit, spec.unit).display(lang))
             for it in sorted(research.items, key=lambda i: i.rank)]
     # Quellen dienen der Prüfung (Prüfbericht) – im Video steht nur der Stand und der Bildnachweis.
     as_of = format_date(research.fetched_at[:10], lang)
@@ -64,7 +65,7 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
             "out": str(work / f"part_{i:02d}.mp4"),
         }
         if seg.kind == "intro" and top:
-            job["intro"] = {"si_value": top.value, "unit": top.unit, "wanted": spec.unit}
+            job["intro"] = {"si_value": top.value, "unit": top.unit, "wanted": spec.unit, "fact": facts}
         elif seg.kind == "item":
             it = items[seg.rank]
             job["item"] = {
@@ -72,7 +73,9 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
                 "si_value": it.value, "unit": it.unit, "wanted": spec.unit,
                 "value_label": spec.value_label.get(lang, ""),
                 "as_of": as_of_year(spec, it),
-                "compare_chip": (comparison(it, research.references.get(lang), spec.source.property, lang) or {}).get("chip"),
+                "compare_chip": None if facts else
+                (comparison(it, research.references.get(lang), spec.source.property, lang) or {}).get("chip"),
+                "fact": facts, "kicker": it.descriptions.get(lang, "") if facts else "",
                 "extras": extras_lines(spec, it, lang),
                 "image_path": it.image_path, "image_kind": it.image_kind,
                 "credit_short": _short_credit(it.image_credit),

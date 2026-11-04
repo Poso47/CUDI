@@ -81,6 +81,10 @@
   .moods button { padding: 12px 4px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink);
                   color: var(--paper); font: 700 14px var(--body); cursor: pointer; }
   .moods button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+  .rate { margin-top: 10px; display: grid; gap: 8px; }
+  .rate .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .rate button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+  .rate input { flex: 1 1 180px; min-width: 0; }
   .go { width: 100%; padding: 16px; border: 0; border-radius: 14px; background: var(--accent); color: #04141a;
         font: 800 17px var(--display); cursor: pointer; }
   .go:disabled, .go[aria-disabled="true"] { opacity: .5; cursor: default; }
@@ -531,6 +535,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     note(msgId, "Auftrag wird gestartet …", "");
     const id = newId();
     const order = Object.assign({ id: id }, built.order);
+    const prefs = preferences();
+    if (prefs) order.vorlieben = prefs;
     const ref = db.doc("jobs/" + id);
     try {
       await ref.set({ id: id, art: order.art, label: built.label, auftrag: order, session: "", gestartet: new Date().toISOString() });
@@ -564,6 +570,41 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   /* ---------- Meine Videos: Aufträge, Fortschritt, Ergebnisse ---------- */
   const jobs = new Map(), results = new Map(), buckets = new Map(), watches = new Map(), cards = new Map();
+  const ratings = new Map();          // Bewertungen je Auftrag (bleiben, auch wenn das Video gelöscht wird)
+
+  /* ---------- Bewertungen: die App lernt, welche Videos gefallen ---------- */
+  function ratingBox(id, job, res) {
+    const r = ratings.get(id) || {};
+    const box = document.createElement("div"); box.className = "rate";
+    const row = document.createElement("div"); row.className = "row";
+    const label = document.createElement("span"); label.className = "meta"; label.textContent = "Wie findest du das Video?";
+    const note_ = document.createElement("input"); note_.type = "text"; note_.maxLength = 140;
+    note_.placeholder = "Was war gut oder schlecht? (optional, z. B. „zu lang“, „Clips top“)"; note_.value = r.notiz || "";
+    async function save(value) {
+      if (!db) return;
+      const doc = { id: id, wert: value, notiz: note_.value.trim().slice(0, 140), titel: (res && res.titel) || job.label || "",
+                    art: job.art || "", thema: (job.auftrag && (job.auftrag.thema || job.auftrag.wunsch || job.auftrag.vorlage)) || "",
+                    zeit: new Date().toISOString() };
+      try { await db.doc("bewertungen/" + id).set(doc); note("videosMsg", value > 0 ? "Danke! Gemerkt, was gut war." : "Danke! Gemerkt – das nächste Video wird anders.", "ok"); }
+      catch (err) { note("videosMsg", explain(err), "bad"); }
+    }
+    const up = document.createElement("button"); up.type = "button"; up.textContent = "👍 Gut"; up.setAttribute("aria-pressed", String(r.wert === 1));
+    const down = document.createElement("button"); down.type = "button"; down.textContent = "👎 Nicht gut"; down.setAttribute("aria-pressed", String(r.wert === -1));
+    up.addEventListener("click", () => save(1));
+    down.addEventListener("click", () => save(-1));
+    note_.addEventListener("change", () => { if (r.wert) save(r.wert); });
+    row.append(label, up, down);
+    box.append(row, note_);
+    return box;
+  }
+  // Die letzten Bewertungen als „Vorlieben“ für den nächsten Auftrag (Claude lernt daraus)
+  function preferences() {
+    const all = [...ratings.values()].sort((a, b) => String(b.zeit || "").localeCompare(String(a.zeit || "")));
+    const line = (r) => [r.art === "story" ? "Story" : "Ranking", r.titel || r.thema].filter(Boolean).join(": ") + (r.notiz ? " – " + r.notiz : "");
+    const gut = all.filter((r) => r.wert === 1).slice(0, 8).map(line);
+    const schlecht = all.filter((r) => r.wert === -1).slice(0, 8).map(line);
+    return gut.length || schlecht.length ? { gut: gut, schlecht: schlecht } : null;
+  }
   // Seit wann ruht eine Sitzung? (Zeit des letzten Sitzungs-Updates, sonst der ersten Beobachtung)
   const idleFrom = new Map(), IDLE = new Set(["COMPLETED", "REVIEW_READY", "IDLE"]);
   function noteBucket(session, payload) {
@@ -1089,6 +1130,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         box.appendChild(row);
         li.appendChild(box);
       });
+      if ((res.videos || []).length) li.appendChild(ratingBox(id, job, res));
       if (!(res.videos || []).length) {
         const info = document.createElement("p"); info.className = "hint";
         info.textContent = "Nur Skript und Prüfbericht (wie gewünscht ohne Video).";
@@ -1127,7 +1169,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   function signature(id) {
     const job = jobs.get(id) || {}, res = results.get(id), state = stateOf(id);
     return JSON.stringify([state, res ? res.fertig || 1 : 0, job.label || "", state === "laeuft" ? minutes(job.gestartet) : 0,
-                           job.versuch || 1, job.session || ""]);
+                           job.versuch || 1, job.session || "", (ratings.get(id) || {}).wert || 0, (ratings.get(id) || {}).notiz || ""]);
   }
   // Nur geänderte Karten neu zeichnen – ein laufendes Video wird nie neu geladen
   // Viele Videos: die neuesten zuerst, ältere per Knopf nachladen (alle bleiben speicher- und löschbar)
@@ -1242,6 +1284,10 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       results.clear(); snap.docs.forEach((d) => results.set(d.id, d.data()));
       syncWatches(); render(); setTimeout(() => { archiveDone(); cleanupOrphans(); autoRetry(); }, 0);
     }, () => { /* Meldung kommt über die Auftragsliste */ });
+    db.collection("bewertungen").limit(300).onSnapshot((snap) => {
+      ratings.clear(); snap.docs.forEach((d) => ratings.set(d.id, d.data()));
+      render();
+    }, () => { /* ohne Bewertungen geht es auch */ });
     db.doc("config/app").onSnapshot((snap) => {
       const data = snap.exists ? snap.data() : null;
       const url = data && typeof data.url === "string" ? normalize(data.url) : "";

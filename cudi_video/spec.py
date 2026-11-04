@@ -54,6 +54,8 @@ class VideoSpec:
     icon: str | None = None                    # Icon ohne Foto: building, mountain, globe, people, lake, island, waterfall
     confirmed_only: bool = False               # nur unabhängig bestätigte Werte (freie Themen: Wikidata-Daten ungeprüft)
     angle: str = ""                            # freie Themen: Claudes Deutung des Wunsches (für den Prüfbericht)
+    kind: str = "numbers"                      # numbers = Zahlen-Ranking (Wikidata), facts = Fakten-Ranking (facts.py)
+    facts: dict = field(default_factory=dict)  # Fakten-Ranking: {"articles": {"de": [...], "en": [...]}, "criterion": {...}}
 
     def to_dict(self) -> dict:
         return asdict(self)

@@ -106,8 +106,16 @@ CLAUDE_PLAN = (
     "\"titel_de\": \"Die {count} … \", \"titel_en\": \"The {count} …\", \"wert_de\": \"z. B. Länge\", "
     "\"wert_en\": \"z. B. Length\", \"hashtags_de\": [3 Wörter], \"hashtags_en\": [3 words]}. Bei „qid“ nur IDs, "
     "bei denen du dir sicher bist, sonst leer lassen – der englische Name (wie in der englischen Wikipedia) reicht, "
-    "der Code sucht und prüft die ID selbst. Passt der Wunsch nicht zu "
-    "einem Zahlen-Ranking, antworte {\"fehler\": \"kurze Erklärung auf Deutsch mit einem passenden Vorschlag\"}."
+    "der Code sucht und prüft die ID selbst. "
+    "JEDES Thema lässt sich ranken: Passt der Wunsch NICHT zu einem Zahlen-Ranking (z. B. „5 coole Fakten über das "
+    "Unterbewusstsein“, „Gründe, warum …“, „Mythen über …“, „unglaubliche Fakten über Haie“), antworte als "
+    "Fakten-Ranking: {\"art\": \"fakten\", \"blickwinkel\": \"…\", \"anzahl\": Zahl oder null, "
+    "\"artikel_de\": [1–3 Titel deutscher Wikipedia-Artikel, die das Thema gründlich behandeln], "
+    "\"artikel_en\": [1–3 Titel englischer Wikipedia-Artikel], \"kriterium_de\": \"z. B. verblüffendste\", "
+    "\"kriterium_en\": \"z. B. most surprising\", \"titel_de\": \"Die {count} verblüffendsten Fakten über …\", "
+    "\"titel_en\": \"The {count} most surprising facts about …\", \"hashtags_de\": [3 Wörter], "
+    "\"hashtags_en\": [3 words]}. Nur wenn ein Wunsch gar nicht umsetzbar ist (z. B. verletzend oder ohne jede "
+    "Faktengrundlage), antworte {\"fehler\": \"kurze Erklärung auf Deutsch mit einem passenden Vorschlag\"}."
 )
 
 
@@ -177,6 +185,8 @@ def plan_with_claude(topic: str, count: int) -> dict | None:
         return None
     if answer.get("fehler"):
         raise PlanFailed(str(answer["fehler"])[:300])
+    if answer.get("art") == "fakten":
+        return _fact_plan(topic, count, answer)
     pid = answer.get("eigenschaft")
     if pid not in PROPERTIES:
         raise PlanFailed("Zu diesem Wunsch fand sich keine passende Zahl zum Sortieren.")
@@ -234,4 +244,39 @@ def plan_with_claude(topic: str, count: int) -> dict | None:
         "source": source,
         "confirmed_only": True,
         "angle": str(answer.get("blickwinkel") or "")[:300],     # Claudes Deutung – steht im Prüfbericht
+    }
+
+
+def _fact_plan(topic: str, count: int, answer: dict) -> dict:
+    """Fakten-Ranking: Artikeltitel werden erst beim Laden geprüft (facts.gather_sources), Titel/Anzahl wie oben."""
+    from .topics import _slug
+
+    articles = {lang: [str(t)[:120] for t in (answer.get(f"artikel_{lang}") or [])[:3] if str(t).strip()]
+                for lang in ("de", "en")}
+    if not any(articles.values()):
+        raise PlanFailed("Zu diesem Wunsch fanden sich keine passenden Fachartikel.")
+    wanted = answer.get("anzahl")
+    if isinstance(wanted, int) and 3 <= wanted <= 30:
+        count = wanted
+
+    def title(key: str, fallback: str) -> str:
+        text = re.sub(r"\s+", " ", str(answer.get(key) or fallback)).strip()[:90]
+        if "{count}" in text:
+            return text
+        return re.sub(r"^(Die|The|Top)\s+\d+", r"\1 {count}", text, count=1) if re.match(r"^(Die|The|Top)\s+\d+", text) \
+            else re.sub(r"^(Die|The)\s+", r"\1 {count} ", text, count=1)
+
+    title_de = title("titel_de", f"Die {{count}} verblüffendsten Fakten: {topic}")
+    tags = {lang: [re.sub(r"[^\wäöüß]", "", str(t).lower()) for t in (answer.get(f"hashtags_{lang}") or [])[:4]]
+            for lang in ("de", "en")}
+    return {
+        "id": _slug(title_de.replace("{count}", str(count)))[:50] or "fakten",
+        "title": {"de": title_de, "en": title("titel_en", f"The {{count}} most surprising facts: {topic}")},
+        "count": count,
+        "kind": "facts",
+        "facts": {"articles": articles, "criterion": {"de": str(answer.get("kriterium_de") or "verblüffendste")[:40],
+                                                      "en": str(answer.get("kriterium_en") or "most surprising")[:40]}},
+        "source": {"type": "wikidata", "class": "Q0", "property": "P0"},   # Zahlen-Quelle hier unbenutzt
+        "hashtags": {lang: ["fakten" if lang == "de" else "facts", *[t for t in tags[lang] if t]] for lang in tags},
+        "angle": str(answer.get("blickwinkel") or "")[:300],
     }

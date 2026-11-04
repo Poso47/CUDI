@@ -1,0 +1,200 @@
+"""Fakten-Ranking: jedes Thema lässt sich ranken – auch ohne messbare Zahl.
+
+„5 coole Fakten über das Unterbewusstsein“ wird zu einem Countdown im gewohnten Ranking-Aussehen. Ablauf:
+
+1. Claude wählt beim Planen 1–3 Fachartikel je Sprache (Wikipedia), der Code lädt deren Text.
+2. Claude schreibt aus genau diesen Texten die Fakten – je Fakt mit einem WÖRTLICH kopierten Beleg-Satz.
+3. Der Code prüft jeden Fakt streng: Beleg steht so in der Quelle, Zahlen im Text stehen im Beleg UND in einer
+   zweiten Quelle (Fakten werden verglichen, nicht einfach übernommen), keine erfundenen Namen/Hauptwörter,
+   keine Wertungen. Wer durchfällt, fliegt raus (Claude liefert dafür einige Fakten mehr).
+4. Platz 1 ist der stärkste Fakt nach dem genannten Kriterium (z. B. „verblüffendste“) – ehrlich als
+   redaktionelle Auswahl, nicht als Messwert.
+"""
+
+from __future__ import annotations
+
+import logging
+import re
+from datetime import datetime, timezone
+
+from . import handoff, net
+from .models import RankItem, Research
+from .spec import VideoSpec
+
+log = logging.getLogger(__name__)
+
+ARTICLE_CHARS = 14000          # je Artikel – genug für viele Fakten, ohne die Schreibaufgabe aufzublähen
+EXTRA_FACTS = 3                # Claude liefert so viele Fakten mehr, falls einzelne die Prüfung nicht bestehen
+MIN_ARTICLE_CHARS = 1200
+
+INSTRUCTIONS = (
+    "Schreibe ein Fakten-Ranking für TikTok/YouTube Shorts zum Thema „thema“: genau „anzahl“ Fakten, sortiert nach "
+    "„kriterium“ (rang 1 = am stärksten, er kommt im Video zuletzt). Verwende NUR Aussagen, die in den Texten unter "
+    "„quellen“ stehen – nichts dazuerfinden, keine Zahl, die dort nicht steht, keine Gesundheits- oder "
+    "Heilversprechen, keine Wertungen über Menschen oder Politik. Je Fakt: „beleg“ = EIN Satz, Zeichen für Zeichen "
+    "WÖRTLICH aus einem Quelltext kopiert; „quelle“ = die „id“ dieses Quelltexts; für jede Sprache in „sprachen“: "
+    "„titel_<sprache>“ (Überschrift, höchstens 45 Zeichen), „kurz_<sprache>“ (Kernaussage, höchstens 70 Zeichen) und "
+    "„text_<sprache>“ (Sprechertext, ungefähr „woerter“ Wörter, erzählt wie eine kleine Geschichte: zuerst ein Bild "
+    "im Kopf oder das überraschendste Detail, direkte Ansprache mit „du“, kurze Sätze, nichts übertreiben); "
+    "„suche“ = 2–4 englische Wörter für passende Stockvideos (z. B. „brain neurons glowing“). Antwort: "
+    "{\"fakten\": [{\"rang\": 1, \"beleg\": \"…\", \"quelle\": \"…\", \"titel_de\": \"…\", \"kurz_de\": \"…\", "
+    "\"text_de\": \"…\", \"suche\": \"…\"}]}."
+)
+
+
+def _norm(text: str) -> str:
+    text = text.replace(" ", " ").replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
+    text = text.replace("„", '"').replace("–", "-").replace("—", "-")
+    return re.sub(r"\s+", " ", text).strip().lower()
+
+
+def article_text(lang: str, title: str) -> tuple[str, str]:
+    """Klartext eines Wikipedia-Artikels (gekürzt) und sein endgültiger Titel; leer, wenn es ihn nicht gibt."""
+    data = net.get_json(f"https://{lang}.wikipedia.org/w/api.php",
+                        params={"action": "query", "prop": "extracts", "explaintext": 1, "titles": title,
+                                "redirects": 1, "format": "json", "formatversion": 2},
+                        cache_hours=24 * 7, retries=2, max_wait=15)
+    pages = data.get("query", {}).get("pages", [])
+    page = pages[0] if pages else {}
+    if page.get("missing") or page.get("invalid"):
+        return "", title
+    text = re.sub(r"\n=+ [^\n]*(Literatur|Weblinks|Einzelnachweise|References|External links|See also|Siehe auch|"
+                  r"Further reading|Notes)[^\n]*=+\n.*", "", page.get("extract") or "", flags=re.S)
+    return text[:ARTICLE_CHARS], page.get("title", title)
+
+
+def gather_sources(spec: VideoSpec) -> list[dict]:
+    sources = []
+    for lang, titles in (spec.facts.get("articles") or {}).items():
+        for title in titles[:3]:
+            try:
+                text, real = article_text(lang, title)
+            except net.FetchError as exc:
+                log.warning("Artikel %s (%s) nicht abrufbar: %s", title, lang, exc)
+                continue
+            if len(text) >= MIN_ARTICLE_CHARS:
+                sources.append({"id": f"{lang}:{real}", "sprache": lang, "titel": real, "text": text,
+                                "url": f"https://{lang}.wikipedia.org/wiki/{real.replace(' ', '_')}"})
+    return sources
+
+
+def word_budget(spec: VideoSpec) -> int:
+    seconds = max(8.0, (spec.target_seconds - 18) / max(1, spec.count))
+    return max(22, min(60, int(seconds * 2.1) - 6))
+
+
+def _digits(text: str) -> set[str]:
+    return {d.replace(".", "").replace(",", "") for d in re.findall(r"\d[\d.,]*", text)}
+
+
+def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int) -> tuple[str | None, str]:
+    """(Grund der Ablehnung oder None, Prüfstatus). Status „bestätigt“ = Zahlen auch in einer zweiten Quelle."""
+    from .narrate import RANK_CLAIM, unknown_words
+    from .script import NOT_NEUTRAL
+    from .textcheck import invented_people
+
+    if not isinstance(fact, dict):
+        return "kein Fakt", ""
+    beleg = str(fact.get("beleg") or "").strip()
+    home = next((s for s in sources if s["id"] == fact.get("quelle")), None)
+    home = home or next((s for s in sources if _norm(beleg) and _norm(beleg) in _norm(s["text"])), None)
+    if len(beleg) < 25 or not home or _norm(beleg) not in _norm(home["text"]):
+        return "Beleg steht nicht wörtlich in der Quelle", ""
+    for lang in langs:
+        text = str(fact.get(f"text_{lang}") or "").strip()
+        title = str(fact.get(f"titel_{lang}") or "").strip()
+        short = str(fact.get(f"kurz_{lang}") or "").strip()
+        if not text or not title:
+            return f"Text oder Titel ({lang}) fehlt", ""
+        said = f"{title} {short} {text}"
+        if not _digits(said) <= _digits(beleg):
+            return f"Zahl ohne Beleg ({lang})", ""
+        if NOT_NEUTRAL.search(said) or RANK_CLAIM.search(said):
+            return "Wertung oder Rang-Aussage", ""
+        if len(text.split()) > budget * 1.4 + 8 or len(title) > 60 or len(short) > 90:
+            return f"zu lang ({lang})", ""
+        unknown = invented_people(text, home["text"]) or unknown_words(
+            text, {"sprache": lang, "beleg": beleg, "quelle": " ".join(s["text"] for s in sources)})
+        if unknown:
+            return "nicht belegt: " + ", ".join(unknown[:3]), ""
+    numbers = {d for d in _digits(beleg) if len(d) >= 2}
+    others = [s for s in sources if s is not home]
+    if numbers and not any(numbers <= _digits(s["text"]) for s in others):
+        return "Zahlen nur in einer Quelle – nicht abgeglichen", ""
+    return None, "bestätigt" if numbers else "eine Fachquelle (Wortlaut geprüft)"
+
+
+def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
+    """Quellen laden, Claude die Fakten schreiben lassen, jeden Fakt prüfen. Wirft handoff.WritingNeeded, solange
+    Claudes Antwort fehlt (der Auftrag läuft danach mit --weiter weiter)."""
+    sources = gather_sources(spec)
+    if not sources:
+        raise ValueError("Zu diesem Thema fanden sich keine Fachartikel. Bitte das Thema etwas anders formulieren.")
+    budget = word_budget(spec)
+    answer = handoff.request("fakten", INSTRUCTIONS, {
+        "thema": spec.title.get("de") or next(iter(spec.title.values())),
+        "anzahl": spec.count + EXTRA_FACTS, "kriterium": spec.facts.get("criterion", {}),
+        "sprachen": langs, "woerter": budget,
+        "quellen": [{k: s[k] for k in ("id", "sprache", "titel", "text")} for s in sources]})
+    facts = answer.get("fakten") if isinstance(answer, dict) else None
+    if not isinstance(facts, list):
+        raise ValueError("Es kamen keine Fakten zurück.")
+    warnings, kept = [], []
+    for fact in sorted((f for f in facts if isinstance(f, dict)), key=lambda f: int(f.get("rang") or 99)):
+        reason, status = check_fact(fact, sources, langs, budget)
+        name = str(fact.get(f"titel_{langs[0]}") or fact.get("beleg", ""))[:60]
+        if reason:
+            warnings.append(f"Fakt „{name}“ verworfen: {reason}.")
+            continue
+        kept.append((fact, status))
+        if len(kept) == spec.count:
+            break
+    if len(kept) < min(3, spec.count):
+        raise ValueError(f"Nur {len(kept)} Fakten bestanden die Prüfung – zu wenig für ein ehrliches Ranking.")
+    if len(kept) < spec.count:
+        warnings.append(f"Nur {len(kept)} von {spec.count} Fakten geprüft – Video zeigt die Top {len(kept)}.")
+        spec.shrink_to(len(kept))
+    items = []
+    n = len(kept)
+    for rank, (fact, status) in enumerate(kept, start=1):
+        home = next((s for s in sources if s["id"] == fact.get("quelle")), None) or next(
+            s for s in sources if _norm(fact["beleg"]) in _norm(s["text"]))
+        items.append(RankItem(
+            qid=f"F{rank}", value=float(n + 1 - rank), unit="Q199", rank=rank,
+            labels={lang: str(fact[f"titel_{lang}"]).strip() for lang in langs},
+            descriptions={lang: str(fact.get(f"kurz_{lang}") or "").strip() for lang in langs},
+            summary={lang: str(fact[f"text_{lang}"]).strip() for lang in langs},
+            fact={"beleg": fact["beleg"].strip(), "quelle": home["titel"], "url": home["url"],
+                  "suche": str(fact.get("suche") or "")[:60]},
+            verification={"status": status, "sources": [home["titel"]], "evidence": [], "outliers": []},
+        ))
+    research = Research(spec_id=spec.id, fetched_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                        items=items, warnings=warnings)
+    _visuals(research)
+    return research
+
+
+def _visuals(research: Research) -> None:
+    """Passende Stockclips (Pexels/Pixabay) bzw. Fotos je Fakt – abstrakte Themen brauchen Stimmungsbilder."""
+    from .story.visuals import pexels, pexels_photo, pixabay
+
+    used: set = set()
+    for item in research.items:
+        query = item.fact.get("suche") or item.labels.get("en") or ""
+        clips = []
+        for _ in range(2):
+            try:
+                found = pexels(query, used) or pixabay(query, used)
+            except net.FetchError:
+                found = None
+            if not found:
+                break
+            clips.append({"path": found.path, "credit": found.credit, "duration": 0, "kind": "video"})
+        if not clips:
+            try:
+                photo = pexels_photo(query, used)
+            except net.FetchError:
+                photo = None
+            if photo:
+                item.image_path, item.image_credit = photo.path, photo.credit
+        item.clips = clips

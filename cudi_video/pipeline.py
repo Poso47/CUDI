@@ -37,6 +37,12 @@ def new_output_dir(spec: VideoSpec) -> Path:
 
 def research_stage(spec: VideoSpec, out: Path, fresh: bool = True, images: bool = True,
                    strict: bool = False) -> Research:
+    if spec.kind == "facts":                       # Fakten-Ranking: Fachartikel -> Claude -> Prüfung je Fakt
+        from .facts import research_facts
+
+        research = research_facts(spec, spec.langs)
+        _save(out / "research.json", research.to_dict())
+        return research
     research = fetch_ranking(spec, fresh=fresh)
     if not research.items:
         raise RuntimeError("Keine Daten gefunden – Vorgabe prüfen (Klasse/Eigenschaft).")
@@ -146,7 +152,7 @@ def run(
 
     progress("Skript", 0.15)
     from .narrate import request as narrate_request
-    narration = narrate_request(spec, research, langs) if use_llm is not False else {}   # Claude erzählt (App)
+    narration = narrate_request(spec, research, langs) if use_llm is not False and spec.kind != "facts" else {}
     scripts: list[Script] = []
     for lang in langs:
         script = build_script(spec, research, lang, use_llm=use_llm, narration=narration.get(lang) or None)

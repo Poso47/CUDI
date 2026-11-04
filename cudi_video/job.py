@@ -68,8 +68,29 @@ def _flag(value, default: bool) -> bool:
     return str(value).strip().lower() in ("1", "true", "ja", "yes", "an")
 
 
+def parse_preferences(raw) -> dict:
+    """Vorlieben aus den Bewertungen der App: {"gut": [...], "schlecht": [...]}, je höchstens 8 kurze Einträge."""
+    if not isinstance(raw, dict):
+        return {}
+    out = {}
+    for key in ("gut", "schlecht"):
+        items = raw.get(key) if isinstance(raw.get(key), list) else []
+        clean = [_text(x, 160) for x in items[:8] if isinstance(x, str)]
+        if any(clean):
+            out[key] = [c for c in clean if c]
+    return out
+
+
 def parse_order(raw: dict, presets: set[str]) -> dict:
     """Auftrag der App-Seite prüfen: nur bekannte Felder und erlaubte Werte."""
+    order = _parse_order(raw, presets)
+    prefs = parse_preferences(raw.get("vorlieben"))
+    if prefs:
+        order["vorlieben"] = prefs
+    return order
+
+
+def _parse_order(raw: dict, presets: set[str]) -> dict:
     if not isinstance(raw, dict):
         raise OrderError("Auftrag muss ein JSON-Objekt sein.")
     job_id = str(raw.get("id", ""))
@@ -364,6 +385,10 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
     translation = folder / TRANSLATION_FILE
     os.environ[CLAUDE_FILE_ENV] = str(translation)        # Story-Übersetzung übernimmt Claude (s. translate.py)
     os.environ[handoff.DIR_ENV] = str(folder)              # Schreibaufgaben (Thema deuten, erzählen) ebenso
+    if order.get("vorlieben"):                            # gelernte Vorlieben gehen in jede Schreibaufgabe
+        os.environ[handoff.PREFS_ENV] = json.dumps(order["vorlieben"], ensure_ascii=False)
+    else:
+        os.environ.pop(handoff.PREFS_ENV, None)
     if order.get("maskottchen") is not None:              # nur ausdrücklich gewählt überschreibt CUDI_MASCOT
         os.environ["CUDI_MASCOT"] = "1" if order["maskottchen"] else "0"
     last = [""]

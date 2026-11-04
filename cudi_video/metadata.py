@@ -12,6 +12,10 @@ DISCLOSURE = {
     "de": "ℹ️ Die Stimme ist KI-generiert. Alle Zahlen sind mit mehreren unabhängigen Quellen abgeglichen.",
     "en": "ℹ️ The voice is AI-generated. Every figure was cross-checked with several independent sources.",
 }
+FACT_DISCLOSURE = {
+    "de": "ℹ️ Die Stimme ist KI-generiert. Jeder Fakt ist wörtlich in Fachquellen belegt, Zahlen sind mit einer zweiten Quelle abgeglichen.",
+    "en": "ℹ️ The voice is AI-generated. Every fact is backed word for word by reference sources; figures are cross-checked with a second source.",
+}
 SOURCE_LINKS = {
     "Weltbank": "https://data.worldbank.org",
     "CIA World Factbook": "https://www.cia.gov/the-world-factbook/",
@@ -40,11 +44,14 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
 
     lines = [spec.title[lang] + (" – von Platz 10 bis Platz 1!" if de else " – from 10 to 1!").replace("10", str(len(items))), ""]
     for it in items:
+        if spec.kind == "facts":
+            lines.append(f"{it.rank}. {it.labels[lang]}")
+            continue
         value = quantity(it.value, it.unit, spec.unit).display(lang)
         year = as_of_year(spec, it)
         as_of = f" ({'Stand' if de else 'as of'} {year})" if year else ""
         lines.append(f"{it.rank}. {it.labels[lang]} – {value}{as_of}")
-    lines += ["", DISCLOSURE[lang]]
+    lines += ["", FACT_DISCLOSURE[lang] if spec.kind == "facts" else DISCLOSURE[lang]]
     wiki_used = [it.wiki_url(lang) for it in items if it.summary.get(lang) and it.wiki_url(lang)]
     if wiki_used:      # übernommene Wikipedia-Inhalte: Lizenz verlangt die Nennung
         lines.append(("📖 Infos: Wikipedia (CC BY-SA 4.0), Wikidata (CC0)" if de
@@ -86,6 +93,17 @@ def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> 
         out += ["## ⚠️ Bitte prüfen", ""] + [f"- {w}" for w in research.warnings] + [""]
     else:
         out += ["## ✅ Keine Auffälligkeiten in den Daten", ""]
+    if spec.kind == "facts":
+        out += ["## Fakten-Ranking (Belege)", ""]
+        for it in sorted(research.items, key=lambda i: i.rank):
+            out += [f"**{it.rank}. {it.labels.get('de') or it.labels.get('en')}** – {it.verification.get('status')}",
+                    f"> {it.fact.get('beleg')}", f"Quelle: [{it.fact.get('quelle')}]({it.fact.get('url')})", ""]
+        for s in scripts:
+            out += ["", f"## Sprechertext ({s.lang})", ""]
+            for seg in s.segments:
+                label = {"intro": "Intro", "outro": "Outro"}.get(seg.kind, f"Platz {seg.rank}")
+                out += [f"**{label}:** {seg.text}", ""]
+        return "\n".join(out)
     out += ["## Ranking", "", "| Platz | Name | Wert | Stand | Abgleich | Bild | Quelle |", "|---|---|---|---|---|---|---|"]
     for it in sorted(research.items, key=lambda i: i.rank):
         q = quantity(it.value, it.unit, spec.unit)

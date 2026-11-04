@@ -116,7 +116,9 @@ RISKY_WORDS = re.compile(
 NOT_NEUTRAL = re.compile(
     r"(vorgeworfen|vorwürf|menschenrecht|diktat|regime|umstritten|kritik|kritisiert|krieg|konflikt|terror|anschlag"
     r"|annekt|besatz|besetz|propaganda|skandal|korrupt|völkermord|genozid|unterdrück|autoritär|zensur|sanktion"
-    r"|accus|allegation|human rights|dictat|controvers|disputed|criticis|criticiz|\bwars?\b|conflict|annex"
+    r"|accus|allegation|human rights|dictat|controvers|disputed|criticis|criticiz|conflict|annex"
+    # Englisch „war“ nur im eindeutigen Zusammenhang – im Deutschen ist „war“ eine Verbform („Er war 1900 …“)
+    r"|\bwars\b|\bwar (?:against|between|with|crimes?)\b|\b(?:civil|world|cold) war\b|\bat war\b"
     r"|occupation|occupied|scandal|corrupt|genocide|oppress|authoritarian|censorship|sanction)",
     re.I,
 )
@@ -488,6 +490,8 @@ def word_budget(spec: VideoSpec, research: Research, budget_scale: float = 1.0) 
 def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool | None = None,
                  budget_scale: float = 1.0, detail: int = 2, narration: dict | None = None) -> Script:
     """narration = von Claude erzählte Texte {Platz: Text} (s. narrate.py); jeder wird einzeln geprüft."""
+    if spec.kind == "facts":
+        return build_fact_script(spec, research, lang, detail)
     if use_llm is None:
         use_llm = llm.available() and not narration
     items = research.items
@@ -547,3 +551,21 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
     source_text = _join(" / ".join(names), lang)
     segments.append(Segment(kind="outro", text=retention.outro(spec, lang, icon_for(spec.icon, spec.source.property))))
     return Script(lang=lang, title=title, segments=segments, mode=mode, checks=checks)
+
+
+def build_fact_script(spec: VideoSpec, research: Research, lang: str, detail: int = 2) -> Script:
+    """Fakten-Ranking: Countdown aus den geprüften Fakten (Texte schon geprüft in facts.check_fact)."""
+    from . import retention
+
+    countdown = sorted(research.items, key=lambda it: it.rank, reverse=True)
+    bridge = retention.fact_bridges(spec, countdown, lang) if detail > 0 else {}
+    segments = [Segment(kind="intro", text=retention.fact_hook(spec, lang, spec.title[lang]))]
+    for i, item in enumerate(countdown):
+        text = f"{rank_sentence(item.rank, item.labels[lang], lang, i == 0)} {item.summary.get(lang, '')}".strip()
+        if bridge.get(item.rank):
+            text = f"{text} {bridge[item.rank]}"
+        segments.append(Segment(kind="item", text=text, rank=item.rank, sources=[item.fact.get("url", "")]))
+    segments.append(Segment(kind="outro", text=retention.fact_outro(lang)))
+    checks = [f"Platz {it.rank}: Beleg aus „{it.fact.get('quelle')}“ wörtlich geprüft ({it.verification.get('status')})."
+              for it in sorted(research.items, key=lambda it: it.rank)]
+    return Script(lang=lang, title=spec.title[lang], segments=segments, mode="claude", checks=checks)
