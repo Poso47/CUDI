@@ -89,8 +89,12 @@ warum …“, „Mythen über …“), wird er zum **Fakten-Ranking** im gewohnt
 1. Claude wählt 1–3 passende Fachartikel je Sprache, der Code lädt deren Text.
 2. Claude schreibt daraus die Fakten – je Fakt mit einem **wörtlich kopierten Beleg-Satz** und einer Bildsuche.
 3. Der Code prüft jeden Fakt: Beleg steht so in der Quelle, jede Zahl im Text steht im Beleg **und in einer
-   zweiten Quelle**, keine erfundenen Namen/Hauptwörter, keine Wertungen, Länge passt. Wer durchfällt, fliegt
-   raus (Claude liefert drei Fakten mehr als nötig); weniger als bestellt → ehrliche Top N.
+   zweiten Quelle**, keine erfundenen Namen/Hauptwörter, keine Wertungen, Länge passt. Deutsche Alltagswörter
+   („Gehirn“, „Wünsche“ – auch zu einem englischen Beleg) erlaubt eine Häufigkeitsliste
+   (`cudi_video/wortlisten/`, FrequencyWords von Hermit Dave, CC BY-SA 4.0); Wörter, die es genauso im Englischen
+   gibt (Eigennamen wie „Harvard“), bleiben belegpflichtig. Abgelehnte Fakten gehen **einmal mit Grund zur
+   Korrektur** an Claude zurück; wer dann noch durchfällt, fliegt raus (Claude liefert drei Fakten mehr als
+   nötig); weniger als bestellt → ehrliche Top N.
 4. Karten zeigen die Kernaussage statt Zahl und Balken, dazu Stockclips/-fotos zur Bildsuche; Spannungsbogen,
    Maskottchen, Prüfbericht (mit Beleg und Quelle je Platz) wie bei Zahlen-Rankings.
 

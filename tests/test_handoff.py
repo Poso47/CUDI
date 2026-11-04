@@ -628,6 +628,68 @@ def test_unmeasurable_wish_becomes_fact_ranking_with_checked_facts(writing, monk
     assert "Fakt" in texts_[-1]                                                       # Kommentarfrage zu Fakten
 
 
+def test_fact_texts_allow_everyday_german_words_but_not_invented_names():
+    """Deutscher Text zu englischem Beleg (Probe probefakten1): Alltagswörter wie „Gehirn“/„Wünsche“ stehen nicht im
+    englischen Artikel, sind aber keine erfundenen Fakten – Namen wie „Harvard“ oder „Miller“ bleiben belegpflichtig."""
+    from cudi_video import facts
+
+    sources = [{"id": "en:Unconscious mind", "sprache": "en", "titel": "Unconscious mind", "text": EN_TEXT, "url": "u"}]
+    beleg = "The unconscious mind consists of processes in the mind which occur automatically."
+    ok = _fact(1, beleg, "Dein Gehirn arbeitet ständig im Hintergrund. Viele Vorgänge laufen automatisch ab, "
+                         "ganz ohne deine Wünsche.", quelle="en:Unconscious mind")
+    assert facts.check_fact(ok, sources, ["de"], 40) == (None, "eine Fachquelle (Wortlaut geprüft)")
+    named = dict(ok, text_de=ok["text_de"] + " Das zeigte eine Studie aus Harvard von Professor Miller.")
+    reason = facts.check_fact(named, sources, ["de"], 40)[0]
+    assert reason.startswith("nicht belegt") and "Harvard" in reason and "Miller" in reason
+
+
+def test_rejected_facts_go_back_once_for_correction(writing, monkeypatch):
+    from cudi_video import facts
+    from cudi_video.spec import VideoSpec
+
+    spec = VideoSpec.from_dict({"id": "fx", "title": {"de": "Die 3 verblüffendsten Fakten", "en": "The 3 facts"}, "count": 3,
+                                "kind": "facts", "facts": {"articles": {"de": ["Unbewusstes"], "en": ["Unconscious mind"]}},
+                                "source": {"class": "Q0", "property": "P0"}})
+    texts = {"Unbewusstes": DE_TEXT, "Unconscious mind": EN_TEXT}
+    monkeypatch.setattr(facts, "article_text", lambda lang, title: (texts[title], title))
+    monkeypatch.setattr(facts, "_visuals", lambda research: None)
+    freud = _fact(1, "Der Begriff wurde durch Sigmund Freud bekannt, der das Unbewusste als Teil der Psyche beschrieb.",
+                  "Berühmt gemacht hat den Begriff Sigmund Freud.", title="Freud")
+    access = _fact(2, "Das Unbewusste umfasst seelische Vorgänge, die dem Bewusstsein nicht zugänglich sind.",
+                   "Vieles in dir bleibt dir verborgen.", title="Verborgen")
+    bad = _fact(3, "Das Unterbewusstsein steuert 95 Prozent unseres Lebens.", "Es steuert 95 Prozent.", title="Falsch")
+    with pytest.raises(handoff.WritingNeeded) as need:
+        facts.research_facts(spec, ["de"])
+    answer(need.value.path, {"fakten": [freud, access, bad]})
+    with pytest.raises(handoff.WritingNeeded) as need:
+        facts.research_facts(spec, ["de"])                                # nur 2 von 3 → Korrekturrunde
+    task = json.loads(need.value.path.read_text("utf-8"))
+    assert task["aufgabe"] == "fakten_korrektur" and [a["fakt"]["rang"] for a in task["daten"]["abgelehnt"]] == [3]
+    fixed = _fact(3, "Nach Schätzungen verarbeitet das Gehirn pro Sekunde etwa 11 Millionen Sinneseindrücke, von denen "
+                     "nur ein winziger Teil bewusst wird.", "Pro Sekunde erreichen dein Gehirn etwa 11 Millionen "
+                     "Sinneseindrücke.", title="11 Millionen")
+    answer(need.value.path, {"fakten": [fixed]})
+    research = facts.research_facts(spec, ["de"])
+    assert [it.labels["de"] for it in research.items] == ["Freud", "Verborgen", "11 Millionen"]
+    assert not any("verworfen" in w for w in research.warnings)
+
+
+def test_fact_ranking_error_names_the_reasons(writing, monkeypatch):
+    from cudi_video import facts
+    from cudi_video.spec import VideoSpec
+
+    spec = VideoSpec.from_dict({"id": "fy", "title": {"de": "Fakten", "en": "Facts"}, "count": 3, "kind": "facts",
+                                "facts": {"articles": {"de": ["Unbewusstes"]}}, "source": {"class": "Q0", "property": "P0"}})
+    monkeypatch.setattr(facts, "article_text", lambda lang, title: (DE_TEXT, title))
+    bad = _fact(1, "Das Unterbewusstsein steuert 95 Prozent unseres Lebens.", "Es steuert 95 Prozent.")
+    for task in ("fakten", "fakten_korrektur"):
+        with pytest.raises(handoff.WritingNeeded) as need:
+            facts.research_facts(spec, ["de"])
+        answer(need.value.path, {"fakten": [bad]})
+    with pytest.raises(ValueError, match="Gründe: Beleg steht nicht wörtlich"):
+        facts.research_facts(spec, ["de"])
+
+
 def test_ratings_from_the_app_reach_every_writing_task(writing, monkeypatch):
     """Bewertungen (gut/schlecht) kommen als „vorlieben“ mit dem Auftrag und landen in jeder Schreibaufgabe."""
     from cudi_video import job
