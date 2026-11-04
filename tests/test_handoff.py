@@ -643,6 +643,22 @@ def test_fact_texts_allow_everyday_german_words_but_not_invented_names():
     assert reason.startswith("nicht belegt") and "Harvard" in reason and "Miller" in reason
 
 
+def test_fact_numbers_also_count_when_written_out():
+    """Probe probefakten2: „gut zweihundert Jahre“ (aus 1800 errechnet) schlüpfte an der Ziffern-Prüfung vorbei."""
+    from cudi_video import facts
+
+    sources = [{"id": "de:Unbewusstes", "sprache": "de", "titel": "Unbewusstes", "text": DE_TEXT, "url": "u"}]
+    beleg = "Der Begriff wurde durch Sigmund Freud bekannt, der das Unbewusste als Teil der Psyche beschrieb."
+    ok = _fact(1, beleg, "Berühmt gemacht hat den Begriff Sigmund Freud.")
+    assert facts.check_fact(ok, sources, ["de"], 40)[0] is None
+    for said in ("Das ist gut zweihundert Jahre her.", "Freud nannte drei Gründe."):
+        assert facts.check_fact(dict(ok, text_de=ok["text_de"] + " " + said), sources, ["de"], 40)[0] == "Zahl ohne Beleg (de)"
+    eleven = _fact(2, "Nach Schätzungen verarbeitet das Gehirn pro Sekunde etwa 11 Millionen Sinneseindrücke, von denen "
+                      "nur ein winziger Teil bewusst wird.", "Pro Sekunde sind es etwa elf Millionen Sinneseindrücke.")
+    assert facts.check_fact(eleven, sources + [{"id": "en:x", "sprache": "en", "titel": "x", "text": EN_TEXT, "url": "v"}],
+                            ["de"], 40)[0] is None                         # „elf“ = 11: werttreu erlaubt
+
+
 def test_rejected_facts_go_back_once_for_correction(writing, monkeypatch):
     from cudi_video import facts
     from cudi_video.spec import VideoSpec

@@ -26,6 +26,9 @@ log = logging.getLogger(__name__)
 ARTICLE_CHARS = 14000          # je Artikel – genug für viele Fakten, ohne die Schreibaufgabe aufzublähen
 EXTRA_FACTS = 3                # Claude liefert so viele Fakten mehr, falls einzelne die Prüfung nicht bestehen
 MIN_ARTICLE_CHARS = 1200
+_NUM = (r"(?:ein|zwei|drei|vier|fünf|sechs|sieb|sieben|acht|neun|zehn|elf|zwölf|zwanzig|dreißig|vierzig|fünfzig|"
+        r"sechzig|siebzig|achtzig|neunzig|hundert|tausend|und)")
+COMPOUND_NUMBER = re.compile(rf"^{_NUM}{_NUM}+$")          # deutsche Zahlwörter aus mehreren Teilen („zweihundert“)
 
 INSTRUCTIONS = (
     "Schreibe ein Fakten-Ranking für TikTok/YouTube Shorts zum Thema „thema“: genau „anzahl“ Fakten (das sind "
@@ -117,7 +120,10 @@ def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int) -
         if not text or not title:
             return f"Text oder Titel ({lang}) fehlt", ""
         said = f"{title} {short} {text}"
-        if not _digits(said) <= _digits(beleg):
+        # werttreu und auch ausgeschrieben („zwei“ = „2“); zusammengesetzte Zahlwörter („zweihundert“) nur wörtlich
+        backed = textcheck.numbers(beleg, "de") | textcheck.numbers(beleg, "en")
+        compound = {w for w in re.findall(r"[a-zäöüß]+", said.lower()) if COMPOUND_NUMBER.search(w) and w not in textcheck.NUMBER_WORDS["de"]}
+        if not textcheck.numbers(said, lang) <= backed or not compound <= set(re.findall(r"[a-zäöüß]+", beleg.lower())):
             return f"Zahl ohne Beleg ({lang})", ""
         if NOT_NEUTRAL.search(said) or RANK_CLAIM.search(said):
             return "Wertung oder Rang-Aussage", ""

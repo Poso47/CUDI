@@ -58,6 +58,7 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
                       else "📖 Info: Wikipedia (CC BY-SA 4.0), Wikidata (CC0)"))
     credits = [(it.labels[lang], it.image_credit) for it in items if it.image_credit]
     credits += [(it.labels[lang], c["credit"]) for it in items for c in it.clips if c.get("credit")]
+    credits = list(dict.fromkeys(credits))                 # zwei Ausschnitte aus demselben Clip nur einmal nennen
     if credits:
         lines += ["", "📷 Bild- und Videonachweise:" if de else "📷 Image and video credits:"]
         lines += [f"• {name}: {credit}" for name, credit in credits]
