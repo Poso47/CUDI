@@ -47,7 +47,10 @@ class Candidate:
     @property
     def score(self) -> float:
         aspect = self.width / max(1, self.height)
-        return min(self.width, 3000) * (1.0 if 1.1 <= aspect <= 2.2 else 0.75)   # Karte ist quer (≈ 1,7 : 1)
+        # Ab ~Full-HD-Breite zählt jedes Foto gleich (die Karte ist 960 px breit) – dann entscheidet die Reihenfolge
+        # der Quellen: Pexels/Pixabay laden zuverlässig, Wikimedia-Dateien werden aus Rechenzentren oft gedrosselt.
+        quality = min(self.width, 1800) * (1.0 if 1.1 <= aspect <= 2.2 else 0.75)    # Karte ist quer (≈ 1,7 : 1)
+        return quality * (0.9 if "wikimedia.org" in self.url else 1.0)
 
 
 def key_tokens(name: str) -> list[str]:
@@ -122,10 +125,52 @@ def nasa(item: RankItem) -> list[Candidate]:
     return out
 
 
+def pexels_photos(item: RankItem) -> list[Candidate]:
+    from . import config
+
+    name = item.labels.get("en") or item.labels.get("de")
+    if not config.PEXELS_API_KEY or not name:
+        return []
+    data = net.get_json("https://api.pexels.com/v1/search", params={"query": name, "per_page": 15},
+                        headers={"Authorization": config.PEXELS_API_KEY}, cache_hours=24 * 7, retries=1, max_wait=10)
+    out = []
+    for p in data.get("photos", []):
+        # Pexels: Beschreibung in „alt“ und in der Adresse („…/photo/burj-khalifa-at-dusk-123/“)
+        if not names_match(item, f"{p.get('alt', '')} {_words_of(p.get('url', ''))}") or (p.get("width") or 0) < MIN_WIDTH:
+            continue
+        src = (p.get("src") or {}).get("original")
+        if not src:
+            continue
+        w, h = p["width"], p.get("height") or p["width"]
+        scale = min(1.0, 1920 / max(w, 1))
+        out.append(Candidate(f"{src}?auto=compress&cs=tinysrgb&w=1920", int(w * scale), int(h * scale),
+                             f"{p.get('photographer', 'Pexels')} – Pexels-Lizenz – Pexels: {p.get('url', '')}", "Pexels"))
+    return out
+
+
+def pixabay_photos(item: RankItem) -> list[Candidate]:
+    from . import config
+
+    name = item.labels.get("en") or item.labels.get("de")
+    if not config.PIXABAY_API_KEY or not name:
+        return []
+    data = net.get_json("https://pixabay.com/api/", params={"key": config.PIXABAY_API_KEY, "q": name[:100],
+                                                            "image_type": "photo", "per_page": 20, "safesearch": "true"},
+                        cache_hours=24, retries=1, max_wait=10)      # Bildadressen von Pixabay laufen nach 24 h ab
+    out = []
+    for h in data.get("hits", []):
+        if not names_match(item, h.get("tags", "")) or not h.get("largeImageURL"):
+            continue
+        w, hh = h.get("imageWidth") or 1280, h.get("imageHeight") or 853
+        out.append(Candidate(h["largeImageURL"], 1280, int(1280 * hh / max(w, 1)),
+                             f"{h.get('user', 'Pixabay')} – Pixabay-Lizenz – Pixabay: {h.get('pageURL', '')}", "Pixabay"))
+    return out
+
+
 def alternatives(item: RankItem) -> list[Candidate]:
     """Weitere Fotos des Platzes, bestes zuerst. Fällt eine Quelle aus, zählen die anderen."""
     found: list[Candidate] = []
-    for source in (openverse, nasa):
+    for source in (pexels_photos, pixabay_photos, openverse, nasa):
         try:
             found += source(item)
         except net.FetchError as exc:
@@ -282,7 +327,37 @@ def find_clips(item: RankItem, limit: int = MAX_CLIPS) -> list[dict]:
         if path.stat().st_size > 60_000_000:          # sehr große Dateien bremsen den Schnitt
             continue
         seen.add(clip.key)
-        out.append({"path": str(path), "credit": clip.credit, "duration": clip.duration})
+        out.append({"path": str(path), "credit": clip.credit, "duration": clip.duration, "kind": "video"})
         if len(out) >= limit:
             break
-    return out
+    return out + _stills(item, limit - len(out), bool(out))
+
+
+def _stills(item: RankItem, room: int, has_clips: bool) -> list[dict]:
+    """Zu wenige Clips: weitere Fotos des Platzes als bewegte Standbilder (langsamer Schwenk) dazwischen.
+    Ohne Clip nur, wenn mindestens zwei verschiedene Fotos zusammenkommen – ein einzelnes zeigt die Karte
+    ohnehin mit Zoom."""
+    if room <= 0:
+        return []
+    own = [{"path": item.image_path, "credit": item.image_credit or "", "duration": 0, "kind": "image"}] \
+        if item.image_path and item.image_kind == "photo" else []
+    extra = []
+    try:
+        candidates = alternatives(item)
+    except Exception as exc:                                     # Fotos sind Zugabe, nie ein Abbruchgrund
+        log.info("Weitere Fotos für %s nicht verfügbar: %s", item.qid, exc)
+        candidates = []
+    known = {item.image_credit}
+    for cand in candidates:
+        if len(own) + len(extra) >= room or cand.credit in known:
+            continue
+        try:
+            path = download(cand)
+        except net.FetchError:
+            continue
+        known.add(cand.credit)
+        extra.append({"path": str(path), "credit": cand.credit, "duration": 0, "kind": "image"})
+    stills = (own + extra)[:room]
+    if not has_clips and len(stills) < 2:
+        return []
+    return stills

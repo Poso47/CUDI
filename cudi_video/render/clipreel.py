@@ -21,13 +21,26 @@ class ClipReel:
         n = max(1, len(clips))
         seg = duration / n + 0.2
         cmd, filters, t = ["ffmpeg", "-loglevel", "error"], [], 0.0
+        w, h = size
         for i, clip in enumerate(clips):
+            if clip.get("kind") == "image":
+                # Standbild: etwas größer skalieren und langsam seitlich schwenken (Ken Burns), abwechselnd links/rechts
+                take = seg
+                cmd += ["-loop", "1", "-framerate", str(fps), "-t", f"{take:.2f}", "-i", clip["path"]]
+                bw, bh = int(w * 1.12) // 2 * 2, int(h * 1.12) // 2 * 2
+                x = f"(iw-ow)*t/{take:.2f}" if i % 2 == 0 else f"(iw-ow)*(1-t/{take:.2f})"
+                filters.append(f"[{i}:v]scale={bw}:{bh}:force_original_aspect_ratio=increase,crop={bw}:{bh},"
+                               f"crop={w}:{h}:x='{x}':y='(ih-oh)/2',fps={fps},setsar=1,format=rgb24,"
+                               f"setpts=PTS-STARTPTS[v{i}]")
+                self.cuts.append((t, clip.get("credit", "")))
+                t += take
+                continue
             length = float(clip.get("duration") or 0) or seg
             start = max(0.0, min(length * 0.2, length - seg))
             take = min(seg, max(1.0, length - start))
             cmd += ["-ss", f"{start:.2f}", "-t", f"{take:.2f}", "-i", clip["path"]]
-            filters.append(f"[{i}:v]scale={size[0]}:{size[1]}:force_original_aspect_ratio=increase,"
-                           f"crop={size[0]}:{size[1]},fps={fps},setsar=1,format=rgb24,setpts=PTS-STARTPTS[v{i}]")
+            filters.append(f"[{i}:v]scale={w}:{h}:force_original_aspect_ratio=increase,"
+                           f"crop={w}:{h},fps={fps},setsar=1,format=rgb24,setpts=PTS-STARTPTS[v{i}]")
             self.cuts.append((t, clip.get("credit", "")))
             t += take
         graph = ";".join(filters) + ";" + "".join(f"[v{i}]" for i in range(len(clips))) + \

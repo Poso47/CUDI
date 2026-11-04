@@ -981,3 +981,27 @@ def test_duplicates_keep_the_better_placed_entry(monkeypatch):
 
     monkeypatch.setattr(wikidata, "_sparql", broken)
     assert wikidata._duplicates(["Q1", "Q2"]) == set()
+
+
+def test_item_card_mixes_clip_and_moving_stills(tmp_path):
+    """Nur ein Clip: dazu Fotos als langsam schwenkende Standbilder – Nachweis „Foto“ statt „Video“."""
+    import subprocess
+
+    from PIL import Image
+
+    from cudi_video.render.scenes import make_scene
+
+    clip = tmp_path / "rot.mp4"
+    subprocess.run(["ffmpeg", "-loglevel", "error", "-f", "lavfi", "-i", "color=c=red:s=640x360:d=4:r=30",
+                    "-pix_fmt", "yuv420p", str(clip)], check=True)
+    photo = tmp_path / "blau.jpg"
+    Image.new("RGB", (1600, 900), (0, 0, 255)).save(photo)
+    clips = [{"path": str(clip), "duration": 4.0, "credit": "rot – CC0 – Test", "credit_short": "rot", "kind": "video"},
+             {"path": str(photo), "duration": 0, "credit": "blau – CC0 – Test", "credit_short": "blau", "kind": "image"}]
+    item = {"rank": 3, "name": "Turm C", "si_value": 632.0, "unit": "Q11573", "wanted": "m", "value_label": "Höhe",
+            "as_of": None, "extras": [], "image_path": str(photo), "image_kind": "photo", "credit_short": None,
+            "icon": "building", "n_sources": 2, "compare_chip": None, "clips": clips}
+    scene = make_scene(_job("item", item=item, frames=180, duration=6.0))
+    assert scene._card(1.0).convert("RGB").getpixel((300, 280))[0] > 200
+    later = scene._card(5.0).convert("RGB").getpixel((300, 280))
+    assert later[2] > 200 > later[0] and scene.reel.credit_at(5.0).startswith("blau")

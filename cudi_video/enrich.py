@@ -245,7 +245,7 @@ def enrich(research: Research, langs: list[str], images: bool = True) -> Researc
                 if item.image_kind == "photo" and not item.clips:
                     item.clips = media.find_clips(item)
             short = [it.labels.get(langs[0], it.qid) for it in research.items
-                     if it.image_kind == "photo" and not it.clips]
+                     if it.image_kind == "photo" and not any(c.get("kind") != "image" for c in it.clips)]
             if short:
                 research.warnings.append(f"Ohne Videoclip (Foto mit Zoom): {', '.join(short)}")
     missing = [f"{it.labels.get(langs[0], it.qid)} ({IMAGE_ERRORS[it.qid]})" if it.qid in IMAGE_ERRORS
