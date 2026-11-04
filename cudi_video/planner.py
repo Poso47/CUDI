@@ -110,15 +110,17 @@ def _search(label: str) -> str | None:
     """Wikidata-ID zu einem englischen Namen (erster Treffer mit passendem Namen)."""
     from . import net
 
-    try:
-        data = net.get_json("https://www.wikidata.org/w/api.php",
-                            params={"action": "wbsearchentities", "search": label, "language": "en",
-                                    "type": "item", "limit": 5, "format": "json"}, cache_hours=24 * 7)
-    except net.FetchError:
-        return None
-    for hit in data.get("search", []):
-        if _norm(hit.get("label", "")) & _norm(label):
-            return hit["id"]
+    variants = list(dict.fromkeys([label, re.sub(r"[‐-―−]", "-", label), re.sub(r"[‐-―−-]", " ", label)]))
+    for search in variants:                       # „Changhua–Kaohsiung“ findet die Suche nur mit normalem Bindestrich
+        try:
+            data = net.get_json("https://www.wikidata.org/w/api.php",
+                                params={"action": "wbsearchentities", "search": search, "language": "en",
+                                        "type": "item", "limit": 5, "format": "json"}, cache_hours=24 * 7)
+        except net.FetchError:
+            return None
+        for hit in data.get("search", []):
+            if _norm(hit.get("label", "")) & _norm(label):
+                return hit["id"]
     return None
 
 

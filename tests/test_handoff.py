@@ -254,3 +254,17 @@ def test_known_leaders_are_always_candidates(monkeypatch):
     assert set(found) == {"Q1", "Q2", "Q999"} and found["Q999"].value == 164800
     seed_query = next(q for q in queries if "VALUES ?item" in q)
     assert "wdt:P17 wd:Q148" in seed_query                     # Region gilt auch für Spitzenreiter
+
+
+def test_search_handles_dashes_in_names(monkeypatch):
+    """„Changhua–Kaohsiung Viaduct“ (Halbgeviertstrich) findet die Wikidata-Suche nur mit normalem Bindestrich."""
+    seen = []
+
+    def get_json(url, params, **kw):
+        seen.append(params["search"])
+        hits = [{"id": "Q30160840", "label": "Changhua-Kaohsiung Viaduct"}] if "–" not in params["search"] else []
+        return {"search": hits}
+
+    monkeypatch.setattr("cudi_video.net.get_json", get_json)
+    assert planner._search("Changhua–Kaohsiung Viaduct") == "Q30160840"
+    assert seen[0] == "Changhua–Kaohsiung Viaduct" and seen[1] == "Changhua-Kaohsiung Viaduct"
