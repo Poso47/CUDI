@@ -89,8 +89,8 @@ CLAUDE_PLAN = (
     "Deute den Video-Wunsch aus „wunsch“ als Ranking: alle Dinge EINER Art (eine Wikidata-Klasse), sortiert nach "
     "EINER Zahl-Eigenschaft aus „eigenschaften“. Antworte mit einem JSON-Objekt: "
     "{\"klasse_qid\": \"Q…\", \"klasse_en\": \"englischer Wikidata-Name der Klasse\", "
-    "\"weitere_klassen\": [{\"qid\": \"Q…\", \"en\": \"…\"}] (optional, höchstens 6 wichtige Unterklassen, z. B. "
-    "Hängebrücke zu Brücke), \"eigenschaft\": \"P…\", \"reihenfolge\": \"desc\" oder \"asc\", "
+    "\"weitere_klassen\": [{\"qid\": \"Q…\", \"en\": \"…\"}] (höchstens 6 wichtige Unterklassen, unter denen "
+    "die Spitzenreiter oft eingetragen sind, z. B. Viadukt und Eisenbahnbrücke zu Brücke), \"eigenschaft\": \"P…\", \"reihenfolge\": \"desc\" oder \"asc\", "
     "\"land_qid\": \"Q…\" und \"land_en\": \"…\" (nur wenn auf ein Land begrenzt), "
     "\"kontinent\": \"Europa|Asien|Afrika|Nordamerika|Südamerika|Ozeanien\" (nur wenn auf einen Kontinent begrenzt), "
     "\"titel_de\": \"Die {count} … \", \"titel_en\": \"The {count} …\", \"wert_de\": \"z. B. Länge\", "
@@ -182,4 +182,5 @@ def plan_with_claude(topic: str, count: int) -> dict | None:
         "unit": PROPERTIES[pid][1],
         "hashtags": {lang: ["ranking", *[t for t in tags[lang] if t]] for lang in tags},
         "source": source,
+        "confirmed_only": True,
     }

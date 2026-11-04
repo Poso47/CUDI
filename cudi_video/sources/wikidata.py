@@ -451,7 +451,7 @@ def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
     # Mehr Kandidaten als nötig holen: Objekte ohne Namen in allen Sprachen fallen weg.
     # Puffer: einige Kandidaten mehr holen – der Quellen-Abgleich kann Werte korrigieren und damit
     # die Reihenfolge ändern; gekürzt wird erst danach (siehe verify()).
-    wanted = spec.count + candidate_buffer(spec.count)
+    wanted = spec.count + (spec.count if spec.confirmed_only else candidate_buffer(spec.count))   # freie Themen: mehr Ersatz
     pool = ordered[: wanted * 2]
     details = _details([it.qid for it in pool], langs, spec.image_prop)
     items: list[RankItem] = []

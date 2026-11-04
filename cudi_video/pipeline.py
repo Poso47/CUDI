@@ -135,6 +135,8 @@ def run(
     research_file = out / "research.json"
     if research_file.exists():
         research = Research.from_dict(json.loads(research_file.read_text("utf-8")))
+        if spec.confirmed_only:
+            spec.shrink_to(len(research.items))   # wie nach dem Abgleich (Fortsetzen nach einer Schreibaufgabe)
     else:
         progress("Quellen-Abgleich", 0.05)
         research = research_stage(spec, out, fresh=fresh, images=images, strict=strict)
