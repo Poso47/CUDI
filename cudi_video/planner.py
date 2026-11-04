@@ -93,6 +93,8 @@ CLAUDE_PLAN = (
     "die Spitzenreiter oft eingetragen sind, z. B. Viadukt und Eisenbahnbrücke zu Brücke), \"eigenschaft\": \"P…\", \"reihenfolge\": \"desc\" oder \"asc\", "
     "\"land_qid\": \"Q…\" und \"land_en\": \"…\" (nur wenn auf ein Land begrenzt), "
     "\"kontinent\": \"Europa|Asien|Afrika|Nordamerika|Südamerika|Ozeanien\" (nur wenn auf einen Kontinent begrenzt), "
+    "\"spitzenreiter\": [{\"qid\": \"Q…\", \"en\": \"…\"}] (bis zu 12 Einträge, von denen du sicher weißt, dass sie "
+    "bei diesem Ranking ganz vorne liegen – z. B. die bekannten Rekordhalter; der Code prüft ihre Werte), "
     "\"titel_de\": \"Die {count} … \", \"titel_en\": \"The {count} …\", \"wert_de\": \"z. B. Länge\", "
     "\"wert_en\": \"z. B. Length\", \"hashtags_de\": [3 Wörter], \"hashtags_en\": [3 words]}. Nimm nur Wikidata-IDs, "
     "bei denen du dir sicher bist – der Code prüft jede ID gegen ihren englischen Namen. Passt der Wunsch nicht zu "
@@ -108,15 +110,17 @@ def _search(label: str) -> str | None:
     """Wikidata-ID zu einem englischen Namen (erster Treffer mit passendem Namen)."""
     from . import net
 
-    try:
-        data = net.get_json("https://www.wikidata.org/w/api.php",
-                            params={"action": "wbsearchentities", "search": label, "language": "en",
-                                    "type": "item", "limit": 5, "format": "json"}, cache_hours=24 * 7)
-    except net.FetchError:
-        return None
-    for hit in data.get("search", []):
-        if _norm(hit.get("label", "")) & _norm(label):
-            return hit["id"]
+    variants = list(dict.fromkeys([label, re.sub(r"[‐-―−]", "-", label), re.sub(r"[‐-―−-]", " ", label)]))
+    for search in variants:                       # „Changhua–Kaohsiung“ findet die Suche nur mit normalem Bindestrich
+        try:
+            data = net.get_json("https://www.wikidata.org/w/api.php",
+                                params={"action": "wbsearchentities", "search": search, "language": "en",
+                                        "type": "item", "limit": 5, "format": "json"}, cache_hours=24 * 7)
+        except net.FetchError:
+            return None
+        for hit in data.get("search", []):
+            if _norm(hit.get("label", "")) & _norm(label):
+                return hit["id"]
     return None
 
 
@@ -157,6 +161,10 @@ def plan_with_claude(topic: str, count: int) -> dict | None:
               "extras": {"country": "P17"}, "min_sitelinks": 2}
     if extra:
         source["extra_classes"] = list(dict.fromkeys(extra))
+    seeds = [q for q in (_checked_qid(c.get("qid"), c.get("en")) for c in (answer.get("spitzenreiter") or [])[:12]
+                         if isinstance(c, dict)) if q]
+    if seeds:
+        source["seed_items"] = list(dict.fromkeys(seeds))
     if answer.get("land_en"):
         country = _checked_qid(answer.get("land_qid"), answer.get("land_en"))
         if not country:

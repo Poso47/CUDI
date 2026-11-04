@@ -95,7 +95,7 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError(f"Plätze: bitte eine Zahl von 3 bis {most}.")
         return {"id": job_id, "art": "ranking", "thema": topic, "vorlage": preset, "sprachen": langs,
                 "plaetze": count, "streng": _flag(raw.get("streng"), False), "laenge": length,
-                "nur_skript": _flag(raw.get("nur_skript"), False)}
+                "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), None)}
     if kind == "story":
         wish = _text(raw.get("wunsch"), 300)
         mood = str(raw.get("stimmung") or "auto")
@@ -106,14 +106,14 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
         lang = raw.get("sprache") or "de"
         length = raw.get("laenge") or "3min"
         visuals = raw.get("bilder") or "videos"
-        if lang not in ("de", "en") or length not in ("kurz", "3min", "teile", "lang") or visuals not in ("videos", "images", "gameplay"):
+        if lang not in ("de", "en") or length not in ("kurz", "3min", "teile", "lang") or visuals not in ("videos", "images", "gameplay", "cartoon"):
             raise OrderError("Sprache, Länge oder Bilder ungültig.")
         step = str(raw.get("schritt") or "")
         if step not in STEPS:
             raise OrderError("Unbekannter Schritt – „skelett“, „video“ oder leer.")
         return {"id": job_id, "art": "story", "wunsch": wish, "stimmung": mood, "sprache": lang,
                 "laenge": length, "bilder": visuals, "entschaerfen": _flag(raw.get("entschaerfen"), True),
-                "schritt": step}
+                "schritt": step, "maskottchen": _flag(raw.get("maskottchen"), None)}
     raise OrderError("Unbekannte Art – „ranking“ oder „story“.")
 
 
@@ -259,6 +259,8 @@ def fit_parts(skeleton: dict) -> list[str]:
     per_word = seconds_per_word(mood, lang)
     limit = (config.LONG_MAX_SECONDS if skeleton.get("length") == "lang" else config.STORY_MAX_SECONDS) - OVERHEAD_SECONDS
     secs = lambda scene: len(str(scene.get("text", "")).split()) * per_word
+    hook = str(skeleton.get("hook") or "")             # Einstieg statt Titel: Teil 1 wird länger
+    limit -= max(0.0, (len(hook.split()) - len(title.split())) * per_word)
     next_outro = re.compile(re.escape(OUTRO_NEXT[lang]).replace(r"\{n\}", r"\d+"))
     final = next((p["outro"] for p in reversed(skeleton["parts"]) if p.get("outro") and not next_outro.fullmatch(p["outro"])),
                  f"{MOODS[mood]['outro'][lang]} {FOLLOW[lang]}")
@@ -362,6 +364,8 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
     translation = folder / TRANSLATION_FILE
     os.environ[CLAUDE_FILE_ENV] = str(translation)        # Story-Übersetzung übernimmt Claude (s. translate.py)
     os.environ[handoff.DIR_ENV] = str(folder)              # Schreibaufgaben (Thema deuten, erzählen) ebenso
+    if order.get("maskottchen") is not None:              # nur ausdrücklich gewählt überschreibt CUDI_MASCOT
+        os.environ["CUDI_MASCOT"] = "1" if order["maskottchen"] else "0"
     last = [""]
 
     def progress(stage: str, fraction: float) -> None:

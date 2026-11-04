@@ -10,9 +10,14 @@ from __future__ import annotations
 import logging
 import re
 
-from .. import config, llm
+from .. import config, handoff, llm
+from ..textcheck import invented_people as _invented_people
+from ..textcheck import known as _known
+from ..textcheck import numbers as _numbers
+from ..textcheck import tokens as _tokens
 from .moods import MOODS, WORDS_PER_SECOND, detect_mood, language_of, narrator_gender, rate_factor, voice_for
 from .sources import LENGTHS, Post, rights_note
+from .visuals import FIGURES
 
 log = logging.getLogger(__name__)
 
@@ -376,7 +381,15 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
     use_llm = llm.available() if use_llm is None else use_llm
     scenes_src = make_scenes(text)
     editor = "Regeln"
-    if use_llm:
+    hook, figure = "", ""
+    edited = claude_edit(title, scenes_src, lang, source_lang, mood, soften) if handoff.enabled() else None
+    if edited:                                    # CUDI-App: Claude lektoriert (kostenlos), der Code prüft
+        title_t, scenes_t, visuals_t, hook, edit_notes = edited[:5]
+        figure = edited[5] if len(edited) > 5 else ""
+        editor = "Claude-Lektorat"
+        notes += edit_notes
+        use_llm = False
+    elif use_llm:
         try:
             title_t, scenes_t, visuals_t = _llm_edit(title, scenes_src, lang, mood, soften)
             editor = "KI-Lektorat"
@@ -384,7 +397,7 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
         except Exception as exc:                  # Lektorat per Regeln bleibt immer möglich
             log.warning("KI-Lektorat nicht möglich: %s", exc)
             use_llm = False
-    if not use_llm:
+    if not use_llm and not edited:
         if lang != source_lang:
             translated, provider = translate([title, *scenes_src], lang, source_lang)
             title_t, scenes_t = translated[0], translated[1:]
@@ -397,7 +410,11 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
             visuals_t.append(visual_for(src, mood, i, recent))
 
     seconds = [estimate_seconds(s, lang, rate, pause) for s in scenes_t]
-    groups = split_parts(seconds, LENGTHS[length]["seconds"] if length in ("kurz", "lang") else config.STORY_MAX_SECONDS)
+    # Ein Einstieg (statt des Titels) verlängert Teil 1 – vorsichtshalber bei allen Teilen abziehen
+    hook_extra = max(0.0, estimate_seconds(hook, lang, rate, pause) - estimate_seconds(title_t, lang, rate, pause)) \
+        if hook else 0.0
+    max_seconds = LENGTHS[length]["seconds"] if length in ("kurz", "lang") else config.STORY_MAX_SECONDS
+    groups = split_parts(seconds, max_seconds - hook_extra)
     if len(groups) > 1:
         notes.append(f"Story ist zu lang für ein Video ({sum(seconds) / 60:.1f} min) – aufgeteilt in "
                      f"{len(groups)} Teile mit Cliffhanger.")
@@ -420,6 +437,8 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
         "voice": {"name": voice, "rate": rate, "pitch": pitch, "pause": pause},
         "visuals": visuals,
         "title": title_t,
+        "hook": hook,                       # Einstieg in Teil 1 (gesprochen, während die Story-Karte steht)
+        "figur": figure or FIGURES.get(gender or "", FIGURES[""]),   # Hauptfigur der Cartoon-Bilder (englisch)
         "parts": parts,
         "notes": notes,
         "rights": rights_note(post),
@@ -479,3 +498,136 @@ def _llm_edit(title: str, scenes: list[str], lang: str, mood: str,
                 f"{s.get('visual') or visual_for(o, mood, i)[1]}, {m['image_style']}, vertical composition, no text")
                for i, (o, s) in enumerate(zip(scenes, new))]
     return data.get("title", title).strip() or title, texts, visuals
+
+
+# --------------------------------------------------------------------------- Lektorat durch Claude (CUDI-App)
+
+CLAUDE_EDIT = (
+    "Du bist Lektor und Sprecher für Reddit-Story-Videos (TikTok/YouTube Shorts). Schreibe jede Szene aus "
+    "„szenen“ als gesprochenen Text in der Zielsprache „zielsprache“ (de = Deutsch, en = Englisch) neu: natürlich, "
+    "flüssig, im Stil „stil“, die Ich-Perspektive bleibt. Kürzen ist erlaubt (Füllsätze, Wiederholungen), Spannung "
+    "aufbauen ist erwünscht. VERBOTEN: neue Ereignisse, Personen, Orte, Zahlen oder Details erfinden – nur was in den "
+    "Szenen steht. Ist „entschaerfen“ true: heikle Stellen (Sex, Gewalt, Selbstverletzung, Drogen, Kraftausdrücke) "
+    "TikTok-tauglich umschreiben – andeuten statt aussprechen, so dass man versteht, was gemeint ist; die Handlung "
+    "bleibt gleich. Schreibe außerdem: „titel“ (kurz, macht neugierig, höchstens 60 Zeichen, verrät nicht das Ende) "
+    "und „hook“ (1–2 kurze Sätze für die ersten Sekunden, die sofort neugierig machen – aus der Story, ohne das Ende "
+    "zu verraten, keine Frage an die Zuschauer) und „figur“ (Aussehen der Hauptfigur/Erzählperson auf Englisch, "
+    "8–20 Wörter, z. B. Alter, Haare, Kleidung – passend zur Story, sonst neutral; für gleichbleibende Cartoon-Bilder). "
+    "Zu jeder Szene: „bild“ (englische Bildbeschreibung, 8–15 Wörter, "
+    "ohne Namen) und „suche“ (2–3 englische Wörter für eine Stockvideo-Suche). Antwort: {\"titel\": \"…\", "
+    "\"hook\": \"…\", \"figur\": \"…\", \"szenen\": [{\"text\": \"…\", \"bild\": \"…\", \"suche\": \"…\"}]} – genau so viele "
+    "Szenen wie in „szenen“, gleiche Reihenfolge."
+)
+EDIT_FREE = {"i", "i'm", "i've", "i'd", "i'll", "mr", "mrs", "ms", "dr", "oh", "god", "ok", "okay", "no", "yes", "mom",
+             "dad", "reddit", "tiktok"}
+
+
+# Häufige Satzanfänge – andere großgeschriebene Wörter am Satzanfang könnten neue Namen sein („Jessica never …“)
+STARTERS = set("""the a an i it its he she they we you my his her our their your there then than when after before
+    but and so or as at on in by for with from to of this that these those what why how who whom which where while
+    every each all no not nothing nobody nowhere none now later still even just maybe perhaps one two three some
+    someone something somehow sometimes somewhere everyone everything everybody anyone anything anybody once twice
+    again soon finally instead meanwhile outside inside behind under above below between through until since
+    without within because if though although yet also only never always ever today tonight yesterday tomorrow
+    here up down out over back next last first then thanks well yeah please sure right wait look hey hi hello""".split())
+
+
+def _new_names(text: str, source: str) -> list[str]:
+    """Englisch: großgeschriebene Wörter (Namen, Orte), die im Original nicht vorkommen – mitten im Satz immer,
+    am Satzanfang, wenn sie keine üblichen Satzanfänge sind."""
+    tokens = _tokens(source)
+    out = []
+    for sentence in re.split(r"(?<=[.!?:;\"“”—–])\s+", text):
+        for i, word in enumerate(re.findall(r"[A-Za-z][\w'’-]*", sentence)):
+            low = word.lower().strip("'’-")
+            parts = [p for p in re.split(r"[-'’]", low) if p]
+            if not word[0].isupper() or low in EDIT_FREE or all(p in EDIT_FREE or _known(p, tokens) for p in parts):
+                continue
+            if i == 0 and (low in STARTERS or re.search(r"(?:ly|ing|ed)$", low) or len(low) < 3):
+                continue
+            out.append(word)
+    return out
+
+
+def _edit_problem(new, source: str, lang: str, source_lang: str, context: str) -> str | None:
+    """Grund, warum ein lektorierter Text nicht übernommen wird (None = in Ordnung)."""
+    if not isinstance(new, str) or not new.strip():
+        return "leer"
+    words, src_words = len(new.split()), max(1, len(source.split()))
+    if words > src_words * 1.5 + 8:
+        return "zu lang"
+    if words < src_words * 0.35 and src_words > 12:
+        return "zu stark gekürzt"
+    if not _numbers(new, lang) <= _numbers(context, source_lang):
+        return "neue Zahl"
+    people = _invented_people(new, context)
+    if people:
+        return "neue Namen: " + ", ".join(people[:3])
+    if lang == "en" and source_lang == "en":
+        names = _new_names(new, context)
+        if names:
+            return "neue Namen: " + ", ".join(names[:3])
+    return None
+
+
+def claude_edit(title: str, scenes: list[str], lang: str, source_lang: str, mood: str, soften: bool):
+    """Lektorat durch Claude in der Auftrags-Sitzung. Rückgabe (Titel, Szenen, Bilder, Hook, Notizen, Figur) oder None.
+
+    Jede Szene wird einzeln geprüft; eine abgelehnte Szene bekommt die Regel-Fassung (bei anderer Zielsprache
+    übersetzt). Wirft handoff.WritingNeeded, solange Claude noch nicht geantwortet hat."""
+    data = {"titel": title, "zielsprache": lang, "originalsprache": source_lang, "stimmung": mood,
+            "stil": STYLE[mood], "entschaerfen": bool(soften), "szenen": scenes}
+    answer = handoff.request("lektorat", CLAUDE_EDIT, data)
+    if not isinstance(answer, dict) or not isinstance(answer.get("szenen"), list) or len(answer["szenen"]) != len(scenes):
+        if answer is not None:
+            log.warning("Claude-Lektorat unbrauchbar (Szenenzahl) – Regeln verwendet")
+        return None
+    story = " ".join([title, *scenes])
+    texts, rejected = [], []
+    for i, (src, new) in enumerate(zip(scenes, answer["szenen"])):
+        text = new.get("text") if isinstance(new, dict) else None
+        problem = _edit_problem(text, src, lang, source_lang, f"{title} {src}")
+        texts.append(None if problem else text.strip())
+        if problem:
+            rejected.append((i, problem))
+    if len(rejected) > len(scenes) // 2:        # mehr als die Hälfte daneben: lieber ganz nach Regeln
+        log.warning("Claude-Lektorat verworfen (%s)", rejected)
+        return None
+    raw_title = answer.get("titel")
+    title_ok = (isinstance(raw_title, str) and 3 <= len(raw_title.strip()) <= 80
+                and _numbers(raw_title, lang) <= _numbers(story, source_lang) and not _invented_people(raw_title, story)
+                and not (lang == "en" and source_lang == "en" and _new_names(raw_title, story)))
+    missing = [i for i, t in enumerate(texts) if t is None]
+    if missing or not title_ok:
+        fill = [scenes[i] for i in missing] + ([] if title_ok else [title])
+        if lang != source_lang:
+            fill, _ = translate(fill, lang, source_lang)       # kann Claude um eine Übersetzung bitten
+        for i, text in zip(missing, fill):
+            texts[i] = text
+        title_t = raw_title.strip() if title_ok else fill[-1]
+    else:
+        title_t = raw_title.strip()
+    hook = answer.get("hook")
+    if not (isinstance(hook, str) and 3 <= len(hook.split()) <= 30 and _numbers(hook, lang) <= _numbers(story, source_lang)
+            and not _invented_people(hook, story) and not (lang == "en" and source_lang == "en" and _new_names(hook, story))):
+        hook = ""
+    m = MOODS[mood]
+    visuals = []
+    for i, (src, new) in enumerate(zip(scenes, answer["szenen"])):
+        new = new if isinstance(new, dict) else {}
+        query, picture = str(new.get("suche") or ""), str(new.get("bild") or "")
+        fallback = visual_for(src, mood, i, {v[0] for v in visuals[-2:]})
+        query = query.strip().lower() if re.fullmatch(r"[A-Za-z][A-Za-z ,'-]{1,40}", query.strip()) else fallback[0]
+        picture = picture.strip() if 3 <= len(picture.split()) <= 30 else fallback[1]
+        if not picture.endswith("no text"):
+            picture = f"{picture}, {m['image_style']}, vertical composition, no text"
+        visuals.append((query, picture))
+    notes = ["Lektorat von Claude: im Stil der Stimmung erzählt, heikle Stellen umschrieben, Einstieg und Bildideen "
+             "neu – geprüft auf neue Zahlen, Namen und Länge."]
+    if rejected:
+        notes.append("Szenen in Regel-Fassung (Lektorat nicht übernommen): "
+                     + ", ".join(f"{i + 1} ({why})" for i, why in rejected))
+    figure = answer.get("figur")
+    figure = figure.strip() if isinstance(figure, str) and re.fullmatch(r"[A-Za-z0-9 ,.'’-]{10,200}", figure.strip()) \
+        and 3 <= len(figure.split()) <= 30 else ""
+    return title_t, texts, visuals, hook, notes, figure

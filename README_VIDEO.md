@@ -231,7 +231,18 @@ Kraftausdrücke und anzügliche oder belastende Stellen werden angedeutet statt 
 sex“ → „we got intimate“, „Sex hatten“ → „intim wurden“) – die Handlung bleibt gleich, und solche Storys
 bleiben in der Auswahl. Nur von Reddit als NSFW markierte Posts werden nicht vorgeschlagen. Jede Änderung steht im Skelett und im Prüfbericht.
 Inhaltlich wird nichts hinzugefügt; ein optionales Sprachmodell darf glätten und kürzen, seine Fassung
-wird gegen das Original geprüft.
+wird gegen das Original geprüft. **In der CUDI-App lektoriert Claude kostenlos:** Erzählstil je Stimmung,
+heikle Stellen umschrieben, ein packender **Einstieg** für die ersten Sekunden (im Skelett-Editor
+änderbar), ein neugierig machender Titel und Bildideen je Szene. Jede Szene wird geprüft (keine neuen
+Zahlen oder Namen, sinnvolle Länge) – sonst gilt für sie die Regel-Fassung.
+
+**Maskottchen „CUDI“** (Häkchen in der App, Standard an; `CUDI_MASCOT=0` schaltet es ab): ein kleiner
+Roboter unten mittig, der synchron zur Stimme den Mund bewegt, blinzelt und leicht wippt – in Rankings
+und Storys, kostenlos mit Pillow gezeichnet (`cudi_video/mascot.py`).
+
+**Cartoon** (Einstellung „Bilder: Cartoon“): KI-Bilder im Zeichentrick-Stil mit gleichem Seed, und überall,
+wo eine Person vorkommt, dieselbe Hauptfigur (Aussehen aus dem Lektorat oder passend zur Erzählstimme,
+im Skelett-Editor änderbar).
 
 **Bilder und Clips** (Einstellung „Bilder“): *Videos bevorzugt* nutzt echte Stockvideos von Pexels
 oder Pixabay (kostenloser Schlüssel nötig), sonst KI-Bilder mit Kamerafahrt, sonst frei lizenzierte

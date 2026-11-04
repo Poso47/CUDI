@@ -166,7 +166,8 @@ def commons_photo(query: str, used: set) -> Visual | None:
 
 CLIP_SKIP = ("interview", "lecture", "speech", "conference", "presentation", "talk", "song", "music", "trailer",
              "news", "documentary", "podcast", "webinar", "tutorial", "wikipedia", "wikimania", "session", "slides")
-QUERY_STOP = {"dark", "close", "view", "shot", "scene", "with", "from", "into", "over", "under", "very", "light"}
+QUERY_STOP = {"dark", "close", "view", "shot", "scene", "with", "from", "into", "over", "under", "very", "light",
+              "line", "part", "side", "back", "front", "time", "night", "life"}
 
 
 def _query_words(query: str) -> list[str]:
@@ -201,7 +202,9 @@ def commons_video(query: str, used: set) -> Visual | None:
         for page in sorted(data.get("query", {}).get("pages", []), key=lambda pg: pg.get("index", 99)):
             title = page.get("title", "")
             low = title.lower()
-            if title in used or not any(w in low for w in words) or any(x in low for x in CLIP_SKIP):
+            # Bei mehreren Suchwörtern müssen mindestens zwei im Titel stehen – sonst kommt z. B. für
+            # „dark tree line“ ein Rafting-Clip, nur weil „line“ im Titel steht.
+            if title in used or sum(w in low for w in words) < min(2, len(words)) or any(x in low for x in CLIP_SKIP):
                 continue
             info = (page.get("videoinfo") or [{}])[0]
             if not 3 <= (info.get("duration") or 0) <= 120:
@@ -247,12 +250,42 @@ ORDER = {
     "videos": ("stock", "ai", "photo", "own"),
     "images": ("ai", "photo", "stock", "own"),
     "gameplay": ("own", "stock", "ai", "photo"),
+    "cartoon": ("ai", "repeat", "photo", "own", "stock"),   # lieber das vorige Cartoon-Bild als ein Foto
+}
+
+# Cartoon-Stil: gleiche Zeichenart und – wo eine Person vorkommt – dieselbe Hauptfigur in jeder Szene
+CARTOON_STYLE = {
+    "creepy": "dark moody palette, deep blues and greens, eerie but not gory",
+    "suspense": "tense dramatic lighting, strong contrast",
+    "funny": "bright playful colors, exaggerated expressions",
+    "drama": "warm emotional colors, expressive faces",
+    "revenge": "bold confident colors, smug expressions",
+    "wholesome": "soft pastel colors, gentle warm light",
+}
+PERSON = re.compile(r"\b(man|woman|person|people|guy|girl|boy|narrator|figure|he|she|they|i|me|someone|couple|"
+                    r"friend|husband|wife|mother|father|mom|dad|kid|child|teen|student|driver|neighbor)\b", re.I)
+FIGURES = {
+    "m": "a man in his thirties with short dark hair, stubble and a gray hoodie",
+    "f": "a woman in her thirties with shoulder-length brown hair and a green jacket",
+    "": "a young adult with short brown hair and a yellow raincoat",
 }
 
 
+def cartoon_prompt(prompt: str, mood: str, figure: str) -> str:
+    """Szenen-Bildidee als Cartoon: Foto-Stil der Stimmung raus, Zeichenstil und Hauptfigur rein."""
+    from .moods import MOODS
+
+    subject = prompt.replace(MOODS[mood]["image_style"], "").replace("vertical composition", "").replace("no text", "")
+    subject = re.sub(r"(\s*,\s*)+", ", ", subject).strip(" ,")[:150]
+    who = f", the main character is {figure[:110]}" if figure and PERSON.search(subject) else ""
+    # Stil zuerst: der Bilddienst bekommt höchstens 400 Zeichen – die Cartoon-Vorgaben dürfen nicht wegfallen
+    return (f"2D cartoon illustration, clean bold outlines, flat shading, consistent character design, vertical, "
+            f"no text: {subject}{who}, {CARTOON_STYLE.get(mood, '')}")
+
+
 def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int = 1,
-                 progress=lambda done, total: None) -> tuple[list[Visual], list[str]]:
-    """Ein Bild/Clip je Szene. Gibt (Visuals, Hinweise) zurück."""
+                 progress=lambda done, total: None, figure: str = "") -> tuple[list[Visual], list[str]]:
+    """Ein Bild/Clip je Szene. Gibt (Visuals, Hinweise) zurück. figure: Hauptfigur im Cartoon-Modus."""
     notes: list[str] = []
     _ai_failures[0] = 0
     rnd = random.Random(seed)
@@ -266,12 +299,20 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
     if mode == "gameplay" and not own_clips(mood):
         notes.append("Keine eigenen Clips in video_assets/backgrounds gefunden – nutze Stockvideos/KI-Bilder.")
 
+    last_ai: list[Visual | None] = [None]
+
     def one(i: int, scene: dict) -> Visual:
         for source in order:
+            if source == "repeat":
+                if last_ai[0] is not None:
+                    return last_ai[0]
+                continue
             try:
                 if source == "stock":
                     found = (pexels(scene["query"], used) or pixabay(scene["query"], used)
                              or commons_video(scene["query"], used))
+                elif source == "ai" and mode == "cartoon":   # gleicher Seed: gleiche Zeichenart in allen Szenen
+                    found = ai_image(cartoon_prompt(scene["prompt"], mood, figure), seed * 1000)
                 elif source == "ai":
                     found = ai_image(scene["prompt"], seed * 1000 + i)
                 elif source == "photo":
@@ -282,6 +323,8 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
                 log.warning("%s für Szene %d nicht verfügbar: %s", source, i + 1, exc)
                 found = None
             if found:
+                if found.kind == "image" and source == "ai":
+                    last_ai[0] = found
                 return found
         return Visual("none", None, "", scene.get("query", ""))
 

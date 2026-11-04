@@ -34,6 +34,8 @@ class WikidataSource:
     max_value: float | None = None
     extras: dict[str, str] = field(default_factory=dict)      # Zusatzinfos: {"country": "P17", "year": "P1619"}
     max_age_years: float | None = None         # Warnung, wenn ein Wert älter ist
+    seed_items: list[str] = field(default_factory=list)   # bekannte Spitzenreiter (freie Themen: von Claude genannt,
+                                                          # Kennung gegen Wikidata geprüft) – immer als Kandidaten
 
 
 @dataclass
