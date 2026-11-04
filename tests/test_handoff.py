@@ -494,3 +494,29 @@ def test_claude_reads_simple_wish_with_count_and_angle(writing, monkeypatch):
     assert spec["count"] == 7 and "längsten Flüsse" in spec["angle"]
     from cudi_video.spec import VideoSpec
     assert VideoSpec.from_dict(spec).title["de"] == "Die 7 längsten Flüsse der Erde"
+
+
+def test_free_topics_treat_rejected_values_as_gaps(monkeypatch):
+    """Cloud-Probe Flüsse 3: Jangtse wegen Widerspruch verworfen -> Gelber Fluss rückte fälschlich auf Platz 3."""
+    from cudi_video import verify as verify_module
+    from cudi_video.models import RankItem, Research
+
+    values = {"Q1": 6650, "Q2": 6400, "Q3": 6300, "Q4": 5464, "Q5": 4880, "Q6": 4700}
+    research = Research(spec_id="t", fetched_at="", items=[
+        RankItem(qid=q, value=v, unit="Q828224", labels={"de": q}) for q, v in values.items()])
+    spec = make_spec()
+    spec.confirmed_only, spec.count = True, 5
+    spec.title = {"de": "Die 5 längsten Flüsse", "en": "The 5 Longest Rivers"}
+
+    def fake(spec, item, checkers):
+        conflict = item.qid == "Q3"
+        item.verification = {"status": "widersprüchlich" if conflict else "bestätigt", "sources": ["Wikidata"],
+                             "outliers": [], "evidence": [{"source": "Wikipedia (en)", "agrees": False,
+                                                           "value": 6236.0}] if conflict else []}
+        return item.verification
+
+    monkeypatch.setattr(verify_module, "verify_item", fake)
+    monkeypatch.setattr(verify_module, "RECHECK_PAUSE", 0)
+    verify_module.verify(spec, research)
+    assert [it.qid for it in research.items] == ["Q1", "Q2", "Q4", "Q5", "Q6"]   # Lücke ganz oben (Platz 3)
+    assert spec.title["de"] == "5 der längsten Flüsse"                          # -> keine Vollständigkeit behaupten
