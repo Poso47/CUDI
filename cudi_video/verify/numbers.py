@@ -130,12 +130,23 @@ def closest_unit_value(text: str, expected: float, unit_symbol: str, window: flo
     So kann ein Text einen Wert nicht nur bestätigen, sondern ihm auch widersprechen
     ("209.331 km²" statt "228.938 km²"). Zu grob gerundete Angaben werden ignoriert."""
     best = None
-    for value, precision in find_unit_values(text, unit_symbol):
+    for value, precision in find_unit_values(text, unit_symbol) + _sibling_values(text, unit_symbol):
         if value <= 0 or precision / max(expected, 1e-9) > 0.05:
             continue
         if abs(value - expected) / expected <= window and (best is None or abs(value - expected) < abs(best[0] - expected)):
             best = (value, precision)
     return best
+
+
+# Verwandte Einheiten: eine Länge in km steht im Artikel oft in Metern („79,732 m“) und umgekehrt
+SIBLINGS = {"km": ("m", 1e-3), "m": ("km", 1e3)}
+
+
+def _sibling_values(text: str, unit_symbol: str) -> list[tuple[float, float]]:
+    if unit_symbol not in SIBLINGS:
+        return []
+    other, factor = SIBLINGS[unit_symbol]
+    return [(value * factor, precision * factor) for value, precision in find_unit_values(text, other)]
 
 
 def _significant_digits(x: float) -> int:

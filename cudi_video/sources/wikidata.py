@@ -481,6 +481,11 @@ def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
     for it in pool:
         d = details.get(it.qid)
         names = {lang: display_name(d["wiki_titles"].get(lang), lang) or d["labels"].get(lang) for lang in langs} if d else {}
+        if d and names.get("en") and d["wiki_titles"].get("en"):
+            # Eigenname ohne deutsche Bezeichnung (z. B. Changhua-Kaohsiung-Viadukt, Platz 2 der längsten Brücken):
+            # nicht still weglassen, sondern den englischen Namen nehmen – sonst stimmt die Rangfolge nicht
+            for lang in spec.langs:
+                names[lang] = names.get(lang) or names["en"]
         if not d or not all(names.get(lang) for lang in spec.langs):
             log.info("Überspringe %s (kein Name in allen Sprachen)", it.qid)
             continue

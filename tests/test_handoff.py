@@ -145,6 +145,7 @@ def test_free_topics_keep_only_confirmed_values(monkeypatch):
         return item.verification
 
     monkeypatch.setattr(verify_module, "verify_item", fake)
+    monkeypatch.setattr(verify_module, "RECHECK_PAUSE", 0)
     verify_module.verify(spec, research)
     assert [it.qid for it in research.items] == ["Q2", "Q3"] and research.items[0].rank == 1
     assert any("Turm A: nicht verwendet" in w for w in research.warnings)
@@ -364,3 +365,76 @@ def test_plan_asks_once_more_for_known_leaders(writing, monkeypatch):
     answer(more.value.path, {"spitzenreiter": ["Danyang–Kunshan Grand Bridge", "Tianjin Grand Bridge", "Unknown"]})
     spec = planner.plan_with_claude("die längsten Brücken der Welt", 5)
     assert spec["source"]["seed_items"] == ["Q595768", "Q1066786"]
+
+
+def test_length_in_meters_confirms_kilometers():
+    """Probelauf Brücken: „79,732 m“ im Artikel bestätigt 79,7 km (vorher „Wert im Artikel nicht genannt“)."""
+    from cudi_video.verify.numbers import closest_unit_value
+
+    assert closest_unit_value("The bridge is 79,732 m (261,588 ft) long.", 79.732, "km") == (79.732, 0.001)
+    assert closest_unit_value("Die Brücke ist 79.732 m lang.", 79.732, "km") == (79.732, 0.001)
+    assert closest_unit_value("Turm, 50 m hoch", 79.732, "km") is None
+
+
+def test_items_without_german_name_keep_their_rank(monkeypatch):
+    """Changhua-Kaohsiung-Viadukt (Platz 2) hat keine deutsche Bezeichnung – englischer Name statt Weglassen."""
+    from cudi_video.models import RankItem
+    from cudi_video.sources import wikidata
+
+    spec = make_spec()
+    spec.langs, spec.count = ["de"], 2
+    monkeypatch.setattr(wikidata, "_ranking_bindings", lambda src, fresh: [])
+    monkeypatch.setattr(wikidata, "pick_latest", lambda rows: {
+        "Q1": RankItem(qid="Q1", value=164800, unit="Q11573"), "Q2": RankItem(qid="Q2", value=157315, unit="Q11573"),
+        "Q3": RankItem(qid="Q3", value=150000, unit="Q11573"), "Q4": RankItem(qid="Q4", value=113700, unit="Q11573")})
+    details = {
+        "Q1": {"labels": {"de": "Große Brücke Danyang–Kunshan", "en": "Danyang–Kunshan Grand Bridge"},
+               "wiki_titles": {"de": "Große Brücke Danyang–Kunshan", "en": "Danyang–Kunshan Grand Bridge"}},
+        "Q2": {"labels": {"en": "Changhua-Kaohsiung Viaduct"}, "wiki_titles": {"en": "Changhua–Kaohsiung Viaduct"}},
+        "Q3": {"labels": {"en": "Some obscure viaduct"}, "wiki_titles": {}},          # ohne Artikel: weiter weg
+        "Q4": {"labels": {"de": "Große Brücke von Tianjin", "en": "Tianjin Grand Bridge"},
+               "wiki_titles": {"de": "Große Brücke von Tianjin", "en": "Tianjin Grand Bridge"}},
+    }
+    for d in details.values():
+        d.update(descriptions={}, image_file=None, image_kind=None, built=None)
+    monkeypatch.setattr(wikidata, "_details", lambda qids, langs, image_prop="P18": {q: details[q] for q in qids})
+    monkeypatch.setattr(wikidata, "_extras", lambda qids, extras, langs: {})
+    research = wikidata.fetch_ranking(spec)
+    names = [it.labels["de"] for it in research.items]
+    assert names[:2] == ["Große Brücke Danyang–Kunshan", "Changhua–Kaohsiung Viaduct"]
+    assert "Some obscure viaduct" not in names
+
+
+def test_unconfirmed_places_are_rechecked_after_throttling(monkeypatch):
+    """Cloud-Probelauf 25 Berge: viele „nur eine Quelle“ wegen Drosselung – einmal langsamer nachprüfen."""
+    from cudi_video import verify as verify_module
+
+    calls = {}
+
+    def fake(spec, item, checkers):
+        calls[item.qid] = calls.get(item.qid, 0) + 1
+        status = "nur eine Quelle" if calls[item.qid] == 1 else "bestätigt"
+        item.verification = {"status": status, "sources": [], "evidence": [], "outliers": []}
+        return item.verification
+
+    monkeypatch.setattr(verify_module, "verify_item", fake)
+    monkeypatch.setattr(verify_module, "RECHECK_PAUSE", 0)
+    spec, research = make_spec(), make_research()
+    verify_module.verify(spec, research)
+    assert calls == {"Q1": 2, "Q2": 2, "Q3": 2}
+    assert all(it.verification["status"] == "bestätigt" for it in research.items)
+
+
+def test_title_count_follows_usable_places(monkeypatch):
+    """Probelauf 25 Berge: ein widersprüchlicher Wert flog raus, der Titel sagte trotzdem „25“."""
+    from cudi_video import verify as verify_module
+
+    def fake(spec, item, checkers):
+        item.verification = {"status": "bestätigt", "sources": [], "evidence": [], "outliers": []}
+        return item.verification
+
+    monkeypatch.setattr(verify_module, "verify_item", fake)
+    spec, research = make_spec(), make_research()
+    spec.count, spec.title = 4, {"de": "Die 4 höchsten Türme", "en": "The 4 Tallest Towers"}
+    verify_module.verify(spec, research)                       # nur 3 Kandidaten vorhanden
+    assert spec.count == 3 and spec.title["en"] == "The 3 Tallest Towers"
