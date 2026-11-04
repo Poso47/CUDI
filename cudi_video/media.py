@@ -71,6 +71,12 @@ def names_match(item: RankItem, text: str) -> bool:
     return any(t and len(t) == best and all(w in hay for w in t) for t in sets)
 
 
+def search_name(item: RankItem) -> str:
+    """Suchbegriff: der spezifischste Name (en/de) – „Abraj Al Bait“ statt „The Clock Towers“."""
+    names = [n for n in (item.labels.get("en", ""), item.labels.get("de", "")) if n]
+    return max(names, key=lambda n: len(key_tokens(n)), default="")
+
+
 def _cc_name(code: str, version: str) -> str:
     code = (code or "").lower()
     if code in ("cc0", "pdm"):
@@ -79,7 +85,7 @@ def _cc_name(code: str, version: str) -> str:
 
 
 def openverse(item: RankItem) -> list[Candidate]:
-    name = item.labels.get("en") or item.labels.get("de")
+    name = search_name(item)
     if not name:
         return []
     data = net.get_json("https://api.openverse.org/v1/images/",
@@ -106,7 +112,7 @@ def openverse(item: RankItem) -> list[Candidate]:
 
 
 def nasa(item: RankItem) -> list[Candidate]:
-    name = item.labels.get("en")
+    name = search_name(item)
     if not name:
         return []
     data = net.get_json("https://images-api.nasa.gov/search", params={"q": name, "media_type": "image"},
@@ -129,7 +135,7 @@ def nasa(item: RankItem) -> list[Candidate]:
 def pexels_photos(item: RankItem) -> list[Candidate]:
     from . import config
 
-    name = item.labels.get("en") or item.labels.get("de")
+    name = search_name(item)
     if not config.PEXELS_API_KEY or not name:
         return []
     data = net.get_json("https://api.pexels.com/v1/search", params={"query": name, "per_page": 15},
@@ -152,7 +158,7 @@ def pexels_photos(item: RankItem) -> list[Candidate]:
 def pixabay_photos(item: RankItem) -> list[Candidate]:
     from . import config
 
-    name = item.labels.get("en") or item.labels.get("de")
+    name = search_name(item)
     if not config.PIXABAY_API_KEY or not name:
         return []
     data = net.get_json("https://pixabay.com/api/", params={"key": config.PIXABAY_API_KEY, "q": name[:100],
@@ -208,7 +214,7 @@ def _words_of(url: str) -> str:
 def pexels_clips(item: RankItem) -> list[Clip]:
     from . import config
 
-    name = item.labels.get("en") or item.labels.get("de")
+    name = search_name(item)
     if not config.PEXELS_API_KEY or not name:
         return []
     data = net.get_json("https://api.pexels.com/videos/search", params={"query": name, "per_page": 15},
@@ -232,7 +238,7 @@ def pexels_clips(item: RankItem) -> list[Clip]:
 def pixabay_clips(item: RankItem) -> list[Clip]:
     from . import config
 
-    name = item.labels.get("en") or item.labels.get("de")
+    name = search_name(item)
     if not config.PIXABAY_API_KEY or not name:
         return []
     data = net.get_json("https://pixabay.com/api/videos/", params={"key": config.PIXABAY_API_KEY, "q": name[:100],
@@ -252,7 +258,7 @@ def pixabay_clips(item: RankItem) -> list[Clip]:
 
 
 def nasa_clips(item: RankItem) -> list[Clip]:
-    name = item.labels.get("en")
+    name = search_name(item)
     if not name:
         return []
     data = net.get_json("https://images-api.nasa.gov/search", params={"q": name, "media_type": "video"},
@@ -279,7 +285,7 @@ def commons_clips(item: RankItem) -> list[Clip]:
     from .enrich import NON_FREE, credit_author
     from .story.visuals import CLIP_SKIP, _best_derivative
 
-    name = item.labels.get("en") or item.labels.get("de")
+    name = search_name(item)
     if not name:
         return []
     data = net.get_json("https://commons.wikimedia.org/w/api.php", params={
