@@ -80,3 +80,32 @@ def invented_people(text: str, source: str) -> list[str]:
     """Vornamen im neuen Text, die im Original nicht vorkommen (sprachunabhängig)."""
     known_words = tokens(source)
     return [w for w in re.findall(r"[A-ZÄÖÜ][a-zäöüß]+", text) if w.lower() in FIRST_NAMES and not known(w, known_words)]
+
+
+# --------------------------------------------------------------------------- allgemeine Wörter
+# Häufigste 30 000 Wörter je Sprache (FrequencyWords von Hermit Dave, aus OpenSubtitles, CC BY-SA 4.0).
+# Sie belegen nichts – sie erlauben nur Alltagswörter („Café“, „Gehirn“) in erzählenden Sätzen, deren Aussage
+# selbst am wörtlichen Beleg hängt. Zahlen und Personennamen prüfen eigene, strenge Regeln.
+# `everyday_word`: nur deutsche Alltagswörter, die es so nicht auch im Englischen gibt – Eigennamen („Harvard“,
+# „Miller“, „Berlin“) sind in beiden Sprachen gleich und bleiben deshalb belegpflichtig; englische Texte bekommen
+# keine Ausnahme (Großschreibung mitten im Satz heißt dort fast immer Name).
+_COMMON: dict[str, frozenset] = {}
+
+
+def common_words(lang: str) -> frozenset:
+    if lang not in _COMMON:
+        import gzip
+        from pathlib import Path
+        path = Path(__file__).with_name("wortlisten") / f"words_{lang}.txt.gz"
+        try:
+            words = gzip.decompress(path.read_bytes()).decode("utf-8").split()
+        except OSError:
+            words = []
+        _COMMON[lang] = frozenset(w for w in words if w not in FIRST_NAMES)
+    return _COMMON[lang]
+
+
+def everyday_word(word: str, lang: str) -> bool:
+    parts = [p for p in re.split(r"[-'’]", word.lower()) if p]
+    return lang == "de" and bool(parts) and all(p in common_words("de") and p not in common_words("en")
+                                                 for p in parts)

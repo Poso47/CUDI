@@ -17,7 +17,7 @@ import logging
 import re
 from datetime import datetime, timezone
 
-from . import handoff, net
+from . import handoff, net, textcheck
 from .models import RankItem, Research
 from .spec import VideoSpec
 
@@ -28,17 +28,27 @@ EXTRA_FACTS = 3                # Claude liefert so viele Fakten mehr, falls einz
 MIN_ARTICLE_CHARS = 1200
 
 INSTRUCTIONS = (
-    "Schreibe ein Fakten-Ranking für TikTok/YouTube Shorts zum Thema „thema“: genau „anzahl“ Fakten, sortiert nach "
-    "„kriterium“ (rang 1 = am stärksten, er kommt im Video zuletzt). Verwende NUR Aussagen, die in den Texten unter "
+    "Schreibe ein Fakten-Ranking für TikTok/YouTube Shorts zum Thema „thema“: genau „anzahl“ Fakten (das sind "
+    "absichtlich mehr, als das Video zeigt – die Reserve ersetzt Fakten, die die Prüfung nicht bestehen; liefere "
+    "trotzdem alle), sortiert nach „kriterium“ (rang 1 = am stärksten, er kommt im Video zuletzt). Verwende NUR Aussagen, die in den Texten unter "
     "„quellen“ stehen – nichts dazuerfinden, keine Zahl, die dort nicht steht, keine Gesundheits- oder "
     "Heilversprechen, keine Wertungen über Menschen oder Politik. Je Fakt: „beleg“ = EIN Satz, Zeichen für Zeichen "
     "WÖRTLICH aus einem Quelltext kopiert; „quelle“ = die „id“ dieses Quelltexts; für jede Sprache in „sprachen“: "
     "„titel_<sprache>“ (Überschrift, höchstens 45 Zeichen), „kurz_<sprache>“ (Kernaussage, höchstens 70 Zeichen) und "
     "„text_<sprache>“ (Sprechertext, ungefähr „woerter“ Wörter, erzählt wie eine kleine Geschichte: zuerst ein Bild "
-    "im Kopf oder das überraschendste Detail, direkte Ansprache mit „du“, kurze Sätze, nichts übertreiben); "
+    "im Kopf oder das überraschendste Detail, direkte Ansprache mit „du“, kurze Sätze, nichts übertreiben; "
+    "Namen von Personen, Orten, Studien oder Einrichtungen nur, wenn sie im Quelltext stehen); "
     "„suche“ = 2–4 englische Wörter für passende Stockvideos (z. B. „brain neurons glowing“). Antwort: "
     "{\"fakten\": [{\"rang\": 1, \"beleg\": \"…\", \"quelle\": \"…\", \"titel_de\": \"…\", \"kurz_de\": \"…\", "
     "\"text_de\": \"…\", \"suche\": \"…\"}]}."
+)
+
+INSTRUCTIONS_FIX = (
+    "Einige Fakten wurden von der Prüfung abgelehnt. Unter „abgelehnt“ steht je Fakt dein Vorschlag („fakt“) und der "
+    "Grund („grund“). Schreibe jeden neu, sodass er die Regeln aus „regeln“ erfüllt – bei „nicht belegt: …“ diese "
+    "Wörter weglassen oder durch Wörter aus dem Quelltext ersetzen; bei „Zahlen nur in einer Quelle“ oder einem "
+    "Beleg, der nicht wörtlich passt, einen anderen Beleg-Satz aus „quellen“ wählen (ruhig ein anderer Fakt). "
+    "Behalte „rang“ bei. Antwort im selben Format: {\"fakten\": [{\"rang\": …, \"beleg\": \"…\", …}]}."
 )
 
 
@@ -115,6 +125,7 @@ def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int) -
             return f"zu lang ({lang})", ""
         unknown = invented_people(text, home["text"]) or unknown_words(
             text, {"sprache": lang, "beleg": beleg, "quelle": " ".join(s["text"] for s in sources)})
+        unknown = [w for w in unknown if not textcheck.everyday_word(w, lang)]
         if unknown:
             return "nicht belegt: " + ", ".join(unknown[:3]), ""
     numbers = {d for d in _digits(beleg) if len(d) >= 2}
@@ -124,6 +135,23 @@ def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int) -
     return None, "bestätigt" if numbers else "eine Fachquelle (Wortlaut geprüft)"
 
 
+def _facts_of(answer) -> list[dict]:
+    facts = answer.get("fakten") if isinstance(answer, dict) else None
+    return [f for f in facts if isinstance(f, dict)] if isinstance(facts, list) else []
+
+
+def _check_all(facts: list[dict], sources: list[dict], langs: list[str], budget: int):
+    """(bestandene Fakten mit Prüfstatus, abgelehnte Fakten mit Grund) – nach Rang sortiert."""
+    kept, rejected = [], []
+    for fact in sorted(facts, key=lambda f: int(f.get("rang") or 99)):
+        reason, status = check_fact(fact, sources, langs, budget)
+        if reason:
+            rejected.append((fact, reason))
+        else:
+            kept.append((fact, status))
+    return kept, rejected
+
+
 def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
     """Quellen laden, Claude die Fakten schreiben lassen, jeden Fakt prüfen. Wirft handoff.WritingNeeded, solange
     Claudes Antwort fehlt (der Auftrag läuft danach mit --weiter weiter)."""
@@ -131,26 +159,31 @@ def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
     if not sources:
         raise ValueError("Zu diesem Thema fanden sich keine Fachartikel. Bitte das Thema etwas anders formulieren.")
     budget = word_budget(spec)
-    answer = handoff.request("fakten", INSTRUCTIONS, {
-        "thema": spec.title.get("de") or next(iter(spec.title.values())),
-        "anzahl": spec.count + EXTRA_FACTS, "kriterium": spec.facts.get("criterion", {}),
-        "sprachen": langs, "woerter": budget,
-        "quellen": [{k: s[k] for k in ("id", "sprache", "titel", "text")} for s in sources]})
-    facts = answer.get("fakten") if isinstance(answer, dict) else None
-    if not isinstance(facts, list):
+    data = {"thema": spec.title.get("de") or next(iter(spec.title.values())),
+            "anzahl": spec.count + EXTRA_FACTS, "kriterium": spec.facts.get("criterion", {}),
+            "sprachen": langs, "woerter": budget,
+            "quellen": [{k: s[k] for k in ("id", "sprache", "titel", "text")} for s in sources]}
+    warnings: list[str] = []
+    kept, rejected = _check_all(_facts_of(handoff.request("fakten", INSTRUCTIONS, data)), sources, langs, budget)
+    if not kept and not rejected:
         raise ValueError("Es kamen keine Fakten zurück.")
-    warnings, kept = [], []
-    for fact in sorted((f for f in facts if isinstance(f, dict)), key=lambda f: int(f.get("rang") or 99)):
-        reason, status = check_fact(fact, sources, langs, budget)
+    if len(kept) < spec.count and rejected:
+        # einmal mit Begründung zurück an Claude – wie beim Erzählen der Zahlen-Rankings
+        retry = {**data, "regeln": INSTRUCTIONS, "abgelehnt": [{"fakt": f, "grund": r} for f, r in rejected]}
+        fixed, still = _check_all(_facts_of(handoff.request("fakten_korrektur", INSTRUCTIONS_FIX, retry)),
+                                  sources, langs, budget)
+        taken = {int(f.get("rang") or 99) for f, _ in kept}
+        kept += [(f, st) for f, st in fixed if int(f.get("rang") or 99) not in taken]
+        fixed_ranks = {int(f.get("rang") or 99) for f, _ in fixed}
+        rejected = [(f, r) for f, r in rejected if int(f.get("rang") or 99) not in fixed_ranks] + still
+    for fact, reason in rejected:
         name = str(fact.get(f"titel_{langs[0]}") or fact.get("beleg", ""))[:60]
-        if reason:
-            warnings.append(f"Fakt „{name}“ verworfen: {reason}.")
-            continue
-        kept.append((fact, status))
-        if len(kept) == spec.count:
-            break
+        warnings.append(f"Fakt „{name}“ verworfen: {reason}.")
+    kept = sorted(kept, key=lambda fs: int(fs[0].get("rang") or 99))[:spec.count]
     if len(kept) < min(3, spec.count):
-        raise ValueError(f"Nur {len(kept)} Fakten bestanden die Prüfung – zu wenig für ein ehrliches Ranking.")
+        why = "; ".join(sorted({r for _, r in rejected}))[:300]
+        raise ValueError(f"Nur {len(kept)} Fakten bestanden die Prüfung – zu wenig für ein ehrliches Ranking"
+                         + (f" (Gründe: {why})." if why else "."))
     if len(kept) < spec.count:
         warnings.append(f"Nur {len(kept)} von {spec.count} Fakten geprüft – Video zeigt die Top {len(kept)}.")
         spec.shrink_to(len(kept))
