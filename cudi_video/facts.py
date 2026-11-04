@@ -17,36 +17,44 @@ import logging
 import re
 from datetime import datetime, timezone
 
-from . import handoff, net, textcheck
+from . import handoff, net, textcheck, themen
 from .models import RankItem, Research
 from .spec import VideoSpec
 
 log = logging.getLogger(__name__)
 
-ARTICLE_CHARS = 14000          # je Artikel – genug für viele Fakten, ohne die Schreibaufgabe aufzublähen
+ARTICLE_CHARS = 10000          # je Artikel – bis zu 4 spezifische Artikel je Sprache (je Aspekt einer)
 EXTRA_FACTS = 3                # Claude liefert so viele Fakten mehr, falls einzelne die Prüfung nicht bestehen
 MIN_ARTICLE_CHARS = 1200
+_NUM = (r"(?:ein|zwei|drei|vier|fünf|sechs|sieb|sieben|acht|neun|zehn|elf|zwölf|zwanzig|dreißig|vierzig|fünfzig|"
+        r"sechzig|siebzig|achtzig|neunzig|hundert|tausend|und)")
+COMPOUND_NUMBER = re.compile(rf"^{_NUM}{_NUM}+$")          # deutsche Zahlwörter aus mehreren Teilen („zweihundert“)
 
 INSTRUCTIONS = (
     "Schreibe ein Fakten-Ranking für TikTok/YouTube Shorts zum Thema „thema“: genau „anzahl“ Fakten (das sind "
     "absichtlich mehr, als das Video zeigt – die Reserve ersetzt Fakten, die die Prüfung nicht bestehen; liefere "
-    "trotzdem alle), sortiert nach „kriterium“ (rang 1 = am stärksten, er kommt im Video zuletzt). Verwende NUR Aussagen, die in den Texten unter "
-    "„quellen“ stehen – nichts dazuerfinden, keine Zahl, die dort nicht steht, keine Gesundheits- oder "
+    "trotzdem alle), sortiert nach „kriterium“ (rang 1 = am stärksten, er kommt im Video zuletzt). "
+    + themen.TOPIC_RULES + " Jeder Fakt gehört zu einem Aspekt aus „aspekte“; verteile die Fakten auf möglichst "
+    "verschiedene Aspekte. Verwende NUR Aussagen, die in den Texten unter „quellen“ stehen – nichts dazuerfinden, "
+    "keine Zahl, die dort nicht steht (auch nicht ausgeschrieben oder errechnet), keine Gesundheits- oder "
     "Heilversprechen, keine Wertungen über Menschen oder Politik. Je Fakt: „beleg“ = EIN Satz, Zeichen für Zeichen "
-    "WÖRTLICH aus einem Quelltext kopiert; „quelle“ = die „id“ dieses Quelltexts; für jede Sprache in „sprachen“: "
-    "„titel_<sprache>“ (Überschrift, höchstens 45 Zeichen), „kurz_<sprache>“ (Kernaussage, höchstens 70 Zeichen) und "
-    "„text_<sprache>“ (Sprechertext, ungefähr „woerter“ Wörter, erzählt wie eine kleine Geschichte: zuerst ein Bild "
-    "im Kopf oder das überraschendste Detail, direkte Ansprache mit „du“, kurze Sätze, nichts übertreiben; "
-    "Namen von Personen, Orten, Studien oder Einrichtungen nur, wenn sie im Quelltext stehen); "
-    "„suche“ = 2–4 englische Wörter für passende Stockvideos (z. B. „brain neurons glowing“). Antwort: "
-    "{\"fakten\": [{\"rang\": 1, \"beleg\": \"…\", \"quelle\": \"…\", \"titel_de\": \"…\", \"kurz_de\": \"…\", "
-    "\"text_de\": \"…\", \"suche\": \"…\"}]}."
+    "WÖRTLICH aus einem Quelltext kopiert (die Kernaussage); „belege“ = 0–3 weitere wörtlich kopierte Sätze, auf "
+    "denen die Erklärung beruht; „quelle“ = die „id“ des Quelltexts von „beleg“; „aspekt“ = einer der „aspekte“; für "
+    "jede Sprache in „sprachen“: „titel_<sprache>“ (Überschrift, höchstens 45 Zeichen), „kurz_<sprache>“ "
+    "(Kernaussage, höchstens 70 Zeichen) und „text_<sprache>“ (Sprechertext, ungefähr „woerter“ Wörter, direkte "
+    "Ansprache mit „du“, kurze Sätze, nichts übertreiben; Namen von Personen, Orten, Studien oder Einrichtungen nur, "
+    "wenn sie im Quelltext stehen). " + themen.KNOWLEDGE_STRUCTURE + " „suche“ = 2–4 englische Wörter für "
+    "passende Stockvideos zum konkreten Fakt (z. B. „person walking past cafe“). Antwort: "
+    "{\"fakten\": [{\"rang\": 1, \"aspekt\": \"…\", \"beleg\": \"…\", \"belege\": [\"…\"], \"quelle\": \"…\", "
+    "\"titel_de\": \"…\", \"kurz_de\": \"…\", \"text_de\": \"…\", \"suche\": \"…\"}]}."
 )
 
 INSTRUCTIONS_FIX = (
     "Einige Fakten wurden von der Prüfung abgelehnt. Unter „abgelehnt“ steht je Fakt dein Vorschlag („fakt“) und der "
     "Grund („grund“). Schreibe jeden neu, sodass er die Regeln aus „regeln“ erfüllt – bei „nicht belegt: …“ diese "
-    "Wörter weglassen oder durch Wörter aus dem Quelltext ersetzen; bei „Zahlen nur in einer Quelle“ oder einem "
+    "Wörter weglassen oder durch Wörter aus dem Quelltext ersetzen; bei „zu kurz“ mehr erklären (wie/warum, was es "
+    "für dich bedeutet – belegt mit weiteren wörtlichen Sätzen in „belege“); bei „passt nicht zum Themenkern“ einen "
+    "Fakt zu einem der „aspekte“ wählen; bei „Zahlen nur in einer Quelle“ oder einem "
     "Beleg, der nicht wörtlich passt, einen anderen Beleg-Satz aus „quellen“ wählen (ruhig ein anderer Fakt). "
     "Behalte „rang“ bei. Antwort im selben Format: {\"fakten\": [{\"rang\": …, \"beleg\": \"…\", …}]}."
 )
@@ -76,7 +84,7 @@ def article_text(lang: str, title: str) -> tuple[str, str]:
 def gather_sources(spec: VideoSpec) -> list[dict]:
     sources = []
     for lang, titles in (spec.facts.get("articles") or {}).items():
-        for title in titles[:3]:
+        for title in titles[:4]:
             try:
                 text, real = article_text(lang, title)
             except net.FetchError as exc:
@@ -97,7 +105,8 @@ def _digits(text: str) -> set[str]:
     return {d.replace(".", "").replace(",", "") for d in re.findall(r"\d[\d.,]*", text)}
 
 
-def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int) -> tuple[str | None, str]:
+def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int,
+               aspects: list[str] | None = None) -> tuple[str | None, str]:
     """(Grund der Ablehnung oder None, Prüfstatus). Status „bestätigt“ = Zahlen auch in einer zweiten Quelle."""
     from .narrate import RANK_CLAIM, unknown_words
     from .script import NOT_NEUTRAL
@@ -110,6 +119,14 @@ def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int) -
     home = home or next((s for s in sources if _norm(beleg) and _norm(beleg) in _norm(s["text"])), None)
     if len(beleg) < 25 or not home or _norm(beleg) not in _norm(home["text"]):
         return "Beleg steht nicht wörtlich in der Quelle", ""
+    extra = [str(b).strip() for b in (fact.get("belege") or []) if str(b).strip()][:3] \
+        if isinstance(fact.get("belege"), list) else []
+    every = _norm(" ".join(s["text"] for s in sources))
+    if any(_norm(b) not in every for b in extra):
+        return "weiterer Beleg steht nicht wörtlich in der Quelle", ""
+    if not themen.matches_aspect(str(fact.get("aspekt") or ""), aspects or []):
+        return "passt nicht zum Themenkern (kein Aspekt aus „aspekte“)", ""
+    beleg_all = " ".join([beleg, *extra])
     for lang in langs:
         text = str(fact.get(f"text_{lang}") or "").strip()
         title = str(fact.get(f"titel_{lang}") or "").strip()
@@ -117,18 +134,23 @@ def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int) -
         if not text or not title:
             return f"Text oder Titel ({lang}) fehlt", ""
         said = f"{title} {short} {text}"
-        if not _digits(said) <= _digits(beleg):
+        # werttreu und auch ausgeschrieben („zwei“ = „2“); zusammengesetzte Zahlwörter („zweihundert“) nur wörtlich
+        backed = textcheck.numbers(beleg_all, "de") | textcheck.numbers(beleg_all, "en")
+        compound = {w for w in re.findall(r"[a-zäöüß]+", said.lower()) if COMPOUND_NUMBER.search(w) and w not in textcheck.NUMBER_WORDS["de"]}
+        if not textcheck.numbers(said, lang) <= backed or not compound <= set(re.findall(r"[a-zäöüß]+", beleg_all.lower())):
             return f"Zahl ohne Beleg ({lang})", ""
         if NOT_NEUTRAL.search(said) or RANK_CLAIM.search(said):
             return "Wertung oder Rang-Aussage", ""
         if len(text.split()) > budget * 1.4 + 8 or len(title) > 60 or len(short) > 90:
             return f"zu lang ({lang})", ""
+        if len(text.split()) < budget * 0.6:
+            return f"zu kurz ({lang}) – erkläre mehr als den nackten Fakt", ""
         unknown = invented_people(text, home["text"]) or unknown_words(
-            text, {"sprache": lang, "beleg": beleg, "quelle": " ".join(s["text"] for s in sources)})
+            text, {"sprache": lang, "beleg": beleg_all, "quelle": " ".join(s["text"] for s in sources)})
         unknown = [w for w in unknown if not textcheck.everyday_word(w, lang)]
         if unknown:
             return "nicht belegt: " + ", ".join(unknown[:3]), ""
-    numbers = {d for d in _digits(beleg) if len(d) >= 2}
+    numbers = {d for d in _digits(beleg_all) if len(d) >= 2}
     others = [s for s in sources if s is not home]
     if numbers and not any(numbers <= _digits(s["text"]) for s in others):
         return "Zahlen nur in einer Quelle – nicht abgeglichen", ""
@@ -140,11 +162,11 @@ def _facts_of(answer) -> list[dict]:
     return [f for f in facts if isinstance(f, dict)] if isinstance(facts, list) else []
 
 
-def _check_all(facts: list[dict], sources: list[dict], langs: list[str], budget: int):
+def _check_all(facts: list[dict], sources: list[dict], langs: list[str], budget: int, aspects=None):
     """(bestandene Fakten mit Prüfstatus, abgelehnte Fakten mit Grund) – nach Rang sortiert."""
     kept, rejected = [], []
     for fact in sorted(facts, key=lambda f: int(f.get("rang") or 99)):
-        reason, status = check_fact(fact, sources, langs, budget)
+        reason, status = check_fact(fact, sources, langs, budget, aspects)
         if reason:
             rejected.append((fact, reason))
         else:
@@ -161,17 +183,18 @@ def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
     budget = word_budget(spec)
     data = {"thema": spec.title.get("de") or next(iter(spec.title.values())),
             "anzahl": spec.count + EXTRA_FACTS, "kriterium": spec.facts.get("criterion", {}),
-            "sprachen": langs, "woerter": budget,
+            "sprachen": langs, "woerter": budget, **themen.focus(spec, langs[0]),
             "quellen": [{k: s[k] for k in ("id", "sprache", "titel", "text")} for s in sources]}
     warnings: list[str] = []
-    kept, rejected = _check_all(_facts_of(handoff.request("fakten", INSTRUCTIONS, data)), sources, langs, budget)
+    aspects = data["aspekte"]
+    kept, rejected = _check_all(_facts_of(handoff.request("fakten", INSTRUCTIONS, data)), sources, langs, budget, aspects)
     if not kept and not rejected:
         raise ValueError("Es kamen keine Fakten zurück.")
     if len(kept) < spec.count and rejected:
         # einmal mit Begründung zurück an Claude – wie beim Erzählen der Zahlen-Rankings
         retry = {**data, "regeln": INSTRUCTIONS, "abgelehnt": [{"fakt": f, "grund": r} for f, r in rejected]}
         fixed, still = _check_all(_facts_of(handoff.request("fakten_korrektur", INSTRUCTIONS_FIX, retry)),
-                                  sources, langs, budget)
+                                  sources, langs, budget, aspects)
         taken = {int(f.get("rang") or 99) for f, _ in kept}
         kept += [(f, st) for f, st in fixed if int(f.get("rang") or 99) not in taken]
         fixed_ranks = {int(f.get("rang") or 99) for f, _ in fixed}
@@ -198,7 +221,9 @@ def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
             descriptions={lang: str(fact.get(f"kurz_{lang}") or "").strip() for lang in langs},
             summary={lang: str(fact[f"text_{lang}"]).strip() for lang in langs},
             fact={"beleg": fact["beleg"].strip(), "quelle": home["titel"], "url": home["url"],
-                  "suche": str(fact.get("suche") or "")[:60]},
+                  "suche": str(fact.get("suche") or "")[:60], "aspekt": str(fact.get("aspekt") or "")[:60],
+                  "belege": [str(b).strip() for b in fact.get("belege") or [] if str(b).strip()][:3]
+                  if isinstance(fact.get("belege"), list) else []},
             verification={"status": status, "sources": [home["titel"]], "evidence": [], "outliers": []},
         ))
     research = Research(spec_id=spec.id, fetched_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),

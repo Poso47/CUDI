@@ -134,7 +134,8 @@ STORY_RULES = {
         "Spannungsbogen: Der „hook“ beginnt mitten im spannendsten Moment der Story (ohne das Ende zu verraten) und "
         "öffnet eine Frage, die erst am Schluss beantwortet wird. Jede Szene endet so, dass man wissen will, wie es "
         "weitergeht. Kurze Sätze, Sinneseindrücke (was man hört, sieht, fühlt), wörtliche Rede wo sie in der Story "
-        "steht. Die Auflösung kommt erst in der letzten Szene."
+        "steht. Die Auflösung kommt erst in der letzten Szene. Themenkern: Jede Szene treibt die EINE Geschichte aus "
+        "dem Hook voran; Nebenschauplätze, die nichts zum Konflikt beitragen, kürzen."
     ),
     "creepy": "Grusel: Andeutungen statt Erklärungen, Stille und kleine Details (ein Geräusch, ein Schatten) bauen Angst auf.",
     "suspense": "Spannung: Tempo variieren, kurz vor der Wendung langsamer werden, die Wendung knapp und hart.",

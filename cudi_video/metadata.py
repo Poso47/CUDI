@@ -58,6 +58,7 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
                       else "📖 Info: Wikipedia (CC BY-SA 4.0), Wikidata (CC0)"))
     credits = [(it.labels[lang], it.image_credit) for it in items if it.image_credit]
     credits += [(it.labels[lang], c["credit"]) for it in items for c in it.clips if c.get("credit")]
+    credits = list(dict.fromkeys(credits))                 # zwei Ausschnitte aus demselben Clip nur einmal nennen
     if credits:
         lines += ["", "📷 Bild- und Videonachweise:" if de else "📷 Image and video credits:"]
         lines += [f"• {name}: {credit}" for name, credit in credits]
@@ -82,6 +83,11 @@ def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> 
            f"Daten abgerufen: {research.fetched_at}", ""]
     if spec.angle:
         out += [f"**Deutung des Themas:** {spec.angle}", ""]
+    question = (spec.focus.get("frage") or {}).get("de")
+    if question:
+        out += [f"**Themenkern:** {question}"
+                + (f" – Aspekte: {', '.join(spec.focus.get('aspekte') or [])}" if spec.focus.get("aspekte") else "")
+                + (f" – nicht gemeint: {', '.join(spec.focus.get('nicht') or [])}" if spec.focus.get("nicht") else ""), ""]
     counts: dict[str, int] = {}
     for it in research.items:
         status = (it.verification or {}).get("status", "nicht geprüft")
@@ -96,8 +102,10 @@ def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> 
     if spec.kind == "facts":
         out += ["## Fakten-Ranking (Belege)", ""]
         for it in sorted(research.items, key=lambda i: i.rank):
-            out += [f"**{it.rank}. {it.labels.get('de') or it.labels.get('en')}** – {it.verification.get('status')}",
-                    f"> {it.fact.get('beleg')}", f"Quelle: [{it.fact.get('quelle')}]({it.fact.get('url')})", ""]
+            aspect = f" ({it.fact['aspekt']})" if it.fact.get("aspekt") else ""
+            out += [f"**{it.rank}. {it.labels.get('de') or it.labels.get('en')}**{aspect} – {it.verification.get('status')}",
+                    f"> {it.fact.get('beleg')}", *[f"> {b}" for b in it.fact.get("belege") or []],
+                    f"Quelle: [{it.fact.get('quelle')}]({it.fact.get('url')})", ""]
         for s in scripts:
             out += ["", f"## Sprechertext ({s.lang})", ""]
             for seg in s.segments:

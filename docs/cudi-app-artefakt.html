@@ -573,28 +573,51 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   const ratings = new Map();          // Bewertungen je Auftrag (bleiben, auch wenn das Video gelöscht wird)
 
   /* ---------- Bewertungen: die App lernt, welche Videos gefallen ---------- */
+  // Ablauf: 👍 oder 👎 wählen, Notiz optional, „Bestätigen“. 👍 behält das Video, 👎 merkt sich den Grund und
+  // löscht das Video samt Auftrag (die Bewertung selbst bleibt, damit die App daraus lernt).
   function ratingBox(id, job, res) {
     const r = ratings.get(id) || {};
     const box = document.createElement("div"); box.className = "rate";
+    if (r.wert === 1) {
+      const done = document.createElement("span"); done.className = "meta";
+      done.textContent = "👍 Gut – gemerkt, das Video bleibt." + (r.notiz ? " („" + r.notiz + "“)" : "");
+      box.append(done);
+      return box;
+    }
+    let choice = 0;
     const row = document.createElement("div"); row.className = "row";
     const label = document.createElement("span"); label.className = "meta"; label.textContent = "Wie findest du das Video?";
     const note_ = document.createElement("input"); note_.type = "text"; note_.maxLength = 140;
-    note_.placeholder = "Was war gut oder schlecht? (optional, z. B. „zu lang“, „Clips top“)"; note_.value = r.notiz || "";
-    async function save(value) {
-      if (!db) return;
-      const doc = { id: id, wert: value, notiz: note_.value.trim().slice(0, 140), titel: (res && res.titel) || job.label || "",
+    note_.placeholder = "Was war gut oder schlecht? (optional, z. B. „zu lang“, „Clips top“)";
+    const up = document.createElement("button"); up.type = "button"; up.textContent = "👍 Gut";
+    const down = document.createElement("button"); down.type = "button"; down.textContent = "👎 Nicht gut";
+    const ok = document.createElement("button"); ok.type = "button"; ok.className = "go"; ok.textContent = "Bestätigen"; ok.disabled = true;
+    function pick(value) {
+      choice = value;
+      up.setAttribute("aria-pressed", String(value === 1)); down.setAttribute("aria-pressed", String(value === -1));
+      ok.disabled = false;
+      ok.textContent = value > 0 ? "Bestätigen – Video behalten" : "Bestätigen – Video löschen";
+    }
+    up.addEventListener("click", () => pick(1));
+    down.addEventListener("click", () => pick(-1));
+    ok.addEventListener("click", async () => {
+      if (!db || !choice) return;
+      ok.disabled = true;
+      const doc = { id: id, wert: choice, notiz: note_.value.trim().slice(0, 140), titel: (res && res.titel) || job.label || "",
                     art: job.art || "", thema: (job.auftrag && (job.auftrag.thema || job.auftrag.wunsch || job.auftrag.vorlage)) || "",
                     zeit: new Date().toISOString() };
-      try { await db.doc("bewertungen/" + id).set(doc); note("videosMsg", value > 0 ? "Danke! Gemerkt, was gut war." : "Danke! Gemerkt – das nächste Video wird anders.", "ok"); }
-      catch (err) { note("videosMsg", explain(err), "bad"); }
-    }
-    const up = document.createElement("button"); up.type = "button"; up.textContent = "👍 Gut"; up.setAttribute("aria-pressed", String(r.wert === 1));
-    const down = document.createElement("button"); down.type = "button"; down.textContent = "👎 Nicht gut"; down.setAttribute("aria-pressed", String(r.wert === -1));
-    up.addEventListener("click", () => save(1));
-    down.addEventListener("click", () => save(-1));
-    note_.addEventListener("change", () => { if (r.wert) save(r.wert); });
+      try { await db.doc("bewertungen/" + id).set(doc); ratings.set(id, doc); }
+      catch (err) { ok.disabled = false; note("videosMsg", explain(err), "bad"); return; }
+      if (choice > 0) {
+        note("videosMsg", "Danke! Gemerkt, was gut war – das Video bleibt.", "ok");
+        box.replaceWith(ratingBox(id, job, res));
+      } else {
+        note("videosMsg", "Danke! Gemerkt, was nicht gut war – das Video wird gelöscht, das nächste wird anders.", "ok");
+        await removeJob(id);
+      }
+    });
     row.append(label, up, down);
-    box.append(row, note_);
+    box.append(row, note_, ok);
     return box;
   }
   // Die letzten Bewertungen als „Vorlieben“ für den nächsten Auftrag (Claude lernt daraus)
