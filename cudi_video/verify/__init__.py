@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import logging
 import statistics
+import time
 
 from .. import net
 from ..models import RankItem, Research
@@ -257,6 +258,7 @@ def unconfirmed_conflict(result: dict) -> bool:
 
 
 VERIFY_WORKERS = 4                   # Plätze gleichzeitig prüfen (je Platz bis zu ~10 Quellen nacheinander)
+RECHECK_PAUSE = 30                   # Sekunden vor der Nachprüfung unbestätigter Plätze (Drosselung abklingen lassen)
 
 
 def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Research:
@@ -269,6 +271,17 @@ def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Researc
     notes: dict[str, list[str]] = {}
     with ThreadPoolExecutor(max_workers=VERIFY_WORKERS) as pool:
         results = list(pool.map(lambda it: verify_item(spec, it, checkers), research.items))
+    # Cloud-Probelauf (25 Berge): bei vielen parallelen Abrufen drosselt Wikipedia, Belege fehlen dann
+    # („nur eine Quelle“). Solche Plätze nach einer Pause einmal langsamer nachprüfen.
+    alone = [i for i, r in enumerate(results) if r.get("status") == "nur eine Quelle"]
+    if alone and len(alone) >= max(2, len(results) // 5):
+        log.info("Nachprüfung von %d Plätzen ohne Bestätigung in %d s", len(alone), RECHECK_PAUSE)
+        time.sleep(RECHECK_PAUSE)
+        net.reset_blocks()
+        for i in alone:
+            item = research.items[i]
+            item.value = item.verification.get("original_value", item.value) if item.verification else item.value
+            results[i] = verify_item(spec, item, checkers)
     for item, result in zip(research.items, results):
         notes[item.qid] = _warnings_for(spec, item, result)
 

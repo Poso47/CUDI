@@ -145,6 +145,7 @@ def test_free_topics_keep_only_confirmed_values(monkeypatch):
         return item.verification
 
     monkeypatch.setattr(verify_module, "verify_item", fake)
+    monkeypatch.setattr(verify_module, "RECHECK_PAUSE", 0)
     verify_module.verify(spec, research)
     assert [it.qid for it in research.items] == ["Q2", "Q3"] and research.items[0].rank == 1
     assert any("Turm A: nicht verwendet" in w for w in research.warnings)
@@ -402,3 +403,23 @@ def test_items_without_german_name_keep_their_rank(monkeypatch):
     names = [it.labels["de"] for it in research.items]
     assert names[:2] == ["Große Brücke Danyang–Kunshan", "Changhua–Kaohsiung Viaduct"]
     assert "Some obscure viaduct" not in names
+
+
+def test_unconfirmed_places_are_rechecked_after_throttling(monkeypatch):
+    """Cloud-Probelauf 25 Berge: viele „nur eine Quelle“ wegen Drosselung – einmal langsamer nachprüfen."""
+    from cudi_video import verify as verify_module
+
+    calls = {}
+
+    def fake(spec, item, checkers):
+        calls[item.qid] = calls.get(item.qid, 0) + 1
+        status = "nur eine Quelle" if calls[item.qid] == 1 else "bestätigt"
+        item.verification = {"status": status, "sources": [], "evidence": [], "outliers": []}
+        return item.verification
+
+    monkeypatch.setattr(verify_module, "verify_item", fake)
+    monkeypatch.setattr(verify_module, "RECHECK_PAUSE", 0)
+    spec, research = make_spec(), make_research()
+    verify_module.verify(spec, research)
+    assert calls == {"Q1": 2, "Q2": 2, "Q3": 2}
+    assert all(it.verification["status"] == "bestätigt" for it in research.items)
