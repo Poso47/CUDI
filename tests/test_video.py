@@ -1022,3 +1022,14 @@ def test_retention_arc_uses_only_verified_numbers():
     hook = retention.hook(spec, "de", "Die 5 höchsten Türme", "828 Meter")
     assert "828 Meter" in hook and hook == retention.hook(spec, "de", "Die 5 höchsten Türme", "828 Meter")
     assert retention.outro(spec, "de", "mountain").startswith("Welchen dieser Berge")
+
+
+def test_name_match_uses_most_specific_name():
+    """Cloud-Probe: „The Clock Towers“ (Abraj Al Bait) passte auf ein NASA-Foto eines Uhrturms in Washington."""
+    from cudi_video.media import names_match
+
+    abraj = RankItem(qid="Q189476", value=607, unit="Q11573", labels={"en": "The Clock Towers", "de": "Abraj Al Bait"})
+    assert not names_match(abraj, "Supermoon Old Post Office and Clock Tower Washington")
+    assert names_match(abraj, "Abraj Al Bait towers in Mecca")
+    baikal = RankItem(qid="Q5513", value=1, unit="1", labels={"en": "Lake Baikal", "de": "Baikalsee"})
+    assert names_match(baikal, "sunrise over lake baikal")

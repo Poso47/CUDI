@@ -61,13 +61,14 @@ def key_tokens(name: str) -> list[str]:
 
 
 def names_match(item: RankItem, text: str) -> bool:
-    """Stehen alle unterscheidenden Wörter eines Namens (en oder de) im Text?"""
+    """Stehen alle unterscheidenden Wörter des Namens im Text? Gezählt wird der spezifischste Name (en/de mit den
+    meisten unterscheidenden Wörtern): „The Clock Towers“ ließe nur „clock“ übrig und passte auf jeden Uhrturm –
+    daher muss hier „Abraj Al Bait“ (abraj, bait) passen."""
     hay = set(re.findall(r"[^\W_]+", text.lower()))
-    for name in {item.labels.get("en", ""), item.labels.get("de", "")} - {""}:
-        tokens = key_tokens(name)
-        if tokens and all(t in hay for t in tokens):
-            return True
-    return False
+    names = [n for n in {item.labels.get("en", ""), item.labels.get("de", "")} if n]
+    sets = [key_tokens(n) for n in names]
+    best = max((len(t) for t in sets), default=0)
+    return any(t and len(t) == best and all(w in hay for w in t) for t in sets)
 
 
 def _cc_name(code: str, version: str) -> str:
