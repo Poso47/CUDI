@@ -597,7 +597,8 @@ def test_rate_limit_block_is_shared_per_wikimedia_domain():
     from cudi_video.net import _block_key
 
     assert _block_key("fr.wikipedia.org") == _block_key("ja.wikipedia.org") == "wikipedia.org"
-    assert _block_key("upload.wikimedia.org") == _block_key("commons.wikimedia.org") == "wikimedia.org"
+    assert _block_key("commons.wikimedia.org") == _block_key("meta.wikimedia.org") == "wikimedia.org"
+    assert _block_key("upload.wikimedia.org") == "upload.wikimedia.org"   # Bild-Drosselung sperrt nicht die API
     assert _block_key("query.wikidata.org") == "query.wikidata.org"      # Pflichtquelle getrennt behandeln
 
 
@@ -741,6 +742,7 @@ def test_enrich_retries_throttled_images(monkeypatch):
 
     monkeypatch.setattr(enrich_mod, "fetch_image", fake_image)
     monkeypatch.setattr(enrich_mod, "RETRY_PAUSE", 0)
+    monkeypatch.setattr(enrich_mod, "IMAGE_RETRY_PAUSES", (0.01,))
     item = RankItem(qid="Q1", value=1, unit="1", labels={"de": "Eins"}, image_file="Eins.jpg")
     research = Research(spec_id="t", fetched_at="", items=[item])
     enrich_mod.enrich(research, ["de"])

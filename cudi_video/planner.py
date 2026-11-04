@@ -204,7 +204,11 @@ def plan_with_claude(topic: str, count: int) -> dict | None:
 
     def title(key: str, fallback: str) -> str:
         text = re.sub(r"\s+", " ", str(answer.get(key) or fallback)).strip()[:90]
-        return text if "{count}" in text else re.sub(r"^(Die|The)\s+", r"\1 {count} ", text, count=1)
+        if "{count}" in text:
+            return text
+        if re.match(r"^(Die|The|Top)\s+\d+\b", text):          # „Die 5 längsten …“ -> Zahl durch {count} ersetzen
+            return re.sub(r"^(Die|The|Top)\s+\d+", r"\1 {count}", text, count=1)
+        return re.sub(r"^(Die|The)\s+", r"\1 {count} ", text, count=1)
 
     tags = {lang: [re.sub(r"[^\wäöüß]", "", str(t).lower()) for t in (answer.get(f"hashtags_{lang}") or [])[:4]]
             for lang in ("de", "en")}
