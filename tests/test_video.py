@@ -965,3 +965,19 @@ def test_item_card_cuts_between_real_clips(tmp_path):
     assert first[0] > 200 > first[2] and second[2] > 200 > second[0]
     assert scene.reel.credit_at(4.5).startswith("blau")
     assert scene.frame(5.0).size == (1080, 1920)
+
+
+def test_duplicates_keep_the_better_placed_entry(monkeypatch):
+    """Wikidata führt „Abraj Al Bait“ und „Makkah Clock Royal Tower Hotel“ getrennt (P460, gleiche Koordinaten)."""
+    from cudi_video.sources import wikidata
+
+    rows = [{"a": {"value": "http://www.wikidata.org/entity/Q18712428"}, "b": {"value": "http://www.wikidata.org/entity/Q189476"}},
+            {"a": {"value": "http://www.wikidata.org/entity/Q189476"}, "b": {"value": "http://www.wikidata.org/entity/Q18712428"}}]
+    monkeypatch.setattr(wikidata, "_sparql", lambda query, **kw: rows)
+    assert wikidata._duplicates(["Q12495", "Q189476", "Q18712428"]) == {"Q18712428"}
+
+    def broken(query, **kw):
+        raise wikidata.net.FetchError("HTTP 429")
+
+    monkeypatch.setattr(wikidata, "_sparql", broken)
+    assert wikidata._duplicates(["Q1", "Q2"]) == set()

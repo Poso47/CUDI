@@ -462,6 +462,32 @@ def fetch_item_value(qid: str, prop: str) -> RankItem | None:
     return pick_latest(_sparql(query, cache_hours=24)).get(qid)
 
 
+def _duplicates(qids: list[str]) -> set[str]:
+    """Einträge, die dasselbe Objekt meinen wie ein besser platzierter: „angeblich dasselbe wie“ (P460), Teil von
+    (P361) bzw. besteht aus (P527) einem anderen Kandidaten, oder genau gleiche Koordinaten. Der besser
+    platzierte bleibt. Fällt die Abfrage aus, bleibt die Liste unverändert."""
+    if len(qids) < 2:
+        return set()
+    values = " ".join(f"wd:{q}" for q in qids)
+    query = f"""SELECT DISTINCT ?a ?b WHERE {{
+      VALUES ?a {{ {values} }} VALUES ?b {{ {values} }}
+      {{ ?a wdt:P460|wdt:P361|wdt:P527 ?b }} UNION {{ ?a wdt:P625 ?c . ?b wdt:P625 ?c }}
+      FILTER(?a != ?b)
+    }}"""
+    try:
+        rows = _sparql(query, cache_hours=24)
+    except net.FetchError as exc:
+        log.warning("Dubletten-Prüfung nicht möglich: %s", exc)
+        return set()
+    order = {q: i for i, q in enumerate(qids)}
+    drop = set()
+    for row in rows:
+        a, b = (row[k]["value"].rsplit("/", 1)[-1] for k in ("a", "b"))
+        if a in order and b in order and not ({a, b} & drop):
+            drop.add(a if order[a] > order[b] else b)
+    return drop
+
+
 def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
     src = spec.source
     langs = list(dict.fromkeys([*spec.langs, "en"]))
@@ -476,6 +502,10 @@ def fetch_ranking(spec: VideoSpec, fresh: bool = False) -> Research:
     # die Reihenfolge ändern; gekürzt wird erst danach (siehe verify()).
     wanted = spec.count + (spec.count if spec.confirmed_only else candidate_buffer(spec.count))   # freie Themen: mehr Ersatz
     pool = ordered[: wanted * 2]
+    twins = _duplicates([it.qid for it in pool])
+    if twins:                  # z. B. „Abraj Al Bait“ und „Makkah Clock Royal Tower Hotel“ = derselbe Komplex
+        log.info("Doppelte Einträge entfernt: %s", ", ".join(sorted(twins)))
+        pool = [it for it in pool if it.qid not in twins]
     details = _details([it.qid for it in pool], langs, spec.image_prop)
     items: list[RankItem] = []
     for it in pool:
