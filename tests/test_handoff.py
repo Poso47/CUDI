@@ -72,7 +72,8 @@ def test_plan_with_claude_checks_ids(writing, monkeypatch):
     assert "P2043" in json.loads(need.value.path.read_text("utf-8"))["daten"]["eigenschaften"]
     answer(need.value.path, {"klasse_qid": "Q12280", "klasse_en": "bridge", "eigenschaft": "P2043",
                              "weitere_klassen": [{"qid": "Q12570", "en": "suspension bridge"}, {"qid": "Q1", "en": "x"}],
-                             "land_qid": "Q183", "land_en": "Germany", "titel_de": "Die längsten Brücken Deutschlands",
+                             "land_qid": "Q183", "land_en": "Germany", "spitzenreiter": [{"qid": "", "en": "Some Bridge"}],
+                             "titel_de": "Die längsten Brücken Deutschlands",
                              "titel_en": "The {count} Longest Bridges in Germany", "hashtags_de": ["Brücken", "#bau"]})
     spec = planner.plan_with_claude("die längsten Brücken Deutschlands", 10)
     src = spec["source"]
@@ -115,6 +116,7 @@ def test_job_prints_schreiben_and_resumes(writing, monkeypatch, capsys):
     assert code == job.EXIT_WRITE and "SCHREIBEN:" in out and not calls
     path = writing / "auftrag-brueckentest" / "schreiben_planen.json"
     answer(path, {"klasse_qid": "Q12280", "klasse_en": "bridge", "eigenschaft": "P2043",
+                  "spitzenreiter": [{"qid": "Q12280", "en": "bridge"}],
                   "titel_de": "Die {count} längsten Brücken der Welt", "titel_en": "The {count} Longest Bridges"})
     assert job.main(SimpleNamespace(dokument=None, weiter="brueckentest", auftrag=None, adressen=None)) == 0
     assert len(calls) == 1 and calls[0].source.cls == "Q12280" and calls[0].title["de"] == "Die 10 längsten Brücken der Welt"
@@ -344,3 +346,21 @@ def test_narration_needs_whole_words_as_evidence():
              "wikipedia": "Tower X stands next to the old market.", "beschreibung": "", "zusatz": [], "vergleich": ""}
     assert narrate.check("Number 3: Tower X. 541 meters, right by the market.", place) is None
     assert narrate.check("Number 3: Tower X. 541 meters. Mark designed it.", place).startswith("nicht belegt: Mark")
+
+
+def test_plan_asks_once_more_for_known_leaders(writing, monkeypatch):
+    """Probelauf: Haiku ließ die Spitzenreiter leer – dann fragt der Code einmal gezielt nach den Namen."""
+    monkeypatch.setattr(planner, "_label", lambda q: "bridge")
+    monkeypatch.setattr(planner, "_search", lambda label: {"Danyang–Kunshan Grand Bridge": "Q595768",
+                                                           "Tianjin Grand Bridge": "Q1066786"}.get(label))
+    with pytest.raises(handoff.WritingNeeded) as need:
+        planner.plan_with_claude("die längsten Brücken der Welt", 5)
+    answer(need.value.path, {"klasse_qid": "Q12280", "klasse_en": "bridge", "eigenschaft": "P2043",
+                             "weitere_klassen": [], "spitzenreiter": [], "titel_de": "Die {count} längsten Brücken"})
+    with pytest.raises(handoff.WritingNeeded) as more:
+        planner.plan_with_claude("die längsten Brücken der Welt", 5)
+    task = json.loads(more.value.path.read_text("utf-8"))
+    assert task["aufgabe"] == "spitzenreiter" and task["daten"]["art"] == "bridge"
+    answer(more.value.path, {"spitzenreiter": ["Danyang–Kunshan Grand Bridge", "Tianjin Grand Bridge", "Unknown"]})
+    spec = planner.plan_with_claude("die längsten Brücken der Welt", 5)
+    assert spec["source"]["seed_items"] == ["Q595768", "Q1066786"]
