@@ -95,7 +95,7 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError(f"Plätze: bitte eine Zahl von 3 bis {most}.")
         return {"id": job_id, "art": "ranking", "thema": topic, "vorlage": preset, "sprachen": langs,
                 "plaetze": count, "streng": _flag(raw.get("streng"), False), "laenge": length,
-                "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), True)}
+                "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), None)}
     if kind == "story":
         wish = _text(raw.get("wunsch"), 300)
         mood = str(raw.get("stimmung") or "auto")
@@ -113,7 +113,7 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError("Unbekannter Schritt – „skelett“, „video“ oder leer.")
         return {"id": job_id, "art": "story", "wunsch": wish, "stimmung": mood, "sprache": lang,
                 "laenge": length, "bilder": visuals, "entschaerfen": _flag(raw.get("entschaerfen"), True),
-                "schritt": step, "maskottchen": _flag(raw.get("maskottchen"), True)}
+                "schritt": step, "maskottchen": _flag(raw.get("maskottchen"), None)}
     raise OrderError("Unbekannte Art – „ranking“ oder „story“.")
 
 
@@ -259,6 +259,8 @@ def fit_parts(skeleton: dict) -> list[str]:
     per_word = seconds_per_word(mood, lang)
     limit = (config.LONG_MAX_SECONDS if skeleton.get("length") == "lang" else config.STORY_MAX_SECONDS) - OVERHEAD_SECONDS
     secs = lambda scene: len(str(scene.get("text", "")).split()) * per_word
+    hook = str(skeleton.get("hook") or "")             # Einstieg statt Titel: Teil 1 wird länger
+    limit -= max(0.0, (len(hook.split()) - len(title.split())) * per_word)
     next_outro = re.compile(re.escape(OUTRO_NEXT[lang]).replace(r"\{n\}", r"\d+"))
     final = next((p["outro"] for p in reversed(skeleton["parts"]) if p.get("outro") and not next_outro.fullmatch(p["outro"])),
                  f"{MOODS[mood]['outro'][lang]} {FOLLOW[lang]}")
@@ -362,7 +364,8 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
     translation = folder / TRANSLATION_FILE
     os.environ[CLAUDE_FILE_ENV] = str(translation)        # Story-Übersetzung übernimmt Claude (s. translate.py)
     os.environ[handoff.DIR_ENV] = str(folder)              # Schreibaufgaben (Thema deuten, erzählen) ebenso
-    os.environ["CUDI_MASCOT"] = "1" if order.get("maskottchen", True) else "0"   # Maskottchen „CUDI“ an/aus
+    if order.get("maskottchen") is not None:              # nur ausdrücklich gewählt überschreibt CUDI_MASCOT
+        os.environ["CUDI_MASCOT"] = "1" if order["maskottchen"] else "0"
     last = [""]
 
     def progress(stage: str, fraction: float) -> None:

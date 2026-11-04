@@ -227,13 +227,17 @@ def _search_candidates(src: WikidataSource) -> list[str]:
 
 def _statements_for(src: WikidataSource, qids: list[str], region: bool = False) -> list[dict]:
     """Aussagen zur Eigenschaft für eine feste Liste von Objekten (in kleinen Paketen).
-    region=True: zusätzlich Land/Kontinent prüfen (bei Kandidaten, die nicht aus der Klassen-Suche stammen)."""
+    region=True: zusätzlich Objektart (auch Unterklassen) und Land/Kontinent prüfen – für Kandidaten, die nicht
+    aus der Klassen-Suche stammen (z. B. kein Eisenbahnviadukt in einem Hängebrücken-Ranking)."""
+    classes = " ".join(f"wd:{c}" for c in dict.fromkeys([src.cls, *src.extra_classes]))
+    class_lines = [f"  VALUES ?cls {{ {classes} }}", "  ?item wdt:P31/wdt:P279* ?cls ."] if region else []
     rows: list[dict] = []
     for i in range(0, len(qids), BATCH):
         values = " ".join(f"wd:{q}" for q in qids[i:i + BATCH])
         query = "\n".join([
             "SELECT ?item ?value ?unit ?rank ?date ?criterion WHERE {",
             f"  VALUES ?item {{ {values} }}",
+            *class_lines,
             *(_region_lines(src) if region else []),
             f"  ?item p:{src.property} ?st .",
             "  ?st wikibase:rank ?rank . FILTER(?rank != wikibase:DeprecatedRank)",

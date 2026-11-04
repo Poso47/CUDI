@@ -763,7 +763,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     sk.parts.forEach((part, pi) => {
       const head = add(document.createElement("div")); head.className = "part";
       const est = () => {
-        const sec = Math.round(part.scenes.reduce((n, s) => n + words(s.text), 0) * secPerWord);
+        const hookWords = pi === 0 && sk.hook ? Math.max(0, words(sk.hook) - words(sk.title || "")) : 0;   // Einstieg statt Titel
+        const sec = Math.round((part.scenes.reduce((n, s) => n + words(s.text), 0) + hookWords) * secPerWord);
         return (sk.parts.length > 1 ? "Teil " + (pi + 1) + " · " : "") + "ca. " + sec + " s" +
           (sec > 175 ? " – wird automatisch in mehrere Teile aufgeteilt" : "");
       };
@@ -772,7 +773,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         const hl = add(document.createElement("label")); hl.textContent = "Einstieg (die ersten Sekunden)";
         const hk = add(document.createElement("textarea")); hk.id = "skHook-" + id; hl.htmlFor = hk.id; hk.rows = 2;
         hk.value = sk.hook || ""; hk.maxLength = 400; hk.placeholder = "leer = der Titel wird vorgelesen";
-        hk.addEventListener("input", () => { sk.hook = hk.value; scheduleSave(id); });
+        hk.addEventListener("input", () => { sk.hook = hk.value; head.textContent = est(); scheduleSave(id); });
       } else if (part.intro) { const h = add(document.createElement("p")); h.className = "hint"; h.textContent = "Einstieg: " + part.intro; }
       part.scenes.forEach((scene, si) => {
         const card = add(document.createElement("div")); card.className = "scene";

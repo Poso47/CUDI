@@ -406,7 +406,11 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
             visuals_t.append(visual_for(src, mood, i, recent))
 
     seconds = [estimate_seconds(s, lang, rate, pause) for s in scenes_t]
-    groups = split_parts(seconds, LENGTHS[length]["seconds"] if length in ("kurz", "lang") else config.STORY_MAX_SECONDS)
+    # Ein Einstieg (statt des Titels) verlängert Teil 1 – vorsichtshalber bei allen Teilen abziehen
+    hook_extra = max(0.0, estimate_seconds(hook, lang, rate, pause) - estimate_seconds(title_t, lang, rate, pause)) \
+        if hook else 0.0
+    max_seconds = LENGTHS[length]["seconds"] if length in ("kurz", "lang") else config.STORY_MAX_SECONDS
+    groups = split_parts(seconds, max_seconds - hook_extra)
     if len(groups) > 1:
         notes.append(f"Story ist zu lang für ein Video ({sum(seconds) / 60:.1f} min) – aufgeteilt in "
                      f"{len(groups)} Teile mit Cliffhanger.")
@@ -514,8 +518,81 @@ EDIT_FREE = {"i", "i'm", "i've", "i'd", "i'll", "mr", "mrs", "ms", "dr", "oh", "
              "dad", "reddit", "tiktok"}
 
 
-def _digits(text: str) -> set[str]:
-    return {re.sub(r"[.,]", "", n).lstrip("0") or "0" for n in re.findall(r"\d[\d.,]*\d|\d", text)}
+# Zahlwörter je Sprache („one“/„ein“ fehlen absichtlich: zu oft Pronomen oder Artikel)
+NUMBER_WORDS = {
+    "en": dict(two=2, three=3, four=4, five=5, six=6, seven=7, eight=8, nine=9, ten=10, eleven=11, twelve=12,
+               thirteen=13, fourteen=14, fifteen=15, sixteen=16, seventeen=17, eighteen=18, nineteen=19, twenty=20,
+               thirty=30, forty=40, fifty=50, sixty=60, seventy=70, eighty=80, ninety=90, hundred=100, thousand=1000,
+               dozen=12, million=1_000_000),
+    "de": {"zwei": 2, "drei": 3, "vier": 4, "fünf": 5, "sechs": 6, "sieben": 7, "acht": 8, "neun": 9, "zehn": 10,
+           "elf": 11, "zwölf": 12, "dreizehn": 13, "vierzehn": 14, "fünfzehn": 15, "sechzehn": 16, "siebzehn": 17,
+           "achtzehn": 18, "neunzehn": 19, "zwanzig": 20, "dreißig": 30, "vierzig": 40, "fünfzig": 50, "sechzig": 60,
+           "siebzig": 70, "achtzig": 80, "neunzig": 90, "hundert": 100, "tausend": 1000, "dutzend": 12,
+           "million": 1_000_000, "millionen": 1_000_000},
+}
+
+
+def _numbers(text: str, lang: str = "en") -> set[str]:
+    """Alle Zahlen eines Textes werttreu: „1.5“ ≠ „15“, „two“ = „2“ = „zwei“, Tausender je Sprache („1,500“ en)."""
+    thousands, decimal = (".", ",") if lang == "de" else (",", ".")
+    out = set()
+    for tok in re.findall(r"\d+(?:[.,]\d+)*", text):
+        if re.fullmatch(rf"\d{{1,3}}(?:{re.escape(thousands)}\d{{3}})+", tok):
+            tok = tok.replace(thousands, "")
+        tok = tok.replace(thousands, "").replace(decimal, ".") if tok.count(decimal) <= 1 else tok.replace(decimal, "")
+        try:
+            value = float(tok)
+        except ValueError:
+            continue
+        out.add(f"{value:g}")
+    words = NUMBER_WORDS.get(lang, {})
+    out |= {f"{float(words[w]):g}" for w in re.findall(r"[a-zäöüß]+", text.lower()) if w in words}
+    return out
+
+
+def _digits(text: str) -> set[str]:          # bleibt für Titel/Einstieg ohne Sprachangabe
+    return _numbers(text, "en") | _numbers(text, "de")
+
+
+# Häufige Vornamen (en/de): tauchen sie im Lektorat auf, aber nicht im Original, ist es eine erfundene Person –
+# auch in übersetzten Fassungen, wo Großschreibung (deutsche Hauptwörter) nichts verrät.
+FIRST_NAMES = set("""james john robert michael william david richard joseph thomas charles chris christopher daniel
+    matthew anthony mark donald steven paul andrew joshua kenneth kevin brian george timothy ronald edward jason jeff
+    jeffrey ryan jacob gary nicholas eric jonathan stephen larry justin scott brandon benjamin samuel gregory frank
+    alexander raymond patrick jack dennis jerry tyler aaron jose adam henry nathan douglas zachary peter kyle walter
+    ethan jeremy harold keith christian roger noah gerald carl terry sean austin arthur lawrence jesse dylan bryan joe
+    jordan billy bruce albert willie gabriel logan alan juan wayne roy ralph randy eugene vincent russell elijah louis
+    bobby philip johnny mary patricia jennifer linda elizabeth barbara susan jessica sarah karen lisa nancy betty
+    margaret sandra ashley kimberly emily donna michelle carol amanda dorothy melissa deborah stephanie rebecca sharon
+    laura cynthia kathleen amy angela shirley anna brenda pamela emma nicole helen samantha katherine christine debra
+    rachel carolyn janet catherine maria heather diane ruth julie olivia joyce virginia victoria kelly lauren christina
+    joan evelyn judith megan andrea cheryl hannah jacqueline martha gloria teresa ann sara madison frances kathryn janice
+    jean abigail alice judy sophia grace denise amber doris marilyn danielle beverly isabella theresa diana natalie
+    brittany charlotte marie kayla alexis lori mike tom tim jim bob ben sam max tony nick alex kate katie jen jenny meg
+    lukas leon finn jonas elias luis felix maximilian paul ben luca noah julian tim niklas jan tobias florian stefan
+    andreas markus martin thorsten jürgen klaus uwe sabine petra monika ursula claudia andrea anja katrin julia lena
+    leonie mia lea laura lisa sophie hannah marie emilia johanna nina jana""".split())
+
+
+def _tokens(text: str) -> set[str]:
+    return set(re.findall(r"[a-zäöüß0-9]+", text.lower()))
+
+
+def _known(word: str, tokens: set[str]) -> bool:
+    """Wort im Original belegt? Ganze Wörter, bei längeren Wörtern auch gebeugt („Jessicas“) – nie als Teilwort
+    („Mark“ ist durch „market“ nicht belegt)."""
+    low = word.lower().strip("'’-")
+    low = re.sub(r"['’]s$", "", low)
+    if low in tokens:
+        return True
+    return len(low) >= 5 and any(len(t) >= 5 and (t.startswith(low[:5]) and low.startswith(t[:5])) and
+                                 abs(len(t) - len(low)) <= 2 for t in tokens)
+
+
+def _invented_people(text: str, source: str) -> list[str]:
+    """Vornamen im neuen Text, die im Original nicht vorkommen (sprachunabhängig)."""
+    tokens = _tokens(source)
+    return [w for w in re.findall(r"[A-ZÄÖÜ][a-zäöüß]+", text) if w.lower() in FIRST_NAMES and not _known(w, tokens)]
 
 
 # Häufige Satzanfänge – andere großgeschriebene Wörter am Satzanfang könnten neue Namen sein („Jessica never …“)
@@ -531,12 +608,13 @@ STARTERS = set("""the a an i it its he she they we you my his her our their your
 def _new_names(text: str, source: str) -> list[str]:
     """Englisch: großgeschriebene Wörter (Namen, Orte), die im Original nicht vorkommen – mitten im Satz immer,
     am Satzanfang, wenn sie keine üblichen Satzanfänge sind."""
-    known = source.lower()
+    tokens = _tokens(source)
     out = []
     for sentence in re.split(r"(?<=[.!?:;\"“”—–])\s+", text):
         for i, word in enumerate(re.findall(r"[A-Za-z][\w'’-]*", sentence)):
             low = word.lower().strip("'’-")
-            if not word[0].isupper() or low in EDIT_FREE or low in known or low[:5] in known:
+            parts = [p for p in re.split(r"[-'’]", low) if p]
+            if not word[0].isupper() or low in EDIT_FREE or all(p in EDIT_FREE or _known(p, tokens) for p in parts):
                 continue
             if i == 0 and (low in STARTERS or re.search(r"(?:ly|ing|ed)$", low) or len(low) < 3):
                 continue
@@ -553,8 +631,11 @@ def _edit_problem(new, source: str, lang: str, source_lang: str, context: str) -
         return "zu lang"
     if words < src_words * 0.35 and src_words > 12:
         return "zu stark gekürzt"
-    if not _digits(new) <= _digits(context):
+    if not _numbers(new, lang) <= _numbers(context, source_lang):
         return "neue Zahl"
+    people = _invented_people(new, context)
+    if people:
+        return "neue Namen: " + ", ".join(people[:3])
     if lang == "en" and source_lang == "en":
         names = _new_names(new, context)
         if names:
@@ -586,7 +667,9 @@ def claude_edit(title: str, scenes: list[str], lang: str, source_lang: str, mood
         log.warning("Claude-Lektorat verworfen (%s)", rejected)
         return None
     raw_title = answer.get("titel")
-    title_ok = isinstance(raw_title, str) and 3 <= len(raw_title.strip()) <= 80 and _digits(raw_title) <= _digits(story)
+    title_ok = (isinstance(raw_title, str) and 3 <= len(raw_title.strip()) <= 80
+                and _numbers(raw_title, lang) <= _numbers(story, source_lang) and not _invented_people(raw_title, story)
+                and not (lang == "en" and source_lang == "en" and _new_names(raw_title, story)))
     missing = [i for i, t in enumerate(texts) if t is None]
     if missing or not title_ok:
         fill = [scenes[i] for i in missing] + ([] if title_ok else [title])
@@ -598,8 +681,8 @@ def claude_edit(title: str, scenes: list[str], lang: str, source_lang: str, mood
     else:
         title_t = raw_title.strip()
     hook = answer.get("hook")
-    if not (isinstance(hook, str) and 3 <= len(hook.split()) <= 30 and _digits(hook) <= _digits(story)
-            and not (lang == "en" and source_lang == "en" and _new_names(hook, story))):
+    if not (isinstance(hook, str) and 3 <= len(hook.split()) <= 30 and _numbers(hook, lang) <= _numbers(story, source_lang)
+            and not _invented_people(hook, story) and not (lang == "en" and source_lang == "en" and _new_names(hook, story))):
         hook = ""
     m = MOODS[mood]
     visuals = []

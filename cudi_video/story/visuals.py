@@ -276,10 +276,11 @@ def cartoon_prompt(prompt: str, mood: str, figure: str) -> str:
     from .moods import MOODS
 
     subject = prompt.replace(MOODS[mood]["image_style"], "").replace("vertical composition", "").replace("no text", "")
-    subject = re.sub(r"(\s*,\s*)+", ", ", subject).strip(" ,")
-    who = f", the main character is {figure}" if figure and PERSON.search(subject) else ""
-    return (f"{subject}{who}, 2D cartoon illustration, clean bold outlines, flat shading, consistent character design, "
-            f"{CARTOON_STYLE.get(mood, '')}, vertical composition, no text")
+    subject = re.sub(r"(\s*,\s*)+", ", ", subject).strip(" ,")[:150]
+    who = f", the main character is {figure[:110]}" if figure and PERSON.search(subject) else ""
+    # Stil zuerst: der Bilddienst bekommt höchstens 400 Zeichen – die Cartoon-Vorgaben dürfen nicht wegfallen
+    return (f"2D cartoon illustration, clean bold outlines, flat shading, consistent character design, vertical, "
+            f"no text: {subject}{who}, {CARTOON_STYLE.get(mood, '')}")
 
 
 def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int = 1,

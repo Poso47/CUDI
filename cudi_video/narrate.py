@@ -54,14 +54,24 @@ WORD = re.compile(r"[^\W\d_][\w'’-]*", re.U)
 def unknown_words(text: str, place: dict) -> list[str]:
     """Großgeschriebene Wörter (deutsche Hauptwörter, Namen) mitten im Satz, die in den Daten nicht vorkommen."""
     lang = place.get("sprache", "de")
-    known = " ".join(str(v) for k, v in place.items() if k != "woerter").lower()
+    tokens = set(re.findall(r"[a-zäöüß0-9]+", " ".join(str(v) for k, v in place.items() if k != "woerter").lower()))
+
+    def known(part: str) -> bool:
+        """Ganze Wörter, gebeugt nur bei längeren; im Deutschen auch als Ende eines zusammengesetzten Worts
+        („Büro“ aus „Architekturbüro“) – nie als beliebiges Teilwort („Mark“ ist durch „market“ nicht belegt)."""
+        if part in tokens:
+            return True
+        if len(part) >= 5 and any(len(t) >= 5 and t[:5] == part[:5] and abs(len(t) - len(part)) <= 3 for t in tokens):
+            return True
+        return lang == "de" and len(part) >= 4 and any(len(t) > len(part) and t.endswith(part) for t in tokens)
+
     out = []
     for sentence in re.split(r"(?<=[.!?:–—])\s+", text):
         for i, word in enumerate(WORD.findall(sentence)):
             if i == 0 or not word[0].isupper():
                 continue
             parts = [p for p in re.split(r"[-'’]", word.lower()) if p]      # „US-Büro“: jeder Teil einzeln
-            if all(p in FREE_WORDS[lang] or p in known or (len(p) >= 5 and p[:5] in known) for p in parts):
+            if all(p in FREE_WORDS[lang] or known(p) for p in parts):
                 continue
             out.append(word)
     return out

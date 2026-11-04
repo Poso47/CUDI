@@ -82,7 +82,11 @@ def post_card(skeleton: dict, part_no: int, n_parts: int, path: Path) -> Path:
     width, pad = 940, 44
     title_font, lines = theme.fit_font(skeleton["title"], "black", 58, width - 2 * pad, 5, min_size=38)
     line_h = int(sum(title_font.getmetrics()) * 1.12)
-    height = pad + 84 + 26 + line_h * len(lines) + 30 + 56 + pad
+    # Einstieg (Teil 1) auch als Text auf der Karte – lesbar ohne Ton
+    hook = str(skeleton.get("hook") or "").strip() if part_no == 1 else ""
+    hook_font, hook_lines = theme.fit_font(hook, "semibold", 40, width - 2 * pad, 4, min_size=30) if hook else (None, [])
+    hook_h = int(sum(hook_font.getmetrics()) * 1.15) if hook else 0
+    height = pad + 84 + 26 + line_h * len(lines) + (18 + hook_h * len(hook_lines) if hook else 0) + 30 + 56 + pad
     card = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     d = ImageDraw.Draw(card)
     d.rounded_rectangle((0, 0, width - 1, height - 1), radius=36, fill=bg)
@@ -102,6 +106,11 @@ def post_card(skeleton: dict, part_no: int, n_parts: int, path: Path) -> Path:
     for line in lines:
         d.text((pad, y), line, font=title_font, fill=fg)
         y += line_h
+    if hook:
+        y += 18
+        for line in hook_lines:
+            d.text((pad, y), line, font=hook_font, fill=muted)
+            y += hook_h
     # Fußzeile: Upvotes und Kommentare (falls bekannt)
     y += 30
     if post.get("score"):

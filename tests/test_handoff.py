@@ -226,10 +226,12 @@ def test_cartoon_prompts_keep_one_main_character():
     figure = FIGURES["m"]
     with_person = cartoon_prompt("a lonely man at a telescope, dark cinematic horror photograph, eerie atmosphere, fog, "
                                  "low light, muted colors, film grain, vertical composition, no text", "creepy", figure)
-    assert "photograph" not in with_person and "2D cartoon illustration" in with_person
-    assert figure in with_person and with_person.endswith("no text")
+    assert "photograph" not in with_person and with_person.startswith("2D cartoon illustration")   # Stil zuerst
+    assert figure in with_person and "no text" in with_person[:120]
     no_person = cartoon_prompt("an empty field beside a dark lake, vertical composition, no text", "creepy", figure)
-    assert figure not in no_person and no_person.startswith("an empty field beside a dark lake")
+    assert figure not in no_person and "an empty field beside a dark lake" in no_person
+    long = cartoon_prompt("a man " + "very " * 80 + "tall, vertical composition, no text", "creepy", "x " * 150)
+    assert long[:400].startswith("2D cartoon illustration") and "no text" in long[:400]   # Stil übersteht die Kürzung
 
 
 def test_known_leaders_are_always_candidates(monkeypatch):
@@ -268,3 +270,77 @@ def test_search_handles_dashes_in_names(monkeypatch):
     monkeypatch.setattr("cudi_video.net.get_json", get_json)
     assert planner._search("Changhua–Kaohsiung Viaduct") == "Q30160840"
     assert seen[0] == "Changhua–Kaohsiung Viaduct" and seen[1] == "Changhua-Kaohsiung Viaduct"
+
+
+def test_story_edit_checks_names_numbers_and_title_strictly(writing):
+    """Copilot-Hinweise: „Mark“ ist nicht durch „market“ belegt, Zahlwörter und Dezimalwerte werttreu, Vornamen
+    auch in deutschen Fassungen, Titel ebenso geprüft."""
+    from cudi_video.story import editor
+
+    src = "I went to the market for two hours. It cost 1.5 dollars."
+    assert editor._edit_problem("I went to the market with Mark for two hours. It cost 1.5 dollars.", src, "en", "en",
+                                src).startswith("neue Namen: Mark")
+    assert editor._edit_problem("I went to the market for three hours. It cost 1.5 dollars.", src, "en", "en",
+                                src) == "neue Zahl"
+    assert editor._edit_problem("I went to the market for two hours. It cost 15 dollars.", src, "en", "en",
+                                src) == "neue Zahl"
+    assert editor._edit_problem("Ich war zwei Stunden auf dem Markt. Es kostete 1,5 Dollar.", src, "de", "en", src) is None
+    assert editor._edit_problem("Ich war zwei Stunden mit Jessica auf dem Markt. Es kostete 1,5 Dollar.", src, "de",
+                                "en", src).startswith("neue Namen: Jessica")
+    assert editor._known("Jessicas", editor._tokens("Jessica said no")) and not editor._known("Mark", editor._tokens("market"))
+    assert editor._numbers("1.500 Euro", "de") == {"1500"} and editor._numbers("1,500 dollars", "en") == {"1500"}
+
+    scenes = ["I went to the market for two hours.", "Nobody followed me home.", "The door was open."]
+    with pytest.raises(handoff.WritingNeeded) as need:
+        editor.claude_edit("The open door", scenes, "en", "en", "creepy", True)
+    answer(need.value.path, {"titel": "Jessica followed me home", "hook": "The door was open when I got home.",
+                             "szenen": [{"text": s} for s in scenes]})
+    title, *_ = editor.claude_edit("The open door", scenes, "en", "en", "creepy", True)
+    assert title == "The open door"                                    # erfundene Person im Titel -> Original
+
+
+def test_seed_query_checks_object_class(monkeypatch):
+    from cudi_video.sources import wikidata
+    from cudi_video.spec import WikidataSource
+
+    queries = []
+    monkeypatch.setattr(wikidata, "_sparql", lambda q, **kw: queries.append(q) or [])
+    wikidata._seed_bindings(WikidataSource(cls="Q12570", property="P2043", extra_classes=["Q181348"], seed_items=["Q1"]))
+    assert "wdt:P31/wdt:P279* ?cls" in queries[0] and "wd:Q12570 wd:Q181348" in queries[0]
+
+
+def test_mascot_env_wins_when_order_does_not_choose(tmp_path, monkeypatch):
+    from cudi_video import job
+
+    monkeypatch.setenv("CUDI_MASCOT", "0")
+    monkeypatch.setattr(job, "_ranking", lambda order, folder, progress: (_ for _ in ()).throw(ValueError("x")))
+    job.run_order({"id": "maskenprobe", "art": "ranking", "maskottchen": None}, tmp_path / "a")
+    assert job.os.environ["CUDI_MASCOT"] == "0"
+    job.run_order({"id": "maskenprobe", "art": "ranking", "maskottchen": True}, tmp_path / "b")
+    assert job.os.environ["CUDI_MASCOT"] == "1"
+
+
+def test_hook_is_on_the_card_and_counts_for_the_part_length(tmp_path):
+    from PIL import Image
+
+    from cudi_video import job
+    from cudi_video.story.moods import seconds_per_word
+    from cudi_video.story.render import post_card
+
+    sk = {"mood": "creepy", "lang": "en", "title": "The open door", "post": {"subreddit": "x", "author": "y"},
+          "parts": [{"intro": "The open door", "outro": "Follow for more stories.", "scenes": []}]}
+    plain = Image.open(post_card(sk, 1, 1, tmp_path / "a.png")).size[1]
+    sk["hook"] = "The door was open when I got home. Nobody else has a key."
+    assert Image.open(post_card(sk, 1, 1, tmp_path / "b.png")).size[1] > plain     # Einstieg lesbar ohne Ton
+    words = int(165 / seconds_per_word("creepy", "en"))                             # passt ohne Einstieg knapp
+    sk["parts"][0]["scenes"] = [{"text": " ".join(["word"] * (words // 2))}, {"text": " ".join(["word"] * (words // 2))}]
+    sk["hook"] = " ".join(["hook"] * 30)
+    job.fit_parts(sk)
+    assert len(sk["parts"]) == 2                                                   # mit langem Einstieg zu lang
+
+
+def test_narration_needs_whole_words_as_evidence():
+    place = {"start": "Number 3: Tower X.", "wert": "541 meters", "woerter": 30, "platz": 3, "sprache": "en",
+             "wikipedia": "Tower X stands next to the old market.", "beschreibung": "", "zusatz": [], "vergleich": ""}
+    assert narrate.check("Number 3: Tower X. 541 meters, right by the market.", place) is None
+    assert narrate.check("Number 3: Tower X. 541 meters. Mark designed it.", place).startswith("nicht belegt: Mark")
