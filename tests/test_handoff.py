@@ -520,3 +520,26 @@ def test_free_topics_treat_rejected_values_as_gaps(monkeypatch):
     verify_module.verify(spec, research)
     assert [it.qid for it in research.items] == ["Q1", "Q2", "Q4", "Q5", "Q6"]   # Lücke ganz oben (Platz 3)
     assert spec.title["de"] == "5 der längsten Flüsse"                          # -> keine Vollständigkeit behaupten
+
+
+def test_partial_title_survives_resume_after_writing_task(tmp_path, monkeypatch):
+    """Cloud-Probe Flüsse 4: „5 der längsten“ ging verloren, als der Auftrag nach Claudes Texten fortgesetzt wurde."""
+    from cudi_video import pipeline
+    from cudi_video.models import RankItem, Research
+
+    research = Research(spec_id="t", fetched_at="2026-01-01T00:00:00", partial=True, items=[
+        RankItem(qid=f"Q{i}", value=v, unit="Q828224", rank=i, labels={"de": f"F{i}", "en": f"R{i}"})
+        for i, v in enumerate([6650, 6300, 5464, 4909, 4880], start=1)])
+    (tmp_path / "research.json").write_text(json.dumps(research.to_dict()), "utf-8")
+    spec = make_spec()
+    spec.count, spec.title = 5, {"de": "Die 5 längsten Flüsse", "en": "The 5 Longest Rivers"}
+    seen = {}
+
+    def stop(spec, research, *a, **k):
+        seen["title"] = dict(spec.title)
+        raise RuntimeError("stopp")
+
+    monkeypatch.setattr("cudi_video.narrate.request", stop)
+    with pytest.raises(RuntimeError, match="stopp"):
+        pipeline.run(spec, out=tmp_path, langs=["de"], render=False)
+    assert seen["title"] == {"de": "5 der längsten Flüsse", "en": "5 of the Longest Rivers"}

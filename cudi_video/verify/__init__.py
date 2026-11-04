@@ -341,6 +341,7 @@ def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Researc
                                              f"Bestätigung; Titel ohne Vollständigkeitsanspruch.")
             research.items = confirmed
             spec.title = {lang: _partial_title(t, lang) for lang, t in spec.title.items()}
+            research.partial = True            # bleibt beim Fortsetzen nach einer Schreibaufgabe erhalten
         found = len(research.items)
         if found < min(3, spec.count):
             raise ValueError("Zu diesem Thema ließen sich nicht genug Werte unabhängig bestätigen "
