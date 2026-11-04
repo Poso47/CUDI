@@ -121,26 +121,26 @@ def page_image(item: RankItem) -> str | None:
 IMAGE_ERRORS: dict[str, str] = {}      # Grund je Platz, warum kein Bild geladen wurde (für den Prüfbericht)
 
 
-def fetch_image(item: RankItem) -> bool:
-    """Bild mit Lizenz laden. False, wenn es an der Verbindung scheiterte (neuer Versuch lohnt sich)."""
+def _commons_image(item: RankItem) -> tuple[str, int]:
+    """Wikidata-/Artikelfoto von Commons laden. Ergebnis: ("ok"|"fehlt"|"lizenz"|"gedrosselt", Breite)."""
     if not item.image_file and item.image_kind == "photo":
         item.image_file = page_image(item)
     if not item.image_file:
         IMAGE_ERRORS[item.qid] = "kein Bild in Wikidata/Wikipedia"
-        return True
+        return "fehlt", 0
     try:
         lic = fetch_license(item.image_file)
     except net.FetchError as exc:
         IMAGE_ERRORS[item.qid] = f"Lizenz nicht abrufbar ({exc})"
         log.warning("Bildlizenz nicht abrufbar (%s): %s", item.image_file, exc)
-        return False
+        return "gedrosselt", 0
     if not lic:
         other = page_image(item) if item.image_kind == "photo" else None
         if other and other != item.image_file:          # z. B. Wikidata-Foto ohne Urheber -> Artikelbild
             item.image_file = other
-            return fetch_image(item)
+            return _commons_image(item)
         IMAGE_ERRORS[item.qid] = "keine freie Lizenz/kein Urheber"
-        return True
+        return "lizenz", 0
     big = lic["width"] > THUMB_WIDTH or item.image_file.lower().endswith(".svg")
     urls = [thumb_url(item.image_file, THUMB_WIDTH) if big else original_url(item.image_file),
             thumb_url(item.image_file, 960)]          # Ersatz: kleinere Standardgröße
@@ -154,11 +154,36 @@ def fetch_image(item: RankItem) -> bool:
     if path is None:
         IMAGE_ERRORS[item.qid] = f"Download fehlgeschlagen ({error})"
         log.warning("Bild nicht geladen (%s): %s", item.image_file, error)
-        return False
-    IMAGE_ERRORS.pop(item.qid, None)
+        return "gedrosselt", 0
     item.image_path = str(path)
     item.image_credit = f"{lic['artist']} – {lic['license']} – Wikimedia Commons: File:{item.image_file}"
-    return True
+    return "ok", min(lic["width"], THUMB_WIDTH)
+
+
+def fetch_image(item: RankItem) -> bool:
+    """Bestes freies Foto laden: Commons (Wikidata/Artikel), sonst oder wenn zu klein Openverse (Flickr …) und
+    NASA. False, wenn es an der Verbindung scheiterte (neuer Versuch lohnt sich)."""
+    from . import media
+
+    status, width = _commons_image(item)
+    if item.image_kind != "photo" or (status == "ok" and width >= media.GOOD_WIDTH):
+        if status == "ok":
+            IMAGE_ERRORS.pop(item.qid, None)
+        return status != "gedrosselt"
+    for cand in media.alternatives(item):
+        if status == "ok" and cand.width <= width:
+            break                                     # Commons-Foto ist schon das größte
+        try:
+            path = media.download(cand)
+        except net.FetchError as exc:
+            log.info("Alternative %s nicht geladen: %s", cand.origin, exc)
+            continue
+        item.image_path, item.image_credit = str(path), cand.credit
+        IMAGE_ERRORS.pop(item.qid, None)
+        return True
+    if status == "ok":
+        IMAGE_ERRORS.pop(item.qid, None)
+    return status != "gedrosselt"
 
 
 def _enrich_item(item: RankItem, langs: list[str], images: bool) -> bool:
@@ -213,6 +238,16 @@ def enrich(research: Research, langs: list[str], images: bool = True) -> Researc
                 if not fetch_image(item):
                     retry.append(item)
             pending = retry
+        from . import config, media
+
+        if config.RANKING_CLIPS:
+            for item in research.items:                          # echte Videoclips: mehrere kurze Ausschnitte
+                if item.image_kind == "photo" and not item.clips:
+                    item.clips = media.find_clips(item)
+            short = [it.labels.get(langs[0], it.qid) for it in research.items
+                     if it.image_kind == "photo" and not it.clips]
+            if short:
+                research.warnings.append(f"Ohne Videoclip (Foto mit Zoom): {', '.join(short)}")
     missing = [f"{it.labels.get(langs[0], it.qid)} ({IMAGE_ERRORS[it.qid]})" if it.qid in IMAGE_ERRORS
                else it.labels.get(langs[0], it.qid) for it in research.items if not it.image_path]
     if missing:

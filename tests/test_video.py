@@ -941,3 +941,27 @@ def test_missing_wikidata_image_falls_back_to_article_image(monkeypatch, tmp_pat
     item = RankItem(qid="Q20063766", value=1, unit="1", wiki_titles={"en": "Cangde Grand Bridge"})
     assert enrich_mod.fetch_image(item) is True
     assert item.image_file == "Cangde Bridge.jpg" and "960px" in tries[1] and item.image_path
+
+
+def test_item_card_cuts_between_real_clips(tmp_path):
+    """Mehrere kurze Ausschnitte nacheinander: erst rot, dann blau – mit dem Nachweis des jeweiligen Clips."""
+    import subprocess
+
+    from cudi_video.render.scenes import make_scene
+
+    clips = []
+    for name, color in (("rot", "red"), ("blau", "blue")):
+        path = tmp_path / f"{name}.mp4"
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-f", "lavfi", "-i", f"color=c={color}:s=640x360:d=4:r=30",
+                        "-pix_fmt", "yuv420p", str(path)], check=True)
+        clips.append({"path": str(path), "duration": 4.0, "credit": f"{name} – CC0 – Test", "credit_short": name})
+    item = {"rank": 2, "name": "Turm B", "si_value": 679.0, "unit": "Q11573", "wanted": "m", "value_label": "Höhe",
+            "as_of": None, "extras": [], "image_path": None, "image_kind": "photo", "credit_short": None,
+            "icon": "building", "n_sources": 2, "compare_chip": None, "clips": clips}
+    scene = make_scene(_job("item", item=item, frames=180, duration=6.0))
+    first = scene._card(0.5).convert("RGB").getpixel((300, 280))
+    assert scene.reel.credit_at(0.5).startswith("rot")
+    second = scene._card(4.5).convert("RGB").getpixel((300, 280))
+    assert first[0] > 200 > first[2] and second[2] > 200 > second[0]
+    assert scene.reel.credit_at(4.5).startswith("blau")
+    assert scene.frame(5.0).size == (1080, 1920)

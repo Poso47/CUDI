@@ -81,6 +81,22 @@ Sprachmodell (siehe unten) werden weitere Themen versucht.
 * **Bilder nur mit freier Lizenz** (Wikimedia Commons), Urheber und Lizenz stehen im Video und in der
   Beschreibung. Länder zeigen Flaggen, ohne Bild gibt es eine Grafik mit Themen-Icon.
 
+## Bilder und Videoclips in Rankings
+
+Jeder Platz bekommt nach Möglichkeit **echte Videoclips**: bis zu 3 kurze Ausschnitte, die in der Bildkarte
+nacheinander laufen. Bildnachweise stehen im Video und in der Beschreibung. Quellen in dieser Reihenfolge,
+alle kostenlos:
+
+1. **Pexels-Videos** und **Pixabay-Videos** (HD, kommerziell frei; brauchen einen kostenlosen Schlüssel)
+2. **NASA Image and Video Library** (gemeinfrei, ohne Schlüssel)
+3. **Wikimedia Commons-Videos** (freie Lizenz mit Urheber; aus Rechenzentren oft gedrosselt)
+
+Ohne Clip zeigt die Karte das beste freie Foto mit Zoom: Wikidata-/Wikipedia-Foto von Commons; ist es
+gesperrt, ohne Urheber oder kleiner als 1200 px, dann **Openverse** (Flickr u. a., nur Lizenzen mit
+kommerzieller Nutzung und Bearbeitung) und **NASA**. Ein Bild oder Clip zählt nur, wenn die unterscheidenden
+Wörter des Namens im Titel/den Schlagworten stehen (keine fremde Brücke unter falschem Namen); Karten, Logos
+und Wappen werden aussortiert.
+
 ## Quellen-Abgleich
 
 | Quelle | Herkunft | prüft |
@@ -257,7 +273,8 @@ Stimmungen nutzen englische Storys und übersetzen sie (Sprachmodell, DeepL oder
 
 | Variable (alle optional) | Wirkung |
 |---|---|
-| `CUDI_PEXELS_API_KEY` / `CUDI_PIXABAY_API_KEY` | echte Videoclips statt KI-Bilder (kostenlos: pexels.com/api, pixabay.com/api/docs) |
+| `CUDI_PEXELS_API_KEY` / `CUDI_PIXABAY_API_KEY` | echte Videoclips statt KI-Bilder – in Storys **und** in Rankings (kostenlos: pexels.com/api, pixabay.com/api/docs) |
+| `CUDI_RANKING_CLIPS=0` | Rankings ohne Videoclips (nur Fotos mit Zoom) |
 | `CUDI_REDDIT_CLIENT_ID` / `CUDI_REDDIT_CLIENT_SECRET` | Reddit live (reddit.com/prefs/apps → „script“-App) |
 | `CUDI_POLLINATIONS_TOKEN` | KI-Bilder groß und ohne Logo (kostenloser Zugang: auth.pollinations.ai) |
 | `CUDI_DEEPL_API_KEY` | Übersetzung englischer Storys für deutsche Videos (DeepL API Free) |

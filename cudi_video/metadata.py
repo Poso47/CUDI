@@ -50,8 +50,9 @@ def build_metadata(spec: VideoSpec, research: Research, script: Script) -> dict:
         lines.append(("📖 Infos: Wikipedia (CC BY-SA 4.0), Wikidata (CC0)" if de
                       else "📖 Info: Wikipedia (CC BY-SA 4.0), Wikidata (CC0)"))
     credits = [(it.labels[lang], it.image_credit) for it in items if it.image_credit]
+    credits += [(it.labels[lang], c["credit"]) for it in items for c in it.clips if c.get("credit")]
     if credits:
-        lines += ["", "📷 Bildnachweise:" if de else "📷 Image credits:"]
+        lines += ["", "📷 Bild- und Videonachweise:" if de else "📷 Image and video credits:"]
         lines += [f"• {name}: {credit}" for name, credit in credits]
     lines += ["", " ".join(f"#{t}" for t in tags)]
     return {"title": title, "description": "\n".join(lines), "tags": tags,

@@ -76,6 +76,8 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
                 "extras": extras_lines(spec, it, lang),
                 "image_path": it.image_path, "image_kind": it.image_kind,
                 "credit_short": _short_credit(it.image_credit),
+                "clips": [{**c, "credit_short": _short_credit(c.get("credit"))} for c in it.clips
+                          if c.get("path") and Path(c["path"]).exists()],
                 "icon": icon_for(spec.icon, spec.source.property),
                 "n_sources": len(confirmed_sources(it)),
             }
