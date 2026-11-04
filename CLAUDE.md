@@ -41,7 +41,10 @@ für TikTok/YouTube Shorts.
     `UEBERSETZEN:` → Claude übersetzt → `--weiter <id>`. **`SCHREIBEN:`** (`handoff.py`): Claude deutet freie
     Themen außerhalb der Vorlagen (`planner.plan_with_claude`, IDs werden gegen Wikidata geprüft) und erzählt
     Rankings als kleine Geschichte (`narrate.py`: Anfang, geprüfter Wert, keine Zahl/kein Hauptwort ohne Beleg,
-    sonst Textbaustein). Quellen erscheinen nur im Prüfbericht, nicht im Video/Beschreibungstext. Dann Upload per Artifact-Werkzeug
+    sonst Textbaustein; abgelehnte Plätze gehen einmal zur Korrektur zurück). Freie Themen (`confirmed_only`):
+    nur unabhängig bestätigte Werte, sonst ehrliche Top N. Storys: `editor.claude_edit` (Lektorat, Titel,
+    Einstieg/`hook`, Bildideen; je Szene geprüft auf neue Zahlen/Namen/Länge, sonst Regel-Fassung).
+    Quellen erscheinen nur im Prüfbericht, nicht im Video/Beschreibungstext. Dann Upload per Artifact-Werkzeug
     (`asset: true`), `auftrag --dokument`, `ArtifactData set` in `results/<id>`.
   - Ablage der Seite: `jobs/<id>` (von der Seite), `results/<id>` (von der Sitzung), Videos als Assets
     (1 GB). Die Seite zeigt Fortschritt (`get_session`), Video, „Video speichern“ (downloads),

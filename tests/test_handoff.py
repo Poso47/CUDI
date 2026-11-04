@@ -155,3 +155,66 @@ def test_free_topics_keep_only_confirmed_values(monkeypatch):
     status["Q1"] = status["Q2"] = "nur eine Quelle"
     with pytest.raises(ValueError, match="nicht genug"):
         verify_module.verify(spec, research)
+
+
+STORY = ("I bought a telescope after my divorce. Every night I drove out to Blue Springs to look at the stars. "
+         "The park was empty and the woods were silent. On the third night I noticed a light between the trees. "
+         "It moved when I moved. I packed up fast, but the light followed my car for 2 miles. "
+         "When I got home, there were muddy footprints on my porch. They led to my window and stopped there. "
+         "I have not gone back to the park since. My telescope is still in the trunk of my car.")
+
+
+def test_story_edit_by_claude_is_checked_scene_by_scene(writing, monkeypatch):
+    from cudi_video.story import editor
+    from cudi_video.story.sources import post_from_text
+
+    post = post_from_text("The light in the woods", STORY, subreddit="shortscarystories")
+    with pytest.raises(handoff.WritingNeeded) as need:
+        editor.build_skeleton(post, lang="en", mood="creepy", use_llm=False)
+    task = json.loads(need.value.path.read_text("utf-8"))
+    scenes = task["daten"]["szenen"]
+    assert task["daten"]["zielsprache"] == "en" and task["daten"]["entschaerfen"] is True and len(scenes) >= 2
+    reply = [{"text": s.replace("I bought", "After the divorce, I bought"), "bild": "a lonely man with a telescope "
+              "under a starry sky at the edge of a forest", "suche": "night sky telescope"} for s in scenes]
+    reply[-1]["text"] = scenes[-1] + " Jessica never believed me."          # neuer Name -> Regel-Fassung
+    answer(need.value.path, {"titel": "Something in the trees", "hook": "The light between the trees moved "
+                             "when I moved.", "szenen": reply})
+    sk = editor.build_skeleton(post, lang="en", mood="creepy", use_llm=False)
+    texts = [s["text"] for p in sk["parts"] for s in p["scenes"]]
+    assert sk["editor"] == "Claude-Lektorat" and sk["title"] == "Something in the trees"
+    assert sk["hook"].startswith("The light between the trees") and "Jessica" not in texts[-1]
+    assert texts[0].startswith("After the divorce") or "After the divorce" in " ".join(texts)
+    first = sk["parts"][0]["scenes"][0]
+    assert first["query"] == "night sky telescope" and first["prompt"].endswith("no text")
+    assert any("Regel-Fassung" in n and "neue Namen: Jessica" in n for n in sk["notes"])
+
+
+def test_story_edit_rejects_new_numbers_and_translates_fallback(writing, monkeypatch):
+    from cudi_video.story import editor
+
+    monkeypatch.setattr(editor, "translate", lambda texts, target, source="en": ([f"DE: {t}" for t in texts], "Test"))
+    scenes = ["I drove out to the park every night for 2 weeks.", "The woods were silent and empty.",
+              "Then I saw a light between the trees."]
+    with pytest.raises(handoff.WritingNeeded) as need:
+        editor.claude_edit("The light", scenes, "de", "en", "creepy", True)
+    answer(need.value.path, {"titel": "Das Licht", "hook": "Zwischen den Bäumen bewegte sich ein Licht.",
+                             "szenen": [{"text": "Drei Wochen lang fuhr ich jede Nacht in den Park, 3 Wochen.",
+                                         "bild": "x", "suche": "!!!"},
+                                        {"text": "Der Wald war still und leer.", "bild": "a silent dark forest at night "
+                                         "with fog", "suche": "dark forest"},
+                                        {"text": "Dann sah ich ein Licht zwischen den Bäumen.", "bild": "a faint light "
+                                         "between dark trees at night", "suche": "light trees night"}]})
+    title, texts, visuals, hook, notes = editor.claude_edit("The light", scenes, "de", "en", "creepy", True)
+    assert texts[0] == "DE: " + scenes[0] and texts[1] == "Der Wald war still und leer." and title == "Das Licht"
+    assert hook and visuals[1][0] == "dark forest" and visuals[0][0] != "!!!"
+    assert any("1 (neue Zahl)" in n for n in notes)
+
+
+def test_story_edit_falls_back_to_rules_when_mostly_wrong(writing):
+    from cudi_video.story import editor
+
+    scenes = ["One.", "Two scenes here.", "Three scenes here now."]
+    with pytest.raises(handoff.WritingNeeded) as need:
+        editor.claude_edit("T", scenes, "en", "en", "creepy", True)
+    answer(need.value.path, {"titel": "T", "szenen": [{"text": ""}, {"text": ""}, {"text": "Three scenes here now."}]})
+    assert editor.claude_edit("T", scenes, "en", "en", "creepy", True) is None

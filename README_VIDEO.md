@@ -231,7 +231,10 @@ Kraftausdrücke und anzügliche oder belastende Stellen werden angedeutet statt 
 sex“ → „we got intimate“, „Sex hatten“ → „intim wurden“) – die Handlung bleibt gleich, und solche Storys
 bleiben in der Auswahl. Nur von Reddit als NSFW markierte Posts werden nicht vorgeschlagen. Jede Änderung steht im Skelett und im Prüfbericht.
 Inhaltlich wird nichts hinzugefügt; ein optionales Sprachmodell darf glätten und kürzen, seine Fassung
-wird gegen das Original geprüft.
+wird gegen das Original geprüft. **In der CUDI-App lektoriert Claude kostenlos:** Erzählstil je Stimmung,
+heikle Stellen umschrieben, ein packender **Einstieg** für die ersten Sekunden (im Skelett-Editor
+änderbar), ein neugierig machender Titel und Bildideen je Szene. Jede Szene wird geprüft (keine neuen
+Zahlen oder Namen, sinnvolle Länge) – sonst gilt für sie die Regel-Fassung.
 
 **Bilder und Clips** (Einstellung „Bilder“): *Videos bevorzugt* nutzt echte Stockvideos von Pexels
 oder Pixabay (kostenloser Schlüssel nötig), sonst KI-Bilder mit Kamerafahrt, sonst frei lizenzierte

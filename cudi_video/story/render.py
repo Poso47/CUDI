@@ -318,7 +318,8 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
     voice = skeleton["voice"]
     work.mkdir(parents=True, exist_ok=True)
 
-    texts = [part["intro"], *[s["text"] for s in part["scenes"]], part["outro"]]
+    hook = str(skeleton.get("hook") or "").strip() if part_index == 0 else ""
+    texts = [hook or part["intro"], *[s["text"] for s in part["scenes"]], part["outro"]]   # Einstieg zur Story-Karte
     progress(0.02)
     voiced = voice_texts(texts, work / "audio", voice["name"], voice["rate"], voice["pitch"], voice["pause"])
     progress(0.25)

@@ -100,6 +100,8 @@ def validate_skeleton(skeleton: dict) -> None:
         for scene in part["scenes"]:
             if not str(scene.get("text", "")).strip():
                 raise ValueError("Leere Szene – Text eintragen oder Szene löschen")
+    if not isinstance(skeleton.get("hook", ""), str) or len(skeleton.get("hook") or "") > 400:
+        raise ValueError("Der Einstieg ist zu lang (höchstens 400 Zeichen)")
 
 
 # --------------------------------------------------------------------------- 3. Video
@@ -216,7 +218,8 @@ def review(skeleton: dict, visuals: list[Visual], result: dict) -> str:
                   *[f"- {w}" for w in result.get("warnings", []) if w not in skeleton.get("rights", [])], ""]
     k = 0
     for i, part in enumerate(skeleton["parts"], start=1):
-        lines += [f"## Teil {i}" if len(skeleton["parts"]) > 1 else "## Erzählung", "", f"**Einstieg:** {part['intro']}", ""]
+        intro = (skeleton.get("hook") or part["intro"]) if i == 1 else part["intro"]
+        lines += [f"## Teil {i}" if len(skeleton["parts"]) > 1 else "## Erzählung", "", f"**Einstieg:** {intro}", ""]
         for scene in part["scenes"]:
             v = visuals[k] if k < len(visuals) else Visual("none")
             k += 1
