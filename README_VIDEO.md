@@ -81,6 +81,19 @@ Sprachmodell (siehe unten) werden weitere Themen versucht.
 * **Bilder nur mit freier Lizenz** (Wikimedia Commons), Urheber und Lizenz stehen im Video und in der
   Beschreibung. Länder zeigen Flaggen, ohne Bild gibt es eine Grafik mit Themen-Icon.
 
+## Fakten-Rankings – jedes Thema ist rankbar
+
+Lässt sich ein Wunsch nicht mit einer Zahl sortieren („5 coole Fakten über das Unterbewusstsein“, „Gründe,
+warum …“, „Mythen über …“), wird er zum **Fakten-Ranking** im gewohnten Aussehen (`cudi_video/facts.py`):
+
+1. Claude wählt 1–3 passende Fachartikel je Sprache, der Code lädt deren Text.
+2. Claude schreibt daraus die Fakten – je Fakt mit einem **wörtlich kopierten Beleg-Satz** und einer Bildsuche.
+3. Der Code prüft jeden Fakt: Beleg steht so in der Quelle, jede Zahl im Text steht im Beleg **und in einer
+   zweiten Quelle**, keine erfundenen Namen/Hauptwörter, keine Wertungen, Länge passt. Wer durchfällt, fliegt
+   raus (Claude liefert drei Fakten mehr als nötig); weniger als bestellt → ehrliche Top N.
+4. Karten zeigen die Kernaussage statt Zahl und Balken, dazu Stockclips/-fotos zur Bildsuche; Spannungsbogen,
+   Maskottchen, Prüfbericht (mit Beleg und Quelle je Platz) wie bei Zahlen-Rankings.
+
 ## Spannungsbogen (Zuschauer bleiben dran)
 
 Jedes Video folgt einem psychologisch aufgebauten Bogen (`cudi_video/retention.py`), passend zu Format und Thema –

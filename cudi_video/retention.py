@@ -147,3 +147,52 @@ STORY_RULES = {
 
 def story_rules(mood: str) -> str:
     return f"{STORY_RULES['_all']} {STORY_RULES.get(mood, '')}".strip()
+
+
+# --------------------------------------------------------------------------- Fakten-Rankings (ohne Zahlen)
+
+FACT_HOOKS = {
+    "de": [
+        "{title} – und ich wette, Nummer eins kanntest du noch nicht.",
+        "Wetten, du kennst höchstens einen davon? {title}.",
+        "{title}. Bleib bis zum Schluss – Platz eins ist der stärkste.",
+    ],
+    "en": [
+        "{title} – and I bet you didn't know number one.",
+        "Bet you know one of these at most? {title}.",
+        "{title}. Stay until the end – number one is the strongest.",
+    ],
+}
+FACT_BRIDGES = {
+    "de": {"start": "Aber das ist erst der Anfang.", "beat": "Und es wird noch erstaunlicher.",
+           "final": "Und jetzt Platz eins – unser stärkster Fakt."},
+    "en": {"start": "But that's just the beginning.", "beat": "And it gets even more surprising.",
+           "final": "And now number one – our strongest fact."},
+}
+FACT_OUTRO = {
+    "de": "Welcher Fakt hat dich am meisten überrascht? Schreib es in die Kommentare – und folge für mehr.",
+    "en": "Which fact surprised you the most? Tell me in the comments – and follow for more.",
+}
+
+
+def fact_hook(spec: VideoSpec, lang: str, title: str) -> str:
+    options = FACT_HOOKS[lang]
+    return options[variant(spec, len(options), "facthook")].format(title=title)
+
+
+def fact_bridges(spec: VideoSpec, countdown: list[RankItem], lang: str) -> dict[int, str]:
+    b, n, out = FACT_BRIDGES[lang], len(countdown), {}
+    if n < 3:
+        return out
+    for i, item in enumerate(countdown):
+        if item.rank == 2:
+            out[2] = b["final"]
+        elif i == 0:
+            out[item.rank] = b["start"]
+        elif item.rank == 4 or (item.rank > 4 and (n - item.rank) % 3 == 2):
+            out[item.rank] = b["beat"]
+    return out
+
+
+def fact_outro(lang: str) -> str:
+    return FACT_OUTRO[lang]

@@ -1054,3 +1054,18 @@ def test_name_phrase_must_stay_within_one_tag():
     yellow = RankItem(qid="Q7355", value=5464, unit="Q828224", labels={"en": "Yellow River", "de": "Gelber Fluss"})
     assert not names_match(yellow, "mountains, forest, autumn, yellow, river, stream")
     assert names_match(yellow, "yellow river, china, loess")
+
+
+def test_fact_ranking_cards_render_without_numbers():
+    """Fakten-Ranking: Karte mit Kernaussage statt Zahl/Balken, Intro ohne Rekordwert."""
+    from cudi_video.render.scenes import make_scene
+    from cudi_video.render.theme import H, W
+
+    item = {"rank": 1, "name": "11 Millionen pro Sekunde", "si_value": 1.0, "unit": "Q199", "wanted": None,
+            "value_label": "", "as_of": None, "extras": [], "image_path": None, "image_kind": "photo",
+            "credit_short": None, "icon": "globe", "n_sources": 1, "compare_chip": None,
+            "fact": True, "kicker": "Fast alles, was dein Gehirn aufnimmt, bleibt unbewusst"}
+    scene = make_scene(_job("item", item=item))
+    assert scene.kicker is not None and scene.frame(1.5).size == (W, H)
+    intro = make_scene(_job("intro", intro={"si_value": 1.0, "unit": "Q199", "wanted": None, "fact": True}))
+    assert intro.top_q is None and intro.frame(1.5).size == (W, H)

@@ -543,3 +543,86 @@ def test_partial_title_survives_resume_after_writing_task(tmp_path, monkeypatch)
     with pytest.raises(RuntimeError, match="stopp"):
         pipeline.run(spec, out=tmp_path, langs=["de"], render=False)
     assert seen["title"] == {"de": "5 der längsten Flüsse", "en": "5 of the Longest Rivers"}
+
+
+# --------------------------------------------------------------------------- Fakten-Ranking
+
+DE_TEXT = ("Das Unbewusste umfasst seelische Vorgänge, die dem Bewusstsein nicht zugänglich sind. "
+           "Der Begriff wurde durch Sigmund Freud bekannt, der das Unbewusste als Teil der Psyche beschrieb. "
+           "Nach Schätzungen verarbeitet das Gehirn pro Sekunde etwa 11 Millionen Sinneseindrücke, "
+           "von denen nur ein winziger Teil bewusst wird. " * 8)
+EN_TEXT = ("The unconscious mind consists of processes in the mind which occur automatically. "
+           "Estimates suggest the brain receives about 11 million bits of sensory information per second. " * 8)
+
+
+def _fact(rank, beleg, text, title="Ein Fakt", quelle="de:Unbewusstes", kurz="Kurz gesagt"):
+    return {"rang": rank, "beleg": beleg, "quelle": quelle, "titel_de": title, "kurz_de": kurz,
+            "text_de": text, "suche": "brain neurons"}
+
+
+def test_fact_checks_quote_numbers_and_second_source():
+    from cudi_video import facts
+
+    sources = [{"id": "de:Unbewusstes", "sprache": "de", "titel": "Unbewusstes", "text": DE_TEXT, "url": "u1"},
+               {"id": "en:Unconscious mind", "sprache": "en", "titel": "Unconscious mind", "text": EN_TEXT, "url": "u2"}]
+    ok = _fact(1, "Nach Schätzungen verarbeitet das Gehirn pro Sekunde etwa 11 Millionen Sinneseindrücke, von denen "
+                  "nur ein winziger Teil bewusst wird.",
+               "Stell dir vor: Pro Sekunde erreichen dein Gehirn etwa 11 Millionen Sinneseindrücke. Bewusst wird dir "
+               "davon nur ein winziger Teil.")
+    assert facts.check_fact(ok, sources, ["de"], 40) == (None, "bestätigt")          # 11 auch in der en-Quelle
+    invented = dict(ok, text_de="Pro Sekunde sind es 20 Millionen Eindrücke.")
+    assert facts.check_fact(invented, sources, ["de"], 40)[0].startswith("Zahl ohne Beleg")
+    paraphrased = dict(ok, beleg="Das Gehirn verarbeitet 11 Millionen Eindrücke pro Sekunde.")
+    assert facts.check_fact(paraphrased, sources, ["de"], 40)[0] == "Beleg steht nicht wörtlich in der Quelle"
+    alone = [sources[0]]
+    assert facts.check_fact(ok, alone, ["de"], 40)[0].startswith("Zahlen nur in einer Quelle")
+    no_number = _fact(2, "Der Begriff wurde durch Sigmund Freud bekannt, der das Unbewusste als Teil der Psyche beschrieb.",
+                      "Berühmt gemacht hat den Begriff Sigmund Freud. Für ihn war das Unbewusste ein Teil der Psyche.")
+    assert facts.check_fact(no_number, sources, ["de"], 40) == (None, "eine Fachquelle (Wortlaut geprüft)")
+
+
+def test_unmeasurable_wish_becomes_fact_ranking_with_checked_facts(writing, monkeypatch):
+    """„5 coole Fakten über das Unterbewusstsein“ – früher „nicht als Ranking darstellbar“, jetzt Fakten-Countdown."""
+    from cudi_video import facts
+    from cudi_video.script import build_script
+    from cudi_video.spec import VideoSpec
+
+    monkeypatch.setattr(planner, "_label", lambda q: "x")
+    with pytest.raises(handoff.WritingNeeded) as need:
+        planner.plan_with_claude("5 coole Fakten über das Unterbewusstsein eines Menschen", 10)
+    assert "Fakten-Ranking" in json.loads(need.value.path.read_text("utf-8"))["anleitung"]
+    answer(need.value.path, {"art": "fakten", "anzahl": 3, "artikel_de": ["Unbewusstes"], "artikel_en": ["Unconscious mind"],
+                             "kriterium_de": "verblüffendste", "titel_de": "Die 3 verblüffendsten Fakten über das Unterbewusstsein",
+                             "titel_en": "The 3 most surprising facts about the subconscious"})
+    plan = planner.plan_with_claude("5 coole Fakten über das Unterbewusstsein eines Menschen", 10)
+    spec = VideoSpec.from_dict(plan)
+    spec.langs = ["de"]
+    assert spec.kind == "facts" and spec.count == 3 and spec.title["de"].startswith("Die 3 verblüffendsten")
+
+    texts = {"Unbewusstes": DE_TEXT, "Unconscious mind": EN_TEXT}
+    monkeypatch.setattr(facts, "article_text", lambda lang, title: (texts[title], title))
+    monkeypatch.setattr(facts, "_visuals", lambda research: None)
+    with pytest.raises(handoff.WritingNeeded) as need:
+        facts.research_facts(spec, ["de"])
+    data = json.loads(need.value.path.read_text("utf-8"))["daten"]
+    assert data["anzahl"] == 3 + facts.EXTRA_FACTS and {q["id"] for q in data["quellen"]} == {"de:Unbewusstes", "en:Unconscious mind"}
+    good_number = _fact(1, "Nach Schätzungen verarbeitet das Gehirn pro Sekunde etwa 11 Millionen Sinneseindrücke, von "
+                           "denen nur ein winziger Teil bewusst wird.",
+                        "Stell dir vor: Pro Sekunde erreichen dein Gehirn etwa 11 Millionen Sinneseindrücke. Bewusst "
+                        "wird dir davon nur ein winziger Teil.", title="11 Millionen pro Sekunde", kurz="Fast alles bleibt unbewusst")
+    bad = _fact(2, "Das Unterbewusstsein steuert 95 Prozent unseres Lebens.", "Es steuert 95 Prozent deines Lebens.")
+    freud = _fact(3, "Der Begriff wurde durch Sigmund Freud bekannt, der das Unbewusste als Teil der Psyche beschrieb.",
+                  "Berühmt gemacht hat den Begriff Sigmund Freud. Für ihn war das Unbewusste ein Teil der Psyche.",
+                  title="Freuds Entdeckung")
+    access = _fact(4, "Das Unbewusste umfasst seelische Vorgänge, die dem Bewusstsein nicht zugänglich sind.",
+                   "Ein großer Teil von dem, was in dir passiert, bleibt dir verborgen. Das Unbewusste umfasst seelische "
+                   "Vorgänge, an die du nicht herankommst.", title="Verborgene Vorgänge")
+    answer(need.value.path, {"fakten": [good_number, bad, freud, access]})
+    research = facts.research_facts(spec, ["de"])
+    assert [it.labels["de"] for it in research.items] == ["11 Millionen pro Sekunde", "Freuds Entdeckung", "Verborgene Vorgänge"]
+    assert any("95 Prozent" in w or "verworfen" in w for w in research.warnings)        # erfundener Fakt fliegt raus
+    script = build_script(spec, research, "de")
+    texts_ = [s.text for s in script.segments]
+    assert script.segments[0].kind == "intro" and "verblüffendsten" in texts_[0]
+    assert texts_[1].startswith("Wir starten mit Platz 3: Verborgene Vorgänge.") and texts_[-2].startswith("Und auf Platz 1")
+    assert "Fakt" in texts_[-1]                                                       # Kommentarfrage zu Fakten

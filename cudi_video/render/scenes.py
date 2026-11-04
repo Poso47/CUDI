@@ -235,7 +235,7 @@ class IntroScene(Scene):
         self.q = text_layer("?", font("black", 260), fill=(*GOLD, 255))
         self.mystery = text_layer(self.L["mystery"], font("bold", 46), fill=MUTED)
         top = job["intro"]
-        self.top_q = quantity(top["si_value"], top["unit"], top["wanted"])
+        self.top_q = None if top.get("fact") else quantity(top["si_value"], top["unit"], top["wanted"])
 
     def frame(self, t):
         f = background(t)
@@ -254,9 +254,10 @@ class IntroScene(Scene):
         wobble = math.sin(t * 3) * 6
         paste(f, self.q, (X0 + 60, cy + 40 + wobble), opacity=pc)
         paste(f, self.mystery, (X0 + 300, cy + 90), opacity=pc)
-        count = ease_out_cubic(progress(t, 0.9, 1.4))
-        value = text_layer(self.top_q.display(self.lang, self.top_q.value * count), font("black", 92), fill=(*GOLD, 255))
-        paste(f, value, (X0 + 300, cy + 170), opacity=pc)
+        if self.top_q is not None:
+            count = ease_out_cubic(progress(t, 0.9, 1.4))
+            value = text_layer(self.top_q.display(self.lang, self.top_q.value * count), font("black", 92), fill=(*GOLD, 255))
+            paste(f, value, (X0 + 300, cy + 170), opacity=pc)
         self.subs.draw(f, t)
         return f
 
@@ -332,6 +333,11 @@ class ItemScene(Scene):
         # Texte
         self.value_font = font("black", 96)
         self.value_label = text_layer(it["value_label"].upper(), font("bold", 30), fill=MUTED) if it["value_label"] else None
+        # Fakten-Ranking: statt Zahl und Balken die Kernaussage (zweizeilig, Akzentfarbe)
+        self.kicker = None
+        if it.get("fact") and it.get("kicker"):
+            kfont, klines = fit_font(it["kicker"], "bold", 52, CONTENT_W, 3, min_size=34)
+            self.kicker = text_layer(klines, kfont, fill=(*self.c1, 255))
         chip_font = font("semibold", 30)
         chips = [f"{label}: {value}" for label, value in it["extras"]]
         if it.get("as_of"):
@@ -403,20 +409,25 @@ class ItemScene(Scene):
         y += self.name.height + 6
         # Wert zählt hoch, Balken wächst
         pv = ease_out_cubic(progress(t, 0.5, 1.3))
-        if self.value_label:
+        if self.item.get("fact"):
+            if self.kicker is not None:
+                paste(f, self.kicker, (X0, y + (1 - pv) * 20), opacity=clamp(pv * 2))
+                y += self.kicker.height + 24
+        elif self.value_label:
             paste(f, self.value_label, (X0, y), opacity=clamp(pv * 3))
             y += self.value_label.height
-        val = text_layer(self.q.display(self.lang, self.q.value * pv), self.value_font, fill=(*self.c1, 255))
-        paste(f, val, (X0, y - 6), opacity=clamp(pv * 3))
-        y += val.height + 4
-        d = ImageDraw.Draw(f)
-        d.rounded_rectangle((X0, y, X0 + CONTENT_W, y + 18), 9, fill=TRACK)
-        ratio = clamp(abs(self.q.value) / self.max_display if self.max_display else 1.0)
-        fill_w = CONTENT_W * ratio * pv
-        if fill_w > 18:
-            bar = gradient_fill(rounded_rect((int(fill_w), 18), 9, (255, 255, 255, 255)), self.c2, self.c1)
-            paste(f, bar, (X0, y))
-        y += 44
+        if not self.item.get("fact"):
+            val = text_layer(self.q.display(self.lang, self.q.value * pv), self.value_font, fill=(*self.c1, 255))
+            paste(f, val, (X0, y - 6), opacity=clamp(pv * 3))
+            y += val.height + 4
+            d = ImageDraw.Draw(f)
+            d.rounded_rectangle((X0, y, X0 + CONTENT_W, y + 18), 9, fill=TRACK)
+            ratio = clamp(abs(self.q.value) / self.max_display if self.max_display else 1.0)
+            fill_w = CONTENT_W * ratio * pv
+            if fill_w > 18:
+                bar = gradient_fill(rounded_rect((int(fill_w), 18), 9, (255, 255, 255, 255)), self.c2, self.c1)
+                paste(f, bar, (X0, y))
+            y += 44
         # Info-Chips
         x = X0
         for i, c in enumerate(self.chips):
