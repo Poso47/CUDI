@@ -15,6 +15,7 @@ from .models import Research
 from .script import NOT_NEUTRAL, _digits, numbers_supported, rank_sentence
 from .spec import VideoSpec
 from .retention import NARRATION_RULES
+from . import themen
 from .textcheck import invented_people
 
 WIKI_CHARS = 900
@@ -32,7 +33,8 @@ INSTRUCTIONS = (
     "streiche sie – der Code verwirft sonst den ganzen Text (auch Namen und Hauptwörter, die nicht in den Daten "
     "stehen). Antwort: JSON-Objekt {Sprache: {Platznummer als Text: Sprechertext}}, z. B. "
     "{\"de\": {\"10\": \"…\", \"9\": \"…\"}, \"en\": {\"10\": \"…\"}}. "
-) + NARRATION_RULES
+) + NARRATION_RULES + " " + themen.TOPIC_RULES + " Beispiel: Bei den höchsten Gebäuden erzählst du von Höhe, Bau, " \
+    "Aussicht und Rekorden – nicht von Eigentümern oder Firmengeschichte. " + themen.KNOWLEDGE_STRUCTURE
 
 # Erzählwörter, die keine Fakten behaupten (alles andere Großgeschriebene muss in den Daten des Platzes stehen)
 FREE_WORDS = {
@@ -129,7 +131,8 @@ def request(spec: VideoSpec, research: Research, langs: list[str]) -> dict:
     """Erzählte Texte {Sprache: {Platz: Text}} von Claude oder {} (nicht aktiv / keine Antwort)."""
     if not handoff.enabled() or not research.items:
         return {}
-    data = {lang: {"titel": spec.title[lang], "plaetze": places_for(spec, research, lang)} for lang in langs}
+    data = {lang: {"titel": spec.title[lang], **themen.focus(spec, lang), "plaetze": places_for(spec, research, lang)}
+            for lang in langs}
     texts = _texts(handoff.request("erzaehlen", INSTRUCTIONS, data))
     if not texts:
         return {}

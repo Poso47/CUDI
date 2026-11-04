@@ -569,16 +569,16 @@ def test_fact_checks_quote_numbers_and_second_source():
                   "nur ein winziger Teil bewusst wird.",
                "Stell dir vor: Pro Sekunde erreichen dein Gehirn etwa 11 Millionen Sinneseindrücke. Bewusst wird dir "
                "davon nur ein winziger Teil.")
-    assert facts.check_fact(ok, sources, ["de"], 40) == (None, "bestätigt")          # 11 auch in der en-Quelle
+    assert facts.check_fact(ok, sources, ["de"], 10) == (None, "bestätigt")          # 11 auch in der en-Quelle
     invented = dict(ok, text_de="Pro Sekunde sind es 20 Millionen Eindrücke.")
-    assert facts.check_fact(invented, sources, ["de"], 40)[0].startswith("Zahl ohne Beleg")
+    assert facts.check_fact(invented, sources, ["de"], 10)[0].startswith("Zahl ohne Beleg")
     paraphrased = dict(ok, beleg="Das Gehirn verarbeitet 11 Millionen Eindrücke pro Sekunde.")
-    assert facts.check_fact(paraphrased, sources, ["de"], 40)[0] == "Beleg steht nicht wörtlich in der Quelle"
+    assert facts.check_fact(paraphrased, sources, ["de"], 10)[0] == "Beleg steht nicht wörtlich in der Quelle"
     alone = [sources[0]]
-    assert facts.check_fact(ok, alone, ["de"], 40)[0].startswith("Zahlen nur in einer Quelle")
+    assert facts.check_fact(ok, alone, ["de"], 10)[0].startswith("Zahlen nur in einer Quelle")
     no_number = _fact(2, "Der Begriff wurde durch Sigmund Freud bekannt, der das Unbewusste als Teil der Psyche beschrieb.",
                       "Berühmt gemacht hat den Begriff Sigmund Freud. Für ihn war das Unbewusste ein Teil der Psyche.")
-    assert facts.check_fact(no_number, sources, ["de"], 40) == (None, "eine Fachquelle (Wortlaut geprüft)")
+    assert facts.check_fact(no_number, sources, ["de"], 10) == (None, "eine Fachquelle (Wortlaut geprüft)")
 
 
 def test_unmeasurable_wish_becomes_fact_ranking_with_checked_facts(writing, monkeypatch):
@@ -602,6 +602,7 @@ def test_unmeasurable_wish_becomes_fact_ranking_with_checked_facts(writing, monk
     texts = {"Unbewusstes": DE_TEXT, "Unconscious mind": EN_TEXT}
     monkeypatch.setattr(facts, "article_text", lambda lang, title: (texts[title], title))
     monkeypatch.setattr(facts, "_visuals", lambda research: None)
+    monkeypatch.setattr(facts, "word_budget", lambda spec: 10)
     with pytest.raises(handoff.WritingNeeded) as need:
         facts.research_facts(spec, ["de"])
     data = json.loads(need.value.path.read_text("utf-8"))["daten"]
@@ -637,9 +638,9 @@ def test_fact_texts_allow_everyday_german_words_but_not_invented_names():
     beleg = "The unconscious mind consists of processes in the mind which occur automatically."
     ok = _fact(1, beleg, "Dein Gehirn arbeitet ständig im Hintergrund. Viele Vorgänge laufen automatisch ab, "
                          "ganz ohne deine Wünsche.", quelle="en:Unconscious mind")
-    assert facts.check_fact(ok, sources, ["de"], 40) == (None, "eine Fachquelle (Wortlaut geprüft)")
+    assert facts.check_fact(ok, sources, ["de"], 10) == (None, "eine Fachquelle (Wortlaut geprüft)")
     named = dict(ok, text_de=ok["text_de"] + " Das zeigte eine Studie aus Harvard von Professor Miller.")
-    reason = facts.check_fact(named, sources, ["de"], 40)[0]
+    reason = facts.check_fact(named, sources, ["de"], 20)[0]
     assert reason.startswith("nicht belegt") and "Harvard" in reason and "Miller" in reason
 
 
@@ -650,13 +651,46 @@ def test_fact_numbers_also_count_when_written_out():
     sources = [{"id": "de:Unbewusstes", "sprache": "de", "titel": "Unbewusstes", "text": DE_TEXT, "url": "u"}]
     beleg = "Der Begriff wurde durch Sigmund Freud bekannt, der das Unbewusste als Teil der Psyche beschrieb."
     ok = _fact(1, beleg, "Berühmt gemacht hat den Begriff Sigmund Freud.")
-    assert facts.check_fact(ok, sources, ["de"], 40)[0] is None
+    assert facts.check_fact(ok, sources, ["de"], 10)[0] is None
     for said in ("Das ist gut zweihundert Jahre her.", "Freud nannte drei Gründe."):
-        assert facts.check_fact(dict(ok, text_de=ok["text_de"] + " " + said), sources, ["de"], 40)[0] == "Zahl ohne Beleg (de)"
+        assert facts.check_fact(dict(ok, text_de=ok["text_de"] + " " + said), sources, ["de"], 10)[0] == "Zahl ohne Beleg (de)"
     eleven = _fact(2, "Nach Schätzungen verarbeitet das Gehirn pro Sekunde etwa 11 Millionen Sinneseindrücke, von denen "
                       "nur ein winziger Teil bewusst wird.", "Pro Sekunde sind es etwa elf Millionen Sinneseindrücke.")
     assert facts.check_fact(eleven, sources + [{"id": "en:x", "sprache": "en", "titel": "x", "text": EN_TEXT, "url": "v"}],
-                            ["de"], 40)[0] is None                         # „elf“ = 11: werttreu erlaubt
+                            ["de"], 10)[0] is None                         # „elf“ = 11: werttreu erlaubt
+
+
+def test_facts_follow_topic_core_and_knowledge_structure():
+    """Themen-Wissensstruktur: Fakt gehört zu einem geplanten Aspekt, erzählt mehr als den nackten Fakt, und die
+    Erklärung darf auf weiteren wörtlichen Belegen beruhen (deren Zahlen dann ebenfalls belegt sind)."""
+    from cudi_video import facts, themen
+    from cudi_video.spec import VideoSpec
+
+    sources = [{"id": "de:Unbewusstes", "sprache": "de", "titel": "Unbewusstes", "text": DE_TEXT, "url": "u"},
+               {"id": "en:x", "sprache": "en", "titel": "x", "text": EN_TEXT, "url": "v"}]
+    core = "Der Begriff wurde durch Sigmund Freud bekannt, der das Unbewusste als Teil der Psyche beschrieb."
+    more = ("Nach Schätzungen verarbeitet das Gehirn pro Sekunde etwa 11 Millionen Sinneseindrücke, von denen nur ein "
+            "winziger Teil bewusst wird.")
+    text = ("Stell dir vor, dein Gehirn arbeitet ständig im Hintergrund. Sigmund Freud machte das Unbewusste bekannt, "
+            "als Teil der Psyche. Pro Sekunde erreichen dich etwa 11 Millionen Sinneseindrücke, bewusst wird dir "
+            "davon nur ein winziger Teil.")
+    fact = dict(_fact(1, core, text), aspekt="Wahrnehmung", belege=[more])
+    assert facts.check_fact(fact, sources, ["de"], 30, ["Wahrnehmung", "Gewohnheiten"])[0] is None
+    assert facts.check_fact(dict(fact, belege=[]), sources, ["de"], 30)[0] == "Zahl ohne Beleg (de)"   # 11 nur im Zusatzbeleg
+    assert facts.check_fact(dict(fact, belege=["Das Gehirn speichert alles für immer."]), sources, ["de"], 30)[0] \
+        == "weiterer Beleg steht nicht wörtlich in der Quelle"
+    assert facts.check_fact(dict(fact, aspekt="Begriffsgeschichte"), sources, ["de"], 30, ["Wahrnehmung"])[0] \
+        .startswith("passt nicht zum Themenkern")
+    assert facts.check_fact(dict(fact, text_de="Freud machte das Unbewusste bekannt."), sources, ["de"], 30)[0] \
+        .startswith("zu kurz")
+
+    spec = VideoSpec.from_dict({"id": "fz", "title": {"de": "Fakten", "en": "Facts"}, "count": 3, "kind": "facts",
+                                "source": {"class": "Q0", "property": "P0"},
+                                "focus": themen.parse_focus({"themenkern_de": "Wie steuert dich dein Unterbewusstsein?",
+                                                             "aspekte": ["Wahrnehmung"], "nicht_gemeint": ["Begriffsgeschichte"]})})
+    assert themen.focus(spec, "de") == {"themenkern": "Wie steuert dich dein Unterbewusstsein?", "aspekte": ["Wahrnehmung"],
+                                        "nicht_gemeint": ["Begriffsgeschichte"]}
+    assert themen.focus(spec, "en")["themenkern"] == "Wie steuert dich dein Unterbewusstsein?"     # Ersatz: de
 
 
 def test_rejected_facts_go_back_once_for_correction(writing, monkeypatch):
@@ -669,6 +703,7 @@ def test_rejected_facts_go_back_once_for_correction(writing, monkeypatch):
     texts = {"Unbewusstes": DE_TEXT, "Unconscious mind": EN_TEXT}
     monkeypatch.setattr(facts, "article_text", lambda lang, title: (texts[title], title))
     monkeypatch.setattr(facts, "_visuals", lambda research: None)
+    monkeypatch.setattr(facts, "word_budget", lambda spec: 10)
     freud = _fact(1, "Der Begriff wurde durch Sigmund Freud bekannt, der das Unbewusste als Teil der Psyche beschrieb.",
                   "Berühmt gemacht hat den Begriff Sigmund Freud.", title="Freud")
     access = _fact(2, "Das Unbewusste umfasst seelische Vorgänge, die dem Bewusstsein nicht zugänglich sind.",
@@ -697,6 +732,7 @@ def test_fact_ranking_error_names_the_reasons(writing, monkeypatch):
     spec = VideoSpec.from_dict({"id": "fy", "title": {"de": "Fakten", "en": "Facts"}, "count": 3, "kind": "facts",
                                 "facts": {"articles": {"de": ["Unbewusstes"]}}, "source": {"class": "Q0", "property": "P0"}})
     monkeypatch.setattr(facts, "article_text", lambda lang, title: (DE_TEXT, title))
+    monkeypatch.setattr(facts, "word_budget", lambda spec: 10)
     bad = _fact(1, "Das Unterbewusstsein steuert 95 Prozent unseres Lebens.", "Es steuert 95 Prozent.")
     for task in ("fakten", "fakten_korrektur"):
         with pytest.raises(handoff.WritingNeeded) as need:

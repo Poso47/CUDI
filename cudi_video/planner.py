@@ -96,6 +96,9 @@ CLAUDE_PLAN = (
     "Deute den Video-Wunsch als Ranking: alle Dinge EINER Art (eine Wikidata-Klasse), sortiert nach "
     "EINER Zahl-Eigenschaft aus „eigenschaften“. Antworte mit einem JSON-Objekt: "
     "{\"blickwinkel\": \"ein Satz: was du daraus machst und warum\", \"anzahl\": Zahl oder null, "
+    "\"themenkern_de\": \"die eigentliche Zuschauerfrage hinter dem Wunsch\", \"themenkern_en\": \"…\", "
+    "\"aspekte\": [3–6 Unterthemen, die das Video abdecken soll], \"nicht_gemeint\": [Randthemen, die nicht "
+    "gefragt sind, z. B. Begriffsgeschichte], "
     "{\"klasse_qid\": \"Q…\", \"klasse_en\": \"englischer Wikidata-Name der Klasse\", "
     "\"weitere_klassen\": [{\"qid\": \"\", \"en\": \"…\"}] (2–6 wichtige Unterklassen, unter denen "
     "die Spitzenreiter oft eingetragen sind, z. B. viaduct und railway bridge zu bridge), \"eigenschaft\": \"P…\", \"reihenfolge\": \"desc\" oder \"asc\", "
@@ -110,13 +113,18 @@ CLAUDE_PLAN = (
     "JEDES Thema lässt sich ranken: Passt der Wunsch NICHT zu einem Zahlen-Ranking (z. B. „5 coole Fakten über das "
     "Unterbewusstsein“, „Gründe, warum …“, „Mythen über …“, „unglaubliche Fakten über Haie“), antworte als "
     "Fakten-Ranking: {\"art\": \"fakten\", \"blickwinkel\": \"…\", \"anzahl\": Zahl oder null, "
-    "\"artikel_de\": [1–3 Titel deutscher Wikipedia-Artikel, die das Thema gründlich behandeln], "
-    "\"artikel_en\": [1–3 Titel englischer Wikipedia-Artikel], \"kriterium_de\": \"z. B. verblüffendste\", "
+    "\"themenkern_de\": \"…\", \"themenkern_en\": \"…\", \"aspekte\": […], \"nicht_gemeint\": […] (wie oben), "
+    "\"artikel_de\": [2–4 Titel deutscher Wikipedia-Artikel – je Aspekt ein SPEZIFISCHER Fachartikel über ein "
+    "Phänomen oder einen Mechanismus (z. B. zu „Unterbewusstsein“: Priming, Implizites Gedächtnis, Gewohnheit, "
+    "Intuition) statt nur des Oberbegriffs], \"artikel_en\": [2–4 Titel englischer Wikipedia-Artikel, ebenso], \"kriterium_de\": \"z. B. verblüffendste\", "
     "\"kriterium_en\": \"z. B. most surprising\", \"titel_de\": \"Die {count} verblüffendsten Fakten über …\", "
     "\"titel_en\": \"The {count} most surprising facts about …\", \"hashtags_de\": [3 Wörter], "
     "\"hashtags_en\": [3 words]}. Nur wenn ein Wunsch gar nicht umsetzbar ist (z. B. verletzend oder ohne jede "
     "Faktengrundlage), antworte {\"fehler\": \"kurze Erklärung auf Deutsch mit einem passenden Vorschlag\"}."
 )
+
+
+from .themen import parse_focus  # noqa: E402
 
 
 class PlanFailed(ValueError):          # Eingabe passt nicht -> nicht wiederholen
@@ -243,7 +251,8 @@ def plan_with_claude(topic: str, count: int) -> dict | None:
         "hashtags": {lang: ["ranking", *[t for t in tags[lang] if t]] for lang in tags},
         "source": source,
         "confirmed_only": True,
-        "angle": str(answer.get("blickwinkel") or "")[:300],     # Claudes Deutung – steht im Prüfbericht
+        "angle": str(answer.get("blickwinkel") or "")[:300],
+        "focus": parse_focus(answer),     # Claudes Deutung – steht im Prüfbericht
     }
 
 
@@ -251,7 +260,7 @@ def _fact_plan(topic: str, count: int, answer: dict) -> dict:
     """Fakten-Ranking: Artikeltitel werden erst beim Laden geprüft (facts.gather_sources), Titel/Anzahl wie oben."""
     from .topics import _slug
 
-    articles = {lang: [str(t)[:120] for t in (answer.get(f"artikel_{lang}") or [])[:3] if str(t).strip()]
+    articles = {lang: [str(t)[:120] for t in (answer.get(f"artikel_{lang}") or [])[:4] if str(t).strip()]
                 for lang in ("de", "en")}
     if not any(articles.values()):
         raise PlanFailed("Zu diesem Wunsch fanden sich keine passenden Fachartikel.")
@@ -279,4 +288,5 @@ def _fact_plan(topic: str, count: int, answer: dict) -> dict:
         "source": {"type": "wikidata", "class": "Q0", "property": "P0"},   # Zahlen-Quelle hier unbenutzt
         "hashtags": {lang: ["fakten" if lang == "de" else "facts", *[t for t in tags[lang] if t]] for lang in tags},
         "angle": str(answer.get("blickwinkel") or "")[:300],
+        "focus": parse_focus(answer),
     }

@@ -98,6 +98,17 @@ warum …“, „Mythen über …“), wird er zum **Fakten-Ranking** im gewohnt
 4. Karten zeigen die Kernaussage statt Zahl und Balken, dazu Stockclips/-fotos zur Bildsuche; Spannungsbogen,
    Maskottchen, Prüfbericht (mit Beleg und Quelle je Platz) wie bei Zahlen-Rankings.
 
+## Themen-Wissensstruktur (alle Videos)
+
+Jedes Video dreht sich um den **Themenkern** (`cudi_video/themen.py`): Beim Deuten des Wunsches legt Claude die
+eigentliche Zuschauerfrage fest („Wie steuert mein Unterbewusstsein, was ich tue und fühle?“), 3–6 **Aspekte**
+und was **nicht gemeint** ist (z. B. Begriffsgeschichte, Biografien). Fakten-Rankings laden je Aspekt einen
+spezifischen Fachartikel (Priming, Gewohnheit, Intuition …) statt nur des Oberbegriffs. Jede Schreibaufgabe
+(Fakten, Ranking-Erzählung, Story-Lektorat) erzählt nach derselben **Wissensstruktur**: Aufhänger → Kernaussage →
+Erklärung (wie/warum) → Bedeutung für dich. Die Prüfung verwirft Fakten ohne Aspekt aus dem Themenkern und zu
+knappe Texte (Korrekturrunde); weitere wörtliche Belege („belege“) stützen die Erklärung. Der Prüfbericht zeigt
+Themenkern, Aspekt und alle Belege je Platz.
+
 ## Spannungsbogen (Zuschauer bleiben dran)
 
 Jedes Video folgt einem psychologisch aufgebauten Bogen (`cudi_video/retention.py`), passend zu Format und Thema –

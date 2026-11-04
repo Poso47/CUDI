@@ -21,6 +21,8 @@ für TikTok/YouTube Shorts.
 - Fakten-Rankings (`facts.py`, `spec.kind == "facts"`): Claude plant `art: fakten` (Artikeltitel), schreibt Fakten mit
   wörtlichem Beleg; Prüfung je Fakt (Beleg in Quelle, Zahlen auch in zweiter Quelle, keine erfundenen Wörter –
   deutsche Alltagswörter per `textcheck.everyday_word`), abgelehnte Fakten einmal zur Korrektur (`fakten_korrektur`).
+- Themen-Wissensstruktur (`themen.py`, `spec.focus`): Planer liefert Themenkern/Aspekte/nicht gemeint; alle Schreib-
+  aufgaben erzählen Aufhänger → Kernaussage → Erklärung → Bedeutung für dich; Fakten brauchen Aspekt, Mindestlänge, `belege`.
 - Spannungsbogen (`retention.py`): Hook mit Neugierlücke, Zwischen-Aufhänger aus geprüften Werten, Kommentarfrage
   je Thema; Regeln für Claude-Texte (`NARRATION_RULES`) und Storys je Stimmung (`story_rules`). Zahl im Wunsch = Anzahl.
 - Lange Videos bis 10 Min. (App-Fassung in Stücken ≤ 19 MB), Maskottchen „CUDI“ (`mascot.py`, lippensynchron
