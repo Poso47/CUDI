@@ -58,7 +58,8 @@ für TikTok/YouTube Shorts.
     Einstieg/`hook`, Bildideen; je Szene geprüft auf neue Zahlen/Namen/Länge, sonst Regel-Fassung).
     Quellen erscheinen nur im Prüfbericht, nicht im Video/Beschreibungstext. Dann Upload per Artifact-Werkzeug
     (`asset: true`), `auftrag --dokument`, `ArtifactData set` in `results/<id>`.
-  - **Bewertungen**: 👍/👎 + Notiz je fertigem Video in `bewertungen/<id>` (bleiben nach dem Löschen); beim Start gehen die
+  - **Bewertungen**: 👍/👎 wählen, Notiz optional, „Bestätigen“ → `bewertungen/<id>` (bleiben nach dem Löschen); 👍 behält
+    das Video, 👎 löscht es samt Auftrag (`removeJob`); beim Start gehen die
     letzten je 8 als `vorlieben` {gut, schlecht} mit dem Auftrag, `job.parse_preferences` → Umgebung `CUDI_VORLIEBEN` →
     `handoff.request` hängt sie an jede Schreibaufgabe (Prüfregeln haben Vorrang).
   - Ablage der Seite: `jobs/<id>` (von der Seite), `results/<id>` (von der Sitzung), Videos als Assets
