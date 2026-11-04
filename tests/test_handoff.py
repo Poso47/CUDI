@@ -626,3 +626,20 @@ def test_unmeasurable_wish_becomes_fact_ranking_with_checked_facts(writing, monk
     assert script.segments[0].kind == "intro" and "verblüffendsten" in texts_[0]
     assert texts_[1].startswith("Wir starten mit Platz 3: Verborgene Vorgänge.") and texts_[-2].startswith("Und auf Platz 1")
     assert "Fakt" in texts_[-1]                                                       # Kommentarfrage zu Fakten
+
+
+def test_ratings_from_the_app_reach_every_writing_task(writing, monkeypatch):
+    """Bewertungen (gut/schlecht) kommen als „vorlieben“ mit dem Auftrag und landen in jeder Schreibaufgabe."""
+    from cudi_video import job
+
+    order = job.parse_order({"id": "abcd1234", "art": "ranking", "thema": "Haie", "sprachen": ["de"],
+                             "vorlieben": {"gut": ["Ranking: Die 5 höchsten Gebäude – Clips top", 7],
+                                           "schlecht": ["Story: Lustig – zu lang"], "boese": ["x"]}}, set())
+    assert order["vorlieben"] == {"gut": ["Ranking: Die 5 höchsten Gebäude – Clips top"],
+                                  "schlecht": ["Story: Lustig – zu lang"]}
+    monkeypatch.setenv(handoff.PREFS_ENV, json.dumps(order["vorlieben"], ensure_ascii=False))
+    with pytest.raises(handoff.WritingNeeded) as need:
+        handoff.request("planen", "Anleitung.", {"wunsch": "Haie"})
+    task = json.loads(need.value.path.read_text("utf-8"))
+    assert task["daten"]["vorlieben"]["schlecht"] == ["Story: Lustig – zu lang"]
+    assert "vorlieben" in task["anleitung"] and "Vorrang" in task["anleitung"]

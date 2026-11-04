@@ -16,6 +16,18 @@ from pathlib import Path
 
 ENV = "CUDI_SCHREIBEN"
 DIR_ENV = "CUDI_SCHREIBEN_ORDNER"
+PREFS_ENV = "CUDI_VORLIEBEN"          # Bewertungen aus der App (gut/schlecht) – Claude lernt daraus
+PREFS_NOTE = (" Beachte außerdem „vorlieben“: So hat der Nutzer frühere Videos bewertet (gut / schlecht, mit Notiz). "
+              "Übernimm, was ihm gefiel, und vermeide, was ihm nicht gefiel – bei Themenwahl, Blickwinkel, Stil, Länge "
+              "und Bildideen. Die Prüfregeln oben (nichts erfinden, Belege, Zahlen) haben immer Vorrang.")
+
+
+def preferences() -> dict:
+    try:
+        prefs = json.loads(os.environ.get(PREFS_ENV) or "{}")
+    except ValueError:
+        return {}
+    return prefs if isinstance(prefs, dict) else {}
 
 
 class WritingNeeded(Exception):
@@ -46,6 +58,9 @@ def request(task: str, instructions: str, data: dict):
         except (OSError, ValueError, AttributeError):
             return None
         return answer if answer not in ("", [], {}) else None
+    prefs = preferences()
+    if prefs:
+        instructions, data = instructions + PREFS_NOTE, {**data, "vorlieben": prefs}
     path.write_text(json.dumps({"aufgabe": task, "anleitung": instructions, "daten": data, "antwort": None},
                                ensure_ascii=False, indent=1), "utf-8")
     raise WritingNeeded(path)
