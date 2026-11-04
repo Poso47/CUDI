@@ -66,6 +66,25 @@ def pexels(query: str, used: set) -> Visual | None:
     return None
 
 
+def pexels_photo(query: str, used: set) -> Visual | None:
+    """Hochwertiges Foto im Hochformat von Pexels (kostenloser Schlüssel) – vor Wikimedia, das aus Rechenzentren
+    oft gedrosselt wird."""
+    if not config.PEXELS_API_KEY:
+        return None
+    data = net.get_json("https://api.pexels.com/v1/search", params={"query": query, "per_page": 15,
+                                                                    "orientation": "portrait"},
+                        headers={"Authorization": config.PEXELS_API_KEY}, cache_hours=24 * 7, retries=2)
+    for photo in data.get("photos", []):
+        key = f"pexels-foto:{photo['id']}"
+        src = (photo.get("src") or {}).get("original")
+        if key in used or not src or (photo.get("height") or 0) < 1200:
+            continue
+        path = net.download(f"{src}?auto=compress&cs=tinysrgb&h=1920", suffix=".jpg", timeout=60)
+        used.add(key)
+        return Visual("image", str(path), f"Foto: {photo.get('photographer', 'unbekannt')} – Pexels", query)
+    return None
+
+
 def pixabay(query: str, used: set) -> Visual | None:
     if not config.PIXABAY_API_KEY:
         return None
@@ -316,7 +335,8 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
                 elif source == "ai":
                     found = ai_image(scene["prompt"], seed * 1000 + i)
                 elif source == "photo":
-                    found = commons_photo(scene["query"].replace(" dark", ""), used)
+                    found = (pexels_photo(scene["query"], used)
+                             or commons_photo(scene["query"].replace(" dark", ""), used))
                 else:
                     found = own_clip(mood, random.Random(seed * 1000 + i))
             except net.FetchError as exc:
