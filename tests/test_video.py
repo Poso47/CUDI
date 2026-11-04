@@ -876,3 +876,66 @@ def test_long_rankings_render_outro_and_header(tmp_path, n):
             "as_of": None, "extras": [], "image_path": None, "image_kind": "photo", "credit_short": None,
             "icon": "mountain", "n_sources": 2, "compare_chip": None}
     assert make_scene(_job("item", n_items=n, item=item)).frame(0.8).size == (W, H)
+
+
+# --------------------------------------------------------------------------- Quellen außerhalb Wikipedias
+
+def test_external_links_skip_wikimedia_and_prefer_specialist_sites(monkeypatch):
+    from cudi_video.verify import checkers
+
+    links = ["https://web.archive.org/x", "//www.facebook.com/a", "https://example-news.com/tower",
+             "https://www.skyscrapercenter.com/building/burj-khalifa/3", "https://de.wikipedia.org/wiki/X",
+             "https://example-news.com/other", "https://viaf.org/1", "https://site.org/plan.pdf"]
+    monkeypatch.setattr(checkers.net, "get_json", lambda *a, **k: {"query": {"pages": [
+        {"extlinks": [{"url": u} for u in links]}]}})
+    item = RankItem(qid="Q1", value=828.0, unit="Q11573", wiki_titles={"en": "Burj Khalifa"})
+    assert checkers.ExternalSourcesChecker.links(item) == [
+        "https://www.skyscrapercenter.com/building/burj-khalifa/3", "https://example-news.com/tower"]
+
+
+def test_external_pages_confirm_but_never_contradict(monkeypatch):
+    from cudi_video.verify import checkers, evaluate
+
+    pages = {"https://a.com/1": "The tower rises 828 m (2,717 ft) above the desert.",
+             "https://b.org/2": "Its first design reached 900 m according to early plans.",
+             "https://c.net/3": "Height: 828 metres"}
+    monkeypatch.setattr(checkers.ExternalSourcesChecker, "links", classmethod(lambda cls, item: list(pages)))
+    monkeypatch.setattr(checkers.ExternalSourcesChecker, "page_text", classmethod(lambda cls, url: pages[url]))
+    spec = make_spec(source={"type": "wikidata", "class": "Q11303", "property": "P2048"})
+    item = RankItem(qid="Q1", value=828.0, unit="Q11573", wiki_titles={"en": "Burj Khalifa"})
+    evidence = checkers.ExternalSourcesChecker().check(spec, item)
+    assert [(e.source, e.value is not None) for e in evidence] == [
+        ("Web: a.com", True), ("Web: b.org", False), ("Web: c.net", True)]
+    wikidata = checkers.Evidence("Wikidata", "", "", 828.0)
+    result = evaluate(item, [wikidata, *evidence], 0.01)
+    assert result["status"] == "bestätigt" and result["n_extern"] == 2
+
+
+def test_report_warns_when_only_wikipedia_confirms():
+    from cudi_video.verify import _warnings_for, checkers, evaluate
+
+    spec = make_spec(source={"type": "wikidata", "class": "Q11303", "property": "P2048"})
+    item = RankItem(qid="Q1", value=828.0, unit="Q11573", labels={"de": "Turm"})
+    result = evaluate(item, [checkers.Evidence("Wikidata", "", "", 828.0),
+                             checkers.Evidence("Wikipedia (en)", "", "", 828.0)], 0.01)
+    assert result["status"] == "bestätigt" and result["n_extern"] == 0
+    assert any("außerhalb Wikipedias" in w for w in _warnings_for(spec, item, result))
+
+
+def test_missing_wikidata_image_falls_back_to_article_image(monkeypatch, tmp_path):
+    from cudi_video import enrich as enrich_mod
+
+    monkeypatch.setattr(enrich_mod.net, "get_json", lambda *a, **k: {"query": {"pages": [{"pageimage": "Cangde_Bridge.jpg"}]}})
+    monkeypatch.setattr(enrich_mod, "fetch_license", lambda f: {"license": "CC0", "artist": "X", "width": 800})
+    tries = []
+
+    def fake_download(url, **kw):
+        tries.append(url)
+        if len(tries) == 1:
+            raise enrich_mod.net.FetchError("HTTP 429")
+        return tmp_path / "b.img"
+
+    monkeypatch.setattr(enrich_mod.net, "download", fake_download)
+    item = RankItem(qid="Q20063766", value=1, unit="1", wiki_titles={"en": "Cangde Grand Bridge"})
+    assert enrich_mod.fetch_image(item) is True
+    assert item.image_file == "Cangde Bridge.jpg" and "960px" in tries[1] and item.image_path

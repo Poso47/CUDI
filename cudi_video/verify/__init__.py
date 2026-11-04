@@ -44,6 +44,11 @@ def source_label(name: str, lang: str) -> str:
     return SOURCE_NAMES.get(name, {}).get(lang, name)
 
 
+def external_sources(sources: list[str]) -> list[str]:
+    """Quellen außerhalb von Wikipedia/Wikidata (Weltbank, Factbook, OSM, Webseiten aus den Einzelnachweisen)."""
+    return [s for s in sources if s != "Wikidata" and not s.startswith("Wikipedia (")]
+
+
 def confirmed_sources(item: RankItem) -> list[str]:
     """Quellen, die den verwendeten Wert stützen – nur wenn der Abgleich erfolgreich war."""
     v = item.verification or {}
@@ -52,10 +57,13 @@ def confirmed_sources(item: RankItem) -> list[str]:
 
 def compact_sources(sources: list[str], lang: str = "de") -> str:
     """['Weltbank', 'Wikipedia (ru)', 'Wikipedia (zh)'] -> 'Weltbank, Wikipedia (ru, zh)'"""
-    plain = [source_label(s, lang) for s in sources if not s.startswith("Wikipedia (")]
+    plain = [source_label(s, lang) for s in sources if not s.startswith(("Wikipedia (", "Web: "))]
     langs = [s[len("Wikipedia ("):-1] for s in sources if s.startswith("Wikipedia (")]
     if langs:
         plain.append(f"Wikipedia ({', '.join(langs)})")
+    sites = [s[len("Web: "):] for s in sources if s.startswith("Web: ")]
+    if sites:
+        plain.append(f"Web ({', '.join(sites)})")
     return ", ".join(plain)
 
 
@@ -176,6 +184,7 @@ def evaluate(item: RankItem, evidence: list[Evidence], tolerance: float) -> dict
         "date": new_date,
         "sources": sources,                         # Quellen, die den verwendeten Wert stützen
         "n_sources": len(sources),
+        "n_extern": len(external_sources(sources)),  # davon außerhalb von Wikipedia/Wikidata
         "outliers": [e.source for e in outliers],
         "evidence": [e.to_dict() for e in evidence],
     }
@@ -193,10 +202,10 @@ def _collect(spec: VideoSpec, item: RankItem, checkers) -> list[Evidence]:
     return evidence
 
 
-def _support(result: dict) -> tuple[int, int]:
-    """Wie gut ist ein Wert belegt? (Status-Güte, Anzahl unabhängiger Bestätigungen)"""
+def _support(result: dict) -> tuple[int, int, int]:
+    """Wie gut ist ein Wert belegt? (Status-Güte, Quellen außerhalb Wikipedias, alle unabhängigen Bestätigungen)"""
     quality = {"bestätigt": 3, "korrigiert": 2, "nur eine Quelle": 1, "widersprüchlich": 0}[result["status"]]
-    return quality, len([s for s in result["sources"] if s != "Wikidata"])
+    return quality, len(external_sources(result["sources"])), len([s for s in result["sources"] if s != "Wikidata"])
 
 
 def verify_item(spec: VideoSpec, item: RankItem, checkers) -> dict:
@@ -245,7 +254,9 @@ def _warnings_for(spec: VideoSpec, item: RankItem, result: dict) -> list[str]:
         out.append(f"{name}: Quellen widersprechen sich ({listing(lambda e: e['value'] is not None)}) – bitte prüfen.")
     elif status == "nur eine Quelle":
         out.append(f"{name}: keine unabhängige Bestätigung gefunden (nur Wikidata).")
-    elif result["outliers"]:
+    elif status == "bestätigt" and not result.get("n_extern", len(external_sources(result["sources"]))):
+        out.append(f"{name}: nur von Wikipedia/Wikidata bestätigt – keine Quelle außerhalb Wikipedias nennt den Wert.")
+    if status == "bestätigt" and result["outliers"]:
         out.append(f"{name}: Ausreißer ignoriert ({listing(lambda e: e['source'] in result['outliers'])}) – "
                    f"{result['n_sources']} andere Quellen stimmen überein.")
     return out
