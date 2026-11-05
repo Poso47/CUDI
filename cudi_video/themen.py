@@ -24,7 +24,9 @@ TOPIC_RULES = (
 KNOWLEDGE_STRUCTURE = (
     "Wissensstruktur je Platz – erzähle MEHR als den nackten Fakt: (1) Aufhänger: ein Bild im Kopf oder eine Frage "
     "aus dem Alltag; (2) Kernaussage; (3) Erklärung: wie und warum es so ist (Mechanismus, Hintergrund, ein Beispiel "
-    "aus der Quelle); (4) Bedeutung für dich: was das im eigenen Leben heißt. Kein Fazit-Satz am Ende."
+    "aus der Quelle); (4) Bedeutung für dich: was das im eigenen Leben heißt. Kein Fazit-Satz am Ende. Formuliere "
+    "jeden Platz anders: keine wiederkehrenden Satzanfänge oder Floskeln über die Plätze hinweg (nicht jedes Mal "
+    "„Für dich heißt das …“ oder „Stell dir vor …“) – mal eine Frage, mal ein Beispiel, mal ein Vergleich."
 )
 
 

@@ -348,6 +348,23 @@ def commons_clips(item: RankItem) -> list[Clip]:
     return out
 
 
+def too_dark(path, limit: float = 28.0) -> bool:
+    """Clip fast schwarz (Nachtaufnahme, dunkle Blende)? Zwei Stichproben, je 32×32 Graustufen – sonst False."""
+    import subprocess
+
+    values = []
+    for second in (1.0, 3.5):
+        try:
+            raw = subprocess.run(["ffmpeg", "-loglevel", "error", "-ss", str(second), "-i", str(path), "-frames:v", "1",
+                                  "-vf", "scale=32:32,format=gray", "-f", "rawvideo", "-"],
+                                 capture_output=True, timeout=30).stdout
+        except (OSError, subprocess.SubprocessError):
+            return False
+        if len(raw) == 32 * 32:
+            values.append(sum(raw) / len(raw))
+    return bool(values) and sum(values) / len(values) < limit
+
+
 def find_clips(item: RankItem, limit: int = MAX_CLIPS) -> list[dict]:
     """Bis zu `limit` passende Clips laden – Stockvideos in HD zuerst, dann NASA, dann Commons.
     Ergebnis: [{"path": …, "credit": …, "duration": …}] (leer = Foto mit Zoom wie bisher)."""
@@ -369,7 +386,7 @@ def find_clips(item: RankItem, limit: int = MAX_CLIPS) -> list[dict]:
         except net.FetchError as exc:
             log.info("Clip %s nicht geladen: %s", clip.origin, exc)
             continue
-        if path.stat().st_size > 60_000_000:          # sehr große Dateien bremsen den Schnitt
+        if path.stat().st_size > 60_000_000 or too_dark(path):   # sehr groß bremst den Schnitt, fast schwarz wirkt kaputt
             continue
         seen.add(clip.key)
         out.append({"path": str(path), "credit": clip.credit, "duration": clip.duration, "kind": "video"})

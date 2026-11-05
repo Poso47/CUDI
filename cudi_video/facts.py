@@ -17,7 +17,7 @@ import logging
 import re
 from datetime import datetime, timezone
 
-from . import handoff, net, textcheck, themen
+from . import handoff, media, net, textcheck, themen
 from .models import RankItem, Research
 from .spec import VideoSpec
 
@@ -240,14 +240,18 @@ def _visuals(research: Research) -> None:
     for item in research.items:
         query = item.fact.get("suche") or item.labels.get("en") or ""
         clips = []
-        for _ in range(2):
+        for _ in range(4):                       # bis zu 2 Clips, fast schwarze werden übersprungen
             try:
                 found = pexels(query, used) or pixabay(query, used)
             except net.FetchError:
                 found = None
             if not found:
                 break
+            if media.too_dark(found.path):
+                continue
             clips.append({"path": found.path, "credit": found.credit, "duration": 0, "kind": "video"})
+            if len(clips) == 2:
+                break
         if not clips:
             try:
                 photo = pexels_photo(query, used)

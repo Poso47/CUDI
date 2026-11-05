@@ -83,16 +83,17 @@ def invented_people(text: str, source: str) -> list[str]:
 
 
 # --------------------------------------------------------------------------- allgemeine Wörter
-# Häufigste 30 000 Wörter je Sprache (FrequencyWords von Hermit Dave, aus OpenSubtitles, CC BY-SA 4.0).
+# Häufigste 50 000 Wörter je Sprache (FrequencyWords von Hermit Dave, aus OpenSubtitles, CC BY-SA 4.0).
 # Sie belegen nichts – sie erlauben nur Alltagswörter („Café“, „Gehirn“) in erzählenden Sätzen, deren Aussage
 # selbst am wörtlichen Beleg hängt. Zahlen und Personennamen prüfen eigene, strenge Regeln.
 # `everyday_word`: nur deutsche Alltagswörter, die es so nicht auch im Englischen gibt – Eigennamen („Harvard“,
 # „Miller“, „Berlin“) sind in beiden Sprachen gleich und bleiben deshalb belegpflichtig; englische Texte bekommen
 # keine Ausnahme (Großschreibung mitten im Satz heißt dort fast immer Name).
-_COMMON: dict[str, frozenset] = {}
+_COMMON: dict[str, dict] = {}
 
 
-def common_words(lang: str) -> frozenset:
+def common_words(lang: str) -> dict[str, int]:
+    """Häufige Wörter einer Sprache mit Rang (0 = häufigstes)."""
     if lang not in _COMMON:
         import gzip
         from pathlib import Path
@@ -101,11 +102,71 @@ def common_words(lang: str) -> frozenset:
             words = gzip.decompress(path.read_bytes()).decode("utf-8").split()
         except OSError:
             words = []
-        _COMMON[lang] = frozenset(w for w in words if w not in FIRST_NAMES)
+        ranks: dict[str, int] = {}
+        for i, w in enumerate(words):
+            if w not in FIRST_NAMES:
+                ranks.setdefault(w, i)
+        _COMMON[lang] = ranks
     return _COMMON[lang]
+
+
+GERMAN_ENDINGS = ("en", "es", "em", "n", "s", "e")       # ohne „-er“: sonst wird „Müller“ zu „Müll“
+
+
+COMMON_RANK, PART_RANK = 30000, 30000     # Einzelwort / Teil eines zusammengesetzten Worts: so häufig muss es sein
+# Deutsche Eigennamen, die die Häufigkeitslisten nicht von Wörtern unterscheiden: häufigste Nachnamen, Städte, Länder
+GERMAN_NAMES = set("""müller schmidt schneider fischer weber meyer meier wagner becker schulz hoffmann schäfer koch bauer
+    richter klein wolf schröder neumann schwarz zimmermann braun krüger hofmann hartmann lange schmitt werner schmitz
+    krause meier lehmann schmid schulze maier köhler herrmann könig walter mayer huber kaiser fuchs peters lang scholz
+    möller weiß jung hahn schubert vogel friedrich keller günther frank berger winkler roth beck lorenz baumann franke
+    albrecht schuster simon ludwig böhm winter kraus martin schumacher krämer vogt stein jäger otto sommer groß seidel
+    heinrich brandt haas schreiber graf dietrich ziegler kuhn kühn pohl engel horn busch bergmann thomas voigt sauer arnold
+    berlin hamburg münchen köln frankfurt stuttgart düsseldorf leipzig dortmund essen bremen dresden hannover nürnberg
+    duisburg bochum wuppertal bielefeld bonn münster mannheim karlsruhe augsburg wiesbaden aachen kiel lübeck rostock
+    erfurt mainz kassel freiburg heidelberg potsdam wien graz linz salzburg innsbruck zürich genf basel bern luzern
+    deutschland österreich schweiz frankreich italien spanien england amerika russland china japan indien europa afrika
+    asien bayern sachsen hessen preußen""".split())
+NAME_ENDINGS = ("mann", "berg", "burg", "dorf", "stein", "feld", "hausen", "ingen", "heim", "bach", "stadt", "furt")
+
+
+def _german_everyday(part: str, max_rank: int = COMMON_RANK) -> bool:
+    """Deutsches Alltagswort: häufig im Deutschen und deutlich seltener im Englischen. Eigennamen („Harvard“,
+    „London“) sind in beiden Listen ähnlich häufig, seltene Namen („Zürich“) nicht häufig genug – beide bleiben
+    belegpflichtig."""
+    de, en = common_words("de"), common_words("en")
+    rank = de.get(part)
+    if rank is None or rank >= max_rank:
+        return False
+    return part not in en or en[part] > 3 * rank + 1000
+
+
+def _german_known(part: str) -> bool:
+    """Alltagswort – auch gebeugt („Alltags“) oder zusammengesetzt („Faustregel“, „Wimpernschlag“)."""
+    if part in GERMAN_NAMES:
+        return False
+    en, de = common_words("en"), common_words("de")
+    if part in en and not (part in de and en[part] > 3 * de[part] + 1000):
+        return False                                   # internationales Wort/Name („London“, „Paris“, „Trick“)
+    if _german_everyday(part):
+        return True
+    stems = [part[: -len(e)] for e in GERMAN_ENDINGS if part.endswith(e) and len(part) - len(e) >= 4]
+    if any(_german_everyday(s) for s in stems):
+        return True
+
+    def piece(x: str) -> bool:
+        return _german_everyday(x, PART_RANK) or any(
+            _german_everyday(x[: -len(e)], PART_RANK) for e in GERMAN_ENDINGS if x.endswith(e) and len(x) - len(e) >= 4)
+
+    if part.endswith(NAME_ENDINGS):                    # „Hoffmann“, „Heidelberg“: als Zusammensetzung belegpflichtig
+        return False
+    for i in range(4, len(part) - 3):                  # zwei Teile, je mindestens 4 Buchstaben (Fugen-s erlaubt)
+        head, tail = part[:i], part[i:]
+        heads = [head] + ([head[:-1]] if head.endswith("s") and len(head) > 4 else [])
+        if any(_german_everyday(h, PART_RANK) for h in heads) and piece(tail):
+            return True
+    return False
 
 
 def everyday_word(word: str, lang: str) -> bool:
     parts = [p for p in re.split(r"[-'’]", word.lower()) if p]
-    return lang == "de" and bool(parts) and all(p in common_words("de") and p not in common_words("en")
-                                                 for p in parts)
+    return lang == "de" and bool(parts) and all(_german_known(p) for p in parts)

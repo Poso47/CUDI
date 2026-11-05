@@ -91,7 +91,7 @@ warum …“, „Mythen über …“), wird er zum **Fakten-Ranking** im gewohnt
 3. Der Code prüft jeden Fakt: Beleg steht so in der Quelle, jede Zahl im Text steht im Beleg **und in einer
    zweiten Quelle**, keine erfundenen Namen/Hauptwörter, keine Wertungen, Länge passt. Deutsche Alltagswörter
    („Gehirn“, „Wünsche“ – auch zu einem englischen Beleg) erlaubt eine Häufigkeitsliste
-   (`cudi_video/wortlisten/`, FrequencyWords von Hermit Dave, CC BY-SA 4.0); Wörter, die es genauso im Englischen
+   (`cudi_video/wortlisten/`, 50 000 Wörter, FrequencyWords von Hermit Dave, CC BY-SA 4.0) – auch gebeugt und zusammengesetzt („Faustregel“); Wörter, die es genauso im Englischen
    gibt (Eigennamen wie „Harvard“), bleiben belegpflichtig. Abgelehnte Fakten gehen **einmal mit Grund zur
    Korrektur** an Claude zurück; wer dann noch durchfällt, fliegt raus (Claude liefert drei Fakten mehr als
    nötig); weniger als bestellt → ehrliche Top N.

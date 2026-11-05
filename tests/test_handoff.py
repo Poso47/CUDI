@@ -757,3 +757,18 @@ def test_ratings_from_the_app_reach_every_writing_task(writing, monkeypatch):
     task = json.loads(need.value.path.read_text("utf-8"))
     assert task["daten"]["vorlieben"]["schlecht"] == ["Story: Lustig – zu lang"]
     assert "vorlieben" in task["anleitung"] and "Vorrang" in task["anleitung"]
+
+
+def test_everyday_words_inflected_and_compound_but_names_stay_strict():
+    """Probe probefakten3: „Alltags“, „Faustregel“, „Bauchgefühle“ wurden als „nicht belegt“ verworfen – gebeugte
+    und zusammengesetzte Alltagswörter zählen jetzt; Eigennamen (international, deutsche Städte/Nachnamen,
+    Namensendungen) bleiben belegpflichtig."""
+    from cudi_video.textcheck import everyday_word
+
+    for word in ("Alltags", "Faustregel", "Bauchgefühle", "Wimpernschlag", "Gehirn", "Wünsche", "Behauptung"):
+        assert everyday_word(word, "de"), word
+    for word in ("Harvard", "Miller", "London", "Paris", "Zürich", "München", "Wien", "Müller", "Hoffmann",
+                 "Heidelberg", "Microsoft"):
+        assert not everyday_word(word, "de"), word
+    assert not everyday_word("Gehirn", "en")                   # englische Texte: keine Ausnahme
+
