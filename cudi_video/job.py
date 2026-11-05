@@ -81,6 +81,22 @@ def parse_preferences(raw) -> dict:
     return out
 
 
+FORMAT_ENV = "CUDI_FORMAT"
+
+
+def _format(value) -> str:
+    """Video-Format aus dem Auftrag: leer/„auto“ = je Video ein anderes, sonst ein Name aus theme.FORMAT_NAMES.
+    Die Farben passen sich immer dem Thema an."""
+    from .render.theme import FORMAT_NAMES
+
+    name = str(value or "").strip().lower()
+    if name in ("", "auto"):
+        return ""
+    if name not in FORMAT_NAMES:
+        raise OrderError(f"Unbekanntes Format „{name}“ – erlaubt: {', '.join(FORMAT_NAMES)}.")
+    return name
+
+
 def parse_order(raw: dict, presets: set[str]) -> dict:
     """Auftrag der App-Seite prüfen: nur bekannte Felder und erlaubte Werte."""
     order = _parse_order(raw, presets)
@@ -116,7 +132,8 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError(f"Plätze: bitte eine Zahl von 3 bis {most}.")
         return {"id": job_id, "art": "ranking", "thema": topic, "vorlage": preset, "sprachen": langs,
                 "plaetze": count, "streng": _flag(raw.get("streng"), False), "laenge": length,
-                "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), None)}
+                "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), None),
+                "format": _format(raw.get("format"))}
     if kind == "story":
         wish = _text(raw.get("wunsch"), 300)
         mood = str(raw.get("stimmung") or "auto")
@@ -389,6 +406,10 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
         os.environ[handoff.PREFS_ENV] = json.dumps(order["vorlieben"], ensure_ascii=False)
     else:
         os.environ.pop(handoff.PREFS_ENV, None)
+    if order.get("format"):                               # gewähltes Format; sonst je Video ein anderes
+        os.environ[FORMAT_ENV] = order["format"]
+    else:
+        os.environ.pop(FORMAT_ENV, None)
     if order.get("maskottchen") is not None:              # nur ausdrücklich gewählt überschreibt CUDI_MASCOT
         os.environ["CUDI_MASCOT"] = "1" if order["maskottchen"] else "0"
     last = [""]

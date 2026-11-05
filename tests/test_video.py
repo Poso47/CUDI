@@ -1,6 +1,8 @@
 """Tests für cudi_video (ohne Netzwerk)."""
 
 import re
+import tempfile
+from pathlib import Path
 
 import pytest
 
@@ -1069,3 +1071,34 @@ def test_fact_ranking_cards_render_without_numbers():
     assert scene.kicker is not None and scene.frame(1.5).size == (W, H)
     intro = make_scene(_job("intro", intro={"si_value": 1.0, "unit": "Q199", "wanted": None, "fact": True}))
     assert intro.top_q is None and intro.frame(1.5).size == (W, H)
+
+
+def test_every_format_and_design_renders():
+    """Alle Formate × Designs rendern Intro, Platz (Foto, Clip-los) und Abschluss – Fakten wie Zahlen."""
+    from PIL import Image
+
+    from cudi_video.render import theme
+    from cudi_video.render.formats import FORMATS, scene_class
+    from cudi_video.render.scenes import make_scene
+
+    photo = Path(tempfile.mkdtemp()) / "p.jpg"
+    Image.new("RGB", (800, 600), (90, 140, 200)).save(photo)
+    item = {"rank": 2, "name": "Testberg", "si_value": 8848.0, "unit": "Q11573", "wanted": None, "value_label": "Höhe",
+            "as_of": None, "extras": [], "image_path": str(photo), "image_kind": "photo", "credit_short": "X",
+            "icon": "mountain", "n_sources": 2, "compare_chip": None}
+    outro = {"rows": [(1, "A", "9 m"), (2, "B", "8 m"), (3, "C", "7 m"), (4, "D", "6 m")], "sources_line": "Stand"}
+    try:
+        for i, fmt in enumerate(FORMATS):
+            name = list(theme.STYLES)[i % len(theme.STYLES)]
+            style = {"name": name, "format": fmt, "motion": list(theme.MOTIONS)[i % 4]}
+            for it in (item, {**item, "image_path": None, "fact": True, "kicker": "Kurz gesagt"}):
+                scene = make_scene(_job("item", item=it, style=style))
+                assert type(scene) is scene_class(fmt, "item") and theme.STYLE["format"] == fmt
+                for t in (0.1, 0.5, 1.6):
+                    assert scene.frame(t).size == (theme.W, theme.H)
+            make_scene(_job("intro", intro={"si_value": 1.0, "unit": "Q199", "wanted": None, "fact": True},
+                            style=style)).frame(0.6)
+            make_scene(_job("outro", outro=outro, style=style)).frame(1.5)
+    finally:
+        theme.apply_style({"name": "neon", "format": "karte", "motion": "gleiten"})   # Standard für andere Tests
+

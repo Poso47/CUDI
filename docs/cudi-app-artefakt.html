@@ -216,6 +216,18 @@
               <option value="lang">Lang (bis 10 Minuten, bis 30 Plätze)</option>
             </select>
           </div>
+          <div>
+            <label for="format">Format</label>
+            <select id="format">
+              <option value="" selected>Automatisch – jedes Video ein anderes Format</option>
+              <option value="karte">Karte – Bild oben, Text darunter</option>
+              <option value="vollbild">Vollbild – Clip über den ganzen Bildschirm</option>
+              <option value="kreis">Kreis – Bild im Ring, Siegerpodest</option>
+              <option value="magazin">Magazin – schräger Schnitt, Riesenziffer</option>
+              <option value="polaroid">Polaroid – Sofortbilder, Blitz</option>
+              <option value="zahl">Riesenzahl – Clip in der Platz-Ziffer</option>
+            </select>
+          </div>
         </div>
         <div class="checks">
           <label class="check" for="strict"><input type="checkbox" id="strict"> Streng: nur mehrfach bestätigte Fakten</label>
@@ -420,7 +432,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       label: topic || sel.options[sel.selectedIndex].text,
       order: { art: "ranking", vorlage: sel.value, thema: topic, sprachen: langs, plaetze: count,
                streng: $("strict").checked, nur_skript: $("onlyScript").checked, laenge: long ? "lang" : "",
-               maskottchen: $("mascotRank").checked },
+               maskottchen: $("mascotRank").checked, format: $("format").value },
     };
   }
   function storyOrder() {

@@ -109,6 +109,48 @@ Erklärung (wie/warum) → Bedeutung für dich. Die Prüfung verwirft Fakten ohn
 knappe Texte (Korrekturrunde); weitere wörtliche Belege („belege“) stützen die Erklärung. Der Prüfbericht zeigt
 Themenkern, Aspekt und alle Belege je Platz.
 
+## Formate und Farben – jedes Video sieht anders aus
+
+Ranking- und Fakten-Videos wechseln das ganze **Format** (`cudi_video/render/formats.py`) – Bildaufbau, Formen,
+Zooms, Übergänge, Intro und Abschluss:
+
+| Format | Platz | Übergang / Zoom | Intro | Abschluss |
+|---|---|---|---|---|
+| Karte | Bildkarte oben, Text darunter, Abzeichen an der Ecke | 4 Bewegungsprofile (`MOTIONS`) | Titel + „?“-Karte | Liste |
+| Vollbild | Clip/Foto über den ganzen Bildschirm, Text auf Schatten | Punch-in-Zoom | Kino-Vorspann mit Letterbox | Liste |
+| Kreis | Bild im Kreis, Fortschrittsring = Wert, Rang-Blase | Iris-Blende, Kreis springt auf | „?“ im drehenden Ring | Siegerpodest |
+| Magazin | Bild oben mit schräger Kante, riesige Umriss-Ziffer, Farbbalken | Wischbalken, Ziffer zoomt heran | Riesen-„05“ + Titel mit Balken | Liste |
+| Polaroid | Sofortbild mit Klebestreifen, Stapel dahinter | Kamerablitz, Bild fällt und dreht sich | fallender Bilderstapel | Siegerpodest |
+| Riesenzahl | Clip läuft IN der Platz-Ziffer | Ziffer zoomt aus dem Bild heran | riesige Zahl im Farbverlauf | Siegerpodest |
+
+Die **Farben** (`render/theme.py`, `STYLES`: Neon, Natur, Kino, Doku, Ozean, Pop, Minimal – mit Hintergrund,
+Untertitel-Stil und Effekt wie Filmkorn, Lichtpunkten, Lichtstrahlen) passen sich dem **Thema** an
+(Themenwörter im Titel, sonst Vorlagen-Icon; z. B. Meer → Ozean/Natur, Geschichte → Doku/Kino/Minimal).
+Format, Farben und Bewegung werden je Video fest aus der Video-ID gewählt; in der App lässt sich das Format im
+Feld „Format“ festlegen (Auftrag `format`).
+
+## Themen-Wissensstruktur (alle Videos)
+
+Jedes Video dreht sich um den **Themenkern** (`cudi_video/themen.py`): Beim Deuten des Wunsches legt Claude die
+eigentliche Zuschauerfrage fest („Wie steuert mein Unterbewusstsein, was ich tue und fühle?“), 3–6 **Aspekte**
+und was **nicht gemeint** ist (z. B. Begriffsgeschichte, Biografien). Fakten-Rankings laden je Aspekt einen
+spezifischen Fachartikel (Priming, Gewohnheit, Intuition …) statt nur des Oberbegriffs. Jede Schreibaufgabe
+(Fakten, Ranking-Erzählung, Story-Lektorat) erzählt nach derselben **Wissensstruktur**: Aufhänger → Kernaussage →
+Erklärung (wie/warum) → Bedeutung für dich. Die Prüfung verwirft Fakten ohne Aspekt aus dem Themenkern und zu
+knappe Texte (Korrekturrunde); weitere wörtliche Belege („belege“) stützen die Erklärung. Der Prüfbericht zeigt
+Themenkern, Aspekt und alle Belege je Platz.
+
+## Designs – jedes Video sieht anders aus
+
+Ranking- und Fakten-Videos haben **7 Designs** (`cudi_video/render/theme.py`, `STYLES`): Neon, Natur, Kino, Doku,
+Ozean, Pop, Minimal. Jedes bringt eigene Farben, Hintergrund (Lichtflecken, unscharfes Vollbild-Foto des Platzes
+oder schlicht), Untertitel-Stil (farbiger Kasten, Umriss oder Farbe), Effekt (Lichtpartikel, Lichtstrahlen,
+Filmkorn) und Layout mit – **Kino** und **Natur** zeigen Clip/Foto im **Vollbild**, Text unten auf Schatten. Dazu
+kommt unabhängig eines von 4 **Bewegungsprofilen** (`MOTIONS`: gleiten, aufsteigen, zoom, schwung – wie Karte,
+Titel, Rang-Abzeichen und Abschlussliste hereinkommen, wohin das Foto schwenkt). Ohne Wahl passt das Design zum
+Thema (`STYLE_FIT`, z. B. Berge → Natur/Kino/Doku/Minimal) und wechselt je Video (fest aus der Video-ID); in der
+App lässt es sich im Feld „Design“ wählen (Auftrag `design`).
+
 ## Spannungsbogen (Zuschauer bleiben dran)
 
 Jedes Video folgt einem psychologisch aufgebauten Bogen (`cudi_video/retention.py`), passend zu Format und Thema –
