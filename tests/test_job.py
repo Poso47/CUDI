@@ -16,7 +16,7 @@ def test_ranking_order_is_normalised():
                              "sprachen": ["en", "de", "fr"], "plaetze": "7", "streng": True}, PRESETS)
     assert order == {"id": "abc123", "art": "ranking", "thema": "", "vorlage": "hoechste-gebaeude",
                      "sprachen": ["de", "en"], "plaetze": 7, "streng": True, "nur_skript": False, "laenge": "",
-                     "maskottchen": None, "design": ""}         # nicht gewählt: CUDI_MASCOT / Thema entscheidet
+                     "maskottchen": None, "format": ""}         # nicht gewählt: CUDI_MASCOT / je Video entscheidet
     assert job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "maskottchen": False},
                            PRESETS)["maskottchen"] is False
 
@@ -350,17 +350,20 @@ def test_mascot_is_drawn_into_ranking_frames():
     assert max(levels[:12]) == 0 and max(levels[15:20]) > 0              # erst nach der Pause spricht CUDI
 
 
-def test_design_choice_in_order_and_variety_per_video():
-    """Designs: wählbar im Auftrag, sonst passend zum Thema und je Video verschieden (fest je Video-ID)."""
+def test_format_choice_in_order_and_variety_per_video():
+    """Formate: wählbar im Auftrag, sonst je Video ein anderes; Farben immer passend zum Thema (fest je Video-ID)."""
     from cudi_video.render import theme
 
-    assert job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "design": "Doku"},
-                           PRESETS)["design"] == "doku"
+    assert job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "format": "Kreis"},
+                           PRESETS)["format"] == "kreis"
     with pytest.raises(job.OrderError):
-        job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "design": "bunt"}, PRESETS)
-    assert theme.pick_style("x", "mountain", wanted="pop")["name"] == "pop"
-    picks = {(theme.pick_style(f"video-{i}", "mountain")["name"], theme.pick_style(f"video-{i}", "mountain")["motion"])
-             for i in range(40)}
-    assert {n for n, _ in picks} <= set(theme.STYLE_FIT["mountain"]) and len(picks) >= 6     # Abwechslung
-    assert theme.pick_style("same", "lake") == theme.pick_style("same", "lake")              # reproduzierbar
+        job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "format": "bunt"}, PRESETS)
+    assert theme.pick_style("x", "mountain", wanted="zahl")["format"] == "zahl"
+    picks = [theme.pick_style(f"video-{i}", "mountain") for i in range(40)]
+    assert {p["name"] for p in picks} <= set(theme.STYLE_FIT["mountain"])           # Farben passen zum Thema
+    assert {p["format"] for p in picks} == set(theme.FORMAT_NAMES)                   # alle Formate kommen vor
+    assert theme.pick_style("same", "lake") == theme.pick_style("same", "lake")       # reproduzierbar
+    # Farben nach Themenwörtern: Meer → Ozean/Natur, Gehirn → Neon/Minimal/Kino
+    assert theme.palette_options(None, "facts", "Die 5 tiefsten Meere") == ["ozean", "natur"]
+    assert theme.pick_style("y", None, "facts", topic="Fakten über das Unterbewusstsein")["name"] in ("neon", "minimal", "kino")
 

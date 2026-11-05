@@ -55,7 +55,9 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
     sources_line = (f"Stand: {as_of}" + (" · Bilder: Wikimedia Commons" if images else "") if lang == "de"
                     else f"As of {as_of}" + (" · Images: Wikimedia Commons" if images else ""))
 
-    style = pick_style(spec.id, spec.icon, spec.kind, spec.style or os.environ.get("CUDI_DESIGN", ""))       # ganzes Design + Bewegungsprofil je Video
+    # Look je Video: Farben passend zum Thema, Format (Bildaufbau) und Bewegung je Video verschieden
+    style = pick_style(spec.id, spec.icon, spec.kind, spec.style or os.environ.get("CUDI_FORMAT", ""),
+                       " ".join(spec.title.values()))
     jobs = []
     for i, seg in enumerate(script.segments):
         lead, tail = LEAD[seg.kind], TAIL[seg.kind]

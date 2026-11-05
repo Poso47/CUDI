@@ -56,7 +56,7 @@ class VideoSpec:
     angle: str = ""                            # freie Themen: Claudes Deutung des Wunsches (für den Prüfbericht)
     kind: str = "numbers"                      # numbers = Zahlen-Ranking (Wikidata), facts = Fakten-Ranking (facts.py)
     facts: dict = field(default_factory=dict)  # Fakten-Ranking: {"articles": {"de": [...], "en": [...]}, "criterion": {...}}
-    style: str = ""                            # Design (render/theme.py STYLES); leer = passend zum Thema, je Video anders
+    style: str = ""                            # Format (render/theme.py FORMAT_NAMES); leer = je Video ein anderes
     focus: dict = field(default_factory=dict)  # Themenkern (themen.py): {"frage": {"de": …}, "aspekte": [...], "nicht": [...]}
 
     def to_dict(self) -> dict:

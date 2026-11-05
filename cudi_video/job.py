@@ -81,18 +81,19 @@ def parse_preferences(raw) -> dict:
     return out
 
 
-DESIGN_ENV = "CUDI_DESIGN"
+FORMAT_ENV = "CUDI_FORMAT"
 
 
-def _design(value) -> str:
-    """Design aus dem Auftrag: leer/„auto“ = passend zum Thema, sonst ein Name aus render.theme.STYLES."""
-    from .render.theme import STYLES
+def _format(value) -> str:
+    """Video-Format aus dem Auftrag: leer/„auto“ = je Video ein anderes, sonst ein Name aus theme.FORMAT_NAMES.
+    Die Farben passen sich immer dem Thema an."""
+    from .render.theme import FORMAT_NAMES
 
     name = str(value or "").strip().lower()
     if name in ("", "auto"):
         return ""
-    if name not in STYLES:
-        raise OrderError(f"Unbekanntes Design „{name}“ – erlaubt: {', '.join(STYLES)}.")
+    if name not in FORMAT_NAMES:
+        raise OrderError(f"Unbekanntes Format „{name}“ – erlaubt: {', '.join(FORMAT_NAMES)}.")
     return name
 
 
@@ -132,7 +133,7 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
         return {"id": job_id, "art": "ranking", "thema": topic, "vorlage": preset, "sprachen": langs,
                 "plaetze": count, "streng": _flag(raw.get("streng"), False), "laenge": length,
                 "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), None),
-                "design": _design(raw.get("design"))}
+                "format": _format(raw.get("format"))}
     if kind == "story":
         wish = _text(raw.get("wunsch"), 300)
         mood = str(raw.get("stimmung") or "auto")
@@ -405,10 +406,10 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
         os.environ[handoff.PREFS_ENV] = json.dumps(order["vorlieben"], ensure_ascii=False)
     else:
         os.environ.pop(handoff.PREFS_ENV, None)
-    if order.get("design"):                               # gewähltes Design; sonst passend zum Thema, je Video anders
-        os.environ[DESIGN_ENV] = order["design"]
+    if order.get("format"):                               # gewähltes Format; sonst je Video ein anderes
+        os.environ[FORMAT_ENV] = order["format"]
     else:
-        os.environ.pop(DESIGN_ENV, None)
+        os.environ.pop(FORMAT_ENV, None)
     if order.get("maskottchen") is not None:              # nur ausdrücklich gewählt überschreibt CUDI_MASCOT
         os.environ["CUDI_MASCOT"] = "1" if order["maskottchen"] else "0"
     last = [""]

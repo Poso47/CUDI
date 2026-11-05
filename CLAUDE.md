@@ -23,8 +23,9 @@ für TikTok/YouTube Shorts.
   deutsche Alltagswörter per `textcheck.everyday_word`), abgelehnte Fakten einmal zur Korrektur (`fakten_korrektur`).
 - Themen-Wissensstruktur (`themen.py`, `spec.focus`): Planer liefert Themenkern/Aspekte/nicht gemeint; alle Schreib-
   aufgaben erzählen Aufhänger → Kernaussage → Erklärung → Bedeutung für dich; Fakten brauchen Aspekt, Mindestlänge, `belege`.
-- Designs (`render/theme.py`: `STYLES` 7 Designs inkl. Vollbild-Layout „kino“/„natur“, `MOTIONS` 4 Bewegungsprofile,
-  `pick_style` je Thema/Video-ID, `apply_style` in `make_scene` – jeder Render-Prozess setzt es selbst); Auftrag `design`.
+- Formate (`render/formats.py`: karte, vollbild, kreis, magazin, polaroid, zahl – eigener Bildaufbau, Übergang,
+  Intro, Abschluss) je Video; Farben (`theme.STYLES`) nach Thema (`palette_options`: Titelwörter/Icon); `pick_style`
+  fest je Video-ID, `apply_style` in `make_scene` (jeder Render-Prozess); Auftrag `format`.
 - Spannungsbogen (`retention.py`): Hook mit Neugierlücke, Zwischen-Aufhänger aus geprüften Werten, Kommentarfrage
   je Thema; Regeln für Claude-Texte (`NARRATION_RULES`) und Storys je Stimmung (`story_rules`). Zahl im Wunsch = Anzahl.
 - Lange Videos bis 10 Min. (App-Fassung in Stücken ≤ 19 MB), Maskottchen „CUDI“ (`mascot.py`, lippensynchron

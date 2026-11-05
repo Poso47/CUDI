@@ -220,8 +220,8 @@ def card_motion(p: float) -> tuple[float, float, float]:
 
 
 def paste_scaled(f, layer, xy, scale: float, opacity: float = 1.0) -> None:
-    """Ebene um ihre Mitte skaliert einfügen (nur während der Animation, sonst unverändert)."""
-    if scale >= 0.999:
+    """Ebene um ihre Mitte skaliert einfügen (kleiner oder größer; nur während der Animation, sonst unverändert)."""
+    if abs(scale - 1) < 0.001:
         paste(f, layer, xy, opacity=opacity)
         return
     w, h = max(1, int(layer.width * scale)), max(1, int(layer.height * scale))
@@ -310,6 +310,29 @@ class ItemScene(Scene):
     CARD_SIZE_LONG_NAME = (CONTENT_W, 490)   # zweizeiliger Name: Karte kürzer, damit die Info-Chips Platz haben
     BADGE = 230
     BADGE_POS = (-30, -40)          # relativ zur Bildkarte: ragt oben links über den Rand
+    FULL = False                    # Format „vollbild“ (Unterklasse in formats.py)
+
+    # --- Haken für Formate (formats.py): Form und Größe der Bildfläche, Maske, Schatten, Clip-Auflösung
+    def media_size(self) -> tuple[int, int]:
+        if self.full:
+            return (W, H)
+        return self.CARD_SIZE if len(self.name_lines) == 1 else self.CARD_SIZE_LONG_NAME
+
+    def media_mask(self) -> Image.Image:
+        return Image.new("L", self.card_size, 255) if self.full else rounded_mask(self.card_size, 36)
+
+    def media_shadow(self):
+        return None if self.full else shadow(rounded_rect(self.card_size, 36, (0, 0, 0, 255)), 30, 180)
+
+    def reel_size(self) -> tuple[int, int]:
+        return (W // 2, H // 2) if self.full else self.card_size      # Vollbild: halbe Auflösung, hochskaliert
+
+    def ratio(self) -> float:
+        """Anteil für Balken/Ringe: Wert im Verhältnis zum Spitzenwert (Fakten: nach Rang)."""
+        if self.item.get("fact"):
+            n = max(1, self.job["n_items"])
+            return clamp((n + 1 - self.item["rank"]) / n)
+        return clamp(abs(self.q.value) / self.max_display if self.max_display else 1.0)
 
     def __init__(self, job):
         super().__init__(job)
@@ -319,12 +342,10 @@ class ItemScene(Scene):
         self.max_display = job["max_display"]
         name_font, name_lines = name_layout(it["name"])
         self.name = text_layer(name_lines, name_font)
-        self.card_size = self.CARD_SIZE if len(name_lines) == 1 else self.CARD_SIZE_LONG_NAME
-        # Vollbild-Layout (Designs „kino“, „natur“): Clip/Foto füllt den ganzen Bildschirm, Text unten auf Schatten
-        self.full = STYLE.get("layout") == "full" and bool(
-            it.get("clips") or (it.get("image_path") and it.get("image_kind") != "flag"))
-        if self.full:
-            self.card_size = (W, H)
+        self.name_lines = name_lines
+        # Vollbild-Format: Clip/Foto füllt den ganzen Bildschirm, Text unten auf Schatten (nur mit echtem Bild/Clip)
+        self.full = self.FULL and bool(it.get("clips") or (it.get("image_path") and it.get("image_kind") != "flag"))
+        self.card_size = self.media_size()
         # Bild vorbereiten: Fotos füllen die Karte (Ken-Burns braucht Reserve um den Ausschnitt),
         # Flaggen werden vollständig gezeigt, ohne Bild gibt es eine Grafik-Karte mit Themen-Icon.
         self.photo = None
@@ -341,16 +362,12 @@ class ItemScene(Scene):
                 self.photo, flag = None, None
         if self.full and self.photo is None and not it.get("clips"):      # Foto nicht lesbar: zurück zur Karte
             self.full = False
-            self.card_size = self.CARD_SIZE if len(name_lines) == 1 else self.CARD_SIZE_LONG_NAME
+            self.card_size = self.media_size()
         keep_out = (self.BADGE_POS[0] + self.BADGE, self.BADGE_POS[1] + self.BADGE)
         self.graphic = None if self.photo else GraphicCard(self.card_size, it.get("icon", "globe"),
                                                            self.c1, self.c2, flag, keep_out)
-        if self.full:
-            self.card_mask = Image.new("L", self.card_size, 255)
-            self.card_shadow = None
-        else:
-            self.card_mask = rounded_mask(self.card_size, 36)
-            self.card_shadow = shadow(rounded_rect(self.card_size, 36, (0, 0, 0, 255)), 30, 180)
+        self.card_mask = self.media_mask()
+        self.card_shadow = self.media_shadow()
         self.credit = None
         if it.get("credit_short"):
             kind = self.L["image"] if it.get("image_kind") == "flag" else self.L["photo"]
@@ -360,8 +377,7 @@ class ItemScene(Scene):
         if it.get("clips"):
             from .clipreel import ClipReel
 
-            reel_size = (W // 2, H // 2) if self.full else self.card_size      # Vollbild: halbe Auflösung, hochskaliert
-            self.reel = ClipReel(it["clips"], reel_size, job["duration"], job["fps"])
+            self.reel = ClipReel(it["clips"], self.reel_size(), job["duration"], job["fps"])
             self.clip_credits = {
                 c.get("credit", ""): self._credit_chip(
                     f"{self.L['photo'] if c.get('kind') == 'image' else self.L['clip']}: {c['credit_short']}")
@@ -444,7 +460,7 @@ class ItemScene(Scene):
         dx, dy, sc = card_motion(pc)
         credit = self.clip_credits.get(self.reel.credit_at(t)) if self.reel is not None and self.reel.last else self.credit
         if self.full:
-            paste_scaled(f, self._card(t), (dx, dy), sc, opacity=pc)
+            paste_scaled(f, self._card(t), (0, 0), 1 + 0.22 * (1 - pc), opacity=clamp(pc * 1.6))   # Punch-in-Zoom
             paste(f, full_shade(), (0, 0))
             header(f, self.job, t, self.job["n_items"] - self.item["rank"])      # Kopfzeile über dem Schatten
             if credit:
@@ -471,43 +487,73 @@ class ItemScene(Scene):
                 bx, by = (bx - (1 - pm) * 320, by) if mode == "slide" else (bx, by - (1 - pb) * 300)
             paste(f, self.badge_shadow, (bx - 44, by - 34), opacity=clamp(pb))
             paste(f, b, (bx, by), opacity=clamp(pb * 1.5) if mode != "pop" else 1.0)
-        # Name
         y = 880 if self.full else self.CARD_Y + self.card_size[1] + 34
+        self.texts(f, t, y)
+        return self.finish(f, t)
+
+    def texts(self, f, t, y: float, center: bool = False, slide: float = 40, x0: float = X0) -> float:
+        """Name, Kernaussage bzw. Wert mit Balken und Info-Chips ab Höhe y (links oder mittig) – gibt das Ende zurück."""
+        def at(layer) -> float:
+            return x0 + (CONTENT_W - layer.width) / 2 if center else x0
+
+        # Block nie in die Untertitel laufen lassen: notfalls nach oben schieben (Chips fallen dann weg)
+        need = self.name.height + 6
+        if self.item.get("fact"):
+            need += (self.kicker.height + 24) if self.kicker is not None else 0
+        else:
+            need += (self.value_label.height if self.value_label else 0) + self.value_font.size + 30 + 44
+        limit = SUB_Y - self.subs.line_height / 2 - 30
+        y = min(y, limit - need)
         pn = ease_out_cubic(progress(t, 0.3, 0.45))
-        paste(f, self.name, (X0, y + (1 - pn) * 40), opacity=pn)
+        paste(f, self.name, (at(self.name) + (slide * (1 - pn) if slide < 0 else 0), y + (1 - pn) * abs(slide)),
+              opacity=pn)
         y += self.name.height + 6
         # Wert zählt hoch, Balken wächst
         pv = ease_out_cubic(progress(t, 0.5, 1.3))
         if self.item.get("fact"):
             if self.kicker is not None:
-                paste(f, self.kicker, (X0, y + (1 - pv) * 20), opacity=clamp(pv * 2))
+                paste(f, self.kicker, (at(self.kicker), y + (1 - pv) * 20), opacity=clamp(pv * 2))
                 y += self.kicker.height + 24
         elif self.value_label:
-            paste(f, self.value_label, (X0, y), opacity=clamp(pv * 3))
+            paste(f, self.value_label, (at(self.value_label), y), opacity=clamp(pv * 3))
             y += self.value_label.height
         if not self.item.get("fact"):
             val = text_layer(self.q.display(self.lang, self.q.value * pv), self.value_font, fill=(*self.c1, 255))
-            paste(f, val, (X0, y - 6), opacity=clamp(pv * 3))
+            paste(f, val, (at(val), y - 6), opacity=clamp(pv * 3))
             y += val.height + 4
-            d = ImageDraw.Draw(f)
-            d.rounded_rectangle((X0, y, X0 + CONTENT_W, y + 18), 9, fill=TRACK)
-            ratio = clamp(abs(self.q.value) / self.max_display if self.max_display else 1.0)
-            fill_w = CONTENT_W * ratio * pv
+            if pv > 0:                                   # Spur erst mit dem Wert einblenden
+                paste(f, rounded_rect((CONTENT_W, 18), 9, (*TRACK, 255)), (x0, y), opacity=clamp(pv * 3))
+            fill_w = CONTENT_W * self.ratio() * pv
             if fill_w > 18:
                 bar = gradient_fill(rounded_rect((int(fill_w), 18), 9, (255, 255, 255, 255)), self.c2, self.c1)
-                paste(f, bar, (X0, y))
+                paste(f, bar, (x0, y))
             y += 44
-        # Info-Chips
-        x = X0
-        for i, c in enumerate(self.chips):
-            pch = ease_out_cubic(progress(t, 0.9 + i * 0.12, 0.35))
-            if x + c.width > X0 + CONTENT_W:
-                x = X0
-                y += c.height + 12
-            if y + c.height > SUB_Y - self.subs.line_height / 2 - 24:
+        # Info-Chips (zeilenweise; mittig ausgerichtet, wenn das Format zentriert)
+        rows, row, width = [], [], 0
+        for c in self.chips:
+            if row and width + c.width > CONTENT_W:
+                rows.append(row)
+                row, width = [], 0
+            row.append(c)
+            width += c.width + 12
+        if row:
+            rows.append(row)
+        i = 0
+        for row in rows:
+            if y + row[0].height > SUB_Y - self.subs.line_height / 2 - 24:
                 break   # Platz für die Untertitel freihalten
-            paste(f, c, (x, y + (1 - pch) * 20), opacity=pch)
-            x += c.width + 12
+            total = sum(c.width for c in row) + 12 * (len(row) - 1)
+            x = x0 + (CONTENT_W - total) / 2 if center else x0
+            for c in row:
+                pch = ease_out_cubic(progress(t, 0.9 + i * 0.12, 0.35))
+                paste(f, c, (x, y + (1 - pch) * 20), opacity=pch)
+                x += c.width + 12
+                i += 1
+            y += row[0].height + 12
+        return y
+
+    def finish(self, f, t):
+        """Konfetti für Platz 1 und Untertitel – letzter Schritt jedes Formats."""
         # Konfetti für Platz 1
         if self.confetti:
             d = ImageDraw.Draw(f)
@@ -597,4 +643,6 @@ class OutroScene(Scene):
 
 def make_scene(job: dict) -> Scene:
     apply_style(job.get("style"))           # Design je Video (jeder Render-Prozess setzt es selbst)
-    return {"intro": IntroScene, "item": ItemScene, "outro": OutroScene}[job["kind"]](job)
+    from .formats import scene_class        # Format: ganz anderer Bildaufbau je Video
+
+    return scene_class(STYLE.get("format", "karte"), job["kind"])(job)

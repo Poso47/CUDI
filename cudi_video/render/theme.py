@@ -1,9 +1,8 @@
 """Farben, Schriften, Designs und Zeichen-Hilfen für den Infografik-Stil.
 
-Designs (`STYLES`): Jedes Video bekommt ein ganzes Design – Farben, Hintergrund (Lichtflecken, unscharfes
-Vollbild-Foto des Platzes oder schlicht), Untertitel-Stil und Effekt (Filmkorn, Lichtpartikel, Lichtstrahlen) –
-dazu unabhängig ein Bewegungsprofil (`MOTIONS`: wie Karten, Titel und Abzeichen hereinkommen). Gewählt wird
-passend zum Thema und je Video verschieden (`pick_style`), außer der Auftrag nennt ein Design.
+Look eines Videos (`pick_style`): Farben/Design (`STYLES`: Hintergrund, Untertitel-Stil, Effekt) passend zum
+Thema, dazu ein Format (`FORMAT_NAMES`, render/formats.py: ganz anderer Bildaufbau, Zooms, Übergänge) und ein
+Bewegungsprofil (`MOTIONS`, für das Format „karte“) – je Video verschieden, fest je Video-ID.
 """
 
 from __future__ import annotations
@@ -44,7 +43,7 @@ STYLES = {
                     label={"de": "Neon", "en": "Neon"}),
     "natur":   dict(bg_top=(5, 22, 16), bg_bottom=(12, 40, 28), accent=(52, 211, 153), accent2=(250, 204, 21),
                     card=(14, 38, 30), track=(30, 62, 50), muted=(167, 196, 180), bg="blur", subs="box",
-                    effect="particles", layout="full", label={"de": "Natur", "en": "Nature"}),
+                    effect="particles", label={"de": "Natur", "en": "Nature"}),
     "doku":    dict(bg_top=(22, 15, 9), bg_bottom=(44, 29, 17), accent=(245, 158, 11), accent2=(217, 119, 6),
                     card=(42, 30, 20), track=(70, 52, 36), muted=(214, 196, 170), bg="blur", subs="outline",
                     effect="grain", label={"de": "Doku", "en": "Documentary"}),
@@ -56,7 +55,7 @@ STYLES = {
                     effect="particles", label={"de": "Ozean", "en": "Ocean"}),
     "kino":    dict(bg_top=(8, 8, 10), bg_bottom=(16, 14, 12), accent=(255, 214, 10), accent2=(245, 158, 11),
                     card=(24, 22, 20), track=(60, 56, 50), muted=(200, 196, 188), bg="glow", subs="outline",
-                    effect="grain", layout="full", label={"de": "Kino", "en": "Cinema"}),
+                    effect="grain", label={"de": "Kino", "en": "Cinema"}),
     "pop":     dict(bg_top=(38, 6, 44), bg_bottom=(86, 12, 68), accent=(250, 204, 21), accent2=(236, 72, 153),
                     card=(58, 14, 62), track=(90, 30, 92), muted=(230, 190, 230), bg="glow", subs="outline",
                     effect="rays", label={"de": "Pop", "en": "Pop"}),
@@ -75,23 +74,53 @@ STYLE_FIT = {
     "building": ["neon", "doku", "kino", "minimal"], "globe": ["neon", "doku", "minimal", "ozean", "kino"],
     "people": ["pop", "neon", "minimal"], "facts": ["neon", "pop", "minimal", "ozean", "doku", "kino"],
 }
-STYLE: dict = {**STYLES["neon"], "name": "neon", **MOTIONS["gleiten"], "motion": "gleiten"}
+# Farben nach Themenwörtern im Titel (v. a. freie Themen und Fakten-Rankings ohne Vorlagen-Icon)
+TOPIC_WORDS = {
+    ("natur", "kino"): ["wald", "pflanz", "baum", "tier", "vogel", "berg", "natur", "wüste", "vulkan", "dschungel",
+                        "forest", "plant", "tree", "animal", "bird", "mountain", "nature", "desert", "volcano"],
+    ("ozean", "natur"): ["meer", "ozean", "tiefsee", "wasser", "fluss", "hai", "fisch", "wal", "insel", "strand",
+                         "ocean", "sea", "lake", "water", "river", "shark", "fish", "whale", "island", "beach"],
+    ("doku", "kino", "minimal"): ["geschicht", "antik", "römer", "mittelalter", "pharao", "burg", "schloss", "könig",
+                                  "krieg", "history", "ancient", "roman", "medieval", "castle", "king", "empire"],
+    ("neon", "minimal", "kino"): ["gehirn", "psych", "unterbewusst", "bewusst", "traum", "technik", "computer", "roboter",
+                                  "weltall", "planet", "stern", "brain", "mind", "dream", "tech", "robot", "space",
+                                  "galaxy", "universe"],
+    ("pop", "neon"): ["lustig", "essen", "süß", "promi", "musik", "spiel", "funny", "food", "sweet",
+                      "celebrit", "music", "game", "candy"],
+}
 
 
-def pick_style(spec_id: str, icon: str | None, kind: str = "numbers", wanted: str = "") -> dict:
-    """Design + Bewegungsprofil für ein Video: gewünscht (Auftrag) oder passend zum Thema, fest je Video-ID."""
+def palette_options(icon: str | None, kind: str, topic: str) -> list[str]:
+    """Designs, deren Farben zum Thema passen: Themenwörter im Titel, sonst Icon der Vorlage, sonst alle."""
+    text = topic.lower()
+    found: list[str] = []
+    for names, words in TOPIC_WORDS.items():
+        if any(w in text for w in words):
+            found += [n for n in names if n not in found]
+    if found:
+        return found
+    return STYLE_FIT.get("facts" if kind == "facts" else (icon or ""), list(STYLES))
+
+
+STYLE: dict = {**STYLES["neon"], "name": "neon", **MOTIONS["gleiten"], "motion": "gleiten", "format": "karte"}
+
+
+FORMAT_NAMES = ["karte", "vollbild", "kreis", "magazin", "polaroid", "zahl"]     # Bildaufbau, s. render/formats.py
+
+
+def pick_style(spec_id: str, icon: str | None, kind: str = "numbers", wanted: str = "", topic: str = "") -> dict:
+    """Look eines Videos: Farben passend zum Thema, dazu Format (ganz anderer Bildaufbau) und Bewegungsprofil –
+    je Video verschieden, aber fest je Video-ID. `wanted` = im Auftrag gewähltes Format."""
     import hashlib
 
     def h(salt: str, n: int) -> int:
         return int(hashlib.md5(f"{spec_id}{salt}".encode()).hexdigest(), 16) % n
 
-    if wanted in STYLES:
-        name = wanted
-    else:
-        options = STYLE_FIT.get("facts" if kind == "facts" else (icon or ""), list(STYLES))
-        name = options[h("design", len(options))]
+    options = palette_options(icon, kind, topic)
+    name = options[h("design", len(options))]
+    fmt = wanted if wanted in FORMAT_NAMES else FORMAT_NAMES[h("format", len(FORMAT_NAMES))]
     motion = list(MOTIONS)[h("motion", len(MOTIONS))]
-    return {"name": name, "motion": motion}
+    return {"name": name, "format": fmt, "motion": motion}
 
 
 def apply_style(style: dict | None) -> None:
@@ -99,11 +128,12 @@ def apply_style(style: dict | None) -> None:
     style = style or {}
     name = style.get("name") if style.get("name") in STYLES else "neon"
     motion = style.get("motion") if style.get("motion") in MOTIONS else "gleiten"
-    if STYLE.get("name") == name and STYLE.get("motion") == motion:
+    fmt = style.get("format") if style.get("format") in FORMAT_NAMES else "karte"
+    if STYLE.get("name") == name and STYLE.get("motion") == motion and STYLE.get("format") == fmt:
         return
     s = STYLES[name]
     STYLE.clear()
-    STYLE.update({**s, "name": name, **MOTIONS[motion], "motion": motion})
+    STYLE.update({**s, "name": name, **MOTIONS[motion], "motion": motion, "format": fmt})
     g = globals()
     for key, const in (("bg_top", "BG_TOP"), ("bg_bottom", "BG_BOTTOM"), ("accent", "ACCENT"), ("accent2", "ACCENT2"),
                        ("card", "CARD"), ("track", "TRACK"), ("muted", "MUTED")):
@@ -300,10 +330,14 @@ def paste(dst: Image.Image, layer: Image.Image, xy, opacity: float = 1.0) -> Non
 
 @functools.lru_cache(maxsize=8)
 def glow_blob(radius: int, color: tuple, strength: int = 110) -> Image.Image:
-    size = radius * 2
+    """Weicher Lichtfleck. Die Fläche ist um radius/2 je Seite größer als früher, damit die Unschärfe am Rand
+    sicher auf 0 abklingt (sonst schimmern auf dunklen Designs Rechteck-Kanten durch)."""
+    pad = radius // 2
+    size = radius * 2 + 2 * pad
     blob = Image.new("RGBA", (size, size), (*color, 0))
     mask = Image.new("L", (size, size), 0)
-    ImageDraw.Draw(mask).ellipse((radius // 2, radius // 2, size - radius // 2, size - radius // 2), fill=strength)
+    ImageDraw.Draw(mask).ellipse((pad + radius // 2, pad + radius // 2, size - pad - radius // 2, size - pad - radius // 2),
+                                 fill=strength)
     blob.putalpha(mask.filter(ImageFilter.GaussianBlur(radius // 3)))
     return blob
 
@@ -320,8 +354,8 @@ def background(t: float, tint=None, tint2=None, backdrop: Image.Image | None = N
     mode = STYLE.get("bg", "glow")
     img = backdrop.copy() if backdrop is not None and mode == "blur" else background_base().copy()
     if mode == "glow" or (mode == "blur" and backdrop is None):
-        paste(img, glow_blob(420, tint), (-180 + 120 * math.sin(t * 0.35), 140 + 90 * math.cos(t * 0.27)))
-        paste(img, glow_blob(460, tint2), (520 + 110 * math.cos(t * 0.31), 1150 + 120 * math.sin(t * 0.23)))
+        paste(img, glow_blob(420, tint), (-390 + 120 * math.sin(t * 0.35), -70 + 90 * math.cos(t * 0.27)))
+        paste(img, glow_blob(460, tint2), (290 + 110 * math.cos(t * 0.31), 920 + 120 * math.sin(t * 0.23)))
     effect = STYLE.get("effect")
     if effect == "particles":
         d = ImageDraw.Draw(img)
