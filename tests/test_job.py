@@ -16,7 +16,7 @@ def test_ranking_order_is_normalised():
                              "sprachen": ["en", "de", "fr"], "plaetze": "7", "streng": True}, PRESETS)
     assert order == {"id": "abc123", "art": "ranking", "thema": "", "vorlage": "hoechste-gebaeude",
                      "sprachen": ["de", "en"], "plaetze": 7, "streng": True, "nur_skript": False, "laenge": "",
-                     "maskottchen": None}                       # nicht gewählt: CUDI_MASCOT entscheidet
+                     "maskottchen": None, "design": ""}         # nicht gewählt: CUDI_MASCOT / Thema entscheidet
     assert job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "maskottchen": False},
                            PRESETS)["maskottchen"] is False
 
@@ -348,3 +348,19 @@ def test_mascot_is_drawn_into_ranking_frames():
     assert out.getpixel((cx, cy))[:3] != (10, 12, 28) and out.getpixel((5, 5))[:3] == (10, 12, 28)
     levels = mascot.levels_for(np.ones(4800, dtype=np.float32) * 0.3, 24000, 30, 30, lead=0.5)
     assert max(levels[:12]) == 0 and max(levels[15:20]) > 0              # erst nach der Pause spricht CUDI
+
+
+def test_design_choice_in_order_and_variety_per_video():
+    """Designs: wählbar im Auftrag, sonst passend zum Thema und je Video verschieden (fest je Video-ID)."""
+    from cudi_video.render import theme
+
+    assert job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "design": "Doku"},
+                           PRESETS)["design"] == "doku"
+    with pytest.raises(job.OrderError):
+        job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "design": "bunt"}, PRESETS)
+    assert theme.pick_style("x", "mountain", wanted="pop")["name"] == "pop"
+    picks = {(theme.pick_style(f"video-{i}", "mountain")["name"], theme.pick_style(f"video-{i}", "mountain")["motion"])
+             for i in range(40)}
+    assert {n for n, _ in picks} <= set(theme.STYLE_FIT["mountain"]) and len(picks) >= 6     # Abwechslung
+    assert theme.pick_style("same", "lake") == theme.pick_style("same", "lake")              # reproduzierbar
+

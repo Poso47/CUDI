@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+
 import logging
 import re
 import subprocess
@@ -19,6 +21,7 @@ from ..spec import VideoSpec
 from ..units import quantity
 from ..verify import confirmed_sources
 from .icons import icon_for
+from .theme import pick_style
 
 log = logging.getLogger(__name__)
 
@@ -52,6 +55,7 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
     sources_line = (f"Stand: {as_of}" + (" · Bilder: Wikimedia Commons" if images else "") if lang == "de"
                     else f"As of {as_of}" + (" · Images: Wikimedia Commons" if images else ""))
 
+    style = pick_style(spec.id, spec.icon, spec.kind, spec.style or os.environ.get("CUDI_DESIGN", ""))       # ganzes Design + Bewegungsprofil je Video
     jobs = []
     for i, seg in enumerate(script.segments):
         lead, tail = LEAD[seg.kind], TAIL[seg.kind]
@@ -62,7 +66,7 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
             "frames": frames, "duration": frames / config.FPS, "fps": config.FPS,
             "n_items": len(research.items), "max_display": max_display, "channel": config.CHANNEL,
             "voice_path": seg.audio_path, "mascot": mascot.enabled(),   # CUDI wird direkt ins Bild gezeichnet
-            "out": str(work / f"part_{i:02d}.mp4"),
+            "out": str(work / f"part_{i:02d}.mp4"), "style": style,
         }
         if seg.kind == "intro" and top:
             job["intro"] = {"si_value": top.value, "unit": top.unit, "wanted": spec.unit, "fact": facts}

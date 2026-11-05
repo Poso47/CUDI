@@ -1,6 +1,8 @@
 """Tests für cudi_video (ohne Netzwerk)."""
 
 import re
+import tempfile
+from pathlib import Path
 
 import pytest
 
@@ -1069,3 +1071,28 @@ def test_fact_ranking_cards_render_without_numbers():
     assert scene.kicker is not None and scene.frame(1.5).size == (W, H)
     intro = make_scene(_job("intro", intro={"si_value": 1.0, "unit": "Q199", "wanted": None, "fact": True}))
     assert intro.top_q is None and intro.frame(1.5).size == (W, H)
+
+
+def test_every_design_and_motion_renders():
+    """Alle Designs × Bewegungsprofile rendern Intro, Platz (Foto → „blur“-Hintergrund) und Abschluss."""
+    from PIL import Image
+
+    from cudi_video.render import theme
+    from cudi_video.render.scenes import make_scene
+
+    photo = Path(tempfile.mkdtemp()) / "p.jpg"
+    Image.new("RGB", (800, 600), (90, 140, 200)).save(photo)
+    item = {"rank": 2, "name": "Testberg", "si_value": 8848.0, "unit": "Q11573", "wanted": None, "value_label": "Höhe",
+            "as_of": None, "extras": [], "image_path": str(photo), "image_kind": "photo", "credit_short": "X",
+            "icon": "mountain", "n_sources": 2, "compare_chip": None}
+    try:
+        for i, (name, motion) in enumerate((n, m) for n in theme.STYLES for m in theme.MOTIONS):
+            style = {"name": name, "motion": motion}
+            scene = make_scene(_job("item", item=item, style=style))
+            assert theme.STYLE["name"] == name and scene.frame(0.3 if i % 2 else 1.6).size == (theme.W, theme.H)
+            assert scene.subs.mode == theme.STYLES[name]["subs"]
+        make_scene(_job("intro", intro={"si_value": 1.0, "unit": "Q199", "wanted": None, "fact": True},
+                        style={"name": "pop", "motion": "zoom"})).frame(0.5)
+    finally:
+        theme.apply_style({"name": "neon", "motion": "gleiten"})       # andere Tests erwarten das Standard-Design
+

@@ -11,8 +11,8 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageOps
 from ..units import quantity
 from .icons import draw_icon
 from .theme import (
-    ACCENT, ACCENT2, CARD, CONTENT_W, GOLD, H, MUTED, SUB_Y, TRACK, W, WHITE, X0,
-    background, clamp, cover_crop, ease_in_out, ease_out_back, ease_out_cubic, fit_font, font,
+    ACCENT, ACCENT2, CARD, CONTENT_W, GOLD, H, MUTED, STYLE, SUB_Y, TRACK, W, WHITE, X0,
+    apply_style, backdrop_from, background, clamp, full_shade, cover_crop, ease_in_out, ease_out_back, ease_out_cubic, fit_font, font,
     gradient_fill, paste, progress, rank_colors, rounded_mask, rounded_rect, shadow, text_layer, wrap,
 )
 
@@ -32,8 +32,9 @@ class Subtitles:
     MAX_CHARS = 20
     MAX_WORDS = 4
 
-    def __init__(self, words: list[dict], text: str, offset: float, highlight=ACCENT):
-        self.highlight = highlight
+    def __init__(self, words: list[dict], text: str, offset: float, highlight=None):
+        self.highlight = highlight or ACCENT
+        self.mode = STYLE.get("subs", "box")
         self.font = font("black", 66)
         self.line_height = sum(self.font.getmetrics()) + 14
         self.chunks = self._chunk(words, text)
@@ -81,9 +82,14 @@ class Subtitles:
             y = 10 + li * line_h
             for word in line_words:
                 wl = fnt.getlength(word)
-                if idx == wi:
+                if idx == wi and self.mode == "box":          # Design: aktives Wort farbig hinterlegt
                     d.rounded_rectangle((x - 12, y - 4, x + wl + 12, y + ascent + descent + 4), 16, fill=(*self.highlight, 255))
                     d.text((x, y), word, font=fnt, fill=(10, 12, 28))
+                elif idx == wi:                                  # „outline“/„color“: aktives Wort in Akzentfarbe
+                    d.text((x, y - 3), word, font=fnt, fill=(*self.highlight, 255),
+                           stroke_width=6 if self.mode == "outline" else 2, stroke_fill=(5, 6, 16))
+                elif self.mode == "color":
+                    d.text((x, y), word, font=fnt, fill=(235, 235, 240), stroke_width=2, stroke_fill=(5, 6, 16))
                 else:
                     d.text((x, y), word, font=fnt, fill=WHITE, stroke_width=6, stroke_fill=(5, 6, 16))
                 x += wl + space
@@ -201,6 +207,28 @@ class GraphicCard:
 
 # --------------------------------------------------------------------------- Szenen
 
+def card_motion(p: float) -> tuple[float, float, float]:
+    """(dx, dy, Maßstab) einer hereinkommenden Karte je Bewegungsprofil des Designs."""
+    mode = STYLE.get("card", "slide")
+    if mode == "rise":
+        return 0.0, (1 - p) * 240, 1.0
+    if mode == "zoom":
+        return 0.0, 0.0, 0.82 + 0.18 * p
+    if mode == "swing":
+        return (1 - p) * -360, 0.0, 1.0
+    return 0.0, (1 - p) * 50, 1.0
+
+
+def paste_scaled(f, layer, xy, scale: float, opacity: float = 1.0) -> None:
+    """Ebene um ihre Mitte skaliert einfügen (nur während der Animation, sonst unverändert)."""
+    if scale >= 0.999:
+        paste(f, layer, xy, opacity=opacity)
+        return
+    w, h = max(1, int(layer.width * scale)), max(1, int(layer.height * scale))
+    paste(f, layer.resize((w, h), Image.BILINEAR), (xy[0] + (layer.width - w) / 2, xy[1] + (layer.height - h) / 2),
+          opacity=opacity)
+
+
 class Scene:
     def __init__(self, job: dict):
         self.job = job
@@ -245,12 +273,18 @@ class IntroScene(Scene):
         y = 390
         for i, layer in enumerate(self.title_lines):
             pi = ease_out_cubic(progress(t, 0.2 + i * 0.12, 0.45))
-            paste(f, layer, (X0 + (1 - pi) * -80, y), opacity=pi)
+            mode = STYLE.get("title", "left")
+            if mode == "scale":
+                paste_scaled(f, layer, (X0, y), 0.7 + 0.3 * pi, opacity=pi)
+            else:
+                dx = {"left": -80, "right": 80}.get(mode, 0) * (1 - pi)
+                paste(f, layer, (X0 + dx, y + (60 * (1 - pi) if mode == "rise" else 0)), opacity=pi)
             y += self.line_h
         cy = max(y + 50, 860)
         pc = ease_out_cubic(progress(t, 0.7, 0.5))
-        paste(f, self.card_shadow, (X0 - 60, cy - 60 + (1 - pc) * 60), opacity=pc)
-        paste(f, self.card, (X0, cy + (1 - pc) * 60), opacity=pc)
+        dx, dy, sc = card_motion(pc)
+        paste_scaled(f, self.card_shadow, (X0 - 60 + dx, cy - 60 + dy), sc, opacity=pc)
+        paste_scaled(f, self.card, (X0 + dx, cy + dy), sc, opacity=pc)
         wobble = math.sin(t * 3) * 6
         paste(f, self.q, (X0 + 60, cy + 40 + wobble), opacity=pc)
         paste(f, self.mystery, (X0 + 300, cy + 90), opacity=pc)
@@ -286,6 +320,11 @@ class ItemScene(Scene):
         name_font, name_lines = name_layout(it["name"])
         self.name = text_layer(name_lines, name_font)
         self.card_size = self.CARD_SIZE if len(name_lines) == 1 else self.CARD_SIZE_LONG_NAME
+        # Vollbild-Layout (Designs „kino“, „natur“): Clip/Foto füllt den ganzen Bildschirm, Text unten auf Schatten
+        self.full = STYLE.get("layout") == "full" and bool(
+            it.get("clips") or (it.get("image_path") and it.get("image_kind") != "flag"))
+        if self.full:
+            self.card_size = (W, H)
         # Bild vorbereiten: Fotos füllen die Karte (Ken-Burns braucht Reserve um den Ausschnitt),
         # Flaggen werden vollständig gezeigt, ohne Bild gibt es eine Grafik-Karte mit Themen-Icon.
         self.photo = None
@@ -300,11 +339,18 @@ class ItemScene(Scene):
                     self.photo = cover_crop(img.convert("RGB"), (int(cw * 1.18), int(ch * 1.18)))
             except Exception:
                 self.photo, flag = None, None
+        if self.full and self.photo is None and not it.get("clips"):      # Foto nicht lesbar: zurück zur Karte
+            self.full = False
+            self.card_size = self.CARD_SIZE if len(name_lines) == 1 else self.CARD_SIZE_LONG_NAME
         keep_out = (self.BADGE_POS[0] + self.BADGE, self.BADGE_POS[1] + self.BADGE)
         self.graphic = None if self.photo else GraphicCard(self.card_size, it.get("icon", "globe"),
                                                            self.c1, self.c2, flag, keep_out)
-        self.card_mask = rounded_mask(self.card_size, 36)
-        self.card_shadow = shadow(rounded_rect(self.card_size, 36, (0, 0, 0, 255)), 30, 180)
+        if self.full:
+            self.card_mask = Image.new("L", self.card_size, 255)
+            self.card_shadow = None
+        else:
+            self.card_mask = rounded_mask(self.card_size, 36)
+            self.card_shadow = shadow(rounded_rect(self.card_size, 36, (0, 0, 0, 255)), 30, 180)
         self.credit = None
         if it.get("credit_short"):
             kind = self.L["image"] if it.get("image_kind") == "flag" else self.L["photo"]
@@ -314,7 +360,8 @@ class ItemScene(Scene):
         if it.get("clips"):
             from .clipreel import ClipReel
 
-            self.reel = ClipReel(it["clips"], self.card_size, job["duration"], job["fps"])
+            reel_size = (W // 2, H // 2) if self.full else self.card_size      # Vollbild: halbe Auflösung, hochskaliert
+            self.reel = ClipReel(it["clips"], reel_size, job["duration"], job["fps"])
             self.clip_credits = {
                 c.get("credit", ""): self._credit_chip(
                     f"{self.L['photo'] if c.get('kind') == 'image' else self.L['clip']}: {c['credit_short']}")
@@ -346,6 +393,7 @@ class ItemScene(Scene):
         if it.get("compare_chip"):   # belegter Vergleich, z. B. "48× Deutschland"
             self.chips.insert(0, chip(it["compare_chip"], font("bold", 30), fg=(10, 12, 28), bg=(*self.c1, 255)))
         self.confetti = self._confetti() if it["rank"] == 1 else []
+        self._backdrop = None
 
     def _confetti(self):
         rnd = random.Random(7)
@@ -365,6 +413,8 @@ class ItemScene(Scene):
         if self.reel is not None:
             img = self.reel.frame_at(t)
             if img is not None:
+                if img.size != self.card_size:
+                    img = img.resize(self.card_size, Image.BILINEAR)
                 crop = img.convert("RGBA")
                 crop.putalpha(self.card_mask)
                 return crop
@@ -375,35 +425,54 @@ class ItemScene(Scene):
         zoom = 1.0 + 0.14 * p
         bw, bh = self.photo.size
         w, h = bw / zoom, bh / zoom
-        x = (bw - w) * (0.5 + 0.25 * math.sin(p * math.pi * 0.8 - 0.4))
+        x = (bw - w) * (0.5 + 0.25 * math.sin(p * math.pi * 0.8 + STYLE.get("pan", -0.4)))
         y = (bh - h) * 0.4
         crop = self.photo.resize((cw, ch), Image.BILINEAR, box=(x, y, x + w, y + h)).convert("RGBA")
         crop.putalpha(self.card_mask)
         return crop
 
     def frame(self, t):
-        f = background(t, self.c1, self.c2)
-        header(f, self.job, t, self.job["n_items"] - self.item["rank"])
-        # Bildkarte
+        if STYLE.get("bg") == "blur" and self._backdrop is None and not self.full:    # Design „blur“: Foto/Clip als Vollbild-Hintergrund
+            src = self.photo if self.photo is not None else (self.reel.last if self.reel is not None else None)
+            if src is not None:
+                self._backdrop = backdrop_from(src)
+        f = background(t, self.c1, self.c2, backdrop=self._backdrop)
+        if not self.full:                       # Vollbild: Kopfzeile erst über Clip und Schatten
+            header(f, self.job, t, self.job["n_items"] - self.item["rank"])
+        # Bildkarte (Hereinkommen je Bewegungsprofil)
         pc = ease_out_cubic(progress(t, 0.05, 0.5))
-        cy = self.CARD_Y + (1 - pc) * 50
-        paste(f, self.card_shadow, (X0 - 60, cy - 50), opacity=pc)
-        paste(f, self._card(t), (X0, cy), opacity=pc)
+        dx, dy, sc = card_motion(pc)
         credit = self.clip_credits.get(self.reel.credit_at(t)) if self.reel is not None and self.reel.last else self.credit
-        if credit:
-            paste(f, credit, (X0 + 18, cy + self.card_size[1] - credit.height - 16), opacity=pc)
+        if self.full:
+            paste_scaled(f, self._card(t), (dx, dy), sc, opacity=pc)
+            paste(f, full_shade(), (0, 0))
+            header(f, self.job, t, self.job["n_items"] - self.item["rank"])      # Kopfzeile über dem Schatten
+            if credit:
+                paste(f, credit, (X0 + self.BADGE + 10, self.CARD_Y - 20), opacity=pc)
+        else:
+            cy = self.CARD_Y + dy
+            paste_scaled(f, self.card_shadow, (X0 - 60 + dx, cy - 50), sc, opacity=pc)
+            paste_scaled(f, self._card(t), (X0 + dx, cy), sc, opacity=pc)
+            if credit:
+                paste(f, credit, (X0 + 18, cy + self.card_size[1] - credit.height - 16), opacity=pc)
         # Rang-Badge springt auf die Ecke
         pb = ease_out_back(progress(t, 0.15, 0.45))
+        mode = STYLE.get("badge", "pop")
         if pb > 0:
             B = self.BADGE
-            size = max(1, int(B * pb))
-            b = self.badge.resize((size, size))
-            bx = X0 + self.BADGE_POS[0] + (B - size) / 2
-            by = self.CARD_Y + self.BADGE_POS[1] + (B - size) / 2
+            bx, by = X0 + self.BADGE_POS[0], self.CARD_Y + self.BADGE_POS[1]
+            if mode == "pop":                                  # springt aus der Ecke auf
+                size = max(1, int(B * pb))
+                b = self.badge.resize((size, size))
+                bx, by = bx + (B - size) / 2, by + (B - size) / 2
+            else:                                              # fällt von oben herein / gleitet von links herein
+                pm = ease_out_cubic(progress(t, 0.15, 0.45))
+                b = self.badge
+                bx, by = (bx - (1 - pm) * 320, by) if mode == "slide" else (bx, by - (1 - pb) * 300)
             paste(f, self.badge_shadow, (bx - 44, by - 34), opacity=clamp(pb))
-            paste(f, b, (bx, by))
+            paste(f, b, (bx, by), opacity=clamp(pb * 1.5) if mode != "pop" else 1.0)
         # Name
-        y = self.CARD_Y + self.card_size[1] + 34
+        y = 880 if self.full else self.CARD_Y + self.card_size[1] + 34
         pn = ease_out_cubic(progress(t, 0.3, 0.45))
         paste(f, self.name, (X0, y + (1 - pn) * 40), opacity=pn)
         y += self.name.height + 6
@@ -506,7 +575,10 @@ class OutroScene(Scene):
         for i, row in enumerate(self.rows):
             col, r = divmod(i, self.per_col)
             pr = ease_out_cubic(progress(t, 0.2 + i * step, 0.35))
-            paste(f, row, (X0 + col * (self.col_w + self.gap) + (1 - pr) * 120, y0 + r * self.row_h), opacity=pr)
+            mode = STYLE.get("rows", "right")
+            dx = {"right": 120, "left": -120}.get(mode, 0) * (1 - pr)
+            dy = 60 * (1 - pr) if mode == "rise" else 0
+            paste(f, row, (X0 + col * (self.col_w + self.gap) + dx, y0 + r * self.row_h + dy), opacity=pr)
         y = y0 + self.per_col * self.row_h + 16
         ps = progress(t, 1.0, 0.5)
         paste(f, self.sources, (X0, y), opacity=ps)
@@ -524,4 +596,5 @@ class OutroScene(Scene):
 
 
 def make_scene(job: dict) -> Scene:
+    apply_style(job.get("style"))           # Design je Video (jeder Render-Prozess setzt es selbst)
     return {"intro": IntroScene, "item": ItemScene, "outro": OutroScene}[job["kind"]](job)

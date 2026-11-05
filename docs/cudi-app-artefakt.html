@@ -216,6 +216,19 @@
               <option value="lang">Lang (bis 10 Minuten, bis 30 Plätze)</option>
             </select>
           </div>
+          <div>
+            <label for="design">Design</label>
+            <select id="design">
+              <option value="" selected>Automatisch (passend zum Thema, jedes Mal anders)</option>
+              <option value="kino">Kino – Clip im Vollbild</option>
+              <option value="natur">Natur – Vollbild, grün</option>
+              <option value="neon">Neon – leuchtend, Karten</option>
+              <option value="doku">Doku – warm, Filmkorn</option>
+              <option value="ozean">Ozean – blau, Lichtpunkte</option>
+              <option value="pop">Pop – bunt, Lichtstrahlen</option>
+              <option value="minimal">Minimal – schlicht, rot</option>
+            </select>
+          </div>
         </div>
         <div class="checks">
           <label class="check" for="strict"><input type="checkbox" id="strict"> Streng: nur mehrfach bestätigte Fakten</label>
@@ -420,7 +433,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       label: topic || sel.options[sel.selectedIndex].text,
       order: { art: "ranking", vorlage: sel.value, thema: topic, sprachen: langs, plaetze: count,
                streng: $("strict").checked, nur_skript: $("onlyScript").checked, laenge: long ? "lang" : "",
-               maskottchen: $("mascotRank").checked },
+               maskottchen: $("mascotRank").checked, design: $("design").value },
     };
   }
   function storyOrder() {

@@ -81,6 +81,21 @@ def parse_preferences(raw) -> dict:
     return out
 
 
+DESIGN_ENV = "CUDI_DESIGN"
+
+
+def _design(value) -> str:
+    """Design aus dem Auftrag: leer/„auto“ = passend zum Thema, sonst ein Name aus render.theme.STYLES."""
+    from .render.theme import STYLES
+
+    name = str(value or "").strip().lower()
+    if name in ("", "auto"):
+        return ""
+    if name not in STYLES:
+        raise OrderError(f"Unbekanntes Design „{name}“ – erlaubt: {', '.join(STYLES)}.")
+    return name
+
+
 def parse_order(raw: dict, presets: set[str]) -> dict:
     """Auftrag der App-Seite prüfen: nur bekannte Felder und erlaubte Werte."""
     order = _parse_order(raw, presets)
@@ -116,7 +131,8 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError(f"Plätze: bitte eine Zahl von 3 bis {most}.")
         return {"id": job_id, "art": "ranking", "thema": topic, "vorlage": preset, "sprachen": langs,
                 "plaetze": count, "streng": _flag(raw.get("streng"), False), "laenge": length,
-                "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), None)}
+                "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), None),
+                "design": _design(raw.get("design"))}
     if kind == "story":
         wish = _text(raw.get("wunsch"), 300)
         mood = str(raw.get("stimmung") or "auto")
@@ -389,6 +405,10 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
         os.environ[handoff.PREFS_ENV] = json.dumps(order["vorlieben"], ensure_ascii=False)
     else:
         os.environ.pop(handoff.PREFS_ENV, None)
+    if order.get("design"):                               # gewähltes Design; sonst passend zum Thema, je Video anders
+        os.environ[DESIGN_ENV] = order["design"]
+    else:
+        os.environ.pop(DESIGN_ENV, None)
     if order.get("maskottchen") is not None:              # nur ausdrücklich gewählt überschreibt CUDI_MASCOT
         os.environ["CUDI_MASCOT"] = "1" if order["maskottchen"] else "0"
     last = [""]

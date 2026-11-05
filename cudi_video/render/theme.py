@@ -1,4 +1,10 @@
-"""Farben, Schriften und Zeichen-Hilfen für den Infografik-Stil."""
+"""Farben, Schriften, Designs und Zeichen-Hilfen für den Infografik-Stil.
+
+Designs (`STYLES`): Jedes Video bekommt ein ganzes Design – Farben, Hintergrund (Lichtflecken, unscharfes
+Vollbild-Foto des Platzes oder schlicht), Untertitel-Stil und Effekt (Filmkorn, Lichtpartikel, Lichtstrahlen) –
+dazu unabhängig ein Bewegungsprofil (`MOTIONS`: wie Karten, Titel und Abzeichen hereinkommen). Gewählt wird
+passend zum Thema und je Video verschieden (`pick_style`), außer der Auftrag nennt ein Design.
+"""
 
 from __future__ import annotations
 
@@ -30,6 +36,83 @@ WHITE = (255, 255, 255)
 MUTED = (148, 163, 184)
 CARD = (22, 27, 54)
 TRACK = (40, 46, 82)
+
+
+STYLES = {
+    "neon":    dict(bg_top=(9, 12, 30), bg_bottom=(26, 12, 52), accent=(34, 211, 238), accent2=(139, 92, 246),
+                    card=(22, 27, 54), track=(40, 46, 82), muted=(148, 163, 184), bg="glow", subs="box", effect="none",
+                    label={"de": "Neon", "en": "Neon"}),
+    "natur":   dict(bg_top=(5, 22, 16), bg_bottom=(12, 40, 28), accent=(52, 211, 153), accent2=(250, 204, 21),
+                    card=(14, 38, 30), track=(30, 62, 50), muted=(167, 196, 180), bg="blur", subs="box",
+                    effect="particles", layout="full", label={"de": "Natur", "en": "Nature"}),
+    "doku":    dict(bg_top=(22, 15, 9), bg_bottom=(44, 29, 17), accent=(245, 158, 11), accent2=(217, 119, 6),
+                    card=(42, 30, 20), track=(70, 52, 36), muted=(214, 196, 170), bg="blur", subs="outline",
+                    effect="grain", label={"de": "Doku", "en": "Documentary"}),
+    "minimal": dict(bg_top=(10, 10, 12), bg_bottom=(20, 20, 24), accent=(239, 68, 68), accent2=(115, 115, 125),
+                    card=(30, 30, 34), track=(52, 52, 58), muted=(163, 163, 170), bg="flat", subs="color",
+                    effect="none", label={"de": "Minimal", "en": "Minimal"}),
+    "ozean":   dict(bg_top=(3, 16, 38), bg_bottom=(5, 40, 68), accent=(56, 189, 248), accent2=(45, 212, 191),
+                    card=(9, 33, 60), track=(24, 58, 92), muted=(148, 180, 210), bg="glow", subs="box",
+                    effect="particles", label={"de": "Ozean", "en": "Ocean"}),
+    "kino":    dict(bg_top=(8, 8, 10), bg_bottom=(16, 14, 12), accent=(255, 214, 10), accent2=(245, 158, 11),
+                    card=(24, 22, 20), track=(60, 56, 50), muted=(200, 196, 188), bg="glow", subs="outline",
+                    effect="grain", layout="full", label={"de": "Kino", "en": "Cinema"}),
+    "pop":     dict(bg_top=(38, 6, 44), bg_bottom=(86, 12, 68), accent=(250, 204, 21), accent2=(236, 72, 153),
+                    card=(58, 14, 62), track=(90, 30, 92), muted=(230, 190, 230), bg="glow", subs="outline",
+                    effect="rays", label={"de": "Pop", "en": "Pop"}),
+}
+# Bewegungsprofile: Karte (card), Titelzeilen (title), Rang-Abzeichen (badge), Listenzeilen (rows), Foto-Schwenk (pan)
+MOTIONS = {
+    "gleiten": dict(card="slide", title="left", badge="pop", rows="right", pan=-0.4),
+    "aufsteigen": dict(card="rise", title="rise", badge="drop", rows="rise", pan=0.9),
+    "zoom": dict(card="zoom", title="scale", badge="pop", rows="fade", pan=2.2),
+    "schwung": dict(card="swing", title="right", badge="slide", rows="left", pan=3.4),
+}
+# Welche Designs zu welchem Thema passen (Icon der Vorlage bzw. Fakten-Ranking); gewählt wird je Video verschieden
+STYLE_FIT = {
+    "mountain": ["natur", "kino", "doku", "minimal"], "lake": ["ozean", "natur", "kino", "minimal"],
+    "waterfall": ["natur", "kino", "ozean"], "island": ["ozean", "natur", "pop", "kino"],
+    "building": ["neon", "doku", "kino", "minimal"], "globe": ["neon", "doku", "minimal", "ozean", "kino"],
+    "people": ["pop", "neon", "minimal"], "facts": ["neon", "pop", "minimal", "ozean", "doku", "kino"],
+}
+STYLE: dict = {**STYLES["neon"], "name": "neon", **MOTIONS["gleiten"], "motion": "gleiten"}
+
+
+def pick_style(spec_id: str, icon: str | None, kind: str = "numbers", wanted: str = "") -> dict:
+    """Design + Bewegungsprofil für ein Video: gewünscht (Auftrag) oder passend zum Thema, fest je Video-ID."""
+    import hashlib
+
+    def h(salt: str, n: int) -> int:
+        return int(hashlib.md5(f"{spec_id}{salt}".encode()).hexdigest(), 16) % n
+
+    if wanted in STYLES:
+        name = wanted
+    else:
+        options = STYLE_FIT.get("facts" if kind == "facts" else (icon or ""), list(STYLES))
+        name = options[h("design", len(options))]
+    motion = list(MOTIONS)[h("motion", len(MOTIONS))]
+    return {"name": name, "motion": motion}
+
+
+def apply_style(style: dict | None) -> None:
+    """Design für die Szenen setzen (jeder Render-Prozess ruft das selbst auf – Szenen laufen parallel)."""
+    style = style or {}
+    name = style.get("name") if style.get("name") in STYLES else "neon"
+    motion = style.get("motion") if style.get("motion") in MOTIONS else "gleiten"
+    if STYLE.get("name") == name and STYLE.get("motion") == motion:
+        return
+    s = STYLES[name]
+    STYLE.clear()
+    STYLE.update({**s, "name": name, **MOTIONS[motion], "motion": motion})
+    g = globals()
+    for key, const in (("bg_top", "BG_TOP"), ("bg_bottom", "BG_BOTTOM"), ("accent", "ACCENT"), ("accent2", "ACCENT2"),
+                       ("card", "CARD"), ("track", "TRACK"), ("muted", "MUTED")):
+        g[const] = s[key]
+    background_base.cache_clear()
+    full_shade.cache_clear()
+    from . import scenes                          # dort per „from .theme import …“ gebundene Farben mitziehen
+    for const in ("ACCENT", "ACCENT2", "CARD", "MUTED", "TRACK"):
+        setattr(scenes, const, g[const])
 
 
 def rank_colors(rank: int) -> tuple[tuple, tuple]:
@@ -230,12 +313,74 @@ def background_base() -> Image.Image:
     return linear_gradient((W, H), BG_TOP, BG_BOTTOM, vertical=True).convert("RGBA")
 
 
-def background(t: float, tint=ACCENT, tint2=ACCENT2) -> Image.Image:
-    """Dunkler Verlauf mit zwei langsam wandernden Lichtflecken."""
-    img = background_base().copy()
-    paste(img, glow_blob(420, tint), (-180 + 120 * math.sin(t * 0.35), 140 + 90 * math.cos(t * 0.27)))
-    paste(img, glow_blob(460, tint2), (520 + 110 * math.cos(t * 0.31), 1150 + 120 * math.sin(t * 0.23)))
+def background(t: float, tint=None, tint2=None, backdrop: Image.Image | None = None) -> Image.Image:
+    """Hintergrund im aktuellen Design: Lichtflecken (glow), schlicht (flat) oder unscharfes Foto (blur), dazu der
+    Effekt des Designs (Partikel, Lichtstrahlen, Filmkorn)."""
+    tint, tint2 = tint or ACCENT, tint2 or ACCENT2
+    mode = STYLE.get("bg", "glow")
+    img = backdrop.copy() if backdrop is not None and mode == "blur" else background_base().copy()
+    if mode == "glow" or (mode == "blur" and backdrop is None):
+        paste(img, glow_blob(420, tint), (-180 + 120 * math.sin(t * 0.35), 140 + 90 * math.cos(t * 0.27)))
+        paste(img, glow_blob(460, tint2), (520 + 110 * math.cos(t * 0.31), 1150 + 120 * math.sin(t * 0.23)))
+    effect = STYLE.get("effect")
+    if effect == "particles":
+        d = ImageDraw.Draw(img)
+        for i in range(34):
+            x = (i * 137.5 + 40 * math.sin(t * 0.5 + i)) % W
+            y = (H - ((i * 211 + t * (30 + i % 5 * 12)) % (H + 40))) - 20
+            r = 2 + i % 4
+            d.ellipse((x - r, y - r, x + r, y + r), fill=(*tint, 90 + (i % 3) * 40))
+    elif effect == "rays":
+        paste(img, _rays(tint2), (0, 0), opacity=0.55 + 0.25 * math.sin(t * 0.8))
+    elif effect == "grain":
+        paste(img, _grain(int(t * 12) % 4), (0, 0))
     return img
+
+
+@functools.lru_cache(maxsize=2)
+def full_shade() -> Image.Image:
+    """Vollbild-Layout: oben und unten abgedunkelt, damit Kopfzeile, Name und Untertitel auf jedem Clip lesbar sind."""
+    alpha = Image.new("L", (1, H))
+    for y in range(H):
+        top = max(0.0, 1 - y / 300) * 170
+        bottom = clamp((y - 620) / 640) ** 1.3 * 235
+        alpha.putpixel((0, y), int(max(top, bottom)))
+    layer = Image.new("RGBA", (W, H), (*BG_TOP, 255))
+    layer.putalpha(alpha.resize((W, H)))
+    return layer
+
+
+def backdrop_from(img: Image.Image) -> Image.Image:
+    """Unscharfes, abgedunkeltes Vollbild aus dem Foto/Clip eines Platzes (Design-Hintergrund „blur“)."""
+    small = cover_crop(img.convert("RGB"), (W // 6, H // 6)).filter(ImageFilter.GaussianBlur(5))
+    big = small.resize((W, H), Image.BILINEAR).convert("RGBA")
+    shade = linear_gradient((W, H), BG_TOP, BG_BOTTOM, vertical=True).convert("RGBA")
+    return Image.blend(big, shade, 0.62)
+
+
+@functools.lru_cache(maxsize=8)
+def _rays(color: tuple) -> Image.Image:
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    for i, x in enumerate(range(-400, W + 400, 260)):
+        d.polygon([(x, 0), (x + 90, 0), (x + 90 + 500, H), (x + 500, H)], fill=(*color, 26 if i % 2 else 14))
+    return layer.filter(ImageFilter.GaussianBlur(30))
+
+
+@functools.lru_cache(maxsize=4)
+def _grain(seed: int) -> Image.Image:
+    import random as _r
+
+    rnd = _r.Random(seed)
+    tile = Image.new("L", (240, 240))
+    tile.putdata([rnd.randint(0, 255) for _ in range(240 * 240)])
+    noise = Image.new("RGBA", (W, H), (255, 255, 255, 0))
+    alpha = Image.new("L", (W, H))
+    for x in range(0, W, 240):
+        for y in range(0, H, 240):
+            alpha.paste(tile, (x, y))
+    noise.putalpha(alpha.point(lambda a: a // 14))
+    return noise
 
 
 def cover_crop(img: Image.Image, size: tuple[int, int]) -> Image.Image:

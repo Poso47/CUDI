@@ -109,6 +109,17 @@ Erklärung (wie/warum) → Bedeutung für dich. Die Prüfung verwirft Fakten ohn
 knappe Texte (Korrekturrunde); weitere wörtliche Belege („belege“) stützen die Erklärung. Der Prüfbericht zeigt
 Themenkern, Aspekt und alle Belege je Platz.
 
+## Designs – jedes Video sieht anders aus
+
+Ranking- und Fakten-Videos haben **7 Designs** (`cudi_video/render/theme.py`, `STYLES`): Neon, Natur, Kino, Doku,
+Ozean, Pop, Minimal. Jedes bringt eigene Farben, Hintergrund (Lichtflecken, unscharfes Vollbild-Foto des Platzes
+oder schlicht), Untertitel-Stil (farbiger Kasten, Umriss oder Farbe), Effekt (Lichtpartikel, Lichtstrahlen,
+Filmkorn) und Layout mit – **Kino** und **Natur** zeigen Clip/Foto im **Vollbild**, Text unten auf Schatten. Dazu
+kommt unabhängig eines von 4 **Bewegungsprofilen** (`MOTIONS`: gleiten, aufsteigen, zoom, schwung – wie Karte,
+Titel, Rang-Abzeichen und Abschlussliste hereinkommen, wohin das Foto schwenkt). Ohne Wahl passt das Design zum
+Thema (`STYLE_FIT`, z. B. Berge → Natur/Kino/Doku/Minimal) und wechselt je Video (fest aus der Video-ID); in der
+App lässt es sich im Feld „Design“ wählen (Auftrag `design`).
+
 ## Spannungsbogen (Zuschauer bleiben dran)
 
 Jedes Video folgt einem psychologisch aufgebauten Bogen (`cudi_video/retention.py`), passend zu Format und Thema –
