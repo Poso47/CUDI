@@ -793,8 +793,12 @@ def test_numbers_need_a_second_source_nearby(monkeypatch):
 def test_more_everyday_forms():
     from cudi_video.textcheck import everyday_word
 
-    for word in ("Mustererkennung", "Schlussfolgern", "Erkennung"):
+    for word in ("Mustererkennung", "Schlussfolgern", "Erkennung", "Eismeer", "Ururgroßeltern", "Zubeißen",
+                 "Schleifpapier"):
         assert everyday_word(word, "de"), word
+    assert everyday_word("Knorpelfischhaut", "de", {"knorpelfisch"}) and not everyday_word("Knorpelfischhaut", "de")
+    for word in ("Bauhaus", "Rosenthal", "Kahneman", "Einstein"):
+        assert not everyday_word(word, "de"), word
 
 
 def test_numbers_confirmed_by_study_abstract(monkeypatch):

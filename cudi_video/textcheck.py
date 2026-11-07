@@ -125,7 +125,7 @@ GERMAN_NAMES = set("""müller schmidt schneider fischer weber meyer meier wagner
     duisburg bochum wuppertal bielefeld bonn münster mannheim karlsruhe augsburg wiesbaden aachen kiel lübeck rostock
     erfurt mainz kassel freiburg heidelberg potsdam wien graz linz salzburg innsbruck zürich genf basel bern luzern
     deutschland österreich schweiz frankreich italien spanien england amerika russland china japan indien europa afrika
-    asien bayern sachsen hessen preußen""".split())
+    asien bayern sachsen hessen preußen bauhaus""".split())
 NAME_ENDINGS = ("mann", "berg", "burg", "dorf", "stein", "feld", "hausen", "ingen", "heim", "bach", "stadt", "furt",
                 "thal")
 TAIL_RANK = 50000                       # zweiter Teil einer Zusammensetzung („-folgern“) darf seltener sein
@@ -142,8 +142,14 @@ def _german_everyday(part: str, max_rank: int = COMMON_RANK) -> bool:
     return part not in en or en[part] > 3 * rank + 1000
 
 
-def _german_known(part: str) -> bool:
-    """Alltagswort – auch gebeugt („Alltags“) oder zusammengesetzt („Faustregel“, „Wimpernschlag“)."""
+SEPARABLE = ("zurück", "durch", "unter", "nach", "über", "auf", "aus", "ein", "mit", "vor", "weg", "zu", "ab", "an",
+             "um", "los")                            # „Zubeißen“, „Aufwachen“
+PREFIXES = ("urur", "ur", "un")                      # „Ururgroßeltern“, „Unruhe“
+
+
+def _german_known(part: str, extra: frozenset = frozenset(), depth: int = 0) -> bool:
+    """Alltagswort – auch gebeugt („Alltags“), zusammengesetzt („Faustregel“, „Eismeer“, „Schleifpapier“), mit
+    trennbarer Vorsilbe („Zubeißen“) oder aus Wörtern der Quelle gebildet („Haihaut“, wenn „Hai“ in der Quelle steht)."""
     if part in GERMAN_NAMES:
         return False
     en, de = common_words("en"), common_words("de")
@@ -151,28 +157,35 @@ def _german_known(part: str) -> bool:
         return False                                   # internationales Wort/Name („London“, „Paris“, „Trick“)
     if _german_everyday(part):
         return True
-    stems = [part[: -len(e)] for e in GERMAN_ENDINGS if part.endswith(e) and len(part) - len(e) >= 4]
-    if part.endswith(("ung", "ungen")):                # „Erkennung“ → „erkennen“
-        stems.append(part[: part.rindex("ung")] + "en")
-    if any(_german_everyday(s) for s in stems):
+
+    def forms(x: str) -> list[str]:
+        out = [x] + [x[: -len(e)] for e in GERMAN_ENDINGS if x.endswith(e) and len(x) - len(e) >= 3]
+        if x.endswith(("ung", "ungen")):                # „Erkennung“ → „erkennen“
+            out.append(x[: x.rindex("ung")] + "en")
+        return out
+
+    def known(x: str, rank: int) -> bool:
+        return any(f in extra or _german_everyday(f, rank) for f in forms(x))
+
+    if any(_german_everyday(f) for f in forms(part)[1:]):
         return True
-
-    def piece(x: str) -> bool:
-        forms = [x] + [x[: -len(e)] for e in GERMAN_ENDINGS if x.endswith(e) and len(x) - len(e) >= 4]
-        if x.endswith(("ung", "ungen")):
-            forms.append(x[: x.rindex("ung")] + "en")
-        return any(_german_everyday(f, TAIL_RANK) for f in forms)
-
     if part.endswith(NAME_ENDINGS):                    # „Hoffmann“, „Heidelberg“: als Zusammensetzung belegpflichtig
         return False
-    for i in range(4, len(part) - 3):                  # zwei Teile, je mindestens 4 Buchstaben (Fugen-s erlaubt)
+    if depth < 2:
+        for pre in PREFIXES + SEPARABLE:
+            rest = part[len(pre):]
+            if part.startswith(pre) and len(rest) >= 4 and (known(rest, TAIL_RANK) or _german_known(rest, extra, depth + 1)):
+                return True
+    for i in range(3, len(part) - 3):                  # zwei Teile: vorne ≥ 3, hinten ≥ 4 Buchstaben (Fugen-s erlaubt)
         head, tail = part[:i], part[i:]
-        heads = [head] + ([head[:-1]] if head.endswith("s") and len(head) > 4 else [])
-        if any(_german_everyday(h, PART_RANK) for h in heads) and piece(tail):
+        heads = [head] + ([head[:-1]] if head.endswith("s") and len(head) > 4 else []) + [head + "en", head + "e"]
+        if any(h in extra or _german_everyday(h, PART_RANK) for h in heads) and known(tail, TAIL_RANK):
             return True
     return False
 
 
-def everyday_word(word: str, lang: str) -> bool:
+def everyday_word(word: str, lang: str, extra=None) -> bool:
+    """`extra`: Wörter der Quellen (klein geschrieben) – dürfen Teil einer Zusammensetzung sein."""
     parts = [p for p in re.split(r"[-'’]", word.lower()) if p]
-    return lang == "de" and bool(parts) and all(_german_known(p) for p in parts)
+    extra = frozenset(w for w in (extra or ()) if len(w) >= 3)
+    return lang == "de" and bool(parts) and all(_german_known(p, extra) for p in parts)

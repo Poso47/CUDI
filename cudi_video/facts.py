@@ -210,6 +210,18 @@ def confirm_numbers(numbers: set[str], home: dict, sources: list[dict]) -> str |
     return None
 
 
+_WORDS: dict = {}
+
+
+def source_words(sources: list[dict], beleg: str) -> frozenset:
+    """Alle Wörter der Quellen (klein) – Bausteine für Zusammensetzungen wie „Haihaut“."""
+    key = tuple(s["id"] for s in sources)
+    if key not in _WORDS:
+        _WORDS.clear()
+        _WORDS[key] = frozenset(re.findall(r"[a-zäöüß]{3,}", " ".join(s["text"] for s in sources).lower()))
+    return _WORDS[key] | frozenset(re.findall(r"[a-zäöüß]{3,}", beleg.lower()))
+
+
 def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int,
                aspects: list[str] | None = None) -> tuple[str | None, str]:
     """(Grund der Ablehnung oder None, Prüfstatus). Status „bestätigt“ = Zahlen auch in einer zweiten Quelle."""
@@ -252,7 +264,8 @@ def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int,
             return f"zu kurz ({lang}) – erkläre mehr als den nackten Fakt", ""
         unknown = invented_people(text, home["text"]) or unknown_words(
             text, {"sprache": lang, "beleg": beleg_all, "quelle": " ".join(s["text"] for s in sources)})
-        unknown = [w for w in unknown if not textcheck.everyday_word(w, lang)]
+        words = source_words(sources, beleg_all)
+        unknown = [w for w in unknown if not textcheck.everyday_word(w, lang, words)]
         if unknown:
             return "nicht belegt: " + ", ".join(unknown[:3]), ""
     numbers = {d for d in _digits(beleg_all) if len(d) >= 2}

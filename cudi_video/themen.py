@@ -45,11 +45,11 @@ def parse_focus(answer: dict) -> dict:
         text = re.sub(r"\s+", " ", text).strip()
         return text if len(text) <= n else text[:n].rsplit(" ", 1)[0].rstrip(" ,:;–-")
 
-    def texts(key: str, limit: int) -> list[str]:
-        return [short(str(t)) for t in (answer.get(key) or [])[:limit] if str(t).strip()]
+    def texts(key: str, limit: int, n: int = 48) -> list[str]:
+        return [short(str(t), n) for t in (answer.get(key) or [])[:limit] if str(t).strip()]
 
     frage = {lang: str(answer.get(f"themenkern_{lang}") or "").strip()[:160] for lang in ("de", "en")}
-    return {"frage": {k: v for k, v in frage.items() if v}, "aspekte": texts("aspekte", 6), "nicht": texts("nicht_gemeint", 6)}
+    return {"frage": {k: v for k, v in frage.items() if v}, "aspekte": texts("aspekte", 6), "nicht": texts("nicht_gemeint", 6, 80)}
 
 
 def matches_aspect(aspect: str, aspects: list[str]) -> bool:
