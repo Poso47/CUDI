@@ -150,6 +150,19 @@
   .errbox { color: var(--bad); white-space: pre-wrap; font: 13px/1.45 ui-monospace, Consolas, monospace;
             background: var(--panel); border: 1px solid color-mix(in srgb, var(--bad) 40%, var(--line)); border-radius: 10px; padding: 10px; }
   footer { color: var(--muted); font-size: 12px; text-align: center; }
+  /* Bedienbarkeit (UI UX Pro Max, Prüfliste): Tippflächen ≥ 44 px, sichtbare Tipp-Rückmeldung, Icons, wenig Bewegung */
+  button, .check, a.go, .bigopen, .pair a, .actions a { -webkit-tap-highlight-color: transparent;
+    transition: filter .12s ease-out, background-color .12s ease-out, border-color .12s ease-out; }
+  button:active:not(:disabled), .actions a:active, .pair a:active, a.go:active, .bigopen:active, .check:active { filter: brightness(1.3); }
+  nav button { min-height: 44px; }
+  .actions a, .actions button { min-height: 44px; padding: 10px 14px; display: inline-flex; align-items: center; gap: 6px; }
+  .skel .scene .bar button { min-height: 44px; min-width: 44px; }
+  .link-btn { min-height: 44px; padding: 0 4px; }
+  .moods button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+  .rate button { min-height: 44px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink);
+                 color: var(--paper); font: 700 15px var(--body); display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  svg.i { width: 20px; height: 20px; flex: none; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
 <main>
   <header>
@@ -249,12 +262,12 @@
         <div>
           <span class="label">Stimmung</span>
           <div class="moods" id="moods">
-            <button type="button" data-mood="creepy" aria-pressed="false">👻 Gruselig</button>
-            <button type="button" data-mood="suspense" aria-pressed="false">⚡ Spannend</button>
-            <button type="button" data-mood="funny" aria-pressed="false">😂 Lustig</button>
-            <button type="button" data-mood="drama" aria-pressed="false">🔥 Drama</button>
-            <button type="button" data-mood="revenge" aria-pressed="false">😈 Rache</button>
-            <button type="button" data-mood="wholesome" aria-pressed="false">💛 Herzlich</button>
+            <button type="button" data-mood="creepy" aria-pressed="false"><span class="ico" data-ico="ghost" aria-hidden="true"></span>Gruselig</button>
+            <button type="button" data-mood="suspense" aria-pressed="false"><span class="ico" data-ico="zap" aria-hidden="true"></span>Spannend</button>
+            <button type="button" data-mood="funny" aria-pressed="false"><span class="ico" data-ico="laugh" aria-hidden="true"></span>Lustig</button>
+            <button type="button" data-mood="drama" aria-pressed="false"><span class="ico" data-ico="flame" aria-hidden="true"></span>Drama</button>
+            <button type="button" data-mood="revenge" aria-pressed="false"><span class="ico" data-ico="swords" aria-hidden="true"></span>Rache</button>
+            <button type="button" data-mood="wholesome" aria-pressed="false"><span class="ico" data-ico="heart" aria-hidden="true"></span>Herzlich</button>
           </div>
         </div>
         <div>
@@ -580,19 +593,35 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     $("moods").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.mood === mood)));
   }));
 
+
+  /* ---------- Icons: einheitliche Linien-Icons (SVG) statt Emojis ---------- */
+  const svg = (d) => '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
+  const ICON = {
+    ghost: svg('<path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/>'),
+    zap: svg('<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>'),
+    laugh: svg('<circle cx="12" cy="12" r="10"/><path d="M18 13a6 6 0 0 1-12 0zM9 9h.01M15 9h.01"/>'),
+    flame: svg('<path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-9-1 2-2 3-3 3 0-2-1-5-3-7 0 4-4 7-4 13 0 4 3 7 7 7z"/>'),
+    swords: svg('<path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M9.5 14.5 21 3h-3l-6 6M5 14l-2 2M3 21l2-2M7 17l-2 2"/>'),
+    heart: svg('<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/>'),
+    up: svg('<path d="M7 10v12M15 5.9 14 10h5.8a2 2 0 0 1 1.9 2.6l-2.3 8a2 2 0 0 1-1.9 1.4H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L12 2a3.1 3.1 0 0 1 3 3.9z"/>'),
+    down: svg('<path d="M17 14V2M9 18.1 10 14H4.2a2 2 0 0 1-1.9-2.6l2.3-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.8a2 2 0 0 0-1.8 1.1L12 22a3.1 3.1 0 0 1-3-3.9z"/>'),
+    film: svg('<rect x="2" y="3" width="20" height="18" rx="2"/><path d="M7 3v18M17 3v18M2 8h5M2 16h5M17 8h5M17 16h5"/>'),
+  };
+  document.querySelectorAll("[data-ico]").forEach((el) => { el.innerHTML = ICON[el.dataset.ico] || ""; });
+
   /* ---------- Meine Videos: Aufträge, Fortschritt, Ergebnisse ---------- */
   const jobs = new Map(), results = new Map(), buckets = new Map(), watches = new Map(), cards = new Map();
   const ratings = new Map();          // Bewertungen je Auftrag (bleiben, auch wenn das Video gelöscht wird)
 
   /* ---------- Bewertungen: die App lernt, welche Videos gefallen ---------- */
-  // Ablauf: 👍 oder 👎 wählen, Notiz optional, „Bestätigen“. 👍 behält das Video, 👎 merkt sich den Grund und
+  // Ablauf: „Gut“ oder „Nicht gut“ wählen, Notiz optional, „Bestätigen“. „Gut“ behält das Video, „Nicht gut“ merkt sich den Grund und
   // löscht das Video samt Auftrag (die Bewertung selbst bleibt, damit die App daraus lernt).
   function ratingBox(id, job, res) {
     const r = ratings.get(id) || {};
     const box = document.createElement("div"); box.className = "rate";
     if (r.wert === 1) {
       const done = document.createElement("span"); done.className = "meta";
-      done.textContent = "👍 Gut – gemerkt, das Video bleibt." + (r.notiz ? " („" + r.notiz + "“)" : "");
+      done.textContent = "Gut – gemerkt, das Video bleibt." + (r.notiz ? " („" + r.notiz + "“)" : "");
       box.append(done);
       return box;
     }
@@ -601,8 +630,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const label = document.createElement("span"); label.className = "meta"; label.textContent = "Wie findest du das Video?";
     const note_ = document.createElement("input"); note_.type = "text"; note_.maxLength = 140;
     note_.placeholder = "Was war gut oder schlecht? (optional, z. B. „zu lang“, „Clips top“)";
-    const up = document.createElement("button"); up.type = "button"; up.textContent = "👍 Gut";
-    const down = document.createElement("button"); down.type = "button"; down.textContent = "👎 Nicht gut";
+    const up = document.createElement("button"); up.type = "button"; up.innerHTML = ICON.up + "Gut";
+    const down = document.createElement("button"); down.type = "button"; down.innerHTML = ICON.down + "Nicht gut";
     const ok = document.createElement("button"); ok.type = "button"; ok.className = "go"; ok.textContent = "Bestätigen"; ok.disabled = true;
     function pick(value) {
       choice = value;
@@ -783,8 +812,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   // ---------- Skelett prüfen und anpassen (Story-Schritt 1) ----------
   const skeletons = new Map(), saveTimers = new Map();               // Arbeitskopie je Auftrag -> „skelette/<id>“
-  const MOOD_LABELS = { creepy: "👻 Gruselig", suspense: "⚡ Spannend", funny: "😂 Lustig", drama: "🔥 Drama",
-                        revenge: "😈 Rache", wholesome: "💛 Herzlich" };
+  const MOOD_LABELS = { creepy: "Gruselig", suspense: "Spannend", funny: "Lustig", drama: "Drama",
+                        revenge: "Rache", wholesome: "Herzlich" };
   const words = (t) => String(t || "").trim().split(/\s+/).filter(Boolean).length;
   function scheduleSave(id) {
     clearTimeout(saveTimers.get(id));
@@ -835,7 +864,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       fi.value = sk.figur || ""; fi.maxLength = 200; fi.placeholder = "z. B. a man in his thirties with a gray hoodie";
       fi.addEventListener("input", () => { sk.figur = fi.value.trim(); scheduleSave(id); });
     }
-    if ((sk.rights || []).length) { const r = add(document.createElement("p")); r.className = "note warn"; r.textContent = "⚠️ " + sk.rights.join(" · "); }
+    if ((sk.rights || []).length) { const r = add(document.createElement("p")); r.className = "note warn"; r.textContent = "Achtung: " + sk.rights.join(" · "); }
     sk.parts.forEach((part, pi) => {
       const head = add(document.createElement("div")); head.className = "part";
       const est = () => {
@@ -885,7 +914,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       if (part.outro) { const h = add(document.createElement("p")); h.className = "hint"; h.textContent = "Schluss: " + part.outro; }
     });
     const row = add(document.createElement("div")); row.className = "actions";
-    const go = document.createElement("button"); go.type = "button"; go.className = "dl"; go.textContent = "🎬 Video erstellen";
+    const go = document.createElement("button"); go.type = "button"; go.className = "dl"; go.innerHTML = ICON.film + "Video erstellen";
     go.addEventListener("click", () => videoFromSkeleton(id, sk, go));
     const reset = document.createElement("button"); reset.type = "button"; reset.textContent = "Änderungen verwerfen";
     reset.addEventListener("click", () => {
