@@ -98,6 +98,24 @@ warum …“, „Mythen über …“), wird er zum **Fakten-Ranking** im gewohnt
 4. Karten zeigen die Kernaussage statt Zahl und Balken, dazu Stockclips/-fotos zur Bildsuche; Spannungsbogen,
    Maskottchen, Prüfbericht (mit Beleg und Quelle je Platz) wie bei Zahlen-Rankings.
 
+### Format „Manuskript“ und Erklärvideo
+
+Das Format `manuskript` (`render/manuskript.py`, `render/linien.py`) ist ein ruhiger Buchlook: fast schwarzer Grund mit
+Vignette, feinem Raster und schwebenden Lichtpunkten, Serifenschrift EB Garamond in warmem Off-White (Schlüsselwörter
+fett-kursiv), Pillen in Inter, Arabisch/Zitate in Amiri (alle OFL, Dateien samt Lizenz in `video_assets/fonts/`). Es
+bringt sein eigenes Design (`STYLES["manuskript"]`) mit und ist in der App/im Auftrag wählbar (`format: manuskript`).
+
+**Erklärvideo** (`cudi_video/erklaer/`): ein Szenen-Skript (JSON) wird zum Video, kein Netz außer der Stimme nötig:
+
+    python -m cudi_video erklaer examples/erklaer_goldener_schnitt.json
+
+Je Szene: `kapitel` (Pille), `text` (Sprechertext, erscheint Wort für Wort zur Stimme), `betont` (fett-kursiv) und
+`visual` mit `typ` = `spirale_partikel`, `zahl_zaehler{wert}`, `linie_zeichnen`, `punktmuster{n}`,
+`figur{pose: stehen|beten|zwei|liegen|sitzen}`, `gitterkoerper`, `baum`, `tuer`, `wolke`, `beschriftung` oder
+`zitatkarte{zitat, umschrift, uebersetzung, quelle, ueberliefert}`; optional `label` (gesperrte Großbuchstaben unter der
+Grafik). Die Linien-Animationen sind prozedural mit PIL gezeichnet. Stimme: Sprechprofil `erklaer`
+(`erklaer/render.py`, ruhig, längere Pausen). Der Text kommt nur aus dem Skript – nichts wird erfunden.
+
 ## Themen-Wissensstruktur (alle Videos)
 
 Jedes Video dreht sich um den **Themenkern** (`cudi_video/themen.py`): Beim Deuten des Wunsches legt Claude die
@@ -127,6 +145,7 @@ gilt still die bisherige Schrift.
 | Magazin | Bild oben mit schräger Kante, riesige Umriss-Ziffer, Farbbalken | Wischbalken, Ziffer zoomt heran | Riesen-„05“ + Titel mit Balken | Liste |
 | Polaroid | Sofortbild mit Klebestreifen, Stapel dahinter | Kamerablitz, Bild fällt und dreht sich | fallender Bilderstapel | Siegerpodest |
 | Riesenzahl | Clip läuft IN der Platz-Ziffer | Ziffer zoomt aus dem Bild heran | riesige Zahl im Farbverlauf | Siegerpodest |
+| Manuskript | Buchlook: Satz oben Wort für Wort, Kapitel-Pille „Platz 3“, Bild dezent eingefärbt im Linienrahmen, Quellen-Pille | weiche Überblendung | Spirale aus Partikeln | Liste mit feinen Linien |
 
 Die **Farben** (`render/theme.py`, `STYLES`: Neon, Natur, Kino, Doku, Ozean, Pop, Minimal – mit Hintergrund,
 Untertitel-Stil und Effekt wie Filmkorn, Lichtpunkten, Lichtstrahlen) passen sich dem **Thema** an
@@ -451,3 +470,12 @@ presets/                fertige Vorgaben
 * Cartoon-/Figuren-Stil als zweites Design
 * Längere Videos im Querformat (16:9) für YouTube
 * Direkter Upload über die YouTube-API, Vorbereitung für die TikTok-API
+
+## Clip-Engine (Podcast-/Streamer-Clips)
+
+`python -m cudi_video clip <datei-oder-url> [--start s --ende s] [--sprache de] [--laenge 90]` erzeugt
+`video_output/clips/<name>/clip.mp4` (1080×1920, 30 fps, ≤ 179 s) und `clip.json`. Ablauf: faster-whisper (Wörter mit Zeiten,
+als JSON zwischengespeichert) → bestes 30–90-s-Fenster nach Regeln (Fragen, Konfliktwörter, Lautstärke, Tempo, Pointe) →
+Hook (Cold Open + 0,15-s-Blitz, wenn er nicht am Anfang steht) → Pausen > 0,35 s heraus → Sprecher-Zuschnitt (Haar-Kaskade,
+Bewegung im Mundbereich; braucht `opencv-python-headless` 4.x, in 5.x fehlen die Kaskaden → Bildmitte) → Untertitel
+(Anton aus `video_assets/fonts`, 1–3 Wörter, Großbuchstaben, Schlüsselwort #FFD400). Code: `cudi_video/clip/`.

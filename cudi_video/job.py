@@ -29,6 +29,7 @@ import subprocess
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 from . import config, handoff
 
@@ -83,6 +84,46 @@ def _upload_wish(raw) -> dict | None:
     if visibility not in ("privat", "ungelistet", "oeffentlich"):
         raise OrderError("Sichtbarkeit: privat, ungelistet oder oeffentlich.")
     return {"ziel": target, "sichtbarkeit": visibility}
+
+
+def _seconds(value, name: str) -> float | None:
+    """Zeitangabe als Sekunden (Zahl) oder „m:ss“ / „h:mm:ss“; leer = nicht angegeben."""
+    if value is None or str(value).strip() == "":
+        return None
+    text = str(value).strip().replace(",", ".")
+    try:
+        if ":" in text:
+            parts = [float(p) for p in text.split(":")]
+            if not 2 <= len(parts) <= 3 or any(p < 0 for p in parts):
+                raise ValueError
+            seconds = 0.0
+            for p in parts:
+                seconds = seconds * 60 + p
+        else:
+            seconds = float(text)
+    except ValueError:
+        raise OrderError(f"{name}: bitte Sekunden oder Minuten:Sekunden angeben (z. B. 90 oder 1:30).") from None
+    if not 0 <= seconds <= 86400:
+        raise OrderError(f"{name}: außerhalb des erlaubten Bereichs.")
+    return round(seconds, 2)
+
+
+def _clip_url(value) -> str:
+    """Nur öffentliche http(s)-Adressen – keine lokalen oder privaten Ziele (Datei-Upload kommt später)."""
+    url = str(value or "").strip()
+    if not url:
+        raise OrderError("Clip: bitte den Link zum Video angeben.")
+    if len(url) > 500 or re.search(r"\s", url):
+        raise OrderError("Clip: ungültiger Link.")
+    parsed = urlparse(url)
+    host = (parsed.hostname or "").lower()
+    if parsed.scheme not in ("http", "https") or not host:
+        raise OrderError("Clip: bitte einen vollständigen Link (https://…) angeben.")
+    if host == "localhost" or re.fullmatch(r"(127|10|0)\.[\d.]+|192\.168\.[\d.]+|169\.254\.[\d.]+|172\.(1[6-9]|2\d|3[01])\.[\d.]+", host):
+        raise OrderError("Clip: lokale Adressen sind nicht erlaubt.")
+    if "." not in host:
+        raise OrderError("Clip: bitte einen vollständigen Link (https://…) angeben.")
+    return url
 
 
 def parse_preferences(raw) -> dict:
@@ -170,7 +211,29 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
                 "laenge": length, "bilder": visuals, "entschaerfen": _flag(raw.get("entschaerfen"), True),
                 "schritt": step, "maskottchen": _flag(raw.get("maskottchen"), None),
                 "hochladen": _upload_wish(raw.get("hochladen"))}
-    raise OrderError("Unbekannte Art – „ranking“ oder „story“.")
+    if kind == "clip":
+        if not _flag(raw.get("bestaetigt_erlaubnis"), False):
+            raise OrderError("Clip: Bitte bestätigen, dass du die Erlaubnis des Creators zum Clippen hast "
+                             "(bestaetigt_erlaubnis).")
+        start, end = _seconds(raw.get("start"), "Start"), _seconds(raw.get("ende"), "Ende")
+        if start is not None and end is not None:
+            if end <= start:
+                raise OrderError("Ende muss nach dem Start liegen.")
+            if end - start > 175:
+                raise OrderError("Der Ausschnitt darf höchstens 175 Sekunden lang sein.")
+        lang = str(raw.get("sprache") or "de")
+        if lang not in ("de", "en", "auto"):
+            raise OrderError("Sprache: „de“, „en“ oder „auto“.")
+        try:
+            length = int(float(raw.get("laenge") or 90))
+        except (TypeError, ValueError):
+            raise OrderError("Länge: Sekunden von 30 bis 170.") from None
+        if not 30 <= length <= 170:
+            raise OrderError("Länge: Sekunden von 30 bis 170.")
+        return {"id": job_id, "art": "clip", "quelle": _clip_url(raw.get("quelle")), "start": start, "ende": end,
+                "sprache": lang, "laenge": length, "format": _format(raw.get("format")), "bestaetigt_erlaubnis": True,
+                "hochladen": _upload_wish(raw.get("hochladen"))}
+    raise OrderError("Unbekannte Art – „ranking“, „story“ oder „clip“.")
 
 
 def job_folder(job_id: str) -> Path:
@@ -406,8 +469,30 @@ def _story(order: dict, folder: Path, progress) -> dict:
     return result
 
 
+def _clip(order: dict, folder: Path, progress) -> dict:
+    """Clip aus einem Link: Quelle laden, Spracherkennung, Hook (ggf. von Claude), Schnitt, Untertitel."""
+    from .clip import pipeline as clip_pipeline, texte
+
+    out = folder / "clip"
+    out.mkdir(parents=True, exist_ok=True)
+    stages = ["Quelle beschaffen", "Spracherkennung", "Höhepunkt suchen", "Gesichter und Sprecher analysieren",
+              "Schnittplan", "Untertitel"]
+
+    def stage(text: str) -> None:
+        base = text.split(" (")[0]
+        progress(text, (stages.index(base) + 1) / 8 if base in stages else 0.9)
+
+    info = clip_pipeline.make_clip(order["quelle"], order["start"], order["ende"], order["sprache"],
+                                   float(order["laenge"]), name="clip", fortschritt=stage, ausgabe=out,
+                                   arbeit=folder / "_work", herkunft=order["quelle"])
+    videos = texte.schreibe(out, info, order, order["quelle"], order["sprache"])
+    return {"output_dir": str(out), "videos": videos, "kind": "clip", "warnings": list(info.get("hinweise", []))}
+
+
 def _transient(exc: Exception) -> bool:
     """Vorübergehende Störung (Netz, Dienst, Prozess) – nicht: falsche Eingaben oder eine gelöschte Story."""
+    if hasattr(exc, "wiederholbar"):
+        return bool(exc.wiederholbar)
     return isinstance(exc, json.JSONDecodeError) or not isinstance(exc, (OrderError, ValueError))
 
 
@@ -439,7 +524,8 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
 
     for attempt in (1, 2):                                    # eine vorübergehende Störung heilt sich selbst
         try:
-            result = _ranking(order, folder, progress) if order["art"] == "ranking" else _story(order, folder, progress)
+            run = {"ranking": _ranking, "story": _story, "clip": _clip}[order["art"]]
+            result = run(order, folder, progress)
             data = _summary(order, result)
             break
         except handoff.WritingNeeded as need:

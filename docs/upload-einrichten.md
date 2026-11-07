@@ -39,21 +39,21 @@ Gut zu wissen:
 
 ## TikTok
 
-Du hast bereits eine TikTok-Entwickler-App mit Landingpage (viralstudio, Nutzungsbedingungen und Datenschutz). Dafür:
+Ohne eigene Domain: CUDI bringt eine kostenlose Rücksprung-Seite mit (GitHub Pages aus `docs/`):
+`https://poso47.github.io/CUDI/tiktok/` – dazu Nutzungsbedingungen (`…/tiktok/nutzungsbedingungen.html`) und
+Datenschutz (`…/tiktok/datenschutz.html`). Einmalig im Repo auf GitHub: **Settings → Pages → Source „Deploy from a
+branch“ → Branch `main`, Ordner `/docs` → Save** (nach 1–2 Minuten erreichbar).
 
-1. <https://developers.tiktok.com/> → „Manage apps“ → deine App → „Add products“ → **Content Posting API** hinzufügen.
-2. Unter „Scopes“ **`video.upload`** (Inbox/Entwurf) und **`video.publish`** (Direct Post) beantragen. Die Angaben der App
-   (Landingpage, Nutzungsbedingungen-URL, Datenschutz-URL von viralstudio) müssen mit dem übereinstimmen, was TikTok bei der
-   Prüfung sieht; im Demo-Video der Prüfung den Upload-Ablauf zeigen.
-3. **Redirect-URI** unter „Login Kit“ eintragen (z. B. `https://<deine-viralstudio-domain>/callback` oder eine lokale
-   Adresse wie `http://localhost:3000/callback`) und in der Entwickler-Konsole dein Konto als „Target user“ (Sandbox/Test) hinzufügen.
-4. **Zugriffstoken holen** (OAuth, Scopes `video.upload,video.publish`): den Login von deiner App/Landingpage aus durchlaufen;
-   der Code-Tausch liefert `access_token` (ca. 24 h gültig) und `refresh_token` (ca. 365 Tage). Zugangsdaten setzen:
-   - einfach: `CUDI_TIKTOK_ACCESS_TOKEN`
-   - dauerhaft: `CUDI_TIKTOK_CLIENT_KEY`, `CUDI_TIKTOK_CLIENT_SECRET`, `CUDI_TIKTOK_REFRESH_TOKEN` – CUDI erneuert den
-     Zugriffstoken dann selbst, wenn er abgelaufen ist.
-5. **Testen:** `python -m cudi_video hochladen video.mp4 --ziel tiktok` – das Video landet als **Entwurf in der TikTok-App**
-   (Posteingang/Benachrichtigungen). Dort Text ergänzen und veröffentlichen.
+1. <https://developers.tiktok.com/> → „Manage apps“ → deine App → oben **„Sandbox“** → „Create Sandbox“ (testen ohne Prüfung).
+2. In der Sandbox **„Add products“**: **Login Kit** und **Content Posting API**; unter „Scopes“ **`video.upload`**.
+3. **Login Kit → Redirect URI (Web):** `https://poso47.github.io/CUDI/tiktok/` (genau so, mit `/` am Ende).
+   Bei App-Angaben: Nutzungsbedingungen- und Datenschutz-Adresse von oben.
+4. **„Target users“ → „Add account“** → mit deinem TikTok-Konto anmelden.
+5. **Client key/secret** als `CUDI_TIKTOK_CLIENT_KEY` und `CUDI_TIKTOK_CLIENT_SECRET` setzen (PC und Cloud-Umgebung).
+6. **Token holen (am PC):** `python -m cudi_video tiktok-login` → Adresse öffnen, zustimmen → auf der CUDI-Seite
+   „Adresse kopieren“ → im Terminal einfügen (nie in einen Chat). Der Refresh-Token (ca. 1 Jahr) liegt dann in
+   `video_output/_secrets/tiktok_refresh_token.txt`; für die Cloud den Inhalt als `CUDI_TIKTOK_REFRESH_TOKEN` hinterlegen.
+7. **Testen:** `python -m cudi_video hochladen video.mp4 --ziel tiktok` – das Video landet als **Entwurf in der TikTok-App**.
 
 Gut zu wissen:
 - **Direct Post** (`--tiktok-modus direkt`) veröffentlicht ohne App-Schritt, erfordert aber die **App-Prüfung** durch TikTok.

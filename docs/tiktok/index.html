@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CUDI – TikTok-Anmeldung</title>
+<style>
+:root{--bg:#0f1218;--fg:#eef1f6;--mut:#9aa3b2;--acc:#2fd3ee;--line:#2a303c}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}
+main{max-width:560px;margin:0 auto;padding:32px 16px}
+h1{font-size:24px;margin:0 0 8px}p{color:var(--mut)}
+code{display:block;word-break:break-all;background:#171b23;border:1px solid var(--line);border-radius:12px;padding:14px;color:var(--fg);font-size:15px}
+button{margin-top:12px;min-height:44px;width:100%;border:0;border-radius:12px;background:var(--acc);color:#04141a;font:700 16px system-ui}
+.bad{color:#ff8a8a}a{color:var(--acc)}
+</style></head><body><main>
+<h1>CUDI – TikTok-Anmeldung</h1>
+<div id="out"><p>Diese Seite ist nur das Rücksprungziel der TikTok-Anmeldung für CUDI. Sie speichert und sendet nichts.</p></div>
+<p><a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> · <a href="datenschutz.html">Datenschutz</a></p>
+</main><script>
+// Liest nur die Adresse im eigenen Browser – keine Anfrage, kein Speichern.
+var q=new URLSearchParams(location.search),out=document.getElementById("out");
+if(q.get("error")){out.innerHTML='<p class="bad">TikTok meldet: '+(q.get("error_description")||q.get("error")).replace(/[<>&]/g,"")+'</p>';}
+else if(q.get("code")){
+  out.innerHTML='<p>Angemeldet. Kopiere die <b>ganze Adresse</b> (Knopf unten) und füge sie am PC bei <b>python -m cudi_video tiktok-login</b> ein. Nicht in einen Chat schreiben. Der Code ist nur kurz gültig.</p><code id="c"></code><button id="b">Adresse kopieren</button>';
+  document.getElementById("c").textContent=location.href;
+  document.getElementById("b").onclick=function(){navigator.clipboard.writeText(location.href).then(function(){document.getElementById("b").textContent="Kopiert ✓";});};
+}
+</script></body></html>

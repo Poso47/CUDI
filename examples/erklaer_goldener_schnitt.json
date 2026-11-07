@@ -1,0 +1,24 @@
+{
+  "id": "goldener_schnitt",
+  "titel": "Der Goldene Schnitt",
+  "sprache": "de",
+  "szenen": [
+    {"text": "Gibt es eine Zahl, die Mathematiker seit Jahrhunderten fasziniert?",
+     "betont": ["Zahl", "fasziniert"], "visual": {"typ": "spirale_partikel"}},
+    {"text": "Sie beginnt mit eins Komma sechs eins acht. Das ist der Goldene Schnitt.",
+     "betont": ["Goldene", "Schnitt"], "visual": {"typ": "zahl_zaehler", "wert": "1,6180339887...", "label": "Der Goldene Schnitt"}},
+    {"text": "Teilt man eine Strecke so, dass sich das Ganze zum größeren Teil verhält wie der größere zum kleineren, entsteht dieses Verhältnis.",
+     "betont": ["Strecke", "Verhältnis"], "visual": {"typ": "linie_zeichnen", "label": "Ganzes zu größerem Teil"}},
+    {"text": "Bei Sonnenblumen sitzen die Kerne in Spiralen, deren Anzahlen aufeinanderfolgende Fibonacci-Zahlen sind. Der Winkel zwischen den Kernen beträgt etwa einhundertsiebenunddreißig Grad.",
+     "betont": ["Sonnenblumen", "Fibonacci-Zahlen"], "visual": {"typ": "punktmuster", "n": 340, "label": "Goldener Winkel"}},
+    {"text": "Auch der Ikosaeder hängt damit zusammen: Seine zwölf Ecken liegen auf drei Rechtecken, deren Seiten im Goldenen Schnitt stehen.",
+     "betont": ["Ikosaeder", "drei Rechtecken"], "visual": {"typ": "gitterkoerper", "label": "Ikosaeder"}},
+    {"text": "Verzweigungen wie bei einem Baum erinnern an dieses Prinzip. Doch viele Behauptungen darüber sind übertrieben.",
+     "betont": ["Baum", "übertrieben"], "visual": {"typ": "baum", "label": "Vorsicht bei Behauptungen"}},
+    {"kapitel": "Die Quelle", "text": "Schon Euklid beschrieb die Teilung in stetiger Proportion in seinen Elementen.",
+     "betont": ["Euklid"], "visual": {"typ": "zitatkarte", "zitat": "ἄκρον καὶ μέσον λόγος", "umschrift": "akron kai meson logos",
+      "uebersetzung": "äußeres und mittleres Verhältnis", "quelle": "Euklid · Elemente VI, Def. 3", "ueberliefert": "überliefert in der griechischen Mathematik"}},
+    {"text": "Eine einfache Zahl, die in Mathematik, Natur und Kunst immer wieder auftaucht.",
+     "betont": ["einfache Zahl"], "visual": {"typ": "beschriftung", "label": "Der Goldene Schnitt"}}
+  ]
+}

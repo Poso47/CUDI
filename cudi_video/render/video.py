@@ -67,7 +67,7 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
             "text": seg.text, "words": seg.words, "lead": lead,
             "frames": frames, "duration": frames / config.FPS, "fps": config.FPS,
             "n_items": len(research.items), "max_display": max_display, "channel": config.CHANNEL,
-            "voice_path": seg.audio_path, "mascot": mascot.enabled(),   # CUDI wird direkt ins Bild gezeichnet
+            "voice_path": seg.audio_path, "mascot": mascot.enabled() and style["format"] != "manuskript",   # CUDI wird direkt ins Bild gezeichnet
             "out": str(work / f"part_{i:02d}.mp4"), "style": style,
         }
         if seg.kind == "intro" and top:

@@ -141,3 +141,68 @@ def status(publish_id: str) -> str:
     resp = http("POST", STATUS, json={"publish_id": publish_id},
                 headers={"Authorization": f"Bearer {access_token()}", "Content-Type": "application/json; charset=UTF-8"})
     return (resp.json().get("data") or {}).get("status", "") if resp.status_code == 200 else ""
+
+
+# ---------- Einmaliger Login (Code gegen Refresh-Token tauschen) ----------
+AUTHORIZE_URL = "https://www.tiktok.com/v2/auth/authorize/"
+DEFAULT_REDIRECT = "https://poso47.github.io/CUDI/tiktok/"        # kostenlose GitHub-Pages-Seite (docs/tiktok/)
+LOGIN_SCOPES = "video.upload"
+TOKEN_FILE = "tiktok_refresh_token.txt"
+
+
+def redirect_uri() -> str:
+    return os.environ.get("CUDI_TIKTOK_REDIRECT_URI") or DEFAULT_REDIRECT
+
+
+def authorize_url(state: str) -> str:
+    from urllib.parse import urlencode
+
+    key = require("CUDI_TIKTOK_CLIENT_KEY")["CUDI_TIKTOK_CLIENT_KEY"]
+    return AUTHORIZE_URL + "?" + urlencode({"client_key": key, "scope": LOGIN_SCOPES, "response_type": "code",
+                                            "redirect_uri": redirect_uri(), "state": state})
+
+
+def code_from(pasted: str, state: str = "") -> str:
+    """Code aus der eingefügten Rücksprung-Adresse (oder dem nackten Code) lesen; prüft state, falls vorhanden."""
+    from urllib.parse import parse_qs, unquote, urlparse
+
+    text = pasted.strip()
+    if "code=" not in text and "error=" not in text:
+        if not text or any(c.isspace() for c in text) or "/" in text:
+            raise UploadError("Kein Code gefunden – bitte die ganze Adresse aus dem Browser einfügen.")
+        return unquote(text)
+    query = parse_qs(urlparse(text).query or text.split("?", 1)[-1])
+    if query.get("error"):
+        raise UploadError(f"TikTok meldet: {query['error'][0]} – Login abgelehnt oder abgebrochen.")
+    if state and query.get("state") and query["state"][0] != state:
+        raise UploadError("Die Adresse gehört nicht zu diesem Login (state passt nicht) – bitte neu starten.")
+    code = (query.get("code") or [""])[0]
+    if not code:
+        raise UploadError("Kein Code gefunden – bitte die ganze Adresse aus dem Browser einfügen.")
+    return code
+
+
+def exchange_code(code: str) -> str:
+    creds = require("CUDI_TIKTOK_CLIENT_KEY", "CUDI_TIKTOK_CLIENT_SECRET")
+    resp = http("POST", TOKEN_URL, data={"client_key": creds["CUDI_TIKTOK_CLIENT_KEY"],
+                                         "client_secret": creds["CUDI_TIKTOK_CLIENT_SECRET"],
+                                         "code": code, "grant_type": "authorization_code",
+                                         "redirect_uri": redirect_uri()},
+                headers={"Content-Type": "application/x-www-form-urlencoded"})
+    token = resp.json().get("refresh_token") if resp.status_code == 200 else None
+    if not token:
+        raise fail("TikTok-Code konnte nicht eingetauscht werden (Code abgelaufen oder Redirect-URI anders?)", resp)
+    return token
+
+
+def save_refresh_token(token: str):
+    from .. import config
+
+    path = config.OUTPUT_DIR / "_secrets" / TOKEN_FILE                # video_output/ ist gitignoriert
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(token, encoding="utf-8")
+    try:
+        path.chmod(0o600)
+    except OSError:
+        pass
+    return path

@@ -23,9 +23,13 @@ für TikTok/YouTube Shorts.
   deutsche Alltagswörter per `textcheck.everyday_word`), abgelehnte Fakten einmal zur Korrektur (`fakten_korrektur`).
 - Themen-Wissensstruktur (`themen.py`, `spec.focus`): Planer liefert Themenkern/Aspekte/nicht gemeint; alle Schreib-
   aufgaben erzählen Aufhänger → Kernaussage → Erklärung → Bedeutung für dich; Fakten brauchen Aspekt, Mindestlänge, `belege`.
-- Formate (`render/formats.py`: karte, vollbild, kreis, magazin, polaroid, zahl – eigener Bildaufbau, Übergang,
+- Formate (`render/formats.py`: karte, vollbild, kreis, magazin, polaroid, zahl, manuskript – eigener Bildaufbau, Übergang,
   Intro, Abschluss) je Video; Farben (`theme.STYLES`) nach Thema (`palette_options`: Titelwörter/Icon); `pick_style`
   fest je Video-ID, `apply_style` in `make_scene` (jeder Render-Prozess); Auftrag `format`.
+- **Manuskript/Erklärvideo**: Format `manuskript` (Buchlook, eigenes Design, Schriften EB Garamond/Amiri/Inter in
+  `video_assets/fonts`, Bausteine `render/manuskript.py`, Linien-Grafiken `render/linien.py`; bringt immer Design
+  „manuskript“ mit, keine Maskottchen). Videoart `cudi_video/erklaer/` (Szenen-Skript JSON, `python -m cudi_video erklaer
+  <skript.json>`, Beispiel `examples/erklaer_goldener_schnitt.json`, Szenentyp `erklaer` im Format).
 - Spannungsbogen (`retention.py`): Hook mit Neugierlücke, Zwischen-Aufhänger aus geprüften Werten, Kommentarfrage
   je Thema; Regeln für Claude-Texte (`NARRATION_RULES`) und Storys je Stimmung (`story_rules`). Zahl im Wunsch = Anzahl.
 - Bildprüfung (`bildcheck.py`, CLIP ViT-B-32 CPU, Cache `video_output/_models`, 3 Bilder je Kandidat, ≥ 2/3 mit p ≥ 0.5; Ausfall → Tag-Abgleich;
@@ -93,6 +97,10 @@ für TikTok/YouTube Shorts.
   Spannungspausen zusammengesetzt (`assemble_parts`, Wortzeiten wandern mit; Grundtempo `+0%`). Profil nach Videoart
   (`speech_profile(spec.kind)`): ranking (Pausen vor Platz/Zahl), fakten (Frage, Pause vor dem Aha, ruhiger Erklärteil), erklaer (ruhig,
   gleichmäßig), Story je Stimmung (`plan_story_parts`: Pause vor Wendung/Pointe). `CUDI_SPEECH_PROFILE=ranking|fakten|erklaer|aus` überschreibt.
+- **Clip-Engine** (`cudi_video/clip/`, CLI `python -m cudi_video clip <datei|url>`, Doku README_VIDEO.md): Podcast-/Streamer-Clips
+  1080×1920 (faster-whisper → Höhepunkt/Hook nach Regeln, optional Claude-Auswahl `clip_hook` über `handoff` → Pausenschnitt →
+  Sprecher-Zuschnitt mit YuNet/Haar → ASS-Untertitel). App-Auftrag `art: "clip"` (`job._clip`): Pflichtfeld `bestaetigt_erlaubnis`,
+  nur http(s)-Links, Texte/Prüfbericht in `clip/texte.py`; YouTube sperrt Cloud-IPs oft (`ClipError.wiederholbar`, Hinweis „später/PC“).
 - Weitere Wege: GitHub Actions „CUDI Video“/„CUDI Story“, Issue mit `cudi-auftrag` („CUDI Auftrag“),
   Hugging Face Space („CUDI Cloud-App“, optional, braucht Secret HF_TOKEN).
 - Kosten: alles kostenlose Dienste; App-Aufträge zählen nur zum Claude-Nutzungslimit des Nutzers.
@@ -102,6 +110,18 @@ für TikTok/YouTube Shorts.
   Beschreibung ohne Treffer → beliebte Story der Stimmung; `job.run_order` wiederholt Störungen einmal
   (`RETRY_PAUSE`); App startet Fehler/ohne Ergebnis einmal automatisch neu (`versuch: 2`) und prüft
   vor jedem Start den Speicherbedarf (`needMB`: 20 MB je möglichem Video + 10 MB; Skelett-Schritt 0).
+
+## Sparsam mit dem Nutzungslimit (Wunsch des Nutzers: gleiche Qualität, weniger Verbrauch)
+
+- Rollen: Hauptsitzung = Projektleiter (plant, prüft Ergebnisse selbst, merged nur mit OK). Arbeit an Agenten geben:
+  einfache/mechanische Aufgaben (Doku, Merges, Tests anpassen, kleine Fixes) → Modell **haiku**; Neuentwicklung mit Design-/
+  Logikanteil → **sonnet**; opus nur in der Hauptsitzung für Abnahme und Entscheidungen.
+- Höchstens **2 Agenten gleichzeitig** (4 parallel hatten das 5-Stunden-Limit gesprengt); weitere Aufgaben in eine Warteschlange.
+- Agenten-Aufträge präzise (Dateien, Abnahmekriterien, Pfade) – spart Suchschritte; Bericht höchstens ~15 Zeilen, keine langen
+  Ausgaben/Diffs zurückgeben; Bilderbögen klein (≤ 1600 px breit) und nur so viele, wie für die Abnahme nötig.
+- Tests gezielt: während der Arbeit nur betroffene Testdateien, die ganze Suite einmal vor Commit/Merge.
+- Abnahme in der Hauptsitzung: Bericht + ein Bilderbogen/Hörprobe; Code nur stichprobenartig (Diff-Statistik, Sicherheitsstellen).
+- Keine wiederholten Läufe gegen gesperrte Dienste (Wikipedia 429 o. Ä.) – einmal Ausweichweg, sonst später.
 
 ## Entwickeln
 

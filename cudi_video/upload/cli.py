@@ -84,3 +84,26 @@ def youtube_login() -> int:
           "nie in einen Chat oder ins Repo schreiben.")
     print(youtube.QUOTA_HINT)
     return 0
+
+
+def tiktok_login(pasted: str = "") -> int:
+    """Einmaliger TikTok-Login: Adresse öffnen, zustimmen, Rücksprung-Adresse hier einfügen – Token wird gespeichert."""
+    import secrets as _s
+
+    try:
+        state = ""
+        if not pasted:
+            state = _s.token_urlsafe(12)
+            print("1. Diese Adresse im Browser öffnen und mit deinem TikTok-Konto zustimmen:\n")
+            print("   " + tiktok.authorize_url(state) + "\n")
+            print(f"2. Danach landest du auf {tiktok.redirect_uri()} – die GANZE Adresse aus der Adresszeile kopieren")
+            print("   (oder den angezeigten Code) und hier einfügen. Nicht in einen Chat schreiben.\n")
+            pasted = input("Adresse oder Code: ")
+        path = tiktok.save_refresh_token(tiktok.exchange_code(tiktok.code_from(pasted, state)))
+    except UploadError as exc:
+        print(f"Fehler: {redact(exc)}")
+        return 1
+    print(f"Fertig. Der Refresh-Token liegt in {path} (nur auf diesem Rechner, nicht im Repo, ca. 1 Jahr gültig).")
+    print("Für die Cloud: Inhalt der Datei als Umgebungsvariable CUDI_TIKTOK_REFRESH_TOKEN hinterlegen – "
+          "nie in einen Chat oder ins Repo schreiben.")
+    return 0
