@@ -78,6 +78,8 @@ für TikTok/YouTube Shorts.
     `out_dir "cudi_skelette"` als Datei (nie abschreiben), `job.app_skeleton` liest sie, `validate_skeleton` prüft.
   - Seite ändern: Datei bearbeiten und mit dem Artifact-Werkzeug unter derselben URL veröffentlichen
     (äußerer HTML-Rahmen fehlt absichtlich – Claude setzt ihn).
+- Betonung (`tts.plan_parts`, nur Rankings/Fakten): Abschnitte werden in Teile (Satz, „–“/„…“, Zahl, „Platz N“) mit eigenem Tempo/Tonhöhe/Lautstärke und
+  Spannungspausen (0,3–0,45 s) gesprochen und mit Stille zusammengesetzt (`assemble_parts`, Wortzeiten wandern mit); Grundtempo `+0%`. Story-Stimmen unverändert.
 - Weitere Wege: GitHub Actions „CUDI Video“/„CUDI Story“, Issue mit `cudi-auftrag` („CUDI Auftrag“),
   Hugging Face Space („CUDI Cloud-App“, optional, braucht Secret HF_TOKEN).
 - Kosten: alles kostenlose Dienste; App-Aufträge zählen nur zum Claude-Nutzungslimit des Nutzers.
