@@ -99,6 +99,18 @@ für TikTok/YouTube Shorts.
   (`RETRY_PAUSE`); App startet Fehler/ohne Ergebnis einmal automatisch neu (`versuch: 2`) und prüft
   vor jedem Start den Speicherbedarf (`needMB`: 20 MB je möglichem Video + 10 MB; Skelett-Schritt 0).
 
+## Sparsam mit dem Nutzungslimit (Wunsch des Nutzers: gleiche Qualität, weniger Verbrauch)
+
+- Rollen: Hauptsitzung = Projektleiter (plant, prüft Ergebnisse selbst, merged nur mit OK). Arbeit an Agenten geben:
+  einfache/mechanische Aufgaben (Doku, Merges, Tests anpassen, kleine Fixes) → Modell **haiku**; Neuentwicklung mit Design-/
+  Logikanteil → **sonnet**; opus nur in der Hauptsitzung für Abnahme und Entscheidungen.
+- Höchstens **2 Agenten gleichzeitig** (4 parallel hatten das 5-Stunden-Limit gesprengt); weitere Aufgaben in eine Warteschlange.
+- Agenten-Aufträge präzise (Dateien, Abnahmekriterien, Pfade) – spart Suchschritte; Bericht höchstens ~15 Zeilen, keine langen
+  Ausgaben/Diffs zurückgeben; Bilderbögen klein (≤ 1600 px breit) und nur so viele, wie für die Abnahme nötig.
+- Tests gezielt: während der Arbeit nur betroffene Testdateien, die ganze Suite einmal vor Commit/Merge.
+- Abnahme in der Hauptsitzung: Bericht + ein Bilderbogen/Hörprobe; Code nur stichprobenartig (Diff-Statistik, Sicherheitsstellen).
+- Keine wiederholten Läufe gegen gesperrte Dienste (Wikipedia 429 o. Ä.) – einmal Ausweichweg, sonst später.
+
 ## Entwickeln
 
 - Tests: `python -m pytest tests -q` (lokal ~15 s; GitHub-Workflow „Tests“ installiert ffmpeg).
