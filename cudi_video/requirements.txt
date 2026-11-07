@@ -8,3 +8,6 @@ numpy>=1.26
 edge-tts>=7.0
 fastapi>=0.110
 uvicorn>=0.29
+opencv-python-headless>=4.8,<5   # Haar-Kaskaden (cv2.data.haarcascades) fehlen in OpenCV 5
+faster-whisper>=1.0   # Clip-Engine (Spracherkennung)
+yt-dlp   # Clip-Engine (URL-Quellen)

@@ -426,3 +426,12 @@ presets/                fertige Vorgaben
 * Cartoon-/Figuren-Stil als zweites Design
 * Längere Videos im Querformat (16:9) für YouTube
 * Direkter Upload über die YouTube-API, Vorbereitung für die TikTok-API
+
+## Clip-Engine (Podcast-/Streamer-Clips)
+
+`python -m cudi_video clip <datei-oder-url> [--start s --ende s] [--sprache de] [--laenge 90]` erzeugt
+`video_output/clips/<name>/clip.mp4` (1080×1920, 30 fps, ≤ 179 s) und `clip.json`. Ablauf: faster-whisper (Wörter mit Zeiten,
+als JSON zwischengespeichert) → bestes 30–90-s-Fenster nach Regeln (Fragen, Konfliktwörter, Lautstärke, Tempo, Pointe) →
+Hook (Cold Open + 0,15-s-Blitz, wenn er nicht am Anfang steht) → Pausen > 0,35 s heraus → Sprecher-Zuschnitt (Haar-Kaskade,
+Bewegung im Mundbereich; braucht `opencv-python-headless` 4.x, in 5.x fehlen die Kaskaden → Bildmitte) → Untertitel
+(Anton aus `video_assets/fonts`, 1–3 Wörter, Großbuchstaben, Schlüsselwort #FFD400). Code: `cudi_video/clip/`.
