@@ -264,9 +264,9 @@ class Part:
 SPEECH_PROFILES = {
     "ranking": {
         "erkennt": ("frage", "platz", "zahl", "superlativ"), "zahl_teilen": True, "schluss": (-4, -1),
-        "pausen": {"satz": 0.20, "frage": 0.45, "umbruch": 0.35, "platz": 0.40, "zahl": 0.32, "superlativ": 0.30},
-        "rollen": {"normal": (0, 0, 0), "hook": (-6, -3, 0), "frage": (-8, -4, 0), "platz": (-6, -2, 4),
-                   "zahl": (-9, -2, 6), "superlativ": (-5, -1, 3)},
+        "pausen": {"satz": 0.18, "frage": 0.40, "umbruch": 0.30, "platz": 0.35, "zahl": 0.28, "superlativ": 0.22},
+        "rollen": {"normal": (0, 0, 0), "hook": (-4, -3, 0), "frage": (-6, -4, 0), "platz": (-4, -2, 4),
+                   "zahl": (-6, -2, 5), "superlativ": (-3, -1, 3)},
     },
     "fakten": {
         "erkennt": ("frage", "kern", "zahl", "superlativ"), "zahl_teilen": True, "schluss": (-5, -1),

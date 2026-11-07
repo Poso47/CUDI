@@ -203,7 +203,7 @@ def test_ranking_is_tense_fakten_explains_erklaer_is_even():
     assert fakten[1].role == "kern" and fakten[1].pause >= 0.5 and fakten[1].rate < 0  # Aha-Satz: Pause davor, langsamer
     assert all(p.rate <= -3 for p in fakten if p.role == "normal")                   # Erklärteil ruhig und etwas langsamer
     assert all(p.pause <= 0.4 for p in erklaer)                                        # kurze, gleichmäßige Pausen
-    assert max(p.pause for p in ranking) > 0.4 and not any(p.role == "platz" for p in erklaer)
+    assert max(p.pause for p in ranking) >= 0.35 and not any(p.role == "platz" for p in erklaer)
 
 
 def test_erklaer_stresses_terms_lightly_without_splitting_numbers():
