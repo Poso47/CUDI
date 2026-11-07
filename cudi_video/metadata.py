@@ -77,6 +77,24 @@ def short_caption(spec: VideoSpec, research: Research, lang: str, tags: list[str
     ])
 
 
+def bild_zeile(item) -> list[str]:
+    """Prüfbericht je Fakt: Motiv und ob das Bild den Fakt wirklich zeigt (Bildpassung)."""
+    bild = item.fact.get("bild") or {}
+    motif = bild.get("motiv") or item.fact.get("motiv")
+    if not bild and not motif:
+        return []
+    if bild.get("passt") is True:
+        verdict = f"Bild passt ({bild.get('quelle')})"
+    elif bild.get("quelle") == "kein Bild":
+        verdict = "kein Bild gefunden – Infografik"
+    elif bild.get("passt") is False:
+        verdict = "Stimmungsbild – Bild zeigt nicht genau den Fakt"
+    else:
+        verdict = "Bildpassung nicht geprüft"
+    aha = (item.fact.get("aha") or {}).get("de")
+    return [f"Motiv: {motif or '–'} · {verdict}" + (f" · Aha: {aha}" if aha else "")]
+
+
 def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> str:
     """Markdown-Bericht für die Freigabe vor dem Hochladen."""
     out = [f"# Prüfbericht: {spec.title.get('de') or next(iter(spec.title.values()))}", "",
@@ -104,6 +122,7 @@ def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> 
         for it in sorted(research.items, key=lambda i: i.rank):
             aspect = f" ({it.fact['aspekt']})" if it.fact.get("aspekt") else ""
             out += [f"**{it.rank}. {it.labels.get('de') or it.labels.get('en')}**{aspect} – {it.verification.get('status')}",
+                    *bild_zeile(it),
                     f"> {it.fact.get('beleg')}", *[f"> {b}" for b in it.fact.get("belege") or []],
                     f"Quelle: [{it.fact.get('quelle')}]({it.fact.get('url')})"
                     + (f" · Zahlen bestätigt durch: {it.fact['zweitquelle']}" if it.fact.get("zweitquelle") else ""), ""]

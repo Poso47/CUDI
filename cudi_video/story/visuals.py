@@ -42,7 +42,8 @@ class Visual:
 
 # --------------------------------------------------------------------------- Stockvideos
 
-def pexels(query: str, used: set) -> Visual | None:
+def pexels(query: str, used: set, match=None) -> Visual | None:
+    """match: optionale Prüfung der Beschreibung (Pexels-Videos haben nur die Adresse: „…/video/a-shark-swimming-123/“)."""
     if not config.PEXELS_API_KEY:
         return None
     for orientation in ("portrait", None):          # Hochformat bevorzugt, sonst mittig zugeschnitten
@@ -55,6 +56,8 @@ def pexels(query: str, used: set) -> Visual | None:
             key = f"pexels:{video['id']}"
             if key in used or video.get("duration", 0) < 4:
                 continue
+            if match and not match(re.sub(r"[^a-z]+", " ", str(video.get("url", "")).lower().split("pexels.com")[-1])):
+                continue
             files = [f for f in video.get("video_files", [])
                      if f.get("file_type") == "video/mp4" and (f.get("height") or 0) >= 720]
             if not files:
@@ -66,7 +69,7 @@ def pexels(query: str, used: set) -> Visual | None:
     return None
 
 
-def pexels_photo(query: str, used: set) -> Visual | None:
+def pexels_photo(query: str, used: set, match=None) -> Visual | None:
     """Hochwertiges Foto im Hochformat von Pexels (kostenloser Schlüssel) – vor Wikimedia, das aus Rechenzentren
     oft gedrosselt wird."""
     if not config.PEXELS_API_KEY:
@@ -79,13 +82,16 @@ def pexels_photo(query: str, used: set) -> Visual | None:
         src = (photo.get("src") or {}).get("original")
         if key in used or not src or (photo.get("height") or 0) < 1200:
             continue
+        slug = re.sub(r"[^a-z]+", " ", str(photo.get("url", "")).lower().split("pexels.com")[-1])
+        if match and not match(f"{photo.get('alt', '')} {slug}"):
+            continue
         path = net.download(f"{src}?auto=compress&cs=tinysrgb&h=1920", suffix=".jpg", timeout=60)
         used.add(key)
         return Visual("image", str(path), f"Foto: {photo.get('photographer', 'unbekannt')} – Pexels", query)
     return None
 
 
-def pixabay(query: str, used: set) -> Visual | None:
+def pixabay(query: str, used: set, match=None) -> Visual | None:
     if not config.PIXABAY_API_KEY:
         return None
     data = net.get_json("https://pixabay.com/api/videos/", params={"key": config.PIXABAY_API_KEY, "q": query,
@@ -95,12 +101,32 @@ def pixabay(query: str, used: set) -> Visual | None:
         key = f"pixabay:{hit['id']}"
         if key in used or hit.get("duration", 0) < 4:
             continue
+        if match and not match(str(hit.get("tags", ""))):
+            continue
         for size in ("large", "medium"):
             file = hit.get("videos", {}).get(size) or {}
             if file.get("url") and (file.get("height") or 0) >= 720:
                 path = net.download(file["url"], suffix=".mp4", timeout=120)
                 used.add(key)
                 return Visual("video", str(path), f"Pixabay – {hit.get('user', 'unbekannt')}", query)
+    return None
+
+
+def pixabay_photo(query: str, used: set, match=None) -> Visual | None:
+    """Foto von Pixabay (Schlagworte „tags“ für den Motiv-Abgleich), Hochformat bevorzugt."""
+    if not config.PIXABAY_API_KEY:
+        return None
+    data = net.get_json("https://pixabay.com/api/", params={"key": config.PIXABAY_API_KEY, "q": query[:100],
+                                                            "image_type": "photo", "per_page": 20,
+                                                            "safesearch": "true"},
+                        cache_hours=24, retries=2)
+    hits = [h for h in data.get("hits", []) if f"pixabay-foto:{h['id']}" not in used and h.get("largeImageURL")
+            and (not match or match(str(h.get("tags", ""))))]
+    hits.sort(key=lambda h: (h.get("imageHeight") or 0) < (h.get("imageWidth") or 0))     # Hochformat zuerst
+    for hit in hits:
+        path = net.download(hit["largeImageURL"], suffix=".jpg", timeout=60)
+        used.add(f"pixabay-foto:{hit['id']}")
+        return Visual("image", str(path), f"Foto: {hit.get('user', 'unbekannt')} – Pixabay", query)
     return None
 
 
@@ -147,10 +173,11 @@ def ai_image(prompt: str, seed: int) -> Visual | None:
 NON_FREE = ("non-free", "fair use", "copyrighted", "all rights reserved")
 
 
-def commons_photo(query: str, used: set) -> Visual | None:
+def commons_photo(query: str, used: set, match=None) -> Visual | None:
     """Frei lizenziertes Foto von Wikimedia Commons (ohne Schlüssel) – Hochformat bevorzugt.
 
-    Nur Bilder mit Urheber (oder gemeinfrei): die Lizenz verlangt sonst eine Namensnennung."""
+    Nur Bilder mit Urheber (oder gemeinfrei): die Lizenz verlangt sonst eine Namensnennung.
+    match: optionale Prüfung des Dateititels (Bildpassung für Fakten)."""
     from ..enrich import credit_author
 
     data = net.get_json("https://commons.wikimedia.org/w/api.php", params={
@@ -166,6 +193,7 @@ def commons_photo(query: str, used: set) -> Visual | None:
         meta = info.get("extmetadata", {})
         license_name = meta.get("LicenseShortName", {}).get("value", "")
         if (not license_name or any(x in license_name.lower() for x in NON_FREE) or page["title"] in used
+                or (match and not match(re.sub(r"[^A-Za-z]+", " ", page["title"])))
                 or (info.get("width") or 0) < 800 or (info.get("height") or 0) < 800 or not info.get("thumburl")):
             continue
         artist = credit_author(meta, license_name)

@@ -53,6 +53,47 @@ class Candidate:
         return quality * (0.9 if "wikimedia.org" in self.url else 1.0)
 
 
+# --- Bildpassung für Fakten: Das Motiv (konkretes sichtbares Objekt) muss in der Beschreibung des Treffers stehen
+MOTIF_STOP = set("""a an the of and or in on at with for from to by close up closeup view shot macro photo image
+    video footage stock""".split())
+IRREGULAR = {"teeth": "tooth", "feet": "foot", "mice": "mouse", "geese": "goose", "men": "man", "women": "woman",
+             "children": "child", "people": "person", "leaves": "leaf", "wolves": "wolf", "knives": "knife",
+             "lives": "life", "shelves": "shelf", "fungi": "fungus", "cacti": "cactus", "bacteria": "bacterium"}
+
+
+def stem(word: str) -> str:
+    """Einfache Einzahl-Form (Englisch): teeth -> tooth, denticles -> denticle, berries -> berry, boxes -> box."""
+    w = word.lower()
+    if w in IRREGULAR:
+        return IRREGULAR[w]
+    if len(w) > 4 and w.endswith("ies"):
+        return w[:-3] + "y"
+    if len(w) > 4 and re.search(r"(ss|x|z|ch|sh)es$", w):
+        return w[:-2]
+    if len(w) > 3 and w.endswith("s") and not w.endswith(("ss", "us", "is")):
+        return w[:-1]
+    return w
+
+
+def motif_words(motif: str) -> list[str]:
+    """Kernwörter des Motivs (Hauptwort + Bestimmung), in Einzahl-Form: „shark teeth“ -> shark, tooth."""
+    words = [stem(w) for w in re.findall(r"[a-z]+", motif.lower()) if w not in MOTIF_STOP and len(w) >= 3]
+    return list(dict.fromkeys(words))
+
+
+NOT_PHOTO = ("ai generated", "green screen", "greenscreen", "3d render", "illustration", "cartoon", "vector")
+
+
+def motif_matches(motif: str, text: str) -> bool:
+    """Stehen ALLE Kernwörter des Motivs (Singular/Plural egal) in der Beschreibung des Treffers? Computerbilder
+    (KI, Greenscreen, 3D, Zeichnung) zählen nie."""
+    words = motif_words(motif)
+    if not words or any(x in text.lower() for x in NOT_PHOTO):
+        return False
+    have = {stem(w) for w in re.findall(r"[a-z]+", text.lower())}
+    return all(w in have for w in words)
+
+
 def key_tokens(name: str) -> list[str]:
     """Unterscheidende Wörter eines Namens: „Danyang–Kunshan Grand Bridge“ -> danyang, kunshan."""
     words = re.findall(r"[^\W_]+", name.lower())

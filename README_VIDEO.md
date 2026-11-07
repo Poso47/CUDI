@@ -151,6 +151,16 @@ Titel, Rang-Abzeichen und Abschlussliste hereinkommen, wohin das Foto schwenkt).
 Thema (`STYLE_FIT`, z. B. Berge → Natur/Kino/Doku/Minimal) und wechselt je Video (fest aus der Video-ID); in der
 App lässt es sich im Feld „Design“ wählen (Auftrag `design`).
 
+## Bild passt zum Fakt und Aha-Effekt
+
+- **Bildpassung:** Claude liefert je Fakt `motiv` (das konkrete sichtbare Objekt, englisch, z. B. „shark teeth“) und `suche`
+  (2–3 Alternativen). Ein Treffer zählt nur, wenn ALLE Kernwörter des Motivs in seiner Beschreibung stehen (Pexels-Adresse/alt,
+  Pixabay-Tags, Commons-Titel; Singular/Plural egal). Reihenfolge: Clip → Foto → Commons-Bild → zuletzt „Stimmungsbild“
+  (nur mit dem Hauptthema, im Prüfbericht: „Bild zeigt nicht genau den Fakt“). Der Prüfbericht nennt je Fakt Motiv und Passung.
+- **Aha-Effekt für alle Videos:** jeder Platz/jede Szene bringt etwas Überraschendes, das man vorher nicht wusste. Fakten haben
+  `aha_<sprache>` (gleiche Prüfungen wie der Text); der Aha-Satz von Platz 1 wird als „Heute gelernt: …“ gesprochen,
+  bei Zahlen-Rankings der Spitzenwert.
+
 ## Spannungsbogen (Zuschauer bleiben dran)
 
 Jedes Video folgt einem psychologisch aufgebauten Bogen (`cudi_video/retention.py`), passend zu Format und Thema –
