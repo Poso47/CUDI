@@ -114,6 +114,11 @@ Themenkern, Aspekt und alle Belege je Platz.
 Ranking- und Fakten-Videos wechseln das ganze **Format** (`cudi_video/render/formats.py`) – Bildaufbau, Formen,
 Zooms, Übergänge, Intro und Abschluss:
 
+**Schriften je Format** (`theme.FORMAT_FONTS`, Dateien in `video_assets/fonts/`): vollbild und zahl Anton, kreis Poppins
+(ExtraBold/Bold), magazin Playfair Display Black, polaroid Archivo Black + Rang in Handschrift (Caveat Bold), karte Inter.
+Untertitel nutzen die fette Format-Schrift. Alle SIL Open Font License 1.1 (`*-OFL.txt` daneben); fehlt eine Datei,
+gilt still die bisherige Schrift.
+
 | Format | Platz | Übergang / Zoom | Intro | Abschluss |
 |---|---|---|---|---|
 | Karte | Bildkarte oben, Text darunter, Abzeichen an der Ecke | 4 Bewegungsprofile (`MOTIONS`) | Titel + „?“-Karte | Liste |

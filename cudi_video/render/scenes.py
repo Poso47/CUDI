@@ -35,7 +35,7 @@ class Subtitles:
     def __init__(self, words: list[dict], text: str, offset: float, highlight=None):
         self.highlight = highlight or ACCENT
         self.mode = STYLE.get("subs", "box")
-        self.font = font("black", 66)
+        self.font = font("sub", 66)
         self.line_height = sum(self.font.getmetrics()) + 14
         self.chunks = self._chunk(words, text)
         self.offset = offset
