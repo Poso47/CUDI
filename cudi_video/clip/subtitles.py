@@ -18,7 +18,8 @@ MAX_ZEICHEN = 17
 
 def _anzeige(w: str) -> str:
     """Großbuchstaben, nur ? ! als Satzzeichen behalten."""
-    t = re.sub(r"[^\w?!äöüÄÖÜß'%€$-]", "", w.replace("…", ""))
+    t = re.sub(r"[^\w?!äöüÄÖÜß'%€$.,-]", "", w.replace("…", ""))
+    t = re.sub(r"(?<!\d)[.,]|[.,](?!\d)", "", t)       # Satzzeichen weg, Tausendertrennung in Zahlen bleibt
     return t.upper()
 
 

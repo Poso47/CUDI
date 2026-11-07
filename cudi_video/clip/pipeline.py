@@ -33,7 +33,7 @@ def _kuerzen(words: list[dict], limit: float, reserve: float) -> list[dict]:
 
 def make_clip(quelle: str, start: float | None = None, ende: float | None = None, sprache: str | None = "de",
               max_laenge: float = 90.0, name: str | None = None, fortschritt=None,
-              herkunft: str | None = None) -> dict:
+              herkunft: str | None = None, ausgabe: Path | None = None, arbeit: Path | None = None) -> dict:
     def schritt(text: str):
         log.info(text)
         if fortschritt:
@@ -42,8 +42,8 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
     if start is not None and ende is not None and ende <= start:
         raise ClipError("--ende muss größer als --start sein.")
     stem = name or source.slug(Path(quelle).stem if not source.ist_url(quelle) else quelle.rstrip("/").split("/")[-1].split("?")[-1])
-    arbeit = config.OUTPUT_DIR / "_work" / f"clip_{stem}"
-    ausgabe = config.OUTPUT_DIR / "clips" / stem
+    arbeit = arbeit or config.OUTPUT_DIR / "_work" / f"clip_{stem}"
+    ausgabe = ausgabe or config.OUTPUT_DIR / "clips" / stem
     arbeit.mkdir(parents=True, exist_ok=True)
 
     schritt("Quelle beschaffen")
@@ -128,6 +128,7 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
     info = {
         "quelle": quelle,
         "herkunft": herkunft,
+        "quelle_info": source.metadaten(arbeit) if source.ist_url(quelle) else {},
         "auswahl": begruendung or "Regeln",
         "datei": str(ziel),
         "dauer": round(dauer, 2),

@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 from pathlib import Path
 
@@ -65,7 +66,21 @@ def transkribiere(video: Path, arbeit: Path, sprache: str | None = "de", start: 
         cache.write_text(json.dumps(words, ensure_ascii=False), "utf-8")
     if not words:
         raise ClipError("Keine Sprache erkannt – Clips brauchen gesprochene Inhalte.")
-    return words, audio, start
+    return zahlen_zusammenfuehren(words), audio, start
+
+
+def zahlen_zusammenfuehren(words: list[dict]) -> list[dict]:
+    """Tausendertrennung nicht zerreißen: „200“ + „,000“ -> „200,000“ (auch „1“ + „.000“ und „100,“ + „000“)."""
+    out: list[dict] = []
+    for w in words:
+        t = w["w"]
+        if out and re.fullmatch(r"[.,]\d{1,3}[.,]?", t) and re.search(r"\d$", out[-1]["w"]):
+            out[-1] = {**out[-1], "w": out[-1]["w"] + t, "e": w["e"]}
+        elif out and re.fullmatch(r"\d{3}\W*", t) and re.search(r"\d[.,]$", out[-1]["w"]):
+            out[-1] = {**out[-1], "w": out[-1]["w"] + t, "e": w["e"]}
+        else:
+            out.append(dict(w))
+    return out
 
 
 def lautstaerke(audio: np.ndarray, schritt: float = 0.1) -> np.ndarray:

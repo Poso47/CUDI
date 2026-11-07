@@ -154,6 +154,21 @@ def _detektor(fw: int, fh: int):
     return None
 
 
+def _glaetten(pos: np.ndarray, fenster: int = 5) -> np.ndarray:
+    """Ausreißer-Erkennungen je Spur per gleitendem Median (ca. 0,8 s) glätten; NaN (Person nicht im Bild) bleibt NaN."""
+    out = pos.copy()
+    h = fenster // 2
+    for k in range(pos.shape[0]):
+        for c in range(3):
+            r = pos[k, :, c]
+            for i in range(len(r)):
+                if np.isnan(r[i]):
+                    continue
+                teil = r[max(0, i - h):i + h + 1]
+                out[k, i, c] = np.median(teil[~np.isnan(teil)])
+    return out
+
+
 def analysiere(video: Path, t0: float, t1: float, src_w: int, src_h: int) -> Analyse:
     import cv2
 
@@ -225,7 +240,7 @@ def analysiere(video: Path, t0: float, t1: float, src_w: int, src_h: int) -> Ana
         if all(np.hypot(*(np.nanmedian(pos[j, :, :2], axis=0) - np.nanmedian(pos[o, :, :2], axis=0)))
                > 0.6 * np.nanmedian(pos[o, :, 2]) for o in behalten):
             behalten.append(j)
-    pos, mot = pos[behalten], mot[behalten]
+    pos, mot = _glaetten(pos[behalten]), mot[behalten]
     m = len(behalten)
     kern = np.ones(7) / 7
     glatt = np.stack([np.convolve(r, kern, mode="same") for r in mot]) if m else mot
@@ -252,7 +267,17 @@ def zuschnitt(an: Analyse, person: int, a: float, b: float, zoom: float) -> tupl
     cx, cy, fw = an.mitte(person, a, b)
     if zoom > 1.0 and an.spuren and fw / (cw / zoom) > 0.6:
         zoom = 1.0       # Gesicht füllt schon fast die Breite: kein weiteres Heranzoomen (Stirn/Kinn blieben abgeschnitten)
-    cw, ch = cw / zoom, ch / zoom
+    ch0, cw0 = ch, cw
+    if an.spuren:        # Augenlinie (ca. 12 % der Gesichtsbreite über der Boxmitte) höchstens bei 45 % der Bildhöhe
+        augen = cy - 0.12 * fw
+        stufen = sorted({zoom, 1.0} | {round(zoom - 0.05 * i, 2) for i in range(1, 6) if zoom - 0.05 * i > 1.0}, reverse=True)
+        for z in stufen:
+            hoehe = ch0 / z
+            yy = min(max(cy - 0.38 * hoehe, 0), sh - hoehe)
+            zoom = z
+            if (augen - yy) / hoehe <= 0.45:
+                break
+    cw, ch = cw0 / zoom, ch0 / zoom
     x = min(max(cx - cw / 2, 0), sw - cw)
     y = min(max(cy - 0.38 * ch, 0), sh - ch)
     return int(round(x)) // 2 * 2, int(round(y)) // 2 * 2, int(cw) // 2 * 2, int(ch) // 2 * 2

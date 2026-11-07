@@ -8,6 +8,11 @@ cd "$(dirname "$0")/.."
 CHECK="import edge_tts, PIL, numpy, requests, yaml, bs4, lxml"
 # Immer „python3 -m pip“: So landen die Pakete in genau dem Python, das danach rendert
 # (ein loses „pip“ gehört in manchen Cloud-Umgebungen zu einem anderen Python).
+# Clip-Aufträge brauchen zusätzlich Spracherkennung und OpenCV
+NEED_CLIP=0
+if grep -qE '"art" *: *"clip"' <<< "${1:-}"; then NEED_CLIP=1; fi
+if [ "${1:-}" = "--weiter" ] && grep -qE '"art": *"clip"' "video_output/auftrag-${2:-}/auftrag.json" 2>/dev/null; then NEED_CLIP=1; fi
+if [ "$NEED_CLIP" = 1 ]; then CHECK="$CHECK, faster_whisper, cv2, yt_dlp"; fi
 pyinstall() { python3 -m pip install -q --disable-pip-version-check "$@" -r cudi_video/requirements.txt >> /tmp/cudi_pip.log 2>&1; }
 if ! python3 -c "$CHECK" 2>/dev/null; then
   echo "Pakete werden installiert …"

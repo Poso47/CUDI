@@ -5,8 +5,13 @@ Ablauf (siehe `pipeline.make_clip`): Quelle -> Spracherkennung (faster-whisper) 
 """
 
 
-class ClipError(RuntimeError):
-    """Fehler mit verständlicher Meldung für den Nutzer."""
+class ClipError(ValueError):
+    """Fehler mit verständlicher Meldung für den Nutzer. `wiederholbar`: später nochmal versuchen sinnvoll
+    (z. B. Download gesperrt) – steuert, ob der Auftragslauf einen zweiten Versuch macht."""
+
+    def __init__(self, msg: str, wiederholbar: bool = False):
+        super().__init__(msg)
+        self.wiederholbar = wiederholbar
 
 
 W, H, FPS = 1080, 1920, 30
