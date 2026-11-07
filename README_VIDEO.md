@@ -151,6 +151,11 @@ Titel, Rang-Abzeichen und Abschlussliste hereinkommen, wohin das Foto schwenkt).
 Thema (`STYLE_FIT`, z. B. Berge → Natur/Kino/Doku/Minimal) und wechselt je Video (fest aus der Video-ID); in der
 App lässt es sich im Feld „Design“ wählen (Auftrag `design`).
 
+## Direkt hochladen (YouTube Shorts / TikTok)
+
+`python -m cudi_video hochladen <video.mp4|auftrag-id> --ziel youtube|tiktok|beide [--sichtbarkeit privat] [--probe]` –
+Zugangsdaten nur als Umgebungsvariablen, Einrichtung in `docs/upload-einrichten.md`. TikTok lädt standardmäßig in die Inbox (Entwurf).
+
 ## Spannungsbogen (Zuschauer bleiben dran)
 
 Jedes Video folgt einem psychologisch aufgebauten Bogen (`cudi_video/retention.py`), passend zu Format und Thema –
