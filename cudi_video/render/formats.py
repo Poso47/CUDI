@@ -230,7 +230,8 @@ class PolaroidItem(ItemScene):
         pw, ph = self.PHOTO
         self.size = (pw + 2 * self.BORDER, ph + self.BORDER + self.BOTTOM)
         self.angle = 4.0 if self.item["rank"] % 2 else -4.0
-        self.caption = text_layer(f"#{self.item['rank']}", font("black", 78), fill=(40, 40, 44, 255))
+        hand = "caveat-bold.ttf" in T._font_index()     # Handschrift da? sonst Standardschrift in kleinerer Größe
+        self.caption = text_layer(f"#{self.item['rank']}", font("hand", 96 if hand else 78), fill=(40, 40, 44, 255))
         tape = Image.new("RGBA", (190, 54), (255, 248, 210, 150))
         self.tape = tape.rotate(-3, resample=Image.BICUBIC, expand=True)
         self.drop_shadow = shadow(Image.new("RGBA", self.size, (0, 0, 0, 255)), 26, 170)
@@ -262,7 +263,7 @@ class PolaroidItem(ItemScene):
         credit = self.clip_credits.get(self.reel.credit_at(t)) if self.reel is not None and self.reel.last else self.credit
         if credit:
             paste(f, credit, (X0, 220 + self.size[1] + 22), opacity=clamp(pe))
-        self.texts(f, t, 220 + self.size[1] + 80)
+        self.texts(f, t, 220 + self.size[1] + 104)
         flash(f, t)
         return self.finish(f, t)
 

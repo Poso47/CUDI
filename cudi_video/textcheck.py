@@ -113,7 +113,7 @@ def common_words(lang: str) -> dict[str, int]:
 GERMAN_ENDINGS = ("en", "es", "em", "n", "s", "e")       # ohne „-er“: sonst wird „Müller“ zu „Müll“
 
 
-COMMON_RANK, PART_RANK = 30000, 30000     # Einzelwort / Teil eines zusammengesetzten Worts: so häufig muss es sein
+COMMON_RANK, PART_RANK = 40000, 30000     # Einzelwort / Teil eines zusammengesetzten Worts: so häufig muss es sein
 # Deutsche Eigennamen, die die Häufigkeitslisten nicht von Wörtern unterscheiden: häufigste Nachnamen, Städte, Länder
 GERMAN_NAMES = set("""müller schmidt schneider fischer weber meyer meier wagner becker schulz hoffmann schäfer koch bauer
     richter klein wolf schröder neumann schwarz zimmermann braun krüger hofmann hartmann lange schmitt werner schmitz
