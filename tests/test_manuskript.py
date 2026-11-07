@@ -113,3 +113,7 @@ def test_example_script_and_scene_frames():
         scene = make_scene(job)
         for frac in (0.05, 0.5, 0.97):
             assert scene.frame(frac * job["duration"]).size == (theme.W, theme.H)
+        # kein leerer Frame innerhalb der Szene (nur der Übergang selbst darf kurz leer sein)
+        for t in (0.45, 0.6, 0.75, job["duration"] - 0.6, job["duration"] - 0.45):
+            assert scene.frame(t).tobytes() != M.background(t).tobytes(), (job["index"], t)
+    assert sum(1 for sz in script["szenen"] if sz["kapitel"]) == 1          # Kapitel-Pille nur bei der Quellenkarte

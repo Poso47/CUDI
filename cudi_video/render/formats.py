@@ -519,7 +519,7 @@ class PodiumOutro(OutroScene):
 from PIL import ImageOps                                            # noqa: E402
 from . import manuskript as M                                       # noqa: E402
 from .icons import draw_icon                                        # noqa: E402
-from .linien import LABEL_Y, SIZE as ART, draw_visual, seg          # noqa: E402
+from .linien import DECOR, LABEL_Y, SIZE as ART, decor_layer, draw_visual, seg          # noqa: E402
 from .scenes import Scene                                           # noqa: E402
 
 
@@ -636,6 +636,7 @@ class ManuskriptIntro(IntroScene):
         paste(f, self.pill, ((W - self.pill.width) / 2, M.PILL_Y - 22), opacity=fade)
         self.sentence.draw(f, t, M.TEXT_Y_PILL, fade)
         u = clamp((t - 0.3) / max(2.0, 0.62 * (self.job["lead"] + 3.0)))
+        paste(f, decor_layer(), (0, 0), opacity=fade)
         layer = draw_visual("spirale_partikel", {}, u, t)
         paste(f, layer, (W / 2 - ART / 2, M.CY - ART / 2), opacity=fade)
         paste(f, self.title_caps, ((W - self.title_caps.width) / 2, 1360), opacity=fade * seg(u, 0.5, 0.9))
@@ -714,7 +715,7 @@ class ErklaerScene(Scene):
 
     def frame(self, t):
         f = M.background(t)
-        fade = M.fade_in_out(t, self.job["duration"], 0.5, 0.7)
+        fade = M.fade_in_out(t, self.job["duration"], 0.4, 0.4)
         top = M.TEXT_Y_PILL if self.pill is not None else M.TEXT_Y
         if self.pill is not None:
             paste(f, self.pill, ((W - self.pill.width) / 2, M.PILL_Y - 22), opacity=fade)
@@ -732,6 +733,8 @@ class ErklaerScene(Scene):
             if q["by"] is not None:
                 paste(f, q["by"], ((W - q["by"].width) / 2, 1118), opacity=fade * progress(t, 1.6, 0.7))
             return f
+        if self.kind in DECOR:
+            paste(f, decor_layer(), (0, 0), opacity=fade * clamp(t / 0.8))
         layer = draw_visual(self.kind, self.visual, u, t)
         shift = max(0, min(170, top + self.sentence.height + 40 - (M.CY - 400)))     # langer Satz: Grafik rückt nach unten
         if layer is not None:

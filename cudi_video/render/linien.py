@@ -32,21 +32,38 @@ def seg(u: float, a: float, b: float) -> float:
 def golden_squares(art: Art, x: float, y: float, h: float, a: float) -> None:
     """Sehr feine Quadrate eines Goldenen Rechtecks (Hintergrunddeko)."""
     w = h * PHI
-    art.rect((x, y, x + w, y + h), a_line=a, width=1.6)
+    art.rect((x, y, x + w, y + h), a_line=a, width=2)
     for k in range(7):
         s = h
         if k % 4 == 0:
-            art.rect((x, y, x + s, y + s), a_line=a, width=1.6)
+            art.rect((x, y, x + s, y + s), a_line=a, width=2)
             x, w = x + s, w - s
         elif k % 4 == 1:
-            art.rect((x, y, x + w, y + w), a_line=a, width=1.6)
+            art.rect((x, y, x + w, y + w), a_line=a, width=2)
             y, h = y + w, h - w
         elif k % 4 == 2:
-            art.rect((x + w - h, y, x + w, y + h), a_line=a, width=1.6)
+            art.rect((x + w - h, y, x + w, y + h), a_line=a, width=2)
             w -= h
         else:
-            art.rect((x, y + h - w, x + w, y + h), a_line=a, width=1.6)
+            art.rect((x, y + h - w, x + w, y + h), a_line=a, width=2)
             h -= w
+
+
+@functools.lru_cache(maxsize=1)
+def decor_layer() -> Image.Image:
+    """Große, leicht geneigte Fibonacci-Rechtecke als feine Hintergrundlinien über fast die ganze Bildbreite."""
+    from .theme import H, W
+    from .manuskript import INK
+
+    art = Art(W, H, ss=1)
+    golden_squares(art, -250, 410, 940, 1.0)
+    mask = art.f.rotate(-1.6, resample=Image.BICUBIC, center=(W / 2, H / 2))
+    out = Image.new("RGBA", (W, H), (*INK, 0))
+    out.putalpha(mask.point(lambda v: int(v * 0.15)))
+    return out
+
+
+DECOR = {"spirale_partikel", "zahl_zaehler", "beschriftung", "linie_zeichnen", "punktmuster"}
 
 
 # --------------------------------------------------------------------------- Spirale aus Partikeln
@@ -65,32 +82,41 @@ def _spiral() -> tuple[list[tuple[float, float]], np.ndarray]:
 
 
 def v_spirale_partikel(art: Art, u: float, t: float, p: dict) -> None:
+    """Verstreute Lichtpunkte ordnen sich, dann zeichnet sich die Spirale als saubere Leuchtlinie; Lichtpunkte laufen daran entlang."""
     line, targets = _spiral()
     rnd = random.Random(5)
     n = len(targets)
-    golden_squares(art, 255, 520, 330, 0.10 * seg(u, 0.5, 0.9))
-    for i, (tx, ty) in enumerate(targets):
+    dust = seg(u, 0.0, 0.5)
+    for i in range(0, n, 3):
+        tx, ty = targets[i]
         sx, sy = rnd.uniform(-30, SIZE + 30), rnd.uniform(40, SIZE - 40)
-        q = ease_in_out(seg(u, i / n * 0.3, i / n * 0.3 + 0.62))
-        swirl = math.sin(i * 1.7) * 70 * q * (1 - q)
-        x = sx + (tx - sx) * q - swirl
-        y = sy + (ty - sy) * q + swirl
-        art.dot(x, y, 1.6 + 0.9 * q, 0.35 + 0.65 * q)
-    v = seg(u, 0.62, 0.98)
-    if v > 0:
-        art.line(partial(line, ease_out_cubic(v)), 3.2, 0.95)
+        q = ease_in_out(seg(u, i / n * 0.15, i / n * 0.15 + 0.4))
+        swirl = math.sin(i * 1.7) * 60 * q * (1 - q)
+        fade = 1.0 - 0.85 * seg(u, 0.45, 0.8)                      # die Linie übernimmt
+        art.dot(sx + (tx - sx) * q - swirl, sy + (ty - sy) * q + swirl, 1.5 + 0.8 * q, (0.3 + 0.6 * q) * fade)
+    v = ease_in_out(seg(u, 0.3, 0.92))
+    if v > 0.005:
+        shown = partial(line, v)
+        art.line(shown, 3.4, 1.0)
+        art.dot(shown[-1][0], shown[-1][1], 5.5, 1.0 if v < 0.995 else 0.0)        # leuchtende Spitze
+    run = seg(u, 0.55, 0.8)
+    if run > 0:
+        for k in range(6):                                            # Lichtpunkte laufen an der Linie entlang
+            f = (t * 0.1 + k / 6) % 1.0
+            x, y = partial(line, max(0.02, f))[-1]
+            art.dot(x, y, 3.6, run * (0.55 + 0.45 * math.sin(t * 3 + k)))
     c = line[0]
-    art.ring(c[0], c[1], 11, 2.0, 0.9 * seg(u, 0.7, 1))
-    art.dot(c[0], c[1], 3.5, seg(u, 0.7, 1))
+    art.ring(c[0], c[1], 11, 2.2, 0.95 * seg(u, 0.1, 0.4))
+    art.dot(c[0], c[1], 3.6, seg(u, 0.1, 0.4))
 
 
 # --------------------------------------------------------------------------- Zahl
 
 def v_zahl_zaehler(art: Art, u: float, t: float, p: dict) -> None:
     text = str(p.get("wert") or "1,6180339887...")
-    size = 128
-    while size > 50 and mfont("serif_m", size).getlength(text) > SIZE - 60:
-        size -= 6
+    size = 240
+    while size > 50 and mfont("serif_m", size).getlength(text) > 850:        # ≈ 78 % der Bildbreite
+        size -= 4
     fnt = mfont("serif_m", size)
     shown = seg(u, 0.02, 0.88) * len(text)
     full, frac = int(shown), shown - int(shown)
@@ -102,8 +128,7 @@ def v_zahl_zaehler(art: Art, u: float, t: float, p: dict) -> None:
     y = C + size * 0.3
     for i in range(n):
         a = frac if i == full else 1.0
-        art.text((x + fnt.getlength(text[:i]), y), text[i], fnt, a * (1.0 if i < 7 else 0.55))
-    golden_squares(art, 360, 380, 300, 0.07)
+        art.text((x + fnt.getlength(text[:i]), y), text[i], fnt, a * max(0.42, 1.0 - 0.075 * max(0, i - 6)))
 
 
 # --------------------------------------------------------------------------- Linie / Teilung im Goldenen Schnitt
@@ -338,7 +363,6 @@ def v_beschriftung(art: Art, u: float, t: float, p: dict) -> None:
         art.dot(C, C, 6.5 * k, 0.95)
         art.ring(C, C, (22 + 3 * pulse) * k, 2.0, 0.8)
         art.ring(C, C, (44 + 10 * pulse) * k, 1.4, 0.25 * (1 - pulse))
-    golden_squares(art, 300, 420, 300, 0.07 * seg(u, 0.3, 1))
 
 
 VISUAL_FUNCS = {
@@ -356,4 +380,5 @@ def draw_visual(name: str, params: dict, u: float, t: float) -> Image.Image | No
         return None
     art = Art(SIZE, SIZE)
     fn(art, u, t, params)
-    return art.image(glow=0.4)
+    glow = {"spirale_partikel": (0.85, 8.0), "zahl_zaehler": (1.0, 11.0)}.get(name, (0.4, 7.0))
+    return art.image(glow=glow[0], blur=glow[1])
