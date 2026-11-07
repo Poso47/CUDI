@@ -212,3 +212,7 @@ cudi_skelette/
 
 # Arbeitskopien der Hintergrund-Agenten
 .claude/worktrees/
+
+# Upload-Zugangsdaten (nie einchecken)
+.cudi_secrets/
+*refresh_token*

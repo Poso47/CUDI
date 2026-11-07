@@ -171,6 +171,11 @@ App lässt es sich im Feld „Design“ wählen (Auftrag `design`).
   `aha_<sprache>` (gleiche Prüfungen wie der Text); der Aha-Satz von Platz 1 wird als „Heute gelernt: …“ gesprochen,
   bei Zahlen-Rankings der Spitzenwert.
 
+## Direkt hochladen (YouTube Shorts / TikTok)
+
+`python -m cudi_video hochladen <video.mp4|auftrag-id> --ziel youtube|tiktok|beide [--sichtbarkeit privat] [--probe]` –
+Zugangsdaten nur als Umgebungsvariablen, Einrichtung in `docs/upload-einrichten.md`. TikTok lädt standardmäßig in die Inbox (Entwurf).
+
 ## Spannungsbogen (Zuschauer bleiben dran)
 
 Jedes Video folgt einem psychologisch aufgebauten Bogen (`cudi_video/retention.py`), passend zu Format und Thema –

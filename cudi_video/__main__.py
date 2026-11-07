@@ -71,6 +71,16 @@ def main(argv=None) -> int:
     au.add_argument("--dokument", metavar="ID", help="Dokument für die Ablage der App-Seite bauen")
     au.add_argument("--adressen", help='hochgeladene Dateien als JSON {"datei": "url"}')
 
+    up = sub.add_parser("hochladen", help="fertiges Video zu YouTube Shorts / TikTok hochladen (docs/upload-einrichten.md)")
+    up.add_argument("quelle", help="Pfad zu einer .mp4 oder Auftrags-ID")
+    up.add_argument("--ziel", default="youtube", choices=["youtube", "tiktok", "beide"])
+    up.add_argument("--sichtbarkeit", default="privat", choices=["privat", "ungelistet", "oeffentlich", "öffentlich"])
+    up.add_argument("--sprache", default="", choices=["", "de", "en"], help="bei Aufträgen nur diese Sprachfassung")
+    up.add_argument("--tiktok-modus", default="inbox", choices=["inbox", "direkt"],
+                    help="inbox = Entwurf in der TikTok-App (Standard), direkt = Direct Post (braucht App-Prüfung)")
+    up.add_argument("--probe", action="store_true", help="Trockenlauf: zeigen, was gesendet würde – ohne Netz")
+    sub.add_parser("youtube-login", help="einmaliger Browser-Login für den YouTube-Upload (am eigenen PC)")
+
     chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
     chk.add_argument("--ohne-netz", action="store_true", help="nur lokale Prüfungen")
     chk.add_argument("--ohne-stimme", action="store_true", help="KI-Stimme nicht testen")
@@ -95,6 +105,16 @@ def main(argv=None) -> int:
         from .job import main as job_main
 
         return job_main(args)
+
+    if args.cmd == "hochladen":
+        from .upload.cli import hochladen
+
+        return hochladen(args)
+
+    if args.cmd == "youtube-login":
+        from .upload.cli import youtube_login
+
+        return youtube_login()
 
     if args.cmd == "check":
         from .check import print_report, run_checks

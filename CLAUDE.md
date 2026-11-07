@@ -87,6 +87,8 @@ für TikTok/YouTube Shorts.
   - Ansehen ohne Cloud: Seite mit `?demo=1` (Aufträge laufen) bzw. `?demo=frei` öffnen – Beispieldaten nur dann.
   - Seite ändern: Datei bearbeiten und mit dem Artifact-Werkzeug unter derselben URL veröffentlichen
     (äußerer HTML-Rahmen fehlt absichtlich – Claude setzt ihn).
+- Upload (`cudi_video/upload/`: `youtube.py` resumable videos.insert, `tiktok.py` Inbox/Direct Post, `cli.py`): `hochladen … --probe`, `youtube-login`;
+  Zugang nur über Umgebungsvariablen (`CUDI_YT_*`, `CUDI_TIKTOK_*`, nie ausgeben: `upload.redact`), Auftragsfeld `hochladen` (Standard aus), Doku `docs/upload-einrichten.md`.
 - Weitere Wege: GitHub Actions „CUDI Video“/„CUDI Story“, Issue mit `cudi-auftrag` („CUDI Auftrag“),
   Hugging Face Space („CUDI Cloud-App“, optional, braucht Secret HF_TOKEN).
 - Kosten: alles kostenlose Dienste; App-Aufträge zählen nur zum Claude-Nutzungslimit des Nutzers.
