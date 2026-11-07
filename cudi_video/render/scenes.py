@@ -342,6 +342,7 @@ class ItemScene(Scene):
         self.max_display = job["max_display"]
         name_font, name_lines = name_layout(it["name"])
         self.name = text_layer(name_lines, name_font)
+        self.name_font = name_font
         self.name_lines = name_lines
         # Vollbild-Format: Clip/Foto füllt den ganzen Bildschirm, Text unten auf Schatten (nur mit echtem Bild/Clip)
         self.full = self.FULL and bool(it.get("clips") or (it.get("image_path") and it.get("image_kind") != "flag"))
@@ -496,18 +497,34 @@ class ItemScene(Scene):
         def at(layer) -> float:
             return x0 + (CONTENT_W - layer.width) / 2 if center else x0
 
-        # Block nie in die Untertitel laufen lassen: notfalls nach oben schieben (Chips fallen dann weg)
-        need = self.name.height + 6
-        if self.item.get("fact"):
-            need += (self.kicker.height + 24) if self.kicker is not None else 0
-        else:
-            need += (self.value_label.height if self.value_label else 0) + self.value_font.size + 30 + 44
+        # Block nie in die Untertitel laufen lassen: erst Info-Chips weglassen (s. u.), dann den Namen kleiner setzen,
+        # nur als letztes Mittel den Block nach oben schieben (sonst ragt er in Kreis/Foto/Bild)
         limit = SUB_Y - self.subs.line_height / 2 - 30
-        y = min(y, limit - need)
+        name = self.name
+        rest = 0
+        if self.item.get("fact"):
+            rest = (self.kicker.height + 24) if self.kicker is not None else 0
+        else:
+            rest = (self.value_label.height if self.value_label else 0) + self.value_font.size + 30 + 44
+        if y + name.height + 6 + rest > limit:
+            key = (int(y), len(self.item["name"]))
+            cache = self.__dict__.setdefault("_small_names", {})
+            if key not in cache:
+                size = getattr(self.name_font, "size", 72) - 4
+                cache[key] = name
+                while size >= 36:
+                    fnt, lines = fit_font(self.item["name"], "black", size, CONTENT_W, 3, min_size=size)
+                    cand = text_layer(lines, fnt)
+                    cache[key] = cand
+                    if y + cand.height + 6 + rest <= limit:
+                        break
+                    size -= 4
+            name = cache[key]
+        y = min(y, limit - (name.height + 6 + rest))
         pn = ease_out_cubic(progress(t, 0.3, 0.45))
-        paste(f, self.name, (at(self.name) + (slide * (1 - pn) if slide < 0 else 0), y + (1 - pn) * abs(slide)),
+        paste(f, name, (at(name) + (slide * (1 - pn) if slide < 0 else 0), y + (1 - pn) * abs(slide)),
               opacity=pn)
-        y += self.name.height + 6
+        y += name.height + 6
         # Wert zählt hoch, Balken wächst
         pv = ease_out_cubic(progress(t, 0.5, 1.3))
         if self.item.get("fact"):

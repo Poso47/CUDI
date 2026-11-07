@@ -263,7 +263,7 @@ class PolaroidItem(ItemScene):
         credit = self.clip_credits.get(self.reel.credit_at(t)) if self.reel is not None and self.reel.last else self.credit
         if credit:
             paste(f, credit, (X0, 220 + self.size[1] + 22), opacity=clamp(pe))
-        self.texts(f, t, 220 + self.size[1] + 80)
+        self.texts(f, t, 220 + self.size[1] + 104)
         flash(f, t)
         return self.finish(f, t)
 
