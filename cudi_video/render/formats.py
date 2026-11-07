@@ -10,6 +10,8 @@ Rang und Text, Kamerabewegung (Zoom, Schwenk), Übergang am Szenenanfang und die
 * **magazin**  – Bild oben mit schräger Kante, riesige Umriss-Ziffer, Farbbalken; Wisch-Übergang wie ein Magazin.
 * **polaroid** – Sofortbild fällt mit Drehung herein (Blitz), Stapel dahinter, Klebestreifen; Abschluss als Podest.
 * **zahl**     – Der Clip läuft IN der riesigen Rang-Ziffer, die aus dem Bild heraus herangezoomt wird.
+* **manuskript** – Buchlook (render/manuskript.py): fast schwarz, Satz oben Wort für Wort zur Stimme, Kapitel-Pille
+  („Platz 3“), Bild dezent eingefärbt im Linienrahmen, Quellen-Pille; Grundlage der Erklärvideos (`erklaer/`).
 """
 
 from __future__ import annotations
@@ -25,7 +27,7 @@ from .theme import (
     font, gradient_fill, paste, progress, rank_colors, rounded_rect, shadow, text_layer,
 )
 
-FORMATS = ["karte", "vollbild", "kreis", "magazin", "polaroid", "zahl"]
+FORMATS = ["karte", "vollbild", "kreis", "magazin", "polaroid", "zahl", "manuskript"]
 DARK = (10, 12, 28)
 
 
@@ -512,6 +514,234 @@ class PodiumOutro(OutroScene):
         return f
 
 
+# --------------------------------------------------------------------------- Format „manuskript“ (Buchlook)
+
+from PIL import ImageOps                                            # noqa: E402
+from . import manuskript as M                                       # noqa: E402
+from .icons import draw_icon                                        # noqa: E402
+from .linien import LABEL_Y, SIZE as ART, draw_visual, seg          # noqa: E402
+from .scenes import Scene                                           # noqa: E402
+
+
+def _toned(img: Image.Image, mask: Image.Image) -> Image.Image:
+    """Foto/Clip dezent im Buchlook: fast entsättigt, warm eingefärbt, abgedunkelt, weiche Ränder."""
+    rgb = img.convert("RGB")
+    gray = ImageOps.autocontrast(rgb.convert("L"), cutoff=1)
+    warm = ImageOps.colorize(gray, black=(4, 4, 4), white=(238, 224, 196))
+    out = Image.blend(rgb, warm, 0.78).point(lambda v: int(v * 0.72)).convert("RGBA")
+    out.putalpha(mask)
+    return out
+
+
+def wrap_lines(text: str, size: int, width: int) -> list[str]:
+    from .theme import wrap
+    return wrap(text, font("sub", size), width)
+
+
+class ManuskriptItem(ItemScene):
+    """Platz im Buchlook: Satz oben, Bild im Linien-Rahmen, darunter Name, Wert und Quellen-Pille."""
+    MEDIA = (720, 470)
+
+    def media_size(self):
+        return self.MEDIA
+
+    def media_mask(self):
+        w, h = self.MEDIA
+        m = Image.new("L", (w, h), 0)
+        ImageDraw.Draw(m).rounded_rectangle((12, 12, w - 13, h - 13), 26, fill=255)
+        return m.filter(ImageFilter.GaussianBlur(7))
+
+    def media_shadow(self):
+        return None
+
+    def reel_size(self):
+        return self.MEDIA
+
+    def __init__(self, job):
+        super().__init__(job)
+        it = self.item
+        self.pill = M.chapter_pill(f"{self.L['rank'].title()} {it['rank']}")
+        self.sentence = M.Sentence(job["text"], job["words"], job["lead"], bold=[it["name"]], max_h=330)
+        w, h = self.MEDIA
+        self.frame_img = Image.new("RGBA", (w + 20, h + 20), (0, 0, 0, 0))
+        ImageDraw.Draw(self.frame_img).rounded_rectangle((2, 2, w + 17, h + 17), 32, outline=(*M.INK, 70), width=2)
+        self.icon = None
+        if self.photo is None and self.reel is None:
+            ic = draw_icon(it.get("icon", "globe"), 300)
+            self.icon = Image.new("RGBA", ic.size, (*M.INK, 0))
+            self.icon.putalpha(ic.getchannel("A").point(lambda a: int(a * 0.8)))
+        nf, nl = fit_font(it["name"], "black", 72, 900, 2, min_size=44)
+        self.name_layer = text_layer(nl, nf, fill=(*M.INK, 255), align="center", width=900)
+        if it.get("fact"):
+            self.value_layer = (text_layer(wrap_lines(it["kicker"], 38, 900), font("sub", 38), fill=(*M.INK_DIM, 255),
+                                           align="center", width=900) if it.get("kicker") else None)
+        else:
+            self.value_layer = text_layer(self.q.display(self.lang, self.q.value), M.mfont("italic", 76),
+                                          fill=(*M.INK, 255), align="center", width=900)
+        bits = []
+        if it.get("as_of"):
+            bits.append(f"{self.L['as_of']} {it['as_of']}")
+        if it.get("n_sources"):
+            bits.append(self.L["src_n"].format(n=it["n_sources"]))
+        self.src = M.source_pill(" · ".join(bits)) if bits else None
+        self.label = M.caps_layer(it["value_label"]) if it.get("value_label") and not it.get("fact") else None
+
+    def frame(self, t):
+        f = M.background(t)
+        fade = M.fade_in_out(t, self.job["duration"], 0.45, 0.5)
+        top = M.TEXT_Y_PILL
+        paste(f, self.pill, ((W - self.pill.width) / 2, M.PILL_Y - 22), opacity=fade)
+        self.sentence.draw(f, t, top, fade)
+        w, h = self.MEDIA
+        fy = max(740, top + self.sentence.height + 50)
+        fx = (W - w) / 2
+        pc = ease_out_cubic(progress(t, 0.15, 0.7))
+        if self.icon is not None:
+            paste(f, self.icon, ((W - self.icon.width) / 2, fy + (h - self.icon.height) / 2 + math.sin(t * 1.4) * 6),
+                  opacity=fade * pc)
+        else:
+            card = self._card(t)
+            paste(f, _toned(card, card.getchannel("A")), (fx, fy + (1 - pc) * 18), opacity=fade * pc)
+        paste(f, self.frame_img, (fx - 10, fy - 10 + (1 - pc) * 18), opacity=fade * pc)
+        credit = self.clip_credits.get(self.reel.credit_at(t)) if self.reel is not None and self.reel.last else self.credit
+        y = fy + h + 26
+        if credit:
+            paste(f, credit, ((W - credit.width) / 2, y), opacity=fade * 0.7)
+            y += credit.height + 6
+        pn = ease_out_cubic(progress(t, 0.5, 0.6))
+        paste(f, self.name_layer, ((W - self.name_layer.width) / 2, y + (1 - pn) * 14), opacity=fade * pn)
+        y += self.name_layer.height + 6
+        if self.label is not None:
+            paste(f, self.label, ((W - self.label.width) / 2, y), opacity=fade * pn)
+            y += self.label.height - 4
+        if self.value_layer is not None:
+            pv = ease_out_cubic(progress(t, 0.8, 0.7))
+            paste(f, self.value_layer, ((W - self.value_layer.width) / 2, y + (1 - pv) * 12), opacity=fade * pv)
+            y += self.value_layer.height + 8
+        if self.src is not None:
+            paste(f, self.src, ((W - self.src.width) / 2, min(y + 6, 1500)), opacity=fade * progress(t, 1.2, 0.6))
+        return f
+
+
+class ManuskriptIntro(IntroScene):
+    def __init__(self, job):
+        super().__init__(job)
+        self.pill = M.chapter_pill(f"{self.L['top']} {job['n_items']}")
+        self.sentence = M.Sentence(job["text"], job["words"], job["lead"], bold=[], max_h=330)
+        self.title_caps = M.caps_layer(job["title"][:48], 24, 6.0, underline=True)
+
+    def frame(self, t):
+        f = M.background(t)
+        fade = M.fade_in_out(t, self.job["duration"], 0.5, 0.5)
+        paste(f, self.pill, ((W - self.pill.width) / 2, M.PILL_Y - 22), opacity=fade)
+        self.sentence.draw(f, t, M.TEXT_Y_PILL, fade)
+        u = clamp((t - 0.3) / max(2.0, 0.62 * (self.job["lead"] + 3.0)))
+        layer = draw_visual("spirale_partikel", {}, u, t)
+        paste(f, layer, (W / 2 - ART / 2, M.CY - ART / 2), opacity=fade)
+        paste(f, self.title_caps, ((W - self.title_caps.width) / 2, 1360), opacity=fade * seg(u, 0.5, 0.9))
+        return f
+
+
+class ManuskriptOutro(OutroScene):
+    def __init__(self, job):
+        super().__init__(job)
+        rows = job["outro"]["rows"]
+        self.pill = M.chapter_pill(job["title"][:34])
+        self.sentence = M.Sentence(job["text"], job["words"], job["lead"], bold=[], max_h=250)
+        self.n = len(rows)
+        self.cols = 1 if self.n <= 12 else 2
+        self.per = math.ceil(self.n / self.cols)
+        self.row_h = row_h = max(40, min(78, int(780 / self.per)))
+        fnt, vf = M.mfont("serif_m", int(row_h * 0.55)), M.mfont("italic", int(row_h * 0.55))
+        self.col_w = col_w = 900 // self.cols - (20 if self.cols > 1 else 0)
+        self.rows_l = []
+        for rank, name, value in rows:
+            img = Image.new("RGBA", (col_w, row_h), (0, 0, 0, 0))
+            d = ImageDraw.Draw(img)
+            base = row_h * 0.68
+            d.text((4, base), f"{rank}", font=vf, fill=(*M.INK_DIM, 255), anchor="ls")
+            label = name
+            vw = vf.getlength(value) if value else 0
+            while fnt.getlength(label) > col_w - vw - 80 and len(label) > 4:
+                label = label[:-2]
+            d.text((row_h * 0.9, base), label if label == name else label.rstrip() + "…", font=fnt,
+                   fill=(*M.INK, 255), anchor="ls")
+            if value:
+                d.text((col_w - 4, base), value, font=vf, fill=(*M.INK_DIM, 255), anchor="rs")
+            d.line((0, row_h - 2, col_w, row_h - 2), fill=(*M.INK_FAINT, 90), width=1)
+            self.rows_l.append(img)
+        self.cta = M.caps_layer(self.L["cta"].rstrip("!"), 24, 6.0, underline=True)
+
+    def frame(self, t):
+        f = M.background(t)
+        fade = M.fade_in_out(t, self.job["duration"], 0.5, 0.7)
+        paste(f, self.pill, ((W - self.pill.width) / 2, M.PILL_Y - 22), opacity=fade)
+        self.sentence.draw(f, t, M.TEXT_Y_PILL, fade)
+        y0 = max(700, M.TEXT_Y_PILL + self.sentence.height + 40)
+        x0 = (W - 900) / 2
+        for i, img in enumerate(self.rows_l):
+            col, r = divmod(i, self.per)
+            pr = ease_out_cubic(progress(t, 0.3 + i * min(0.12, 1.8 / max(1, self.n)), 0.5))
+            paste(f, img, (x0 + col * (self.col_w + 20), y0 + r * self.row_h + (1 - pr) * 10), opacity=fade * pr)
+        paste(f, self.cta, ((W - self.cta.width) / 2, min(1500, y0 + self.per * self.row_h + 40)),
+              opacity=fade * progress(t, 1.4, 0.6))
+        return f
+
+
+class ErklaerScene(Scene):
+    """Eine Szene des Erklärvideos (`erklaer/`): Kapitel-Pille, Satz Wort für Wort, Linien-Grafik oder Zitat-Karte."""
+
+    def __init__(self, job):
+        self.job = job
+        sz = job["szene"]
+        self.visual = sz.get("visual") or {}
+        self.kind = self.visual.get("typ", "beschriftung")
+        self.pill = M.chapter_pill(sz["kapitel"]) if sz.get("kapitel") else None
+        self.sentence = M.Sentence(sz["text"], job["words"], job["lead"], bold=sz.get("betont") or [], max_h=300)
+        self.label = M.caps_layer(self.visual["label"], 22, 5.5, underline=True) if self.visual.get("label") else None
+        self.quote = self._quote() if self.kind == "zitatkarte" else None
+        self.build = max(2.0, 0.6 * (job["lead"] + job["voice_dur"]))
+
+    def _quote(self):
+        v = self.visual
+        z = str(v.get("zitat") or "")
+        arabic = any("؀" <= c <= "ۿ" for c in z)
+        main = M.small_text(z, "arabic" if arabic else "serif", 98 if arabic else 60, M.INK, 255, 900)
+        sub = " · ".join(x for x in (v.get("umschrift"), v.get("uebersetzung")) if x)
+        return {"main": main, "sub": M.small_text(sub, "italic", 31, M.INK_DIM, 235, 900) if sub else None,
+                "pill": M.source_pill(v["quelle"]) if v.get("quelle") else None,
+                "by": M.small_text(v["ueberliefert"], "sans", 19, M.INK_DIM, 150, 900) if v.get("ueberliefert") else None}
+
+    def frame(self, t):
+        f = M.background(t)
+        fade = M.fade_in_out(t, self.job["duration"], 0.5, 0.7)
+        top = M.TEXT_Y_PILL if self.pill is not None else M.TEXT_Y
+        if self.pill is not None:
+            paste(f, self.pill, ((W - self.pill.width) / 2, M.PILL_Y - 22), opacity=fade)
+        self.sentence.draw(f, t, top, fade)
+        u = clamp((t - 0.35) / self.build)
+        if self.quote is not None:
+            q = self.quote
+            paste(f, M.blur_in(q["main"], ease_out_cubic(progress(t, 0.5, 1.0))),
+                  ((W - q["main"].width) / 2, 844 - q["main"].height / 2), opacity=fade)
+            if q["sub"] is not None:
+                paste(f, M.blur_in(q["sub"], ease_out_cubic(progress(t, 0.9, 0.9))),
+                      ((W - q["sub"].width) / 2, 956 - q["sub"].height / 2), opacity=fade)
+            if q["pill"] is not None:
+                paste(f, q["pill"], ((W - q["pill"].width) / 2, 1056), opacity=fade * progress(t, 1.3, 0.7))
+            if q["by"] is not None:
+                paste(f, q["by"], ((W - q["by"].width) / 2, 1118), opacity=fade * progress(t, 1.6, 0.7))
+            return f
+        layer = draw_visual(self.kind, self.visual, u, t)
+        shift = max(0, min(170, top + self.sentence.height + 40 - (M.CY - 400)))     # langer Satz: Grafik rückt nach unten
+        if layer is not None:
+            paste(f, layer, (W / 2 - ART / 2, M.CY - ART / 2 + shift), opacity=fade)
+        if self.label is not None:
+            paste(f, self.label, ((W - self.label.width) / 2, LABEL_Y.get(self.kind, 1380) + shift),
+                  opacity=fade * seg(u, 0.6, 1.0))
+        return f
+
+
 SCENES = {
     "karte": {},
     "vollbild": {"item": FullItem, "intro": CinemaIntro},
@@ -519,6 +749,7 @@ SCENES = {
     "magazin": {"item": MagazineItem, "intro": MagazineIntro},
     "polaroid": {"item": PolaroidItem, "intro": PolaroidIntro, "outro": PodiumOutro},
     "zahl": {"item": NumberItem, "intro": NumberIntro, "outro": PodiumOutro},
+    "manuskript": {"item": ManuskriptItem, "intro": ManuskriptIntro, "outro": ManuskriptOutro, "erklaer": ErklaerScene},
 }
 BASE = {"intro": IntroScene, "item": ItemScene, "outro": OutroScene}
 

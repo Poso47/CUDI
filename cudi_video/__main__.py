@@ -9,6 +9,7 @@ Beispiele:
   python -m cudi_video story --stimmung funny --suchen                      # nur Vorschläge anzeigen
   python -m cudi_video story https://www.reddit.com/r/tifu/comments/abc123/ --nur-skelett
   python -m cudi_video auftrag '{"id": "a1b2", "art": "story", "stimmung": "creepy"}'   # Auftrag der CUDI-App
+  python -m cudi_video erklaer examples/erklaer_goldener_schnitt.json   # Erklärvideo im Buchlook
   python -m cudi_video web                          # Web-Oberfläche (auch fürs Handy)
   python -m cudi_video check                        # Selbsttest (bei Problemen zuerst ausführen)
 """
@@ -71,6 +72,9 @@ def main(argv=None) -> int:
     au.add_argument("--dokument", metavar="ID", help="Dokument für die Ablage der App-Seite bauen")
     au.add_argument("--adressen", help='hochgeladene Dateien als JSON {"datei": "url"}')
 
+    er = sub.add_parser("erklaer", help="Erklärvideo (Buchlook) aus einem Szenen-Skript (JSON)")
+    er.add_argument("skript", help="Pfad zum Szenen-Skript, z. B. examples/erklaer_goldener_schnitt.json")
+
     chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
     chk.add_argument("--ohne-netz", action="store_true", help="nur lokale Prüfungen")
     chk.add_argument("--ohne-stimme", action="store_true", help="KI-Stimme nicht testen")
@@ -95,6 +99,13 @@ def main(argv=None) -> int:
         from .job import main as job_main
 
         return job_main(args)
+
+    if args.cmd == "erklaer":
+        from .erklaer import load_script, render_erklaerung
+
+        result = render_erklaerung(load_script(args.skript), progress=lambda f: print(f"  {f:4.0%}", flush=True))
+        print(f"\nAusgabe: {result['folder']}\n  {result['video']} ({result['duration']} s)")
+        return 0
 
     if args.cmd == "check":
         from .check import print_report, run_checks

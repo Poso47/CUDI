@@ -360,10 +360,10 @@ def test_format_choice_in_order_and_variety_per_video():
         job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "format": "bunt"}, PRESETS)
     assert theme.pick_style("x", "mountain", wanted="zahl")["format"] == "zahl"
     picks = [theme.pick_style(f"video-{i}", "mountain") for i in range(40)]
-    assert {p["name"] for p in picks} <= set(theme.STYLE_FIT["mountain"])           # Farben passen zum Thema
+    assert {p["name"] for p in picks if p["format"] != "manuskript"} <= set(theme.STYLE_FIT["mountain"])   # Farben passen zum Thema
     assert {p["format"] for p in picks} == set(theme.FORMAT_NAMES)                   # alle Formate kommen vor
     assert theme.pick_style("same", "lake") == theme.pick_style("same", "lake")       # reproduzierbar
     # Farben nach Themenwörtern: Meer → Ozean/Natur, Gehirn → Neon/Minimal/Kino
     assert theme.palette_options(None, "facts", "Die 5 tiefsten Meere") == ["ozean", "natur"]
-    assert theme.pick_style("y", None, "facts", topic="Fakten über das Unterbewusstsein")["name"] in ("neon", "minimal", "kino")
+    assert theme.pick_style("y", None, "facts", "karte", topic="Fakten über das Unterbewusstsein")["name"] in ("neon", "minimal", "kino")
 
