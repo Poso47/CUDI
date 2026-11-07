@@ -9,6 +9,7 @@ Beispiele:
   python -m cudi_video story --stimmung funny --suchen                      # nur Vorschläge anzeigen
   python -m cudi_video story https://www.reddit.com/r/tifu/comments/abc123/ --nur-skelett
   python -m cudi_video auftrag '{"id": "a1b2", "art": "story", "stimmung": "creepy"}'   # Auftrag der CUDI-App
+  python -m cudi_video clip podcast.mp4 --start 120 --ende 200   # Hochformat-Clip aus Podcast/Stream (Datei oder URL)
   python -m cudi_video web                          # Web-Oberfläche (auch fürs Handy)
   python -m cudi_video check                        # Selbsttest (bei Problemen zuerst ausführen)
 """
@@ -71,6 +72,15 @@ def main(argv=None) -> int:
     au.add_argument("--dokument", metavar="ID", help="Dokument für die Ablage der App-Seite bauen")
     au.add_argument("--adressen", help='hochgeladene Dateien als JSON {"datei": "url"}')
 
+    cl = sub.add_parser("clip", help="Podcast-/Streamer-Clip im Hochformat (Hook, Sprecher-Zuschnitt, Untertitel)")
+    cl.add_argument("quelle", help="Videodatei oder URL (yt-dlp)")
+    cl.add_argument("--start", type=float, default=None, help="Fensteranfang in Sekunden (erzwingt das Fenster)")
+    cl.add_argument("--ende", type=float, default=None, help="Fensterende in Sekunden")
+    cl.add_argument("--sprache", default="de", help="Sprache des Gesprächs (de, en, auto)")
+    cl.add_argument("--laenge", type=float, default=90.0, help="längstes automatisch gewähltes Fenster in Sekunden (30–170)")
+    cl.add_argument("--herkunft", default=None, help="Quelle/Lizenz-Vermerk, wird in clip.json gespeichert")
+    cl.add_argument("--name", default=None, help="Ordnername unter video_output/clips/")
+
     up = sub.add_parser("hochladen", help="fertiges Video zu YouTube Shorts / TikTok hochladen (docs/upload-einrichten.md)")
     up.add_argument("quelle", help="Pfad zu einer .mp4 oder Auftrags-ID")
     up.add_argument("--ziel", default="youtube", choices=["youtube", "tiktok", "beide"])
@@ -102,6 +112,27 @@ def main(argv=None) -> int:
 
     if args.cmd == "story":
         return _story(args)
+
+    if args.cmd == "clip":
+        from .clip import ClipError
+        from .handoff import WritingNeeded
+        from .clip.pipeline import make_clip
+
+        try:
+            info = make_clip(args.quelle, args.start, args.ende, args.sprache, min(max(args.laenge, 30.0), 170.0),
+                             args.name, fortschritt=lambda t: print(f"… {t}", flush=True), herkunft=args.herkunft)
+        except WritingNeeded as exc:
+            print(f"Schreibaufgabe für Claude abgelegt: {exc.path} – beantworten und den Befehl erneut ausführen.")
+            return 2
+        except ClipError as exc:
+            print(f"Fehler: {exc}", file=sys.stderr)
+            return 1
+        print(f"\nClip: {info['datei']} ({info['dauer']} s, {len(info['schnitte'])} Schnitte, {info['personen']} Person(en))")
+        if info["hook"]:
+            print(f"Hook: {info['hook']['text']}")
+        for h in info["hinweise"]:
+            print(f"  ⚠️  {h}")
+        return 0
 
     if args.cmd == "auftrag":
         from .job import main as job_main

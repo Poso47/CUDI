@@ -8,3 +8,6 @@ numpy>=1.26
 edge-tts>=7.0
 fastapi>=0.110
 uvicorn>=0.29
+opencv-python-headless>=4.8   # Clip-Engine: YuNet (auch 5.x), Haar nur bei 4.x
+faster-whisper>=1.0   # Clip-Engine (Spracherkennung)
+yt-dlp   # Clip-Engine (URL-Quellen)
