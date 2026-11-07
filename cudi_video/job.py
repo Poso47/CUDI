@@ -68,6 +68,23 @@ def _flag(value, default: bool) -> bool:
     return str(value).strip().lower() in ("1", "true", "ja", "yes", "an")
 
 
+def _upload_wish(raw) -> dict | None:
+    """Auftragsfeld „hochladen“ (Standard aus): {"ziel": youtube|tiktok|beide, "sichtbarkeit": privat|ungelistet|oeffentlich}
+    oder nur der Zielname. Nur Backend – Zugangsdaten stehen in Umgebungsvariablen (docs/upload-einrichten.md)."""
+    if not raw:
+        return None
+    wish = raw if isinstance(raw, dict) else {"ziel": raw}
+    target = str(wish.get("ziel") or "").strip().lower()
+    if target in ("1", "true", "ja"):
+        target = "youtube"
+    if target not in ("youtube", "tiktok", "beide"):
+        raise OrderError("Hochladen: „youtube“, „tiktok“ oder „beide“.")
+    visibility = str(wish.get("sichtbarkeit") or "privat").lower().replace("ö", "oe")
+    if visibility not in ("privat", "ungelistet", "oeffentlich"):
+        raise OrderError("Sichtbarkeit: privat, ungelistet oder oeffentlich.")
+    return {"ziel": target, "sichtbarkeit": visibility}
+
+
 def parse_preferences(raw) -> dict:
     """Vorlieben aus den Bewertungen der App: {"gut": [...], "schlecht": [...]}, je höchstens 8 kurze Einträge."""
     if not isinstance(raw, dict):
@@ -133,7 +150,7 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
         return {"id": job_id, "art": "ranking", "thema": topic, "vorlage": preset, "sprachen": langs,
                 "plaetze": count, "streng": _flag(raw.get("streng"), False), "laenge": length,
                 "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), None),
-                "format": _format(raw.get("format"))}
+                "format": _format(raw.get("format")), "hochladen": _upload_wish(raw.get("hochladen"))}
     if kind == "story":
         wish = _text(raw.get("wunsch"), 300)
         mood = str(raw.get("stimmung") or "auto")
@@ -151,7 +168,8 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError("Unbekannter Schritt – „skelett“, „video“ oder leer.")
         return {"id": job_id, "art": "story", "wunsch": wish, "stimmung": mood, "sprache": lang,
                 "laenge": length, "bilder": visuals, "entschaerfen": _flag(raw.get("entschaerfen"), True),
-                "schritt": step, "maskottchen": _flag(raw.get("maskottchen"), None)}
+                "schritt": step, "maskottchen": _flag(raw.get("maskottchen"), None),
+                "hochladen": _upload_wish(raw.get("hochladen"))}
     raise OrderError("Unbekannte Art – „ranking“ oder „story“.")
 
 
@@ -443,6 +461,10 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
             data = _summary(order, None, f"{type(exc).__name__}: {exc}"[:1500])
             data["wiederholbar"] = _transient(exc)
             break
+    if data["ok"] and order.get("hochladen") and not data.get("schritt"):
+        from .upload.cli import upload_order
+
+        data["hochgeladen"] = upload_order(order["hochladen"], data)           # Fehler werden Hinweise, nie ein Abbruch
     (folder / "ergebnis.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), "utf-8")
     return (0 if data["ok"] else 1), data
 

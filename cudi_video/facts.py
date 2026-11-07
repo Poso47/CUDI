@@ -17,13 +17,14 @@ import logging
 import re
 from datetime import datetime, timezone
 
-from . import handoff, media, net, textcheck, themen
+from . import bildcheck, handoff, media, net, textcheck, themen
 from .models import RankItem, Research
 from .spec import VideoSpec
 
 log = logging.getLogger(__name__)
 
 ARTICLE_CHARS = 10000          # je Artikel – bis zu 4 spezifische Artikel je Sprache (je Aspekt einer)
+WEAK_CLIP = 0.8                # Clip mit schwächerem Bildprüfungswert muss sich gegen ein Foto messen lassen
 EXTRA_FACTS = 3                # Claude liefert so viele Fakten mehr, falls einzelne die Prüfung nicht bestehen
 MIN_ARTICLE_CHARS = 1200
 _NUM = (r"(?:ein|zwei|drei|vier|fünf|sechs|sieb|sieben|acht|neun|zehn|elf|zwölf|zwanzig|dreißig|vierzig|fünfzig|"
@@ -43,10 +44,14 @@ INSTRUCTIONS = (
     "jede Sprache in „sprachen“: „titel_<sprache>“ (Überschrift, höchstens 45 Zeichen), „kurz_<sprache>“ "
     "(Kernaussage, höchstens 70 Zeichen) und „text_<sprache>“ (Sprechertext, ungefähr „woerter“ Wörter, direkte "
     "Ansprache mit „du“, kurze Sätze, nichts übertreiben; Namen von Personen, Orten, Studien oder Einrichtungen nur, "
-    "wenn sie im Quelltext stehen). " + themen.KNOWLEDGE_STRUCTURE + " „suche“ = 2–4 englische Wörter für "
-    "passende Stockvideos zum konkreten Fakt (z. B. „person walking past cafe“). Antwort: "
+    "wenn sie im Quelltext stehen). " + themen.KNOWLEDGE_STRUCTURE + " " + themen.AHA_FACTS + " "
+    "Bild: „motiv“ = das KONKRETE, sichtbare Objekt des Fakts auf Englisch (2–3 Wörter, z. B. „shark teeth“, "
+    "„shark skin denticles“, „megalodon fossil tooth“ – bei einem Zahn-Fakt also der Zahn, nicht das ganze Tier); "
+    "„suche“ = Liste mit 2–3 englischen Suchbegriffen (je 2–4 Wörter) für passende Stockvideos/Fotos zu genau "
+    "diesem Motiv. Antwort: "
     "{\"fakten\": [{\"rang\": 1, \"aspekt\": \"…\", \"beleg\": \"…\", \"belege\": [\"…\"], \"quelle\": \"…\", "
-    "\"titel_de\": \"…\", \"kurz_de\": \"…\", \"text_de\": \"…\", \"suche\": \"…\"}]}."
+    "\"titel_de\": \"…\", \"kurz_de\": \"…\", \"text_de\": \"…\", \"aha_de\": \"…\", \"motiv\": \"…\", "
+    "\"suche\": [\"…\", \"…\"]}]}."
 )
 
 INSTRUCTIONS_FIX = (
@@ -268,6 +273,7 @@ def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int,
         unknown = [w for w in unknown if not textcheck.everyday_word(w, lang, words)]
         if unknown:
             return "nicht belegt: " + ", ".join(unknown[:3]), ""
+    fact["_aha"] = checked_aha(fact, langs, beleg_all, sources, home)
     numbers = {d for d in _digits(beleg_all) if len(d) >= 2}
     if numbers:
         second = confirm_numbers(numbers, home, sources)
@@ -276,6 +282,40 @@ def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int,
         fact["_zweitquelle"] = second
         return None, "bestätigt"
     return None, "eine Fachquelle (Wortlaut geprüft)"
+
+
+AHA_MAX_WORDS = 22
+
+
+def checked_aha(fact: dict, langs: list[str], beleg_all: str, sources: list[dict], home: dict) -> dict:
+    """„aha_<sprache>“ (ein Satz: Was weiß man jetzt Neues?) mit denselben Prüfungen wie der Sprechertext: keine Zahl
+    ohne Beleg, keine erfundenen Namen/Wörter, keine Wertung. Ein schlechter Aha-Satz lehnt den Fakt nicht ab – er wird
+    nur nicht als „Heute gelernt“ gesprochen."""
+    from .narrate import RANK_CLAIM, unknown_words
+    from .script import NOT_NEUTRAL
+    from .textcheck import invented_people
+
+    out = {}
+    for lang in langs:
+        aha = re.sub(r"\s+", " ", str(fact.get(f"aha_{lang}") or "")).strip()
+        if not 3 <= len(aha.split()) <= AHA_MAX_WORDS:
+            continue
+        own = " ".join(str(fact.get(f"{k}_{lang}") or "") for k in ("titel", "kurz", "text"))
+        backed = textcheck.numbers(f"{beleg_all} {own}", "de") | textcheck.numbers(f"{beleg_all} {own}", "en")
+        if not textcheck.numbers(aha, lang) <= backed or NOT_NEUTRAL.search(aha) or RANK_CLAIM.search(aha):
+            continue
+        compound = {w for w in re.findall(r"[a-zäöüß]+", aha.lower()) if COMPOUND_NUMBER.search(w)
+                    and w not in textcheck.NUMBER_WORDS["de"]}
+        if not compound <= set(re.findall(r"[a-zäöüß]+", f"{beleg_all} {own}".lower())):
+            continue
+        # Namen und Hauptwörter müssen im Fakt selbst (Beleg + Sprechertext) stehen, nicht nur irgendwo in den Quellen
+        unknown = invented_people(aha, f"{beleg_all} {own}") or unknown_words(
+            aha, {"sprache": lang, "beleg": f"{beleg_all} {own}", "quelle": ""})
+        words = source_words(sources, beleg_all)
+        if [w for w in unknown if not textcheck.everyday_word(w, lang, words)]:
+            continue
+        out[lang] = aha
+    return out
 
 
 def _facts_of(answer) -> list[dict]:
@@ -346,7 +386,9 @@ def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
             summary={lang: str(fact[f"text_{lang}"]).strip() for lang in langs},
             fact={"beleg": fact["beleg"].strip(), "quelle": home["titel"], "url": home["url"],
                   "zweitquelle": str(fact.get("_zweitquelle") or ""),
-                  "suche": str(fact.get("suche") or "")[:60], "aspekt": str(fact.get("aspekt") or "")[:60],
+                  "suche": (searches(fact) or [""])[0], "suchen": searches(fact),
+                  "motiv": str(fact.get("motiv") or "").strip()[:60], "aha": dict(fact.get("_aha") or {}),
+                  "aspekt": str(fact.get("aspekt") or "")[:60],
                   "belege": [str(b).strip() for b in fact.get("belege") or [] if str(b).strip()][:3]
                   if isinstance(fact.get("belege"), list) else []},
             verification={"status": status, "sources": [home["titel"]], "evidence": [], "outliers": []},
@@ -357,31 +399,105 @@ def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
     return research
 
 
-def _visuals(research: Research) -> None:
-    """Passende Stockclips (Pexels/Pixabay) bzw. Fotos je Fakt – abstrakte Themen brauchen Stimmungsbilder."""
-    from .story.visuals import pexels, pexels_photo, pixabay
+def searches(fact: dict) -> list[str]:
+    """Suchbegriffe des Fakts: „suche“ als Liste (neu) oder als einzelner Text (alte Antworten)."""
+    raw = fact.get("suchen") or fact.get("suche")
+    raw = raw if isinstance(raw, list) else [raw]
+    return [str(q).strip()[:60] for q in raw if q and str(q).strip()][:3]
 
-    used: set = set()
-    for item in research.items:
-        query = item.fact.get("suche") or item.labels.get("en") or ""
-        clips = []
+
+def _stock_clips(queries: list[str], used: set, match, motif: str = "", limit: int = 2) -> list[dict]:
+    from .story.visuals import pexels, pixabay
+
+    clips: list[dict] = []
+    for query in queries:
         for _ in range(4):                       # bis zu 2 Clips, fast schwarze werden übersprungen
             try:
-                found = pexels(query, used) or pixabay(query, used)
+                found = pexels(query, used, match, motif) or pixabay(query, used, match, motif)
             except net.FetchError:
                 found = None
             if not found:
                 break
             if media.too_dark(found.path):
                 continue
-            clips.append({"path": found.path, "credit": found.credit, "duration": 0, "kind": "video"})
-            if len(clips) == 2:
-                break
-        if not clips:
+            clips.append({"path": found.path, "credit": found.credit, "duration": 0, "kind": "video",
+                          "score": found.score})
+            if len(clips) == limit:
+                return clips
+        if clips:
+            break
+    return clips
+
+
+def _first_photo(finders, queries: list[str], used: set, match, motif: str = ""):
+    for query in queries:
+        for find in finders:
             try:
-                photo = pexels_photo(query, used)
+                photo = find(query, used, match, motif)
             except net.FetchError:
                 photo = None
             if photo:
-                item.image_path, item.image_credit = photo.path, photo.credit
-        item.clips = clips
+                return photo
+    return None
+
+
+def find_visuals(fact: dict, fallback: str, used: set) -> dict:
+    """Bild/Clip, das den Fakt zeigt. Reihenfolge: passender Clip -> passendes Foto (Pexels/Pixabay) -> Commons-Bild
+    zum Motiv -> allgemeiner Themenclip/-foto als „Stimmungsbild“.
+    Prüfung: Mit Bildprüfung (bildcheck, CLIP) muss das Motiv im Bild zu sehen sein; der Tag-Abgleich ist dann nur ein
+    lockerer Vorfilter (Hauptwort). Ohne Modell: strenger Tag-Abgleich (ALLE Kernwörter in Tags/Adresse/Titel).
+    Ergebnis: {clips, photo, passt, quelle, motiv, wert}; ohne „motiv“ (alte Antworten) wird nur nach „suche“
+    gesucht (passt = None, nicht geprüft)."""
+    from .story.visuals import commons_photo, pexels_photo, pixabay_photo
+
+    motif = str(fact.get("motiv") or "").strip()
+    queries = searches(fact) or ([fallback] if fallback else [])
+    out = {"clips": [], "photo": None, "passt": None, "quelle": "ungeprüft", "motiv": motif, "wert": None}
+
+    def score(clips, photo):
+        values = [c.get("score") for c in clips] + [photo.score if photo else None]
+        values = [v for v in values if v is not None]
+        return max(values) if values else None
+
+    if motif:
+        seeing = bildcheck.available()
+        match = lambda text: media.motif_matches(motif, text, loose=seeing)          # noqa: E731
+        check = motif if seeing else ""
+        tries = list(dict.fromkeys([motif, *queries]))
+        clips = _stock_clips(tries, used, match, check)
+        clip_score = score(clips, None)
+        if clips and (clip_score is None or clip_score >= WEAK_CLIP):
+            return {**out, "clips": clips, "passt": True, "quelle": "Clip", "wert": clip_score}
+        photo = _first_photo((pexels_photo, pixabay_photo), tries, used, match, check)
+        if clips and not (photo and (photo.score or 0) > (clip_score or 0)):     # schwacher Clip schlägt kein schwaches Foto
+            return {**out, "clips": clips, "passt": True, "quelle": "Clip", "wert": clip_score}
+        if photo:
+            return {**out, "photo": photo, "passt": True, "quelle": "Foto", "wert": score([], photo)}
+        try:
+            photo = commons_photo(motif, used, match, check)
+        except net.FetchError:
+            photo = None
+        if photo:
+            return {**out, "photo": photo, "passt": True, "quelle": "Wikimedia Commons", "wert": score([], photo)}
+    # letzte Stufe: Stimmungsbild zum Thema – wenigstens das Hauptthema (erstes Kernwort, z. B. „shark“) muss zu
+    # sehen bzw. in der Beschreibung zu lesen sein
+    subject = (media.motif_words(motif) or [""])[0]
+    mood = (lambda text: media.motif_matches(subject, text)) if subject else None          # noqa: E731
+    check = subject if subject and bildcheck.available() else ""
+    clips = _stock_clips(queries, used, mood, check)
+    photo = None if clips else _first_photo((pexels_photo,), queries, used, mood, check)
+    return {**out, "clips": clips, "photo": photo, "passt": False if motif else None, "wert": score(clips, photo),
+            "quelle": ("Stimmungsbild" if motif else "ungeprüft") if clips or photo else "kein Bild"}
+
+
+def _visuals(research: Research) -> None:
+    """Passende Stockclips (Pexels/Pixabay) bzw. Fotos je Fakt – das Bild muss den Fakt zeigen (Motiv), erst zuletzt
+    gibt es ein Stimmungsbild (im Prüfbericht vermerkt)."""
+    used: set = set()
+    for item in research.items:
+        found = find_visuals(item.fact, item.labels.get("en") or "", used)
+        item.clips = found["clips"]
+        if found["photo"] and not found["clips"]:
+            item.image_path, item.image_credit = found["photo"].path, found["photo"].credit
+        item.fact["bild"] = {"motiv": found["motiv"], "passt": found["passt"], "quelle": found["quelle"],
+                             "wert": found["wert"]}

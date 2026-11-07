@@ -143,7 +143,8 @@ def test_template_script_uses_only_data():
     assert "830" not in " ".join(s.text for s in script.segments)        # Wikipedia-Zahl verworfen
     assert "Quellen" not in script.segments[-1].text and "Wikidata" not in script.segments[-1].text
     en = build_script(spec, research, "en", use_llm=False)
-    assert en.segments[-1].text.startswith("Which of these buildings")        # Kommentarfrage zum Thema
+    assert "Which of these buildings" in en.segments[-1].text                    # Kommentarfrage zum Thema
+    assert en.segments[-1].text.startswith("Learned today: Turm A takes number one")   # Lerneffekt aus dem Spitzenwert
     assert "tallest" not in " ".join(s.text for s in en.segments)
 
 

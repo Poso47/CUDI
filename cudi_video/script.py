@@ -549,7 +549,10 @@ def build_script(spec: VideoSpec, research: Research, lang: str, use_llm: bool |
     if n_langs:
         names.append(TEXT[lang]["wiki_langs"].format(n=n_langs))
     source_text = _join(" / ".join(names), lang)
-    segments.append(Segment(kind="outro", text=retention.outro(spec, lang, icon_for(spec.icon, spec.source.property))))
+    outro = retention.outro(spec, lang, icon_for(spec.icon, spec.source.property))
+    if top and detail > 0 and top_spoken:         # Heute gelernt: Spitzenwert (geprüft, bewusst gerundet)
+        outro = f"{retention.learned_ranking(top.labels.get(lang) or '', top_spoken, lang)} {outro}".strip()
+    segments.append(Segment(kind="outro", text=outro))
     return Script(lang=lang, title=title, segments=segments, mode=mode, checks=checks)
 
 
@@ -565,7 +568,9 @@ def build_fact_script(spec: VideoSpec, research: Research, lang: str, detail: in
         if bridge.get(item.rank):
             text = f"{text} {bridge[item.rank]}"
         segments.append(Segment(kind="item", text=text, rank=item.rank, sources=[item.fact.get("url", "")]))
-    segments.append(Segment(kind="outro", text=retention.fact_outro(lang)))
+    top = min(research.items, key=lambda it: it.rank, default=None)
+    aha = (top.fact.get("aha") or {}).get(lang, "") if top and detail > 0 else ""      # Heute gelernt (nur geprüft)
+    segments.append(Segment(kind="outro", text=retention.fact_outro(lang, aha)))
     checks = [f"Platz {it.rank}: Beleg aus „{it.fact.get('quelle')}“ wörtlich geprüft ({it.verification.get('status')})."
               for it in sorted(research.items, key=lambda it: it.rank)]
     return Script(lang=lang, title=spec.title[lang], segments=segments, mode="claude", checks=checks)

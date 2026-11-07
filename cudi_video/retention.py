@@ -134,7 +134,8 @@ STORY_RULES = {
         "Spannungsbogen: Der „hook“ beginnt mitten im spannendsten Moment der Story (ohne das Ende zu verraten) und "
         "öffnet eine Frage, die erst am Schluss beantwortet wird. Jede Szene endet so, dass man wissen will, wie es "
         "weitergeht. Kurze Sätze, Sinneseindrücke (was man hört, sieht, fühlt), wörtliche Rede wo sie in der Story "
-        "steht. Die Auflösung kommt erst in der letzten Szene. Themenkern: Jede Szene treibt die EINE Geschichte aus "
+        "steht. Die Auflösung kommt erst in der letzten Szene. Aha: Die Story endet mit einer Erkenntnis, einem Detail oder "
+        "einer Wendung, die der Zuschauer so nicht erwartet hat. Themenkern: Jede Szene treibt die EINE Geschichte aus "
         "dem Hook voran; Nebenschauplätze, die nichts zum Konflikt beitragen, kürzen."
     ),
     "creepy": "Grusel: Andeutungen statt Erklärungen, Stille und kleine Details (ein Geräusch, ein Schatten) bauen Angst auf.",
@@ -195,5 +196,23 @@ def fact_bridges(spec: VideoSpec, countdown: list[RankItem], lang: str) -> dict[
     return out
 
 
-def fact_outro(lang: str) -> str:
-    return FACT_OUTRO[lang]
+LEARNED = {"de": "Heute gelernt: {aha}", "en": "Learned today: {aha}"}
+LEARNED_RANKING = {
+    "de": "Heute gelernt: Platz eins geht an {name} – mit {top}.",
+    "en": "Learned today: {name} takes number one – with {top}.",
+}
+
+
+def learned(aha: str, lang: str) -> str:
+    """„Heute gelernt: …“ – der geprüfte Aha-Satz von Platz 1 (leer ohne Aha-Satz)."""
+    aha = aha.strip()
+    return LEARNED[lang].format(aha=aha if aha[-1:] in ".!?" else aha + ".") if aha else ""
+
+
+def learned_ranking(name: str, top: str, lang: str) -> str:
+    """Rankings mit Zahlen: der Spitzenwert (bereits geprüft, gerundet gesprochen) als Lerneffekt."""
+    return LEARNED_RANKING[lang].format(name=name, top=top) if name and top else ""
+
+
+def fact_outro(lang: str, aha: str = "") -> str:
+    return f"{learned(aha, lang)} {FACT_OUTRO[lang]}".strip()

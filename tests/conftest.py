@@ -14,6 +14,12 @@ from cudi.core.application import Application  # noqa: E402
 from cudi.models.base import ModelProvider, ModelResponse, ProviderError, ToolCall  # noqa: E402
 
 
+@pytest.fixture(autouse=True)
+def _no_clip_model(monkeypatch):
+    """Tests laden nie das CLIP-Modell (kein Download/Install); Bildprüfungs-Tests setzen ihre eigenen Attrappen."""
+    monkeypatch.setenv("CUDI_BILDPRUEFUNG", "0")
+
+
 class FakeProvider(ModelProvider):
     """Sprachmodell-Attrappe mit Drehbuch: jede Antwort ist Text, ModelResponse oder Funktion."""
 
