@@ -12,6 +12,8 @@ derselben Wissensstruktur: Aufhänger → Kernaussage → Erklärung (wie/warum)
 
 from __future__ import annotations
 
+import re
+
 from .spec import VideoSpec
 
 TOPIC_RULES = (
@@ -39,8 +41,12 @@ def focus(spec: VideoSpec, lang: str) -> dict:
 
 def parse_focus(answer: dict) -> dict:
     """Themenkern aus der Planer-Antwort (gekürzt, nur Text)."""
+    def short(text: str, n: int = 48) -> str:
+        text = re.sub(r"\s+", " ", text).strip()
+        return text if len(text) <= n else text[:n].rsplit(" ", 1)[0].rstrip(" ,:;–-")
+
     def texts(key: str, limit: int) -> list[str]:
-        return [str(t).strip()[:60] for t in (answer.get(key) or [])[:limit] if str(t).strip()]
+        return [short(str(t)) for t in (answer.get(key) or [])[:limit] if str(t).strip()]
 
     frage = {lang: str(answer.get(f"themenkern_{lang}") or "").strip()[:160] for lang in ("de", "en")}
     return {"frage": {k: v for k, v in frage.items() if v}, "aspekte": texts("aspekte", 6), "nicht": texts("nicht_gemeint", 6)}

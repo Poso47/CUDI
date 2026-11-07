@@ -126,7 +126,9 @@ GERMAN_NAMES = set("""müller schmidt schneider fischer weber meyer meier wagner
     erfurt mainz kassel freiburg heidelberg potsdam wien graz linz salzburg innsbruck zürich genf basel bern luzern
     deutschland österreich schweiz frankreich italien spanien england amerika russland china japan indien europa afrika
     asien bayern sachsen hessen preußen""".split())
-NAME_ENDINGS = ("mann", "berg", "burg", "dorf", "stein", "feld", "hausen", "ingen", "heim", "bach", "stadt", "furt")
+NAME_ENDINGS = ("mann", "berg", "burg", "dorf", "stein", "feld", "hausen", "ingen", "heim", "bach", "stadt", "furt",
+                "thal")
+TAIL_RANK = 50000                       # zweiter Teil einer Zusammensetzung („-folgern“) darf seltener sein
 
 
 def _german_everyday(part: str, max_rank: int = COMMON_RANK) -> bool:
@@ -150,12 +152,16 @@ def _german_known(part: str) -> bool:
     if _german_everyday(part):
         return True
     stems = [part[: -len(e)] for e in GERMAN_ENDINGS if part.endswith(e) and len(part) - len(e) >= 4]
+    if part.endswith(("ung", "ungen")):                # „Erkennung“ → „erkennen“
+        stems.append(part[: part.rindex("ung")] + "en")
     if any(_german_everyday(s) for s in stems):
         return True
 
     def piece(x: str) -> bool:
-        return _german_everyday(x, PART_RANK) or any(
-            _german_everyday(x[: -len(e)], PART_RANK) for e in GERMAN_ENDINGS if x.endswith(e) and len(x) - len(e) >= 4)
+        forms = [x] + [x[: -len(e)] for e in GERMAN_ENDINGS if x.endswith(e) and len(x) - len(e) >= 4]
+        if x.endswith(("ung", "ungen")):
+            forms.append(x[: x.rindex("ung")] + "en")
+        return any(_german_everyday(f, TAIL_RANK) for f in forms)
 
     if part.endswith(NAME_ENDINGS):                    # „Hoffmann“, „Heidelberg“: als Zusammensetzung belegpflichtig
         return False

@@ -734,7 +734,7 @@ def test_fact_ranking_error_names_the_reasons(writing, monkeypatch):
     monkeypatch.setattr(facts, "article_text", lambda lang, title: (DE_TEXT, title))
     monkeypatch.setattr(facts, "word_budget", lambda spec: 10)
     bad = _fact(1, "Das Unterbewusstsein steuert 95 Prozent unseres Lebens.", "Es steuert 95 Prozent.")
-    for task in ("fakten", "fakten_korrektur"):
+    for task in ("fakten", "fakten_korrektur", "fakten_korrektur2"):
         with pytest.raises(handoff.WritingNeeded) as need:
             facts.research_facts(spec, ["de"])
         answer(need.value.path, {"fakten": [bad]})
@@ -771,4 +771,43 @@ def test_everyday_words_inflected_and_compound_but_names_stay_strict():
                  "Heidelberg", "Microsoft"):
         assert not everyday_word(word, "de"), word
     assert not everyday_word("Gehirn", "en")                   # englische Texte: keine Ausnahme
+
+
+def test_numbers_need_a_second_source_nearby(monkeypatch):
+    """Zahlen eines Belegs: zweite Quelle muss sie nah beieinander nennen (kein Zufallstreffer im langen Text);
+    gesucht wird in geladenen Artikeln, anderen Sprachfassungen und Webseiten aus den Einzelnachweisen."""
+    from cudi_video import config, facts
+
+    assert facts._numbers_near("Palmer zeigte 1975, dass 80 % erkannt wurden.", {"1975", "80"})
+    far = "1975 begann es. " + "x " * 800 + "Später waren es 80 %."
+    assert not facts._numbers_near(far, {"1975", "80"})
+    home = {"id": "de:Priming (Psychologie)", "titel": "Priming (Psychologie)", "text": "…"}
+    other = {"id": "en:Priming (psychology)", "titel": "Priming (psychology)", "text": far}
+    assert facts.confirm_numbers({"1975", "80"}, home, [home, other]) is None          # Netz aus: nur geladene
+    monkeypatch.setattr(config, "CHECK_WEB", True)
+    monkeypatch.setattr(facts, "_langlinks", lambda h: [("fr", "Amorçage (psychologie)")])
+    monkeypatch.setattr(facts, "article_text", lambda lang, title, limit=0: ("En 1975, Palmer : 80 % reconnus.", title))
+    assert facts.confirm_numbers({"1975", "80"}, home, [home, other]) == "Wikipedia (fr): Amorçage (psychologie)"
+
+
+def test_more_everyday_forms():
+    from cudi_video.textcheck import everyday_word
+
+    for word in ("Mustererkennung", "Schlussfolgern", "Erkennung"):
+        assert everyday_word(word, "de"), word
+
+
+def test_numbers_confirmed_by_study_abstract(monkeypatch):
+    """Originalstudie aus den Einzelnachweisen (Europe PMC) bestätigt Zahl und Jahr eines Belegs."""
+    from cudi_video import facts, net
+
+    def fake(url, params=None, **kw):
+        if "wikipedia" in url:
+            return {"query": {"pages": [{"extlinks": [{"url": "https://doi.org/10.1037%2F0022-3514.83.6.1281"}]}]}}
+        return {"resultList": {"result": [{"title": "Habits in everyday life", "pubYear": 2002,
+                                           "abstractText": "About 43% of behaviors were performed almost daily."}]}}
+    monkeypatch.setattr(net, "get_json", fake)
+    home = {"id": "en:Habit", "titel": "Habit", "text": "…"}
+    assert facts._study_abstracts(home, {"43", "2002"}) == "Studie: Habits in everyday life (2002)"
+    assert facts._study_abstracts(home, {"45", "2002"}) is None
 
