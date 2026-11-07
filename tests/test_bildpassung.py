@@ -213,3 +213,11 @@ def test_ranking_clips_are_ranked_by_image_not_excluded(monkeypatch):
     assert [c.key for c in media.rank_by_image(item, clips)] == ["b", "c", "n", "a"]
     monkeypatch.setattr(bildcheck, "available", lambda: False)
     assert [c.key for c in media.rank_by_image(item, clips)] == ["a", "b", "c", "n"]            # ohne Modell: Reihenfolge bleibt
+
+
+def test_filter_namen_kollidieren_nicht():
+    from cudi_video import media
+
+    assert hasattr(media.NOT_PHOTO, "search")             # Openverse-Filter bleibt ein regulärer Ausdruck
+    assert "cartoon" in media.NOT_FOOTAGE
+    assert not media.motif_matches("Haifischzahn", "cartoon shark tooth")

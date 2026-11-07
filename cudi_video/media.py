@@ -81,7 +81,7 @@ def motif_words(motif: str) -> list[str]:
     return list(dict.fromkeys(words))
 
 
-NOT_PHOTO = ("ai generated", "green screen", "greenscreen", "3d render", "illustration", "cartoon", "vector")
+NOT_FOOTAGE = ("ai generated", "green screen", "greenscreen", "3d render", "illustration", "cartoon", "vector")
 
 
 def motif_matches(motif: str, text: str, loose: bool = False) -> bool:
@@ -91,7 +91,7 @@ def motif_matches(motif: str, text: str, loose: bool = False) -> bool:
     words = motif_words(motif)
     if loose:
         words = words[-1:]
-    if not words or any(x in text.lower() for x in NOT_PHOTO):
+    if not words or any(x in text.lower() for x in NOT_FOOTAGE):
         return False
     have = {stem(w) for w in re.findall(r"[a-z]+", text.lower())}
     return all(w in have for w in words)
