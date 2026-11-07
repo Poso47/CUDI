@@ -156,6 +156,21 @@ Titel, Rang-Abzeichen und Abschlussliste hereinkommen, wohin das Foto schwenkt).
 Thema (`STYLE_FIT`, z. B. Berge → Natur/Kino/Doku/Minimal) und wechselt je Video (fest aus der Video-ID); in der
 App lässt es sich im Feld „Design“ wählen (Auftrag `design`).
 
+## Bild passt zum Fakt und Aha-Effekt
+
+- **Bildpassung:** Claude liefert je Fakt `motiv` (das konkrete sichtbare Objekt, englisch, z. B. „shark teeth“) und `suche`
+  (2–3 Alternativen). Ein Treffer zählt nur, wenn ALLE Kernwörter des Motivs in seiner Beschreibung stehen (Pexels-Adresse/alt,
+  Pixabay-Tags, Commons-Titel; Singular/Plural egal). Reihenfolge: Clip → Foto → Commons-Bild → zuletzt „Stimmungsbild“
+  (nur mit dem Hauptthema, im Prüfbericht: „Bild zeigt nicht genau den Fakt“). Der Prüfbericht nennt je Fakt Motiv und Passung.
+- **Visuelle Prüfung (`bildcheck.py`):** Tags lügen („shark“ im Tag, im Bild nur Wasser). Darum vergleicht ein kostenloses
+  CLIP-Modell (open_clip ViT-B-32, CPU, Cache `video_output/_models`) je Kandidat 3 Bilder (20/50/80 %) mit dem Motiv und
+  Gegenproben (Ozean, Person, Text); es zählt, wenn das Motiv in ≥ 2 von 3 Bildern ≥ 50 % hat; der beste Kandidat gewinnt
+  (Tags sind nur lockerer Vorfilter: Hauptwort). Ranking-Clips (`media.find_clips`) werden danach nur *sortiert*. Das Modell wird bei
+  Bedarf nachinstalliert (torch CPU, ~250 MB); fällt es aus, bleibt es still beim strengen Tag-Abgleich. Aus: `CUDI_BILDPRUEFUNG=0`.
+- **Aha-Effekt für alle Videos:** jeder Platz/jede Szene bringt etwas Überraschendes, das man vorher nicht wusste. Fakten haben
+  `aha_<sprache>` (gleiche Prüfungen wie der Text); der Aha-Satz von Platz 1 wird als „Heute gelernt: …“ gesprochen,
+  bei Zahlen-Rankings der Spitzenwert.
+
 ## Spannungsbogen (Zuschauer bleiben dran)
 
 Jedes Video folgt einem psychologisch aufgebauten Bogen (`cudi_video/retention.py`), passend zu Format und Thema –
