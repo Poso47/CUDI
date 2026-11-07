@@ -17,7 +17,7 @@ import logging
 import re
 from datetime import datetime, timezone
 
-from . import handoff, net, textcheck, themen
+from . import handoff, media, net, textcheck, themen
 from .models import RankItem, Research
 from .spec import VideoSpec
 
@@ -58,6 +58,11 @@ INSTRUCTIONS_FIX = (
     "Beleg, der nicht wörtlich passt, einen anderen Beleg-Satz aus „quellen“ wählen (ruhig ein anderer Fakt). "
     "Behalte „rang“ bei. Antwort im selben Format: {\"fakten\": [{\"rang\": …, \"beleg\": \"…\", …}]}."
 )
+INSTRUCTIONS_FIX2 = (
+    " Letzte Runde: Wähle für jeden abgelehnten Platz einen Fakt OHNE Zahlen, dessen Beleg-Satz wörtlich im Quelltext "
+    "steht, und verwende im Sprechertext nur Wörter, die in den Quelltexten vorkommen, oder ganz alltägliche Wörter "
+    "– keine Namen, die nicht im Quelltext stehen."
+)
 
 
 def _norm(text: str) -> str:
@@ -66,19 +71,19 @@ def _norm(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip().lower()
 
 
-def article_text(lang: str, title: str) -> tuple[str, str]:
+def article_text(lang: str, title: str, limit: int = ARTICLE_CHARS) -> tuple[str, str]:
     """Klartext eines Wikipedia-Artikels (gekürzt) und sein endgültiger Titel; leer, wenn es ihn nicht gibt."""
     data = net.get_json(f"https://{lang}.wikipedia.org/w/api.php",
                         params={"action": "query", "prop": "extracts", "explaintext": 1, "titles": title,
                                 "redirects": 1, "format": "json", "formatversion": 2},
-                        cache_hours=24 * 7, retries=2, max_wait=15)
+                        cache_hours=24 * 7, retries=4, max_wait=40)
     pages = data.get("query", {}).get("pages", [])
     page = pages[0] if pages else {}
     if page.get("missing") or page.get("invalid"):
         return "", title
     text = re.sub(r"\n=+ [^\n]*(Literatur|Weblinks|Einzelnachweise|References|External links|See also|Siehe auch|"
                   r"Further reading|Notes)[^\n]*=+\n.*", "", page.get("extract") or "", flags=re.S)
-    return text[:ARTICLE_CHARS], page.get("title", title)
+    return text[:limit], page.get("title", title)
 
 
 def gather_sources(spec: VideoSpec) -> list[dict]:
@@ -103,6 +108,118 @@ def word_budget(spec: VideoSpec) -> int:
 
 def _digits(text: str) -> set[str]:
     return {d.replace(".", "").replace(",", "") for d in re.findall(r"\d[\d.,]*", text)}
+
+
+def _numbers_near(text: str, numbers: set[str], window: int = 600) -> bool:
+    """Stehen alle Zahlen nah beieinander (sonst wäre es ein Zufallstreffer in einem langen Text)?"""
+    occ = [(m.start(), m.group().replace(".", "").replace(",", "")) for m in re.finditer(r"\d[\d.,]*", text)]
+    for pos, num in occ:
+        if num in numbers and numbers <= {n for p, n in occ if abs(p - pos) <= window}:
+            return True
+    return False
+
+
+OTHER_LANGS = ("en", "de", "fr", "es", "it", "nl", "pt", "pl")
+
+
+def _langlinks(home: dict) -> list[tuple[str, str]]:
+    lang, title = home["id"].split(":", 1)
+    try:
+        data = net.get_json(f"https://{lang}.wikipedia.org/w/api.php",
+                            params={"action": "query", "prop": "langlinks", "titles": title, "lllimit": 500,
+                                    "redirects": 1, "format": "json", "formatversion": 2},
+                            cache_hours=24 * 7, retries=2, max_wait=20)
+    except net.FetchError:
+        return []
+    pages = data.get("query", {}).get("pages", [])
+    links = {l.get("lang"): l.get("title") for l in (pages[0].get("langlinks", []) if pages else [])}
+    return [(code, links[code]) for code in OTHER_LANGS if code != lang and links.get(code)]
+
+
+def _study_abstracts(home: dict, numbers: set[str]) -> str | None:
+    """Originalstudien aus den Einzelnachweisen (DOI/PubMed) über Europe PMC: nennt die Zusammenfassung die Zahlen?
+    Jahreszahlen gelten auch über das Erscheinungsjahr der Studie als bestätigt."""
+    from urllib.parse import unquote
+
+    lang, title = home["id"].split(":", 1)
+    try:
+        data = net.get_json(f"https://{lang}.wikipedia.org/w/api.php",
+                            params={"action": "query", "prop": "extlinks", "titles": title, "ellimit": 500,
+                                    "redirects": 1, "format": "json", "formatversion": 2},
+                            cache_hours=24 * 7, retries=2, max_wait=20)
+    except net.FetchError:
+        return None
+    urls = [unquote(l.get("url", "")) for p in data.get("query", {}).get("pages", []) for l in p.get("extlinks", [])]
+    dois = sorted({m.group(1).rstrip(".") for u in urls for m in [re.search(r"doi\.org/(10\.\d{4,9}/[^?#\s\"]+)", u)] if m})
+    pmids = sorted({m.group(1) for u in urls for m in [re.search(r"(?:pubmed/|pubmed\.ncbi\.nlm\.nih\.gov/)(\d+)", u)] if m})
+    terms = [f'DOI:"{d}"' for d in dois[:25]] + [f"EXT_ID:{p}" for p in pmids[:15]]
+    if not terms:
+        return None
+    try:
+        found = net.get_json("https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+                             params={"query": " OR ".join(terms), "resultType": "core", "format": "json", "pageSize": 50},
+                             cache_hours=24 * 7, retries=2, max_wait=20)
+    except net.FetchError:
+        return None
+    for paper in found.get("resultList", {}).get("result", []):
+        abstract = paper.get("abstractText") or ""
+        years = {n for n in numbers if re.fullmatch(r"1[5-9]\d\d|20\d\d", n) and n == str(paper.get("pubYear"))}
+        rest = numbers - years
+        if rest and _numbers_near(abstract, rest, window=800):
+            return f"Studie: {(paper.get('title') or '')[:80]} ({paper.get('pubYear')})"
+    return None
+
+
+def confirm_numbers(numbers: set[str], home: dict, sources: list[dict]) -> str | None:
+    """Zweite Quelle für die Zahlen eines Belegs: geladene Artikel, andere Sprachfassungen desselben Artikels,
+    dann die Webseiten aus seinen Einzelnachweisen. Gibt die bestätigende Quelle zurück oder None."""
+    for s in sources:
+        if s is not home and _numbers_near(s["text"], numbers):
+            return s["titel"]
+    from . import config
+
+    if not config.CHECK_WEB:                    # ohne Netzabgleich (Tests, CUDI_CHECK_WEB=0): nur geladene Artikel
+        return None
+    loaded = {s["id"] for s in sources}
+    for code, title in _langlinks(home)[:5]:
+        if f"{code}:{title}" in loaded:
+            continue
+        try:
+            text, _ = article_text(code, title, limit=200_000)
+        except net.FetchError:
+            continue
+        if _numbers_near(text, numbers):
+            return f"Wikipedia ({code}): {title}"
+    study = _study_abstracts(home, numbers)
+    if study:
+        return study
+    from types import SimpleNamespace
+
+    from .verify.checkers import ExternalSourcesChecker as Web
+
+    lang, title = home["id"].split(":", 1)
+    item = SimpleNamespace(wiki_titles={lang: title})
+    for url in Web.links(item)[:Web.MAX_PAGES]:
+        try:
+            text = Web.page_text(url)
+        except Exception:                       # Webseiten sind beliebig kaputt – nur Bestätigung, nie Pflicht
+            continue
+        if _numbers_near(text, numbers, window=800):
+            from urllib.parse import urlparse
+            return f"Webseite: {urlparse(url).netloc}"
+    return None
+
+
+_WORDS: dict = {}
+
+
+def source_words(sources: list[dict], beleg: str) -> frozenset:
+    """Alle Wörter der Quellen (klein) – Bausteine für Zusammensetzungen wie „Haihaut“."""
+    key = tuple(s["id"] for s in sources)
+    if key not in _WORDS:
+        _WORDS.clear()
+        _WORDS[key] = frozenset(re.findall(r"[a-zäöüß]{3,}", " ".join(s["text"] for s in sources).lower()))
+    return _WORDS[key] | frozenset(re.findall(r"[a-zäöüß]{3,}", beleg.lower()))
 
 
 def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int,
@@ -147,14 +264,18 @@ def check_fact(fact: dict, sources: list[dict], langs: list[str], budget: int,
             return f"zu kurz ({lang}) – erkläre mehr als den nackten Fakt", ""
         unknown = invented_people(text, home["text"]) or unknown_words(
             text, {"sprache": lang, "beleg": beleg_all, "quelle": " ".join(s["text"] for s in sources)})
-        unknown = [w for w in unknown if not textcheck.everyday_word(w, lang)]
+        words = source_words(sources, beleg_all)
+        unknown = [w for w in unknown if not textcheck.everyday_word(w, lang, words)]
         if unknown:
             return "nicht belegt: " + ", ".join(unknown[:3]), ""
     numbers = {d for d in _digits(beleg_all) if len(d) >= 2}
-    others = [s for s in sources if s is not home]
-    if numbers and not any(numbers <= _digits(s["text"]) for s in others):
-        return "Zahlen nur in einer Quelle – nicht abgeglichen", ""
-    return None, "bestätigt" if numbers else "eine Fachquelle (Wortlaut geprüft)"
+    if numbers:
+        second = confirm_numbers(numbers, home, sources)
+        if not second:
+            return "Zahlen nur in einer Quelle – nicht abgeglichen", ""
+        fact["_zweitquelle"] = second
+        return None, "bestätigt"
+    return None, "eine Fachquelle (Wortlaut geprüft)"
 
 
 def _facts_of(answer) -> list[dict]:
@@ -190,15 +311,18 @@ def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
     kept, rejected = _check_all(_facts_of(handoff.request("fakten", INSTRUCTIONS, data)), sources, langs, budget, aspects)
     if not kept and not rejected:
         raise ValueError("Es kamen keine Fakten zurück.")
-    if len(kept) < spec.count and rejected:
-        # einmal mit Begründung zurück an Claude – wie beim Erzählen der Zahlen-Rankings
+    for task, extra in (("fakten_korrektur", ""), ("fakten_korrektur2", INSTRUCTIONS_FIX2)):
+        if len(kept) >= spec.count or not rejected:
+            break
+        # mit Begründung zurück an Claude – die zweite Runde nur, wenn es danach immer noch zu wenige sind
         retry = {**data, "regeln": INSTRUCTIONS, "abgelehnt": [{"fakt": f, "grund": r} for f, r in rejected]}
-        fixed, still = _check_all(_facts_of(handoff.request("fakten_korrektur", INSTRUCTIONS_FIX, retry)),
+        fixed, still = _check_all(_facts_of(handoff.request(task, INSTRUCTIONS_FIX + extra, retry)),
                                   sources, langs, budget, aspects)
         taken = {int(f.get("rang") or 99) for f, _ in kept}
         kept += [(f, st) for f, st in fixed if int(f.get("rang") or 99) not in taken]
         fixed_ranks = {int(f.get("rang") or 99) for f, _ in fixed}
-        rejected = [(f, r) for f, r in rejected if int(f.get("rang") or 99) not in fixed_ranks] + still
+        rejected = [(f, r) for f, r in rejected if int(f.get("rang") or 99) not in fixed_ranks] + \
+            [(f, r) for f, r in still if int(f.get("rang") or 99) not in taken]
     for fact, reason in rejected:
         name = str(fact.get(f"titel_{langs[0]}") or fact.get("beleg", ""))[:60]
         warnings.append(f"Fakt „{name}“ verworfen: {reason}.")
@@ -221,6 +345,7 @@ def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
             descriptions={lang: str(fact.get(f"kurz_{lang}") or "").strip() for lang in langs},
             summary={lang: str(fact[f"text_{lang}"]).strip() for lang in langs},
             fact={"beleg": fact["beleg"].strip(), "quelle": home["titel"], "url": home["url"],
+                  "zweitquelle": str(fact.get("_zweitquelle") or ""),
                   "suche": str(fact.get("suche") or "")[:60], "aspekt": str(fact.get("aspekt") or "")[:60],
                   "belege": [str(b).strip() for b in fact.get("belege") or [] if str(b).strip()][:3]
                   if isinstance(fact.get("belege"), list) else []},
@@ -240,14 +365,18 @@ def _visuals(research: Research) -> None:
     for item in research.items:
         query = item.fact.get("suche") or item.labels.get("en") or ""
         clips = []
-        for _ in range(2):
+        for _ in range(4):                       # bis zu 2 Clips, fast schwarze werden übersprungen
             try:
                 found = pexels(query, used) or pixabay(query, used)
             except net.FetchError:
                 found = None
             if not found:
                 break
+            if media.too_dark(found.path):
+                continue
             clips.append({"path": found.path, "credit": found.credit, "duration": 0, "kind": "video"})
+            if len(clips) == 2:
+                break
         if not clips:
             try:
                 photo = pexels_photo(query, used)

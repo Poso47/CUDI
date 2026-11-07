@@ -12,6 +12,8 @@ derselben Wissensstruktur: Aufhänger → Kernaussage → Erklärung (wie/warum)
 
 from __future__ import annotations
 
+import re
+
 from .spec import VideoSpec
 
 TOPIC_RULES = (
@@ -24,7 +26,9 @@ TOPIC_RULES = (
 KNOWLEDGE_STRUCTURE = (
     "Wissensstruktur je Platz – erzähle MEHR als den nackten Fakt: (1) Aufhänger: ein Bild im Kopf oder eine Frage "
     "aus dem Alltag; (2) Kernaussage; (3) Erklärung: wie und warum es so ist (Mechanismus, Hintergrund, ein Beispiel "
-    "aus der Quelle); (4) Bedeutung für dich: was das im eigenen Leben heißt. Kein Fazit-Satz am Ende."
+    "aus der Quelle); (4) Bedeutung für dich: was das im eigenen Leben heißt. Kein Fazit-Satz am Ende. Formuliere "
+    "jeden Platz anders: keine wiederkehrenden Satzanfänge oder Floskeln über die Plätze hinweg (nicht jedes Mal "
+    "„Für dich heißt das …“ oder „Stell dir vor …“) – mal eine Frage, mal ein Beispiel, mal ein Vergleich."
 )
 
 
@@ -37,11 +41,15 @@ def focus(spec: VideoSpec, lang: str) -> dict:
 
 def parse_focus(answer: dict) -> dict:
     """Themenkern aus der Planer-Antwort (gekürzt, nur Text)."""
-    def texts(key: str, limit: int) -> list[str]:
-        return [str(t).strip()[:60] for t in (answer.get(key) or [])[:limit] if str(t).strip()]
+    def short(text: str, n: int = 48) -> str:
+        text = re.sub(r"\s+", " ", text).strip()
+        return text if len(text) <= n else text[:n].rsplit(" ", 1)[0].rstrip(" ,:;–-")
+
+    def texts(key: str, limit: int, n: int = 48) -> list[str]:
+        return [short(str(t), n) for t in (answer.get(key) or [])[:limit] if str(t).strip()]
 
     frage = {lang: str(answer.get(f"themenkern_{lang}") or "").strip()[:160] for lang in ("de", "en")}
-    return {"frage": {k: v for k, v in frage.items() if v}, "aspekte": texts("aspekte", 6), "nicht": texts("nicht_gemeint", 6)}
+    return {"frage": {k: v for k, v in frage.items() if v}, "aspekte": texts("aspekte", 6), "nicht": texts("nicht_gemeint", 6, 80)}
 
 
 def matches_aspect(aspect: str, aspects: list[str]) -> bool:

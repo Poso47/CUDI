@@ -378,7 +378,8 @@ class MagazineIntro(IntroScene):
         pn = ease_out_cubic(progress(t, 0.0, 0.7))
         paste_scaled(f, self.big, (W - self.big.width - 30, 210), 1.6 - 0.6 * pn, opacity=0.9 * pn)
         paste(f, self.top, (X0, 260 + 30 * (1 - pn)), opacity=pn)
-        y = 800
+        block = self.line_h * len(self.title_lines) + (150 if self.top_q is not None else 0)
+        y = min(800, SUB_Y - 190 - block)               # lange Titel rücken nach oben, nie in die Untertitel
         d = ImageDraw.Draw(f)
         pb = ease_out_cubic(progress(t, 0.3, 0.5))
         d.rectangle((X0 - 40, y + 10, X0 - 26, y + 10 + self.line_h * len(self.title_lines) * pb), fill=(*T.ACCENT, 255))

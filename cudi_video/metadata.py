@@ -93,7 +93,7 @@ def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> 
         status = (it.verification or {}).get("status", "nicht geprüft")
         counts[status] = counts.get(status, 0) + 1
     order = ["bestätigt", "korrigiert", "nur eine Quelle", "widersprüchlich", "nicht geprüft"]
-    summary = ", ".join(f"{counts[k]} {k}" for k in order if k in counts)
+    summary = ", ".join(f"{counts[k]} {k}" for k in order + sorted(set(counts) - set(order)) if k in counts)
     out += [f"**Quellen-Abgleich:** {summary}", ""]
     if research.warnings:
         out += ["## ⚠️ Bitte prüfen", ""] + [f"- {w}" for w in research.warnings] + [""]
@@ -105,7 +105,8 @@ def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> 
             aspect = f" ({it.fact['aspekt']})" if it.fact.get("aspekt") else ""
             out += [f"**{it.rank}. {it.labels.get('de') or it.labels.get('en')}**{aspect} – {it.verification.get('status')}",
                     f"> {it.fact.get('beleg')}", *[f"> {b}" for b in it.fact.get("belege") or []],
-                    f"Quelle: [{it.fact.get('quelle')}]({it.fact.get('url')})", ""]
+                    f"Quelle: [{it.fact.get('quelle')}]({it.fact.get('url')})"
+                    + (f" · Zahlen bestätigt durch: {it.fact['zweitquelle']}" if it.fact.get("zweitquelle") else ""), ""]
         for s in scripts:
             out += ["", f"## Sprechertext ({s.lang})", ""]
             for seg in s.segments:

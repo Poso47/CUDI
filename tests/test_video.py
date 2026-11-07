@@ -1102,3 +1102,19 @@ def test_every_format_and_design_renders():
     finally:
         theme.apply_style({"name": "neon", "format": "karte", "motion": "gleiten"})   # Standard für andere Tests
 
+
+def test_nearly_black_clips_are_skipped(tmp_path):
+    """Probe probefakten3: Platz 1 zeigte einen fast schwarzen Clip – solche Clips werden aussortiert."""
+    import shutil
+    import subprocess
+
+    from cudi_video import media
+
+    if not shutil.which("ffmpeg"):
+        pytest.skip("ffmpeg fehlt")
+    for name, color in (("dark", "0x080808"), ("bright", "0x6496c8")):
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-f", "lavfi", "-i", f"color=c={color}:s=64x64:d=5",
+                        str(tmp_path / f"{name}.mp4")], check=True)
+    assert media.too_dark(tmp_path / "dark.mp4") and not media.too_dark(tmp_path / "bright.mp4")
+    assert not media.too_dark(tmp_path / "fehlt.mp4")                    # Fehler: nicht aussortieren
+
