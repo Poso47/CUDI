@@ -17,13 +17,14 @@ import logging
 import re
 from datetime import datetime, timezone
 
-from . import handoff, media, net, textcheck, themen
+from . import bildcheck, handoff, media, net, textcheck, themen
 from .models import RankItem, Research
 from .spec import VideoSpec
 
 log = logging.getLogger(__name__)
 
 ARTICLE_CHARS = 10000          # je Artikel – bis zu 4 spezifische Artikel je Sprache (je Aspekt einer)
+WEAK_CLIP = 0.8                # Clip mit schwächerem Bildprüfungswert muss sich gegen ein Foto messen lassen
 EXTRA_FACTS = 3                # Claude liefert so viele Fakten mehr, falls einzelne die Prüfung nicht bestehen
 MIN_ARTICLE_CHARS = 1200
 _NUM = (r"(?:ein|zwei|drei|vier|fünf|sechs|sieb|sieben|acht|neun|zehn|elf|zwölf|zwanzig|dreißig|vierzig|fünfzig|"
@@ -405,21 +406,22 @@ def searches(fact: dict) -> list[str]:
     return [str(q).strip()[:60] for q in raw if q and str(q).strip()][:3]
 
 
-def _stock_clips(queries: list[str], used: set, match, limit: int = 2) -> list[dict]:
+def _stock_clips(queries: list[str], used: set, match, motif: str = "", limit: int = 2) -> list[dict]:
     from .story.visuals import pexels, pixabay
 
     clips: list[dict] = []
     for query in queries:
         for _ in range(4):                       # bis zu 2 Clips, fast schwarze werden übersprungen
             try:
-                found = pexels(query, used, match) or pixabay(query, used, match)
+                found = pexels(query, used, match, motif) or pixabay(query, used, match, motif)
             except net.FetchError:
                 found = None
             if not found:
                 break
             if media.too_dark(found.path):
                 continue
-            clips.append({"path": found.path, "credit": found.credit, "duration": 0, "kind": "video"})
+            clips.append({"path": found.path, "credit": found.credit, "duration": 0, "kind": "video",
+                          "score": found.score})
             if len(clips) == limit:
                 return clips
         if clips:
@@ -427,11 +429,11 @@ def _stock_clips(queries: list[str], used: set, match, limit: int = 2) -> list[d
     return clips
 
 
-def _first_photo(finders, queries: list[str], used: set, match):
+def _first_photo(finders, queries: list[str], used: set, match, motif: str = ""):
     for query in queries:
         for find in finders:
             try:
-                photo = find(query, used, match)
+                photo = find(query, used, match, motif)
             except net.FetchError:
                 photo = None
             if photo:
@@ -441,36 +443,50 @@ def _first_photo(finders, queries: list[str], used: set, match):
 
 def find_visuals(fact: dict, fallback: str, used: set) -> dict:
     """Bild/Clip, das den Fakt zeigt. Reihenfolge: passender Clip -> passendes Foto (Pexels/Pixabay) -> Commons-Bild
-    zum Motiv -> allgemeiner Themenclip/-foto als „Stimmungsbild“. „Passend“ heißt: ALLE Kernwörter des Motivs stehen
-    in der Beschreibung des Treffers (Pexels: Adresse/alt, Pixabay: Schlagworte, Commons: Dateititel).
-    Ergebnis: {clips, photo, passt, quelle, motiv}; ohne „motiv“ (alte Antworten) wird nur nach „suche“ gesucht
-    (passt = None, nicht geprüft)."""
+    zum Motiv -> allgemeiner Themenclip/-foto als „Stimmungsbild“.
+    Prüfung: Mit Bildprüfung (bildcheck, CLIP) muss das Motiv im Bild zu sehen sein; der Tag-Abgleich ist dann nur ein
+    lockerer Vorfilter (Hauptwort). Ohne Modell: strenger Tag-Abgleich (ALLE Kernwörter in Tags/Adresse/Titel).
+    Ergebnis: {clips, photo, passt, quelle, motiv, wert}; ohne „motiv“ (alte Antworten) wird nur nach „suche“
+    gesucht (passt = None, nicht geprüft)."""
     from .story.visuals import commons_photo, pexels_photo, pixabay_photo
 
     motif = str(fact.get("motiv") or "").strip()
     queries = searches(fact) or ([fallback] if fallback else [])
-    out = {"clips": [], "photo": None, "passt": None, "quelle": "ungeprüft", "motiv": motif}
+    out = {"clips": [], "photo": None, "passt": None, "quelle": "ungeprüft", "motiv": motif, "wert": None}
+
+    def score(clips, photo):
+        values = [c.get("score") for c in clips] + [photo.score if photo else None]
+        values = [v for v in values if v is not None]
+        return max(values) if values else None
+
     if motif:
-        match = lambda text: media.motif_matches(motif, text)          # noqa: E731
+        seeing = bildcheck.available()
+        match = lambda text: media.motif_matches(motif, text, loose=seeing)          # noqa: E731
+        check = motif if seeing else ""
         tries = list(dict.fromkeys([motif, *queries]))
-        clips = _stock_clips(tries, used, match)
-        if clips:
-            return {**out, "clips": clips, "passt": True, "quelle": "Clip"}
-        photo = _first_photo((pexels_photo, pixabay_photo), tries, used, match)
+        clips = _stock_clips(tries, used, match, check)
+        clip_score = score(clips, None)
+        if clips and (clip_score is None or clip_score >= WEAK_CLIP):
+            return {**out, "clips": clips, "passt": True, "quelle": "Clip", "wert": clip_score}
+        photo = _first_photo((pexels_photo, pixabay_photo), tries, used, match, check)
+        if clips and not (photo and (photo.score or 0) > (clip_score or 0)):     # schwacher Clip schlägt kein schwaches Foto
+            return {**out, "clips": clips, "passt": True, "quelle": "Clip", "wert": clip_score}
         if photo:
-            return {**out, "photo": photo, "passt": True, "quelle": "Foto"}
+            return {**out, "photo": photo, "passt": True, "quelle": "Foto", "wert": score([], photo)}
         try:
-            photo = commons_photo(motif, used, match)
+            photo = commons_photo(motif, used, match, check)
         except net.FetchError:
             photo = None
         if photo:
-            return {**out, "photo": photo, "passt": True, "quelle": "Wikimedia Commons"}
-    # letzte Stufe: Stimmungsbild zum Thema – wenigstens das Hauptthema (erstes Kernwort, z. B. „shark“) muss vorkommen
+            return {**out, "photo": photo, "passt": True, "quelle": "Wikimedia Commons", "wert": score([], photo)}
+    # letzte Stufe: Stimmungsbild zum Thema – wenigstens das Hauptthema (erstes Kernwort, z. B. „shark“) muss zu
+    # sehen bzw. in der Beschreibung zu lesen sein
     subject = (media.motif_words(motif) or [""])[0]
     mood = (lambda text: media.motif_matches(subject, text)) if subject else None          # noqa: E731
-    clips = _stock_clips(queries, used, mood)
-    photo = None if clips else _first_photo((pexels_photo,), queries, used, mood)
-    return {**out, "clips": clips, "photo": photo, "passt": False if motif else None,
+    check = subject if subject and bildcheck.available() else ""
+    clips = _stock_clips(queries, used, mood, check)
+    photo = None if clips else _first_photo((pexels_photo,), queries, used, mood, check)
+    return {**out, "clips": clips, "photo": photo, "passt": False if motif else None, "wert": score(clips, photo),
             "quelle": ("Stimmungsbild" if motif else "ungeprüft") if clips or photo else "kein Bild"}
 
 
@@ -483,4 +499,5 @@ def _visuals(research: Research) -> None:
         item.clips = found["clips"]
         if found["photo"] and not found["clips"]:
             item.image_path, item.image_credit = found["photo"].path, found["photo"].credit
-        item.fact["bild"] = {"motiv": found["motiv"], "passt": found["passt"], "quelle": found["quelle"]}
+        item.fact["bild"] = {"motiv": found["motiv"], "passt": found["passt"], "quelle": found["quelle"],
+                             "wert": found["wert"]}

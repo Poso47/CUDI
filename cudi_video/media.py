@@ -16,7 +16,7 @@ import logging
 import re
 from dataclasses import dataclass
 
-from . import net
+from . import bildcheck, net
 from .models import RankItem
 
 log = logging.getLogger(__name__)
@@ -84,10 +84,13 @@ def motif_words(motif: str) -> list[str]:
 NOT_PHOTO = ("ai generated", "green screen", "greenscreen", "3d render", "illustration", "cartoon", "vector")
 
 
-def motif_matches(motif: str, text: str) -> bool:
+def motif_matches(motif: str, text: str, loose: bool = False) -> bool:
     """Stehen ALLE Kernwörter des Motivs (Singular/Plural egal) in der Beschreibung des Treffers? Computerbilder
-    (KI, Greenscreen, 3D, Zeichnung) zählen nie."""
+    (KI, Greenscreen, 3D, Zeichnung) zählen nie. loose (Vorfilter für die Bildprüfung): nur das Hauptwort (letztes
+    Kernwort) muss stehen, die Bestimmung darf fehlen."""
     words = motif_words(motif)
+    if loose:
+        words = words[-1:]
     if not words or any(x in text.lower() for x in NOT_PHOTO):
         return False
     have = {stem(w) for w in re.findall(r"[a-z]+", text.lower())}
@@ -284,6 +287,9 @@ class Clip:
     origin: str
     suffix: str = ".mp4"
     key: str = ""             # gleiche Aufnahme nicht doppelt
+    preview: tuple = ()       # Vorschaubilder (URLs) für die Bildprüfung – Pexels
+    preview_video: str = ""   # kleine Videofassung für die Bildprüfung – Pixabay
+    score: float | None = None  # Bildprüfung: Wahrscheinlichkeit, dass der Clip den Platz zeigt
 
 
 def _words_of(url: str) -> str:
@@ -310,7 +316,9 @@ def pexels_clips(item: RankItem) -> list[Clip]:
         f = max(files, key=lambda f: f["width"])
         out.append(Clip(f["link"], f["width"], v["duration"],
                         f"{(v.get('user') or {}).get('name', 'Pexels')} – Pexels-Lizenz – Pexels", "Pexels",
-                        key=f"pexels:{v['id']}"))
+                        key=f"pexels:{v['id']}",
+                        preview=tuple(bildcheck.spread([p["picture"] for p in v.get("video_pictures") or []
+                                                        if p.get("picture")] or [v.get("image")]))))
     return out
 
 
@@ -332,7 +340,9 @@ def pixabay_clips(item: RankItem) -> list[Clip]:
             continue
         v = max(sizes, key=lambda v: v["width"])
         out.append(Clip(v["url"], v["width"], h["duration"], f"{h.get('user', 'Pixabay')} – Pixabay-Lizenz – Pixabay",
-                        "Pixabay", key=f"pixabay:{h['id']}"))
+                        "Pixabay", key=f"pixabay:{h['id']}",
+                        preview_video=next((h["videos"][t]["url"] for t in ("tiny", "small")
+                                            if (h.get("videos", {}).get(t) or {}).get("url")), "")))
     return out
 
 
@@ -406,6 +416,36 @@ def too_dark(path, limit: float = 28.0) -> bool:
     return bool(values) and sum(values) / len(values) < limit
 
 
+def rank_by_image(item: RankItem, clips: list[Clip]) -> list[Clip]:
+    """Bildprüfung (CLIP) als RANGFOLGE: Clips, die den Platz sichtbar zeigen, kommen zuerst. Nie ein Ausschluss –
+    bleibt sonst nichts, werden auch die schwächeren genommen. Ohne Modell oder ohne Vorschau: Reihenfolge bleibt."""
+    import time
+
+    motif = search_name(item)
+    if not motif or len(clips) < 2 or not bildcheck.available():
+        return clips
+    started = time.time()
+    for clip in clips[:bildcheck.MAX_CANDIDATES]:
+        if time.time() - started > bildcheck.BUDGET_SECONDS:
+            break
+        try:
+            if clip.preview:
+                from PIL import Image
+
+                frames = [Image.open(net.download(u, suffix=".jpg", timeout=30, retries=1, max_wait=10)).convert("RGB")
+                          for u in clip.preview if u]
+            elif clip.preview_video:
+                frames = bildcheck.video_frames(net.download(clip.preview_video, suffix=".mp4", timeout=60, retries=1,
+                                                             max_wait=10), clip.duration)
+            else:
+                continue
+            clip.score = round(bildcheck.judge(motif, frames)[1], 2)
+        except (net.FetchError, OSError) as exc:
+            log.info("Vorschau von %s nicht prüfbar: %s", clip.origin, exc)
+    # stabil: geprüfte nach Wert, ungeprüfte (NASA/Commons, Vorschau fehlt) zwischen gutem und schwachem Wert
+    return sorted(clips, key=lambda c: -(c.score if c.score is not None else 0.3))
+
+
 def find_clips(item: RankItem, limit: int = MAX_CLIPS) -> list[dict]:
     """Bis zu `limit` passende Clips laden – Stockvideos in HD zuerst, dann NASA, dann Commons.
     Ergebnis: [{"path": …, "credit": …, "duration": …}] (leer = Foto mit Zoom wie bisher)."""
@@ -418,7 +458,7 @@ def find_clips(item: RankItem, limit: int = MAX_CLIPS) -> list[dict]:
         except net.FetchError as exc:
             log.info("%s für %s nicht erreichbar: %s", source.__name__, item.qid, exc)
     out, seen = [], set()
-    for clip in found:
+    for clip in rank_by_image(item, found):
         if clip.key in seen:
             continue
         try:

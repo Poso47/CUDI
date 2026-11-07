@@ -28,7 +28,8 @@ für TikTok/YouTube Shorts.
   fest je Video-ID, `apply_style` in `make_scene` (jeder Render-Prozess); Auftrag `format`.
 - Spannungsbogen (`retention.py`): Hook mit Neugierlücke, Zwischen-Aufhänger aus geprüften Werten, Kommentarfrage
   je Thema; Regeln für Claude-Texte (`NARRATION_RULES`) und Storys je Stimmung (`story_rules`). Zahl im Wunsch = Anzahl.
-- Bildpassung (`facts.find_visuals`, `media.motif_matches`): Fakt-Feld `motiv` + `suche`-Liste; Treffer nur, wenn alle Kernwörter des
+- Bildprüfung (`bildcheck.py`, CLIP ViT-B-32 CPU, Cache `video_output/_models`, 3 Bilder je Kandidat, ≥ 2/3 mit p ≥ 0.5; Ausfall → Tag-Abgleich;
+  Ranking-Clips nur sortiert via `media.rank_by_image`; Tests setzen `CUDI_BILDPRUEFUNG=0`). Bildpassung (`facts.find_visuals`, `media.motif_matches`): Fakt-Feld `motiv` + `suche`-Liste; Treffer nur, wenn alle Kernwörter des
   Motivs in Beschreibung/Tags stehen (Clip → Foto → Commons → „Stimmungsbild“, im Prüfbericht vermerkt). Aha-Regel
   (`themen.AHA_RULES`, Fakt-Feld `aha_<sprache>`, geprüft in `facts.checked_aha`): Outro „Heute gelernt: …“ (Platz 1; Rankings: Spitzenwert).
 - Lange Videos bis 10 Min. (App-Fassung in Stücken ≤ 19 MB), Maskottchen „CUDI“ (`mascot.py`, lippensynchron

@@ -1,6 +1,6 @@
 """Bildpassung (Bild zeigt den Fakt) und Aha-Effekt (Heute gelernt) – ohne Netz."""
 
-from cudi_video import facts, media, metadata, retention, themen
+from cudi_video import bildcheck, facts, media, metadata, retention, themen
 from cudi_video.models import RankItem
 from cudi_video.script import build_fact_script
 from cudi_video.story import visuals
@@ -25,7 +25,7 @@ class Catalog:
         monkeypatch.setattr(media, "too_dark", lambda path: False)
 
         def lookup(name, entries, kind):
-            def search(query, used, match=None):
+            def search(query, used, match=None, motif=""):
                 for desc in entries:
                     if (name, desc) in used or (match and not match(desc)):
                         continue
@@ -84,7 +84,7 @@ def test_visuals_writes_choice_into_item_and_review(monkeypatch):
     Catalog(monkeypatch, photos=["shark teeth"])
     item = RankItem(qid="F1", value=1, unit="Q199", rank=1, labels={"en": "Shark", "de": "Hai"}, fact=tooth_fact())
     facts._visuals(type("R", (), {"items": [item]})())
-    assert item.image_path and item.fact["bild"] == {"motiv": "shark teeth", "passt": True, "quelle": "Foto"}
+    assert item.image_path and item.fact["bild"] == {"motiv": "shark teeth", "passt": True, "quelle": "Foto", "wert": None}
     assert "Motiv: shark teeth · Bild passt (Foto)" in metadata.bild_zeile(item)[0]
     item.fact["bild"] = {"motiv": "shark teeth", "passt": False, "quelle": "Stimmungsbild"}
     assert "Bild zeigt nicht genau den Fakt" in metadata.bild_zeile(item)[0]
@@ -134,3 +134,82 @@ def test_rules_ask_for_aha_and_motif():
     assert "Aha-Effekt" in themen.TOPIC_RULES and "Aha" in retention.story_rules("creepy")
     for needed in ("Aha-Effekt", "aha_<sprache>", "„motiv“", "shark teeth", "Liste"):
         assert needed in facts.INSTRUCTIONS
+
+
+# --------------------------------------------------------------------------- visuelle Prüfung (Modell per Monkeypatch)
+
+def test_loose_tag_prefilter_needs_only_the_head_noun():
+    assert media.motif_matches("shark teeth", "big teeth close", loose=True)
+    assert not media.motif_matches("shark teeth", "big teeth close")
+    assert not media.motif_matches("shark teeth", "a shark", loose=True)
+
+
+def test_judge_needs_two_of_three_frames_clearly_ahead(monkeypatch):
+    monkeypatch.setattr(bildcheck, "probabilities", lambda motif, images: images)
+    ok, mean = bildcheck.judge("x", [0.9, 0.8, 0.1])
+    assert ok and abs(mean - 0.6) < 1e-9
+    assert bildcheck.judge("x", [0.9, 0.2, 0.1])[0] is False
+    assert bildcheck.judge("x", [0.7])[0] is True                 # Foto: ein Bild genügt
+    assert bildcheck.judge("x", []) == (False, 0.0)
+    assert bildcheck.spread(list("abcdefghij")) == ["c", "f", "i"] and bildcheck.spread([]) == []
+
+
+def test_visual_check_picks_best_passing_candidate_and_rejects_water_only(monkeypatch):
+    """Probe: Pixabay-Clip mit Tag „shark“ zeigte nur Meerwasser – das Bild entscheidet, nicht der Tag."""
+    monkeypatch.setattr(bildcheck, "available", lambda: True)
+    scores = {"water": 0.05, "okay": 0.6, "best": 0.95}
+    monkeypatch.setattr(bildcheck, "judge", lambda motif, frames: (frames[0] >= 0.5, frames[0]))
+    built = []
+    cands = [((lambda k=k: [scores[k]]), (lambda k=k: built.append(k) or Visual("image", k, k, "q")))
+             for k in ("water", "okay", "best")]
+    monkeypatch.setattr(bildcheck, "GOOD_ENOUGH", 2.0)            # alle prüfen
+    found = visuals._pick(cands, "great white shark")
+    assert found.path == "best" and found.score == 0.95 and built == ["best"]
+    assert visuals._pick(cands[:1], "great white shark") is None   # nur Wasser: nichts
+    monkeypatch.setattr(bildcheck, "GOOD_ENOUGH", 0.5)
+    assert visuals._pick(cands[1:], "x").path == "okay"           # früh genug gut: nicht weiter prüfen
+
+
+def test_model_failure_falls_back_to_tag_check_silently(monkeypatch):
+    monkeypatch.setenv("CUDI_BILDPRUEFUNG", "1")
+    monkeypatch.setattr(bildcheck, "_state", {"model": None, "failed": False})
+    monkeypatch.setattr(bildcheck, "_load", lambda: (_ for _ in ()).throw(RuntimeError("kein Netz")))
+    assert bildcheck.available() is False and bildcheck.enabled() is False      # einmal versucht, dann still
+    assert visuals._pick([(lambda: [], lambda: Visual("image", "erster", "c", "q"))], "shark teeth").path == "erster"
+    Catalog(monkeypatch, photos=["close up of shark teeth"])
+    assert facts.find_visuals(tooth_fact(), "", set())["quelle"] == "Foto"       # strenger Tag-Abgleich wie zuvor
+
+
+def test_find_visuals_with_model_uses_loose_tags_and_reports_score(monkeypatch):
+    seen = {}
+    Catalog(monkeypatch, photos=["teeth on a table"])
+    monkeypatch.setattr(bildcheck, "available", lambda: True)
+    real = visuals.pexels_photo
+
+    def fake(query, used, match=None, motif=""):
+        seen["motif"] = motif
+        found = real(query, used, match, motif)
+        if found:
+            found.score = 0.87
+        return found
+    monkeypatch.setattr(visuals, "pexels_photo", fake)
+    found = facts.find_visuals(tooth_fact(), "", set())
+    assert seen["motif"] == "shark teeth" and found["quelle"] == "Foto" and found["wert"] == 0.87   # „teeth“ reicht als Vorfilter
+    item = RankItem(qid="F1", value=1, unit="Q199", rank=1, fact={"motiv": "shark teeth",
+                    "bild": {"motiv": "shark teeth", "passt": True, "quelle": "Foto", "wert": 0.87}})
+    assert "Bildprüfung 0.87" in metadata.bild_zeile(item)[0]
+
+
+def test_ranking_clips_are_ranked_by_image_not_excluded(monkeypatch):
+    from cudi_video.media import Clip
+
+    item = RankItem(qid="Q1", value=1, unit="Q11573", rank=1, labels={"en": "Mount Everest", "de": "Mount Everest"})
+    monkeypatch.setattr(bildcheck, "available", lambda: True)
+    monkeypatch.setattr(media.net, "download", lambda url, **k: url)
+    monkeypatch.setattr("PIL.Image.open", lambda path: type("I", (), {"convert": lambda self, m: float(path)})())
+    monkeypatch.setattr(bildcheck, "judge", lambda motif, frames: (True, frames[0]))
+    clips = [Clip("u", 1280, 9, "c", "Pexels", key=k, preview=(v,)) for k, v in (("a", "0.1"), ("b", "0.9"), ("c", "0.5"))]
+    clips.append(Clip("u", 1280, 9, "c", "NASA", key="n"))                   # ohne Vorschau: bleibt dabei, in der Mitte
+    assert [c.key for c in media.rank_by_image(item, clips)] == ["b", "c", "n", "a"]
+    monkeypatch.setattr(bildcheck, "available", lambda: False)
+    assert [c.key for c in media.rank_by_image(item, clips)] == ["a", "b", "c", "n"]            # ohne Modell: Reihenfolge bleibt

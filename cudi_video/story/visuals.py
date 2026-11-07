@@ -21,7 +21,7 @@ from urllib.parse import quote
 
 from PIL import Image
 
-from .. import config, net
+from .. import bildcheck, config, net
 
 log = logging.getLogger(__name__)
 
@@ -35,6 +35,7 @@ class Visual:
     credit: str = ""          # für Beschreibung/Prüfbericht
     query: str = ""
     start: float = 0.0        # Startpunkt in eigenen Clips
+    score: float | None = None   # Bildprüfung (CLIP): Wahrscheinlichkeit des Motivs, None = nicht geprüft
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -42,16 +43,57 @@ class Visual:
 
 # --------------------------------------------------------------------------- Stockvideos
 
-def pexels(query: str, used: set, match=None) -> Visual | None:
-    """match: optionale Prüfung der Beschreibung (Pexels-Videos haben nur die Adresse: „…/video/a-shark-swimming-123/“)."""
+def _pick(cands: list, motif: str) -> Visual | None:
+    """Kandidaten [(Vorschaubilder-Funktion, Lade-Funktion)] -> Visual.
+
+    Ohne Motiv oder ohne Bildprüfung: der erste (Tag-Abgleich hat vorgefiltert). Mit Motiv: bis zu 8 Kandidaten per
+    CLIP prüfen (Zeitbudget), der mit dem besten Wert unter den passenden gewinnt – passt keiner: None."""
+    if not cands:
+        return None
+    if not motif or not bildcheck.available():
+        return cands[0][1]()
+    started, best = time.time(), None
+    for frames, build in cands[:bildcheck.MAX_CANDIDATES]:
+        if best and time.time() - started > bildcheck.BUDGET_SECONDS:
+            break
+        try:
+            ok, score = bildcheck.judge(motif, frames())
+        except (net.FetchError, OSError) as exc:
+            log.info("Vorschau nicht ladbar: %s", exc)
+            continue
+        if ok and (best is None or score > best[0]):
+            best = (score, build)
+            if score >= bildcheck.GOOD_ENOUGH:
+                break
+    if not best:
+        return None
+    found = best[1]()
+    found.score = round(best[0], 2)
+    return found
+
+
+def _images(urls: list[str]) -> list:
+    from PIL import Image
+
+    def one(url):
+        return Image.open(net.download(url, suffix=".jpg", timeout=30, retries=1, max_wait=10)).convert("RGB")
+
+    with ThreadPoolExecutor(max_workers=3) as pool:          # die drei Vorschaubilder parallel laden
+        return list(pool.map(one, urls))
+
+
+def pexels(query: str, used: set, match=None, motif: str = "") -> Visual | None:
+    """match: optionale Prüfung der Beschreibung (Pexels-Videos haben nur die Adresse: „…/video/a-shark-swimming-123/“).
+    motif: zusätzlich visuelle Prüfung (bildcheck) über die Vorschaubilder des Clips."""
     if not config.PEXELS_API_KEY:
         return None
     for orientation in ("portrait", None):          # Hochformat bevorzugt, sonst mittig zugeschnitten
-        params = {"query": query, "per_page": 15, "size": "medium"}
+        params = {"query": query, "per_page": 15 if not motif else 20, "size": "medium"}
         if orientation:
             params["orientation"] = orientation
         data = net.get_json("https://api.pexels.com/videos/search", params=params,
                             headers={"Authorization": config.PEXELS_API_KEY}, cache_hours=24 * 7, retries=2)
+        cands = []
         for video in data.get("videos", []):
             key = f"pexels:{video['id']}"
             if key in used or video.get("duration", 0) < 4:
@@ -63,20 +105,32 @@ def pexels(query: str, used: set, match=None) -> Visual | None:
             if not files:
                 continue
             best = min(files, key=lambda f: abs((f.get("height") or 0) - 1920) + (f.get("width") or 0) // 4)
-            path = net.download(best["link"], suffix=".mp4", timeout=120)
-            used.add(key)
-            return Visual("video", str(path), f"Pexels – {video.get('user', {}).get('name', 'unbekannt')}", query)
+
+            def frames(video=video):
+                pics = [p.get("picture") for p in video.get("video_pictures") or [] if p.get("picture")]
+                return _images(bildcheck.spread(pics or [video.get("image")]))
+
+            def build(video=video, best=best, key=key):
+                path = net.download(best["link"], suffix=".mp4", timeout=120)
+                used.add(key)
+                return Visual("video", str(path), f"Pexels – {video.get('user', {}).get('name', 'unbekannt')}", query)
+
+            cands.append((frames, build))
+        found = _pick(cands, motif)
+        if found:
+            return found
     return None
 
 
-def pexels_photo(query: str, used: set, match=None) -> Visual | None:
+def pexels_photo(query: str, used: set, match=None, motif: str = "") -> Visual | None:
     """Hochwertiges Foto im Hochformat von Pexels (kostenloser Schlüssel) – vor Wikimedia, das aus Rechenzentren
     oft gedrosselt wird."""
     if not config.PEXELS_API_KEY:
         return None
-    data = net.get_json("https://api.pexels.com/v1/search", params={"query": query, "per_page": 15,
+    data = net.get_json("https://api.pexels.com/v1/search", params={"query": query, "per_page": 15 if not motif else 20,
                                                                     "orientation": "portrait"},
                         headers={"Authorization": config.PEXELS_API_KEY}, cache_hours=24 * 7, retries=2)
+    cands = []
     for photo in data.get("photos", []):
         key = f"pexels-foto:{photo['id']}"
         src = (photo.get("src") or {}).get("original")
@@ -85,18 +139,24 @@ def pexels_photo(query: str, used: set, match=None) -> Visual | None:
         slug = re.sub(r"[^a-z]+", " ", str(photo.get("url", "")).lower().split("pexels.com")[-1])
         if match and not match(f"{photo.get('alt', '')} {slug}"):
             continue
-        path = net.download(f"{src}?auto=compress&cs=tinysrgb&h=1920", suffix=".jpg", timeout=60)
-        used.add(key)
-        return Visual("image", str(path), f"Foto: {photo.get('photographer', 'unbekannt')} – Pexels", query)
-    return None
+
+        def build(photo=photo, src=src, key=key):
+            path = net.download(f"{src}?auto=compress&cs=tinysrgb&h=1920", suffix=".jpg", timeout=60)
+            used.add(key)
+            return Visual("image", str(path), f"Foto: {photo.get('photographer', 'unbekannt')} – Pexels", query)
+
+        cands.append((lambda photo=photo: _images([(photo.get("src") or {}).get("medium") or photo["src"]["original"]]),
+                      build))
+    return _pick(cands, motif)
 
 
-def pixabay(query: str, used: set, match=None) -> Visual | None:
+def pixabay(query: str, used: set, match=None, motif: str = "") -> Visual | None:
     if not config.PIXABAY_API_KEY:
         return None
     data = net.get_json("https://pixabay.com/api/videos/", params={"key": config.PIXABAY_API_KEY, "q": query,
                                                                   "per_page": 20, "safesearch": "true"},
                         cache_hours=24 * 7, retries=2)
+    cands = []
     for hit in data.get("hits", []):
         key = f"pixabay:{hit['id']}"
         if key in used or hit.get("duration", 0) < 4:
@@ -106,13 +166,25 @@ def pixabay(query: str, used: set, match=None) -> Visual | None:
         for size in ("large", "medium"):
             file = hit.get("videos", {}).get(size) or {}
             if file.get("url") and (file.get("height") or 0) >= 720:
-                path = net.download(file["url"], suffix=".mp4", timeout=120)
-                used.add(key)
-                return Visual("video", str(path), f"Pixabay – {hit.get('user', 'unbekannt')}", query)
-    return None
+                def frames(hit=hit):             # kleinste Fassung laden und daraus 3 Bilder ziehen
+                    tiny = next((hit["videos"][s]["url"] for s in ("tiny", "small") if (hit["videos"].get(s) or {}).get("url")),
+                                None)
+                    if not tiny:
+                        raise net.FetchError("keine kleine Fassung")
+                    return bildcheck.video_frames(net.download(tiny, suffix=".mp4", timeout=60, retries=1, max_wait=10),
+                                                  hit.get("duration", 0))
+
+                def build(hit=hit, file=file, key=key):
+                    path = net.download(file["url"], suffix=".mp4", timeout=120)
+                    used.add(key)
+                    return Visual("video", str(path), f"Pixabay – {hit.get('user', 'unbekannt')}", query)
+
+                cands.append((frames, build))
+                break
+    return _pick(cands, motif)
 
 
-def pixabay_photo(query: str, used: set, match=None) -> Visual | None:
+def pixabay_photo(query: str, used: set, match=None, motif: str = "") -> Visual | None:
     """Foto von Pixabay (Schlagworte „tags“ für den Motiv-Abgleich), Hochformat bevorzugt."""
     if not config.PIXABAY_API_KEY:
         return None
@@ -123,11 +195,15 @@ def pixabay_photo(query: str, used: set, match=None) -> Visual | None:
     hits = [h for h in data.get("hits", []) if f"pixabay-foto:{h['id']}" not in used and h.get("largeImageURL")
             and (not match or match(str(h.get("tags", ""))))]
     hits.sort(key=lambda h: (h.get("imageHeight") or 0) < (h.get("imageWidth") or 0))     # Hochformat zuerst
+    cands = []
     for hit in hits:
-        path = net.download(hit["largeImageURL"], suffix=".jpg", timeout=60)
-        used.add(f"pixabay-foto:{hit['id']}")
-        return Visual("image", str(path), f"Foto: {hit.get('user', 'unbekannt')} – Pixabay", query)
-    return None
+        def build(hit=hit):
+            path = net.download(hit["largeImageURL"], suffix=".jpg", timeout=60)
+            used.add(f"pixabay-foto:{hit['id']}")
+            return Visual("image", str(path), f"Foto: {hit.get('user', 'unbekannt')} – Pixabay", query)
+
+        cands.append((lambda hit=hit: _images([hit.get("webformatURL") or hit["largeImageURL"]]), build))
+    return _pick(cands, motif)
 
 
 # --------------------------------------------------------------------------- KI-Bilder
@@ -173,7 +249,7 @@ def ai_image(prompt: str, seed: int) -> Visual | None:
 NON_FREE = ("non-free", "fair use", "copyrighted", "all rights reserved")
 
 
-def commons_photo(query: str, used: set, match=None) -> Visual | None:
+def commons_photo(query: str, used: set, match=None, motif: str = "") -> Visual | None:
     """Frei lizenziertes Foto von Wikimedia Commons (ohne Schlüssel) – Hochformat bevorzugt.
 
     Nur Bilder mit Urheber (oder gemeinfrei): die Lizenz verlangt sonst eine Namensnennung.
@@ -203,10 +279,16 @@ def commons_photo(query: str, used: set, match=None) -> Visual | None:
         candidates.append((not portrait, page, info, license_name, artist))
     if not candidates:
         return None
-    _, page, info, license_name, artist = min(candidates, key=lambda c: c[0])
-    path = net.download(info["thumburl"], suffix=".jpg", retries=2, max_wait=20)
-    used.add(page["title"])
-    return Visual("image", str(path), f"Foto: {artist[:60]} – {license_name} – Wikimedia Commons", query)
+    candidates.sort(key=lambda c: c[0])
+    cands = []
+    for _, page, info, license_name, artist in candidates:
+        def build(page=page, info=info, license_name=license_name, artist=artist):
+            path = net.download(info["thumburl"], suffix=".jpg", retries=2, max_wait=20)
+            used.add(page["title"])
+            return Visual("image", str(path), f"Foto: {artist[:60]} – {license_name} – Wikimedia Commons", query)
+
+        cands.append((lambda info=info: _images([info["thumburl"]]), build))
+    return _pick(cands, motif)
 
 
 # --------------------------------------------------------------------------- freie Clips (Wikimedia Commons)

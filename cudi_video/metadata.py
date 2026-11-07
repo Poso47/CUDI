@@ -84,7 +84,8 @@ def bild_zeile(item) -> list[str]:
     if not bild and not motif:
         return []
     if bild.get("passt") is True:
-        verdict = f"Bild passt ({bild.get('quelle')})"
+        seen = f", Bildprüfung {bild['wert']:.2f}" if bild.get("wert") is not None else ""
+        verdict = f"Bild passt ({bild.get('quelle')}{seen})"
     elif bild.get("quelle") == "kein Bild":
         verdict = "kein Bild gefunden – Infografik"
     elif bild.get("passt") is False:
