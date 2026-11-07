@@ -706,7 +706,7 @@ def test_voice_within_limit_drops_optional_text(monkeypatch, tmp_path):
     research = make_research()
     calls = []
 
-    def fake_voice(script, out_dir, voice=None, rate=None):
+    def fake_voice(script, out_dir, voice=None, rate=None, profile=None):
         calls.append(rate)
         for seg in script.segments:
             seg.duration = len(seg.text.split()) * 1.0         # langsame Stimme

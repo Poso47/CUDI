@@ -330,7 +330,7 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
     hook = str(skeleton.get("hook") or "").strip() if part_index == 0 else ""
     texts = [hook or part["intro"], *[s["text"] for s in part["scenes"]], part["outro"]]   # Einstieg zur Story-Karte
     progress(0.02)
-    voiced = voice_texts(texts, work / "audio", voice["name"], voice["rate"], voice["pitch"], voice["pause"])
+    voiced = voice_texts(texts, work / "audio", voice["name"], voice["rate"], voice["pitch"], voice["pause"], mood=mood)
     progress(0.25)
 
     gap = GAP.get(mood, 0.3)

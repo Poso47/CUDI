@@ -74,12 +74,13 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
     Textstufe gewählt, die passt (erst Wikipedia-Sätze, dann Zusatzinfos weglassen). Reicht das
     nicht, spricht die Stimme etwas schneller."""
     from .render.video import LEAD, TAIL
-    from .tts import voice_script
+    from .tts import speech_profile, voice_script
 
     cap = config.LONG_MAX_SECONDS if spec.target_seconds > MAX_SECONDS else MAX_SECONDS   # „Lang“: bis 10 Min.
     limit = min(spec.target_seconds + 8, cap)
     audio_dir = out / f"audio_{script.lang}"
-    voice_script(script, audio_dir)
+    profile = speech_profile(spec.kind)                # Sprechprofil nach Videoart (Ranking spannend, Fakten erklärend)
+    voice_script(script, audio_dir, profile=profile)
     total = video_seconds(script)
     if total <= limit:
         return script
@@ -87,7 +88,7 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
     rates = [config.VOICE_RATE, _faster(config.VOICE_RATE, 7), _faster(config.VOICE_RATE, 14)]
     if narration:                      # erzählte Texte zuerst nur etwas schneller sprechen, bevor gekürzt wird
         for rate in rates[1:]:
-            voice_script(script, audio_dir, rate=rate)
+            voice_script(script, audio_dir, rate=rate, profile=profile)
             total = video_seconds(script)
             if total <= limit:
                 return script
@@ -109,7 +110,7 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
             if guess > limit - 2:
                 continue
             log.info("Kürze Text (Stufe %d, Faktor %.1f, Tempo %s): geschätzt %.0fs", detail, scale, rate, guess)
-            voice_script(candidate, audio_dir, rate=rate)
+            voice_script(candidate, audio_dir, rate=rate, profile=profile)
             total = video_seconds(candidate)
             if total <= limit:
                 return candidate

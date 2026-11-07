@@ -290,7 +290,7 @@ Ergebnis kommt als Kommentar mit Download-Links). Die Abläufe müssen dafür au
 | `CUDI_CHANNEL=@deinkanal` | Kanal-Name dezent oben im Video und im Abspann |
 | `CUDI_VIDEO_TOKEN=…` | Zugangscode für die Web-Oberfläche |
 | `CUDI_VOICE_DE`, `CUDI_VOICE_EN` | andere Stimme (Liste: `edge-tts --list-voices`) |
-| `CUDI_VOICE_RATE=+8%` | Sprechtempo |
+| `CUDI_VOICE_RATE=+0%` | Grundtempo (Standard normal; Betonung variiert es je Satzteil, siehe `tts.plan_parts`) |
 | `CUDI_CHECK_LANGS` | Wikipedia-Sprachen für den Abgleich |
 | `CUDI_LLM_BASE_URL`, `CUDI_LLM_API_KEY`, `CUDI_LLM_MODEL` | optionales Sprachmodell |
 
