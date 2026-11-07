@@ -52,9 +52,9 @@
   .pill.bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, var(--line)); }
   .pill.run { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
 
-  nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: var(--panel); border: 1px solid var(--line);
+  nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; background: var(--panel); border: 1px solid var(--line);
         border-radius: 14px; padding: 5px; }
-  nav button { border: 0; border-radius: 10px; padding: 10px 4px; background: transparent; color: var(--muted);
+  nav button { border: 0; border-radius: 10px; padding: 10px 2px; min-height: 44px; background: transparent; color: var(--muted);
                font: 700 13px var(--body); cursor: pointer; }
   nav button[aria-selected="true"] { background: var(--accent); color: #04141a; }
 
@@ -149,6 +149,38 @@
   .review ul { margin: 4px 0; padding-left: 18px; }
   .errbox { color: var(--bad); white-space: pre-wrap; font: 13px/1.45 ui-monospace, Consolas, monospace;
             background: var(--panel); border: 1px solid color-mix(in srgb, var(--bad) 40%, var(--line)); border-radius: 10px; padding: 10px; }
+
+  /* Firma: Leitstand */
+  .ic { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .banner { display: flex; align-items: center; gap: 10px; border-radius: 14px; padding: 10px 12px; font-size: 14px; font-weight: 700;
+            color: var(--warn); background: var(--panel); border: 1px solid color-mix(in srgb, var(--warn) 50%, var(--line)); }
+  .banner span { flex: 1; min-width: 0; }
+  .banner button, .btn { min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink);
+                         color: var(--paper); font: 700 14px var(--body); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #04141a; }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .boss { border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: var(--ink); display: grid; gap: 10px; }
+  .boss h3, .staffh { font: 800 15px/1.3 var(--display); margin: 0; display: flex; align-items: center; gap: 8px; }
+  .boss.alarm { border-color: color-mix(in srgb, var(--warn) 55%, var(--line)); }
+  .boss p { margin: 0; }
+  .boss ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .boss li { display: grid; gap: 6px; font-size: 14px; justify-items: start; }
+  .boss .meta, .staff .meta { color: var(--muted); font-size: 13px; }
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .stat { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--ink); }
+  .stat b { display: block; font: 800 22px/1.2 var(--display); font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--muted); font-size: 13px; }
+  .staff { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .staff > li { border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: var(--ink); display: grid; gap: 8px; min-width: 0; }
+  .staff .top { display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+  .staff .who { display: flex; gap: 10px; align-items: center; min-width: 0; }
+  .staff .who b { overflow-wrap: anywhere; }
+  .staff .hint { margin: 0; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--panel);
+            border: 1px solid var(--line); color: var(--accent); flex: none; }
+  .avatar.arbeitet svg { animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  @media (prefers-reduced-motion: reduce) { .avatar.arbeitet svg { animation: none; } }
   footer { color: var(--muted); font-size: 12px; text-align: center; }
 </style>
 <main>
@@ -169,8 +201,15 @@
     <button role="tab" id="tab-ranking" aria-controls="ranking" aria-selected="true">Ranking</button>
     <button role="tab" id="tab-story" aria-controls="story" aria-selected="false">Story</button>
     <button role="tab" id="tab-videos" aria-controls="videos" aria-selected="false">Videos</button>
+    <button role="tab" id="tab-firma" aria-controls="firma" aria-selected="false">Firma</button>
     <button role="tab" id="tab-app" aria-controls="app" aria-selected="false">Volle App</button>
   </nav>
+
+  <div class="banner" id="alertBanner" role="alert" hidden>
+    <svg class="ic" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3zM12 10v5M12 18v.5"/></svg>
+    <span id="alertText"></span>
+    <button type="button" id="alertGo">Ansehen</button>
+  </div>
 
   <!-- Ranking -->
   <section class="card" id="ranking" role="tabpanel" aria-labelledby="tab-ranking">
@@ -310,6 +349,17 @@
     </ul>
   </section>
 
+  <!-- Firma -->
+  <section class="card" id="firma" role="tabpanel" aria-labelledby="tab-firma" hidden>
+    <h2>Firma</h2>
+    <p class="lead">Jeder Auftrag ist ein Mitarbeiter. Der Projektleiter wacht darüber – gerechnet wird nur hier im Browser, ohne zusätzliche Claude-Aufrufe.</p>
+    <p class="note" id="firmaMsg" hidden role="status"></p>
+    <div class="boss" id="boss"></div>
+    <div class="stats" id="stats"></div>
+    <h3 class="staffh" id="staffTitle">Mitarbeiter</h3>
+    <ul class="staff" id="staff"></ul>
+  </section>
+
   <!-- Volle App -->
   <section class="card" id="app" role="tabpanel" aria-labelledby="tab-app" hidden>
     <h2>Volle App</h2>
@@ -379,7 +429,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   let mcp = null, db = null, assets = null, downloads = null, appUrl = "", mood = "";
 
   /* ---------- Bereiche (Tabs, mit #name in der Adresse) ---------- */
-  const TABS = ["ranking", "story", "videos", "app"];
+  const TABS = ["ranking", "story", "videos", "firma", "app"];
   function showTab(name) {
     if (!TABS.includes(name)) name = "ranking";
     TABS.forEach((t) => {
@@ -387,12 +437,14 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       $("tab-" + t).setAttribute("aria-selected", String(t === name));
     });
     if (name === "videos") updateMeter();
+    try { renderFirma(); } catch (e) { /* Banner folgt beim nächsten Update */ }
   }
   function goTab(name) {
     showTab(name);
     try { history.replaceState(null, "", "#" + name); } catch (e) { /* Adresse bleibt */ }
   }
   TABS.forEach((t) => $("tab-" + t).addEventListener("click", () => goTab(t)));
+  $("alertGo").addEventListener("click", () => goTab("firma"));
   window.addEventListener("hashchange", () => showTab(location.hash.slice(1)));
 
   function note(id, text, kind) {
@@ -757,6 +809,22 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     }
   }
 
+  // „Neu starten“ von Hand (Karte und Firma-Leitstand): Platz prüfen, Versuch 2 setzen, an Ort und Stelle neu starten
+  async function restartJob(id, job, res, button, msgId) {
+    if (!mcp || !db || !job || !job.auftrag) return;
+    const free = await freeMB(), need = needMB(job.auftrag);
+    if (free < need) { offerCleanup(msgId, free, need, () => restartJob(id, job, res, button, msgId)); return; }
+    button.disabled = true;
+    try {
+      await db.doc("jobs/" + id).update({ versuch: 2 });           // von Hand neu: kein weiterer Automatik-Versuch
+      await relaunch(id, job, res);
+      note(msgId, "Neu gestartet.", "ok");
+    } catch (err) {
+      note(msgId, explain(err), "bad");
+      button.disabled = false;
+    }
+  }
+
   // Auftrag an Ort und Stelle neu starten (gleiche Karte und Kennung – auch Schritt „video“ mit seinem Skelett):
   // alten Lauf ohne Ergebnis beenden, altes Ergebnis entfernen, neu starten, Löschen währenddessen beachten.
   async function relaunch(id, job, res) {
@@ -1106,20 +1174,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       }
       if (job.auftrag) {
         const again = document.createElement("button"); again.type = "button"; again.className = "dl"; again.textContent = "Neu starten";
-        again.addEventListener("click", async () => {
-          if (!mcp || !db) return;
-          const free = await freeMB(), need = needMB(job.auftrag);
-          if (free < need) { offerCleanup("videosMsg", free, need, () => again.click()); return; }
-          again.disabled = true;
-          try {
-            await db.doc("jobs/" + id).update({ versuch: 2 });           // von Hand neu: kein weiterer Automatik-Versuch
-            await relaunch(id, job, res);
-            note("videosMsg", "Neu gestartet.", "ok");
-          } catch (err) {
-            note("videosMsg", explain(err), "bad");
-            again.disabled = false;
-          }
-        });
+        again.addEventListener("click", () => restartJob(id, job, res, again, "videosMsg"));
         actions.appendChild(again);
       }
     } else if (res) {
@@ -1214,6 +1269,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   moreBtn.addEventListener("click", () => { shown += 20; render(); });
   moreLi.appendChild(moreBtn);
   function render() {
+    try { renderFirma(); } catch (e) { /* Leitstand darf die Videoliste nie stören */ }
     const ul = $("jobList");
     const all = [...jobs.keys()].sort((a, b) => {
       const ta = (jobs.get(a) || {}).gestartet || (results.get(a) || {}).fertig || "";
@@ -1256,6 +1312,207 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     } catch (e) { $("meter").textContent = ""; }
   }
 
+  /* ---------- Firma: Leitstand (rechnet nur im Browser aus jobs/results/bewertungen) ---------- */
+  const ICON = {
+    user: '<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4 3.6-6 8-6s8 2 8 6"/>',
+    book: '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5zM8 7h7"/>',
+    shield: '<path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3zM8.5 12l2.5 2.5L16 9.5"/>',
+    pen: '<path d="M4 20l1-5L16 4l4 4L9 19l-5 1zM14 6l4 4"/>',
+    film: '<path d="M4 4h16v16H4zM8 4v16M16 4v16M4 9h4M4 15h4M16 9h4M16 15h4"/>',
+    alert: '<path d="M12 3 2 20h20L12 3zM12 10v5M12 18v.5"/>',
+    play: '<path d="M7 4l13 8-13 8V4z"/>',
+    refresh: '<path d="M20 11a8 8 0 1 0-2 6M20 4v7h-7"/>',
+    bell: '<path d="M6 17V11a6 6 0 1 1 12 0v6l2 2H4l2-2zM10 21h4"/>',
+  };
+  function icon(name) {
+    const NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("class", "ic"); svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = ICON[name] || ICON.user;
+    return svg;
+  }
+  function h(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  const ROLES = { ranking: ["Rechercheur & Autor", "book"], fakten: ["Faktenprüfer", "shield"], story: ["Story-Autor", "pen"], clip: ["Clipper", "film"] };
+  function roleOf(job) {
+    const o = (job && job.auftrag) || {};
+    const art = (job && job.art) || o.art || "";
+    if (art === "story") return ROLES.story;
+    if (art === "clip") return ROLES.clip;
+    return o.thema ? ROLES.fakten : ROLES.ranking;      // freies Thema: Fakten werden einzeln geprüft
+  }
+  const PRESET_FORMATS = ["karte", "vollbild", "kreis", "magazin", "polaroid", "zahl"];
+  const FACT_IDEAS = ["die schnellsten Landtiere", "die längsten Flüsse Europas", "die ältesten Städte der Welt",
+                      "die größten Wüsten der Erde", "die tiefsten Höhlen der Welt", "die heißesten Orte der Erde",
+                      "die größten Raubtiere der Welt"];
+  const HUNG_MIN = 40;
+
+  function staffEntry(id) {
+    const job = jobs.get(id) || {}, res = results.get(id), st = stateOf(id), role = roleOf(job);
+    const mins = job.gestartet ? minutes(job.gestartet) : 0;
+    const e = { id: id, job: job, res: res, role: role, name: job.label || (res && res.titel) || id, state: "", pill: "run",
+                reason: "", hung: false, half: false, mins: mins };
+    if (st === "laeuft") e.state = "arbeitet";
+    else if (st === "wartet") { e.state = "wartet"; e.pill = "warn"; }
+    else if (st === "skelett") { e.state = "wartet auf dich"; e.pill = "warn"; }
+    else if (st === "fertig") { e.state = "fertig"; e.pill = "ok"; }
+    else { e.state = "Fehler"; e.pill = "bad"; }
+    if (!res && (st === "ohne" || (st === "laeuft" && mins > HUNG_MIN))) {      // Regel 1: hängt
+      e.hung = true; e.state = "hängt"; e.pill = "bad";
+      e.reason = st === "ohne" ? "Die Sitzung ruht, aber es kam kein Ergebnis." : "Läuft seit " + mins + " Min. ohne Ergebnis.";
+    }
+    const skipVideo = res && (res.schritt === "skelett" || (job.auftrag && job.auftrag.nur_skript));
+    if (res && !skipVideo) {                                                     // Regel 2: halbe Arbeit
+      const hasVideo = (res.videos || []).some((v) => v && v.video_url);
+      if (res.fehler || !res.ok) { e.half = true; e.reason = res.fehler || "Der Auftrag endete mit einem Fehler."; }
+      else if (!hasVideo) { e.half = true; e.state = "halbe Arbeit"; e.pill = "warn"; e.reason = "Ergebnis ohne Video."; }
+    }
+    return e;
+  }
+  function firmaModel() {
+    const ids = [...jobs.keys()].sort((a, b) => String((jobs.get(b) || {}).gestartet || "").localeCompare(String((jobs.get(a) || {}).gestartet || "")));
+    const staff = ids.map(staffEntry);
+    const stat = { today: 0, week: 0, durations: [] };
+    const now = Date.now(), day0 = new Date(); day0.setHours(0, 0, 0, 0);
+    for (const [, res] of results) {
+      const vids = (res.videos || []).filter((v) => v && v.video_url);
+      const t = Date.parse(res.fertig || "");
+      if (!res.ok || !vids.length || isNaN(t)) continue;
+      if (t >= day0.getTime()) stat.today += vids.length;
+      if (now - t < 7 * 864e5) stat.week += vids.length;
+      vids.forEach((v) => { if (v.dauer > 0) stat.durations.push(v.dauer); });
+    }
+    const rated = [...ratings.values()].filter((r) => r.wert === 1 || r.wert === -1);
+    stat.up = rated.length ? Math.round(100 * rated.filter((r) => r.wert === 1).length / rated.length) : null;
+    stat.avg = stat.durations.length ? Math.round(stat.durations.reduce((a, b) => a + b, 0) / stat.durations.length) : null;
+    return { staff: staff, working: staff.filter((e) => e.state === "arbeitet").length,
+             hung: staff.filter((e) => e.hung), half: staff.filter((e) => e.half), stat: stat };
+  }
+  function baseRanking(extra) {
+    return Object.assign({ art: "ranking", vorlage: $("preset").value, thema: "", sprachen: ["de"], plaetze: 10, streng: false,
+                           nur_skript: false, laenge: "", maskottchen: true, format: "" }, extra);
+  }
+  function suggestions() {
+    const out = [];
+    const presets = [...$("preset").options].map((o) => [o.value, o.text]);
+    const usedPresets = new Set([...jobs.values()].map((j) => j.auftrag && j.auftrag.vorlage).filter(Boolean));
+    // 1) aus der jüngsten guten Bewertung: ähnliches Thema in anderem Format (Ranking) bzw. gleiche Stimmung (Story)
+    const liked = [...ratings.values()].filter((r) => r.wert === 1 && jobs.get(r.id) && jobs.get(r.id).auftrag)
+      .sort((a, b) => String(b.zeit || "").localeCompare(String(a.zeit || "")))[0];
+    if (liked) {
+      const o = jobs.get(liked.id).auftrag;
+      if (o.art === "story") {
+        out.push({ title: "Noch eine Story dieser Art", why: "„" + (liked.titel || o.wunsch || "Story") + "“ kam gut an.",
+                   label: "Story – " + (o.stimmung || "auto"),
+                   order: { art: "story", wunsch: "", stimmung: o.stimmung || "auto", sprache: o.sprache || "de", laenge: o.laenge || "",
+                            bilder: o.bilder || "", entschaerfen: true, schritt: "skelett", maskottchen: o.maskottchen !== false } });
+      } else {
+        const other = presets.find((p) => p[0] !== o.vorlage) || presets[0];
+        const fmts = PRESET_FORMATS.filter((f) => f !== o.format);
+        const fmt = fmts[new Date().getDate() % fmts.length];
+        out.push({ title: "Ähnliches Thema, anderes Format", why: "„" + (liked.titel || liked.thema || "Ranking") + "“ kam gut an – jetzt „" + other[1] + "“ im Format " + fmt + ".",
+                   label: other[1], order: baseRanking({ vorlage: other[0], format: fmt }) });
+      }
+    }
+    // 2) Vorlage, die noch nie genutzt wurde
+    const fresh = presets.filter((p) => !usedPresets.has(p[0]));
+    if (fresh.length) out.push({ title: "Neue Vorlage ausprobieren", why: "„" + fresh[0][1] + "“ gab es noch nie.", label: fresh[0][1],
+                                order: baseRanking({ vorlage: fresh[0][0] }) });
+    // 3) Fakten-Idee (freies Thema, jeder Fakt wird einzeln belegt)
+    const usedTopics = new Set([...jobs.values()].map((j) => j.auftrag && j.auftrag.thema).filter(Boolean));
+    const ideas = FACT_IDEAS.filter((t) => !usedTopics.has(t)), pool = ideas.length ? ideas : FACT_IDEAS;
+    const idea = pool[Math.floor(Date.now() / 864e5) % pool.length];
+    out.push({ title: "Fakten-Idee", why: "Freies Thema: " + idea + ".", label: idea, order: baseRanking({ thema: idea }) });
+    for (const p of (fresh.length > 1 ? fresh.slice(1) : presets)) {          // auf drei auffüllen
+      if (out.length >= 3) break;
+      out.splice(out.length - 1, 0, { title: "Noch eine Vorlage", why: "„" + p[1] + "“.", label: p[1], order: baseRanking({ vorlage: p[0] }) });
+    }
+    return out.slice(0, 3);
+  }
+
+  const notified = new Set();
+  function notifyOnce(key, text) {
+    if (notified.has(key)) return;
+    notified.add(key);
+    try {
+      if (typeof Notification !== "undefined" && Notification.permission === "granted" && document.visibilityState !== "visible")
+        new Notification("CUDI Firma", { body: text });
+    } catch (e) { /* ohne Benachrichtigungen geht es auch */ }
+  }
+  function updateBanner(m) {
+    const parts = [];
+    if (m.hung.length) parts.push(m.hung.length === 1 ? "1 Auftrag hängt" : m.hung.length + " Aufträge hängen");
+    if (m.half.length) parts.push(m.half.length === 1 ? "1× halbe Arbeit" : m.half.length + "× halbe Arbeit");
+    const text = parts.join(" · ");
+    $("alertBanner").hidden = !text || !$("firma").hidden;       // im Firma-Tab selbst genügt der Projektleiter
+    $("alertText").textContent = text;
+    m.hung.forEach((e) => notifyOnce("h" + e.id, "Ein Auftrag hängt: " + e.name));
+    m.half.forEach((e) => notifyOnce("f" + e.id + ((e.res && e.res.fertig) || ""), "Halbe Arbeit: " + e.name + " – " + e.reason));
+  }
+  function restartBtn(e) {
+    const b = h("button", "btn primary"); b.type = "button"; b.append(icon("refresh"), document.createTextNode("Neu starten"));
+    b.addEventListener("click", () => restartJob(e.id, e.job, e.res, b, "firmaMsg"));
+    return b;
+  }
+  function renderFirma() {
+    const m = firmaModel();
+    updateBanner(m);
+    if ($("firma").hidden) return;
+    // Projektleiter
+    const boss = $("boss"); boss.textContent = "";
+    const problems = m.hung.length + m.half.length;
+    boss.className = "boss" + (problems ? " alarm" : "");
+    const head = h("h3"); head.append(icon(problems ? "alert" : "user"), document.createTextNode("Projektleiter"));
+    boss.append(head);
+    if (problems) {
+      const ul = h("ul");
+      [...m.hung, ...m.half.filter((e) => !e.hung)].forEach((e) => {
+        const li = h("li"); li.append(h("b", "", (e.hung ? "Hängt: " : "Halbe Arbeit: ") + e.name), h("span", "meta", e.reason));
+        if (e.job.auftrag) li.append(restartBtn(e));
+        ul.append(li);
+      });
+      boss.append(ul);
+    } else boss.append(h("p", "hint", jobs.size ? "Alles im Plan – keine hängenden Aufträge, keine halbe Arbeit." : "Noch keine Mitarbeiter. Starte ein Video oder nimm einen Vorschlag."));
+    if (!m.working) {
+      boss.append(h("p", "", "Alle Mitarbeiter sind frei."), h("p", "hint", "Drei Vorschläge – ein Tipp startet das Video."));
+      const ul = h("ul");
+      suggestions().forEach((sg) => {
+        const li = h("li"); li.append(h("b", "", sg.title), h("span", "meta", sg.why));
+        const go = h("button", "btn primary"); go.type = "button"; go.append(icon("play"), document.createTextNode("Starten"));
+        go.addEventListener("click", () => startJob({ label: sg.label, order: sg.order }, "firmaMsg", go));
+        li.append(go); ul.append(li);
+      });
+      boss.append(ul);
+    }
+    try {
+      if (typeof Notification !== "undefined" && Notification.permission === "default") {
+        const nb = h("button", "btn"); nb.type = "button"; nb.append(icon("bell"), document.createTextNode("Benachrichtigungen erlauben"));
+        nb.addEventListener("click", () => { try { Promise.resolve(Notification.requestPermission()).then(renderFirma).catch(() => {}); } catch (e) { /* egal */ } });
+        boss.append(nb);
+      }
+    } catch (e) { /* kein Notification-Objekt */ }
+    // Statistik
+    const st = $("stats"); st.textContent = "";
+    const tile = (v, l) => { const d = h("div", "stat"); d.append(h("b", "", v), h("span", "", l)); st.append(d); };
+    tile(String(m.stat.today), "Videos heute"); tile(String(m.stat.week), "Videos diese Woche");
+    tile(m.stat.up == null ? "–" : m.stat.up + " %", "Anteil Daumen hoch"); tile(m.stat.avg == null ? "–" : m.stat.avg + " s", "Ø Dauer");
+    // Mitarbeiter
+    const ul = $("staff"); ul.textContent = "";
+    $("staffTitle").textContent = "Mitarbeiter (" + m.staff.length + ")";
+    if (!m.staff.length) ul.append(h("li", "meta", "Noch niemand angestellt."));
+    m.staff.slice(0, 30).forEach((e) => {
+      const li = h("li"), top = h("div", "top"), who = h("div", "who");
+      const av = h("span", "avatar" + (e.state === "arbeitet" ? " arbeitet" : "")); av.append(icon(e.role[1]));
+      const nm = h("div"); nm.append(h("b", "", e.name), h("div", "meta", e.role[0] + (e.job.gestartet ? " · " + when(e.job.gestartet) : "")));
+      who.append(av, nm);
+      top.append(who, h("span", "pill " + e.pill, e.state));
+      li.append(top);
+      if (e.reason) li.append(h("p", "hint", e.reason));
+      if ((e.hung || e.half) && e.job.auftrag) { const a = h("div", "actions"); a.append(restartBtn(e)); li.append(a); }
+      ul.append(li);
+    });
+  }
+  setInterval(() => { if (jobs.size) renderFirma(); }, 60000);     // „hängt“ nach 40 Min. auch ohne neue Daten
+
   /* ---------- Volle App: Adresse merken ---------- */
   const LOCAL_KEY = "cudiAppUrl";
   function localGet() { try { return localStorage.getItem(LOCAL_KEY) || ""; } catch (e) { return ""; } }
@@ -1296,6 +1553,35 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   showApp(localGet());
   showTab(location.hash.slice(1) || "ranking");
   pill("Cloud …", "");
+  /* Nur mit ?demo=1 (Aufträge laufen) bzw. ?demo=frei (alle fertig): Beispieldaten zum Ansehen, nie im Normalbetrieb */
+  const demoMode = (/[?&]demo=(1|frei)\b/.exec(location.search) || [])[1];
+  if (demoMode) {
+    const ago = (min) => new Date(Date.now() - min * 60000).toISOString();
+    const J = (id, art, label, min, auftrag, session) => jobs.set(id, { id: id, art: art, label: label, gestartet: ago(min), session: session || "", auftrag: auftrag });
+    const R = (id, art, ok, min, extra) => results.set(id, Object.assign({ id: id, art: art, ok: ok, fertig: ago(min), videos: [] }, extra));
+    const vid = (d) => ({ key: "de", video_url: "/_blob/" + "a".repeat(32), dauer: d, mb: 12 });
+    J("d1", "ranking", "Die 10 höchsten Berge der Welt", 90, { art: "ranking", vorlage: "hoechste-berge", format: "polaroid" });
+    R("d1", "ranking", true, 75, { titel: "Berge", videos: [vid(58), vid(61)] });
+    J("d2", "ranking", "Die schnellsten Landtiere", 300, { art: "ranking", vorlage: "hoechste-berge", thema: "die schnellsten Landtiere" });
+    R("d2", "ranking", true, 20, { titel: "Tiere", videos: [vid(64)] });
+    J("d3", "ranking", "Die 10 größten Seen der Welt", 200, { art: "ranking", vorlage: "groesste-seen" });
+    R("d3", "ranking", true, 100, { titel: "Seen", videos: [] });
+    J("d4", "story", "Gruselig – Der Anruf", 150, { art: "story", stimmung: "gruselig", wunsch: "Anruf" });
+    R("d4", "story", false, 120, { fehler: "Reddit nicht erreichbar.", titel: "" });
+    ratings.set("d1", { id: "d1", wert: 1, titel: "Berge", art: "ranking", zeit: ago(70) });
+    ratings.set("d2", { id: "d2", wert: 1, titel: "Tiere", art: "ranking", zeit: ago(10) });
+    ratings.set("d4", { id: "d4", wert: -1, titel: "Anruf", art: "story", zeit: ago(100) });
+    if (demoMode === "1") {
+      J("d5", "ranking", "Die 10 tiefsten Seen der Welt", 12, { art: "ranking", vorlage: "tiefste-seen" }, "session_demo000000005");
+      buckets.set("session_demo000000005", "WORKING");
+      J("d6", "story", "Spannend – Der Nachbar", 55, { art: "story", stimmung: "spannend", wunsch: "Nachbar" }, "session_demo000000006");
+      buckets.set("session_demo000000006", "WORKING");
+    }
+    render();
+    pill("Demo", "warn");
+    return;
+  }
+
   const claude = window.claude;
   if (!claude || typeof claude.use !== "function") { pill("nur in Claude", "warn"); return; }
   const loading = setTimeout(() => note("videosMsg", "Die Ablage antwortet noch nicht – die Liste erscheint, sobald sie erreichbar ist.", "warn"), 10000);
