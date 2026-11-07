@@ -50,7 +50,7 @@ VOICES = {
     "de": os.environ.get("CUDI_VOICE_DE", "de-DE-ConradNeural"),
     "en": os.environ.get("CUDI_VOICE_EN", "en-US-AndrewNeural"),
 }
-VOICE_RATE = os.environ.get("CUDI_VOICE_RATE", "+8%")
+VOICE_RATE = os.environ.get("CUDI_VOICE_RATE", "+0%")
 
 # Optionales Sprachmodell (OpenAI-kompatibel: Gemini, Groq, Ollama, ...).
 # Ohne Schlüssel arbeitet der Generator rein mit belegten Textbausteinen.

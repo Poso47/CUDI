@@ -12,6 +12,7 @@ import ssl
 import subprocess
 import sys
 import wave
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
@@ -35,7 +36,8 @@ TICKS_PER_SECOND = 10_000_000  # edge-tts liefert Offsets in 100-ns-Einheiten
 TTS_ATTEMPTS = 6        # der Gratis-Dienst liefert zeitweise „No audio was received“ – meist klappt es kurz danach
 
 
-async def _synthesize(text: str, voice: str, out_path: Path, rate: str, pitch: str = "+0Hz") -> list[dict]:
+async def _synthesize(text: str, voice: str, out_path: Path, rate: str, pitch: str = "+0Hz",
+                      volume: str = "+0%") -> list[dict]:
     words: list[dict] = []
     last = "keine Audiodaten"
     for attempt in range(TTS_ATTEMPTS):
@@ -43,7 +45,7 @@ async def _synthesize(text: str, voice: str, out_path: Path, rate: str, pitch: s
             await asyncio.sleep(min(2 ** attempt, 30))     # 2, 4, 8, 16, 30 s ≈ 1 Minute Geduld
         words.clear()
         try:
-            comm = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, boundary="WordBoundary")
+            comm = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, volume=volume, boundary="WordBoundary")
             with open(out_path, "wb") as f:
                 async for chunk in comm.stream():
                     if chunk["type"] == "audio":
@@ -205,14 +207,19 @@ def piper_synthesize(text: str, edge_voice: str, out_wav: Path, rate: str = "+0%
 
 
 async def _speak_all(texts: list[str], out_dir: Path, voice: str, rate: str, pitch: str,
-                     parallel: int = 2) -> list[tuple[Path, list[dict]]]:
-    """Alle Texte mit edge-tts; liefert ein Text nichts, alle mit der Ersatzstimme (einheitlicher Klang)."""
+                     parallel: int = 2, prosody: list[tuple[str, str, str]] | None = None
+                     ) -> list[tuple[Path, list[dict]]]:
+    """Alle Texte mit edge-tts; liefert ein Text nichts, alle mit der Ersatzstimme (einheitlicher Klang).
+    `prosody` (je Text: rate, pitch, volume) überschreibt die gemeinsamen Werte – für betonte Teilsätze."""
     sem = asyncio.Semaphore(parallel)
 
     async def one(i: int, text: str):
         async with sem:
             mp3 = out_dir / f"{i:03d}.mp3"
-            return mp3, await _synthesize(text, voice, mp3, rate, pitch)
+            if prosody is None:
+                return mp3, await _synthesize(text, voice, mp3, rate, pitch)
+            r, p, v = prosody[i]
+            return mp3, await _synthesize(text, voice, mp3, r, p, v)
 
     tasks = [asyncio.create_task(one(i, t)) for i, t in enumerate(texts)]
     done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_EXCEPTION)
@@ -227,7 +234,7 @@ async def _speak_all(texts: list[str], out_dir: Path, voice: str, rate: str, pit
         spoken = []
         for i, text in enumerate(texts):
             path = out_dir / f"{i:03d}.piper.wav"
-            spoken.append((path, piper_synthesize(text, voice, path, rate)))
+            spoken.append((path, piper_synthesize(text, voice, path, prosody[i][0] if prosody else rate)))
     except Exception as exc:
         raise RuntimeError(f"Sprachausgabe fehlgeschlagen ({failed}); Ersatzstimme ebenfalls: "
                            f"{type(exc).__name__}: {exc}"[:400]) from exc
@@ -235,34 +242,369 @@ async def _speak_all(texts: list[str], out_dir: Path, voice: str, rate: str, pit
     return spoken
 
 
-async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 2) -> None:
-    spoken = await _speak_all([seg.text for seg in script.segments], out_dir, voice, rate, "+0Hz", parallel)
-    for i, (seg, (src, words)) in enumerate(zip(script.segments, spoken)):
+# --------------------------------------------------------------------------- Betonung
+# Spannung wird GESPROCHEN, nicht schneller gesprochen: Der Text wird in Teile geteilt (Satz, Teilsatz an „–“/„…“,
+# Zahl- und „Platz“-Teil), jeder Teil bekommt Tempo, Tonhöhe und Lautstärke und vor den wichtigen Stellen eine kurze
+# Spannungspause. Aus den Teilen wird mit echter Stille ein Abschnitt gebaut; die Wortzeiten wandern mit.
+@dataclass
+class Part:
+    text: str
+    rate: int = 0               # Prozentpunkte zum Grundtempo (negativ = langsamer)
+    pitch: int = 0              # Hz relativ zur Stimme
+    volume: int = 0             # Prozent
+    pause: float = 0.0          # Stille davor (Sekunden)
+    role: str = "normal"        # normal | hook | frage | platz | zahl | superlativ
+
+
+# Sprechprofile: EINE Tabelle je Videoart. Rollen-Werte = (Tempo, Tonhöhe, Lautstärke) relativ zur Stimme/Grundtempo,
+# Pausen in Sekunden VOR dem Teil (satz = normaler Wechsel, frage = nach einer Frage, umbruch = nach „–“/„…“).
+# „erkennt“ = welche Stellen das Profil betont; „zahl_teilen“ = vor der Zahl eigener Teil mit Pause.
+# Profil je Videoart: ranking (spannend), fakten (neugierig-erklärend), erklaer (ruhig, gleichmäßig). Story: MOOD_STYLE (je Stimmung).
+# Überschreiben: Umgebungsvariable CUDI_SPEECH_PROFILE=ranking|fakten|erklaer|aus (aus = ganze Sätze am Stück).
+SPEECH_PROFILES = {
+    "ranking": {
+        "erkennt": ("frage", "platz", "zahl", "superlativ"), "zahl_teilen": True, "schluss": (-4, -1),
+        "pausen": {"satz": 0.18, "frage": 0.40, "umbruch": 0.30, "platz": 0.35, "zahl": 0.28, "superlativ": 0.22},
+        "rollen": {"normal": (0, 0, 0), "hook": (-4, -3, 0), "frage": (-6, -4, 0), "platz": (-4, -2, 4),
+                   "zahl": (-6, -2, 5), "superlativ": (-3, -1, 3)},
+    },
+    "fakten": {
+        "erkennt": ("frage", "kern", "zahl", "superlativ"), "zahl_teilen": True, "schluss": (-5, -1),
+        "pausen": {"satz": 0.25, "frage": 0.50, "umbruch": 0.35, "kern": 0.55, "zahl": 0.35, "superlativ": 0.30},
+        "rollen": {"normal": (-3, 0, 0), "hook": (-7, -2, 0), "frage": (-8, -3, 0), "kern": (-8, -2, 4),
+                   "zahl": (-9, -1, 5), "superlativ": (-6, -1, 3)},
+    },
+    "erklaer": {
+        "erkennt": ("frage", "zahl", "fachbegriff"), "zahl_teilen": False, "schluss": (-5, 0),
+        "pausen": {"satz": 0.30, "frage": 0.40, "umbruch": 0.30, "zahl": 0.15, "fachbegriff": 0.15},
+        "rollen": {"normal": (-4, 0, 0), "hook": (-5, 0, 0), "frage": (-6, -1, 0), "zahl": (-6, 0, 4),
+                   "fachbegriff": (-5, 0, 3)},
+    },
+}
+_RANKING = SPEECH_PROFILES["ranking"]
+PAUSE_SENTENCE = _RANKING["pausen"]["satz"]
+PAUSE_AFTER_QUESTION = _RANKING["pausen"]["frage"]
+PAUSE_BEFORE_PLACE = _RANKING["pausen"]["platz"]
+PAUSE_BEFORE_NUMBER = _RANKING["pausen"]["zahl"]
+PAUSE_BEFORE_SUPERLATIVE = _RANKING["pausen"]["superlativ"]
+PAUSE_AFTER_BREAK = _RANKING["pausen"]["umbruch"]
+ROLE_PROSODY = _RANKING["rollen"]
+KIND_PROFILES = {"facts": "fakten", "fakten": "fakten", "explain": "erklaer", "erklaer": "erklaer"}    # spec.kind -> Profil
+
+
+def speech_profile_override() -> str:
+    value = os.environ.get("CUDI_SPEECH_PROFILE", "").strip().lower()
+    return value if value in (*SPEECH_PROFILES, "aus") else ""
+
+
+def speech_profile(kind: str | None = None) -> str:
+    """Profil aus der Videoart (spec.kind); CUDI_SPEECH_PROFILE überschreibt."""
+    return speech_profile_override() or KIND_PROFILES.get(kind or "", "ranking")
+
+
+ABBREVIATIONS = ("ca.", "z. b.", "z.b.", "nr.", "bzw.", "d. h.", "usw.", "etc.", "mio.", "mrd.", "st.", "dr.", "vs.", "no.")
+QUALIFIERS = {"rund", "etwa", "ungefähr", "ca.", "über", "mehr", "als", "genau", "knapp", "fast", "bis", "zu", "mit", "von",
+              "um", "auf", "about", "around", "over", "nearly", "almost", "up", "to", "with", "of", "than", "more"}
+PLACE_RE = re.compile(r"\b(?:Platz|Rang|Nummer|Place|Number|Rank)\s+(?:\d+|eins|zwei|drei|vier|fünf|one|two|three|four|five)\b",
+                      re.IGNORECASE)
+SUPERLATIVE_RE = re.compile(
+    r"\b(?:größt|höchst|längst|tiefst|schnellst|stärkst|ältest|schwerst|kleinst|meist|gefährlichst|heißest|kältest|"
+    r"giftigst|bekanntest|weitest|breitest|biggest|largest|tallest|longest|deepest|fastest|strongest|oldest|heaviest|"
+    r"smallest|deadliest|hottest|most)\w*|mehr als|Rekord|weltweit|record|worldwide", re.IGNORECASE)
+
+
+def _sentences(text: str) -> list[str]:
+    out: list[str] = []
+    for piece in re.split(r"(?<=[.!?…])\s+", text.strip()):
+        if not piece:
+            continue
+        if out and out[-1].lower().endswith(ABBREVIATIONS):         # „ca. 300“ nicht trennen
+            out[-1] = f"{out[-1]} {piece}"
+        else:
+            out.append(piece)
+    return out
+
+
+def _break_split(sentence: str) -> list[tuple[str, str]]:
+    """Teilsätze an „ – “ und „…“: (Text, trennendes Zeichen vor dem folgenden Teil)."""
+    pieces = [p.strip() for p in re.split(r"\s[–—]\s|\s-\s", sentence)]
+    parts: list[tuple[str, str]] = []
+    for k, piece in enumerate(pieces):
+        sub = [x.strip() for x in re.split(r"(?<=…)\s*(?=\S)|(?<=\.\.\.)\s*(?=\S)", piece) if x.strip()]
+        for m, x in enumerate(sub):
+            last = m == len(sub) - 1
+            parts.append((x, "–" if (last and k < len(pieces) - 1) else ("…" if not last else "")))
+    return parts
+
+
+def _split_before(sentence: str, profile: dict | None = None) -> list[tuple[str, str]]:
+    """Vor „Platz N“ bzw. vor der ersten Zahl (samt „rund“, „mehr als“ …) teilen: [(Text, Rolle des Teils)]."""
+    profile = profile or _RANKING
+    tokens = sentence.split()
+    if len(tokens) < 4:
+        return [(sentence, "")]
+    place = PLACE_RE.search(sentence)
+    if "platz" in profile["erkennt"] and place and place.start() > 0 and len(sentence[:place.start()].split()) >= 3:
+        return [(sentence[:place.start()].strip(), ""), (sentence[place.start():].strip(), "platz")]
+    if not (profile["zahl_teilen"] and "zahl" in profile["erkennt"]):
+        return [(sentence, "")]
+    skip = len(sentence[:place.end()].split()) if place and place.start() == 0 else 0     # „Platz 1:“ ist keine Zahl-Stelle
+    k = next((i for i, t in enumerate(tokens) if i >= skip and re.search(r"\d", t)), None)
+    if k is None:
+        return [(sentence, "")]
+    i = k
+    while i > skip and tokens[i - 1].lower().strip(",") in QUALIFIERS:
+        i -= 1
+    if i >= max(3, skip + 2) and len(tokens) - i >= 2:
+        return [(" ".join(tokens[:i]), ""), (" ".join(tokens[i:]), "zahl")]
+    return [(sentence, "")]
+
+
+KERN_RE = re.compile(
+    r"^(?:Das heißt|Das bedeutet|Der Grund|Tatsächlich|Und das Verrückte|Das Verrückte|Überraschend|In Wirklichkeit|"
+    r"Der Clou|Kurz gesagt|The reason|In fact|Actually|The crazy part|That means)\b", re.IGNORECASE)
+TERM_RE = re.compile(r"„[^“]+“|\"[^\"]+\"|\b[A-ZÄÖÜ][a-zäöüß]{11,}\b")
+
+
+def _role(text: str, forced: str, first: bool, kind: str, profile: dict | None = None) -> str:
+    profile = profile or _RANKING
+    known = profile["erkennt"]
+    if forced:
+        return forced
+    if "frage" in known and text.rstrip().endswith("?"):
+        return "frage"
+    if "platz" in known and PLACE_RE.match(text):
+        return "platz"
+    if "kern" in known and KERN_RE.match(text):
+        return "kern"
+    if "zahl" in known and re.search(r"\d", text):
+        return "zahl"
+    if "superlativ" in known and SUPERLATIVE_RE.search(text):
+        return "superlativ"
+    if "fachbegriff" in known and TERM_RE.search(text):
+        return "fachbegriff"
+    if first and kind == "intro":
+        return "hook"
+    return "normal"
+
+
+def plan_parts(text: str, kind: str = "item", profile: str = "ranking") -> list[Part]:
+    """Text in betonte Teile zerlegen (siehe oben, Werte aus SPEECH_PROFILES[profile]). Nie leer; die Wörter bleiben
+    in der Reihenfolge des Textes."""
+    prof = SPEECH_PROFILES.get(profile, _RANKING)
+    pausen, rollen = prof["pausen"], prof["rollen"]
+    raw: list[tuple[str, str, str]] = []                # (Text, erzwungene Rolle, Trennzeichen danach)
+    for sentence in _sentences(text):
+        for piece, sep in _break_split(sentence):
+            subs = _split_before(piece, prof)
+            for k, (chunk, forced) in enumerate(subs):
+                if chunk.strip():
+                    raw.append((chunk.strip(), forced, sep if k == len(subs) - 1 else ""))
+    if not raw:
+        return [Part(text.strip() or " ")]
+    parts: list[Part] = []
+    prev_end, prev_sep = "", ""
+    for i, (chunk, forced, sep) in enumerate(raw):
+        role = _role(chunk, forced, i == 0, kind, prof)
+        rate, pitch, volume = rollen.get(role, rollen["normal"])
+        pause = 0.0
+        if i > 0:
+            pause = pausen["frage"] if prev_end.endswith("?") else pausen["satz"]
+            if prev_sep:
+                pause = max(pause, pausen["umbruch"])
+            if role in pausen and role not in ("satz", "frage", "umbruch"):
+                pause = max(pause, pausen[role])
+        # winzige Teile (ein Wort ohne Zahl) hängen am Vorgänger – sonst klingt es abgehackt
+        if parts and len(chunk.split()) < 2 and not re.search(r"\d", chunk) and role == "normal":
+            parts[-1].text += " " + chunk
+        else:
+            parts.append(Part(chunk, rate, pitch, volume, round(pause, 2), role))
+        prev_end, prev_sep = chunk, sep
+    if kind == "outro" and parts[-1].role == "normal":
+        parts[-1].rate, parts[-1].pitch = prof["schluss"]       # Schluss ruhig, einladend
+    return parts[:8]
+
+
+# --------------------------------------------------------------------------- Betonung für Story-Videos
+# Gleiche Idee je Stimmung: nur die Stellen, an denen sich etwas dreht (Wendung, Enthüllung, Pointe, Frage, letzter
+# Satz), werden einzeln gesprochen – mit Pause DAVOR und eigenem Tempo/Tonhöhe. Alles dazwischen bleibt ein Stück.
+TURN_RE = re.compile(
+    r"^(?:Plötzlich|Doch|Aber|Dann|Auf einmal|Und dann|Bis\W|Ausgerechnet|Genau da|Und plötzlich|Jemand|"
+    r"Suddenly|But|Then|Until|And then|Out of nowhere|That's when|That was when)\b", re.IGNORECASE)
+REVEAL_RE = re.compile(
+    r"\b(?:stellte sich heraus|die Wahrheit|in Wirklichkeit|wie sich zeigte|ich erfuhr|ich fand heraus|ich verstand|"
+    r"da wurde mir klar|es war (?:er|sie|mein|meine|nicht)|turned out|the truth|i found out|i realized|i learned|"
+    r"it was (?:him|her|my|not))\b", re.IGNORECASE)
+# je Stimmung: Grundton (Tempo, Tonhöhe) für den Fließtext, Wendung/Enthüllung, Pause davor, Pause nach Frage,
+# Pointe (nur lustig: Pause VOR dem Satz, nicht danach), Schlusssatz
+MOOD_STYLE = {
+    "creepy":    {"base": (-4, -2), "turn": (-9, -4, 0), "turn_pause": 0.75, "end": (-8, -3, 0), "question_pause": 0.5},
+    "suspense":  {"base": (-2, -1), "turn": (-7, -3, 2), "turn_pause": 0.55, "end": (-6, -2, 0), "question_pause": 0.45},
+    "drama":     {"base": (-2, -1), "turn": (-7, -2, 0), "turn_pause": 0.6, "end": (-6, -2, 0), "question_pause": 0.4},
+    "revenge":   {"base": (-1, -1), "turn": (-7, -2, 3), "turn_pause": 0.6, "end": (-5, -1, 0), "question_pause": 0.4},
+    "funny":     {"base": (0, 0), "turn": (-4, 0, 6), "turn_pause": 0.45, "end": (-3, 0, 4), "question_pause": 0.3},
+    "wholesome": {"base": (-2, 0), "turn": (-5, 0, 0), "turn_pause": 0.35, "end": (-5, 0, 0), "question_pause": 0.3},
+}
+
+
+def plan_story_parts(text: str, mood: str, max_parts: int = 12) -> list[Part]:
+    """Szenentext je Stimmung in betonte Teile zerlegen: Fließtext zusammenhängend, Wendungen/Pointen/Fragen/Schluss einzeln."""
+    style = MOOD_STYLE.get(mood, MOOD_STYLE["drama"])
+    sentences = _sentences(text) or [text.strip() or " "]
+    roles: list[str] = []
+    specials = 0
+    for i, sentence in enumerate(sentences):
+        role = "normal"
+        last = i == len(sentences) - 1
+        if sentence.rstrip().endswith("?"):
+            role = "frage"
+        elif i > 0 and (TURN_RE.match(sentence) or REVEAL_RE.search(sentence)):
+            role = "pointe" if mood == "funny" else "wendung"
+        elif last and len(sentences) > 1 and (mood != "funny" or len(sentence.split()) <= 14):
+            role = "pointe" if mood == "funny" else "ende"
+        if role != "normal":
+            specials += 1
+            if specials > max_parts // 2:
+                role = "normal"
+        roles.append(role)
+    base_rate, base_pitch = style["base"]
+    parts: list[Part] = []
+    for i, (sentence, role) in enumerate(zip(sentences, roles)):
+        prev = roles[i - 1] if i else "normal"
+        if role == "normal":
+            if parts and parts[-1].role == "normal":
+                parts[-1].text += " " + sentence                 # Fließtext bleibt ein Stück
+                continue
+            pause = style["question_pause"] if prev == "frage" else (PAUSE_SENTENCE if i else 0.0)
+            parts.append(Part(sentence, base_rate, base_pitch, 0, round(pause, 2), "normal"))
+        elif role == "frage":
+            pause = PAUSE_SENTENCE if i else 0.0
+            parts.append(Part(sentence, base_rate - 2, base_pitch - 1, 0, pause, "frage"))
+        else:
+            rate, pitch, volume = style["end"] if role == "ende" else style["turn"]
+            pause = style["turn_pause"] if role != "ende" else max(PAUSE_SENTENCE, style["turn_pause"] * 0.6)
+            if prev == "frage":
+                pause = max(pause, style["question_pause"])
+            parts.append(Part(sentence, rate, pitch, volume, round(pause if i else 0.0, 2), role))
+    return parts
+
+
+def _rate_text(base: str, delta: int) -> str:
+    value = max(-45, min(45, round(_percent(base) + delta)))
+    return f"{value:+d}%"
+
+
+def _hz(value: str) -> int:
+    m = re.match(r"\s*([+-]?\d+)\s*Hz", value or "")
+    return int(m.group(1)) if m else 0
+
+
+def part_prosody(part: Part, base_rate: str, base_pitch: str = "+0Hz") -> tuple[str, str, str]:
+    return _rate_text(base_rate, part.rate), f"{_hz(base_pitch) + part.pitch:+d}Hz", f"{part.volume:+d}%"
+
+
+def _read_wav(path: Path) -> np.ndarray:
+    with wave.open(str(path), "rb") as f:
+        return np.frombuffer(f.readframes(f.getnframes()), dtype=np.int16).astype(np.float32) / 32767
+
+
+def _trim(audio: np.ndarray, lead: float = 0.04, tail: float = 0.07) -> tuple[np.ndarray, float]:
+    """Stille am Anfang/Ende wegnehmen (kleiner Rand bleibt); liefert Audio und die vorn entfernten Sekunden."""
+    win = SAMPLE_RATE // 100
+    n_win = len(audio) // win
+    if n_win < 2:
+        return audio, 0.0
+    rms = np.sqrt(np.mean(audio[: n_win * win].reshape(n_win, win) ** 2, axis=1))
+    loud = np.flatnonzero(rms >= SILENCE_RMS)
+    if not len(loud):
+        return audio, 0.0
+    a = max(0, int(loud[0] * win - lead * SAMPLE_RATE))
+    b = min(len(audio), int((loud[-1] + 1) * win + tail * SAMPLE_RATE))
+    return audio[a:b], a / SAMPLE_RATE
+
+
+def assemble_parts(parts: list[Part], spoken: list[tuple[Path, list[dict]]], wav: Path,
+                   max_pause: float = MAX_PAUSE) -> tuple[list[dict], float]:
+    """Gesprochene Teile mit den geplanten Pausen zu einem Abschnitt zusammensetzen; Wortzeiten verschieben sich mit."""
+    chunks: list[np.ndarray] = []
+    words: list[dict] = []
+    t = 0.0
+    for i, (part, (src, part_words)) in enumerate(zip(parts, spoken)):
+        tmp = wav.with_name(f"{wav.stem}.p{i}.wav")
+        shifted, _ = tighten_pauses(src, part_words, tmp, max_pause)
+        audio, cut = _trim(_read_wav(tmp))
+        tmp.unlink(missing_ok=True)
+        if i and part.pause > 0:
+            chunks.append(np.zeros(int(part.pause * SAMPLE_RATE), dtype=np.float32))
+            t += int(part.pause * SAMPLE_RATE) / SAMPLE_RATE
+        length = len(audio) / SAMPLE_RATE
+        for w in shifted:
+            start = min(max(0.0, w["start"] - cut), length)
+            end = min(max(start, w["end"] - cut), length)
+            words.append({**w, "start": round(t + start, 3), "end": round(t + end, 3)})
+        chunks.append(audio)
+        t += length
+    pcm = (np.clip(np.concatenate(chunks) if chunks else np.zeros(1, dtype=np.float32), -1, 1) * 32767).astype(np.int16)
+    with wave.open(str(wav), "wb") as f:
+        f.setnchannels(1)
+        f.setsampwidth(2)
+        f.setframerate(SAMPLE_RATE)
+        f.writeframes(pcm.tobytes())
+    return words, len(pcm) / SAMPLE_RATE
+
+
+async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 3,
+                        profile: str = "ranking") -> None:
+    plans = [plan_parts(seg.text, seg.kind, profile) if profile != "aus" else [Part(seg.text)] for seg in script.segments]
+    flat = [part for plan in plans for part in plan]
+    spoken = await _speak_all([part.text for part in flat], out_dir, voice, rate, "+0Hz", parallel,
+                              [part_prosody(part, rate) for part in flat])
+    pos = 0
+    for i, (seg, plan) in enumerate(zip(script.segments, plans)):
         wav = out_dir / f"{i:02d}_{seg.kind}.wav"
-        seg.words, seg.duration = tighten_pauses(src, words, wav)
+        seg.words, seg.duration = assemble_parts(plan, spoken[pos:pos + len(plan)], wav)
         seg.audio_path = str(wav)
+        pos += len(plan)
 
 
-def voice_script(script: Script, out_dir: Path, voice: str | None = None, rate: str | None = None) -> Script:
+def voice_script(script: Script, out_dir: Path, voice: str | None = None, rate: str | None = None,
+                 profile: str | None = None) -> Script:
+    """`profile` = Sprechprofil der Videoart (speech_profile(spec.kind)); CUDI_SPEECH_PROFILE überschreibt."""
     out_dir.mkdir(parents=True, exist_ok=True)
     voice = voice or config.VOICES[script.lang]
-    asyncio.run(_voice_script(script, out_dir, voice, rate or config.VOICE_RATE))
+    chosen = speech_profile_override() or profile or "ranking"
+    asyncio.run(_voice_script(script, out_dir, voice, rate or config.VOICE_RATE, profile=chosen))
     return script
 
 
 async def _voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str, pitch: str, max_pause: float,
-                       parallel: int = 2) -> list[tuple[Path, list[dict], float]]:
-    spoken = await _speak_all(texts, out_dir, voice, rate, pitch, parallel)
-    result = []
-    for i, (src, words) in enumerate(spoken):
+                       parallel: int = 2, mood: str | None = None) -> list[tuple[Path, list[dict], float]]:
+    if mood is None:
+        spoken = await _speak_all(texts, out_dir, voice, rate, pitch, parallel)
+        result = []
+        for i, (src, words) in enumerate(spoken):
+            wav = out_dir / f"{i:03d}.wav"
+            new_words, duration = tighten_pauses(src, words, wav, max_pause)
+            result.append((wav, new_words, duration))
+        return result
+    plans = [plan_story_parts(text, mood) for text in texts]
+    flat = [part for plan in plans for part in plan]
+    spoken = await _speak_all([part.text for part in flat], out_dir, voice, rate, pitch, max(parallel, 3),
+                              [part_prosody(part, rate, pitch) for part in flat])
+    result, pos = [], 0
+    for i, plan in enumerate(plans):
         wav = out_dir / f"{i:03d}.wav"
-        new_words, duration = tighten_pauses(src, words, wav, max_pause)
+        new_words, duration = assemble_parts(plan, spoken[pos:pos + len(plan)], wav, max_pause)
         result.append((wav, new_words, duration))
+        pos += len(plan)
     return result
 
 
 def voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str = "+0%", pitch: str = "+0Hz",
-                max_pause: float = MAX_PAUSE) -> list[tuple[Path, list[dict], float]]:
-    """Mehrere Texte vertonen (z. B. Story-Szenen): je Text (WAV, Wort-Zeitstempel, Dauer)."""
+                max_pause: float = MAX_PAUSE, mood: str | None = None) -> list[tuple[Path, list[dict], float]]:
+    """Mehrere Texte vertonen (z. B. Story-Szenen): je Text (WAV, Wort-Zeitstempel, Dauer). Mit `mood` betont
+    (Pausen vor Wendung/Pointe, eigenes Tempo je Teil), sonst jeder Text am Stück."""
     out_dir.mkdir(parents=True, exist_ok=True)
-    return asyncio.run(_voice_texts(texts, out_dir, voice, rate, pitch, max_pause))
+    if speech_profile_override() == "aus":
+        mood = None
+    return asyncio.run(_voice_texts(texts, out_dir, voice, rate, pitch, max_pause, mood=mood))
