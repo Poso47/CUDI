@@ -23,9 +23,13 @@ für TikTok/YouTube Shorts.
   deutsche Alltagswörter per `textcheck.everyday_word`), abgelehnte Fakten einmal zur Korrektur (`fakten_korrektur`).
 - Themen-Wissensstruktur (`themen.py`, `spec.focus`): Planer liefert Themenkern/Aspekte/nicht gemeint; alle Schreib-
   aufgaben erzählen Aufhänger → Kernaussage → Erklärung → Bedeutung für dich; Fakten brauchen Aspekt, Mindestlänge, `belege`.
-- Formate (`render/formats.py`: karte, vollbild, kreis, magazin, polaroid, zahl – eigener Bildaufbau, Übergang,
+- Formate (`render/formats.py`: karte, vollbild, kreis, magazin, polaroid, zahl, manuskript – eigener Bildaufbau, Übergang,
   Intro, Abschluss) je Video; Farben (`theme.STYLES`) nach Thema (`palette_options`: Titelwörter/Icon); `pick_style`
   fest je Video-ID, `apply_style` in `make_scene` (jeder Render-Prozess); Auftrag `format`.
+- **Manuskript/Erklärvideo**: Format `manuskript` (Buchlook, eigenes Design, Schriften EB Garamond/Amiri/Inter in
+  `video_assets/fonts`, Bausteine `render/manuskript.py`, Linien-Grafiken `render/linien.py`; bringt immer Design
+  „manuskript“ mit, keine Maskottchen). Videoart `cudi_video/erklaer/` (Szenen-Skript JSON, `python -m cudi_video erklaer
+  <skript.json>`, Beispiel `examples/erklaer_goldener_schnitt.json`, Szenentyp `erklaer` im Format).
 - Spannungsbogen (`retention.py`): Hook mit Neugierlücke, Zwischen-Aufhänger aus geprüften Werten, Kommentarfrage
   je Thema; Regeln für Claude-Texte (`NARRATION_RULES`) und Storys je Stimmung (`story_rules`). Zahl im Wunsch = Anzahl.
 - Bildprüfung (`bildcheck.py`, CLIP ViT-B-32 CPU, Cache `video_output/_models`, 3 Bilder je Kandidat, ≥ 2/3 mit p ≥ 0.5; Ausfall → Tag-Abgleich;

@@ -59,6 +59,11 @@ STYLES = {
     "pop":     dict(bg_top=(38, 6, 44), bg_bottom=(86, 12, 68), accent=(250, 204, 21), accent2=(236, 72, 153),
                     card=(58, 14, 62), track=(90, 30, 92), muted=(230, 190, 230), bg="glow", subs="outline",
                     effect="rays", label={"de": "Pop", "en": "Pop"}),
+    # Buchlook (Format „manuskript“, render/manuskript.py): fast schwarz, Vignette, Raster, Lichtpunkte; wird nicht
+    # zufällig gewählt (nicht in STYLE_FIT/TOPIC_WORDS), sondern gehört fest zum Format
+    "manuskript": dict(bg_top=(21, 20, 18), bg_bottom=(2, 2, 2), accent=(233, 227, 211), accent2=(184, 160, 110),
+                       card=(30, 29, 27), track=(52, 50, 46), muted=(150, 145, 132), bg="manuskript", subs="none",
+                       effect="staub", label={"de": "Manuskript", "en": "Manuscript"}),
 }
 # Bewegungsprofile: Karte (card), Titelzeilen (title), Rang-Abzeichen (badge), Listenzeilen (rows), Foto-Schwenk (pan)
 MOTIONS = {
@@ -99,13 +104,13 @@ def palette_options(icon: str | None, kind: str, topic: str) -> list[str]:
             found += [n for n in names if n not in found]
     if found:
         return found
-    return STYLE_FIT.get("facts" if kind == "facts" else (icon or ""), list(STYLES))
+    return STYLE_FIT.get("facts" if kind == "facts" else (icon or ""), [n for n in STYLES if n != "manuskript"])
 
 
 STYLE: dict = {**STYLES["neon"], "name": "neon", **MOTIONS["gleiten"], "motion": "gleiten", "format": "karte"}
 
 
-FORMAT_NAMES = ["karte", "vollbild", "kreis", "magazin", "polaroid", "zahl"]     # Bildaufbau, s. render/formats.py
+FORMAT_NAMES = ["karte", "vollbild", "kreis", "magazin", "polaroid", "zahl", "manuskript"]     # Bildaufbau, s. render/formats.py
 
 
 def pick_style(spec_id: str, icon: str | None, kind: str = "numbers", wanted: str = "", topic: str = "") -> dict:
@@ -119,6 +124,8 @@ def pick_style(spec_id: str, icon: str | None, kind: str = "numbers", wanted: st
     options = palette_options(icon, kind, topic)
     name = options[h("design", len(options))]
     fmt = wanted if wanted in FORMAT_NAMES else FORMAT_NAMES[h("format", len(FORMAT_NAMES))]
+    if fmt == "manuskript":
+        name = "manuskript"                  # der Buchlook hat eigene Farben (fast schwarz, Off-White)
     motion = list(MOTIONS)[h("motion", len(MOTIONS))]
     return {"name": name, "format": fmt, "motion": motion}
 
@@ -196,6 +203,9 @@ FORMAT_FONTS = {
     "magazin": {"black": ["PlayfairDisplay-Black.ttf"]},
     "polaroid": {"black": ["ArchivoBlack-Regular.ttf"], "sub": ["ArchivoBlack-Regular.ttf"], "hand": ["Caveat-Bold.ttf"]},
     "zahl": {"black": ["Anton-Regular.ttf"], "sub": ["Anton-Regular.ttf"]},
+    # Buchlook: Serife (EB Garamond) für Titel/Sätze, Inter für kleine Pillen; weitere Schnitte in render/manuskript.py
+    "manuskript": {"black": ["EBGaramond-Medium.ttf"], "bold": ["EBGaramond-Medium.ttf"], "sub": ["EBGaramond-Regular.ttf"],
+                   "semibold": ["Inter-SemiBold.ttf"], "regular": ["EBGaramond-Regular.ttf"]},
 }
 _BASE_WEIGHT = {"sub": "black", "hand": "black"}
 
@@ -373,8 +383,11 @@ def background_base() -> Image.Image:
 def background(t: float, tint=None, tint2=None, backdrop: Image.Image | None = None) -> Image.Image:
     """Hintergrund im aktuellen Design: Lichtflecken (glow), schlicht (flat) oder unscharfes Foto (blur), dazu der
     Effekt des Designs (Partikel, Lichtstrahlen, Filmkorn)."""
-    tint, tint2 = tint or ACCENT, tint2 or ACCENT2
     mode = STYLE.get("bg", "glow")
+    if mode == "manuskript":
+        from . import manuskript
+        return manuskript.background(t)
+    tint, tint2 = tint or ACCENT, tint2 or ACCENT2
     img = backdrop.copy() if backdrop is not None and mode == "blur" else background_base().copy()
     if mode == "glow" or (mode == "blur" and backdrop is None):
         paste(img, glow_blob(420, tint), (-390 + 120 * math.sin(t * 0.35), -70 + 90 * math.cos(t * 0.27)))

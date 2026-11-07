@@ -98,6 +98,24 @@ warum …“, „Mythen über …“), wird er zum **Fakten-Ranking** im gewohnt
 4. Karten zeigen die Kernaussage statt Zahl und Balken, dazu Stockclips/-fotos zur Bildsuche; Spannungsbogen,
    Maskottchen, Prüfbericht (mit Beleg und Quelle je Platz) wie bei Zahlen-Rankings.
 
+### Format „Manuskript“ und Erklärvideo
+
+Das Format `manuskript` (`render/manuskript.py`, `render/linien.py`) ist ein ruhiger Buchlook: fast schwarzer Grund mit
+Vignette, feinem Raster und schwebenden Lichtpunkten, Serifenschrift EB Garamond in warmem Off-White (Schlüsselwörter
+fett-kursiv), Pillen in Inter, Arabisch/Zitate in Amiri (alle OFL, Dateien samt Lizenz in `video_assets/fonts/`). Es
+bringt sein eigenes Design (`STYLES["manuskript"]`) mit und ist in der App/im Auftrag wählbar (`format: manuskript`).
+
+**Erklärvideo** (`cudi_video/erklaer/`): ein Szenen-Skript (JSON) wird zum Video, kein Netz außer der Stimme nötig:
+
+    python -m cudi_video erklaer examples/erklaer_goldener_schnitt.json
+
+Je Szene: `kapitel` (Pille), `text` (Sprechertext, erscheint Wort für Wort zur Stimme), `betont` (fett-kursiv) und
+`visual` mit `typ` = `spirale_partikel`, `zahl_zaehler{wert}`, `linie_zeichnen`, `punktmuster{n}`,
+`figur{pose: stehen|beten|zwei|liegen|sitzen}`, `gitterkoerper`, `baum`, `tuer`, `wolke`, `beschriftung` oder
+`zitatkarte{zitat, umschrift, uebersetzung, quelle, ueberliefert}`; optional `label` (gesperrte Großbuchstaben unter der
+Grafik). Die Linien-Animationen sind prozedural mit PIL gezeichnet. Stimme: Sprechprofil `erklaer`
+(`erklaer/render.py`, ruhig, längere Pausen). Der Text kommt nur aus dem Skript – nichts wird erfunden.
+
 ## Themen-Wissensstruktur (alle Videos)
 
 Jedes Video dreht sich um den **Themenkern** (`cudi_video/themen.py`): Beim Deuten des Wunsches legt Claude die
@@ -127,6 +145,7 @@ gilt still die bisherige Schrift.
 | Magazin | Bild oben mit schräger Kante, riesige Umriss-Ziffer, Farbbalken | Wischbalken, Ziffer zoomt heran | Riesen-„05“ + Titel mit Balken | Liste |
 | Polaroid | Sofortbild mit Klebestreifen, Stapel dahinter | Kamerablitz, Bild fällt und dreht sich | fallender Bilderstapel | Siegerpodest |
 | Riesenzahl | Clip läuft IN der Platz-Ziffer | Ziffer zoomt aus dem Bild heran | riesige Zahl im Farbverlauf | Siegerpodest |
+| Manuskript | Buchlook: Satz oben Wort für Wort, Kapitel-Pille „Platz 3“, Bild dezent eingefärbt im Linienrahmen, Quellen-Pille | weiche Überblendung | Spirale aus Partikeln | Liste mit feinen Linien |
 
 Die **Farben** (`render/theme.py`, `STYLES`: Neon, Natur, Kino, Doku, Ozean, Pop, Minimal – mit Hintergrund,
 Untertitel-Stil und Effekt wie Filmkorn, Lichtpunkten, Lichtstrahlen) passen sich dem **Thema** an

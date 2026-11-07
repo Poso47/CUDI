@@ -10,6 +10,7 @@ Beispiele:
   python -m cudi_video story https://www.reddit.com/r/tifu/comments/abc123/ --nur-skelett
   python -m cudi_video auftrag '{"id": "a1b2", "art": "story", "stimmung": "creepy"}'   # Auftrag der CUDI-App
   python -m cudi_video clip podcast.mp4 --start 120 --ende 200   # Hochformat-Clip aus Podcast/Stream (Datei oder URL)
+  python -m cudi_video erklaer examples/erklaer_goldener_schnitt.json   # Erklärvideo im Buchlook
   python -m cudi_video web                          # Web-Oberfläche (auch fürs Handy)
   python -m cudi_video check                        # Selbsttest (bei Problemen zuerst ausführen)
 """
@@ -92,6 +93,8 @@ def main(argv=None) -> int:
     sub.add_parser("youtube-login", help="einmaliger Browser-Login für den YouTube-Upload (am eigenen PC)")
     tl = sub.add_parser("tiktok-login", help="einmaliger TikTok-Login: Code gegen Refresh-Token tauschen")
     tl.add_argument("adresse", nargs="?", default="", help="Rücksprung-Adresse oder Code (sonst wird gefragt)")
+    er = sub.add_parser("erklaer", help="Erklärvideo (Buchlook) aus einem Szenen-Skript (JSON)")
+    er.add_argument("skript", help="Pfad zum Szenen-Skript, z. B. examples/erklaer_goldener_schnitt.json")
 
     chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
     chk.add_argument("--ohne-netz", action="store_true", help="nur lokale Prüfungen")
@@ -153,6 +156,12 @@ def main(argv=None) -> int:
         from .upload.cli import tiktok_login
 
         return tiktok_login(args.adresse)
+    if args.cmd == "erklaer":
+        from .erklaer import load_script, render_erklaerung
+
+        result = render_erklaerung(load_script(args.skript), progress=lambda f: print(f"  {f:4.0%}", flush=True))
+        print(f"\nAusgabe: {result['folder']}\n  {result['video']} ({result['duration']} s)")
+        return 0
 
     if args.cmd == "check":
         from .check import print_report, run_checks
