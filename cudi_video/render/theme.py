@@ -187,13 +187,36 @@ def _font_index() -> dict[str, Path]:
     return index
 
 
-@functools.lru_cache(maxsize=64)
-def font(weight: str, size: int) -> ImageFont.FreeTypeFont:
+# Eigene Schriften je Format (OFL, Dateien in video_assets/fonts/). Fehlt eine Datei, gilt still die Standardschrift.
+# Gewichte: "black" = Titel/Zahlen, "bold" = Zwischenüberschriften, "sub" = Untertitel (fett, gut lesbar),
+# "hand" = Handschrift (nur Polaroid).
+FORMAT_FONTS = {
+    "vollbild": {"black": ["Anton-Regular.ttf"], "bold": ["Anton-Regular.ttf"], "sub": ["Anton-Regular.ttf"]},
+    "kreis": {"black": ["Poppins-ExtraBold.ttf"], "bold": ["Poppins-Bold.ttf"], "sub": ["Poppins-ExtraBold.ttf"]},
+    "magazin": {"black": ["PlayfairDisplay-Black.ttf"]},
+    "polaroid": {"black": ["ArchivoBlack-Regular.ttf"], "sub": ["ArchivoBlack-Regular.ttf"], "hand": ["Caveat-Bold.ttf"]},
+    "zahl": {"black": ["Anton-Regular.ttf"], "sub": ["Anton-Regular.ttf"]},
+}
+_BASE_WEIGHT = {"sub": "black", "hand": "black"}
+
+
+def format_font_names(weight: str, fmt: str | None = None) -> list[str]:
+    """Dateinamen, die das Format für dieses Gewicht bevorzugt (leer = Standardschrift)."""
+    return FORMAT_FONTS.get(fmt or STYLE.get("format") or "", {}).get(weight, [])
+
+
+@functools.lru_cache(maxsize=128)
+def _font(weight: str, size: int, family: tuple[str, ...]) -> ImageFont.FreeTypeFont:
     index = _font_index()
-    for name in FONT_CANDIDATES[weight]:
+    for name in (*family, *FONT_CANDIDATES[_BASE_WEIGHT.get(weight, weight)]):
         if name.lower() in index:
             return ImageFont.truetype(str(index[name.lower()]), size)
     return ImageFont.load_default(size)
+
+
+def font(weight: str, size: int) -> ImageFont.FreeTypeFont:
+    """Schrift für das aktive Format (STYLE["format"]); der Cache-Schlüssel enthält die Familie."""
+    return _font(weight, size, tuple(format_font_names(weight)))
 
 
 # --------------------------------------------------------------------------- Animation
