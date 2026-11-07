@@ -80,6 +80,8 @@ def main(argv=None) -> int:
                     help="inbox = Entwurf in der TikTok-App (Standard), direkt = Direct Post (braucht App-Prüfung)")
     up.add_argument("--probe", action="store_true", help="Trockenlauf: zeigen, was gesendet würde – ohne Netz")
     sub.add_parser("youtube-login", help="einmaliger Browser-Login für den YouTube-Upload (am eigenen PC)")
+    tl = sub.add_parser("tiktok-login", help="einmaliger TikTok-Login: Code gegen Refresh-Token tauschen")
+    tl.add_argument("adresse", nargs="?", default="", help="Rücksprung-Adresse oder Code (sonst wird gefragt)")
 
     chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
     chk.add_argument("--ohne-netz", action="store_true", help="nur lokale Prüfungen")
@@ -115,6 +117,11 @@ def main(argv=None) -> int:
         from .upload.cli import youtube_login
 
         return youtube_login()
+
+    if args.cmd == "tiktok-login":
+        from .upload.cli import tiktok_login
+
+        return tiktok_login(args.adresse)
 
     if args.cmd == "check":
         from .check import print_report, run_checks

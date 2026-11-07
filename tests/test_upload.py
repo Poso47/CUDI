@@ -220,3 +220,29 @@ def test_order_field_and_upload_never_breaks_order(env, video, monkeypatch):
     result = cli.upload_order({"ziel": "youtube", "sichtbarkeit": "privat"},
                               {"videos": [{"video": str(video), "key": "de"}]})
     assert result[0]["ok"] is False and SECRET not in json.dumps(result)
+
+
+def test_tiktok_login_code_und_tausch(monkeypatch):
+    from cudi_video.upload import UploadError, tiktok
+
+    monkeypatch.setenv("CUDI_TIKTOK_CLIENT_KEY", "k1")
+    monkeypatch.setenv("CUDI_TIKTOK_CLIENT_SECRET", "s1")
+    monkeypatch.delenv("CUDI_TIKTOK_REDIRECT_URI", raising=False)
+    url = tiktok.authorize_url("st")
+    assert "client_key=k1" in url and "scope=video.upload" in url and "poso47.github.io%2FCUDI%2Ftiktok%2F" in url
+    assert tiktok.code_from("https://poso47.github.io/CUDI/tiktok/?code=AB%2A1&state=st", "st") == "AB*1"
+    assert tiktok.code_from("nurCode") == "nurCode"
+    for bad in ("https://x/?error=access_denied", "https://x/?code=a&state=zz", "zwei worte", ""):
+        with pytest.raises(UploadError):
+            tiktok.code_from(bad, "st")
+
+    class Resp:
+        status_code = 200
+
+        def json(self):
+            return {"refresh_token": "rt"}
+
+    seen = {}
+    monkeypatch.setattr(tiktok, "http", lambda *a, **k: (seen.update(k), Resp())[1])
+    assert tiktok.exchange_code("c") == "rt"
+    assert seen["data"]["grant_type"] == "authorization_code" and seen["data"]["redirect_uri"] == tiktok.DEFAULT_REDIRECT
