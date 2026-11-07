@@ -16,11 +16,24 @@ import re
 
 from .spec import VideoSpec
 
+AHA_RULES = (
+    "Aha-Effekt (Regel für jedes Video): Jeder Platz und jede Szene liefert mindestens eine konkrete neue "
+    "Erkenntnis, die überrascht – kein Allgemeinwissen, das jeder schon kennt. Das Video endet so, dass der Zuschauer "
+    "klar etwas Neues gelernt hat. Wähle verblüffende, wenig bekannte Details vor Allgemeinplätzen – aber nur solche, "
+    "die in den Daten stehen."
+)
+AHA_FACTS = (
+    "Wähle als Fakten die verblüffendsten, wenig bekannten Aussagen der Quellen vor Allgemeinplätzen. "
+    "Je Fakt: „aha_<sprache>“ = EIN kurzer Satz (höchstens 20 Wörter), was man danach weiß, was man vorher nicht "
+    "wusste – nur mit Wörtern und Zahlen, die auch im Fakt stehen (der Code prüft ihn wie den Sprechertext; der "
+    "stärkste Aha-Satz von Platz 1 wird am Ende als „Heute gelernt: …“ gesprochen)."
+)
+
 TOPIC_RULES = (
     "Themenkern: Alles im Video beantwortet die Frage in „themenkern“ – aus immer neuer Richtung (siehe „aspekte“). "
     "Wähle nur Inhalte, die genau dieses Thema betreffen und die Zuschauer direkt angehen; Randthemen aus "
     "„nicht_gemeint“ (z. B. Begriffsgeschichte, Namensherkunft, Biografien von Forschern, Jahreszahlen der "
-    "Forschung) lässt du weg, außer der Wunsch fragt danach."
+    "Forschung) lässt du weg, außer der Wunsch fragt danach. " + AHA_RULES
 )
 
 KNOWLEDGE_STRUCTURE = (

@@ -143,7 +143,8 @@ def test_template_script_uses_only_data():
     assert "830" not in " ".join(s.text for s in script.segments)        # Wikipedia-Zahl verworfen
     assert "Quellen" not in script.segments[-1].text and "Wikidata" not in script.segments[-1].text
     en = build_script(spec, research, "en", use_llm=False)
-    assert en.segments[-1].text.startswith("Which of these buildings")        # Kommentarfrage zum Thema
+    assert "Which of these buildings" in en.segments[-1].text                    # Kommentarfrage zum Thema
+    assert en.segments[-1].text.startswith("Learned today: Turm A takes number one")   # Lerneffekt aus dem Spitzenwert
     assert "tallest" not in " ".join(s.text for s in en.segments)
 
 
@@ -1101,6 +1102,33 @@ def test_every_format_and_design_renders():
             make_scene(_job("outro", outro=outro, style=style)).frame(1.5)
     finally:
         theme.apply_style({"name": "neon", "format": "karte", "motion": "gleiten"})   # Standard für andere Tests
+
+
+def test_formats_use_their_own_fonts_and_fall_back(monkeypatch):
+    """Jedes Format hat eigene Schriften; fehlt die Datei, gilt still die Standardschrift (Cache-Schlüssel mit Familie)."""
+    from cudi_video.render import theme
+
+    index = theme._font_index()
+    try:
+        names = {}
+        for fmt in theme.FORMAT_NAMES:
+            theme.apply_style({"name": "neon", "format": fmt, "motion": "gleiten"})
+            names[fmt] = theme.font("black", 80).getname()
+        assert names["karte"] != names["vollbild"] != names["kreis"]
+        assert len({names[f] for f in ("karte", "vollbild", "kreis", "magazin", "polaroid")}) == 5
+        theme.apply_style({"name": "neon", "format": "polaroid", "motion": "gleiten"})
+        assert theme.font("hand", 60).getname()[0] == "Caveat"
+        # Datei fehlt -> Rückfall auf die bisherige Schrift, kein Fehler
+        theme.apply_style({"name": "neon", "format": "karte", "motion": "gleiten"})
+        base = theme.font("black", 80).getname()
+        theme.apply_style({"name": "neon", "format": "vollbild", "motion": "gleiten"})
+        monkeypatch.setattr(theme, "_font_index", lambda: {k: v for k, v in index.items() if k != "anton-regular.ttf"})
+        theme._font.cache_clear()
+        assert theme.font("black", 80).getname() == base
+    finally:
+        monkeypatch.undo()
+        theme._font.cache_clear()
+        theme.apply_style({"name": "neon", "format": "karte", "motion": "gleiten"})
 
 
 def test_nearly_black_clips_are_skipped(tmp_path):

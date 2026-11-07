@@ -16,7 +16,7 @@ def test_ranking_order_is_normalised():
                              "sprachen": ["en", "de", "fr"], "plaetze": "7", "streng": True}, PRESETS)
     assert order == {"id": "abc123", "art": "ranking", "thema": "", "vorlage": "hoechste-gebaeude",
                      "sprachen": ["de", "en"], "plaetze": 7, "streng": True, "nur_skript": False, "laenge": "",
-                     "maskottchen": None, "format": ""}         # nicht gewählt: CUDI_MASCOT / je Video entscheidet
+                     "maskottchen": None, "format": "", "hochladen": None}         # nicht gewählt: CUDI_MASCOT / je Video entscheidet
     assert job.parse_order({"id": "abc123", "art": "ranking", "vorlage": "hoechste-gebaeude", "maskottchen": False},
                            PRESETS)["maskottchen"] is False
 

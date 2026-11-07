@@ -209,3 +209,10 @@ video_output/
 .video_cache/
 # Von der Cloud-Sitzung abgelegtes, in der App bearbeitetes Story-Skelett
 cudi_skelette/
+
+# Arbeitskopien der Hintergrund-Agenten
+.claude/worktrees/
+
+# Upload-Zugangsdaten (nie einchecken)
+.cudi_secrets/
+*refresh_token*
