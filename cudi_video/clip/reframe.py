@@ -86,6 +86,74 @@ class Analyse:
         return float(m[0]), float(m[1]), float(m[2])
 
 
+YUNET_NAME = "face_detection_yunet_2023mar.onnx"
+YUNET_URLS = (
+    "https://huggingface.co/opencv/face_detection_yunet/resolve/main/" + YUNET_NAME,
+    "https://cdn.jsdelivr.net/gh/opencv/opencv_zoo@main/models/face_detection_yunet/" + YUNET_NAME,
+)
+
+
+def yunet_modell() -> Path | None:
+    """YuNet (OpenCV Zoo, MIT-Lizenz, 230 KB): einmal laden, unter video_output/_models zwischenspeichern."""
+    import os
+
+    from .. import config
+
+    env = os.environ.get("CUDI_YUNET_MODELL")
+    if env and Path(env).is_file():
+        return Path(env)
+    ziel = config.OUTPUT_DIR / "_models" / YUNET_NAME
+    if ziel.is_file() and ziel.stat().st_size > 100_000:
+        return ziel
+    try:
+        import requests
+    except ImportError:  # pragma: no cover
+        return None
+    for url in YUNET_URLS:
+        try:
+            r = requests.get(url, timeout=60)
+            if r.status_code == 200 and len(r.content) > 100_000:
+                ziel.parent.mkdir(parents=True, exist_ok=True)
+                ziel.write_bytes(r.content)
+                return ziel
+        except requests.RequestException:
+            continue
+    return None
+
+
+def _detektor(fw: int, fh: int):
+    """Funktion Graubild -> [(x, y, w, h)]: YuNet (cv2.FaceDetectorYN, auch OpenCV 5), sonst Haar-Kaskade, sonst None."""
+    import cv2
+
+    if hasattr(cv2, "FaceDetectorYN"):
+        modell = yunet_modell()
+        if modell is not None:
+            try:
+                yn = cv2.FaceDetectorYN.create(str(modell), "", (fw, fh), 0.6, 0.3, 50)
+
+                def erkenne_yunet(bild):
+                    _ok, res = yn.detect(cv2.cvtColor(bild, cv2.COLOR_GRAY2BGR))
+                    return [(int(r[0]), int(r[1]), int(r[2]), int(r[3])) for r in (res if res is not None else [])]
+
+                return erkenne_yunet
+            except cv2.error:
+                pass
+    if hasattr(cv2, "CascadeClassifier") and hasattr(cv2, "data"):
+        kask = [cv2.CascadeClassifier(cv2.data.haarcascades + f) for f in
+                ("haarcascade_frontalface_default.xml", "haarcascade_frontalface_alt2.xml", "haarcascade_profileface.xml")]
+        if not any(k.empty() for k in kask):
+            def erkenne_haar(bild):
+                g = cv2.equalizeHist(bild)
+                for k in kask:
+                    fl = k.detectMultiScale(g, 1.1, 5, minSize=(24, 24))
+                    if len(fl):
+                        return [tuple(int(v) for v in f) for f in fl]
+                return []
+
+            return erkenne_haar
+    return None
+
+
 def analysiere(video: Path, t0: float, t1: float, src_w: int, src_h: int) -> Analyse:
     import cv2
 
@@ -98,13 +166,9 @@ def analysiere(video: Path, t0: float, t1: float, src_w: int, src_h: int) -> Ana
                    ["Keine Videobilder analysierbar – Bildmitte verwendet."] if n == 0 else [])
     if n == 0:
         return leer
-    kaskaden = []
-    if hasattr(cv2, "CascadeClassifier") and hasattr(cv2, "data"):   # OpenCV 5 hat keine Haar-Kaskaden mehr
-        kaskaden = [cv2.CascadeClassifier(cv2.data.haarcascades + f) for f in
-                    ("haarcascade_frontalface_default.xml", "haarcascade_frontalface_alt2.xml",
-                     "haarcascade_profileface.xml")]
-    if not kaskaden or any(k.empty() for k in kaskaden):
-        leer.hinweise.append("Gesichtserkennung nicht verfügbar (opencv-python-headless 4.x nötig) – Bildmitte verwendet.")
+    detektor = _detektor(fw, fh)
+    if detektor is None:
+        leer.hinweise.append("Gesichtserkennung nicht verfügbar (weder YuNet-Modell noch Haar-Kaskade) – Bildmitte verwendet.")
         return leer
     mindest = max(24, int(fh * 0.07))
     spuren: list[dict] = []
@@ -113,12 +177,7 @@ def analysiere(video: Path, t0: float, t1: float, src_w: int, src_h: int) -> Ana
     prev = None
     for i, bild in enumerate(frames):
         if i % ERKENNUNG_ALLE == 0:
-            g = cv2.equalizeHist(bild)
-            fl = []
-            for k in kaskaden:
-                fl = k.detectMultiScale(g, 1.1, 5, minSize=(mindest, mindest))
-                if len(fl):
-                    break
+            fl = [f for f in detektor(bild) if f[2] >= mindest]
             for (x, y, w, h) in sorted(fl, key=lambda f: -f[2]):
                 cx, cy = x + w / 2, y + h / 2
                 bestes, bd = None, 1e9
@@ -145,7 +204,7 @@ def analysiere(video: Path, t0: float, t1: float, src_w: int, src_h: int) -> Ana
                     mv[k] = float(cv2.absdiff(bild[y0:y1, x0:x1], prev[y0:y1, x0:x1]).mean())
         bewegung.append(mv)
         prev = bild
-    gueltig = [k for k, sp in enumerate(spuren) if sp["n"] >= 3]
+    gueltig = [k for k, sp in enumerate(spuren) if sp["n"] >= 2]
     if not gueltig:
         leer.hinweise.append("Kein Gesicht gefunden – Bildmitte verwendet.")
         return leer
@@ -190,8 +249,10 @@ def zuschnitt(an: Analyse, person: int, a: float, b: float, zoom: float) -> tupl
     else:
         cw = sw
         ch = cw * 16 / 9
+    cx, cy, fw = an.mitte(person, a, b)
+    if zoom > 1.0 and an.spuren and fw / (cw / zoom) > 0.6:
+        zoom = 1.0       # Gesicht füllt schon fast die Breite: kein weiteres Heranzoomen (Stirn/Kinn blieben abgeschnitten)
     cw, ch = cw / zoom, ch / zoom
-    cx, cy, _w = an.mitte(person, a, b)
     x = min(max(cx - cw / 2, 0), sw - cw)
-    y = min(max(cy - 0.40 * ch, 0), sh - ch)
+    y = min(max(cy - 0.38 * ch, 0), sh - ch)
     return int(round(x)) // 2 * 2, int(round(y)) // 2 * 2, int(cw) // 2 * 2, int(ch) // 2 * 2

@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 
 from cudi_video import config
-from cudi_video.clip import ClipError, cuts, highlights, pipeline, source, subtitles, transcribe
+from cudi_video.clip import ClipError, cuts, highlights, pipeline, reframe, source, subtitles, transcribe
 
 needs_ffmpeg = pytest.mark.skipif(not shutil.which("ffmpeg"), reason="ffmpeg fehlt")
 
@@ -198,3 +198,108 @@ def test_erzwungenes_fenster_und_cache(tmp_path, monkeypatch):
     assert len(aufrufe) == 1                           # zweiter Lauf nutzt das JSON-Zwischenergebnis
     with pytest.raises(ClipError):
         pipeline.make_clip(str(video), start=5.0, ende=2.0)
+
+
+# --------------------------------------------------------------------------- Hook-Regeln, Untertitel, Gesichtserkennung
+
+def _gespraech():
+    """Einstieg wie im Vorbild-Clip: direkte Frage ans Gegenüber, Widerspruch, dann Reaktion „Nein, nein, nein“;
+    später (ab 40 s) eine weitere Frage ohne Anrede und viel ruhiger Text."""
+    text = ("Wie recherchierst du überhaupt? Weil ich glaub nicht, dass du einen Bericht liest und dann sagst, "
+            "dass es genauso ist. Nein, nein, nein, ich mach's wirklich, das ist auch der Sinn. "
+            "Das ist ein bisschen umständlich, aber mit KI wird es einfacher. ")
+    text += "Ich lese die News von einem Land und gucke was andere Medien darüber berichten. " * 4
+    text += "Stimmt das mit dem überein, was Obama gesagt hat? Ja, im Großen und Ganzen schon. "
+    text += "Und deshalb ist das für mich ein ganz normaler Ablauf jeden Tag. " * 3
+    ws, t = [], 0.0
+    for tok in text.split():
+        ws.append(_w(tok, round(t, 3), round(t + 0.34, 3)))
+        t += 0.4 + (0.2 if tok[-1] in ".?" else 0)
+    return ws
+
+
+def test_hook_am_beispielanfang_ohne_cold_open():
+    ws = _gespraech()
+    sats = highlights.saetze_bilden(ws)
+    highlights.bewerte(sats, ws, np.ones(int(ws[-1]["e"] * 10) + 20) * 0.05, 0.0, "de")
+    f = highlights.fenster_finden(sats, 30, 90)
+    hook = highlights.hook_finden(f)
+    assert hook is not None and hook.start < 8.0
+    assert "recherchierst" in hook.text
+    assert not highlights.braucht_teaser(hook, f)
+    kand = highlights.hook_kandidaten(f, 5)
+    assert kand and kand[0].start == hook.start
+
+
+def test_claude_hook_nur_mit_handoff(monkeypatch, tmp_path):
+    from cudi_video import handoff
+    from cudi_video.clip import wahl
+
+    ws = _gespraech()
+    sats = highlights.saetze_bilden(ws)
+    highlights.bewerte(sats, ws, np.ones(int(ws[-1]["e"] * 10) + 20) * 0.05, 0.0, "de")
+    monkeypatch.delenv(handoff.ENV, raising=False)
+    assert wahl.claude_waehlen(sats, 90) is None                      # inaktiv -> Regeln
+    monkeypatch.setenv(handoff.ENV, "1")
+    monkeypatch.setenv(handoff.DIR_ENV, str(tmp_path))
+    with pytest.raises(handoff.WritingNeeded):                        # Aufgabe wird abgelegt
+        wahl.claude_waehlen(sats, 90)
+    aufgabe = json.loads((tmp_path / "schreiben_clip_hook.json").read_text("utf-8"))
+    assert 1 <= len(aufgabe["daten"]["kandidaten"]) <= 5
+    aufgabe["antwort"] = {"nr": 2, "begruendung": "test"}
+    (tmp_path / "schreiben_clip_hook.json").write_text(json.dumps(aufgabe), "utf-8")
+    fe, hk = wahl.claude_waehlen(sats, 90)
+    assert fe.start == hk.start and fe.ende - fe.start <= 90
+
+
+def _ass_zeiten(ass):
+    def sek(t):
+        h, m, s = t.split(":")
+        return int(h) * 3600 + int(m) * 60 + float(s)
+
+    out = []
+    for z in ass.splitlines():
+        if z.startswith("Dialogue:"):
+            teile = z.split(",", 9)
+            out.append((sek(teile[1]), sek(teile[2])))
+    return out
+
+
+def test_untertitel_ueberlappen_nie():
+    # dichte Sprache, teils sehr kurze Wörter und winzige Lücken
+    ws, t = [], 0.0
+    for i in range(120):
+        d = 0.08 if i % 7 == 0 else 0.3
+        ws.append(_w(["ja", "Wahnsinn", "nein,", "der", "Hund.", "krass", "wirklich"][i % 7], round(t, 3), round(t + d, 3)))
+        t += d + (0.02 if i % 5 else 0.5)
+    ass, n = subtitles.ass_bauen(ws, "de", "Anton", False, t)
+    zeiten = _ass_zeiten(ass)
+    assert len(zeiten) == n > 10
+    for (s1, e1), (s2, _e2) in zip(zeiten, zeiten[1:]):
+        assert e1 <= s2 + 1e-6, (e1, s2)
+        assert e1 > s1
+
+
+def test_gesichtsanalyse_mit_detektor_und_ohne(tmp_path, monkeypatch):
+    video = tmp_path / "v.mp4"
+    _video(video, 320, 240, 4)
+    # Detektor-Monkeypatch: liefert immer dasselbe Gesicht (kein Modell nötig)
+    monkeypatch.setattr(reframe, "_detektor", lambda fw, fh: (lambda bild: [(fw // 3, fh // 4, fw // 4, fw // 4)]))
+    an = reframe.analysiere(video, 0, 3, 320, 240)
+    assert an.spuren == 1 and not an.hinweise
+    cx, cy, fb = an.mitte(0, 0, 3)
+    assert 100 < cx < 220 and fb > 40
+    x, y, w, h = reframe.zuschnitt(an, 0, 0, 3, 1.0)
+    assert abs(w / h - 9 / 16) < 0.02 and 0 <= x <= 320 - w and 0 <= y <= 240 - h
+    # Kein Detektor -> Bildmitte mit Hinweis
+    monkeypatch.setattr(reframe, "_detektor", lambda fw, fh: None)
+    an2 = reframe.analysiere(video, 0, 3, 320, 240)
+    assert an2.spuren == 0 and an2.hinweise
+    assert reframe.zuschnitt(an2, 0, 0, 3, 1.0)[2] > 0
+
+
+def test_yunet_modell_aus_cache(tmp_path, monkeypatch):
+    modell = tmp_path / "m.onnx"
+    modell.write_bytes(b"x" * 10)
+    monkeypatch.setenv("CUDI_YUNET_MODELL", str(modell))
+    assert reframe.yunet_modell() == modell

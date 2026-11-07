@@ -32,7 +32,8 @@ def _kuerzen(words: list[dict], limit: float, reserve: float) -> list[dict]:
 
 
 def make_clip(quelle: str, start: float | None = None, ende: float | None = None, sprache: str | None = "de",
-              max_laenge: float = 90.0, name: str | None = None, fortschritt=None) -> dict:
+              max_laenge: float = 90.0, name: str | None = None, fortschritt=None,
+              herkunft: str | None = None) -> dict:
     def schritt(text: str):
         log.info(text)
         if fortschritt:
@@ -71,10 +72,19 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
         fenster = highlights.fenster_erzwingen(saetze, t_start, t_ende)
     else:
         fenster = highlights.fenster_finden(saetze, 30.0, max_fenster)
+    hook = None
+    begruendung = None
+    if not forced:
+        from . import wahl
+
+        gewaehlt = wahl.claude_waehlen(saetze, max_fenster)     # nur mit CUDI_SCHREIBEN=1; sonst None -> Regeln
+        if gewaehlt:
+            fenster, hook = gewaehlt
+            begruendung = "von Claude gewählt"
     fw = _ausschnitt(words, fenster.start, fenster.ende)
     if not fw:
         raise ClipError("Im gewählten Bereich wurde nichts gesprochen.")
-    hook = highlights.hook_finden(fenster)
+    hook = hook or highlights.hook_finden(fenster)
     teaser = hook is not None and highlights.braucht_teaser(hook, fenster)
     reserve = (hook.dauer + cuts.BLITZ + 0.2) if teaser else 0.0
     fw = _kuerzen(fw, MAX_SECONDS - 1.0, reserve)
@@ -117,6 +127,8 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
 
     info = {
         "quelle": quelle,
+        "herkunft": herkunft,
+        "auswahl": begruendung or "Regeln",
         "datei": str(ziel),
         "dauer": round(dauer, 2),
         "fenster": {"start": round(fw[0]["s"], 2), "ende": round(fw[-1]["e"], 2), "erzwungen": forced,

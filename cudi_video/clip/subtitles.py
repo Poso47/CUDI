@@ -136,6 +136,9 @@ def ass_bauen(words: list[dict], sprache: str | None, familie: str, fett: bool, 
         if nxt is not None and nxt - g[-1]["e"] < 0.3:
             ende = nxt
         ende = min(max(ende, start + 0.2), dauer)
+        if nxt is not None:
+            ende = min(ende, nxt)        # nie zwei eigene Untertitelzeilen gleichzeitig
+        start = min(start, ende - 0.05)
         k = schluesselwort(g, sprache)
         teile = []
         for i, w in enumerate(g):

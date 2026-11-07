@@ -78,6 +78,7 @@ def main(argv=None) -> int:
     cl.add_argument("--ende", type=float, default=None, help="Fensterende in Sekunden")
     cl.add_argument("--sprache", default="de", help="Sprache des Gesprächs (de, en, auto)")
     cl.add_argument("--laenge", type=float, default=90.0, help="längstes automatisch gewähltes Fenster in Sekunden (30–170)")
+    cl.add_argument("--herkunft", default=None, help="Quelle/Lizenz-Vermerk, wird in clip.json gespeichert")
     cl.add_argument("--name", default=None, help="Ordnername unter video_output/clips/")
 
     chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
@@ -102,11 +103,15 @@ def main(argv=None) -> int:
 
     if args.cmd == "clip":
         from .clip import ClipError
+        from .handoff import WritingNeeded
         from .clip.pipeline import make_clip
 
         try:
             info = make_clip(args.quelle, args.start, args.ende, args.sprache, min(max(args.laenge, 30.0), 170.0),
-                             args.name, fortschritt=lambda t: print(f"… {t}", flush=True))
+                             args.name, fortschritt=lambda t: print(f"… {t}", flush=True), herkunft=args.herkunft)
+        except WritingNeeded as exc:
+            print(f"Schreibaufgabe für Claude abgelegt: {exc.path} – beantworten und den Befehl erneut ausführen.")
+            return 2
         except ClipError as exc:
             print(f"Fehler: {exc}", file=sys.stderr)
             return 1
