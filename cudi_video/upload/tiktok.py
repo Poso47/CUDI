@@ -145,7 +145,8 @@ def status(publish_id: str) -> str:
 
 # ---------- Einmaliger Login (Code gegen Refresh-Token tauschen) ----------
 AUTHORIZE_URL = "https://www.tiktok.com/v2/auth/authorize/"
-DEFAULT_REDIRECT = "https://poso47.github.io/CUDI/tiktok/"        # kostenlose GitHub-Pages-Seite (docs/tiktok/)
+DEFAULT_REDIRECT = "http://localhost:8723/callback/"   # Desktop-Login (TikTok verlangt localhost:Port); Web: CUDI_TIKTOK_REDIRECT_URI
+WEB_REDIRECT = "https://poso47.github.io/CUDI/tiktok/"   # kostenlose GitHub-Pages-Seite (docs/tiktok/) für Web-Apps
 LOGIN_SCOPES = "video.upload"
 TOKEN_FILE = "tiktok_refresh_token.txt"
 
@@ -154,12 +155,30 @@ def redirect_uri() -> str:
     return os.environ.get("CUDI_TIKTOK_REDIRECT_URI") or DEFAULT_REDIRECT
 
 
-def authorize_url(state: str) -> str:
+def is_local(uri: str) -> bool:
+    from urllib.parse import urlparse
+
+    return urlparse(uri).hostname in ("localhost", "127.0.0.1")
+
+
+def pkce_pair() -> tuple[str, str]:
+    """PKCE für den Desktop-Login: TikTok verlangt SHA256 des Verifiers als Hex (nicht Base64)."""
+    import hashlib
+    import secrets as _s
+
+    verifier = _s.token_urlsafe(48)[:64]
+    return verifier, hashlib.sha256(verifier.encode()).hexdigest()
+
+
+def authorize_url(state: str, challenge: str = "") -> str:
     from urllib.parse import urlencode
 
     key = require("CUDI_TIKTOK_CLIENT_KEY")["CUDI_TIKTOK_CLIENT_KEY"]
-    return AUTHORIZE_URL + "?" + urlencode({"client_key": key, "scope": LOGIN_SCOPES, "response_type": "code",
-                                            "redirect_uri": redirect_uri(), "state": state})
+    params = {"client_key": key, "scope": LOGIN_SCOPES, "response_type": "code",
+              "redirect_uri": redirect_uri(), "state": state}
+    if challenge:
+        params.update(code_challenge=challenge, code_challenge_method="S256")
+    return AUTHORIZE_URL + "?" + urlencode(params)
 
 
 def code_from(pasted: str, state: str = "") -> str:
@@ -182,13 +201,13 @@ def code_from(pasted: str, state: str = "") -> str:
     return code
 
 
-def exchange_code(code: str) -> str:
+def exchange_code(code: str, verifier: str = "") -> str:
     creds = require("CUDI_TIKTOK_CLIENT_KEY", "CUDI_TIKTOK_CLIENT_SECRET")
-    resp = http("POST", TOKEN_URL, data={"client_key": creds["CUDI_TIKTOK_CLIENT_KEY"],
-                                         "client_secret": creds["CUDI_TIKTOK_CLIENT_SECRET"],
-                                         "code": code, "grant_type": "authorization_code",
-                                         "redirect_uri": redirect_uri()},
-                headers={"Content-Type": "application/x-www-form-urlencoded"})
+    form = {"client_key": creds["CUDI_TIKTOK_CLIENT_KEY"], "client_secret": creds["CUDI_TIKTOK_CLIENT_SECRET"],
+            "code": code, "grant_type": "authorization_code", "redirect_uri": redirect_uri()}
+    if verifier:
+        form["code_verifier"] = verifier
+    resp = http("POST", TOKEN_URL, data=form, headers={"Content-Type": "application/x-www-form-urlencoded"})
     token = resp.json().get("refresh_token") if resp.status_code == 200 else None
     if not token:
         raise fail("TikTok-Code konnte nicht eingetauscht werden (Code abgelaufen oder Redirect-URI anders?)", resp)
@@ -206,3 +225,37 @@ def save_refresh_token(token: str):
     except OSError:
         pass
     return path
+
+
+def wait_for_code(state: str, timeout: int = 300) -> str:
+    """Kleiner Server auf localhost fängt TikToks Rücksprung ab (Desktop-Login) – nichts zu kopieren."""
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+    from urllib.parse import urlparse
+
+    uri = urlparse(redirect_uri())
+    got: dict = {}
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):                                   # noqa: N802
+            got["url"] = self.path
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.end_headers()
+            self.wfile.write("<h3>CUDI: TikTok-Anmeldung erhalten – du kannst dieses Fenster schließen.</h3>".encode())
+
+        def log_message(self, *args):                       # keine Adressen (mit Code) in die Konsole
+            pass
+
+    server = HTTPServer(("127.0.0.1", uri.port or 80), Handler)
+    server.timeout = timeout
+    try:
+        while "url" not in got:
+            before = dict(got)
+            server.handle_request()
+            if got == before:                               # Zeit abgelaufen
+                raise UploadError("Keine Antwort von TikTok innerhalb von 5 Minuten – bitte neu starten.")
+            if urlparse(got["url"]).path.rstrip("/") != uri.path.rstrip("/"):
+                got.pop("url")                              # z. B. favicon.ico
+    finally:
+        server.server_close()
+    return code_from("http://localhost" + got["url"], state)

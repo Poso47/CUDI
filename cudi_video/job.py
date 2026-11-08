@@ -562,6 +562,16 @@ def uploads(data: dict) -> list[str]:
 
 # --------------------------------------------------------------------------- Dokument für die App
 
+def upload_note(entry: dict) -> str:
+    """Eine Zeile je Upload für die App: Ziel, Ergebnis, Link bzw. Fehler."""
+    name = {"youtube": "YouTube", "tiktok": "TikTok"}.get(entry.get("ziel"), entry.get("ziel", "Upload"))
+    if not entry.get("ok"):
+        return f"{name}: Hochladen fehlgeschlagen – {entry.get('fehler', 'unbekannter Fehler')}"
+    if entry.get("url"):
+        return f"{name}: hochgeladen ({entry.get('sichtbarkeit', 'privat')}) – {entry['url']}"
+    return f"{name}: als Entwurf in der TikTok-App gesendet" if name == "TikTok" else f"{name}: hochgeladen"
+
+
 def document(folder: Path, addresses: dict[str, str]) -> dict:
     """Dokument für die Ablage der App-Seite (Sammlung results): Dateipfade durch Upload-Adressen ersetzt."""
     path = folder / "ergebnis.json"
@@ -594,6 +604,9 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
             "wiederholbar": ok or repeatable,
             "videos": videos, "hinweise": data.get("hinweise", []), "pruefbericht": data.get("pruefbericht", ""),
             "fertig": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    if data.get("hochgeladen") is not None:      # Upload-Ergebnis sichtbar machen (Link oder Fehler, geschwärzt)
+        doc["hochgeladen"] = data["hochgeladen"]
+        doc["hinweise"] = list(doc["hinweise"]) + [upload_note(e) for e in data["hochgeladen"]]
     if data.get("skelett"):                       # Schritt 1 einer Story: Skelett zum Prüfen in der App
         doc["schritt"], doc["skelett"] = "skelett", data["skelett"]
     return doc
@@ -640,5 +653,7 @@ def main(args) -> int:
               f"und dann ausführen: bash scripts/cudi_auftrag.sh --weiter {order['id']}")
         return code
     print(f"DATEIEN: {json.dumps(uploads(data), ensure_ascii=False)}")
+    for entry in data.get("hochgeladen") or []:
+        print("HOCHGELADEN: " + upload_note(entry))
     print(f"ERGEBNIS: {folder / 'ergebnis.json'}" + ("" if data["ok"] else f"  (Fehler: {data['fehler'][:300]})"))
     return code
