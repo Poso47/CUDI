@@ -12,7 +12,7 @@ from . import common
 
 def main(argv: list[str]) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    names = ("trends", "news", "ideen", "putzen")
+    names = ("trends", "news", "ideen", "putzen", "wissen")
     if len(argv) != 1 or argv[0] not in names:
         print(f"Aufruf: python -m cudi_video.firma <{'|'.join(names)}>")
         return 2

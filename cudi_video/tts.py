@@ -388,7 +388,7 @@ def _role(text: str, forced: str, first: bool, kind: str, profile: dict | None =
     return "normal"
 
 
-def plan_parts(text: str, kind: str = "item", profile: str = "ranking") -> list[Part]:
+def plan_parts(text: str, kind: str = "item", profile: str = "ranking", seed: str | None = None) -> list[Part]:
     """Text in betonte Teile zerlegen (siehe oben, Werte aus SPEECH_PROFILES[profile]). Nie leer; die Wörter bleiben
     in der Reihenfolge des Textes."""
     prof = SPEECH_PROFILES.get(profile, _RANKING)
@@ -422,7 +422,68 @@ def plan_parts(text: str, kind: str = "item", profile: str = "ranking") -> list[
         prev_end, prev_sep = chunk, sep
     if kind == "outro" and parts[-1].role == "normal":
         parts[-1].rate, parts[-1].pitch = prof["schluss"]       # Schluss ruhig, einladend
-    return _cap_parts(parts, MAX_PARTS)
+    return _cap_parts(naturalize(parts, seed), MAX_PARTS)
+
+
+# --------------------------------------------------------------------------- Natürlicher Klang
+# Gegen Monotonie: lange Teile bekommen eine kleine Atempause an Komma/Semikolon/Doppelpunkt bzw. Satzende, und normal
+# gesprochene Teile weichen im Tempo (±2 Prozentpunkte) und in der Tonhöhe (±1 Hz) leicht und abwechselnd ab. Alles ist
+# deterministisch je Video (Startwert aus Titel/Text), betrifft nur Teile der Rolle „normal“ und teilt nur an Wortgrenzen –
+# kein Wort geht verloren, die Reihenfolge bleibt (`_complete` und die Tests sichern das).
+NATURAL_MIN_WORDS = 12          # kürzere Teile bleiben am Stück
+NATURAL_PAUSES = {",": 0.12, ";": 0.16, ":": 0.16, "sentence": 0.2}
+
+
+def natural_enabled() -> bool:
+    return os.environ.get("CUDI_NATUERLICH", "1").strip().lower() not in ("0", "false", "aus", "off")
+
+
+def _jitter(seed: str, key: str, span: int) -> int:
+    """Fester „Zufall“ in [-span, span] aus Startwert und Schlüssel."""
+    import hashlib
+
+    return int(hashlib.md5(f"{seed}|{key}".encode()).hexdigest()[:8], 16) % (2 * span + 1) - span
+
+
+def _split_point(tokens: list[str]) -> tuple[int, float] | None:
+    """Wortindex (letztes Wort des ersten Teils) und Pause für den besten Schnitt nahe der Mitte, sonst None."""
+    best, mid = None, len(tokens) / 2
+    for i, tok in enumerate(tokens[:-1]):
+        if i < 3 or len(tokens) - i - 1 < 4:
+            continue
+        end = tok[-1]
+        if end in ",;:":
+            pause = NATURAL_PAUSES[end]
+        elif end in ".!?…" and not re.search(r"\d\.$", tok) and tok.lower() not in ABBREVIATIONS:
+            pause = NATURAL_PAUSES["sentence"]
+        else:
+            continue
+        if best is None or abs(i - mid) < abs(best[0] - mid):
+            best = (i, pause)
+    return best
+
+
+def naturalize(parts: list[Part], seed: str | None = None, limit: int | None = None) -> list[Part]:
+    """Siehe oben: Atempausen in langen normalen Teilen, leichte Tempo-/Tonhöhen-Variation. Wörter bleiben unverändert."""
+    if seed is None or not natural_enabled():                      # ohne Startwert (reine Planung/Tests) bleibt der Plan unverändert
+        return parts
+    limit = limit or MAX_PARTS
+    out: list[Part] = []
+    for n, part in enumerate(parts):
+        tokens = part.text.split()
+        cut = _split_point(tokens) if part.role == "normal" and len(tokens) >= NATURAL_MIN_WORDS else None
+        if cut and len(out) + (len(parts) - n) < limit:            # nur solange Platz unter dem Teile-Limit ist
+            i, pause = cut
+            out.append(Part(" ".join(tokens[:i + 1]), part.rate, part.pitch, part.volume, part.pause, "normal"))
+            out.append(Part(" ".join(tokens[i + 1:]), part.rate, part.pitch, part.volume, pause, "normal"))
+        else:
+            out.append(part)
+    for k, part in enumerate(out):
+        if part.role == "normal":
+            wiggle = _jitter(seed, f"r{k}{part.text[:12]}", 2)
+            part.rate += wiggle
+            part.pitch += _jitter(seed, f"p{k}{part.text[:12]}", 1)
+    return out
 
 
 MAX_PARTS = 8          # mehr Einzelteile klingen abgehackt – überzählige werden angehängt, NIE weggelassen
@@ -464,7 +525,7 @@ MOOD_STYLE = {
 }
 
 
-def plan_story_parts(text: str, mood: str, max_parts: int = 12) -> list[Part]:
+def plan_story_parts(text: str, mood: str, max_parts: int = 12, seed: str | None = None) -> list[Part]:
     """Szenentext je Stimmung in betonte Teile zerlegen: Fließtext zusammenhängend, Wendungen/Pointen/Fragen/Schluss einzeln."""
     style = MOOD_STYLE.get(mood, MOOD_STYLE["drama"])
     sentences = _sentences(text) or [text.strip() or " "]
@@ -503,7 +564,7 @@ def plan_story_parts(text: str, mood: str, max_parts: int = 12) -> list[Part]:
             if prev == "frage":
                 pause = max(pause, style["question_pause"])
             parts.append(Part(sentence, rate, pitch, volume, round(pause if i else 0.0, 2), role))
-    return parts
+    return naturalize(parts, seed, max_parts + 4)
 
 
 def _rate_text(base: str, delta: int) -> str:
@@ -572,8 +633,9 @@ def assemble_parts(parts: list[Part], spoken: list[tuple[Path, list[dict]]], wav
 
 async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 3,
                         profile: str = "ranking") -> None:
-    plans = [_complete(plan_parts(seg.text, seg.kind, profile), seg.text) if profile != "aus" else [Part(seg.text)]
-             for seg in script.segments]
+    seed = f"{script.title}|{script.lang}"                # fester Startwert je Video: gleiche Betonung bei jedem Lauf
+    plans = [_complete(plan_parts(seg.text, seg.kind, profile, f"{seed}|{i}"), seg.text) if profile != "aus" else [Part(seg.text)]
+             for i, seg in enumerate(script.segments)]
     flat = [part for plan in plans for part in plan]
     spoken = await _speak_all([part.text for part in flat], out_dir, voice, rate, "+0Hz", parallel,
                               [part_prosody(part, rate) for part in flat])
@@ -605,7 +667,7 @@ async def _voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str, p
             new_words, duration = tighten_pauses(src, words, wav, max_pause)
             result.append((wav, new_words, duration))
         return result
-    plans = [plan_story_parts(text, mood) for text in texts]
+    plans = [plan_story_parts(text, mood, seed=f"{texts[0][:30] if texts else ''}|{i}") for i, text in enumerate(texts)]
     flat = [part for plan in plans for part in plan]
     spoken = await _speak_all([part.text for part in flat], out_dir, voice, rate, pitch, max(parallel, 3),
                               [part_prosody(part, rate, pitch) for part in flat])
