@@ -12,9 +12,13 @@ from . import common
 
 def main(argv: list[str]) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+    if argv == ["export"]:                                # kompakte docs/firma/firma.json für die App
+        from . import export
+        print("firma.json", "geschrieben" if export.write() else "unverändert")
+        return 0
     names = ("trends", "news", "ideen", "putzen", "wissen")
     if len(argv) != 1 or argv[0] not in names:
-        print(f"Aufruf: python -m cudi_video.firma <{'|'.join(names)}>")
+        print(f"Aufruf: python -m cudi_video.firma <{'|'.join(names)}|export>")
         return 2
     import time
     started = time.monotonic()

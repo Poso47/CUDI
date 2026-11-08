@@ -5,7 +5,10 @@ set -euo pipefail
 branch="${GITHUB_REF_NAME:-main}"
 git config user.name "cudi-firma[bot]"
 git config user.email "cudi-firma[bot]@users.noreply.github.com"
-git add firma_daten
+# Kompakte Sammeldatei für die App (GitHub Pages: .../firma/firma.json); ein Fehler hier stoppt den Lauf nicht
+python -m cudi_video.firma export || echo "firma.json nicht erzeugt."
+mkdir -p docs/firma
+git add firma_daten docs/firma
 if git diff --cached --quiet; then
   echo "Keine Änderungen in firma_daten/ – kein Commit."
   exit 0

@@ -122,6 +122,14 @@ für TikTok/YouTube Shorts.
   sperren, `firma_daten/` ausdünnen → `putzen.json`; Probelauf `CUDI_PUTZEN_TROCKEN=1`). `status.json` = letzter Lauf/Dauer/Ergebnis/nächste Planung je Mitarbeiter
   (Grundlage fürs 3D-Büro). Jede Quelle einzeln abgesichert (Ausfall = Hinweis). Lokal: `python -m cudi_video.firma <trends|news|ideen|putzen>`,
   Ausgabeordner per `CUDI_FIRMA_DATEN` umlenkbar; Tests `tests/test_firma.py`.
+  **Onkel-Büro** (Firma-Tab, 3D): alle Figuren sind freundliche Onkels (Bärte, Takke/Kufi/Kappe, Weste in Rollenfarbe, Teeglas am Tisch; Teppich-Canvas,
+  Arkade, Laternen, Pflanzen); je GitHub-Mitarbeiter eine Station (Trend-Wand, News-Pult, Ideen-Tafel, Bücherregal, Lern-Diagramm, Waage; Putz-Onkel läuft mit
+  Besen), Chips + Liste als Touch-/Ersatzansicht; Karte zeigt Top-3-Trends/bestätigte News/Ideen mit „Starten“ (`startJob`)/Wissensregeln/Putzbericht.
+  Datenweg ohne Claude-Verbrauch: `firma_commit.sh` ruft `python -m cudi_video.firma export` → `docs/firma/firma.json` (`firma/export.py`, nur bei Änderung);
+  die Seite liest erst die Datenbank `firma/stand`, dann Pages-Fetch `poso47.github.io/CUDI/firma/firma.json`. **Artefakt-CSP sperrt `fetch` zu
+  fremden Hosts** (nur Dateien neben der Seite) → Pages-Weg läuft in Claude vermutlich nicht; verlässlich ist `firma/stand`: bei jedem Auftrags-Lauf
+  `ArtifactData set` (collection `firma`, doc_id `stand`, file_path `docs/firma/firma.json` – siehe Zusatzzeile in der Aufgabe, nur mit OK des Nutzers).
+  Demo: `?demo=1`.
 - Kosten: alles kostenlose Dienste; App-Aufträge zählen nur zum Claude-Nutzungslimit des Nutzers.
 - **Keine Fehlschläge** (Wunsch des Nutzers) – kostenlose Ausweichwege, siehe README „Probleme?“:
   edge-tts 6 Versuche → Piper offline (`tts.PIPER_VOICES`, Modelle in `video_output/_piper`, `piper-tts`
