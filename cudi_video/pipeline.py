@@ -67,7 +67,7 @@ def _faster(rate: str, extra: int) -> str:
 
 
 def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out: Path, use_llm,
-                       narration: dict | None = None) -> Script:
+                       narration: dict | None = None, pruefer=None) -> Script:
     """Vertonen und sicherstellen, dass das Video unter dem Shorts-Limit bleibt.
 
     Nach der ersten Vertonung wird das echte Sprechtempo gemessen und die reichhaltigste
@@ -80,6 +80,8 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
     limit = min(spec.target_seconds + 8, cap)
     audio_dir = out / f"audio_{script.lang}"
     profile = speech_profile(spec.kind)                # Sprechprofil nach Videoart (Ranking spannend, Fakten erklärend)
+    if pruefer:                                        # Wahrheits-Prüfer: auch gekürzte Fassungen laufen durch die Regeln
+        pruefer.korrigiere_skript(script)
     voice_script(script, audio_dir, profile=profile)
     total = video_seconds(script)
     if total <= limit:
@@ -106,6 +108,8 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
         speed = 1 + 0.07 * rate_index                     # grobe Schätzung des Tempogewinns
         for scale, detail in candidates:
             candidate = build_script(spec, research, script.lang, use_llm=use_llm, budget_scale=scale, detail=detail)
+            if pruefer:
+                pruefer.korrigiere_skript(candidate)
             guess = estimate(candidate, speed)
             if guess > limit - 2:
                 continue
@@ -116,6 +120,41 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
                 return candidate
             rates_per_segment = [s.duration * speed / max(1, len(s.text.split())) for s in candidate.segments]
     raise RuntimeError(f"Video bleibt zu lang ({total:.0f}s). Bitte weniger Plätze wählen.")
+
+
+def render_checked(spec: VideoSpec, research: Research, script: Script, out: Path, pruefer, titles_llm: dict | None = None,
+                   progress_cb=None, revoice=None) -> tuple[dict, dict, Script]:
+    """Rendern mit Endabnahme: Das Video gilt nur als fertig, wenn Wahrheits-Prüfung UND Endkontrolle (qa) bestehen.
+
+    Besteht eines nicht, gibt es genau eine Reparaturrunde: Texte korrigieren, neu vertonen (`revoice`), ganz neu rendern
+    (Teilrendern gibt es nicht – die Teile hängen an Bild- und Tonlänge). Bleibt der Befund, trägt `files["abnahme"]`
+    `ok: False` mit ehrlichen Gründen; der Auftrag liefert dieses Video dann nicht aus."""
+    from . import wahrheit
+    from .metadata import build_metadata
+    from .render.video import render_video
+
+    for attempt in (1, 2):
+        files = render_video(spec, research, script, out, progress_cb=progress_cb)
+        meta = pruefer.korrigiere_meta(script, build_metadata(spec, research, script, titles_llm, files.get("duration")))
+        bericht = pruefer.pruefe(script, meta)
+        qa_block = files.get("qa")
+        qa_ok = qa_block is None or bool(qa_block.get("ok", True))          # qa selbst ausgefallen: kein Grund zu blockieren
+        if (bericht.ok and qa_ok) or attempt == 2:
+            break
+        before = [seg.text for seg in script.segments]
+        pruefer.korrigiere_skript(script)
+        changed = before != [seg.text for seg in script.segments]
+        if not changed and bericht.offen:
+            break                                    # nicht korrigierbar: neu rendern ändert nichts
+        if changed and revoice:
+            script = revoice(script)
+        log.info("Endabnahme (%s): Reparaturrunde – Wahrheit %s, qa %s", script.lang, bericht.ok, qa_ok)
+    reasons = [f"{wahrheit.REGELN.get(b.regel, (b.regel,))[0]}: „{b.satz[:90]}“ – {b.grund}" for b in bericht.offen[:5]]
+    if not qa_ok:
+        reasons += [f"Endkontrolle: {b}" for b in (qa_block or {}).get("befunde", [])[:5]]
+    files["abnahme"] = {"ok": not reasons, "gruende": reasons, "wahrheit": bericht.to_dict(), "qa_ok": qa_ok,
+                        "runden": attempt}
+    return files, meta, script
 
 
 def run(
@@ -161,9 +200,25 @@ def run(
         script = build_script(spec, research, lang, use_llm=use_llm, narration=narration.get(lang) or None)
         _save(out / f"script_{lang}.json", script.to_dict())
         scripts.append(script)
-    (out / "review.md").write_text(build_review(spec, research, scripts), "utf-8")
+    from . import wahrheit
+
+    pruefer = wahrheit.Pruefer(spec, research)
+    metas = {s.lang: build_metadata(spec, research, s, titles_llm) for s in scripts}
+    pruefer.gegenlesen(scripts, metas)                  # optional: Claude/Notbetrieb liest gegen (kann WritingNeeded werfen)
+    for s in scripts:
+        pruefer.korrigiere_skript(s)                    # Wahrheits-Prüfung: Sprechtext/Hook vor dem Vertonen
+        pruefer.korrigiere_meta(s, metas[s.lang])       # Titel/Beschreibung/Cover vollständig prüfen (Bericht auch ohne Render)
+        _save(out / f"script_{s.lang}.json", s.to_dict())
+    _save(out / "spec.json", spec.to_dict())            # Titel kann bei falscher Anzahl berichtigt sein
+    truth_review = lambda: wahrheit.review_section(pruefer, gruende)      # noqa: E731
+    gruende: dict[str, list[str]] = {}
+    (out / "review.md").write_text(wahrheit.in_review(build_review(spec, research, scripts), truth_review()), "utf-8")
 
     result = {"output_dir": str(out), "warnings": research.warnings, "videos": {}}
+    for lang_, done in pruefer.protokoll.items():
+        if done:
+            result["warnings"] = list(result["warnings"]) + [
+                f"Wahrheits-Prüfung ({lang_}): {len(done)} Aussage(n) korrigiert – Details im Prüfbericht."]
     if not render:
         _save(out / "result.json", result)
         progress("Fertig (nur Skript)", 1.0)
@@ -173,14 +228,22 @@ def run(
     for i, script in enumerate(scripts):
         base = 0.2 + i * share
         progress(f"Stimme ({script.lang})", base)
-        script = voice_within_limit(spec, research, script, out, use_llm, narration=narration.get(script.lang) or None)
+        voice = lambda sc: voice_within_limit(spec, research, sc, out, use_llm,       # noqa: E731
+                                              narration=narration.get(sc.lang) or None, pruefer=pruefer)
+        script = voice(script)
         scripts[i] = script
         _save(out / f"script_{script.lang}.json", script.to_dict())
 
         progress(f"Animation ({script.lang})", base + share * 0.1)
-        files = render_video(spec, research, script, out,
-                             progress_cb=lambda f, b=base: progress(f"Animation ({script.lang})", b + share * (0.1 + 0.85 * f)))
-        meta = build_metadata(spec, research, script, titles_llm, files.get("duration"))
+        files, meta, script = render_checked(
+            spec, research, script, out, pruefer, titles_llm, revoice=voice,
+            progress_cb=lambda f, b=base, lg=script.lang: progress(f"Animation ({lg})", b + share * (0.1 + 0.85 * f)))
+        scripts[i] = script
+        _save(out / f"script_{script.lang}.json", script.to_dict())
+        if not files["abnahme"]["ok"]:
+            gruende[script.lang] = files["abnahme"]["gruende"]
+            result["warnings"] = list(result["warnings"]) + [
+                f"Nicht ausgeliefert ({script.lang}), weil: " + "; ".join(files["abnahme"]["gruende"])]
         meta_file = out / f"{spec.id}_{script.lang}_beschreibung.txt"
         meta_file.write_text(f"{meta['title']}\n\n{meta['description']}\n", "utf-8")
         caption_file = out / f"{spec.id}_{script.lang}_tiktok.txt"
@@ -192,7 +255,8 @@ def run(
 
     hints = [f"- {lang}: {f['metadata']['length_hint']}" for lang, f in result["videos"].items()
              if (f.get("metadata") or {}).get("length_hint")]
-    review = build_review(spec, research, scripts)                                    # endgültige Texte
+    review = wahrheit.in_review(build_review(spec, research, scripts), truth_review())      # endgültige Texte
+    _save(out / "wahrheit.json", {lang: b.to_dict() for lang, b in pruefer.berichte.items()})
     qa_lines = [f"- {lang}: " + ("bestanden" if f["qa"]["ok"] else "; ".join(f["qa"]["befunde"]))
                 + f" (Lautheit {f['qa']['lufs_vor']} -> {f['qa']['lufs_nach']} LUFS)"
                 for lang, f in result["videos"].items() if f.get("qa")]

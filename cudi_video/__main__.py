@@ -190,11 +190,14 @@ def main(argv=None) -> int:
             progress=lambda stage, f: print(f"[{f * 100:5.1f} %] {stage}", flush=True),
         )
         print(f"\nAusgabe: {result['output_dir']}")
+        held = 0
         for lang, files in result["videos"].items():
-            print(f"  {lang}: {files['video']} ({files['duration']} s)")
+            ok = (files.get("abnahme") or {}).get("ok", True)
+            held += not ok
+            print(f"  {lang}: {files['video']} ({files['duration']} s)" + ("" if ok else "  – NICHT ausgeliefert (Endabnahme)"))
         for w in result["warnings"]:
             print(f"  ⚠️  {w}")
-        return 0
+        return 1 if held else 0
 
     if args.cmd == "web":
         import uvicorn
