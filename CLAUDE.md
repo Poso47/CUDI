@@ -88,6 +88,7 @@ für TikTok/YouTube Shorts.
     (Rolle nach Art: Rechercheur & Autor, Faktenprüfer = freies Thema, Story-Autor, Clipper); „Projektleiter“: hängt (> 40 Min. ohne
     Ergebnis oder `ohne`), halbe Arbeit (Ergebnis ohne Video/mit Fehler), „Neu starten“ = `restartJob` (gleiche Logik wie die Karte),
     bei freien Mitarbeitern 3 Vorschläge (Bewertung, neue Vorlage, Fakten-Idee) über `startJob`; Banner in jedem Tab.
+    **3D-Büro** (Standardansicht, Umschalter „3D / Liste“, Liste = Ersatz/Barrierefreiheit): three.js r128 von cdnjs, lazy geladen; je Auftrag eine Figur am Tisch (Farbe nach Rolle), Projektleiter in der Mitte; Zustände arbeitet (Tippen, Balken aus Laufzeit)/fertig/Fehler-hängt/frei; Ziehen dreht, Antippen öffnet Karte mit `restartJob`/`removeJob`/Videos-Tab/`startJob`; max. 30 fps, nur bei sichtbarem Tab; ohne WebGL/three.js automatisch Liste; Demo `?demo=1`/`?demo=frei`.
   - Ansehen ohne Cloud: Seite mit `?demo=1` (Aufträge laufen) bzw. `?demo=frei` öffnen – Beispieldaten nur dann.
   - Seite ändern: Datei bearbeiten und mit dem Artifact-Werkzeug unter derselben URL veröffentlichen
     (äußerer HTML-Rahmen fehlt absichtlich – Claude setzt ihn).
