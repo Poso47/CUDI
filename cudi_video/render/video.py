@@ -21,6 +21,7 @@ from ..spec import VideoSpec
 from ..units import quantity
 from ..verify import confirmed_sources
 from . import audio
+from . import cover as cover_mod
 from .icons import icon_for
 from .theme import pick_style
 
@@ -266,6 +267,14 @@ def render_video(spec: VideoSpec, research: Research, script: Script, out_dir: P
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat_list),
                     "-c", "copy", str(video_only)], check=True)
 
+    cover = out_dir / f"{spec.id}_{script.lang}_cover.jpg"      # gestaltetes Cover, zugleich erstes Frame (0,2 s)
+    if cover_mod.make_cover_safe(cover, spec, research, script.lang, jobs[0]["style"]):
+        stamped = work / "video_cover.mp4"
+        if cover_mod.stamp_first_frame(video_only, cover, stamped):
+            video_only = stamped
+    else:
+        render_frame(jobs[0], min(2.2, jobs[0]["duration"] - 0.1), cover)
+
     audio_file = work / "audio.wav"
     music = audio.music_style(spec.kind, jobs[0]["style"].get("format", ""), " ".join(spec.title.values()))
     build_audio(script, jobs, audio_file, music_style=music, seed_key=spec.id)          # das Maskottchen ist schon in den Bildern (render_part)
@@ -281,8 +290,6 @@ def render_video(spec: VideoSpec, research: Research, script: Script, out_dir: P
     limit = config.LONG_MAX_SECONDS if spec.target_seconds > config.STORY_MAX_SECONDS else config.STORY_MAX_SECONDS
     qa_block = qa.safe_check(final, spec.kind, limit)      # Endkontrolle; korrigiert die Lautheit höchstens einmal
 
-    cover = out_dir / f"{spec.id}_{script.lang}_cover.jpg"
-    render_frame(jobs[0], min(2.2, jobs[0]["duration"] - 0.1), cover)
     srt = out_dir / f"{spec.id}_{script.lang}.srt"
     write_srt(script, jobs, srt)
     return {

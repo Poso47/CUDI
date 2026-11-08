@@ -36,6 +36,7 @@ für TikTok/YouTube Shorts.
   Ranking-Clips nur sortiert via `media.rank_by_image`; Tests setzen `CUDI_BILDPRUEFUNG=0`). Bildpassung (`facts.find_visuals`, `media.motif_matches`): Fakt-Feld `motiv` + `suche`-Liste; Treffer nur, wenn alle Kernwörter des
   Motivs in Beschreibung/Tags stehen (Clip → Foto → Commons → „Stimmungsbild“, im Prüfbericht vermerkt). Aha-Regel
   (`themen.AHA_RULES`, Fakt-Feld `aha_<sprache>`, geprüft in `facts.checked_aha`): Outro „Heute gelernt: …“ (Platz 1; Rankings: Spitzenwert).
+- Verpackung (`render/cover.py`, `metadata.py`): Cover 1080×1920 (Titelwort, Spitzenwert, bestes Bild, Look des Formats, Safe-Zone) auch als erstes Frame (0,2 s; `CUDI_COVER_FRAME=0` aus); 3 Titelvarianten ≤ 60 Zeichen je Sprache (Aufgabe `titel` über `handoff`, geprüft: Zahl/Clickbait/Länge, sonst Regel-Varianten, beste per `title_score`) im Ergebnis (`titel_varianten`, Kopier-Knöpfe); 3–5 Hashtags je Plattform (#shorts YouTube, #fyp TikTok); Längenziel `LENGTH_GOALS` nur als Hinweis im Prüfbericht.
 - Lange Videos bis 10 Min. (App-Fassung in Stücken ≤ 19 MB), Maskottchen „CUDI“ (`mascot.py`, lippensynchron
   zur Sprachspur, abschaltbar: Auftrag `maskottchen`, `CUDI_MASCOT`), Story-Bilder „cartoon“ (gleiche Hauptfigur
   `figur`, gleicher Seed).

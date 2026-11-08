@@ -1372,6 +1372,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         }
         if (v.tiktok) row.appendChild(copyButton("TikTok-Text kopieren", v.tiktok));
         if (v.youtube) row.appendChild(copyButton("YouTube-Text kopieren", v.youtube));
+        (v.titel_varianten || []).forEach((t, i) => row.appendChild(copyButton("Titel " + (i + 1) + (t === v.titel_gewaehlt ? " ★" : "") + ": " + t, t)));
         box.appendChild(row);
         li.appendChild(box);
       });

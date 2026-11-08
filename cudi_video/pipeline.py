@@ -154,6 +154,8 @@ def run(
     progress("Skript", 0.15)
     from .narrate import request as narrate_request
     narration = narrate_request(spec, research, langs) if use_llm is not False and spec.kind != "facts" else {}
+    from .metadata import request_titles
+    titles_llm = request_titles(spec, research, langs) if use_llm is not False else {}      # 3 Titel je Sprache
     scripts: list[Script] = []
     for lang in langs:
         script = build_script(spec, research, lang, use_llm=use_llm, narration=narration.get(lang) or None)
@@ -178,7 +180,7 @@ def run(
         progress(f"Animation ({script.lang})", base + share * 0.1)
         files = render_video(spec, research, script, out,
                              progress_cb=lambda f, b=base: progress(f"Animation ({script.lang})", b + share * (0.1 + 0.85 * f)))
-        meta = build_metadata(spec, research, script)
+        meta = build_metadata(spec, research, script, titles_llm, files.get("duration"))
         meta_file = out / f"{spec.id}_{script.lang}_beschreibung.txt"
         meta_file.write_text(f"{meta['title']}\n\n{meta['description']}\n", "utf-8")
         caption_file = out / f"{spec.id}_{script.lang}_tiktok.txt"
@@ -188,11 +190,14 @@ def run(
         if files.get("qa"):
             result["warnings"] = list(result["warnings"]) + [f"Endkontrolle ({script.lang}): {b}" for b in files["qa"]["befunde"]]
 
+    hints = [f"- {lang}: {f['metadata']['length_hint']}" for lang, f in result["videos"].items()
+             if (f.get("metadata") or {}).get("length_hint")]
     review = build_review(spec, research, scripts)                                    # endgültige Texte
     qa_lines = [f"- {lang}: " + ("bestanden" if f["qa"]["ok"] else "; ".join(f["qa"]["befunde"]))
                 + f" (Lautheit {f['qa']['lufs_vor']} -> {f['qa']['lufs_nach']} LUFS)"
                 for lang, f in result["videos"].items() if f.get("qa")]
-    (out / "review.md").write_text(review + ("\n## Endkontrolle\n\n" + "\n".join(qa_lines) + "\n" if qa_lines else ""), "utf-8")
+    (out / "review.md").write_text(review + ("\n## Endkontrolle\n\n" + "\n".join(qa_lines) + "\n" if qa_lines else "")
+                                     + ("\n## Längenziel\n\n" + "\n".join(hints) + "\n" if hints else ""), "utf-8")
     _save(out / "result.json", result)
     progress("Fertig", 1.0)
     return result
