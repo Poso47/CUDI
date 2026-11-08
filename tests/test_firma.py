@@ -326,3 +326,15 @@ def test_workflow_yaml(name):
     assert any("firma_commit.sh" in s.get("run", "") for s in steps)
     if name == "putzen":
         assert wf["permissions"]["actions"] == "write" and wf["permissions"]["issues"] == "write"
+
+
+def test_ideen_ohne_heikle_themen():
+    from cudi_video.firma import ideen
+
+    trends = {"themen": [{"thema": "Russell Brand", "warum": "Wikipedia-Top"},
+                         {"thema": "Erdbeben in Japan", "warum": "Google-Trends"}]}
+    news = {"meldungen": [{"titel": "Gunman kills 6 in Krakow", "status": "bestätigt"},
+                          {"titel": "Neues Teleskop entdeckt Galaxie", "status": "bestätigt"}]}
+    cand = ideen.candidates(trends, news)
+    assert "Russell Brand" in cand and "Neues Teleskop entdeckt Galaxie" in cand
+    assert "Erdbeben in Japan" not in cand and "Gunman kills 6 in Krakow" not in cand

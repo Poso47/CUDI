@@ -144,13 +144,30 @@ def validate_order(order: dict | None, presets: dict[str, dict]) -> str:
     return ""
 
 
+# Aus Leid wird kein Unterhaltungsvideo: Tod, Gewalt, Anschläge, Unglücke, Krieg, Missbrauch, Suizid – solche
+# Trends/Meldungen bleiben Information für den News-Reporter, aber nie Vorlage für eine Videoidee.
+HEIKEL = re.compile(
+    r"\b(tot|tote[nr]?|getötet|stirbt|starb|gestorben|tod(es)?|leiche|mord\w*|ermordet|erschossen|schütze|amok\w*|"
+    r"anschlag\w*|terror\w*|attentat\w*|geisel\w*|krieg\w*|luftangriff\w*|bomb\w*|explosion|opfer|verletzt\w*|"
+    r"unglück\w*|absturz|abgestürzt|erdbeben|flut\w*|katastroph\w*|vergewaltig\w*|missbrauch\w*|suizid\w*|selbstmord|"
+    r"kill\w*|dead|death\w*|dies|died|murder\w*|shoot\w*|shot|gunman|attack\w*|terror\w*|hostage\w*|war|strikes?|"
+    r"bomb\w*|victims?|injur\w*|crash\w*|earthquake|flood\w*|disaster\w*|rape\w*|abuse\w*|suicide)\b", re.I)
+
+
+def heikel(*texts: str) -> bool:
+    return any(HEIKEL.search(t or "") for t in texts)
+
+
 def candidates(trends: dict, news: dict) -> dict[str, dict]:
-    """Erlaubte Quellen für Ideen: Name -> {typ, score, warum}."""
+    """Erlaubte Quellen für Ideen: Name -> {typ, score, warum}. Heikle Themen (Leid) sind ausgeschlossen."""
     out: dict[str, dict] = {}
     for t in (trends.get("themen") or [])[:25]:
+        if heikel(t["thema"], t.get("warum", "")):
+            continue
         out[t["thema"]] = {"typ": "trend", "score": t.get("score"), "kategorie": t.get("kategorie", ""),
                            "warum": t.get("warum", ""), "quellen": sorted({q["quelle"] for q in t.get("quellen", [])})}
-    for m in [m for m in (news.get("meldungen") or []) if m.get("status") == "bestätigt"][:15]:
+    for m in [m for m in (news.get("meldungen") or []) if m.get("status") == "bestätigt"
+              and not heikel(m.get("titel", ""), m.get("kurz", ""))][:15]:
         out.setdefault(m["titel"], {"typ": "news", "score": None, "kategorie": "Ereignis",
                                     "warum": f"bestätigt von {m.get('n_quellen', 2)} Quellen ({m.get('quelle', '')})",
                                     "quellen": [q["quelle"] for q in m.get("quellen", [])][:3]})
