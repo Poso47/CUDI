@@ -33,4 +33,4 @@ jobs:
           CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
         run: python -m cudi_video.firma ideen
       - name: Ergebnis sichern
-        run: scripts/firma_commit.sh "Ideen-Entwickler"
+        run: bash scripts/firma_commit.sh "Ideen-Entwickler"

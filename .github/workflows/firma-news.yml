@@ -29,4 +29,4 @@ jobs:
       - name: News-Reporter arbeitet
         run: python -m cudi_video.firma news
       - name: Ergebnis sichern
-        run: scripts/firma_commit.sh "News-Reporter"
+        run: bash scripts/firma_commit.sh "News-Reporter"

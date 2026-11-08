@@ -39,4 +39,4 @@ jobs:
           CUDI_TIKTOK_REFRESH_TOKEN: ${{ secrets.CUDI_TIKTOK_REFRESH_TOKEN }}
         run: python -m cudi_video.firma lernen
       - name: Ergebnis sichern
-        run: scripts/firma_commit.sh "Lern-Analyst"
+        run: bash scripts/firma_commit.sh "Lern-Analyst"
