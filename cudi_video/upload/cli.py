@@ -51,19 +51,12 @@ def hochladen(args) -> int:
     return code
 
 
-def upload_order(wish: dict, data: dict) -> list[dict]:
-    """Auftragsweg: lädt die fertigen Videos des Ergebnisses hoch. Fehler werden als Eintrag gemeldet, nie geworfen."""
-    from pathlib import Path
-
+def upload_materials(wish: dict, items: list) -> list[dict]:
+    """Lädt [(Sprache, Material)] hoch. Fehler werden als Eintrag gemeldet, nie geworfen."""
     out = []
-    for video in data.get("videos", []):
-        app = Path(video["video"])
-        original = app.with_name(app.stem.removesuffix("_app") + app.suffix)
-        from . import material_for_file
-
-        material = material_for_file(original if original.exists() else app, video.get("key", ""))
+    for key, material in items:
         for target in _targets(wish["ziel"]):
-            entry = {"ziel": target, "sprache": video.get("key", "")}
+            entry = {"ziel": target, "sprache": key}
             try:
                 entry.update(run_one(material, target, wish["sichtbarkeit"]))
                 entry["ok"] = True
@@ -71,6 +64,20 @@ def upload_order(wish: dict, data: dict) -> list[dict]:
                 entry.update(ok=False, fehler=redact(f"{type(exc).__name__}: {exc}")[:300])
             out.append(entry)
     return out
+
+
+def upload_order(wish: dict, data: dict) -> list[dict]:
+    """Auftragsweg: lädt die fertigen Videos des Ergebnisses hoch. Fehler werden als Eintrag gemeldet, nie geworfen."""
+    from pathlib import Path
+
+    from . import material_for_file
+
+    items = []
+    for video in data.get("videos", []):
+        app = Path(video["video"])
+        original = app.with_name(app.stem.removesuffix("_app") + app.suffix)
+        items.append((video.get("key", ""), material_for_file(original if original.exists() else app, video.get("key", ""))))
+    return upload_materials(wish, items)
 
 
 def youtube_login() -> int:

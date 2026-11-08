@@ -41,6 +41,12 @@ def _short_credit(credit: str | None) -> str | None:
     return f"{artist} ({license_name})" if license_name else artist
 
 
+def style_for(spec: VideoSpec) -> dict:
+    """Look eines Videos (Farben, Format, Bewegung) – auch für die Bearbeitungsgrundlage der App."""
+    return pick_style(spec.id, spec.icon, spec.kind, spec.style or os.environ.get("CUDI_FORMAT", ""),
+                      " ".join(spec.title.values()), spec.design)
+
+
 def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) -> list[dict]:
     lang = script.lang
     items = {it.rank: it for it in research.items}
@@ -57,8 +63,7 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
                     else f"As of {as_of}" + (" · Images: Wikimedia Commons" if images else ""))
 
     # Look je Video: Farben passend zum Thema, Format (Bildaufbau) und Bewegung je Video verschieden
-    style = pick_style(spec.id, spec.icon, spec.kind, spec.style or os.environ.get("CUDI_FORMAT", ""),
-                       " ".join(spec.title.values()))
+    style = style_for(spec)
     jobs = []
     for i, seg in enumerate(script.segments):
         lead, tail = LEAD[seg.kind], TAIL[seg.kind]
