@@ -226,7 +226,6 @@ def test_wissen_sammler_mit_gemockten_feeds(daten, monkeypatch):
         assert r["link"].startswith("https://") and r["datum"] and r["quelle"]       # jede Regel mit Quelle + Datum
     assert {r["art"] for r in data["regeln"]} == {"offiziell", "studie"}
     assert len(data["basis"]) == len(wissen.BASIS) >= 10 and all(b["art"] == "basis" for b in data["basis"])
-    assert any("nicht erreichbar" in h for h in data["hinweise"])
     assert common.read_json("status.json")["mitarbeiter"]["wissen"]["ergebnis"] == "ok"
     assert regie.lernstoff()[0]["quelle"]                                         # die Regie liest die Regeln
 
@@ -248,7 +247,7 @@ def test_wissen_alle_quellen_aus_ist_kein_absturz(daten, monkeypatch):
 
     monkeypatch.setattr(wissen, "fetch", down)
     data = wissen.run()
-    assert data["regeln"] == [] and data["basis"] and len(data["hinweise"]) >= 4
+    assert data["regeln"] == [] and data["basis"] and len(data["hinweise"]) >= 2
 
 
 def test_wissen_workflow_yaml():
@@ -299,3 +298,14 @@ def test_natuerlicher_klang_story_und_teilelimit():
     assert " ".join(p.text for p in parts).split() == text.split()
     many = tts.plan_parts(text, "item", "ranking", seed="s")
     assert len(many) <= tts.MAX_PARTS and " ".join(p.text for p in many).split() == text.split()
+
+
+def test_bewertung_ist_streng_gegen_abgehackte_aufzaehlung():
+    abgehackt = "Wir starten mit Platz 3: Kangchendzönga. Berg im Himalaya. Das sind 8.586 Meter. Er liegt an der Grenze zweier Länder."
+    erzaehlt = ("Stell dir vor: Du stehst auf 8.586 Metern – höher als jedes Flugzeug im Landeanflug. Das ist Platz 3, "
+                "Kangchendzönga. Aber warte, es geht noch höher! Wer ist ganz oben?")
+    a, b = (regie.bewerte([("item", t)], "de", "ranking") for t in (abgehackt, erzaehlt))
+    by = {k["id"]: k["score"] for k in a["kriterien"]}
+    assert 0.4 <= a["gesamt"] <= 0.72 and b["gesamt"] >= 0.85
+    assert by["einordnung"] == 0.0 and by["ansprache"] == 0.0 and by["rhythmus"] < 0.2     # Zahl ohne Bild, kein „du“, Telegramm
+    assert "Das sind" in {k["id"]: k["begruendung"] for k in a["kriterien"]}["natuerlich"]

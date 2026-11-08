@@ -49,6 +49,12 @@ BASIS: dict[str, tuple[str, str, str]] = {
     "rhythmus": ("Kurze Sätze, wechselnder Rhythmus",
                  "Kurze Sätze, dazwischen auch mal ein längerer; keine Schachtelsätze; Satzlängen variieren.",
                  "Gleichförmiger Satzbau klingt vorgelesen; Variation hält das Ohr wach."),
+    "verbindung": ("Sätze verbinden",
+                   "Sätze mit und/aber/dann/weil verknüpfen statt Fakten aufzuzählen; jeder Satz knüpft an den vorigen an.",
+                   "Kohärenz erleichtert das Verstehen beim Hören; Aufzählungen wirken wie vorgelesen."),
+    "einordnung": ("Zahlen einordnen",
+                   "Jede wichtige Zahl bekommt ein Bild im Kopf oder einen Vergleich („so hoch wie …“, „nur noch X trennen …“).",
+                   "Zahlen ohne Bezugsgröße werden schlecht behalten (Zahlenverständnis, Praxis der Wissenschaftskommunikation)."),
     "kernaussage": ("Eine Kernaussage pro Szene",
                     "Jede Szene bringt genau eine Hauptidee (höchstens wenige Zahlen), damit man sie beim Hören behält.",
                     "Begrenzte Arbeitsgedächtnis-Kapazität beim Hören (Cognitive-Load-Forschung)."),
@@ -60,10 +66,10 @@ BASIS: dict[str, tuple[str, str, str]] = {
                    "Vorgelesener Schrifttext wirkt künstlich und wird eher weggewischt."),
 }
 
+# Live geprüft (08.11.2026): blog.youtube/rss/ liefert RSS. Die Creator-/News-Unterfeeds des YouTube-Blogs sind 404, der TikTok-Newsroom
+# bietet keinen Feed (alle /rss-Adressen liefern HTML) – darum nur dieser Feed; weitere offizielle Feeds hier eintragen.
 FEEDS = [
     ("YouTube Official Blog", "offiziell", "https://blog.youtube/rss/"),
-    ("YouTube Creators (Blog)", "offiziell", "https://blog.youtube/creator-and-artist-stories/rss/"),
-    ("TikTok Newsroom", "offiziell", "https://newsroom.tiktok.com/en-us/rss"),
 ]
 EUROPE_PMC = "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
 PMC_QUERY = ('(("short-form video" OR "short video" OR TikTok OR "YouTube Shorts") AND (attention OR engagement OR '

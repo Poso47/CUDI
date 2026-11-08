@@ -59,6 +59,19 @@ PAYOFF = {
     "en": re.compile(r"learned today|reveal|number one|at the end|now you know|remember", re.I),
 }
 CTA = re.compile(r"kommentar|folge|follow|comment|\?", re.I)
+VERBINDUNG = {
+    "de": re.compile(r"\b(und|aber|doch|denn|weil|sondern|deshalb|dabei|damit|obwohl|während|trotzdem|dann|danach|also|sogar|"
+                     r"dafür|davon|dort|hier)\b", re.I),
+    "en": re.compile(r"\b(and|but|because|so|yet|while|then|even|though|which|that's|where)\b", re.I),
+}
+EINORDNUNG = {
+    "de": re.compile(r"\b(wie|mehr als|weniger als|doppelt|halb|mal so|so \w+ wie|stell dir|vergleich|fast|etwa|rund|ungefähr|"
+                     r"genug|passt|hinaus|übertrifft|trennen|nur noch)\b", re.I),
+    "en": re.compile(r"\b(like|as \w+ as|more than|less than|twice|half|times|imagine|compared|almost|about|roughly|"
+                     r"enough|fits|beats|separate|only)\b", re.I),
+}
+TELEGRAMM = {"de": re.compile(r"^(das (sind|ist)|es (sind|ist)|höhe:|länge:|fläche:)\b", re.I),
+             "en": re.compile(r"^(that('s| is| are)|it is|there are)\b", re.I)}
 SYMBOLS = re.compile(r"[%°²³&§]|\bkm/h\b|\bm/s\b|\bz\.\s?b\.|\bca\.")
 
 
@@ -138,8 +151,8 @@ def bewerte(segmente: list[tuple[str, str]], lang: str, art: str = "ranking", to
                           + (", Auflösung versprochen" if loop else ", keine Auflösung versprochen")))
 
     hits = sum(bool(MUSTER[lang].search(t)) for t in body)
-    out.append(_kriterium("musterbruch", min(1.0, hits / max(1, len(body)) / 0.8),
-                          f"{hits} von {len(body)} Abschnitten mit Frage, Ansprache oder Zwischen-Aufhänger"))
+    out.append(_kriterium("musterbruch", hits / max(1, len(body)),
+                          f"{hits} von {len(body)} Abschnitten mit Frage, Ansprache oder Mikro-Spannung (Aber/Doch/Gleich)"))
 
     if art in ("ranking", "fakten"):
         rk = sum(bool(FORTSCHRITT.search(t)) for k, t in segmente if k == "item")
@@ -153,18 +166,33 @@ def bewerte(segmente: list[tuple[str, str]], lang: str, art: str = "ranking", to
                           else "Ende ohne Auflösung"))
 
     du = sum(bool(DU[lang].search(t)) for t in texts)
-    out.append(_kriterium("ansprache", min(1.0, du / max(1, len(texts)) / 0.5),
+    need = 0.25 if art == "story" else 0.6
+    out.append(_kriterium("ansprache", min(1.0, du / max(1, len(texts)) / need),
                           f"{du} von {len(texts)} Abschnitten sprechen die Zuschauer direkt an"))
 
-    lengths = [len(s.split()) for s in sents]
+    body_sents = _sentences(body)
+    lengths = [len(x.split()) for x in sents]
     if len(lengths) >= 4:
         cv = statistics.pstdev(lengths) / max(1.0, statistics.mean(lengths))
         longs = sum(x > 25 for x in lengths) / len(lengths)
-        r = min(1.0, cv / 0.45) - 1.5 * longs
-        out.append(_kriterium("rhythmus", r, f"Satzlängen {min(lengths)}–{max(lengths)} Wörter (Streuung {cv:.2f})"
+        tele = sum(len(x.split()) <= 6 and not x.rstrip().endswith(("?", "!")) for x in body_sents) / max(1, len(body_sents))
+        starts = [x.split()[0].lower() for x in body_sents if x.split()]
+        same = max((starts.count(w) for w in set(starts)), default=0) / max(1, len(starts))
+        r = min(1.0, cv / 0.45) - 1.5 * longs - 1.2 * max(0.0, tele - 0.2) - 1.0 * max(0.0, same - 0.3)
+        out.append(_kriterium("rhythmus", r, f"Satzlängen {min(lengths)}–{max(lengths)} Wörter (Streuung {cv:.2f}), "
+                              f"{tele:.0%} Telegramm-Sätze (≤ 6 Wörter), gleiche Satzanfänge {same:.0%}"
                               + (f", {sum(x > 25 for x in lengths)} sehr lange Sätze" if longs else "")))
     else:
         out.append(_kriterium("rhythmus", 0.7, "zu wenige Sätze für eine Rhythmus-Messung"))
+
+    linked = sum(bool(VERBINDUNG[lang].search(t)) for t in body)
+    out.append(_kriterium("verbindung", linked / max(1, len(body)),
+                          f"{linked} von {len(body)} Abschnitten verbinden ihre Sätze (und/aber/dann …) statt aufzuzählen"))
+    with_num = [t for t in body if re.search(r"\d", t)]
+    placed = sum(bool(EINORDNUNG[lang].search(t)) for t in with_num)
+    out.append(_kriterium("einordnung", placed / len(with_num) if with_num else 1.0,
+                          f"{placed} von {len(with_num)} Abschnitten mit Zahl ordnen sie ein (Vergleich/Bild im Kopf)"
+                          if with_num else "keine Zahlen im Text"))
 
     heavy = sum(len(textcheck.numbers(t, lang)) > 3 or len(saetze(t)) > 6 for t in body)
     out.append(_kriterium("kernaussage", 1 - heavy / max(1, len(body)),
@@ -181,9 +209,10 @@ def bewerte(segmente: list[tuple[str, str]], lang: str, art: str = "ranking", to
     f_pen = min(0.5, formal / words_total * 100 * 0.25)
     fill_pen = min(0.3, max(0.0, filler / words_total * 100 - 4) * 0.1)
     avg = statistics.mean(lengths) if lengths else 0
-    nat = 1.0 - f_pen - fill_pen - (0.25 if avg > 18 else 0.0) - (0.2 if lang == "en" and not contr and words_total > 60 else 0.0)
+    muster = sum(bool(TELEGRAMM[lang].match(x)) for x in sents)
+    nat = 1.0 - min(0.4, 0.15 * muster) - f_pen - fill_pen - (0.25 if avg > 18 else 0.0) - (0.2 if lang == "en" and not contr and words_total > 60 else 0.0)
     out.append(_kriterium("natuerlich", nat, f"{formal} Amtsdeutsch-/Formal-Signalwörter, {filler} Füllwörter, "
-                          f"Ø {avg:.0f} Wörter je Satz" + (f", {contr} Kontraktionen" if lang == "en" else "")))
+                          f"Ø {avg:.0f} Wörter je Satz, {muster}× „Das sind/Das ist“-Muster" + (f", {contr} Kontraktionen" if lang == "en" else "")))
     odd = sum(len(SYMBOLS.findall(t)) for t in texts) + sum(
         1 for t in texts for m in re.findall(r"\d[\d.,]*", t) if len(re.sub(r"\D", "", m)) >= 10)
     out.append(_kriterium("sprechbar", 1 - 0.25 * odd, "Zahlen und Einheiten gut sprechbar" if not odd
