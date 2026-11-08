@@ -391,3 +391,89 @@ def test_alte_ideen_werden_nach_heutigen_regeln_nachgeprueft():
     assert not ideen.still_valid({"bereich": "story", "titel": "Aigner", "thema": "", "quelle": {"typ": "news"}})
     assert not ideen.still_valid({"bereich": "fakten", "titel": "x", "thema": "", "hinweis": "Auftrag unvollständig: No module named 'PIL'"})
     assert ideen.still_valid({"bereich": "ranking", "titel": "Die längsten Brücken", "thema": "", "hinweis": "ok"})
+
+
+# --------------------------------------------------------------------------- Welt-Blick und Morgen-Briefing
+
+def _it(titel, pub, land, lang="en", kurz=""):
+    return {"titel": titel, "kurz": kurz, "link": f"https://{pub}.example/{abs(hash(titel)) % 999}", "quelle": pub, "betreiber": pub,
+            "sprache": lang, "zeit": "", "land": land, "art": "privat"}
+
+
+def test_welt_laender_einig_ohne_beteiligte():
+    from cudi_video.firma import welt
+    titel = "Germany expels Russian diplomats over Berlin spy case"
+    items = [_it(titel, "a", "Indien"), _it(titel + " says Berlin", "b", "Kenia"), _it(titel + " report", "c", "Brasilien"),
+             _it(titel + " officials", "d", "Russland")]
+    g = welt.build_groups(items, [])[0]
+    assert g["laender_einig"] == ["Brasilien", "Indien", "Kenia"] and g["bestaetigt_laender"]
+    assert "Russland" in g["beteiligte_laender"] and g["quellen"][-1]["beteiligt"] in (True, False)
+    assert any(q["beteiligt"] and q["land"] == "Russland" for q in g["quellen"])
+    assert len(g["zusammenfassung"]) <= 5
+
+
+def test_welt_nur_ausland_und_deutscher_abgleich():
+    from cudi_video.firma import welt
+    t = "Merz announces Bundestag vote on pension reform in Berlin"
+    items = [_it(t, "a", "Indien"), _it(t + " today", "b", "Kenia")]
+    assert welt.build_groups(items, [])[0]["nur_ausland"]
+    de = [{"titel": "Merz kündigt Bundestag Abstimmung zur Rentenreform an", "kurz": "", "quelle": "Tagesschau", "link": "https://x/1"}]
+    g = welt.build_groups(items, de)[0]
+    assert not g["nur_ausland"] and g["deutsch_quellen"]
+
+
+def test_welt_deutschlandfilter_und_ausfall(monkeypatch):
+    from cudi_video.firma import welt
+    assert welt.about_germany({"titel": "Allemagne: Berlin annonce", "kurz": ""}) and not welt.about_germany({"titel": "Cricket final", "kurz": ""})
+    monkeypatch.setattr(welt, "FEEDS", [("X", "x", "en", "Indien", "privat", "u")])
+    monkeypatch.setattr(welt, "feed", lambda *a: (_ for _ in ()).throw(requests.ConnectionError("down")))
+    monkeypatch.setattr(welt, "gdelt", lambda: [])
+    out = welt.run()
+    assert out == {} or out.get("themen") in (None, [])
+    assert common.read_json("status.json")["mitarbeiter"]["welt"]["ergebnis"] == "fehler"
+
+
+def test_briefing_regeln_archiv_und_quellen(monkeypatch):
+    from cudi_video.firma import briefing
+    common.write_json("news.json", {"meldungen": [
+        {"titel": "Trains collide in Egypt, seven dead", "kurz": "", "link": "https://a/1", "quelle": "BBC", "status": "bestätigt", "n_quellen": 2,
+         "quellen": [{"quelle": "BBC", "titel": "Trains collide in Egypt, seven dead", "link": "https://a/1"},
+                     {"quelle": "DW", "titel": "Egypt trains collide, seven people dead", "link": "https://b/2"}]},
+        {"titel": "Falsch gruppiert", "kurz": "", "link": "https://c", "quelle": "X", "status": "bestätigt", "n_quellen": 2,
+         "quellen": [{"quelle": "X", "titel": "Falsch gruppiert", "link": "https://c"},
+                     {"quelle": "Y", "titel": "Ganz anderes Thema hier", "link": "https://d"}]},
+        {"titel": "Nur eine Quelle meldet das", "kurz": "", "link": "https://e", "quelle": "Z", "status": "unbestätigt", "n_quellen": 1}]})
+    common.write_json("welt.json", {"themen": [{"titel": "Merz visit", "link": "https://w", "ausland_quellen": 2, "nur_ausland": True,
+                                                 "laender": ["Indien"], "laender_einig": [], "bestaetigt_laender": False,
+                                                 "quellen": [{"quelle": "TOI", "land": "Indien", "link": "https://w"}]}],
+                                    "verbindungen": [{"name": "Ilse Aigner", "wikidata": "https://www.wikidata.org/wiki/Q1", "themen": ["Merz visit"],
+                                                      "verbindungen": [{"eigenschaft": "Partei", "wert": "CSU", "link": "https://www.wikidata.org/wiki/Q2"}]}]})
+    common.write_json("briefing_archiv.json", {"eintraege": [{"datum": "2000-01-01", "titel": "Trains collide in Egypt", "link": "https://old",
+                                                              "tokens": sorted(news.tokens("Trains collide in Egypt, seven dead"))}]})
+    data = briefing.run()
+    text = (common.DATA_DIR / "briefing.md").read_text("utf-8")
+    assert data["modus"] == "regeln" and "Falsch gruppiert" not in text and "OFFENE FRAGE (unbelegt)" in text
+    assert "wikidata.org/wiki/Q2" in text and "Frühere Meldung vom 2000-01-01" in text
+    arch = common.read_json("briefing_archiv.json")["eintraege"]
+    assert all(e["datum"] != "2000-01-01" for e in arch) and any(e["titel"].startswith("Trains") for e in arch)
+
+
+def test_briefing_llm_pruefung():
+    from cudi_video.firma import briefing
+    src = "Sieben Tote bei Zugunglück in Ägypten."
+    assert not briefing.check_overview("Sieben Tote in Ägypten.", src)
+    assert briefing.check_overview("Zwölf Tote in Ägypten.", src)
+    assert briefing.check_overview("Dazu https://x.de", src)
+
+
+def test_workflows_welt_briefing():
+    for name, needle in (("firma-welt.yml", "firma_commit.sh"), ("firma-briefing.yml", "gh issue create")):
+        wf = yaml.safe_load((ROOT / ".github" / "workflows" / name).read_text("utf-8"))
+        assert wf["concurrency"]["group"] == "firma-daten" and needle in (ROOT / ".github" / "workflows" / name).read_text("utf-8")
+    assert yaml.safe_load((ROOT / ".github/workflows/firma-briefing.yml").read_text("utf-8"))[True]["schedule"][0]["cron"] == "13 5 * * *"
+
+
+def test_briefing_uebersicht_ohne_interna():
+    from cudi_video.firma import briefing
+    assert "Interna im Text" in briefing.check_overview("Sprachmodell und GDELT waren nicht erreichbar.", "x")
+    assert briefing.check_overview("Merz will Aigner vorschlagen.", "Merz will Aigner vorschlagen.") == []

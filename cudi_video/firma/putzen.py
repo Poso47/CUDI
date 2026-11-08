@@ -16,6 +16,7 @@ from .common import fetch, iso, now
 API = "https://api.github.com"
 ARTIFACT_DAYS, RUN_DAYS, ISSUE_DAYS, TREND_DAYS, IDEA_DAYS = 7, 30, 14, 2, 7
 ISSUE_MARKER = "cudi-auftrag"
+BRIEFING_MARKER = "briefing"
 MAX_DELETES = 300                       # je Lauf, damit der Job kurz bleibt (Rest folgt am nächsten Tag)
 LOG_KEEP = 60
 
@@ -67,13 +68,14 @@ def clean_runs(gh: GitHub) -> int:
 
 def lock_issues(gh: GitHub) -> int:
     limit, n = now() - timedelta(days=ISSUE_DAYS), 0
-    for issue in list(gh.pages("/issues", None, {"state": "closed", "labels": ISSUE_MARKER})):
-        closed = common.parse_time(issue.get("closed_at") or "")
-        done = issue.get("state") == "closed" and issue.get("state_reason") == "completed"
-        if ("pull_request" not in issue and done and not issue.get("locked") and closed and closed < limit
-                and ISSUE_MARKER in [lb.get("name") for lb in issue.get("labels", [])]):
-            gh.lock(issue["number"])
-            n += 1
+    for marker in (ISSUE_MARKER, BRIEFING_MARKER):
+        for issue in list(gh.pages("/issues", None, {"state": "closed", "labels": marker})):
+            closed = common.parse_time(issue.get("closed_at") or "")
+            done = issue.get("state") == "closed" and issue.get("state_reason") == "completed"
+            if ("pull_request" not in issue and done and not issue.get("locked") and closed and closed < limit
+                    and marker in [lb.get("name") for lb in issue.get("labels", [])]):
+                gh.lock(issue["number"])
+                n += 1
     return n
 
 

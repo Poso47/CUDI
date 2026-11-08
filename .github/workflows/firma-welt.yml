@@ -1,0 +1,32 @@
+# Firma-Mitarbeiter „Welt-Blick“ (kostenlos, kein Claude-Verbrauch): schreibt firma_daten/welt.json, sichert per Bot-Commit.
+# Siehe CLAUDE.md, Abschnitt „Firma-Mitarbeiter (GitHub)“.
+name: Firma · Welt-Blick
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Alle Firma-Läufe nacheinander, damit sich die Commits nicht in die Quere kommen
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  welt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml
+      - name: Welt-Blick arbeitet
+        run: python -m cudi_video.firma welt
+      - name: Ergebnis sichern
+        run: bash scripts/firma_commit.sh "Welt-Blick"

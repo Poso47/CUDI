@@ -132,6 +132,7 @@ für TikTok/YouTube Shorts.
   sperren, `firma_daten/` ausdünnen → `putzen.json`; Probelauf `CUDI_PUTZEN_TROCKEN=1`). `status.json` = letzter Lauf/Dauer/Ergebnis/nächste Planung je Mitarbeiter
   (Grundlage fürs 3D-Büro). Jede Quelle einzeln abgesichert (Ausfall = Hinweis). Lokal: `python -m cudi_video.firma <trends|news|ideen|putzen>`,
   Ausgabeordner per `CUDI_FIRMA_DATEN` umlenkbar; Tests `tests/test_firma.py`.
+  **Welt-Blick** (`welt.py`, alle 6 h, `firma-welt.yml`): ausländische RSS (auch ferne Länder: Indien, Philippinen, Kenia, Nigeria, Südafrika, PNG, Argentinien, Brasilien; `land`, `art: staatsnah`; kein RT/Sputnik) + GDELT „Germany“ (ein Abruf) → `welt.json`: Themen mit Deutschland-Bezug, Abgleich mit `news.json` (`deutsch_quellen`, `nur_ausland`), Kernregel `laender_einig` (≥ 3 verschiedene Länder, direkt beteiligte Länder per Namenstabelle `beteiligt` zählen nicht), Zusammenfassung ≤ 5 Zeilen nur aus Titeln; belegte Verbindungen nur aus Wikidata mit Link (max. 5 Abfragen/Lauf, Cache). **Morgen-Briefing** (`briefing.py`, täglich 5:13 UTC, `firma-briefing.yml`): `briefing.json`/`.md` aus allen Mitarbeiter-Daten, nur belegte Punkte mit Links, Unbelegtes nur als „OFFENE FRAGE“, Übersicht optional per LLM (geprüft mit `textcheck`, sonst Regeln), Archiv `briefing_archiv.json` (30 T., Hinweis auf frühere ähnliche Meldung ohne Wertung); Workflow legt GitHub-Issue „CUDI-Briefing <Datum>“ (Label `briefing`) an und schließt das Vortags-Issue; Putzmann sperrt alte Briefing-Issues.
   **Onkel-Büro** (Firma-Tab, 3D): alle Figuren sind freundliche Onkels (Bärte, Takke/Kufi/Kappe, Weste in Rollenfarbe, Teeglas am Tisch; Teppich-Canvas,
   Arkade, Laternen, Pflanzen); je GitHub-Mitarbeiter eine Station (Trend-Wand, News-Pult, Ideen-Tafel, Bücherregal, Lern-Diagramm, Waage; Putz-Onkel läuft mit
   Besen), Chips + Liste als Touch-/Ersatzansicht; Karte zeigt Top-3-Trends/bestätigte News/Ideen mit „Starten“ (`startJob`)/Wissensregeln/Putzbericht.
@@ -159,6 +160,9 @@ für TikTok/YouTube Shorts.
   Hauptsitzung die Arbeit selbst statt einen Agenten zu starten.
 - **Lösungsorientiert:** Scheitert ein Weg, wird nicht aufgegeben. Erst Ursache lesen, dann reparieren, dann einen anderen kostenlosen
   Weg suchen, dann kleiner schneiden, erst dann fragen (Skill `ausweg-finden`). Die Regeln bleiben dabei bestehen.
+- **Agenten untereinander:** Sie dürfen sich direkt schreiben, helfen und voneinander lernen (ANFRAGE, ANTWORT und HINWEIS nach
+  Vorlage, höchstens 3 Nachrichten je Anliegen). Sie ändern nie die Dateien eines anderen, und Rechte reichen sie nicht weiter. Regeln dazu:
+  `docs/kommunikation.md` → „Zusammenarbeit der Agenten“.
 - Agenten arbeiten immer in einem eigenen Worktree (`isolation: "worktree"`), nie im Hauptordner.
 
 ## Sparsam mit dem Nutzungslimit (Wunsch des Nutzers: gleiche Qualität, weniger Verbrauch)
