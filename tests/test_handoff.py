@@ -208,6 +208,10 @@ def test_story_edit_by_claude_is_checked_scene_by_scene(writing, monkeypatch):
     reply[-1]["text"] = scenes[-1] + " Jessica never believed me."          # neuer Name -> Regel-Fassung
     answer(need.value.path, {"titel": "Something in the trees", "hook": "The light between the trees moved "
                              "when I moved.", "szenen": reply})
+    with pytest.raises(handoff.WritingNeeded) as regie_task:                 # danach genau eine Regie-Runde
+        editor.build_skeleton(post, lang="en", mood="creepy", use_llm=False)
+    assert regie_task.value.path.name == "schreiben_regie.json"
+    answer(regie_task.value.path, {"en": {"hook_kandidaten": [], "abschnitte": {}}})
     sk = editor.build_skeleton(post, lang="en", mood="creepy", use_llm=False)
     texts = [s["text"] for p in sk["parts"] for s in p["scenes"]]
     assert sk["editor"] == "Claude-Lektorat" and sk["title"] == "Something in the trees"

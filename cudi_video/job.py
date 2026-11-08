@@ -349,6 +349,10 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
             "tiktok": _read(out / files["caption_file"]) if files.get("caption_file") else "",
         })
     data["pruefbericht"] = _read(out / "review.md", MAX_REVIEW)
+    try:                                                      # Regie & Psychologie: Score vorher/nachher, Änderungen
+        data["regie"] = json.loads((out / "regie.json").read_text("utf-8"))
+    except (OSError, ValueError):
+        pass
     if held and not data["videos"]:                          # ehrlich: lieber kein Video als ein unwahres oder fehlerhaftes
         data["fehler"] = "Nicht ausgeliefert, weil die Endabnahme nicht bestanden ist: " + " | ".join(held)
         data["wiederholbar"] = False

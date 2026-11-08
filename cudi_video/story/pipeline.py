@@ -147,7 +147,11 @@ def render(folder_path: Path, skeleton: dict | None = None, progress=lambda stag
         cap.write_text(meta["caption"] + "\n", "utf-8")
         key = f"{lang} · Teil {i + 1}" if n_parts > 1 else lang
         result["videos"][key] = {**files, "description_file": desc.name, "caption_file": cap.name, "metadata": meta}
-    (folder / "review.md").write_text(review(skeleton, visuals, result), "utf-8")
+    from .. import regie
+
+    (folder / "review.md").write_text(review(skeleton, visuals, result) + "\n" + regie.review_section(skeleton.get("regie")), "utf-8")
+    if skeleton.get("regie"):
+        (folder / "regie.json").write_text(json.dumps(skeleton["regie"], ensure_ascii=False, indent=1), "utf-8")
     (folder / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), "utf-8")
     progress("Fertig", 1.0)
     return result
