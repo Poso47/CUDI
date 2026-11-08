@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 
 from .. import config
-from ..render import video
+from ..render import audio, video
 from ..tts import voice_texts
 
 # Sprechprofil „erklaer“: ruhig, etwas tiefer und langsamer, längere Atempausen als bei Rankings
@@ -36,7 +36,7 @@ def build_jobs(script: dict, voiced: list[tuple[Path, list[dict], float]], work:
     return jobs
 
 
-def build_audio(jobs: list[dict], path: Path) -> None:
+def build_audio(jobs: list[dict], path: Path, music_style: str | None = None, seed_key: str = "") -> None:
     """Nur Stimme (kein Übergangs-Rauschen: die Szenen blenden weich ineinander)."""
     rate = video.SAMPLE_RATE
     total = int(sum(j["duration"] for j in jobs) * rate) + rate
@@ -47,9 +47,11 @@ def build_audio(jobs: list[dict], path: Path) -> None:
         s = int((t + job["lead"]) * rate)
         track[s:s + len(clip)] += clip[: max(0, total - s)]
         t += job["duration"]
-    music = video._music_track(total)
-    if music is not None:
-        track += music / (np.abs(music).max() + 1e-9) * 0.07
+    if music_style is not None and audio.enabled():
+        music = video._music_track(total)
+        if music is None:
+            music = audio.generate_music(music_style, total / rate, path.parent, seed_key, video._decode)
+        track += audio.mix_music(track, music)
     track = track / (np.abs(track).max() or 1.0) * 0.89
     with wave.open(str(path), "wb") as w:
         w.setnchannels(1)
@@ -78,13 +80,16 @@ def render_erklaerung(script: dict, out_dir: Path | None = None, progress=None) 
     silent = work / "video_only.mp4"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat), "-c", "copy",
                     str(silent)], check=True)
-    audio = work / "audio.wav"
-    build_audio(jobs, audio)
+    audio_file = work / "audio.wav"
+    build_audio(jobs, audio_file, music_style=audio.music_style("erklaer", STYLE.get("format", "manuskript"), script["titel"]),
+                seed_key=script["id"])
     final = out_dir / f"{script['id']}.mp4"
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(silent), "-i", str(audio), "-af",
-                    "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", str(video.SAMPLE_RATE), "-c:v", "copy", "-c:a", "aac",
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(silent), "-i", str(audio_file), "-af",
+                    "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", str(video.SAMPLE_RATE), "-c:v", "copy", "-c:a", "aac",
                     "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(final)], check=True)
+    from .. import qa
+    qa_block = qa.safe_check(final, "erklaer", config.STORY_MAX_SECONDS)
     cover = out_dir / f"{script['id']}_cover.jpg"
     video.render_frame(jobs[0], min(2.5, jobs[0]["duration"] - 0.1), cover)
     return {"video": final.name, "cover": cover.name, "duration": round(sum(j["duration"] for j in jobs), 1),
-            "folder": str(out_dir)}
+            "folder": str(out_dir), "qa": qa_block}

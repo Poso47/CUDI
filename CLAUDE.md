@@ -99,6 +99,8 @@ für TikTok/YouTube Shorts.
   Spannungspausen zusammengesetzt (`assemble_parts`, Wortzeiten wandern mit; Grundtempo `+0%`). Profil nach Videoart
   (`speech_profile(spec.kind)`): ranking (Pausen vor Platz/Zahl), fakten (Frage, Pause vor dem Aha, ruhiger Erklärteil), erklaer (ruhig,
   gleichmäßig), Story je Stimmung (`plan_story_parts`: Pause vor Wendung/Pointe). `CUDI_SPEECH_PROFILE=ranking|fakten|erklaer|aus` überschreibt.
+- Endkontrolle (`qa.py`, nach dem Render in `render_video`/Erklär-Render, für Story/Clip in `job._summary`): blackdetect, freezedetect (nur Ranking/Fakten), ebur128 (−14 LUFS ±1, TP ≤ −1), Dauer, 1080×1920, Sync, Safe-Zones über Layout-Konstanten; Lautheit wird einmal per zweistufigem `loudnorm` korrigiert, Befunde nur als Hinweise (`ergebnis.json` Feld `qa`, `review.md` „Endkontrolle“, nie Abbruch).
+- Musik für Ranking/Fakten/Erklär (`render/audio.py`: Stil je Videoart/Format/Thema aus `story/music.py`, selbst erzeugt, Ducking unter der Stimme, Akzent-Ton je Platz-Enthüllung; Datei in `assets/music` hat Vorrang; abschaltbar `CUDI_MUSIK=0`).
 - **Clip-Engine** (`cudi_video/clip/`, CLI `python -m cudi_video clip <datei|url>`, Doku README_VIDEO.md): Podcast-/Streamer-Clips
   1080×1920 (faster-whisper → Höhepunkt/Hook nach Regeln, optional Claude-Auswahl `clip_hook` über `handoff` → Pausenschnitt →
   Sprecher-Zuschnitt mit YuNet/Haar → ASS-Untertitel). App-Auftrag `art: "clip"` (`job._clip`): Pflichtfeld `bestaetigt_erlaubnis`,
@@ -129,7 +131,7 @@ für TikTok/YouTube Shorts.
 
 - Tests: `python -m pytest tests -q` (lokal ~15 s; GitHub-Workflow „Tests“ installiert ffmpeg).
 - Ausgaben nur in `video_output/` (gitignored); Arbeitsdateien in `video_output/_work/`.
-- Commits auf Deutsch, Push auf den eigenen Zweig; PRs nur auf Wunsch, Merge nur mit OK des Nutzers.
+- Commits auf Deutsch, Push auf den eigenen Zweig. **Merge: Der Nutzer hat dauerhaft erlaubt, fertige und in der Hauptsitzung geprüfte Pakete selbst per PR zu mergen** (ganze Suite grün); danach kurz berichten.
 - Textprüfungen für Claude-Texte (Zahlen werttreu, Vornamen, ganze Wörter als Beleg): `cudi_video/textcheck.py`.
 - Probeläufe in der Cloud: Auftrag als `jobs/<id>` anlegen (ArtifactData), `fire_trigger` mit dem JSON, dann
   `jobs/<id>.session` setzen; Ergebnis in `results/<id>`, Videos als Assets (Artifact read mit `path` = Asset-ID).

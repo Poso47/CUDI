@@ -310,13 +310,18 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
     for key, files in result.get("videos", {}).items():
         video = out / files["video"]
         long_video = (files.get("duration") or _duration(video)) > 185
+        if not files.get("qa") and result.get("kind") in ("story", "clip"):          # Ranking/Erklär prüfen schon beim Rendern
+            from . import qa
+            files["qa"] = qa.safe_check(video, result["kind"])
+            data["hinweise"] += [f"Endkontrolle: {b}" for b in (files["qa"] or {}).get("befunde", [])]
+            data["hinweise"] = data["hinweise"][:20]
         app = app_version(video, video.with_name(video.stem + "_app.mp4"), LONG_APP_BUDGET if long_video else APP_BUDGET)
         chunks = split_for_app(app)
         cover = out / files["cover"] if files.get("cover") and (out / files["cover"]).exists() else None
         data["videos"].append({
             "key": key, "video": str(app), "cover": str(cover) if cover else None,
             "teile": [str(c) for c in chunks] if len(chunks) > 1 else [],
-            "dauer": files.get("duration"), "mb": round(app.stat().st_size / 1048576, 1),
+            "qa": files.get("qa"), "dauer": files.get("duration"), "mb": round(app.stat().st_size / 1048576, 1),
             "youtube": _read(out / files["description_file"]) if files.get("description_file") else "",
             "tiktok": _read(out / files["caption_file"]) if files.get("caption_file") else "",
         })
