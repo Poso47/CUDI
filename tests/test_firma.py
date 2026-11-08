@@ -328,7 +328,7 @@ def test_workflow_yaml(name):
         assert wf["permissions"]["actions"] == "write" and wf["permissions"]["issues"] == "write"
 
 
-def test_ideen_ohne_heikle_themen():
+def test_heikle_themen_nur_als_reportage():
     from cudi_video.firma import ideen
 
     trends = {"themen": [{"thema": "Russell Brand", "warum": "Wikipedia-Top"},
@@ -336,5 +336,8 @@ def test_ideen_ohne_heikle_themen():
     news = {"meldungen": [{"titel": "Gunman kills 6 in Krakow", "status": "bestätigt"},
                           {"titel": "Neues Teleskop entdeckt Galaxie", "status": "bestätigt"}]}
     cand = ideen.candidates(trends, news)
-    assert "Russell Brand" in cand and "Neues Teleskop entdeckt Galaxie" in cand
-    assert "Erdbeben in Japan" not in cand and "Gunman kills 6 in Krakow" not in cand
+    assert not cand["Russell Brand"]["heikel"] and not cand["Neues Teleskop entdeckt Galaxie"]["heikel"]
+    assert cand["Erdbeben in Japan"]["heikel"] and cand["Gunman kills 6 in Krakow"]["heikel"]
+    raw = [{"bereich": "fakten", "titel": "Spannende Fakten", "thema": "Erdbeben in Japan", "quelle_trend": "Erdbeben in Japan"}]
+    out = ideen.finish(raw, cand, {}, False, [], set())
+    assert out and out[0]["bereich"] == "reportage" and out[0]["regeln"] and out[0]["app_auftrag"] is False

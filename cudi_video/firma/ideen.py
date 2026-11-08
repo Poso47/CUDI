@@ -15,7 +15,7 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 from . import common
 from .common import iso, now
 
-AREAS = ("ranking", "fakten", "story", "erklaer")
+AREAS = ("ranking", "fakten", "story", "erklaer", "reportage")
 PER_AREA = (3, 5)
 KEEP_DAYS = 7
 MAX_PER_AREA = 15
@@ -145,7 +145,10 @@ def validate_order(order: dict | None, presets: dict[str, dict]) -> str:
 
 
 # Aus Leid wird kein Unterhaltungsvideo: Tod, Gewalt, Anschläge, Unglücke, Krieg, Missbrauch, Suizid – solche
-# Trends/Meldungen bleiben Information für den News-Reporter, aber nie Vorlage für eine Videoidee.
+# Themen werden ausschließlich zu sachlichen Reportage-Ideen (Bereich „reportage“) mit festen Regeln.
+REPORTAGE_REGELN = ("Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten "
+                    "mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; "
+                    "Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.")
 HEIKEL = re.compile(
     r"\b(tot|tote[nr]?|getötet|stirbt|starb|gestorben|tod(es)?|leiche|mord\w*|ermordet|erschossen|schütze|amok\w*|"
     r"anschlag\w*|terror\w*|attentat\w*|geisel\w*|krieg\w*|luftangriff\w*|bomb\w*|explosion|opfer|verletzt\w*|"
@@ -159,16 +162,13 @@ def heikel(*texts: str) -> bool:
 
 
 def candidates(trends: dict, news: dict) -> dict[str, dict]:
-    """Erlaubte Quellen für Ideen: Name -> {typ, score, warum}. Heikle Themen (Leid) sind ausgeschlossen."""
+    """Erlaubte Quellen für Ideen: Name -> {typ, score, warum, heikel}. Heikle Themen nur als Reportage (siehe finish)."""
     out: dict[str, dict] = {}
     for t in (trends.get("themen") or [])[:25]:
-        if heikel(t["thema"], t.get("warum", "")):
-            continue
-        out[t["thema"]] = {"typ": "trend", "score": t.get("score"), "kategorie": t.get("kategorie", ""),
+        out[t["thema"]] = {"typ": "trend", "heikel": heikel(t["thema"], t.get("warum", "")), "score": t.get("score"), "kategorie": t.get("kategorie", ""),
                            "warum": t.get("warum", ""), "quellen": sorted({q["quelle"] for q in t.get("quellen", [])})}
-    for m in [m for m in (news.get("meldungen") or []) if m.get("status") == "bestätigt"
-              and not heikel(m.get("titel", ""), m.get("kurz", ""))][:15]:
-        out.setdefault(m["titel"], {"typ": "news", "score": None, "kategorie": "Ereignis",
+    for m in [m for m in (news.get("meldungen") or []) if m.get("status") == "bestätigt"][:15]:
+        out.setdefault(m["titel"], {"typ": "news", "score": None, "heikel": heikel(m.get("titel", ""), m.get("kurz", "")), "kategorie": "Ereignis",
                                     "warum": f"bestätigt von {m.get('n_quellen', 2)} Quellen ({m.get('quelle', '')})",
                                     "quellen": [q["quelle"] for q in m.get("quellen", [])][:3]})
     return out
@@ -208,6 +208,10 @@ def rule_ideas(trends: dict, cand: dict[str, dict], presets: dict[str, dict]) ->
         name, cat = t["thema"], t.get("kategorie", "Thema")
         if name not in cand or len(name) > 70:
             continue
+        if cand[name].get("heikel"):
+            ideas.append({"bereich": "reportage", "titel": f"Was wir über {name} wissen"[:60],
+                          "thema": f"Sachliche Reportage: {name}", "quelle_trend": name})
+            continue
         reddit = any(q["quelle"] == "reddit" for q in t.get("quellen", []))
         if reddit:
             ideas.append({"bereich": "story", "titel": name[:60], "thema": f"Geschichte rund um: {name}",
@@ -240,14 +244,17 @@ def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use
         src = match_source(str(r.get("quelle_trend", "")), cand)
         if area not in AREAS or not titel or not thema or not src:
             continue                                      # ohne Beleg in den Daten keine Idee
+        if cand[src].get("heikel") or area == "reportage":
+            area = "reportage"                            # Leid nie als Unterhaltung – nur sachliche Reportage
         ident = "idee-" + hashlib.sha1(f"{area}|{_norm(thema)}".encode()).hexdigest()[:8]
         if ident in known or per_area[area] >= PER_AREA[1]:
             continue
         per_area[area] += 1
         check = (check_ranking(thema, 10, presets, probes, use_llm) if area == "ranking"
-                 else {"geprueft": "idee", "hinweis": "Fakten entstehen erst in der geprüften Pipeline"})
-        order = build_order(area, {"thema": thema}, check)
-        problem = validate_order(order, presets)
+                 else {"geprueft": "idee", "hinweis": REPORTAGE_REGELN if area == "reportage"
+                       else "Fakten entstehen erst in der geprüften Pipeline"})
+        order = None if area == "reportage" else build_order(area, {"thema": thema}, check)
+        problem = "" if area == "reportage" else validate_order(order, presets)
         if problem:
             check = {"geprueft": "idee", "hinweis": f"Auftrag unvollständig: {problem}"}
             order = build_order(area, {"thema": thema}, {})
@@ -256,6 +263,8 @@ def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use
                  "quelle": {"name": src, **{k: v for k, v in cand[src].items() if k in ("typ", "score", "quellen")}},
                  "geprueft": check["geprueft"], "hinweis": check.get("hinweis", ""),
                  "auftrag": order, "app_auftrag": bool(order and order["art"] != "erklaer"), "erstellt": iso()}
+        if area == "reportage":
+            entry["regeln"] = REPORTAGE_REGELN
         if check.get("plan"):
             entry["plan"] = check["plan"]
         out.append(entry)
