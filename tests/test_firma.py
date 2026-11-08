@@ -361,3 +361,17 @@ def test_export_kompakt(daten, tmp_path, monkeypatch):
     assert data["status"]["trends"]["ergebnis"] == "ok" and len(data["status"]["trends"]["hinweise"]) == 3
     assert export.write() is False                                    # unverändert -> kein neuer Commit
     assert "cudi_video.firma export" in (ROOT / "scripts/firma_commit.sh").read_text("utf-8")
+
+
+def test_news_cluster_zieht_keine_fremde_meldung_ueber_wortmenge():
+    from cudi_video.firma import news
+    def it(titel, pub):
+        return {"titel": titel, "kurz": "", "link": "https://" + pub, "quelle": pub, "betreiber": pub,
+                "sprache": "en", "zeit": ""}
+    out = news.cluster([
+        it("Seven dead and more than 100 injured after trains collide in Egypt", "bbc.com"),
+        it("Egypt train crash leaves several dead, over 100 injured", "dw.com"),
+        it("Eight people are killed and another is injured in a shooting spree in Turkey", "apnews.com"),
+    ])
+    egypt = next(m for m in out if "Egypt" in m["titel"])
+    assert egypt["n_quellen"] == 2 and all("Turkey" not in q["titel"] for q in egypt["quellen"])

@@ -154,12 +154,14 @@ def cluster(items: list[dict]) -> list[dict]:
         if len(tok) < 2:
             continue
         for g in groups:
-            if g["sprache"] == it["sprache"] and similar(tok, g["tok"]):
+            # mit einzelnen Meldungen vergleichen, nicht mit der wachsenden Wortmenge der Gruppe
+            # (sonst rutschen fremde Meldungen über gemeinsame Allerweltswörter hinein)
+            if g["sprache"] == it["sprache"] and any(similar(tok, t) for t in g["toks"]):
                 g["items"].append(it)
-                g["tok"] |= tok
+                g["toks"].append(tok)
                 break
         else:
-            groups.append({"tok": set(tok), "sprache": it["sprache"], "items": [it]})
+            groups.append({"toks": [tok], "sprache": it["sprache"], "items": [it]})
     out = []
     for g in groups:
         its = g["items"]
