@@ -316,7 +316,7 @@ def test_short_error_ohne_abfrage_teil():
     assert "GEHEIM" not in common.short_error(exc)
 
 
-@pytest.mark.parametrize("name", ["trends", "news", "ideen", "putzen", "lernen"])
+@pytest.mark.parametrize("name", ["trends", "news", "ideen", "putzen", "lernen", "wissen"])
 def test_workflow_yaml(name):
     wf = yaml.safe_load((ROOT / f".github/workflows/firma-{name}.yml").read_text("utf-8"))
     assert wf[True]["schedule"][0]["cron"] and "workflow_dispatch" in wf[True]

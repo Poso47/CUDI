@@ -109,6 +109,10 @@ def voice_within_limit(spec: VideoSpec, research: Research, script: Script, out:
         for scale, detail in candidates:
             candidate = build_script(spec, research, script.lang, use_llm=use_llm, budget_scale=scale, detail=detail)
             if pruefer:
+                from . import regie
+
+                regie.wieder_anwenden(candidate, pruefer)          # Hook/Schluss der Regie bleiben auch in der gekürzten Fassung
+            if pruefer:
                 pruefer.korrigiere_skript(candidate)
             guess = estimate(candidate, speed)
             if guess > limit - 2:
@@ -203,6 +207,12 @@ def run(
     from . import wahrheit
 
     pruefer = wahrheit.Pruefer(spec, research)
+    from . import regie
+
+    regie_block = regie.verbessere(spec, research, scripts, pruefer, use_llm)       # Psychologie + natürlicher Klang (max. 1 Runde)
+    _save(out / "regie.json", regie_block)
+    for s in scripts:
+        _save(out / f"script_{s.lang}.json", s.to_dict())
     metas = {s.lang: build_metadata(spec, research, s, titles_llm) for s in scripts}
     pruefer.gegenlesen(scripts, metas)                  # optional: Claude/Notbetrieb liest gegen (kann WritingNeeded werfen)
     for s in scripts:
@@ -212,9 +222,10 @@ def run(
     _save(out / "spec.json", spec.to_dict())            # Titel kann bei falscher Anzahl berichtigt sein
     truth_review = lambda: wahrheit.review_section(pruefer, gruende)      # noqa: E731
     gruende: dict[str, list[str]] = {}
-    (out / "review.md").write_text(wahrheit.in_review(build_review(spec, research, scripts), truth_review()), "utf-8")
+    (out / "review.md").write_text(wahrheit.in_review(build_review(spec, research, scripts),
+                                                      truth_review() + "\n" + regie.review_section(regie_block)), "utf-8")
 
-    result = {"output_dir": str(out), "warnings": research.warnings, "videos": {}}
+    result = {"output_dir": str(out), "warnings": research.warnings, "videos": {}, "regie": regie_block}
     for lang_, done in pruefer.protokoll.items():
         if done:
             result["warnings"] = list(result["warnings"]) + [
@@ -255,7 +266,7 @@ def run(
 
     hints = [f"- {lang}: {f['metadata']['length_hint']}" for lang, f in result["videos"].items()
              if (f.get("metadata") or {}).get("length_hint")]
-    review = wahrheit.in_review(build_review(spec, research, scripts), truth_review())      # endgültige Texte
+    review = wahrheit.in_review(build_review(spec, research, scripts), truth_review() + "\n" + regie.review_section(regie_block))
     _save(out / "wahrheit.json", {lang: b.to_dict() for lang, b in pruefer.berichte.items()})
     qa_lines = [f"- {lang}: " + ("bestanden" if f["qa"]["ok"] else "; ".join(f["qa"]["befunde"]))
                 + f" (Lautheit {f['qa']['lufs_vor']} -> {f['qa']['lufs_nach']} LUFS)"

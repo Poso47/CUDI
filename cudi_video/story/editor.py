@@ -409,6 +409,13 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
             recent = {v[0].removesuffix(" dark") for v in visuals_t[-2:]}      # keine direkte Wiederholung
             visuals_t.append(visual_for(src, mood, i, recent))
 
+    from ..regie import verbessere_story as regie_hook
+
+    hook, scenes_t, regie_block = regie_hook(title_t, hook, scenes_t, lang, mood,
+                                             f"{post.title} {post.text} {title_t} {' '.join(scenes_t)}")
+    if regie_block["aenderungen"]:
+        notes.append(f"Regie: {len(regie_block['aenderungen'])} Stelle(n) natürlicher/spannender formuliert (geprüft).")
+
     seconds = [estimate_seconds(s, lang, rate, pause) for s in scenes_t]
     # Ein Einstieg (statt des Titels) verlängert Teil 1 – vorsichtshalber bei allen Teilen abziehen
     hook_extra = max(0.0, estimate_seconds(hook, lang, rate, pause) - estimate_seconds(title_t, lang, rate, pause)) \
@@ -437,6 +444,7 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
         "voice": {"name": voice, "rate": rate, "pitch": pitch, "pause": pause},
         "visuals": visuals,
         "title": title_t,
+        "regie": regie_block,               # Regie & Psychologie: Score vorher/nachher, Änderungen
         "hook": hook,                       # Einstieg in Teil 1 (gesprochen, während die Story-Karte steht)
         "figur": figure or FIGURES.get(gender or "", FIGURES[""]),   # Hauptfigur der Cartoon-Bilder (englisch)
         "parts": parts,

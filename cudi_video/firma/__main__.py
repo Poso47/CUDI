@@ -12,7 +12,7 @@ from . import common
 
 def main(argv: list[str]) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    names = ("trends", "news", "ideen", "putzen", "lernen")
+    names = ("trends", "news", "ideen", "putzen", "lernen", "wissen")
     if len(argv) == 2 and argv[0] == "uploads":              # Upload-Liste ergänzen (Notbetrieb-Workflow)
         from .lernen import main_merge
         return main_merge(argv[1:])

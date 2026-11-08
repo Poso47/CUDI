@@ -167,7 +167,8 @@ def test_voice_texts_with_mood_inserts_the_pause_and_keeps_old_path(tmp_path, mo
     assert [w["text"] for w in words] == STORY.split()
     turn = next(i for i, w in enumerate(words) if w["text"] == "Dann")
     assert words[turn]["start"] - words[turn - 1]["end"] >= 0.7 and wav.exists() and duration > words[-1]["end"]
-    assert calls[1][1] == "-21%" and calls[1][2] == "-10Hz"                  # Tempo/Tonhöhe der Wendung auf die Stimme gerechnet
+    turn_call = next(c for c in calls if c[0].startswith("Dann"))
+    assert turn_call[1] == "-21%" and turn_call[2] == "-10Hz"                # Tempo/Tonhöhe der Wendung auf die Stimme gerechnet
     calls.clear()
     old = tts.voice_texts([STORY, "Kurzer Text."], tmp_path / "b", "de-DE-KillianNeural", "-12%", "-6Hz", 0.6)
     assert len(calls) == 2 and calls[0][1] == "-12%" and len(old) == 2     # ohne Stimmung wie bisher: ein Text, ein Stück
