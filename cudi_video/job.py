@@ -49,7 +49,7 @@ RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch 
 # Dazu für fertige Videos: „bearbeiten“ (Texte/Format/Design/Tempo/Maskottchen aus der App, ohne neue Recherche) und
 # „hochladen“ (fertiges Video nach Freigabe in der App hochladen, ohne Neu-Rendern).
 STEPS = ("", "skelett", "video", "bearbeiten", "hochladen")
-STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "clip": ("hochladen",), "reportage": ("hochladen",)}
+STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "clip": ("hochladen",), "reportage": ("hochladen",), "satire": ("hochladen",)}
 SKELETON_DIR = "cudi_skelette"         # dorthin legt die Sitzung das bearbeitete Skelett (ArtifactData out_dir)
 EDIT_DIR = "cudi_bearbeitungen"        # … die Änderungen eines fertigen Videos (Sammlung „bearbeitungen“)
 UPLOAD_DIR = "cudi_hochladen"          # … das Ergebnisdokument (Sammlung „results“) und die Video-Dateien zum Hochladen
@@ -281,7 +281,20 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError("Reportage: höchstens 5 Links.")
         return {"id": job_id, "art": "reportage", "thema": topic, "sprache": lang,
                 "links": [_link(u) for u in links if str(u or "").strip()], "hochladen": _upload_wish(raw.get("hochladen"))}
-    raise OrderError("Unbekannte Art – „ranking“, „story“, „clip“ oder „reportage“.")
+    if kind == "satire":                                      # Satire zu einer echten, bestätigten Meldung (satire/__init__.py)
+        topic, report = _text(raw.get("thema"), 160), _text(raw.get("meldung"), 400)
+        if len(topic) < 6 and len(report) < 6:
+            raise OrderError("Satire: bitte das Thema oder die Meldung (Titel oder Link) nennen.")
+        lang = str(raw.get("sprache") or "de")
+        if lang not in ("de", "en"):
+            raise OrderError("Sprache: „de“ oder „en“.")
+        links = raw.get("links") if isinstance(raw.get("links"), list) else []
+        if len(links) > 5:
+            raise OrderError("Satire: höchstens 5 Links.")
+        return {"id": job_id, "art": "satire", "thema": topic, "meldung": _link(report) if re.match(r"https?://", report, re.I) else report,
+                "sprache": lang, "links": [_link(u) for u in links if str(u or "").strip()],
+                "hochladen": _upload_wish(raw.get("hochladen"))}
+    raise OrderError("Unbekannte Art – „ranking“, „story“, „clip“, „reportage“ oder „satire“.")
 
 
 def job_folder(job_id: str) -> Path:
@@ -664,6 +677,13 @@ def _reportage(order: dict, folder: Path, progress) -> dict:
     return reportage.run(order, folder, progress)
 
 
+def _satire(order: dict, folder: Path, progress) -> dict:
+    """Satire zu einer bestätigten Meldung (satire/__init__.py): gekennzeichnet, nur geprüfter Fakt-Teil, kein Leid."""
+    from . import satire
+
+    return satire.run(order, folder, progress)
+
+
 def _transient(exc: Exception) -> bool:
     """Vorübergehende Störung (Netz, Dienst, Prozess) – nicht: falsche Eingaben oder eine gelöschte Story."""
     if hasattr(exc, "wiederholbar"):
@@ -732,7 +752,7 @@ def _run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=N
         try:
             run = (_bearbeiten if order.get("schritt") == "bearbeiten"
                    else {"ranking": _ranking, "story": _story, "clip": _clip,
-                                                   "reportage": _reportage}[order["art"]])
+                                                   "reportage": _reportage, "satire": _satire}[order["art"]])
             result = run(order, folder, progress)
             data = _summary(order, result)
             from . import bearbeiten

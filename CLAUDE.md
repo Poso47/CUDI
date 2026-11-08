@@ -44,6 +44,7 @@ für TikTok/YouTube Shorts.
   App-Bewertungen senden `vorlieben.varianten_gut/_schlecht` (zählen doppelt, Env `CUDI_VORLIEBEN_VARIANTEN`). Lern-Analyst (täglich, Workflow
   `firma-lernen.yml`) liest YouTube (`youtube.readonly` oder `CUDI_YT_API_KEY`) und TikTok (`video.list`; `youtube-login --lesen`, `tiktok-login --lesen`),
   Zuordnung über `firma_daten/uploads.json` (nur Notbetrieb-Job „liste“ schreibt; Claude-Läufe committen nie).
+- **Satire** (`satire/`, Auftrag `art: "satire"` mit `thema`/`meldung`, `sprache`): echter bestätigter Kern (≥ 2 Betreiber, Beleg, `wahrheit.Pruefer`) → erkennbare Überspitzung → Pointe; „SATIRE“ in jedem Bild/Cover/Titel/Beschreibung, keine erfundenen Zitate/Zahlen/Namen, kein Spott gegen Gruppen, heikel → abgelehnt („nur als Reportage“); eigener Look in `satire/render.py` (kein Eingriff in `render/*`), Ideen-Bereich „satire“.
 - **Reportage** (`reportage/`, Auftrag `art: "reportage"` mit `thema`, `links`, `sprache`; Tab „Reportage“ der App): sachlich, nur Aussagen mit wörtlichem Beleg
   aus ≥ 2 unabhängigen Betreibern (news.json, Wikipedia, Links), Aufgabe `reportage` (`handoff`) + Regelweg, Zahlen/Namen/Clickbait/Drama/Spekulation geprüft,
   Buchlook ohne Musik/Maskottchen, Quellen + Stand am Ende; zu wenig Quellen = ehrlicher Abbruch. Ideen mit `bereich: reportage` tragen einen Auftrag.
