@@ -316,7 +316,7 @@ def test_short_error_ohne_abfrage_teil():
     assert "GEHEIM" not in common.short_error(exc)
 
 
-@pytest.mark.parametrize("name", ["trends", "news", "ideen", "putzen", "wissen"])
+@pytest.mark.parametrize("name", ["trends", "news", "ideen", "putzen", "lernen", "wissen"])
 def test_workflow_yaml(name):
     wf = yaml.safe_load((ROOT / f".github/workflows/firma-{name}.yml").read_text("utf-8"))
     assert wf[True]["schedule"][0]["cron"] and "workflow_dispatch" in wf[True]
@@ -340,7 +340,8 @@ def test_heikle_themen_nur_als_reportage():
     assert cand["Erdbeben in Japan"]["heikel"] and cand["Gunman kills 6 in Krakow"]["heikel"]
     raw = [{"bereich": "fakten", "titel": "Spannende Fakten", "thema": "Erdbeben in Japan", "quelle_trend": "Erdbeben in Japan"}]
     out = ideen.finish(raw, cand, {}, False, [], set())
-    assert out and out[0]["bereich"] == "reportage" and out[0]["regeln"] and out[0]["app_auftrag"] is False
+    assert out and out[0]["bereich"] == "reportage" and out[0]["regeln"]
+    assert out[0]["app_auftrag"] is True and out[0]["auftrag"]["art"] == "reportage"      # startbar als Reportage-Auftrag
 
 
 def test_export_kompakt(daten, tmp_path, monkeypatch):

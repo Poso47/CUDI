@@ -502,3 +502,13 @@ Bewegung im Mundbereich; braucht `opencv-python-headless` 4.x, in 5.x fehlen die
 - Freigabe: Auftragsfeld `hochladen` bereitet standardmäßig nur vor (`freigabe: true`, Ergebnis `hochladen_offen`); „Veröffentlichen“
   in der Karte startet `"schritt":"hochladen"` (Dokument per `out_dir "cudi_hochladen"`, Videodateien als `<Asset-Kennung>.mp4`
   in `cudi_hochladen/<id>/`) und lädt ohne Neu-Rendern hoch; Link/Fehler als Hinweis, die Karte bleibt erhalten. `freigabe: false` = sofort.
+
+## Reportage und Experimente
+
+- **Reportage** (`art: "reportage"`, App-Tab „Reportage“; `thema`, optional `links` und `sprache`): sachliches, respektvolles Kurzvideo
+  für Nachrichten und Hintergrund, auch bei heiklen Themen. Nur Aussagen, die zwei unabhängige Quellen wörtlich bestätigen (News-Reporter-Daten,
+  Wikipedia, deine Links); kein Clickbait, keine Spekulation, keine Musik, Quellen und Stand am Ende, Belege im Prüfbericht. Reichen die Quellen
+  nicht, endet der Auftrag mit einer ehrlichen Meldung. Weitere geplante Formate: `docs/content-formate.md`.
+- **Experimente und Lernen**: Jedes Video bekommt je Stellschraube (Format, Design, Bewegung, Musik, Maskottchen) eine Variante, gewählt aus dem
+  Gelernten (mindestens 20 % Erkundung); die Wahl steht im Ergebnis (`varianten`). Der tägliche Lern-Analyst wertet YouTube-/TikTok-Zahlen
+  aus – Einrichtung und nötige Scopes: `docs/lernen-einrichten.md`.

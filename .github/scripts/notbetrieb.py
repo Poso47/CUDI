@@ -55,8 +55,8 @@ def prepare_order(raw: dict, presets: set[str]) -> dict:
     from cudi_video import job
 
     order = job.parse_order(raw, presets)
-    if order["art"] not in ("ranking", "story"):
-        raise job.OrderError("Im Notbetrieb gehen nur Rankings und Storys (Clips laufen in der App mit Claude).")
+    if order["art"] not in ("ranking", "story", "reportage"):
+        raise job.OrderError("Im Notbetrieb gehen nur Rankings, Storys und Reportagen (Clips laufen in der App mit Claude).")
     if order.get("schritt"):
         raise job.OrderError("Im Notbetrieb läuft der Auftrag in einem Zug (ohne Zwischenschritte).")
     wish = order.get("hochladen")
@@ -124,6 +124,10 @@ def cmd_run() -> int:
     print(f"Notbetrieb-Auftrag {order['id']} ({order['art']})", flush=True)
     code, data = job.run_order(order, job.job_folder(order["id"]), via_claude=False)
     print("ERGEBNIS:", "ok" if data and data.get("ok") else scrub((data or {}).get("fehler", "kein Ergebnis"))[:300])
+    records = job.upload_records(order, data) if data else []          # für den Lern-Analysten (firma_daten/uploads.json)
+    if records:
+        from cudi_video import config
+        (config.OUTPUT_DIR / "uploads_neu.json").write_text(json.dumps(records, ensure_ascii=False), "utf-8")
     return code
 
 

@@ -17,7 +17,7 @@ from urllib.parse import parse_qs, urlencode, urlparse
 
 from .. import config
 from .. import upload as _up
-from . import RETRIES, VISIBILITY, Material, UploadError, fail, pause, require, retryable
+from . import RETRIES, VISIBILITY, Material, UploadError, fail, pause, redact, require, retryable
 
 
 
@@ -29,6 +29,11 @@ TOKEN_URL = "https://oauth2.googleapis.com/token"
 AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 INIT_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
 SCOPE = "https://www.googleapis.com/auth/youtube.upload"
+SCOPE_READ = "https://www.googleapis.com/auth/youtube.readonly"     # nur für den Lern-Analysten (Zahlen lesen)
+VIDEOS_URL = "https://www.googleapis.com/youtube/v3/videos"
+READ_HINT = ("Scope youtube.readonly nötig: `python -m cudi_video youtube-login --lesen` ausführen und den neuen "
+             "Refresh-Token als CUDI_YT_REFRESH_TOKEN hinterlegen (docs/lernen-einrichten.md) – oder öffentliche "
+             "Videos mit CUDI_YT_API_KEY lesen.")
 CHUNK = 8 * 1024 * 1024                  # Vielfaches von 256 KiB (Vorgabe der API)
 QUOTA_HINT = "Quota: ein Upload kostet ca. 1600 von 10 000 freien Einheiten pro Tag."
 TOKEN_FILE = "youtube_refresh_token.txt"
@@ -147,7 +152,7 @@ def upload(material: Material, visibility: str = "privat") -> dict:
 
 # --------------------------------------------------------------------------- einmaliger Browser-Login (am eigenen PC)
 
-def login(open_browser: bool = True) -> Path:
+def login(open_browser: bool = True, read: bool = False) -> Path:
     """Browser-Login (OAuth „installierte App“ mit Loopback-Adresse). Schreibt den Refresh-Token in eine lokale,
     gitignorierte Datei (video_output/_secrets/…) und gibt ihn NICHT aus."""
     creds = require("CUDI_YT_CLIENT_ID", "CUDI_YT_CLIENT_SECRET")
@@ -170,7 +175,8 @@ def login(open_browser: bool = True) -> Path:
     server = HTTPServer(("127.0.0.1", 0), Handler)
     redirect = f"http://127.0.0.1:{server.server_port}"
     link = AUTH_URL + "?" + urlencode({"client_id": creds["CUDI_YT_CLIENT_ID"], "redirect_uri": redirect,
-                                       "response_type": "code", "scope": SCOPE, "access_type": "offline",
+                                       "response_type": "code", "scope": SCOPE + (" " + SCOPE_READ if read else ""),
+                                       "access_type": "offline",
                                        "prompt": "consent", "state": state})
     print("Browser öffnet sich für die Google-Anmeldung. Falls nicht, diesen Link öffnen:\n" + link)
     if open_browser:
@@ -195,3 +201,44 @@ def login(open_browser: bool = True) -> Path:
     except OSError:
         pass
     return path
+
+
+# --------------------------------------------------------------------------- Zahlen lesen (Lern-Analyst)
+
+def video_stats(ids: list[str]) -> tuple[dict[str, dict], list[str]]:
+    """Statistik der Videos (videos.list, part=statistics, 1 Quota-Einheit je 50 Videos).
+    Rückgabe ({id: {views, likes, comments}}, Hinweise). Der Upload-Scope reicht NICHT zum Lesen: mit OAuth braucht es
+    youtube.readonly; öffentliche Videos liefert auch ein API-Schlüssel (CUDI_YT_API_KEY). Fehler = Hinweis, kein Abbruch."""
+    out: dict[str, dict] = {}
+    notes: list[str] = []
+    key = os.environ.get("CUDI_YT_API_KEY", "")
+    token, denied = "", False
+    if all(os.environ.get(n) for n in ("CUDI_YT_CLIENT_ID", "CUDI_YT_CLIENT_SECRET")):
+        try:
+            token = access_token()
+        except UploadError:
+            token = ""
+    for i in range(0, len(ids), 50):
+        chunk = ids[i:i + 50]
+        for auth in ([("token", token)] if token else []) + ([("key", key)] if key else []):
+            how, secret = auth
+            resp = http("GET", VIDEOS_URL, params={"part": "statistics", "id": ",".join(chunk),
+                                                   **({"key": secret} if how == "key" else {})},
+                        headers={"Authorization": f"Bearer {secret}"} if how == "token" else None)
+            if resp.status_code in (401, 403):
+                denied = denied or how == "token"
+                continue
+            if resp.status_code != 200:
+                notes.append(f"YouTube-Zahlen: HTTP {resp.status_code}")
+                continue
+            for item in resp.json().get("items", []):
+                st = item.get("statistics") or {}
+                out.setdefault(item["id"], {"views": int(st.get("viewCount", 0)), "likes": int(st.get("likeCount", 0)),
+                                            "comments": int(st.get("commentCount", 0))})
+        if not (token or key):
+            break
+    if not (token or key):
+        notes.append("YouTube-Zahlen: kein Zugang (CUDI_YT_REFRESH_TOKEN mit Lese-Scope oder CUDI_YT_API_KEY). " + READ_HINT)
+    elif denied and len(out) < len(ids):
+        notes.append("YouTube-Zahlen: Zugriff verweigert. " + READ_HINT)
+    return out, [redact(n) for n in notes]

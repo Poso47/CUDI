@@ -1,0 +1,42 @@
+# Firma-Mitarbeiter „Lern-Analyst“ (kostenlos, kein Claude-Verbrauch): liest Zahlen der hochgeladenen Videos (YouTube,
+# TikTok) und schreibt firma_daten/lernen.json – daraus wählt der Bandit (cudi_video/experimente.py) die Varianten.
+# Ohne Zugang/Scope bleibt es bei der Erkundung. Einrichtung: docs/lernen-einrichten.md
+name: Firma · Lern-Analyst
+
+on:
+  schedule:
+    - cron: "41 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Alle Firma-Läufe nacheinander, damit sich die Commits nicht in die Quere kommen
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  lernen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml
+      - name: Lern-Analyst arbeitet
+        env:
+          # Nur gesetzte Secrets wirken; für Zahlen braucht YouTube youtube.readonly (oder CUDI_YT_API_KEY für öffentliche Videos)
+          CUDI_YT_CLIENT_ID: ${{ secrets.CUDI_YT_CLIENT_ID }}
+          CUDI_YT_CLIENT_SECRET: ${{ secrets.CUDI_YT_CLIENT_SECRET }}
+          CUDI_YT_REFRESH_TOKEN: ${{ secrets.CUDI_YT_REFRESH_TOKEN }}
+          CUDI_YT_API_KEY: ${{ secrets.CUDI_YT_API_KEY }}
+          CUDI_TIKTOK_CLIENT_KEY: ${{ secrets.CUDI_TIKTOK_CLIENT_KEY }}
+          CUDI_TIKTOK_CLIENT_SECRET: ${{ secrets.CUDI_TIKTOK_CLIENT_SECRET }}
+          CUDI_TIKTOK_REFRESH_TOKEN: ${{ secrets.CUDI_TIKTOK_REFRESH_TOKEN }}
+        run: python -m cudi_video.firma lernen
+      - name: Ergebnis sichern
+        run: scripts/firma_commit.sh "Lern-Analyst"
