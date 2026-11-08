@@ -46,8 +46,13 @@ EXIT_WRITE = 4
 RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch nach einer Störung
 # Story in zwei Schritten: „skelett“ (suchen, übersetzen, Lektorat -> Skelett in die App) und „video“
 # (aus dem in der App bearbeiteten Skelett rendern). Leer = alles in einem Lauf.
-STEPS = ("", "skelett", "video")
+# Dazu für fertige Videos: „bearbeiten“ (Texte/Format/Design/Tempo/Maskottchen aus der App, ohne neue Recherche) und
+# „hochladen“ (fertiges Video nach Freigabe in der App hochladen, ohne Neu-Rendern).
+STEPS = ("", "skelett", "video", "bearbeiten", "hochladen")
+STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "clip": ("hochladen",)}
 SKELETON_DIR = "cudi_skelette"         # dorthin legt die Sitzung das bearbeitete Skelett (ArtifactData out_dir)
+EDIT_DIR = "cudi_bearbeitungen"        # … die Änderungen eines fertigen Videos (Sammlung „bearbeitungen“)
+UPLOAD_DIR = "cudi_hochladen"          # … das Ergebnisdokument (Sammlung „results“) und die Video-Dateien zum Hochladen
 
 
 class OrderError(ValueError):
@@ -71,7 +76,8 @@ def _flag(value, default: bool) -> bool:
 
 def _upload_wish(raw) -> dict | None:
     """Auftragsfeld „hochladen“ (Standard aus): {"ziel": youtube|tiktok|beide, "sichtbarkeit": privat|ungelistet|oeffentlich}
-    oder nur der Zielname. Nur Backend – Zugangsdaten stehen in Umgebungsvariablen (docs/upload-einrichten.md)."""
+    oder nur der Zielname; "freigabe" (Standard true: nur vorbereiten, die App-Karte zeigt „Veröffentlichen“; false: sofort
+    hochladen). Nur Backend – Zugangsdaten stehen in Umgebungsvariablen (docs/upload-einrichten.md)."""
     if not raw:
         return None
     wish = raw if isinstance(raw, dict) else {"ziel": raw}
@@ -83,7 +89,10 @@ def _upload_wish(raw) -> dict | None:
     visibility = str(wish.get("sichtbarkeit") or "privat").lower().replace("ö", "oe")
     if visibility not in ("privat", "ungelistet", "oeffentlich"):
         raise OrderError("Sichtbarkeit: privat, ungelistet oder oeffentlich.")
-    return {"ziel": target, "sichtbarkeit": visibility}
+    out = {"ziel": target, "sichtbarkeit": visibility}
+    if "freigabe" in wish:                      # Standard (fehlt): Freigabe in der App vor dem Hochladen
+        out["freigabe"] = _flag(wish.get("freigabe"), True)
+    return out
 
 
 def _seconds(value, name: str) -> float | None:
@@ -158,6 +167,13 @@ def _format(value) -> str:
 def parse_order(raw: dict, presets: set[str]) -> dict:
     """Auftrag der App-Seite prüfen: nur bekannte Felder und erlaubte Werte."""
     order = _parse_order(raw, presets)
+    step = str(raw.get("schritt") or "")
+    if order["art"] != "story" and step:
+        if step not in STEPS_OTHER[order["art"]]:
+            raise OrderError("Unbekannter Schritt für diese Art.")
+        order["schritt"] = step
+    if order.get("schritt") == "hochladen" and not order.get("hochladen"):
+        raise OrderError("Hochladen: Ziel („youtube“, „tiktok“ oder „beide“) fehlt.")
     prefs = parse_preferences(raw.get("vorlieben"))
     if prefs:
         order["vorlieben"] = prefs
@@ -206,7 +222,7 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError("Sprache, Länge oder Bilder ungültig.")
         step = str(raw.get("schritt") or "")
         if step not in STEPS:
-            raise OrderError("Unbekannter Schritt – „skelett“, „video“ oder leer.")
+            raise OrderError("Unbekannter Schritt – „skelett“, „video“, „bearbeiten“, „hochladen“ oder leer.")
         return {"id": job_id, "art": "story", "wunsch": wish, "stimmung": mood, "sprache": lang,
                 "laenge": length, "bilder": visuals, "entschaerfen": _flag(raw.get("entschaerfen"), True),
                 "schritt": step, "maskottchen": _flag(raw.get("maskottchen"), None),
@@ -350,21 +366,30 @@ def _ranking(order: dict, folder: Path, progress) -> dict:
                progress=progress)
 
 
-def app_skeleton(job_id: str, wait: int = 60) -> dict:
-    """Das in der App bearbeitete Skelett (Sammlung „skelette“, von der Sitzung als Datei abgelegt)."""
+def app_file(job_id: str, folder_name: str, collection: str, marker: str, wait: int = 60) -> dict:
+    """Dokument der App-Ablage, das die Sitzung per ArtifactData get mit out_dir = folder_name als Datei ablegt
+    (`<out_dir>/<collection>/<id>.json`; mit Hülle {"data": …} oder ohne). None-Fall: RuntimeError nach `wait` s."""
     root = Path(__file__).resolve().parent.parent
-    candidates = [base / SKELETON_DIR / "skelette" / f"{job_id}.json"
+    candidates = [base / folder_name / collection / f"{job_id}.json"
                   for base in dict.fromkeys((Path.cwd().parent, root.parent, Path.cwd(), Path.home()))]
-    candidates.append(config.OUTPUT_DIR / "app" / "skelette" / f"{job_id}.json")
+    candidates.append(config.OUTPUT_DIR / "app" / collection / f"{job_id}.json")
     deadline = time.time() + wait
     while True:
         for path in candidates:
             if path.exists():
                 data = json.loads(path.read_text("utf-8"))
-                return data["data"] if isinstance(data.get("data"), dict) and "parts" not in data else data
+                return data["data"] if isinstance(data.get("data"), dict) and marker not in data else data
         if time.time() >= deadline:
-            raise RuntimeError("Das bearbeitete Skelett ist nicht angekommen – bitte in der App erneut „Video erstellen“.")
+            raise RuntimeError(f"Die Daten aus der App ({collection}/{job_id}) sind nicht angekommen.")
         time.sleep(5)                                   # kommt die Datei gerade erst an: kurz warten
+
+
+def app_skeleton(job_id: str, wait: int = 60) -> dict:
+    """Das in der App bearbeitete Skelett (Sammlung „skelette“, von der Sitzung als Datei abgelegt)."""
+    try:
+        return app_file(job_id, SKELETON_DIR, "skelette", "parts", wait)
+    except RuntimeError:
+        raise RuntimeError("Das bearbeitete Skelett ist nicht angekommen – bitte in der App erneut „Video erstellen“.") from None
 
 
 def fit_parts(skeleton: dict) -> list[str]:
@@ -469,6 +494,96 @@ def _story(order: dict, folder: Path, progress) -> dict:
     return result
 
 
+def _bearbeiten(order: dict, folder: Path, progress) -> dict:
+    """Fertiges Video mit den Änderungen aus der App neu rendern – gespeicherte Recherche, keine neue Suche.
+    Geänderte Texte laufen durch dieselben Prüfungen wie Claude-Texte (bearbeiten.check_text)."""
+    from . import bearbeiten
+
+    progress("Änderungen übernehmen", 0.02)
+    doc = app_file(order["id"], EDIT_DIR, "bearbeitungen", "basis")
+    basis, neu = doc.get("basis"), doc.get("neu") or {}
+    if not isinstance(basis, dict) or basis.get("art") != order["art"]:
+        raise ValueError("Die Bearbeitungsgrundlage fehlt oder gehört nicht zu diesem Video – bitte in der App erneut öffnen.")
+    if order["art"] == "story":
+        from .story import pipeline
+
+        skeleton, notes = bearbeiten.apply_story(basis, neu, bearbeiten.ask_story)
+        wish = neu.get("maskottchen")
+        wish = (basis.get("stil") or {}).get("maskottchen") if wish is None else wish
+        if wish is not None:
+            os.environ["CUDI_MASCOT"] = "1" if wish else "0"
+        pipeline.validate_skeleton(skeleton)
+        notes += fit_parts(skeleton)
+        result = pipeline.render(pipeline.new_folder(skeleton["title"]), skeleton=skeleton,
+                                 progress=lambda stage, f: progress(stage, 0.05 + 0.9 * f))
+        result.setdefault("warnings", [])[:0] = notes
+        return result
+    return bearbeiten.render_ranking(order, folder, basis, neu, progress)
+
+
+def _split_text(text: str) -> tuple[str, str]:
+    title, _, rest = str(text or "").strip().partition("\n")
+    return title.strip(), rest.strip()
+
+
+def _asset_files(job_id: str, video: dict) -> list[Path]:
+    """Video-Dateien (bei langen Videos die Stücke) aus dem Ordner, in den die Sitzung die Assets gelegt hat
+    (`cudi_hochladen/<id>/<asset-id>.mp4`)."""
+    urls = video.get("teile_urls") or ([video["video_url"]] if video.get("video_url") else [])
+    ids = [m.group(1) for u in urls if (m := re.search(r"([0-9a-f]{32})", str(u)))]
+    root = Path(__file__).resolve().parent.parent
+    for base in dict.fromkeys((Path.cwd().parent, root.parent, Path.cwd(), Path.home())):
+        found = [next(iter(sorted((base / UPLOAD_DIR / job_id).glob(f"{i}.*"))), None) for i in ids]
+        if ids and all(found):
+            return found
+    return []
+
+
+def _upload_step(order: dict, folder: Path) -> dict:
+    """Schritt „hochladen“: fertiges Video nach Freigabe in der App hochladen – ohne Neu-Rendern. Das Dokument der
+    Karte bleibt erhalten (Videos, Texte); dazu kommen Link bzw. Fehler als Hinweis. Fehler brechen nie ab."""
+    from .upload import Material
+    from .upload.cli import upload_materials
+
+    wish = order["hochladen"]
+    try:
+        old = app_file(order["id"], UPLOAD_DIR, "results", "videos", wait=45)
+    except RuntimeError as exc:
+        data = _summary(order, None, f"Hochladen: Das fertige Video ist nicht angekommen ({exc})")
+        data["wiederholbar"] = True
+        return data
+    items, notes = [], []
+    for video in old.get("videos", []):
+        files = _asset_files(order["id"], video)
+        if not files:
+            notes.append(f"Hochladen ({video.get('key', '')}): Die Videodatei ist nicht angekommen.")
+            continue
+        path = files[0]
+        if len(files) > 1:                               # langes Video: Stücke zur ursprünglichen Datei zusammensetzen
+            path = folder / f"upload_{video.get('key', 'v')}.mp4"
+            with open(path, "wb") as out:
+                for part in files:
+                    out.write(part.read_bytes())
+        title, description = _split_text(video.get("youtube"))
+        tags = re.findall(r"#(\w+)", description.splitlines()[-1]) if description else []
+        items.append((video.get("key", ""), Material(
+            video=path, title=title or path.stem.replace("_", " "), description=description, tags=tags,
+            caption=str(video.get("tiktok") or "").strip() or title, lang=video.get("key", ""))))
+    entries = upload_materials(wish, items) if items else []
+    doc = dict(old)
+    doc["hochgeladen"] = entries
+    doc["hinweise"] = ([h for h in old.get("hinweise", []) if not re.match(r"(YouTube|TikTok): |Hochladen|Bereit zum", h)]
+                       + notes + [upload_note(e) for e in entries])
+    if entries and all(e.get("ok") for e in entries):
+        doc.pop("hochladen_offen", None)
+    else:                                                # Fehler: „Veröffentlichen“ bleibt möglich
+        doc["hochladen_offen"] = {"ziel": wish["ziel"], "sichtbarkeit": wish["sichtbarkeit"]}
+    doc["fertig"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    data = _summary(order, None)
+    data.update(ok=True, dokument=doc, hochgeladen=entries)
+    return data
+
+
 def _clip(order: dict, folder: Path, progress) -> dict:
     """Clip aus einem Link: Quelle laden, Spracherkennung, Hook (ggf. von Claude), Schnitt, Untertitel."""
     from .clip import pipeline as clip_pipeline, texte
@@ -528,11 +643,28 @@ def run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=No
         if on_progress:
             on_progress(stage, fraction)
 
+    if order.get("schritt") == "hochladen":                   # fertiges Video freigeben: kein Rendern
+        progress("Hochladen", 0.1)
+        try:
+            data = _upload_step(order, folder)
+        except Exception as exc:                              # noqa: BLE001 – Fehler kommen als Meldung in die App
+            from .upload import redact
+
+            log.exception("Hochladen %s fehlgeschlagen", order["id"])
+            data = _summary(order, None, redact(f"{type(exc).__name__}: {exc}")[:600])
+        (folder / "ergebnis.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), "utf-8")
+        return (0 if data["ok"] else 1), data
     for attempt in (1, 2):                                    # eine vorübergehende Störung heilt sich selbst
         try:
-            run = {"ranking": _ranking, "story": _story, "clip": _clip}[order["art"]]
+            run = (_bearbeiten if order.get("schritt") == "bearbeiten"
+                   else {"ranking": _ranking, "story": _story, "clip": _clip}[order["art"]])
             result = run(order, folder, progress)
             data = _summary(order, result)
+            from . import bearbeiten
+
+            basis = bearbeiten.capture(order, result)         # Grundlage für „Bearbeiten“ in der App
+            if basis:
+                data["bearbeitung"] = bearbeiten.write_files(folder, basis)
             break
         except handoff.WritingNeeded as need:
             (folder / "schreiben_offen.txt").write_text(str(need.path), "utf-8")
@@ -553,10 +685,16 @@ def run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=No
             data = _summary(order, None, f"{type(exc).__name__}: {exc}"[:1500])
             data["wiederholbar"] = _transient(exc)
             break
-    if data["ok"] and order.get("hochladen") and not data.get("schritt"):
-        from .upload.cli import upload_order
+    wish = order.get("hochladen")
+    if data["ok"] and wish and data.get("videos") and not data.get("schritt"):
+        if wish.get("freigabe", True):                        # Standard: nur vorbereiten, die Karte zeigt „Veröffentlichen“
+            data["hochladen_offen"] = {"ziel": wish["ziel"], "sichtbarkeit": wish["sichtbarkeit"]}
+            data["hinweise"] = list(data["hinweise"]) + [
+                "Bereit zum Veröffentlichen – tippe in der Karte auf „Veröffentlichen“ (bisher wurde nichts hochgeladen)."]
+        else:
+            from .upload.cli import upload_order
 
-        data["hochgeladen"] = upload_order(order["hochladen"], data)           # Fehler werden Hinweise, nie ein Abbruch
+            data["hochgeladen"] = upload_order(wish, data)       # Fehler werden Hinweise, nie ein Abbruch
     (folder / "ergebnis.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), "utf-8")
     return (0 if data["ok"] else 1), data
 
@@ -583,6 +721,8 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
     path = folder / "ergebnis.json"
     if path.exists():
         data = json.loads(path.read_text("utf-8"))
+        if isinstance(data.get("dokument"), dict):          # Schritt „hochladen“: das Dokument der Karte bleibt erhalten
+            return data["dokument"]
     else:                                       # abgebrochen (z. B. Pakete fehlten): Fehlermeldung für die App
         order_file = folder / "auftrag.json"
         order = (json.loads(order_file.read_text("utf-8")) if order_file.exists()
@@ -613,6 +753,10 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
     if data.get("hochgeladen") is not None:      # Upload-Ergebnis sichtbar machen (Link oder Fehler, geschwärzt)
         doc["hochgeladen"] = data["hochgeladen"]
         doc["hinweise"] = list(doc["hinweise"]) + [upload_note(e) for e in data["hochgeladen"]]
+    if data.get("hochladen_offen"):               # Freigabe in der App steht aus: Ziel und Sichtbarkeit zum Vorbelegen
+        doc["hochladen_offen"] = data["hochladen_offen"]
+    if data.get("bearbeitung"):                   # Grundlage für „Bearbeiten“ (kompakt, Größe begrenzt)
+        doc["bearbeitung"] = data["bearbeitung"]
     if data.get("skelett"):                       # Schritt 1 einer Story: Skelett zum Prüfen in der App
         doc["schritt"], doc["skelett"] = "skelett", data["skelett"]
     return doc
