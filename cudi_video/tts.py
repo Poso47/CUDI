@@ -422,7 +422,24 @@ def plan_parts(text: str, kind: str = "item", profile: str = "ranking") -> list[
         prev_end, prev_sep = chunk, sep
     if kind == "outro" and parts[-1].role == "normal":
         parts[-1].rate, parts[-1].pitch = prof["schluss"]       # Schluss ruhig, einladend
-    return parts[:8]
+    return _cap_parts(parts, MAX_PARTS)
+
+
+MAX_PARTS = 8          # mehr Einzelteile klingen abgehackt – überzählige werden angehängt, NIE weggelassen
+
+
+def _complete(parts: list[Part], text: str) -> list[Part]:
+    """Sicherheitsnetz: Fehlt durch die Zerlegung ein Wort, wird der Abschnitt als ein Stück gesprochen."""
+    return parts if " ".join(p.text for p in parts).split() == text.split() else [Part(text)]
+
+
+def _cap_parts(parts: list[Part], limit: int) -> list[Part]:
+    """Höchstens `limit` Teile: Überzählige an den letzten erlaubten Teil anhängen, damit kein Wort verloren geht."""
+    if len(parts) <= limit:
+        return parts
+    head, rest = parts[:limit], parts[limit:]
+    head[-1].text = " ".join([head[-1].text] + [p.text for p in rest])
+    return head
 
 
 # --------------------------------------------------------------------------- Betonung für Story-Videos
@@ -555,7 +572,8 @@ def assemble_parts(parts: list[Part], spoken: list[tuple[Path, list[dict]]], wav
 
 async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 3,
                         profile: str = "ranking") -> None:
-    plans = [plan_parts(seg.text, seg.kind, profile) if profile != "aus" else [Part(seg.text)] for seg in script.segments]
+    plans = [_complete(plan_parts(seg.text, seg.kind, profile), seg.text) if profile != "aus" else [Part(seg.text)]
+             for seg in script.segments]
     flat = [part for plan in plans for part in plan]
     spoken = await _speak_all([part.text for part in flat], out_dir, voice, rate, "+0Hz", parallel,
                               [part_prosody(part, rate) for part in flat])
