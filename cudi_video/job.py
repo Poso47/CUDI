@@ -323,7 +323,12 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
     if spec.exists():
         titles = json.loads(spec.read_text("utf-8")).get("title", {})
         data["titel"] = titles.get("de") or next(iter(titles.values()), "")
+    held: list[str] = []
     for key, files in result.get("videos", {}).items():
+        abnahme = files.get("abnahme")
+        if abnahme and not abnahme.get("ok", True):          # Endabnahme: nur wahre, geprüfte Videos werden ausgeliefert
+            held.append(f"{key.upper()}: " + "; ".join(abnahme.get("gruende") or ["Endabnahme nicht bestanden"]))
+            continue
         video = out / files["video"]
         long_video = (files.get("duration") or _duration(video)) > 185
         if not files.get("qa") and result.get("kind") in ("story", "clip"):          # Ranking/Erklär prüfen schon beim Rendern
@@ -344,6 +349,10 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
             "tiktok": _read(out / files["caption_file"]) if files.get("caption_file") else "",
         })
     data["pruefbericht"] = _read(out / "review.md", MAX_REVIEW)
+    if held and not data["videos"]:                          # ehrlich: lieber kein Video als ein unwahres oder fehlerhaftes
+        data["fehler"] = "Nicht ausgeliefert, weil die Endabnahme nicht bestanden ist: " + " | ".join(held)
+        data["wiederholbar"] = False
+        return data
     data["ok"] = True
     return data
 
@@ -669,7 +678,7 @@ def run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=No
             data = _summary(order, result)
             from . import bearbeiten
 
-            basis = bearbeiten.capture(order, result)         # Grundlage für „Bearbeiten“ in der App
+            basis = bearbeiten.capture(order, result) if data["ok"] else None   # Grundlage für „Bearbeiten“ in der App
             if basis:
                 data["bearbeitung"] = bearbeiten.write_files(folder, basis)
             break

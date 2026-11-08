@@ -369,9 +369,10 @@ def _voice_fits(spec, script, audio_dir: Path, profile: str) -> bool:
 def render_ranking(order: dict, folder: Path, basis: dict, neu: dict, progress, ask=_ask_claude,
                    enrich_fn=_enrich) -> dict:
     """Ranking mit geänderten Texten, Format, Design, Tempo, Maskottchen neu rendern – gespeicherte Recherche."""
-    from .metadata import build_metadata, build_review
+    from . import wahrheit
+    from .metadata import build_review
     from .models import Script, Segment
-    from .render.video import render_video
+    from .pipeline import render_checked
     from .tts import speech_profile
 
     notes: list[str] = []
@@ -404,6 +405,7 @@ def render_ranking(order: dict, folder: Path, basis: dict, neu: dict, progress, 
     scripts: list[Script] = []
     original = {s: basis["sprachen"][s] for s in langs}
     profile = speech_profile(spec.kind)
+    pruefer = wahrheit.Pruefer(spec, research)            # auch eigene Änderungen müssen wahr sein
     rate_before = config.VOICE_RATE
     config.VOICE_RATE = f"{tempo:+d}%"
     result = {"output_dir": str(out), "warnings": list(research.warnings), "videos": {}, "tempo": tempo}
@@ -415,7 +417,7 @@ def render_ranking(order: dict, folder: Path, basis: dict, neu: dict, progress, 
                 return Script(lang=lang, title=t["titel"], segments=segs, mode="bearbeitet")
 
             progress(f"Stimme ({lang})", 0.1 + 0.8 * i / len(langs))
-            script = build(texts[lang])
+            script = pruefer.korrigiere_skript(build(texts[lang]))
             if not _voice_fits(spec, script, out / f"audio_{lang}", profile):
                 notes.append(f"Mit deinen Texten wäre das Video ({lang.upper()}) zu lang für ein Short – "
                              "die ursprünglichen Texte bleiben.")
@@ -424,14 +426,25 @@ def render_ranking(order: dict, folder: Path, basis: dict, neu: dict, progress, 
                                 "intro": next(s["text"] for s in old["segmente"] if s["art"] == "intro"),
                                 "outro": next(s["text"] for s in old["segmente"] if s["art"] == "outro"),
                                 "items": {s["rang"]: s["text"] for s in old["segmente"] if s["art"] == "item"}})
+                pruefer.korrigiere_skript(script)
                 _voice_fits(spec, script, out / f"audio_{lang}", profile)
             scripts.append(script)
             (out / f"script_{lang}.json").write_text(json.dumps(script.to_dict(), ensure_ascii=False, indent=2), "utf-8")
             base = 0.15 + 0.8 * i / len(langs)
             share = 0.8 / len(langs)
-            files = render_video(spec, research, script, out,
-                                 progress_cb=lambda f, b=base, s=share, lg=lang: progress(f"Animation ({lg})", b + s * f))
-            meta = build_metadata(spec, research, script)
+            def revoice(sc, lg=lang):
+                _voice_fits(spec, sc, out / f"audio_{lg}", profile)
+                return sc
+
+            files, meta, script = render_checked(
+                spec, research, script, out, pruefer, revoice=revoice,
+                progress_cb=lambda f, b=base, s=share, lg=lang: progress(f"Animation ({lg})", b + s * f))
+            scripts[-1] = script
+            (out / f"script_{lang}.json").write_text(json.dumps(script.to_dict(), ensure_ascii=False, indent=2), "utf-8")
+            if not files["abnahme"]["ok"]:
+                notes.append(f"Nicht ausgeliefert ({lang.upper()}), weil: " + "; ".join(files["abnahme"]["gruende"]))
+            elif pruefer.protokoll.get(lang):
+                notes.append(f"Wahrheits-Prüfung ({lang.upper()}): {len(pruefer.protokoll[lang])} Aussage(n) korrigiert.")
             meta_file = out / f"{spec.id}_{lang}_beschreibung.txt"
             meta_file.write_text(f"{meta['title']}\n\n{meta['description']}\n", "utf-8")
             caption_file = out / f"{spec.id}_{lang}_tiktok.txt"
@@ -442,7 +455,7 @@ def render_ranking(order: dict, folder: Path, basis: dict, neu: dict, progress, 
         config.VOICE_RATE = rate_before
     (out / "spec.json").write_text(json.dumps(spec.to_dict(), ensure_ascii=False, indent=2), "utf-8")
     (out / "research.json").write_text(json.dumps(research.to_dict(), ensure_ascii=False, indent=2), "utf-8")
-    review = build_review(spec, research, scripts)
+    review = wahrheit.in_review(build_review(spec, research, scripts), wahrheit.review_section(pruefer))
     if notes:
         review += "\n## Bearbeitung\n" + "\n".join(f"- {n}" for n in notes) + "\n"
     (out / "review.md").write_text(review, "utf-8")
