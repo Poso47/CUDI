@@ -23,7 +23,8 @@ ZIEL: <ein Satz: was soll am Ende für den Nutzer besser sein>
 WARUM: <Nutzerwunsch in eigenen Worten, ggf. Zitat>
 GRUNDSÄTZE (immer): kostenlos · nie lügen, auch nicht durch Formulierung · keine Fehlschläge (Ausweichwege) ·
   Qualität vor „funktioniert irgendwie“ · sparsam (wenig Schritte/Ausgaben) · nur geprüfte, fertige Ergebnisse ·
-  keine Zugangsdaten in Repo/Chat · Deutsch
+  keine Zugangsdaten in Repo/Chat · Deutsch · lösungsorientiert: nie aufgeben (Ursache → reparieren → anderer
+  kostenloser Weg → kleiner schneiden → erst dann fragen), Regeln bleiben dabei bestehen
 KONTEXT: <Repo, Zweig, relevante Dateien/Module, was es schon gibt, Stolperfallen>
 AUFGABE:
   1. <konkreter Schritt>
@@ -103,3 +104,17 @@ Die Regeln aus GRUNDSÄTZE gelten dabei immer.
 - **Firma-Mitarbeiter auf GitHub** (ohne Claude) arbeiten über ihre Daten zusammen: Jeder liest die JSON-Dateien der
   anderen in `firma_daten/`, zum Beispiel Ideen aus Trends und News, das Briefing aus allen. Sie lernen über
   `wissen.json` und `lernen.json`.
+
+## Feste Agenten mit Skill (`.claude/agents/`)
+
+Kommt eine Art von Arbeit immer wieder, bekommt sie einen festen Agenten. Er bringt Regeln, Skill und Modell schon
+mit. Dadurch werden die Aufträge kürzer, der Agent sucht weniger und es wird weniger Limit verbraucht.
+
+- **Wann ein Agent gebaut wird:** Die Arbeit kommt voraussichtlich mindestens dreimal vor, ist umfangreicher als ein
+  paar Schritte, und ein billigeres Modell (haiku oder sonnet) schafft sie zusammen mit dem Skill. Kleine Einzelfälle
+  mit Skill erledigt die Hauptsitzung selbst.
+- **Aufbau einer Agenten-Datei:** Kopf mit `name`, `description` und `model`. Danach Rolle, „Lies zuerst …“ mit
+  CLAUDE.md, kommunikation.md und dem passenden Skill, die Grundsätze und die Berichtsvorlage.
+- **Pflege:** Neues aus SKILL-Abschnitten kommt in den Skill, nicht in den Agenten. So bleibt der Agent klein, und
+  der Skill wächst mit.
+- **Bestand:** `firma-techniker` (haiku), `app-gestalter` (sonnet), `video-pruefer` (haiku).
