@@ -223,3 +223,14 @@ def test_aus_switches_expressive_speech_off(tmp_path, monkeypatch):
     assert len(calls) == 1 and calls[0][0] == TEXT                                       # ganzer Text am Stück
     tts.voice_texts([STORY], tmp_path / "s", "de-DE-KillianNeural", mood="creepy")
     assert len(calls) == 2                                                               # Story ebenfalls am Stück
+
+
+def test_langer_text_verliert_kein_wort():
+    from cudi_video import tts
+
+    text = " ".join(f"Satz {i}: Hier steht der Inhalt Nummer {i} mit 1.{i}00 Kilometern." for i in range(1, 16))
+    for kind in ("item", "intro", "outro"):
+        parts = tts.plan_parts(text, kind, "ranking")
+        assert len(parts) <= tts.MAX_PARTS
+        spoken = " ".join(p.text for p in parts).split()
+        assert spoken == text.split(), "jedes Wort muss gesprochen werden, in derselben Reihenfolge"
