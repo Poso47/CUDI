@@ -148,6 +148,14 @@ für TikTok/YouTube Shorts.
   (`RETRY_PAUSE`); App startet Fehler/ohne Ergebnis einmal automatisch neu (`versuch: 2`) und prüft
   vor jedem Start den Speicherbedarf (`needMB`: 20 MB je möglichem Video + 10 MB; Skelett-Schritt 0).
 
+## Kommunikation (Wunsch des Nutzers: immer als klarer Prompt)
+
+- Jeden Nutzerwunsch zuerst in einen **Auftrags-Prompt** übersetzen und dem Nutzer kurz zeigen („So habe ich dich
+  verstanden“). Vorlage mit ZIEL, WARUM, GRUNDSÄTZE, KONTEXT, AUFGABE, NICHT TUN, ABNAHME und BERICHT steht in
+  `docs/kommunikation.md`. Agenten bekommen immer den vollständigen Prompt und liefern einen Bericht nach der
+  Vorlage (ERGEBNIS, GEÄNDERT, GEPRÜFT, OFFEN, NÄCHSTER SCHRITT). Ergänzungen heißen „Ergänzung vom Projektleiter“.
+- Agenten arbeiten immer in einem eigenen Worktree (`isolation: "worktree"`), nie im Hauptordner.
+
 ## Sparsam mit dem Nutzungslimit (Wunsch des Nutzers: gleiche Qualität, weniger Verbrauch)
 
 - Rollen: Hauptsitzung = Projektleiter (plant, prüft Ergebnisse selbst, merged nur mit OK). Arbeit an Agenten geben:
