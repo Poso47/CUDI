@@ -1,5 +1,6 @@
 # CUDI als dauerhaft erreichbare App (kostenlos, Hugging Face Spaces) – danach jederzeit vom Handy nutzbar.
 # Einmalig: Repository-Secrets HF_TOKEN (Hugging Face, Schreibrecht) und CUDI_VIDEO_TOKEN (dein Zugangscode).
+# Notbetrieb (Claude-Limit erreicht): zusätzlich CUDI_LLM_* (z. B. Gemini) – Anleitung docs/notbetrieb-einrichten.md.
 # Optional: Variablen HF_SPACE_NAME (Standard cudi-video), HF_SPACE_PRIVATE (Standard true) und Schlüssel als Secrets.
 name: CUDI Cloud-App
 
@@ -36,4 +37,10 @@ jobs:
           CUDI_REDDIT_CLIENT_SECRET: ${{ secrets.CUDI_REDDIT_CLIENT_SECRET }}
           CUDI_POLLINATIONS_TOKEN: ${{ secrets.CUDI_POLLINATIONS_TOKEN }}
           CUDI_CHANNEL: ${{ secrets.CUDI_CHANNEL }}
+          CUDI_YT_CLIENT_ID: ${{ secrets.CUDI_YT_CLIENT_ID }}
+          CUDI_YT_CLIENT_SECRET: ${{ secrets.CUDI_YT_CLIENT_SECRET }}
+          CUDI_YT_REFRESH_TOKEN: ${{ secrets.CUDI_YT_REFRESH_TOKEN }}
+          CUDI_TIKTOK_CLIENT_KEY: ${{ secrets.CUDI_TIKTOK_CLIENT_KEY }}
+          CUDI_TIKTOK_CLIENT_SECRET: ${{ secrets.CUDI_TIKTOK_CLIENT_SECRET }}
+          CUDI_TIKTOK_REFRESH_TOKEN: ${{ secrets.CUDI_TIKTOK_REFRESH_TOKEN }}
         run: python .github/scripts/deploy_space.py

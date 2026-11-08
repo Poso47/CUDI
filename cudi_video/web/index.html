@@ -140,12 +140,24 @@
       </div>
       <label for="count">Anzahl Plätze</label>
       <input id="count" type="number" min="3" max="20" value="10" style="max-width:160px">
+      <label for="format">Format (Bildaufbau)</label>
+      <select id="format"><option value="">Automatisch (je Video anders)</option></select>
       <div class="row" style="margin-top:12px">
         <span class="check"><input type="checkbox" id="onlyScript"> Erst nur Skript prüfen</span>
         <span class="check"><input type="checkbox" id="strict"> Streng: nur mehrfach bestätigte Fakten</span>
       </div>
       <button class="primary" id="go" onclick="start()">Video erstellen</button>
       <div class="err" id="formErr"></div>
+    </div>
+    <div class="card" id="uploadCard">
+      <label for="uploadTarget">Nach dem Rendern hochladen</label>
+      <select id="uploadTarget"><option value="">Nein (Standard)</option></select>
+      <div id="uploadVisWrap" class="hidden">
+        <label for="uploadVis">Sichtbarkeit</label>
+        <select id="uploadVis"><option value="privat">Privat</option><option value="ungelistet">Ungelistet</option>
+          <option value="oeffentlich">Öffentlich</option></select>
+      </div>
+      <p class="hint" id="uploadHint"></p>
     </div>
     <div id="jobs"></div>
     <details class="card">
@@ -161,6 +173,7 @@ const $ = (id) => document.getElementById(id);
 let token = "";
 try { token = localStorage.getItem("cudiToken") || ""; } catch (e) {}
 let tab = "preset";
+let initStoryReady = Promise.resolve();
 
 async function api(path, opts = {}) {
   const res = await fetch(path, { ...opts, headers: { "Content-Type": "application/json", "X-Token": encodeURIComponent(token), ...(opts.headers || {}) } });
@@ -212,6 +225,11 @@ function storyOptions() {
   return { lang: $("storyLang").value, length: $("storyLength").value, visuals: $("storyVisuals").value,
            soften: $("storySoften").checked };
 }
+function uploadWish() {
+  const t = $("uploadTarget").value;
+  return t ? { ziel: t, sichtbarkeit: $("uploadVis").value } : null;
+}
+$("uploadTarget").addEventListener("change", () => $("uploadVisWrap").classList.toggle("hidden", !$("uploadTarget").value));
 function isLink(text) { return /reddit\.com|redd\.it/.test(text); }
 
 async function findStories(again) {
@@ -304,9 +322,10 @@ async function autopilot() {
   if (!desc && !storyMood) { $("storyErr").textContent = "Stimmung wählen oder Story beschreiben."; return; }
   $("autoBtn").disabled = true;
   try {
-    const body = { ...storyOptions(), mood: storyMood || null };
-    if (isLink(desc)) body.url = desc; else body.description = desc;
-    await api("/api/story/auto", { method: "POST", body: JSON.stringify(body) });
+    const o = storyOptions();
+    const order = { art: "story", wunsch: desc, stimmung: storyMood || "auto", sprache: o.lang, laenge: o.length,
+                    bilder: o.visuals, entschaerfen: o.soften, hochladen: uploadWish() };
+    await api("/api/auftrag", { method: "POST", body: JSON.stringify(order) });
     refresh(); $("jobs").scrollIntoView({ behavior: "smooth" });
   } catch (e) { $("storyErr").textContent = e.message; }
   finally { $("autoBtn").disabled = false; }
@@ -315,16 +334,47 @@ async function autopilot() {
 async function init() {
   try {
     const info = await api("/api/info");
-    initStory().catch(e => { $("storyErr").textContent = e.message; });
+    initStoryReady = initStory().catch(e => { $("storyErr").textContent = e.message; });
     // Direkt-Links von der Startseite: …/#story öffnet die Reddit-Storys
     if (location.hash === "#story") document.querySelector('.modes button[data-mode="story"]').click();
     $("login").classList.add("hidden"); $("app").classList.remove("hidden");
     $("preset").innerHTML = info.presets.map(p => `<option value="${esc(p.id)}">${esc(p.title.de || p.title.en)}</option>`).join("");
     $("topicHint").textContent = "Möglich: " + info.topics + "." +
       (info.llm ? " Andere Themen versucht ein Sprachmodell (mit geprüften Wikidata-IDs)." : "");
+    $("format").innerHTML += (info.formats || []).map(f => `<option value="${esc(f)}">${esc(f)}</option>`).join("");
+    const up = info.upload || {};
+    const targets = [["youtube", "YouTube", up.youtube], ["tiktok", "TikTok", up.tiktok], ["beide", "YouTube und TikTok", up.youtube && up.tiktok]];
+    $("uploadTarget").innerHTML += targets.filter(t => t[2]).map(t => `<option value="${t[0]}">${t[1]}</option>`).join("");
+    $("uploadHint").textContent = (up.youtube || up.tiktok)
+      ? "Standard: aus. Hochgeladen wird nur bei Rankings und beim Story-Autopiloten (nicht bei manuellen Story-Schritten)."
+      : "Kein Upload-Zugang eingerichtet (Secrets CUDI_YT_* bzw. CUDI_TIKTOK_* im Space).";
     if (!$("yaml").value) $("yaml").value = "id: mein-ranking\ntitle:\n  de: Mein Ranking\n  en: My Ranking\ncount: 10\nvalue_label: {de: Höhe, en: Height}\nunit: m\nsource:\n  type: wikidata\n  class: Q11303\n  property: P2048\n  require_props: [P1619]\n  extras: {country: P17}\n";
     refresh();
+    await prefillFromUrl();
   } catch (e) { if (!$("login").classList.contains("hidden")) return; $("formErr").textContent = e.message; }
+}
+
+// Vorbefüllung per Adresse: ?art=ranking&vorlage=…&thema=…&plaetze=…&sprachen=de,en&format=…  bzw.  ?art=story&wunsch=…&stimmung=…
+async function prefillFromUrl() {
+  let q;
+  try { q = new URLSearchParams(location.search); } catch (e) { return; }
+  const art = q.get("art");
+  if (!art) return;
+  if (art === "story") {
+    document.querySelector('.modes button[data-mode="story"]').click();
+    if (q.get("wunsch")) $("storyDesc").value = q.get("wunsch");
+    const mood = q.get("stimmung");
+    if (mood) { await initStoryReady; const b = $("moods").querySelector(`button[data-mood="${CSS.escape(mood)}"]`); if (b) b.click(); }
+    return;
+  }
+  document.querySelector('.modes button[data-mode="ranking"]').click();
+  const pick = (t) => document.querySelector(`.tabs button[data-tab="${t}"]`).click();
+  if (q.get("thema")) { pick("topic"); $("topic").value = q.get("thema"); }
+  else if (q.get("vorlage")) { pick("preset"); if ([...$("preset").options].some(o => o.value === q.get("vorlage"))) $("preset").value = q.get("vorlage"); }
+  if (q.get("plaetze")) $("count").value = Math.min(20, Math.max(3, +q.get("plaetze") || 10));
+  if (q.get("sprachen")) { const l = q.get("sprachen").split(","); $("lang_de").checked = l.includes("de"); $("lang_en").checked = l.includes("en"); }
+  const f = q.get("format");
+  if (f && [...$("format").options].some(o => o.value === f)) $("format").value = f;
 }
 
 let planTimer = null;
@@ -344,12 +394,20 @@ async function start() {
   $("formErr").textContent = "";
   const langs = ["de", "en"].filter(l => $("lang_" + l).checked);
   if (!langs.length) { $("formErr").textContent = "Mindestens eine Sprache wählen."; return; }
-  const body = { langs, count: +$("count").value, only_script: $("onlyScript").checked, strict: $("strict").checked };
-  if (tab === "preset") body.preset = $("preset").value;
-  if (tab === "topic") body.topic = $("topic").value.trim();
-  if (tab === "yaml") body.yaml_spec = $("yaml").value;
   $("go").disabled = true;
-  try { await api("/api/jobs", { method: "POST", body: JSON.stringify(body) }); refresh(); }
+  try {
+    if (tab === "yaml") {
+      const body = { langs, count: +$("count").value, only_script: $("onlyScript").checked, strict: $("strict").checked,
+                     yaml_spec: $("yaml").value };
+      await api("/api/jobs", { method: "POST", body: JSON.stringify(body) });
+    } else {
+      const order = { art: "ranking", sprachen: langs, plaetze: +$("count").value, nur_skript: $("onlyScript").checked,
+                      streng: $("strict").checked, format: $("format").value, hochladen: uploadWish() };
+      if (tab === "preset") order.vorlage = $("preset").value; else order.thema = $("topic").value.trim();
+      await api("/api/auftrag", { method: "POST", body: JSON.stringify(order) });
+    }
+    refresh();
+  }
   catch (e) { $("formErr").textContent = e.message; }
   finally { $("go").disabled = false; }
 }
@@ -379,6 +437,10 @@ function renderJob(j) {
       const shown = r.warnings.slice(0, 3).map(esc).join("<br>");
       const more = r.warnings.length > 3 ? `<br>… und ${r.warnings.length - 3} weitere Hinweise im Prüfbericht` : "";
       html += `<div class="warn">⚠️ Vor dem Hochladen prüfen:<br>${shown}${more}</div>`;
+    }
+    if (r.hochgeladen && r.hochgeladen.length) {
+      html += `<div class="warn">${r.hochgeladen.map(u => u.ok ? `✓ ${esc(u.ziel)} (${esc(u.sprache)}): hochgeladen`
+        : `✗ ${esc(u.ziel)} (${esc(u.sprache)}): ${esc(u.fehler || "Fehler")}`).join("<br>")}</div>`;
     }
     const reviewUrl = `/review/${encodeURIComponent(folder)}` + (token ? `?token=${encodeURIComponent(token)}` : "");
     html += `<div class="links"><a href="${reviewUrl}" target="_blank">Prüfbericht mit Quellen</a></div>`;

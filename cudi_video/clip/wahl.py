@@ -35,7 +35,7 @@ def claude_waehlen(saetze: list[Satz], max_s: float) -> tuple[Fenster, Satz] | N
     """(Fenster, Hook) laut Claude oder None. Wirft handoff.WritingNeeded, wenn die Aufgabe erst abgelegt wurde."""
     from .. import handoff
 
-    if not handoff.enabled() or not saetze:
+    if not handoff.active() or not saetze:
         return None
     alle = Fenster(saetze[0].start, saetze[-1].ende, 0.0, list(saetze))
     kand = hook_kandidaten(alle, 5)

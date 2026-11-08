@@ -284,6 +284,15 @@ Fragt die Windows-Firewall beim ersten Start nach Zugriff, „Zulassen“ (priva
 Hinweis: Der kostenlose Space hat 2 CPU-Kerne (ein Video dauert dann einige Minuten), schläft nach
 Inaktivität ein und speichert Videos nicht dauerhaft – fertige Videos also direkt herunterladen.
 
+**Notbetrieb (Claude-Nutzungslimit erreicht):** Ist `CUDI_SCHREIBEN` nicht gesetzt, aber ein Sprachmodell
+konfiguriert (`CUDI_LLM_BASE_URL`, `CUDI_LLM_API_KEY`, `CUDI_LLM_MODEL`, z. B. kostenloses Gemini), beantwortet es
+alle Schreibaufgaben (Thema deuten, Fakten, Erzähltext, Story-Lektorat, Clip-Hook) mit derselben Anleitung wie Claude
+(`handoff.request`); alle Prüfungen bleiben, bei Ausfall gelten die Textbausteine. Die Web-App (B) nimmt dafür
+Aufträge im Format der App-Seite an (`POST /api/auftrag`: Ranking, freies Thema, Story, Format, Hochladen) und ist
+per Adresse vorbefüllbar (`?art=ranking&vorlage=…&thema=…&plaetze=…&sprachen=de,en&format=…` bzw.
+`?art=story&wunsch=…&stimmung=…`). Die App-Seite zeigt bei Limit einen Banner mit Knopf zur Web-App.
+Einrichtung vom Handy: `docs/notbetrieb-einrichten.md`.
+
 **C) Mit der CUDI-App-Seite in Claude (am bequemsten, alles in der App):** Die Seite
 (Quelltext `docs/cudi-app-artefakt.html`) hat alle Optionen für Rankings und Storys. „… erstellen“
 startet über den eingebauten Connector „Claude Code Remote“ einen Lauf der geplanten Aufgabe

@@ -155,6 +155,10 @@
   .banner { display: flex; align-items: center; gap: 10px; border-radius: 14px; padding: 10px 12px; font-size: 14px; font-weight: 700;
             color: var(--warn); background: var(--panel); border: 1px solid color-mix(in srgb, var(--warn) 50%, var(--line)); }
   .banner span { flex: 1; min-width: 0; }
+  .banner.limit { flex-wrap: wrap; color: var(--bad); border-color: color-mix(in srgb, var(--bad) 55%, var(--line)); }
+  .banner.limit .acts { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
+  a.btn { text-decoration: none; justify-content: center; }
+  .nb { display: grid; gap: 10px; border-top: 1px solid var(--line); margin-top: 18px; padding-top: 16px; }
   .banner button, .btn { min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink);
                          color: var(--paper); font: 700 14px var(--body); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
   .btn.primary { background: var(--accent); border-color: var(--accent); color: #04141a; }
@@ -218,6 +222,16 @@
     <button role="tab" id="tab-firma" aria-controls="firma" aria-selected="false">Firma</button>
     <button role="tab" id="tab-app" aria-controls="app" aria-selected="false">Volle App</button>
   </nav>
+
+  <div class="banner limit" id="limitBanner" role="alert" hidden>
+    <svg class="ic" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3zM12 10v5M12 18v.5"/></svg>
+    <span id="limitText">Claude-Limit erreicht – Notbetrieb nutzen</span>
+    <div class="acts">
+      <a class="btn primary" id="limitGo" href="#" target="_blank" rel="noopener" hidden>Notbetrieb öffnen</a>
+      <button class="btn primary" type="button" id="limitSetup" hidden>Notbetrieb einrichten</button>
+      <button class="btn" type="button" id="limitClose">Schließen</button>
+    </div>
+  </div>
 
   <div class="banner" id="alertBanner" role="alert" hidden>
     <svg class="ic" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3zM12 10v5M12 18v.5"/></svg>
@@ -438,6 +452,22 @@
         <p><a href="https://github.com/Poso47/CUDI/actions/workflows/cloud-app.yml">Actions → CUDI Cloud-App</a> → „Run workflow“. Nach 3–5 Minuten zeigt der Lauf die Adresse – oben speichern.</p></div></li>
     </ol>
     <p class="hint">Zu Hause geht auch die Adresse, die <code>CUDI_VIDEO.bat</code> am PC anzeigt.</p>
+
+    <div class="nb" id="notbetrieb">
+      <h2>Notbetrieb</h2>
+      <p class="lead">Ist dein Claude-Nutzungslimit erreicht, startet CUDI die Videos in der eigenen Web-App (Hugging Face Space) mit einem kostenlosen Sprachmodell. Dort gelten dieselben Prüfregeln.</p>
+      <p class="hint" id="nbHint"></p>
+      <form id="nbForm" novalidate style="display:grid;gap:10px">
+        <div>
+          <label for="nbUrl">Adresse des Notbetriebs</label>
+          <input id="nbUrl" type="url" inputmode="url" autocomplete="url" placeholder="https://dein-name-cudi-video.hf.space">
+        </div>
+        <p class="note bad" id="nbErr" hidden role="alert"></p>
+        <button class="go" type="submit">Notbetrieb-Adresse speichern</button>
+        <button class="btn" type="button" id="nbCopy" hidden>Adresse von „Volle App“ übernehmen</button>
+      </form>
+      <p class="hint"><a href="https://github.com/Poso47/CUDI/blob/main/docs/notbetrieb-einrichten.md" target="_blank" rel="noopener">Notbetrieb einrichten</a> – Schritt für Schritt vom Handy.</p>
+    </div>
   </section>
 
   <footer>Alles bleibt in der App: Jeder Auftrag läuft als Lauf deiner geplanten Aufgabe „CUDI-Auftrag“ in der Claude-Cloud – ohne neue Einträge in deiner Sitzungsliste – und legt Video und Texte hier ab.</footer>
@@ -682,11 +712,13 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         return;
       }
       await ref.update({ session: started.session, weg: started.weg });
+      callLimit = null; try { updateLimit(); } catch (e) { /* egal */ }          // Claude antwortet wieder
       note(msgId, "Gestartet! Fortschritt und Ergebnis siehst du unter „Videos“ – meist nach 5 bis 20 Minuten.", "ok");
       setTimeout(() => goTab("videos"), 900);
     } catch (err) {
       await ref.delete().catch(() => {});
       note(msgId, explain(err), err && err.code === "not_in_manifest" ? "warn" : "bad");
+      flagLimit(err, built.order);                                              // Claude nicht verfügbar: Notbetrieb anbieten
     } finally {
       button.disabled = false;
     }
@@ -916,6 +948,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       note(msgId, "Neu gestartet.", "ok");
     } catch (err) {
       note(msgId, explain(err), "bad");
+      flagLimit(err, job.auftrag);
       button.disabled = false;
     }
   }
@@ -1365,6 +1398,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   moreLi.appendChild(moreBtn);
   function render() {
     try { renderFirma(); } catch (e) { /* Leitstand darf die Videoliste nie stören */ }
+    try { updateLimit(); } catch (e) { /* Notbetrieb-Banner darf die Videoliste nie stören */ }
     const ul = $("jobList");
     const all = [...jobs.keys()].sort((a, b) => {
       const ta = (jobs.get(a) || {}).gestartet || (results.get(a) || {}).fertig || "";
@@ -1622,6 +1656,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     $("openStory").href = url + "/#story";
     $("addressLine").textContent = url;
     $("appUrl").value = url;
+    if ($("nbCopy")) $("nbCopy").hidden = Boolean(nbUrl) || !url;
   }
   $("urlForm").addEventListener("submit", async (ev) => {
     ev.preventDefault();
@@ -1634,12 +1669,93 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   });
   $("changeBtn").addEventListener("click", () => { $("appReady").hidden = true; $("urlForm").hidden = false; $("appUrl").focus(); });
 
+  /* ---------- Notbetrieb: Claude-Limit erkennen, eigene Web-App anbieten ---------- */
+  const NB_KEY = "cudiNotbetriebUrl";
+  const LIMIT_CALL = /rate.?limit|usage.?limit|quota|\b429\b|overload|too many requests|limit|kontingent|nutzungs/i;   // Fehler beim Start
+  const LIMIT_RUN = /rate.?limit|usage.?limit|quota|overloaded|too many requests|nutzungslimit|kontingent|claude.{0,24}limit/i;   // Text im Lauf-Ergebnis
+  const STALE_MIN = 360;                                   // ältere Fehlschläge lösen keinen Banner mehr aus
+  let nbUrl = "", callLimit = null, limitDismissed = "";
+  function isLimitError(err) {
+    return Boolean(err && !CONSENT.includes(err.code) && (err.code === "rate_limited" || LIMIT_CALL.test(String(err.message || ""))));
+  }
+  function nbGet() { try { return localStorage.getItem(NB_KEY) || ""; } catch (e) { return ""; } }
+  function nbSet(v) { try { localStorage.setItem(NB_KEY, v); } catch (e) { /* ohne Speicher geht es auch */ } }
+  function limitCandidates() {
+    const out = [];
+    for (const [id, job] of jobs) {
+      if (!job || !job.auftrag || !job.gestartet || minutes(job.gestartet) > STALE_MIN) continue;
+      const res = results.get(id);
+      if (res) {
+        if (!res.ok && LIMIT_RUN.test(String(res.fehler || ""))) out.push({ id: id, order: job.auftrag });
+      } else if (buckets.get(job.session) === "FAILED" && minutes(job.gestartet) > 10) {
+        out.push({ id: id, order: job.auftrag });          // hängt > 10 Min. und die Sitzung ist fehlgeschlagen
+      }
+    }
+    return out;
+  }
+  function notbetriebLink(order) {
+    if (!nbUrl) return "";
+    const q = new URLSearchParams(), o = order || {};
+    if (o.art === "ranking") {
+      q.set("art", "ranking");
+      if (o.thema) q.set("thema", o.thema); else if (o.vorlage) q.set("vorlage", o.vorlage);
+      if (o.plaetze) q.set("plaetze", String(o.plaetze));
+      if (o.sprachen && o.sprachen.length) q.set("sprachen", o.sprachen.join(","));
+      if (o.format) q.set("format", o.format);
+    } else if (o.art === "story") {
+      q.set("art", "story");
+      if (o.wunsch) q.set("wunsch", o.wunsch);
+      if (o.stimmung && o.stimmung !== "auto") q.set("stimmung", o.stimmung);
+    }
+    const qs = q.toString();
+    return nbUrl + "/" + (qs ? "?" + qs : "");
+  }
+  function updateLimit() {
+    const cands = limitCandidates();
+    const key = callLimit ? "call" + callLimit.at : cands.length ? "job" + cands[0].id : "";
+    const show = Boolean(key) && key !== limitDismissed;
+    $("limitBanner").hidden = !show;
+    if (!show) return;
+    const order = callLimit ? callLimit.order : cands[0].order;
+    const link = notbetriebLink(order);
+    $("limitGo").hidden = !link;
+    if (link) $("limitGo").href = link;
+    $("limitSetup").hidden = Boolean(link);
+    $("limitText").textContent = "Claude-Limit erreicht – Notbetrieb nutzen" + (nbUrl ? "" : " (noch nicht eingerichtet)");
+    $("limitBanner").dataset.key = key;
+  }
+  function flagLimit(err, order) {
+    if (!isLimitError(err)) return;
+    callLimit = { order: order, at: Date.now() }; limitDismissed = "";
+    try { updateLimit(); } catch (e) { /* egal */ }
+  }
+  $("limitClose").addEventListener("click", () => { limitDismissed = $("limitBanner").dataset.key || ""; updateLimit(); });
+  $("limitSetup").addEventListener("click", () => { goTab("app"); $("notbetrieb").scrollIntoView({ block: "start" }); });
+  function showNb(url) {
+    nbUrl = url;
+    $("nbUrl").value = url;
+    $("nbHint").textContent = url ? "Gespeichert: " + url : "Noch nicht eingerichtet. Ohne Adresse zeigt die App bei erreichtem Limit nur den Hinweis zur Einrichtung.";
+    $("nbCopy").hidden = Boolean(url) || !appUrl;
+    try { updateLimit(); } catch (e) { /* Banner folgt beim nächsten Update */ }
+  }
+  $("nbForm").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const raw = $("nbUrl").value.trim(), url = normalize(raw);
+    if (raw && !url) { $("nbErr").textContent = "Das ist keine gültige Adresse. Beispiel: https://dein-name-cudi-video.hf.space"; $("nbErr").hidden = false; return; }
+    $("nbErr").hidden = true;
+    nbSet(url);
+    showNb(url);
+    if (db) { try { await db.doc("config/notbetrieb").set({ url: url, updated: new Date().toISOString() }); } catch (e) { /* lokal reicht */ } }
+  });
+  $("nbCopy").addEventListener("click", () => { $("nbUrl").value = appUrl; $("nbForm").dispatchEvent(new Event("submit", { cancelable: true })); });
+
   /* ---------- Start ---------- */
+  showNb(nbGet());
   showApp(localGet());
   showTab(location.hash.slice(1) || "ranking");
   pill("Cloud …", "");
   /* Nur mit ?demo=1 (Aufträge laufen) bzw. ?demo=frei (alle fertig): Beispieldaten zum Ansehen, nie im Normalbetrieb */
-  const demoMode = (/[?&]demo=(1|frei)\b/.exec(location.search) || [])[1];
+  const demoMode = (/[?&]demo=(1|frei|limit)\b/.exec(location.search) || [])[1];
   if (demoMode) {
     const ago = (min) => new Date(Date.now() - min * 60000).toISOString();
     const J = (id, art, label, min, auftrag, session) => jobs.set(id, { id: id, art: art, label: label, gestartet: ago(min), session: session || "", auftrag: auftrag });
@@ -1656,6 +1772,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     ratings.set("d1", { id: "d1", wert: 1, titel: "Berge", art: "ranking", zeit: ago(70) });
     ratings.set("d2", { id: "d2", wert: 1, titel: "Tiere", art: "ranking", zeit: ago(10) });
     ratings.set("d4", { id: "d4", wert: -1, titel: "Anruf", art: "story", zeit: ago(100) });
+    if (demoMode === "limit") {              // Beispiel: Lauf fehlgeschlagen, Notbetrieb-Adresse gesetzt (nur Demo)
+      J("d7", "ranking", "Die 10 größten Wüsten der Welt", 25, { art: "ranking", thema: "die größten Wüsten", plaetze: 10, sprachen: ["de", "en"], format: "karte" }, "session_demo000000007");
+      buckets.set("session_demo000000007", "FAILED");
+      showNb("https://dein-name-cudi-video.hf.space");
+    }
     if (demoMode === "1") {
       J("d5", "ranking", "Die 10 tiefsten Seen der Welt", 12, { art: "ranking", vorlage: "tiefste-seen" }, "session_demo000000005");
       buckets.set("session_demo000000005", "WORKING");
@@ -1694,6 +1815,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       ratings.clear(); snap.docs.forEach((d) => ratings.set(d.id, d.data()));
       render();
     }, () => { /* ohne Bewertungen geht es auch */ });
+    db.doc("config/notbetrieb").onSnapshot((snap) => {
+      const data = snap.exists ? snap.data() : null;
+      const url = data && typeof data.url === "string" ? normalize(data.url) : "";
+      if (url && url !== nbUrl) { nbSet(url); showNb(url); }
+    }, () => { /* lokale Kopie bleibt */ });
     db.doc("config/app").onSnapshot((snap) => {
       const data = snap.exists ? snap.data() : null;
       const url = data && typeof data.url === "string" ? normalize(data.url) : "";

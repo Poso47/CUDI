@@ -496,14 +496,18 @@ def _transient(exc: Exception) -> bool:
     return isinstance(exc, json.JSONDecodeError) or not isinstance(exc, (OrderError, ValueError))
 
 
-def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
-    """Auftrag ausführen. Rückgabe (Exit-Code, ergebnis.json-Daten oder None bei Übersetzungsbedarf)."""
+def run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=None) -> tuple[int, dict | None]:
+    """Auftrag ausführen. Rückgabe (Exit-Code, ergebnis.json-Daten oder None bei Übersetzungsbedarf).
+    via_claude=False (Web-App/Notbetrieb): keine Claude-Übersetzung, Schreibaufgaben nur über das Sprachmodell."""
     from .story.translate import CLAUDE_FILE_ENV, TranslationNeeded
 
     folder.mkdir(parents=True, exist_ok=True)
     (folder / "auftrag.json").write_text(json.dumps(order, ensure_ascii=False, indent=1), "utf-8")
     translation = folder / TRANSLATION_FILE
-    os.environ[CLAUDE_FILE_ENV] = str(translation)        # Story-Übersetzung übernimmt Claude (s. translate.py)
+    if via_claude:
+        os.environ[CLAUDE_FILE_ENV] = str(translation)    # Story-Übersetzung übernimmt Claude (s. translate.py)
+    else:
+        os.environ.pop(CLAUDE_FILE_ENV, None)
     os.environ[handoff.DIR_ENV] = str(folder)              # Schreibaufgaben (Thema deuten, erzählen) ebenso
     if order.get("vorlieben"):                            # gelernte Vorlieben gehen in jede Schreibaufgabe
         os.environ[handoff.PREFS_ENV] = json.dumps(order["vorlieben"], ensure_ascii=False)
@@ -521,6 +525,8 @@ def run_order(order: dict, folder: Path) -> tuple[int, dict | None]:
         if stage != last[0]:
             last[0] = stage
             print(f"  {fraction:4.0%} {stage}", flush=True)
+        if on_progress:
+            on_progress(stage, fraction)
 
     for attempt in (1, 2):                                    # eine vorübergehende Störung heilt sich selbst
         try:
