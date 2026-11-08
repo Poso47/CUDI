@@ -129,6 +129,8 @@ def build_order(area: str, idea: dict, check: dict) -> dict | None:
         return {"art": "ranking", "thema": thema, "plaetze": 7, "sprachen": ["de", "en"]}
     if area == "story":
         return {"art": "story", "wunsch": thema[:300], "stimmung": "auto", "sprache": "de", "laenge": "3min"}
+    if area == "reportage":                            # sachliche Reportage (reportage/__init__.py), Quellen sucht die Pipeline
+        return {"art": "reportage", "thema": re.sub(r"^Sachliche Reportage:\s*", "", thema)[:160], "sprache": "de"}
     return {"art": "erklaer", "thema": thema}
 
 
@@ -253,8 +255,8 @@ def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use
         check = (check_ranking(thema, 10, presets, probes, use_llm) if area == "ranking"
                  else {"geprueft": "idee", "hinweis": REPORTAGE_REGELN if area == "reportage"
                        else "Fakten entstehen erst in der geprüften Pipeline"})
-        order = None if area == "reportage" else build_order(area, {"thema": thema}, check)
-        problem = "" if area == "reportage" else validate_order(order, presets)
+        order = build_order(area, {"thema": thema}, check)
+        problem = validate_order(order, presets)
         if problem:
             check = {"geprueft": "idee", "hinweis": f"Auftrag unvollständig: {problem}"}
             order = build_order(area, {"thema": thema}, {})

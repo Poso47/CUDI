@@ -1,4 +1,4 @@
-"""`python -m cudi_video.firma <trends|news|ideen|putzen>` – führt einen Mitarbeiter einmal aus."""
+"""`python -m cudi_video.firma <trends|news|ideen|putzen|lernen>` – führt einen Mitarbeiter einmal aus."""
 
 from __future__ import annotations
 
@@ -12,9 +12,12 @@ from . import common
 
 def main(argv: list[str]) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    names = ("trends", "news", "ideen", "putzen")
+    names = ("trends", "news", "ideen", "putzen", "lernen")
+    if len(argv) == 2 and argv[0] == "uploads":              # Upload-Liste ergänzen (Notbetrieb-Workflow)
+        from .lernen import main_merge
+        return main_merge(argv[1:])
     if len(argv) != 1 or argv[0] not in names:
-        print(f"Aufruf: python -m cudi_video.firma <{'|'.join(names)}>")
+        print(f"Aufruf: python -m cudi_video.firma <{'|'.join(names)}> | uploads <datei>")
         return 2
     import time
     started = time.monotonic()

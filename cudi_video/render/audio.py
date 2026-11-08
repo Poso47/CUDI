@@ -32,6 +32,10 @@ def music_style(kind: str, fmt: str = "", topic: str = "") -> str | None:
     """Stimmung je Videoart, Format und Thema (None = ohne Musik)."""
     if not enabled():
         return None
+    from .. import experimente                   # Experiment „Musik-Stil“ (Variante des Auftrags), sonst die Wahl unten
+    chosen = experimente.music_override(kind)
+    if chosen:
+        return chosen
     style = KIND_STYLE.get(kind, "pad")
     if fmt in FORMAT_STYLE:
         style = FORMAT_STYLE[fmt]

@@ -60,7 +60,7 @@ def build_audio(jobs: list[dict], path: Path, music_style: str | None = None, se
         w.writeframes((np.clip(track, -1, 1) * 32767).astype(np.int16).tobytes())
 
 
-def render_erklaerung(script: dict, out_dir: Path | None = None, progress=None) -> dict:
+def render_erklaerung(script: dict, out_dir: Path | None = None, progress=None, musik: bool = True) -> dict:
     """Skript (validiert) -> Video. Gibt {"video", "cover", "duration", "folder"} zurück."""
     out_dir = out_dir or config.new_output_folder(script["id"])
     work = out_dir / "work"
@@ -81,7 +81,8 @@ def render_erklaerung(script: dict, out_dir: Path | None = None, progress=None) 
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat), "-c", "copy",
                     str(silent)], check=True)
     audio_file = work / "audio.wav"
-    build_audio(jobs, audio_file, music_style=audio.music_style("erklaer", STYLE.get("format", "manuskript"), script["titel"]),
+    build_audio(jobs, audio_file,
+                music_style=audio.music_style("erklaer", STYLE.get("format", "manuskript"), script["titel"]) if musik else None,
                 seed_key=script["id"])
     final = out_dir / f"{script['id']}.mp4"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(silent), "-i", str(audio_file), "-af",

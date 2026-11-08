@@ -37,6 +37,16 @@ für TikTok/YouTube Shorts.
   Motivs in Beschreibung/Tags stehen (Clip → Foto → Commons → „Stimmungsbild“, im Prüfbericht vermerkt). Aha-Regel
   (`themen.AHA_RULES`, Fakt-Feld `aha_<sprache>`, geprüft in `facts.checked_aha`): Outro „Heute gelernt: …“ (Platz 1; Rankings: Spitzenwert).
 - Verpackung (`render/cover.py`, `metadata.py`): Cover 1080×1920 (Titelwort, Spitzenwert, bestes Bild, Look des Formats, Safe-Zone) auch als erstes Frame (0,2 s; `CUDI_COVER_FRAME=0` aus); 3 Titelvarianten ≤ 60 Zeichen je Sprache (Aufgabe `titel` über `handoff`, geprüft: Zahl/Clickbait/Länge, sonst Regel-Varianten, beste per `title_score`) im Ergebnis (`titel_varianten`, Kopier-Knöpfe); 3–5 Hashtags je Plattform (#shorts YouTube, #fyp TikTok); Längenziel `LENGTH_GOALS` nur als Hinweis im Prüfbericht.
+- **Experimente/Lernen** (`experimente.py`, `firma/lernen.py`, Doku `docs/lernen-einrichten.md`): je Video eine Variante je Stellschraube
+  (Format, Design, Bewegung, Musik, Maskottchen; Hook/Länge vorbereitet, `KNOBS[..]["aktiv"]`), Bandit (Thompson, ≥ 20 % Erkundung) aus
+  `firma_daten/lernen.json`; feste Wünsche im Auftrag gehen vor; ohne Daten = alte md5-Wahl. `varianten` in `ergebnis.json`/Ergebnis-Dokument;
+  App-Bewertungen senden `vorlieben.varianten_gut/_schlecht` (zählen doppelt, Env `CUDI_VORLIEBEN_VARIANTEN`). Lern-Analyst (täglich, Workflow
+  `firma-lernen.yml`) liest YouTube (`youtube.readonly` oder `CUDI_YT_API_KEY`) und TikTok (`video.list`; `youtube-login --lesen`, `tiktok-login --lesen`),
+  Zuordnung über `firma_daten/uploads.json` (nur Notbetrieb-Job „liste“ schreibt; Claude-Läufe committen nie).
+- **Reportage** (`reportage/`, Auftrag `art: "reportage"` mit `thema`, `links`, `sprache`; Tab „Reportage“ der App): sachlich, nur Aussagen mit wörtlichem Beleg
+  aus ≥ 2 unabhängigen Betreibern (news.json, Wikipedia, Links), Aufgabe `reportage` (`handoff`) + Regelweg, Zahlen/Namen/Clickbait/Drama/Spekulation geprüft,
+  Buchlook ohne Musik/Maskottchen, Quellen + Stand am Ende; zu wenig Quellen = ehrlicher Abbruch. Ideen mit `bereich: reportage` tragen einen Auftrag.
+  Weitere Formate als Plan: `docs/content-formate.md`.
 - Lange Videos bis 10 Min. (App-Fassung in Stücken ≤ 19 MB), Maskottchen „CUDI“ (`mascot.py`, lippensynchron
   zur Sprachspur, abschaltbar: Auftrag `maskottchen`, `CUDI_MASCOT`), Story-Bilder „cartoon“ (gleiche Hauptfigur
   `figur`, gleicher Seed).

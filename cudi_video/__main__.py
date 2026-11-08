@@ -90,9 +90,11 @@ def main(argv=None) -> int:
     up.add_argument("--tiktok-modus", default="inbox", choices=["inbox", "direkt"],
                     help="inbox = Entwurf in der TikTok-App (Standard), direkt = Direct Post (braucht App-Prüfung)")
     up.add_argument("--probe", action="store_true", help="Trockenlauf: zeigen, was gesendet würde – ohne Netz")
-    sub.add_parser("youtube-login", help="einmaliger Browser-Login für den YouTube-Upload (am eigenen PC)")
+    yl = sub.add_parser("youtube-login", help="einmaliger Browser-Login für den YouTube-Upload (am eigenen PC)")
+    yl.add_argument("--lesen", action="store_true", help="zusätzlich Scope youtube.readonly (Lern-Analyst liest Zahlen)")
     tl = sub.add_parser("tiktok-login", help="einmaliger TikTok-Login: Code gegen Refresh-Token tauschen")
     tl.add_argument("adresse", nargs="?", default="", help="Rücksprung-Adresse oder Code (sonst wird gefragt)")
+    tl.add_argument("--lesen", action="store_true", help="zusätzlich Scope video.list (Lern-Analyst liest Zahlen)")
     er = sub.add_parser("erklaer", help="Erklärvideo (Buchlook) aus einem Szenen-Skript (JSON)")
     er.add_argument("skript", help="Pfad zum Szenen-Skript, z. B. examples/erklaer_goldener_schnitt.json")
 
@@ -150,12 +152,12 @@ def main(argv=None) -> int:
     if args.cmd == "youtube-login":
         from .upload.cli import youtube_login
 
-        return youtube_login()
+        return youtube_login(args.lesen)
 
     if args.cmd == "tiktok-login":
         from .upload.cli import tiktok_login
 
-        return tiktok_login(args.adresse)
+        return tiktok_login(args.adresse, args.lesen)
     if args.cmd == "erklaer":
         from .erklaer import load_script, render_erklaerung
 

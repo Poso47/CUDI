@@ -31,7 +31,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
-from . import config, handoff
+from . import config, experimente, handoff
 
 log = logging.getLogger(__name__)
 
@@ -49,7 +49,7 @@ RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch 
 # Dazu für fertige Videos: „bearbeiten“ (Texte/Format/Design/Tempo/Maskottchen aus der App, ohne neue Recherche) und
 # „hochladen“ (fertiges Video nach Freigabe in der App hochladen, ohne Neu-Rendern).
 STEPS = ("", "skelett", "video", "bearbeiten", "hochladen")
-STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "clip": ("hochladen",)}
+STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "clip": ("hochladen",), "reportage": ("hochladen",)}
 SKELETON_DIR = "cudi_skelette"         # dorthin legt die Sitzung das bearbeitete Skelett (ArtifactData out_dir)
 EDIT_DIR = "cudi_bearbeitungen"        # … die Änderungen eines fertigen Videos (Sammlung „bearbeitungen“)
 UPLOAD_DIR = "cudi_hochladen"          # … das Ergebnisdokument (Sammlung „results“) und die Video-Dateien zum Hochladen
@@ -117,21 +117,26 @@ def _seconds(value, name: str) -> float | None:
     return round(seconds, 2)
 
 
-def _clip_url(value) -> str:
+def _link(value) -> str:
+    """Quellen-Link einer Reportage (aus news.json): öffentliche http(s)-Adresse."""
+    return _clip_url(value, "Reportage")
+
+
+def _clip_url(value, what: str = "Clip") -> str:
     """Nur öffentliche http(s)-Adressen – keine lokalen oder privaten Ziele (Datei-Upload kommt später)."""
     url = str(value or "").strip()
     if not url:
-        raise OrderError("Clip: bitte den Link zum Video angeben.")
+        raise OrderError(f"{what}: bitte den Link zum Video angeben.")
     if len(url) > 500 or re.search(r"\s", url):
-        raise OrderError("Clip: ungültiger Link.")
+        raise OrderError(f"{what}: ungültiger Link.")
     parsed = urlparse(url)
     host = (parsed.hostname or "").lower()
     if parsed.scheme not in ("http", "https") or not host:
-        raise OrderError("Clip: bitte einen vollständigen Link (https://…) angeben.")
+        raise OrderError(f"{what}: bitte einen vollständigen Link (https://…) angeben.")
     if host == "localhost" or re.fullmatch(r"(127|10|0)\.[\d.]+|192\.168\.[\d.]+|169\.254\.[\d.]+|172\.(1[6-9]|2\d|3[01])\.[\d.]+", host):
-        raise OrderError("Clip: lokale Adressen sind nicht erlaubt.")
+        raise OrderError(f"{what}: lokale Adressen sind nicht erlaubt.")
     if "." not in host:
-        raise OrderError("Clip: bitte einen vollständigen Link (https://…) angeben.")
+        raise OrderError(f"{what}: bitte einen vollständigen Link (https://…) angeben.")
     return url
 
 
@@ -145,7 +150,22 @@ def parse_preferences(raw) -> dict:
         clean = [_text(x, 160) for x in items[:8] if isinstance(x, str)]
         if any(clean):
             out[key] = [c for c in clean if c]
+    for key in ("varianten_gut", "varianten_schlecht"):         # Varianten der bewerteten Videos (experimente.py)
+        clean = [_variants(v) for v in (raw.get(key) if isinstance(raw.get(key), list) else [])[:8]]
+        clean = [v for v in clean if v]
+        if clean:
+            out[key] = clean
     return out
+
+
+def _variants(raw) -> dict:
+    """Varianten eines Videos {Stellschraube: Variante}: nur bekannte Stellschrauben, kurze Namen."""
+    from .experimente import KNOBS
+
+    if not isinstance(raw, dict):
+        return {}
+    return {k: v for k, v in ((k, str(raw[k])[:20]) for k in KNOBS if k in raw)
+            if re.fullmatch(r"[a-zäöüß_-]{1,20}", v)}
 
 
 FORMAT_ENV = "CUDI_FORMAT"
@@ -249,7 +269,19 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
         return {"id": job_id, "art": "clip", "quelle": _clip_url(raw.get("quelle")), "start": start, "ende": end,
                 "sprache": lang, "laenge": length, "format": _format(raw.get("format")), "bestaetigt_erlaubnis": True,
                 "hochladen": _upload_wish(raw.get("hochladen"))}
-    raise OrderError("Unbekannte Art – „ranking“, „story“ oder „clip“.")
+    if kind == "reportage":
+        topic = _text(raw.get("thema"), 160)
+        if len(topic) < 6:
+            raise OrderError("Reportage: bitte das Thema in einem Satz nennen.")
+        lang = str(raw.get("sprache") or "de")
+        if lang not in ("de", "en"):
+            raise OrderError("Sprache: „de“ oder „en“.")
+        links = raw.get("links") if isinstance(raw.get("links"), list) else []
+        if len(links) > 5:
+            raise OrderError("Reportage: höchstens 5 Links.")
+        return {"id": job_id, "art": "reportage", "thema": topic, "sprache": lang,
+                "links": [_link(u) for u in links if str(u or "").strip()], "hochladen": _upload_wish(raw.get("hochladen"))}
+    raise OrderError("Unbekannte Art – „ranking“, „story“, „clip“ oder „reportage“.")
 
 
 def job_folder(job_id: str) -> Path:
@@ -315,6 +347,7 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
         return data
     out = Path(result["output_dir"])
     data["ordner"] = str(out)
+    data["varianten"] = experimente.current()                # welche Variante je Stellschraube (Experimente, Lernen)
     from . import tts
     data["hinweise"] = (tts.take_notes() + list(result.get("warnings", [])))[:20]
     if result.get("skelett"):
@@ -620,6 +653,13 @@ def _clip(order: dict, folder: Path, progress) -> dict:
     return {"output_dir": str(out), "videos": videos, "kind": "clip", "warnings": list(info.get("hinweise", []))}
 
 
+def _reportage(order: dict, folder: Path, progress) -> dict:
+    """Sachliche Reportage aus bestätigten Quellen (reportage/__init__.py); Experimente zu Maskottchen/Musik entfallen."""
+    from . import reportage
+
+    return reportage.run(order, folder, progress)
+
+
 def _transient(exc: Exception) -> bool:
     """Vorübergehende Störung (Netz, Dienst, Prozess) – nicht: falsche Eingaben oder eine gelöschte Story."""
     if hasattr(exc, "wiederholbar"):
@@ -628,6 +668,13 @@ def _transient(exc: Exception) -> bool:
 
 
 def run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=None) -> tuple[int, dict | None]:
+    try:
+        return _run_order(order, folder, via_claude, on_progress)
+    finally:
+        experimente.end_order()                           # vom Bandit gesetzte Umgebung wieder entfernen
+
+
+def _run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=None) -> tuple[int, dict | None]:
     """Auftrag ausführen. Rückgabe (Exit-Code, ergebnis.json-Daten oder None bei Übersetzungsbedarf).
     via_claude=False (Web-App/Notbetrieb): keine Claude-Übersetzung, Schreibaufgaben nur über das Sprachmodell."""
     from .story.translate import CLAUDE_FILE_ENV, TranslationNeeded
@@ -640,16 +687,23 @@ def run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=No
     else:
         os.environ.pop(CLAUDE_FILE_ENV, None)
     os.environ[handoff.DIR_ENV] = str(folder)              # Schreibaufgaben (Thema deuten, erzählen) ebenso
-    if order.get("vorlieben"):                            # gelernte Vorlieben gehen in jede Schreibaufgabe
-        os.environ[handoff.PREFS_ENV] = json.dumps(order["vorlieben"], ensure_ascii=False)
+    prefs = dict(order.get("vorlieben") or {})            # gelernte Vorlieben gehen in jede Schreibaufgabe
+    variants = {k.removeprefix("varianten_"): prefs.pop(k) for k in ("varianten_gut", "varianten_schlecht") if k in prefs}
+    if prefs:
+        os.environ[handoff.PREFS_ENV] = json.dumps(prefs, ensure_ascii=False)
     else:
         os.environ.pop(handoff.PREFS_ENV, None)
+    if variants:                                          # Varianten bewerteter Videos steuern die Experimente
+        os.environ[experimente.PREFS_ENV] = json.dumps(variants, ensure_ascii=False)
+    else:
+        os.environ.pop(experimente.PREFS_ENV, None)
     if order.get("format"):                               # gewähltes Format; sonst je Video ein anderes
         os.environ[FORMAT_ENV] = order["format"]
     else:
         os.environ.pop(FORMAT_ENV, None)
     if order.get("maskottchen") is not None:              # nur ausdrücklich gewählt überschreibt CUDI_MASCOT
         os.environ["CUDI_MASCOT"] = "1" if order["maskottchen"] else "0"
+    experimente.begin_order(order)                        # Maskottchen/Musik: feste Wünsche > Bandit > Erkundung
     last = [""]
 
     def progress(stage: str, fraction: float) -> None:
@@ -673,7 +727,8 @@ def run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=No
     for attempt in (1, 2):                                    # eine vorübergehende Störung heilt sich selbst
         try:
             run = (_bearbeiten if order.get("schritt") == "bearbeiten"
-                   else {"ranking": _ranking, "story": _story, "clip": _clip}[order["art"]])
+                   else {"ranking": _ranking, "story": _story, "clip": _clip,
+                                                   "reportage": _reportage}[order["art"]])
             result = run(order, folder, progress)
             data = _summary(order, result)
             from . import bearbeiten
@@ -718,6 +773,25 @@ def run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=No
 def uploads(data: dict) -> list[str]:
     """Hochzuladende Dateien: je Video die App-Fassung (bei langen Videos ihre Stücke) und das Titelbild."""
     return [p for v in data.get("videos", []) for p in (*(v.get("teile") or [v["video"]]), v.get("cover")) if p]
+
+
+def upload_records(order: dict, data: dict) -> list[dict]:
+    """Einträge für firma_daten/uploads.json (Lern-Analyst): welches hochgeladene Video mit welchen Varianten entstand.
+    Nur erfolgreiche Uploads; TikTok-Entwürfe haben noch keine Video-Kennung und werden über den Text zugeordnet."""
+    out = []
+    by_key = {v.get("key"): v for v in data.get("videos", [])}
+    for entry in data.get("hochgeladen") or []:
+        if not entry.get("ok"):
+            continue
+        video = by_key.get(entry.get("sprache"), {})
+        text = (_split_text(video.get("youtube"))[0] if entry.get("ziel") == "youtube"
+                else str(video.get("tiktok") or "").strip())
+        out.append({"auftrag": order["id"], "art": order["art"], "ziel": entry.get("ziel", ""),
+                    "sprache": entry.get("sprache", ""), "video_id": entry.get("id", ""),
+                    "publish_id": entry.get("publish_id", ""), "text": text[:100], "url": entry.get("url", ""),
+                    "varianten": {k: v for k, v in (data.get("varianten") or {}).items() if k != "_grund"},
+                    "hochgeladen": datetime.now(timezone.utc).isoformat(timespec="seconds")})
+    return out
 
 
 # --------------------------------------------------------------------------- Dokument für die App
@@ -772,6 +846,8 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
         doc["hinweise"] = list(doc["hinweise"]) + [upload_note(e) for e in data["hochgeladen"]]
     if data.get("hochladen_offen"):               # Freigabe in der App steht aus: Ziel und Sichtbarkeit zum Vorbelegen
         doc["hochladen_offen"] = data["hochladen_offen"]
+    if data.get("varianten"):                     # für die Bewertung in der App (Lernen: welche Variante kam gut an?)
+        doc["varianten"] = data["varianten"]
     if data.get("bearbeitung"):                   # Grundlage für „Bearbeiten“ (kompakt, Größe begrenzt)
         doc["bearbeitung"] = data["bearbeitung"]
     if data.get("skelett"):                       # Schritt 1 einer Story: Skelett zum Prüfen in der App

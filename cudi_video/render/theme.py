@@ -120,15 +120,21 @@ def pick_style(spec_id: str, icon: str | None, kind: str = "numbers", wanted: st
     (App-Bearbeitung; leer = passend zum Thema)."""
     import hashlib
 
+    from .. import experimente
+
     def h(salt: str, n: int) -> int:
         return int(hashlib.md5(f"{spec_id}{salt}".encode()).hexdigest(), 16) % n
 
+    # Wahl je Stellschraube: fester Wunsch > Bandit (Gelerntes, ≥ 20 % Erkundung) > bisherige md5-Wahl (Erkundung)
     options = palette_options(icon, kind, topic)
-    name = design if design in STYLES and design != "manuskript" else options[h("design", len(options))]
-    fmt = wanted if wanted in FORMAT_NAMES else FORMAT_NAMES[h("format", len(FORMAT_NAMES))]
+    fmt = experimente.choose(spec_id, "format", FORMAT_NAMES, wanted if wanted in FORMAT_NAMES else "",
+                             h("format", len(FORMAT_NAMES)))
     if fmt == "manuskript":
         name = "manuskript"                  # der Buchlook hat eigene Farben (fast schwarz, Off-White)
-    motion = list(MOTIONS)[h("motion", len(MOTIONS))]
+    else:
+        fixed = design if design in STYLES and design != "manuskript" else ""
+        name = experimente.choose(spec_id, "design", options, fixed, h("design", len(options)))
+    motion = experimente.choose(spec_id, "bewegung", list(MOTIONS), "", h("motion", len(MOTIONS)))
     return {"name": name, "format": fmt, "motion": motion}
 
 

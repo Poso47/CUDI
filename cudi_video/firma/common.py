@@ -22,7 +22,7 @@ DATA_DIR = Path(os.environ.get("CUDI_FIRMA_DATEN", config.PROJECT_DIR / "firma_d
 USER_AGENT = "CUDI-Firma/1.0 (open-source video research bot; https://github.com/Poso47/CUDI)"
 # Schlüssel, die bei jedem Lauf wechseln und allein keinen Commit auslösen sollen
 VOLATILE = ("erzeugt", "letzter_lauf", "dauer_s", "naechste_planung")
-WORKERS = {"trends": 3, "news": 3, "ideen": 24, "putzen": 24}      # Planungsabstand in Stunden
+WORKERS = {"trends": 3, "news": 3, "ideen": 24, "putzen": 24, "lernen": 24}      # Planungsabstand in Stunden
 
 
 def now() -> datetime:
