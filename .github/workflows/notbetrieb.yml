@@ -115,7 +115,7 @@ jobs:
         run: |
           if [ -f neu/uploads_neu.json ]; then
             python -m cudi_video.firma uploads neu/uploads_neu.json
-            scripts/firma_commit.sh "Upload-Liste"
+            bash scripts/firma_commit.sh "Upload-Liste"
           else
             echo "Kein Upload in diesem Lauf."
           fi
