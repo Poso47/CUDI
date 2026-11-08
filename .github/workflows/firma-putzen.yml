@@ -1,0 +1,43 @@
+# Firma-Mitarbeiter „Putzmann“ (kostenlos): löscht alte Artefakte (> 7 Tage) und Workflow-Läufe (> 30 Tage), sperrt erledigte
+# Notbetrieb-Issues (> 14 Tage), dünnt firma_daten/ aus. Nie Code, Releases oder offene Issues.
+# Siehe CLAUDE.md, Abschnitt „Firma-Mitarbeiter (GitHub)“.
+name: Firma · Putzmann
+
+on:
+  schedule:
+    - cron: "41 3 * * *"
+  workflow_dispatch:
+    inputs:
+      trocken:
+        description: "Probelauf: nur zählen, nichts löschen (1 = ja)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  actions: write
+  issues: write
+
+# Alle Firma-Läufe nacheinander, damit sich die Commits nicht in die Quere kommen
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  putzen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml
+      - name: Putzmann arbeitet
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CUDI_PUTZEN_TROCKEN: ${{ inputs.trocken }}
+        run: python -m cudi_video.firma putzen
+      - name: Ergebnis sichern
+        run: scripts/firma_commit.sh "Putzmann"

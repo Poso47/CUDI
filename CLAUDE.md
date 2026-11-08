@@ -110,6 +110,17 @@ für TikTok/YouTube Shorts.
   nur http(s)-Links, Texte/Prüfbericht in `clip/texte.py`; YouTube sperrt Cloud-IPs oft (`ClipError.wiederholbar`, Hinweis „später/PC“).
 - Weitere Wege: GitHub Actions „CUDI Video“/„CUDI Story“, Issue mit `cudi-auftrag` („CUDI Auftrag“),
   Hugging Face Space („CUDI Cloud-App“, optional, braucht Secret HF_TOKEN).
+- **Firma-Mitarbeiter (GitHub)** (`cudi_video/firma/`, Workflows `.github/workflows/firma-*.yml`, cron + manuell, kein Claude-Verbrauch;
+  Ergebnisse als JSON in `firma_daten/` (nicht `data/`, das ist gitignored), Bot-Commit `[skip ci]` über `scripts/firma_commit.sh`
+  nur bei Änderung, alle Läufe nacheinander via `concurrency: firma-daten`): **Trend-Scout** (`trends.py`, alle 3 h: YouTube mostPopular
+  DE/US mit `CUDI_YT_API_KEY` oder OAuth `CUDI_YT_*` – sonst nur Hinweis, Google-Trends-RSS, Wikipedia-Top, Reddit RSS/Arctic Shift →
+  `trends.json`), **News-Reporter** (`news.py`, alle 3 h: Tagesschau/DW/BBC/NPR-RSS, GDELT, Wikipedia Current events → `news.json`; „bestätigt“
+  erst bei ≥ 2 unabhängigen Betreibern, nur Titel/Kurzzeile/Link), **Ideen-Entwickler** (`ideen.py`, täglich: Gemini über `CUDI_LLM_*`, nur
+  Themen mit Beleg in Trends/News, Ranking vorgeprüft per Vorlage/`planner.plan`/Wikidata-Probe, Ausgabe im App-Auftragsformat; ohne Secrets
+  regelbasiert → `ideen.json`), **Putzmann** (`putzen.py`, täglich: Artefakte > 7 T., Läufe > 30 T. löschen, erledigte `cudi-auftrag`-Issues > 14 T.
+  sperren, `firma_daten/` ausdünnen → `putzen.json`; Probelauf `CUDI_PUTZEN_TROCKEN=1`). `status.json` = letzter Lauf/Dauer/Ergebnis/nächste Planung je Mitarbeiter
+  (Grundlage fürs 3D-Büro). Jede Quelle einzeln abgesichert (Ausfall = Hinweis). Lokal: `python -m cudi_video.firma <trends|news|ideen|putzen>`,
+  Ausgabeordner per `CUDI_FIRMA_DATEN` umlenkbar; Tests `tests/test_firma.py`.
 - Kosten: alles kostenlose Dienste; App-Aufträge zählen nur zum Claude-Nutzungslimit des Nutzers.
 - **Keine Fehlschläge** (Wunsch des Nutzers) – kostenlose Ausweichwege, siehe README „Probleme?“:
   edge-tts 6 Versuche → Piper offline (`tts.PIPER_VOICES`, Modelle in `video_output/_piper`, `piper-tts`

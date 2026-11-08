@@ -1,0 +1,38 @@
+# Firma-Mitarbeiter „Trend-Scout“ (kostenlos, kein Claude-Verbrauch): schreibt firma_daten/trends.json, sichert per Bot-Commit.
+# Siehe CLAUDE.md, Abschnitt „Firma-Mitarbeiter (GitHub)“.
+name: Firma · Trend-Scout
+
+on:
+  schedule:
+    - cron: "7 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Alle Firma-Läufe nacheinander, damit sich die Commits nicht in die Quere kommen
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  trends:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml
+      - name: Trend-Scout arbeitet
+        env:
+          # Nur gesetzte Secrets wirken; ohne YouTube-Zugang fehlt YouTube mit einem Hinweis
+          CUDI_YT_API_KEY: ${{ secrets.CUDI_YT_API_KEY }}
+          CUDI_YT_CLIENT_ID: ${{ secrets.CUDI_YT_CLIENT_ID }}
+          CUDI_YT_CLIENT_SECRET: ${{ secrets.CUDI_YT_CLIENT_SECRET }}
+          CUDI_YT_REFRESH_TOKEN: ${{ secrets.CUDI_YT_REFRESH_TOKEN }}
+        run: python -m cudi_video.firma trends
+      - name: Ergebnis sichern
+        run: scripts/firma_commit.sh "Trend-Scout"
