@@ -21,3 +21,12 @@ description: Neuen Firma-Mitarbeiter (GitHub-Workflow, kein Claude-Verbrauch) ba
 ## Qualität
 - Nachrichten: „bestätigt“ nur bei ≥ 2 unabhängigen Betreibern; Ähnlichkeit **paarweise** mit einzelnen Meldungen, nie mit wachsender Wortmenge der Gruppe.
 - Ideen: keine Meta-Rankings (Klicks/Suchbegriffe), Nachrichten nie als Story → Reportage; alte Ideen über `still_valid` nachprüfen.
+
+## Lokal testen / Quellen prüfen
+- `cp firma_daten/*.json video_output/_work/firma/ && CUDI_FIRMA_DATEN=video_output/_work/firma python -m cudi_video.firma <name>` – `firma_daten/` nie lokal committen.
+- RSS prüfen: `curl -sL -m 15 -A 'CUDI-Firma/1.0' -o /dev/null -w '%{http_code} %{size_download}' <url>` (404 mit großer Antwort = Fehlerseite). Nicht nutzbar (Stand 11/2026): TRT World, ORF-RSS (RDF, 0 Einträge), Antara, Jakarta Post, News24, ABC Paraguay.
+- GDELT: höchstens 1 Abruf je 5 s, oft 429 → immer einzeln absichern; `artlist` hat keinen Ton (`mode=tonechart` nötig).
+- Wikidata: `wbsearchentities` + `wbgetentities`, 1,5 s Pause, ≤ 5 neue Namen je Lauf, negative Treffer cachen. abgeordnetenwatch v2 geht ohne Schlüssel (`last_name`), noch nicht eingebaut.
+- Sprachübergreifender Abgleich nur über Eigennamen/Zahlen (≥ 2 gemeinsame).
+- Sprachmodell-Texte: `textcheck.numbers`, `invented_people`, keine Links, keine Interna (`briefing.INTERNA`); Firma-Interna nie ins Sprachmodell geben.
+- Nie `git checkout -- .` im Hauptordner (verwirft ungesicherte Arbeit eines Agenten).

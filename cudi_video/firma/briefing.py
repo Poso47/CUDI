@@ -211,6 +211,9 @@ def rule_overview(sections: list[dict]) -> str:
             f"Belegte Verbindungen: {n[4]}. Offene Fragen: {n[5]}. Alles mit Quellenlinks; Unbelegtes steht nur als Frage.")
 
 
+INTERNA = re.compile(r"Sprachmodell|GDELT|Workflow|\bAPI\b|nicht erreichbar|Mitarbeiter|Hinweis|Secret|Zugangsdaten", re.I)
+
+
 def check_overview(text: str, source: str) -> list[str]:
     from .. import textcheck
     problems = []
@@ -221,6 +224,8 @@ def check_overview(text: str, source: str) -> list[str]:
         problems.append("neue Vornamen")
     if re.search(r"https?://|www\.", text):
         problems.append("Link im Text")
+    if INTERNA.search(text):
+        problems.append("Interna im Text")
     return problems
 
 
@@ -229,7 +234,9 @@ def overview(sections: list[dict], notes: list[str]) -> tuple[str, str]:
     plain = rule_overview(sections)
     if not llm.available():
         return plain, "regeln"
-    source = "\n".join(f"[{s['titel']}] " + " | ".join(p["text"] for p in s["punkte"]) for s in sections)
+    # nur die Nachrichten-Abschnitte – Firma-Interna (Ausfälle, Hinweise) gehören nicht in den Welt-Überblick
+    source = "\n".join(f"[{s['titel']}] " + " | ".join(p["text"] for p in s["punkte"])
+                       for s in sections if not s["titel"].startswith("1."))
     try:
         text = " ".join(str(llm.chat_json(LLM_SYSTEM, source, temperature=0.2, timeout=90).get("ueberblick", "")).split())
         problems = check_overview(text, source) if text else ["leer"]

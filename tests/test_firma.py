@@ -471,3 +471,9 @@ def test_workflows_welt_briefing():
         wf = yaml.safe_load((ROOT / ".github" / "workflows" / name).read_text("utf-8"))
         assert wf["concurrency"]["group"] == "firma-daten" and needle in (ROOT / ".github" / "workflows" / name).read_text("utf-8")
     assert yaml.safe_load((ROOT / ".github/workflows/firma-briefing.yml").read_text("utf-8"))[True]["schedule"][0]["cron"] == "13 5 * * *"
+
+
+def test_briefing_uebersicht_ohne_interna():
+    from cudi_video.firma import briefing
+    assert "Interna im Text" in briefing.check_overview("Sprachmodell und GDELT waren nicht erreichbar.", "x")
+    assert briefing.check_overview("Merz will Aigner vorschlagen.", "Merz will Aigner vorschlagen.") == []

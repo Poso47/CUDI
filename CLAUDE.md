@@ -160,6 +160,9 @@ für TikTok/YouTube Shorts.
   Hauptsitzung die Arbeit selbst statt einen Agenten zu starten.
 - **Lösungsorientiert:** Scheitert ein Weg, wird nicht aufgegeben. Erst Ursache lesen, dann reparieren, dann einen anderen kostenlosen
   Weg suchen, dann kleiner schneiden, erst dann fragen (Skill `ausweg-finden`). Die Regeln bleiben dabei bestehen.
+- **Agenten untereinander:** Sie dürfen sich direkt schreiben, helfen und voneinander lernen (ANFRAGE, ANTWORT und HINWEIS nach
+  Vorlage, höchstens 3 Nachrichten je Anliegen). Sie ändern nie die Dateien eines anderen, und Rechte reichen sie nicht weiter. Regeln dazu:
+  `docs/kommunikation.md` → „Zusammenarbeit der Agenten“.
 - Agenten arbeiten immer in einem eigenen Worktree (`isolation: "worktree"`), nie im Hauptordner.
 
 ## Sparsam mit dem Nutzungslimit (Wunsch des Nutzers: gleiche Qualität, weniger Verbrauch)
