@@ -1,0 +1,46 @@
+# Firma-Mitarbeiter „Morgen-Briefing“ (kostenlos): schreibt firma_daten/briefing.json/.md und legt ein GitHub-Issue „CUDI-Briefing <Datum>“ an
+# (Label briefing; GitHub benachrichtigt den Besitzer per E-Mail/Push). Das Issue des Vortags wird geschlossen.
+name: Firma · Morgen-Briefing
+
+on:
+  schedule:
+    - cron: "13 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  briefing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml
+      - name: Briefing schreiben
+        env:
+          CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
+          CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+          CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+        run: python -m cudi_video.firma briefing
+      - name: Issue anlegen, Vortag schließen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          datum="$(python -c "import json;print(json.load(open('firma_daten/briefing.json'))['datum'])")"
+          gh label create briefing --color 0e8a16 --description "Morgen-Briefing" --force || true
+          alt="$(gh issue list --label briefing --state open --json number --jq '.[].number')"
+          neu="$(gh issue create --title "CUDI-Briefing ${datum}" --label briefing --body-file firma_daten/briefing.md)"
+          echo "Angelegt: ${neu}"
+          for n in $alt; do gh issue close "$n" --reason completed --comment "Abgelöst durch das Briefing vom ${datum}." || true; done
+      - name: Ergebnis sichern
+        run: bash scripts/firma_commit.sh "Morgen-Briefing"

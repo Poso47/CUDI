@@ -64,6 +64,16 @@ def build() -> dict:
         "putzen": {"zeit": last.get("zeit", ""), "entfernt": last.get("entfernt", {}),
                    "hinweise": [_cut(x, 160) for x in last.get("hinweise", [])[:3]]},
     }
+    welt = common.read_json("welt.json", {}) or {}
+    if welt.get("themen"):
+        data["welt"] = {"anzahl": welt.get("anzahl", 0), "nur_ausland": welt.get("nur_ausland", 0),
+                        "themen": [{"titel": _cut(g.get("titel"), 140), "link": g.get("link", ""), "laender": g.get("laender", [])[:6],
+                                    "laender_einig": g.get("laender_einig", [])[:6], "nur_ausland": bool(g.get("nur_ausland"))}
+                                   for g in welt["themen"][:5]]}
+    brief = common.read_json("briefing.json", {}) or {}
+    if brief.get("abschnitte"):
+        data["briefing"] = {"datum": brief.get("datum", ""), "ueberblick": _cut(brief.get("ueberblick"), 400),
+                            "top": [_cut(p.get("text"), 220) for p in brief["abschnitte"][0]["punkte"][:5]]}
     for key in ("lernen", "wahrheit"):
         extra = _extra(key + ".json")
         if extra:
