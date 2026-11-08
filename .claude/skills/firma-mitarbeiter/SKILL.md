@@ -30,3 +30,6 @@ description: Neuen Firma-Mitarbeiter (GitHub-Workflow, kein Claude-Verbrauch) ba
 - Sprachübergreifender Abgleich nur über Eigennamen/Zahlen (≥ 2 gemeinsame).
 - Sprachmodell-Texte: `textcheck.numbers`, `invented_people`, keine Links, keine Interna (`briefing.INTERNA`); Firma-Interna nie ins Sprachmodell geben.
 - Nie `git checkout -- .` im Hauptordner (verwirft ungesicherte Arbeit eines Agenten).
+- Meldungen gruppieren: zusätzlich zur Wortähnlichkeit **gemeinsamer Eigenname nötig** (`news.names`) – sonst landen „sentenced … years in prison“ aus Kenia/Tansania/Hongkong in einer Gruppe.
+- Workflows, die Daten anderer Mitarbeiter lesen (Ideen, Briefing): vor dem Lauf `git pull --ff-only` – der Checkout ist sonst der Stand beim Auslösen.
+- Wikidata-Verbindungen ohne Enddatum nie als „aktuell“ darstellen: „kein Enddatum eingetragen – ob noch aktuell, ist offen“.
