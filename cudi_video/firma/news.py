@@ -59,8 +59,16 @@ def tokens(title: str) -> set[str]:
     return {w[:6] for w in words if w not in _STOP}
 
 
-def similar(a: set[str], b: set[str]) -> bool:
+def names(title: str) -> set[str]:
+    """Eigennamen-Stämme (großgeschrieben, nicht am Satzanfang) – Kennzeichen derselben Meldung."""
+    words = re.findall(r"[^\W\d_][^\W_]{2,}", title)
+    return {w.lower()[:6] for i, w in enumerate(words) if i and w[0].isupper() and w.lower() not in _STOP}
+
+
+def similar(a: set[str], b: set[str], na: set[str] | None = None, nb: set[str] | None = None) -> bool:
     common_t = a & b
+    if na is not None and nb is not None and na and nb and not (na & nb):
+        return False                                  # kein gemeinsamer Name/Ort → andere Meldung
     if len(common_t) >= 3:
         return True
     return len(common_t) >= 2 and len(common_t) / len(a | b) >= 0.3
@@ -150,18 +158,19 @@ def wikipedia_events() -> list[dict]:
 def cluster(items: list[dict]) -> list[dict]:
     groups: list[dict] = []
     for it in items:
-        tok = tokens(it["titel"])
+        tok, nm = tokens(it["titel"]), names(it["titel"])
         if len(tok) < 2:
             continue
         for g in groups:
             # mit einzelnen Meldungen vergleichen, nicht mit der wachsenden Wortmenge der Gruppe
             # (sonst rutschen fremde Meldungen über gemeinsame Allerweltswörter hinein)
-            if g["sprache"] == it["sprache"] and any(similar(tok, t) for t in g["toks"]):
+            if g["sprache"] == it["sprache"] and any(similar(tok, t, nm, n) for t, n in zip(g["toks"], g["names"])):
                 g["items"].append(it)
                 g["toks"].append(tok)
+                g["names"].append(nm)
                 break
         else:
-            groups.append({"toks": [tok], "sprache": it["sprache"], "items": [it]})
+            groups.append({"toks": [tok], "names": [nm], "sprache": it["sprache"], "items": [it]})
     out = []
     for g in groups:
         its = g["items"]

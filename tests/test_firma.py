@@ -477,3 +477,17 @@ def test_briefing_uebersicht_ohne_interna():
     from cudi_video.firma import briefing
     assert "Interna im Text" in briefing.check_overview("Sprachmodell und GDELT waren nicht erreichbar.", "x")
     assert briefing.check_overview("Merz will Aigner vorschlagen.", "Merz will Aigner vorschlagen.") == []
+
+
+def test_news_cluster_braucht_gemeinsamen_namen():
+    from cudi_video.firma import news
+    def it(titel, pub):
+        return {"titel": titel, "kurz": "", "link": "https://" + pub, "quelle": pub, "betreiber": pub, "sprache": "en", "zeit": ""}
+    out = news.cluster([
+        it("Kenyan cult leader Paul Mackenzie is sentenced to 200 years in prison for the mass murder of children.", "reuters.com"),
+        it("The High Court of Tanzania acquits Chadema chairperson Tundu Lissu of treason but sentences him to four years in prison", "france24.com"),
+        it("The Hong Kong High Court sentences pro-democracy activist Joshua Wong to an additional 10 years in prison", "afp.com"),
+        it("Kenya court sentences cult leader Paul Mackenzie to 200 years", "bbc.com"),
+    ])
+    kenya = next(m for m in out if "Mackenzie" in m["titel"])
+    assert {q["quelle"] for q in kenya["quellen"]} == {"reuters.com", "bbc.com"}
