@@ -1,0 +1,32 @@
+# Firma-Mitarbeiter „News-Reporter“ (kostenlos, kein Claude-Verbrauch): schreibt firma_daten/news.json, sichert per Bot-Commit.
+# Siehe CLAUDE.md, Abschnitt „Firma-Mitarbeiter (GitHub)“.
+name: Firma · News-Reporter
+
+on:
+  schedule:
+    - cron: "37 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Alle Firma-Läufe nacheinander, damit sich die Commits nicht in die Quere kommen
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml
+      - name: News-Reporter arbeitet
+        run: python -m cudi_video.firma news
+      - name: Ergebnis sichern
+        run: scripts/firma_commit.sh "News-Reporter"
