@@ -5,6 +5,7 @@ from __future__ import annotations
 import hmac
 import json
 import logging
+import os
 import threading
 import traceback
 import uuid
@@ -19,6 +20,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 
 from .. import config, llm
+from ..render.theme import FORMAT_NAMES
 from ..spec import VideoSpec, list_presets, preset_raw
 
 log = logging.getLogger(__name__)
@@ -59,6 +61,16 @@ class JobRequest(BaseModel):
     strict: bool = False
 
 
+def upload_status() -> dict:
+    """Welche Upload-Ziele Zugangsdaten haben (nur ja/nein – nie die Werte)."""
+    def has(*names: str) -> bool:
+        return all(os.environ.get(n) for n in names)
+
+    return {"youtube": has("CUDI_YT_CLIENT_ID", "CUDI_YT_CLIENT_SECRET", "CUDI_YT_REFRESH_TOKEN"),
+            "tiktok": has("CUDI_TIKTOK_ACCESS_TOKEN") or has("CUDI_TIKTOK_CLIENT_KEY", "CUDI_TIKTOK_CLIENT_SECRET",
+                                                           "CUDI_TIKTOK_REFRESH_TOKEN")}
+
+
 def _update(job_id: str, **kw) -> None:
     with _lock:
         _jobs[job_id].update(kw)
@@ -87,10 +99,11 @@ def plan_topic(topic: str, count: int) -> dict:
     except PlanError as exc:
         if not llm.available():
             raise
-        from ..planner import plan
+        from ..planner import plan, plan_with_claude
 
         log.info("Stichwort-Planer: %s – versuche Sprachmodell", exc)
-        return plan(topic, count)
+        planned = plan_with_claude(topic, count)       # dieselbe Anleitung und Prüfung wie bei Claude (Notbetrieb)
+        return planned if planned is not None else plan(topic, count)
 
 
 def _spec_from_request(req: JobRequest) -> VideoSpec:
@@ -121,6 +134,8 @@ def info(request: Request):
         "presets": [{"id": s.id, "title": s.title} for s in list_presets()],
         "llm": llm.available(),
         "topics": supported_topics(),
+        "formats": list(FORMAT_NAMES),
+        "upload": upload_status(),
     }
 
 
@@ -153,6 +168,61 @@ def create_job(req: JobRequest, request: Request):
     _executor.submit(_run_job, job_id, spec, req.only_script, req.strict)
     with _lock:
         return dict(_jobs[job_id])
+
+
+def _run_order_job(job_id: str, order: dict) -> None:
+    """Auftrag wie in der CUDI-App (Ranking, freies Thema, Story, Format, Hochladen) – ohne Claude-Sitzung:
+    Schreibaufgaben beantwortet das Sprachmodell (Notbetrieb), sonst gelten die Textbausteine."""
+    from .. import job as jobmod
+
+    try:
+        _update(job_id, status="läuft", stage="Auftrag läuft")
+        folder = jobmod.job_folder(order["id"])
+        code, data = jobmod.run_order(
+            order, folder, via_claude=False,
+            on_progress=lambda stage, f: _update(job_id, stage=stage, progress=round(min(f, 0.99), 3)))
+        if data is None:
+            raise RuntimeError("Übersetzung nicht möglich – bitte Sprachmodell (CUDI_LLM_*) oder DeepL einrichten "
+                               "oder eine Story in Videosprache wählen.")
+        if not data["ok"]:
+            raise RuntimeError(data["fehler"] or "Auftrag fehlgeschlagen")
+        out = Path(data["ordner"])
+        result = json.loads((out / "result.json").read_text("utf-8"))
+        rel = out.resolve().relative_to(config.OUTPUT_DIR.resolve())
+        result["warnings"] = data["hinweise"]
+        if data.get("hochgeladen"):
+            result["hochgeladen"] = data["hochgeladen"]
+        _update(job_id, status="fertig", progress=1.0, result=result, folder=rel.as_posix())
+    except Exception as exc:
+        log.exception("Auftrag %s fehlgeschlagen", job_id)
+        from ..upload import redact
+        _update(job_id, status="fehler", error=redact(f"{exc}")[:1500], trace=redact(traceback.format_exc()[-2000:]))
+
+
+@app.post("/api/auftrag")
+async def create_order(request: Request):
+    """Gleiches Auftragsformat wie die CUDI-App-Seite: {art: ranking|story, vorlage|thema, plaetze, sprachen, format,
+    wunsch, stimmung, hochladen: {ziel, sichtbarkeit}, …}."""
+    _check_token(request)
+    from .. import job as jobmod
+
+    try:
+        raw = await request.json()
+        if not isinstance(raw, dict) or raw.get("art") not in ("ranking", "story"):
+            raise jobmod.OrderError("Art: „ranking“ oder „story“.")
+        order = jobmod.parse_order({**raw, "id": uuid.uuid4().hex[:10]}, {s.id for s in list_presets()})
+    except (jobmod.OrderError, ValueError) as exc:
+        raise HTTPException(400, str(exc))
+    title = order.get("thema") or order.get("vorlage") or order.get("wunsch") or f"Story ({order.get('stimmung')})"
+    with _lock:
+        _jobs[order["id"]] = {
+            "id": order["id"], "title": ("Story: " if order["art"] == "story" else "") + title[:80],
+            "status": "wartet", "stage": "In der Warteschlange", "progress": 0.0,
+            "created": datetime.now().isoformat(timespec="seconds"), "langs": order.get("sprachen") or [order.get("sprache")],
+        }
+    _executor.submit(_run_order_job, order["id"], order)
+    with _lock:
+        return dict(_jobs[order["id"]])
 
 
 def _finished_from_disk(known: set[str]) -> list[dict]:
@@ -188,7 +258,7 @@ def jobs(request: Request):
     return [*live, *_finished_from_disk(known)]
 
 
-@app.get("/review/{folder}", response_class=HTMLResponse)
+@app.get("/review/{folder:path}", response_class=HTMLResponse)
 def review(folder: str, request: Request):
     """Prüfbericht als lesbare Seite (auch auf dem Handy)."""
     _check_token(request)
@@ -346,7 +416,7 @@ def system_check(request: Request):
     return {"ready": ready, "rows": rows}
 
 
-@app.get("/files/{folder}/{name}")
+@app.get("/files/{folder:path}/{name}")
 def files(folder: str, name: str, request: Request):
     _check_token(request)
     base = config.OUTPUT_DIR.resolve()

@@ -91,6 +91,7 @@ für TikTok/YouTube Shorts.
   - Ansehen ohne Cloud: Seite mit `?demo=1` (Aufträge laufen) bzw. `?demo=frei` öffnen – Beispieldaten nur dann.
   - Seite ändern: Datei bearbeiten und mit dem Artifact-Werkzeug unter derselben URL veröffentlichen
     (äußerer HTML-Rahmen fehlt absichtlich – Claude setzt ihn).
+- **Notbetrieb** (Claude-Limit erreicht; Doku `docs/notbetrieb-einrichten.md`): `handoff.request` fragt ohne `CUDI_SCHREIBEN` ein freies LLM (`CUDI_LLM_*`, Gemini; `handoff.active()`/`llm_mode()`, Antwort in `schreiben_<aufgabe>.json`, Fehler → None → Textbausteine); Web-App-Space nimmt App-Aufträge per `POST /api/auftrag` (`job.run_order(via_claude=False)`), Formular per URL vorbefüllbar; App-Seite zeigt Banner bei Limit-Fehlern (`config/notbetrieb` = Space-Adresse, `?demo=limit`).
 - Upload (`cudi_video/upload/`: `youtube.py` resumable videos.insert, `tiktok.py` Inbox/Direct Post, `cli.py`): `hochladen … --probe`, `youtube-login`;
   Zugang nur über Umgebungsvariablen (`CUDI_YT_*`, `CUDI_TIKTOK_*`, nie ausgeben: `upload.redact`), Auftragsfeld `hochladen` (Standard aus), Doku `docs/upload-einrichten.md`.
 - Betonung (`tts.py`, Tabelle `SPEECH_PROFILES` + `MOOD_STYLE`): Abschnitte werden in Teile mit eigenem Tempo/Tonhöhe/Lautstärke und

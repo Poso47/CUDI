@@ -129,7 +129,7 @@ def places_for(spec: VideoSpec, research: Research, lang: str) -> list[dict]:
 
 def request(spec: VideoSpec, research: Research, langs: list[str]) -> dict:
     """Erzählte Texte {Sprache: {Platz: Text}} von Claude oder {} (nicht aktiv / keine Antwort)."""
-    if not handoff.enabled() or not research.items:
+    if not handoff.active() or not research.items:
         return {}
     data = {lang: {"titel": spec.title[lang], **themen.focus(spec, lang), "plaetze": places_for(spec, research, lang)}
             for lang in langs}

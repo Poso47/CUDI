@@ -382,7 +382,7 @@ def build_skeleton(post: Post, lang: str = "de", mood: str | None = None, length
     scenes_src = make_scenes(text)
     editor = "Regeln"
     hook, figure = "", ""
-    edited = claude_edit(title, scenes_src, lang, source_lang, mood, soften) if handoff.enabled() else None
+    edited = claude_edit(title, scenes_src, lang, source_lang, mood, soften) if handoff.active() else None
     if edited:                                    # CUDI-App: Claude lektoriert (kostenlos), der Code prüft
         title_t, scenes_t, visuals_t, hook, edit_notes = edited[:5]
         figure = edited[5] if len(edited) > 5 else ""

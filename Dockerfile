@@ -12,6 +12,7 @@ COPY cudi_video/requirements.txt cudi_video/requirements.txt
 RUN pip install --no-cache-dir -r cudi_video/requirements.txt
 COPY cudi_video cudi_video
 COPY presets presets
+COPY video_assets video_assets
 
 ENV CUDI_VIDEO_OUTPUT=/tmp/cudi/video_output \
     CUDI_VIDEO_CACHE=/tmp/cudi/cache \
