@@ -1,0 +1,36 @@
+# Firma-Mitarbeiter „Ideen-Entwickler“ (kostenloses Gemini, kein Claude-Verbrauch): schreibt firma_daten/ideen.json.
+# Ohne CUDI_LLM_*-Secrets entstehen regelbasierte Ideen. Siehe CLAUDE.md, Abschnitt „Firma-Mitarbeiter (GitHub)“.
+name: Firma · Ideen-Entwickler
+
+on:
+  schedule:
+    - cron: "23 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Alle Firma-Läufe nacheinander, damit sich die Commits nicht in die Quere kommen
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  ideen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml
+      - name: Ideen-Entwickler arbeitet
+        env:
+          CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
+          CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+          CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+        run: python -m cudi_video.firma ideen
+      - name: Ergebnis sichern
+        run: scripts/firma_commit.sh "Ideen-Entwickler"
