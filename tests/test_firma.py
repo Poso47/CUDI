@@ -384,3 +384,10 @@ def test_finish_keine_meta_rankings_und_news_nie_als_story():
            {"bereich": "story", "titel": "Aigner", "thema": "Weg zur Präsidentin", "quelle_trend": "Merz schlägt Aigner vor"}]
     out = ideen.finish(raw, cand, PRESETS, False, [], set())
     assert [i["bereich"] for i in out] == ["reportage"] and out[0]["auftrag"]["art"] == "reportage"
+
+
+def test_alte_ideen_werden_nach_heutigen_regeln_nachgeprueft():
+    assert not ideen.still_valid({"bereich": "ranking", "titel": "Die meistgesuchten Begriffe", "thema": ""})
+    assert not ideen.still_valid({"bereich": "story", "titel": "Aigner", "thema": "", "quelle": {"typ": "news"}})
+    assert not ideen.still_valid({"bereich": "fakten", "titel": "x", "thema": "", "hinweis": "Auftrag unvollständig: No module named 'PIL'"})
+    assert ideen.still_valid({"bereich": "ranking", "titel": "Die längsten Brücken", "thema": "", "hinweis": "ok"})

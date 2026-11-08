@@ -240,6 +240,16 @@ def rule_ideas(trends: dict, cand: dict[str, dict], presets: dict[str, dict]) ->
     return ideas
 
 
+def still_valid(idea: dict) -> bool:
+    """Alte Ideen nach den heutigen Regeln nachprüfen (Meta-Rankings, Nachrichten als Story, Prüf-Abbrüche)."""
+    area, text = idea.get("bereich"), f"{idea.get('titel', '')} {idea.get('thema', '')}"
+    if area == "ranking" and META_RANKING.search(text):
+        return False
+    if area == "story" and (idea.get("quelle") or {}).get("typ") == "news":
+        return False
+    return "No module named" not in str(idea.get("hinweis", ""))
+
+
 def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use_llm: bool, notes: list[str],
            known: set[str]) -> list[dict]:
     per_area = {a: 0 for a in AREAS}
@@ -313,7 +323,7 @@ def run() -> dict:
         notes.append("kein Sprachmodell (CUDI_LLM_*) – regelbasierte Ideen")
     if not raw:
         raw = rule_ideas(trends, cand, presets)
-    old = common.thin_by_age(previous.get("ideen", []), "erstellt", KEEP_DAYS)
+    old = [i for i in common.thin_by_age(previous.get("ideen", []), "erstellt", KEEP_DAYS) if still_valid(i)]
     new = finish(raw, cand, presets, use_llm, notes, {i["id"] for i in old})
     ideas = new + old
     capped, count = [], {a: 0 for a in AREAS}
