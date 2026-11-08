@@ -342,3 +342,22 @@ def test_heikle_themen_nur_als_reportage():
     out = ideen.finish(raw, cand, {}, False, [], set())
     assert out and out[0]["bereich"] == "reportage" and out[0]["regeln"]
     assert out[0]["app_auftrag"] is True and out[0]["auftrag"]["art"] == "reportage"      # startbar als Reportage-Auftrag
+
+
+def test_export_kompakt(daten, tmp_path, monkeypatch):
+    from cudi_video.firma import export
+    monkeypatch.setattr(export, "OUT", tmp_path / "docs" / "firma" / "firma.json")
+    assert export.write() is False                                    # ohne Läufe nichts veröffentlichen
+    common.write_json("trends.json", {"themen": [{"thema": f"T{i}", "kategorie": "Ereignis", "score": 10 - i} for i in range(9)]})
+    common.write_json("news.json", {"bestaetigt": 1, "anzahl": 2, "meldungen": [
+        {"titel": "a", "status": "unbestätigt", "link": "https://x.example"}, {"titel": "b", "status": "bestätigt", "n_quellen": 2}]})
+    common.write_json("ideen.json", {"ideen": [{"id": "i1", "bereich": "ranking", "titel": "t", "app_auftrag": True, "auftrag": {"art": "ranking"}},
+                                               {"id": "i2", "bereich": "reportage", "titel": "r", "app_auftrag": False, "auftrag": None}]})
+    common.record_status("trends", 0.0, True, "9 Themen", ["h1", "h2", "h3", "h4"])
+    assert export.write() is True
+    data = json.loads(export.OUT.read_text("utf-8"))
+    assert len(data["trends"]) == 5 and data["news"]["meldungen"][0]["titel"] == "b"
+    assert data["ideen"][0]["auftrag"] == {"art": "ranking"} and data["ideen"][1]["auftrag"] is None
+    assert data["status"]["trends"]["ergebnis"] == "ok" and len(data["status"]["trends"]["hinweise"]) == 3
+    assert export.write() is False                                    # unverändert -> kein neuer Commit
+    assert "cudi_video.firma export" in (ROOT / "scripts/firma_commit.sh").read_text("utf-8")
