@@ -211,7 +211,7 @@ def test_workflows_yaml():
     assert any("cudi_video.firma uploads" in s.get("run", "") for s in liste["steps"])
     assert wf["permissions"]["contents"] == "read"
     wf2 = yaml.safe_load((ROOT / ".github/workflows/firma-lernen.yml").read_text("utf-8"))
-    assert wf2["jobs"]["lernen"]["steps"][-1]["run"].startswith("scripts/firma_commit.sh")
+    assert wf2["jobs"]["lernen"]["steps"][-1]["run"].startswith("bash scripts/firma_commit.sh")
 
 
 # --------------------------------------------------------------------------- Reportage
