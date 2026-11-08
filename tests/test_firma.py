@@ -378,7 +378,7 @@ def test_news_cluster_zieht_keine_fremde_meldung_ueber_wortmenge():
 
 
 def test_finish_keine_meta_rankings_und_news_nie_als_story():
-    cand = dict(CAND, **{"Merz schlägt Aigner vor": {"typ": "news", "score": None, "kategorie": "Ereignis", "quellen": ["a", "b"]}})
+    cand = dict(CAND, **{"Merz schlägt Aigner vor": {"typ": "news", "score": None, "kategorie": "Ereignis", "warum": "bestätigt", "quellen": ["a", "b"]}})
     raw = [{"bereich": "ranking", "titel": "Die meistgesuchten Begriffe", "thema": "Was Deutschland googelt",
             "quelle_trend": "Berge in Europa"},
            {"bereich": "story", "titel": "Aigner", "thema": "Weg zur Präsidentin", "quelle_trend": "Merz schlägt Aigner vor"}]
