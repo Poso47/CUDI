@@ -246,3 +246,18 @@ def test_tiktok_login_code_und_tausch(monkeypatch):
     monkeypatch.setattr(tiktok, "http", lambda *a, **k: (seen.update(k), Resp())[1])
     assert tiktok.exchange_code("c") == "rt"
     assert seen["data"]["grant_type"] == "authorization_code" and seen["data"]["redirect_uri"] == tiktok.DEFAULT_REDIRECT
+
+
+def test_upload_ergebnis_landet_im_app_dokument(tmp_path):
+    import json
+
+    from cudi_video import job
+
+    data = {"id": "x1", "art": "ranking", "ok": True, "titel": "T", "videos": [], "hinweise": [],
+            "hochgeladen": [{"ziel": "youtube", "ok": True, "url": "https://youtube.com/watch?v=abc", "sichtbarkeit": "privat"},
+                            {"ziel": "tiktok", "ok": False, "fehler": "UploadError: Token fehlt"}]}
+    (tmp_path / "ergebnis.json").write_text(json.dumps(data), "utf-8")
+    doc = job.document(tmp_path, {})
+    assert doc["hochgeladen"] == data["hochgeladen"]
+    assert "YouTube: hochgeladen (privat) – https://youtube.com/watch?v=abc" in doc["hinweise"]
+    assert any(h.startswith("TikTok: Hochladen fehlgeschlagen") for h in doc["hinweise"])
