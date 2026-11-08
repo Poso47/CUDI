@@ -70,6 +70,14 @@ jobs:
             video_output/auftrag-*/**/review.md
           if-no-files-found: ignore
           retention-days: 14
+      - name: Upload-Liste für den Lern-Analysten sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uploads-neu-${{ inputs.issue }}-${{ github.run_number }}
+          path: video_output/uploads_neu.json
+          if-no-files-found: ignore
+          retention-days: 2
       - name: Ergebnis im Auftrag melden
         if: always()
         env:
@@ -78,3 +86,36 @@ jobs:
           ARTIFACT_URL: ${{ steps.artefakt.outputs.artifact-url }}
           CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
         run: python .github/scripts/notbetrieb.py melden
+
+  # Nach einem Upload: Eintrag (Video -> Varianten) in firma_daten/uploads.json, damit der Lern-Analyst die Zahlen zuordnen kann.
+  # Nur dieser Workflow schreibt die Liste (Claude-Läufe committen nie).
+  liste:
+    needs: render
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    concurrency:
+      group: firma-daten
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml
+      - uses: actions/download-artifact@v4
+        with:
+          name: uploads-neu-${{ inputs.issue }}-${{ github.run_number }}
+          path: neu
+        continue-on-error: true
+      - name: Upload-Liste ergänzen
+        run: |
+          if [ -f neu/uploads_neu.json ]; then
+            python -m cudi_video.firma uploads neu/uploads_neu.json
+            scripts/firma_commit.sh "Upload-Liste"
+          else
+            echo "Kein Upload in diesem Lauf."
+          fi

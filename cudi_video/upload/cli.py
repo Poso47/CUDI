@@ -80,9 +80,9 @@ def upload_order(wish: dict, data: dict) -> list[dict]:
     return upload_materials(wish, items)
 
 
-def youtube_login() -> int:
+def youtube_login(read: bool = False) -> int:
     try:
-        path = youtube.login()
+        path = youtube.login(read=read)
     except UploadError as exc:
         print(f"Fehler: {redact(exc)}")
         return 1
@@ -93,7 +93,7 @@ def youtube_login() -> int:
     return 0
 
 
-def tiktok_login(pasted: str = "") -> int:
+def tiktok_login(pasted: str = "", read: bool = False) -> int:
     """Einmaliger TikTok-Login. Desktop (Standard, localhost): Browser öffnet sich, CUDI fängt den Code selbst ab.
     Web (CUDI_TIKTOK_REDIRECT_URI = https-Seite): Rücksprung-Adresse wird hier eingefügt."""
     import secrets as _s
@@ -108,7 +108,7 @@ def tiktok_login(pasted: str = "") -> int:
             state = _s.token_urlsafe(12)
             local = tiktok.is_local(tiktok.redirect_uri())
             verifier, challenge = tiktok.pkce_pair() if local else ("", "")
-            link = tiktok.authorize_url(state, challenge)
+            link = tiktok.authorize_url(state, challenge, read)
             print("Der Browser öffnet sich für die TikTok-Anmeldung. Falls nicht, diesen Link öffnen:\n\n   " + link + "\n")
             if local:
                 threading.Thread(target=webbrowser.open, args=(link,), daemon=True).start()

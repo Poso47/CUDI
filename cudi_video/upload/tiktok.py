@@ -148,6 +148,7 @@ AUTHORIZE_URL = "https://www.tiktok.com/v2/auth/authorize/"
 DEFAULT_REDIRECT = "http://localhost:8723/callback/"   # Desktop-Login (TikTok verlangt localhost:Port); Web: CUDI_TIKTOK_REDIRECT_URI
 WEB_REDIRECT = "https://poso47.github.io/CUDI/tiktok/"   # kostenlose GitHub-Pages-Seite (docs/tiktok/) für Web-Apps
 LOGIN_SCOPES = "video.upload"
+READ_SCOPES = "video.upload,video.list"      # --lesen: zusätzlich eigene Videos mit Zahlen lesen (Lern-Analyst)
 TOKEN_FILE = "tiktok_refresh_token.txt"
 
 
@@ -170,11 +171,11 @@ def pkce_pair() -> tuple[str, str]:
     return verifier, hashlib.sha256(verifier.encode()).hexdigest()
 
 
-def authorize_url(state: str, challenge: str = "") -> str:
+def authorize_url(state: str, challenge: str = "", read: bool = False) -> str:
     from urllib.parse import urlencode
 
     key = require("CUDI_TIKTOK_CLIENT_KEY")["CUDI_TIKTOK_CLIENT_KEY"]
-    params = {"client_key": key, "scope": LOGIN_SCOPES, "response_type": "code",
+    params = {"client_key": key, "scope": READ_SCOPES if read else LOGIN_SCOPES, "response_type": "code",
               "redirect_uri": redirect_uri(), "state": state}
     if challenge:
         params.update(code_challenge=challenge, code_challenge_method="S256")
@@ -259,3 +260,27 @@ def wait_for_code(state: str, timeout: int = 300) -> str:
     finally:
         server.server_close()
     return code_from("http://localhost" + got["url"], state)
+
+
+# --------------------------------------------------------------------------- Zahlen lesen (Lern-Analyst)
+
+LIST_URL = API + "/v2/video/list/"
+READ_HINT = ("Scope video.list nötig: in der TikTok-App unter „Scopes“ video.list hinzufügen, dann "
+             "`python -m cudi_video tiktok-login --lesen` und den neuen Refresh-Token als CUDI_TIKTOK_REFRESH_TOKEN "
+             "hinterlegen (docs/lernen-einrichten.md).")
+
+
+def video_list(max_count: int = 20) -> list[dict]:
+    """Die letzten eigenen Videos mit Zahlen: [{title, create_time, views, likes, comments, shares}].
+    Wirft UploadError mit READ_HINT, wenn der Token den Scope video.list nicht hat."""
+    resp = http("POST", LIST_URL + "?fields=id,create_time,title,view_count,like_count,comment_count,share_count",
+                json={"max_count": max(1, min(max_count, 20))},
+                headers={"Authorization": f"Bearer {access_token()}", "Content-Type": "application/json; charset=UTF-8"})
+    if resp.status_code in (401, 403):
+        raise UploadError("TikTok-Zahlen: Zugriff verweigert. " + READ_HINT)
+    if resp.status_code != 200:
+        raise fail("TikTok-Zahlen konnten nicht gelesen werden", resp)
+    videos = ((resp.json().get("data") or {}).get("videos")) or []
+    return [{"title": v.get("title", ""), "create_time": v.get("create_time", 0), "views": v.get("view_count", 0),
+             "likes": v.get("like_count", 0), "comments": v.get("comment_count", 0), "shares": v.get("share_count", 0)}
+            for v in videos]
