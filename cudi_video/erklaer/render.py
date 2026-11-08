@@ -90,6 +90,11 @@ def render_erklaerung(script: dict, out_dir: Path | None = None, progress=None) 
     from .. import qa
     qa_block = qa.safe_check(final, "erklaer", config.STORY_MAX_SECONDS)
     cover = out_dir / f"{script['id']}_cover.jpg"
-    video.render_frame(jobs[0], min(2.5, jobs[0]["duration"] - 0.1), cover)
+    try:                                                   # gestaltetes Cover (Titel, Look des Videos), sonst Standbild
+        from ..render import cover as cover_mod
+        cover_mod.make_cover(cover, headline=cover_mod.clean_title(script["titel"]), style=jobs[0]["style"],
+                             lang=script["sprache"])
+    except Exception:                                      # noqa: BLE001
+        video.render_frame(jobs[0], min(2.5, jobs[0]["duration"] - 0.1), cover)
     return {"video": final.name, "cover": cover.name, "duration": round(sum(j["duration"] for j in jobs), 1),
             "folder": str(out_dir), "qa": qa_block}

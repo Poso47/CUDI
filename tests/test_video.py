@@ -781,7 +781,7 @@ def test_tiktok_caption_is_short_without_sources():
                                       "sources": ["Wikidata", "Weltbank", "Wikipedia (fr)", "Wikipedia (ja)"]}
     meta = build_metadata(spec, research, Script(lang="de", title="Test DE", segments=[]))
     caption = meta["caption"]
-    assert caption.startswith("Test DE 🏆")
+    assert caption.startswith(meta["title_chosen"]) and "🏆" in caption.splitlines()[0]
     assert "Weltbank" not in caption and "Geprüft" not in caption          # Quellen nur im Prüfbericht
     assert "Weltbank" not in meta["description"] and "Quellen-Abgleich" in build_review(spec, research, [])
     assert "#shorts" not in caption and "#architektur" in caption
@@ -1146,3 +1146,89 @@ def test_nearly_black_clips_are_skipped(tmp_path):
     assert media.too_dark(tmp_path / "dark.mp4") and not media.too_dark(tmp_path / "bright.mp4")
     assert not media.too_dark(tmp_path / "fehlt.mp4")                    # Fehler: nicht aussortieren
 
+
+
+# --------------------------------------------------------------------------- Paket C: Titel, Hashtags, Länge, Cover
+
+def test_title_variants_rules():
+    from cudi_video import metadata as md
+
+    spec = make_spec(title={"de": "Die höchsten Gebäude der Welt", "en": "The tallest buildings"})
+    research = make_research()
+    titles = md.rule_titles(spec, research, "de")
+    assert len(titles) == 3 and len(set(titles)) == 3
+    assert all(len(t) <= 60 for t in titles) and not any("#" in t for t in titles)
+    assert any("828 m" in t for t in titles)                                # nur der geprüfte Spitzenwert
+    choice = md.choose_titles(spec, research, "de")
+    assert choice["best"] in choice["titles"] and len(choice["titles"]) == 3
+
+
+def test_title_check_rejects_clickbait_invented_numbers_and_length():
+    from cudi_video import metadata as md
+
+    spec, research = make_spec(), make_research()
+    allowed = md.allowed_title_numbers(spec, research, "de")
+    assert md.check_title("Turm mit 828 m: kennst du ihn?", allowed, "de") is None
+    assert md.check_title("Das wirst du nicht glauben!", allowed, "de") == "Clickbait"
+    assert md.check_title("Turm mit 900 m Höhe", allowed, "de") == "Zahl ohne Beleg"
+    assert md.check_title("x" * 61, allowed, "de") == "länger als 60 Zeichen"
+    llm = {"de": ["Das ist krass!", "Kennst du den 828-m-Giganten?", "Erfundene 999 Meter"]}
+    choice = md.choose_titles(spec, research, "de", llm)
+    assert "Kennst du den 828-m-Giganten?" in choice["titles"] and len(choice["titles"]) == 3
+    assert len(choice["rejected"]) == 2 and not any("999" in t or "krass" in t for t in choice["titles"])
+
+
+def test_best_title_prefers_number_and_question():
+    from cudi_video import metadata as md
+
+    assert md.title_score("Platz 1: 828 m – Gebäude?", "Gebäude") > md.title_score("Gebäude", "Gebäude")
+    assert md.title_score("x" * 80, "y") < 0
+
+
+def test_hashtags_per_platform():
+    from cudi_video import metadata as md
+
+    spec = make_spec(hashtags={"de": ["architektur", "Wolkenkratzer", "städte", "bauwerke", "welt"], "en": []})
+    yt, tt = md.hashtags(spec, "de", "youtube"), md.hashtags(spec, "de", "tiktok")
+    assert yt[-1] == "shorts" and tt[-1] == "fyp" and "shorts" not in tt and "fyp" not in yt
+    assert 3 <= len(yt) <= 5 and 3 <= len(tt) <= 5 and len(set(yt)) == len(yt)
+    assert yt[:3] == ["architektur", "wolkenkratzer", "städte"]
+    bare = md.hashtags(make_spec(), "en", "youtube")
+    assert 3 <= len(bare) <= 5 and bare[-1] == "shorts"
+    assert 3 <= len(md.hashtags(make_spec(kind="facts"), "de", "tiktok")) <= 5
+
+
+def test_build_metadata_titles_and_platform_tags():
+    from cudi_video.metadata import build_metadata
+    from cudi_video.models import Script
+
+    meta = build_metadata(make_spec(hashtags=["architektur"]), make_research(), Script(lang="de", title="x", segments=[]),
+                          {"de": ["Kennst du den 828-m-Giganten?"]}, seconds=150)
+    assert len(meta["titles"]) == 3 and meta["title_chosen"] in meta["titles"]
+    assert "#shorts" in meta["description"] and "#fyp" in meta["caption"] and "#shorts" not in meta["caption"]
+    assert "150" in meta["length_hint"]
+
+
+def test_length_hint_by_kind():
+    from cudi_video.metadata import length_hint
+
+    assert length_hint("facts", 50) is None and length_hint("ranking", 60) is None
+    assert "über dem Ziel" in length_hint("facts", 90)
+    assert "unter dem Ziel" in length_hint("ranking", 30)
+    assert length_hint("story", 500) is None                                # Story: Teil-Logik, kein Ziel hier
+
+
+def test_cover_renders_in_safe_zone(tmp_path):
+    from PIL import Image
+
+    from cudi_video.render import cover
+
+    out = cover.make_cover(tmp_path / "c.jpg", headline="Die höchsten Gebäude der Welt", badge="TOP 3",
+                           peak="Platz 1: 828 m", teaser="Kennst du Platz 1?",
+                           style={"name": "ozean", "format": "vollbild", "motion": "gleiten"})
+    img = Image.open(out)
+    assert img.size == (1080, 1920)
+    bottom = img.crop((0, int(1920 * 0.82), 1080, 1920)).convert("L")           # unten kein Text (Plattform-Leiste)
+    assert bottom.getextrema()[1] < 200
+    texts = cover.cover_texts(make_spec(), make_research(), "de")
+    assert texts["badge"] == "TOP 3" and texts["peak"] == "Platz 1: 828 m" and "Turm" not in texts["peak"]
