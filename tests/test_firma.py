@@ -375,3 +375,12 @@ def test_news_cluster_zieht_keine_fremde_meldung_ueber_wortmenge():
     ])
     egypt = next(m for m in out if "Egypt" in m["titel"])
     assert egypt["n_quellen"] == 2 and all("Turkey" not in q["titel"] for q in egypt["quellen"])
+
+
+def test_finish_keine_meta_rankings_und_news_nie_als_story():
+    cand = dict(CAND, **{"Merz schlägt Aigner vor": {"typ": "news", "score": None, "kategorie": "Ereignis", "quellen": ["a", "b"]}})
+    raw = [{"bereich": "ranking", "titel": "Die meistgesuchten Begriffe", "thema": "Was Deutschland googelt",
+            "quelle_trend": "Berge in Europa"},
+           {"bereich": "story", "titel": "Aigner", "thema": "Weg zur Präsidentin", "quelle_trend": "Merz schlägt Aigner vor"}]
+    out = ideen.finish(raw, cand, PRESETS, False, [], set())
+    assert [i["bereich"] for i in out] == ["reportage"] and out[0]["auftrag"]["art"] == "reportage"

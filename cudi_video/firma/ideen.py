@@ -31,9 +31,11 @@ SYSTEM = (
     "Eintrag der Listen stützen (exakter Name im Feld quelle_trend). Die Begründung darf nur wiedergeben, was in den "
     "Daten steht (z. B. Platz, Quelle, Meldung). Keine Personen in Verruf bringen, keine Gewalt-/Sexualthemen, keine "
     "unbestätigten Gerüchte. Bereiche: ranking = Liste von Dingen EINER Art, sortierbar nach einer messbaren Zahl "
-    "(z. B. höchste Berge, größte Seen; Thema als kurzer Satz); fakten = Wissens-Fakten zu einem Thema; story = "
-    "erzählte Geschichte/Reddit-Stimmung (Thema als Stimmungsbeschreibung); erklaer = ruhiges Erklärvideo, wie etwas "
-    "funktioniert oder zusammenhängt. Antworte NUR mit JSON: {\"ideen\": [{\"bereich\": \"ranking|fakten|story|erklaer\", "
+    "(z. B. höchste Berge, größte Seen; Thema als kurzer Satz) – nur echte Dinge mit festen Messwerten, NIE Listen "
+    "über Suchbegriffe, Klickzahlen, Trends, Aufrufe oder Beliebtheit; fakten = Wissens-Fakten zu einem Thema; story = "
+    "erzählte Alltagsgeschichte/Reddit-Stimmung (Thema als Stimmungsbeschreibung), NIE zu Nachrichten oder echten "
+    "Personen; reportage = sachliche Nachrichtenreportage zu einer bestätigten Meldung; erklaer = ruhiges Erklärvideo, wie etwas "
+    "funktioniert oder zusammenhängt. Antworte NUR mit JSON: {\"ideen\": [{\"bereich\": \"ranking|fakten|story|erklaer|reportage\", "
     "\"titel\": \"Videotitel, höchstens 60 Zeichen\", \"thema\": \"Thema in einem Satz\", \"begruendung\": \"…\", "
     "\"quelle_trend\": \"exakter Name aus den Listen\"}]}"
 )
@@ -147,6 +149,9 @@ def validate_order(order: dict | None, presets: dict[str, dict]) -> str:
 
 
 # Aus Leid wird kein Unterhaltungsvideo: Tod, Gewalt, Anschläge, Unglücke, Krieg, Missbrauch, Suizid – solche
+META_RANKING = re.compile(r"meist(gesucht|gelesen|geklickt|aufgerufen|gesehen)|suchbegriff|begriffe|aufrufe|klicks|"
+                          r"trends?\b|beliebteste", re.I)
+
 # Themen werden ausschließlich zu sachlichen Reportage-Ideen (Bereich „reportage“) mit festen Regeln.
 REPORTAGE_REGELN = ("Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten "
                     "mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; "
@@ -246,6 +251,10 @@ def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use
         src = match_source(str(r.get("quelle_trend", "")), cand)
         if area not in AREAS or not titel or not thema or not src:
             continue                                      # ohne Beleg in den Daten keine Idee
+        if area == "ranking" and META_RANKING.search(f"{titel} {thema}"):
+            continue                                      # Ranking über Klicks/Suchbegriffe: keine messbaren Dinge
+        if area == "story" and cand[src].get("typ") == "news":
+            area = "reportage"                            # echte Nachrichten nie als erzählte Story
         if cand[src].get("heikel") or area == "reportage":
             area = "reportage"                            # Leid nie als Unterhaltung – nur sachliche Reportage
         ident = "idee-" + hashlib.sha1(f"{area}|{_norm(thema)}".encode()).hexdigest()[:8]
