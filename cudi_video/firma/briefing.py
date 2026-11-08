@@ -160,7 +160,9 @@ def section_links(welt: dict) -> list[dict]:
     pts = []
     for v in welt.get("verbindungen", []):
         rows = [r for r in v.get("verbindungen", []) if not r.get("beendet")][:4] or v.get("verbindungen", [])[:3]
-        text = "; ".join(f"{r['eigenschaft']}: {r['wert']}" + (f" (bis {r['beendet']})" if r.get("beendet") else "") for r in rows)
+        text = "; ".join(f"{r['eigenschaft']}: {r['wert']}" + (f" (bis {r['beendet']})" if r.get("beendet")
+                                                               else " (kein Enddatum eingetragen – ob noch aktuell, ist offen)")
+                         for r in rows)
         links = [(v["name"] + " (Wikidata)", v["wikidata"])] + [(r["wert"], r["link"]) for r in rows]
         pts.append(point(f"{v['name']} – laut Wikidata {text}. Genannt in: „{_cut(v['themen'][0], 110)}“.", links))
     return pts

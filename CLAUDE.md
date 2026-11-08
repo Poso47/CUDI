@@ -159,6 +159,11 @@ für TikTok/YouTube Shorts.
 - **Lernen:** Erledigte Arbeit wird als Skill gespeichert (`.claude/skills/`, z. B. `firma-mitarbeiter`, `pruefen-und-mergen`,
   `app-artefakt`, `cloud-probelauf`, `ausweg-finden`). Agenten-Berichte enden mit SKILL. Gibt es einen passenden Skill, macht die
   Hauptsitzung die Arbeit selbst statt einen Agenten zu starten.
+- **Gilt für alle:** Diese Regeln gelten für die Hauptsitzung, jeden Agenten und alle künftigen Sitzungen. Jeder Auftrags-Prompt
+  trägt sie unter GRUNDSÄTZE.
+- **Feste Agenten:** Kommt Arbeit immer wieder und nimmt ein fester Agent mit Skill langfristig Arbeit ab oder spart Kosten, wird
+  einer in `.claude/agents/` angelegt (z. B. `firma-techniker`, `app-gestalter`, `video-pruefer`). Sonst macht die Hauptsitzung die Arbeit mit
+  dem Skill selbst.
 - **Lösungsorientiert:** Scheitert ein Weg, wird nicht aufgegeben. Erst Ursache lesen, dann reparieren, dann einen anderen kostenlosen
   Weg suchen, dann kleiner schneiden, erst dann fragen (Skill `ausweg-finden`). Die Regeln bleiben dabei bestehen.
 - **Agenten untereinander:** Sie dürfen sich direkt schreiben, helfen und voneinander lernen (ANFRAGE, ANTWORT und HINWEIS nach
