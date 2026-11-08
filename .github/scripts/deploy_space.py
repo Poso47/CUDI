@@ -32,15 +32,29 @@ OPTIONAL_SECRETS = (
 )   # nur gesetzte werden übertragen; Werte werden nie ausgegeben
 
 
+PRO_HINT = ("::notice::Hugging Face verlangt PRO (402) – der Notbetrieb läuft über GitHub-Issues "
+            "(docs/notbetrieb-einrichten.md). Dieser Weg wird übersprungen.")
+
+
 def main() -> int:
+    """Hugging Face ist optional: ohne Token oder bei 402 (PRO nötig) freundlich überspringen statt scheitern."""
+    try:
+        return _deploy()
+    except Exception as exc:                                  # noqa: BLE001
+        status = getattr(getattr(exc, "response", None), "status_code", None)
+        if status == 402 or "402" in str(exc) or "Payment Required" in str(exc):
+            print(PRO_HINT)
+            return 0
+        raise
+
+
+def _deploy() -> int:
     token = os.environ.get("HF_TOKEN", "")
     access_code = os.environ.get("CUDI_VIDEO_TOKEN", "")
     if not token:
-        if os.environ.get("GITHUB_EVENT_NAME") == "push":     # automatischer Lauf: Hugging Face ist optional
-            print("::notice::Hugging Face ist nicht eingerichtet (Secret HF_TOKEN fehlt) – Bereitstellung übersprungen.")
-            return 0
-        print("::error::Secret HF_TOKEN fehlt (Hugging Face → Settings → Access Tokens → Write).")
-        return 1
+        print("::notice::Kein HF_TOKEN gesetzt – Hugging Face wird übersprungen. "
+              "Hugging Face verlangt PRO – Notbetrieb läuft über GitHub-Issues (docs/notbetrieb-einrichten.md).")
+        return 0
     if not access_code:
         print("::error::Secret CUDI_VIDEO_TOKEN (dein Zugangscode für die App) fehlt – ohne ihn wäre die App offen.")
         return 1

@@ -1,0 +1,80 @@
+# Notbetrieb (Claude-Limit erreicht): App-Auftrag mit freiem Sprachmodell (CUDI_LLM_*) auf GitHub Actions ausführen.
+# Gestartet von „CUDI Auftrag“ (auftrag.yml), wenn das Issue den Auftrag als JSON-Block enthält. Das Ergebnis steht
+# als Artefakt am Lauf und als Kommentar im Issue. Doku: docs/notbetrieb-einrichten.md
+name: CUDI Notbetrieb
+
+run-name: "Notbetrieb · Auftrag #${{ inputs.issue }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      auftrag:
+        description: "Auftrag als JSON (von auftrag.yml geprüft)"
+        required: true
+      issue:
+        description: "Issue-Nummer – dort wird das Ergebnis gemeldet"
+        required: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: cudi_video/requirements.txt
+      - name: System-Pakete
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg fonts-inter
+      - name: Python-Pakete
+        run: pip install -r cudi_video/requirements.txt
+      - name: Auftrag ausführen
+        env:
+          AUFTRAG: ${{ inputs.auftrag }}
+          # Nur gesetzte Secrets wirken; leer = Dienst aus bzw. Textbausteine/Ausweichwege
+          CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
+          CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+          CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+          CUDI_PEXELS_API_KEY: ${{ secrets.CUDI_PEXELS_API_KEY }}
+          CUDI_PIXABAY_API_KEY: ${{ secrets.CUDI_PIXABAY_API_KEY }}
+          CUDI_DEEPL_API_KEY: ${{ secrets.CUDI_DEEPL_API_KEY }}
+          CUDI_REDDIT_CLIENT_ID: ${{ secrets.CUDI_REDDIT_CLIENT_ID }}
+          CUDI_REDDIT_CLIENT_SECRET: ${{ secrets.CUDI_REDDIT_CLIENT_SECRET }}
+          CUDI_POLLINATIONS_TOKEN: ${{ secrets.CUDI_POLLINATIONS_TOKEN }}
+          CUDI_CHANNEL: ${{ secrets.CUDI_CHANNEL }}
+          CUDI_YT_CLIENT_ID: ${{ secrets.CUDI_YT_CLIENT_ID }}
+          CUDI_YT_CLIENT_SECRET: ${{ secrets.CUDI_YT_CLIENT_SECRET }}
+          CUDI_YT_REFRESH_TOKEN: ${{ secrets.CUDI_YT_REFRESH_TOKEN }}
+          CUDI_TIKTOK_CLIENT_KEY: ${{ secrets.CUDI_TIKTOK_CLIENT_KEY }}
+          CUDI_TIKTOK_CLIENT_SECRET: ${{ secrets.CUDI_TIKTOK_CLIENT_SECRET }}
+          CUDI_TIKTOK_REFRESH_TOKEN: ${{ secrets.CUDI_TIKTOK_REFRESH_TOKEN }}
+        run: |
+          set -o pipefail
+          python .github/scripts/notbetrieb.py run 2>&1 | tee cudi.log
+      - name: Videos als Artefakt sichern
+        id: artefakt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cudi-notbetrieb-${{ inputs.issue }}-${{ github.run_number }}
+          path: |
+            video_output/auftrag-*/**/*.mp4
+            !video_output/auftrag-*/**/*_app*.mp4
+            video_output/auftrag-*/**/*.jpg
+            video_output/auftrag-*/**/review.md
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Ergebnis im Auftrag melden
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ inputs.issue }}
+          ARTIFACT_URL: ${{ steps.artefakt.outputs.artifact-url }}
+          CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+        run: python .github/scripts/notbetrieb.py melden

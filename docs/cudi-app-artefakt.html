@@ -487,11 +487,11 @@
 
     <div class="nb" id="notbetrieb">
       <h2>Notbetrieb</h2>
-      <p class="lead">Ist dein Claude-Nutzungslimit erreicht, startet CUDI die Videos in der eigenen Web-App (Hugging Face Space) mit einem kostenlosen Sprachmodell. Dort gelten dieselben Prüfregeln.</p>
+      <p class="lead">Ist dein Claude-Nutzungslimit erreicht, öffnet der Banner ein vorausgefülltes GitHub-Issue. Nach „Submit new issue“ rendert GitHub Actions das Video mit einem kostenlosen Sprachmodell (dieselben Prüfregeln); das Ergebnis steht als Kommentar im Issue. Hinweis: Das Repository ist öffentlich, Issues sind öffentlich sichtbar.</p>
       <p class="hint" id="nbHint"></p>
       <form id="nbForm" novalidate style="display:grid;gap:10px">
         <div>
-          <label for="nbUrl">Adresse des Notbetriebs</label>
+          <label for="nbUrl">Eigene Web-App statt GitHub (optional)</label>
           <input id="nbUrl" type="url" inputmode="url" autocomplete="url" placeholder="https://dein-name-cudi-video.hf.space">
         </div>
         <p class="note bad" id="nbErr" hidden role="alert"></p>
@@ -2395,8 +2395,37 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     }
     return out;
   }
+  /* nb-issue:start */
+  const NB_REPO = "https://github.com/Poso47/CUDI";
+  const NB_URL_MAX = 6000;                                 // GitHub nimmt URLs bis ca. 8000 Zeichen – Luft lassen
+  function nbIssueOrder(o, withPrefs) {
+    // nur Ranking/Story im ganzen Lauf; Zwischenschritte (Skelett …) und Clips gehen im Notbetrieb nicht
+    if (!o || (o.art !== "ranking" && o.art !== "story")) return null;
+    const out = { art: o.art }, keep = o.art === "ranking"
+      ? ["thema", "vorlage", "plaetze", "sprachen", "laenge", "streng", "nur_skript", "maskottchen", "format", "hochladen"]
+      : ["wunsch", "stimmung", "sprache", "laenge", "bilder", "entschaerfen", "maskottchen", "hochladen"];
+    keep.forEach((k) => { if (o[k] !== undefined && o[k] !== null && o[k] !== "") out[k] = o[k]; });
+    if (o.art === "ranking" && out.thema) delete out.vorlage;
+    if (withPrefs && o.vorlieben) out.vorlieben = o.vorlieben;
+    return out;
+  }
+  function nbIssueLink(order) {
+    const first = nbIssueOrder(order, true);
+    if (!first) return "";
+    const build = (ord) => {
+      const what = ord.thema || ord.vorlage || ord.wunsch || (ord.stimmung && ord.stimmung !== "auto" ? ord.stimmung : "") || ord.art;
+      const title = ("CUDI-Auftrag (Notbetrieb): " + what).slice(0, 80);
+      const body = "cudi-auftrag\n\nNotbetrieb-Auftrag aus der CUDI-App – nur \u201eSubmit new issue\u201c tippen.\n\n```json\n" +
+        JSON.stringify(ord) + "\n```\n";
+      return NB_REPO + "/issues/new?title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
+    };
+    let url = build(first);
+    if (url.length > NB_URL_MAX) url = build(nbIssueOrder(order, false));     // Vorlieben weglassen
+    return url.length > NB_URL_MAX ? "" : url;
+  }
+  /* nb-issue:end */
   function notbetriebLink(order) {
-    if (!nbUrl) return "";
+    if (!nbUrl) return nbIssueLink(order);                 // Standard: GitHub-Issue; mit Space-Adresse deren Formular
     const q = new URLSearchParams(), o = order || {};
     if (o.art === "ranking") {
       q.set("art", "ranking");
@@ -2422,8 +2451,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const link = notbetriebLink(order);
     $("limitGo").hidden = !link;
     if (link) $("limitGo").href = link;
-    $("limitSetup").hidden = Boolean(link);
-    $("limitText").textContent = "Claude-Limit erreicht – Notbetrieb nutzen" + (nbUrl ? "" : " (noch nicht eingerichtet)");
+    $("limitSetup").hidden = true;
+    $("limitText").textContent = "Claude-Limit erreicht – Notbetrieb nutzen. " + (!link
+      ? "Dieser Auftrag (Clip oder Zwischenschritt) geht nur mit Claude."
+      : nbUrl ? "Öffnet deine Web-App mit dem Auftrag."
+      : "Öffnet GitHub – dort nur \u201eSubmit new issue\u201c tippen.");
     $("limitBanner").dataset.key = key;
   }
   function flagLimit(err, order) {
@@ -2436,7 +2468,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   function showNb(url) {
     nbUrl = url;
     $("nbUrl").value = url;
-    $("nbHint").textContent = url ? "Gespeichert: " + url : "Noch nicht eingerichtet. Ohne Adresse zeigt die App bei erreichtem Limit nur den Hinweis zur Einrichtung.";
+    $("nbHint").textContent = url ? "Gespeichert: " + url + " (diese Web-App wird statt GitHub geöffnet)"
+      : "Standard: GitHub-Issue im Repository Poso47/CUDI (GitHub-App bzw. Browser angemeldet, Secrets laut Anleitung).";
     $("nbCopy").hidden = Boolean(url) || !appUrl;
     try { updateLimit(); } catch (e) { /* Banner folgt beim nächsten Update */ }
   }
@@ -2485,10 +2518,9 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     ratings.set("d1", { id: "d1", wert: 1, titel: "Berge", art: "ranking", zeit: ago(70) });
     ratings.set("d2", { id: "d2", wert: 1, titel: "Tiere", art: "ranking", zeit: ago(10) });
     ratings.set("d4", { id: "d4", wert: -1, titel: "Anruf", art: "story", zeit: ago(100) });
-    if (demoMode === "limit") {              // Beispiel: Lauf fehlgeschlagen, Notbetrieb-Adresse gesetzt (nur Demo)
+    if (demoMode === "limit") {              // Beispiel: Lauf fehlgeschlagen (nur Demo)
       J("d7", "ranking", "Die 10 größten Wüsten der Welt", 25, { art: "ranking", thema: "die größten Wüsten", plaetze: 10, sprachen: ["de", "en"], format: "karte" }, "session_demo000000007");
       buckets.set("session_demo000000007", "FAILED");
-      showNb("https://dein-name-cudi-video.hf.space");
     }
     if (demoMode === "1") {
       J("d5", "ranking", "Die 10 tiefsten Seen der Welt", 12, { art: "ranking", vorlage: "tiefste-seen" }, "session_demo000000005");

@@ -18,6 +18,13 @@ from cudi.models.base import ModelProvider, ModelResponse, ProviderError, ToolCa
 def _no_clip_model(monkeypatch):
     """Tests laden nie das CLIP-Modell (kein Download/Install); Bildprüfungs-Tests setzen ihre eigenen Attrappen."""
     monkeypatch.setenv("CUDI_BILDPRUEFUNG", "0")
+    # Tests laufen ohne echtes Sprachmodell, auch wenn die Umgebung CUDI_LLM_* (Notbetrieb) gesetzt hat;
+    # Notbetrieb-Tests setzen ihre eigenen Werte.
+    from cudi_video import config as _cfg
+    for name in ("CUDI_LLM_BASE_URL", "CUDI_LLM_API_KEY", "CUDI_LLM_MODEL"):
+        monkeypatch.delenv(name, raising=False)
+    for attr in ("LLM_BASE_URL", "LLM_API_KEY", "LLM_MODEL"):
+        monkeypatch.setattr(_cfg, attr, "", raising=False)
 
 
 class FakeProvider(ModelProvider):

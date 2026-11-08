@@ -30,6 +30,12 @@ jobs:
           sparse-checkout: |
             .github/scripts
             presets
+            cudi_video
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pakete für die Auftragsprüfung
+        run: pip install -q pyyaml pillow numpy requests
       - name: Auftrag prüfen und starten
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
