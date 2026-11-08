@@ -229,7 +229,7 @@ def test_tiktok_login_code_und_tausch(monkeypatch):
     monkeypatch.setenv("CUDI_TIKTOK_CLIENT_SECRET", "s1")
     monkeypatch.delenv("CUDI_TIKTOK_REDIRECT_URI", raising=False)
     url = tiktok.authorize_url("st")
-    assert "client_key=k1" in url and "scope=video.upload" in url and "poso47.github.io%2FCUDI%2Ftiktok%2F" in url
+    assert "client_key=k1" in url and "scope=video.upload" in url and "localhost%3A8723%2Fcallback%2F" in url
     assert tiktok.code_from("https://poso47.github.io/CUDI/tiktok/?code=AB%2A1&state=st", "st") == "AB*1"
     assert tiktok.code_from("nurCode") == "nurCode"
     for bad in ("https://x/?error=access_denied", "https://x/?code=a&state=zz", "zwei worte", ""):
@@ -261,3 +261,26 @@ def test_upload_ergebnis_landet_im_app_dokument(tmp_path):
     assert doc["hochgeladen"] == data["hochgeladen"]
     assert "YouTube: hochgeladen (privat) – https://youtube.com/watch?v=abc" in doc["hinweise"]
     assert any(h.startswith("TikTok: Hochladen fehlgeschlagen") for h in doc["hinweise"])
+
+
+def test_tiktok_desktop_login_pkce_und_lokaler_server(monkeypatch):
+    import hashlib
+    import threading
+    import time
+    import urllib.request
+
+    from cudi_video.upload import tiktok
+
+    monkeypatch.setenv("CUDI_TIKTOK_CLIENT_KEY", "k1")
+    monkeypatch.setenv("CUDI_TIKTOK_REDIRECT_URI", "http://localhost:8731/callback/")
+    verifier, challenge = tiktok.pkce_pair()
+    assert 43 <= len(verifier) <= 128 and challenge == hashlib.sha256(verifier.encode()).hexdigest()
+    url = tiktok.authorize_url("st", challenge)
+    assert "code_challenge=" + challenge in url and "code_challenge_method=S256" in url
+    got = {}
+    t = threading.Thread(target=lambda: got.update(code=tiktok.wait_for_code("st", timeout=10)))
+    t.start()
+    time.sleep(0.3)
+    urllib.request.urlopen("http://127.0.0.1:8731/callback/?code=C1&state=st", timeout=5).read()
+    t.join(10)
+    assert got.get("code") == "C1"

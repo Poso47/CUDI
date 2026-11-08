@@ -87,20 +87,31 @@ def youtube_login() -> int:
 
 
 def tiktok_login(pasted: str = "") -> int:
-    """Einmaliger TikTok-Login: Adresse öffnen, zustimmen, Rücksprung-Adresse hier einfügen – Token wird gespeichert."""
+    """Einmaliger TikTok-Login. Desktop (Standard, localhost): Browser öffnet sich, CUDI fängt den Code selbst ab.
+    Web (CUDI_TIKTOK_REDIRECT_URI = https-Seite): Rücksprung-Adresse wird hier eingefügt."""
     import secrets as _s
+    import threading
+    import webbrowser
 
     try:
-        state = ""
-        if not pasted:
+        state, verifier = "", ""
+        if pasted:
+            code = tiktok.code_from(pasted)
+        else:
             state = _s.token_urlsafe(12)
-            print("1. Diese Adresse im Browser öffnen und mit deinem TikTok-Konto zustimmen:\n")
-            print("   " + tiktok.authorize_url(state) + "\n")
-            print(f"2. Danach landest du auf {tiktok.redirect_uri()} – die GANZE Adresse aus der Adresszeile kopieren")
-            print("   (oder den angezeigten Code) und hier einfügen. Nicht in einen Chat schreiben.\n")
-            pasted = input("Adresse oder Code: ")
-        path = tiktok.save_refresh_token(tiktok.exchange_code(tiktok.code_from(pasted, state)))
-    except UploadError as exc:
+            local = tiktok.is_local(tiktok.redirect_uri())
+            verifier, challenge = tiktok.pkce_pair() if local else ("", "")
+            link = tiktok.authorize_url(state, challenge)
+            print("Der Browser öffnet sich für die TikTok-Anmeldung. Falls nicht, diesen Link öffnen:\n\n   " + link + "\n")
+            if local:
+                threading.Thread(target=webbrowser.open, args=(link,), daemon=True).start()
+                print("Warte auf die Anmeldung (bis 5 Minuten) …")
+                code = tiktok.wait_for_code(state)
+            else:
+                print(f"Danach landest du auf {tiktok.redirect_uri()} – die GANZE Adresse kopieren und hier einfügen.")
+                code = tiktok.code_from(input("Adresse oder Code: "), state)
+        path = tiktok.save_refresh_token(tiktok.exchange_code(code, verifier))
+    except (UploadError, OSError) as exc:
         print(f"Fehler: {redact(exc)}")
         return 1
     print(f"Fertig. Der Refresh-Token liegt in {path} (nur auf diesem Rechner, nicht im Repo, ca. 1 Jahr gültig).")

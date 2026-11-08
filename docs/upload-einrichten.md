@@ -46,12 +46,13 @@ branch“ → Branch `main`, Ordner `/docs` → Save** (nach 1–2 Minuten errei
 
 1. <https://developers.tiktok.com/> → „Manage apps“ → deine App → oben **„Sandbox“** → „Create Sandbox“ (testen ohne Prüfung).
 2. In der Sandbox **„Add products“**: **Login Kit** und **Content Posting API**; unter „Scopes“ **`video.upload`**.
-3. **Login Kit → Redirect URI (Web):** `https://poso47.github.io/CUDI/tiktok/` (genau so, mit `/` am Ende).
-   Bei App-Angaben: Nutzungsbedingungen- und Datenschutz-Adresse von oben.
+3. **Login Kit → Redirect URI (Desktop):** `http://localhost:8723/callback/` (TikTok verlangt bei Desktop localhost:Port).
+   Bei App-Angaben: Nutzungsbedingungen- und Datenschutz-Adresse von oben. (Nur für eine Web-App: Redirect
+   `https://poso47.github.io/CUDI/tiktok/` und `CUDI_TIKTOK_REDIRECT_URI` auf diese Adresse setzen.)
 4. **„Target users“ → „Add account“** → mit deinem TikTok-Konto anmelden.
 5. **Client key/secret** als `CUDI_TIKTOK_CLIENT_KEY` und `CUDI_TIKTOK_CLIENT_SECRET` setzen (PC und Cloud-Umgebung).
-6. **Token holen (am PC):** `python -m cudi_video tiktok-login` → Adresse öffnen, zustimmen → auf der CUDI-Seite
-   „Adresse kopieren“ → im Terminal einfügen (nie in einen Chat). Der Refresh-Token (ca. 1 Jahr) liegt dann in
+6. **Token holen (am PC):** `python -m cudi_video tiktok-login` → Browser öffnet sich, zustimmen → CUDI fängt den
+   Code selbst ab (PKCE, nichts zu kopieren). Der Refresh-Token (ca. 1 Jahr) liegt dann in
    `video_output/_secrets/tiktok_refresh_token.txt`; für die Cloud den Inhalt als `CUDI_TIKTOK_REFRESH_TOKEN` hinterlegen.
 7. **Testen:** `python -m cudi_video hochladen video.mp4 --ziel tiktok` – das Video landet als **Entwurf in der TikTok-App**.
 
