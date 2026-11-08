@@ -280,6 +280,13 @@ SPEECH_PROFILES = {
         "rollen": {"normal": (-4, 0, 0), "hook": (-5, 0, 0), "frage": (-6, -1, 0), "zahl": (-6, 0, 4),
                    "fachbegriff": (-5, 0, 3)},
     },
+    # Satire (`satire/`): nüchterner Faktenteil, verschmitzt-flotter Satireteil (schneller, etwas höher), Pointe mit Pause davor
+    "satire": {
+        "erkennt": ("frage",), "zahl_teilen": False, "schluss": (-3, 1),
+        "pausen": {"satz": 0.22, "frage": 0.40, "umbruch": 0.30, "pointe": 0.45},
+        "rollen": {"normal": (-2, 0, 0), "hook": (0, 1, 0), "frage": (-4, 1, 0),
+                   "fakt": (-3, 0, 0), "satire": (6, 3, 1), "pointe": (-4, 2, 3)},
+    },
 }
 _RANKING = SPEECH_PROFILES["ranking"]
 PAUSE_SENTENCE = _RANKING["pausen"]["satz"]
@@ -289,7 +296,8 @@ PAUSE_BEFORE_NUMBER = _RANKING["pausen"]["zahl"]
 PAUSE_BEFORE_SUPERLATIVE = _RANKING["pausen"]["superlativ"]
 PAUSE_AFTER_BREAK = _RANKING["pausen"]["umbruch"]
 ROLE_PROSODY = _RANKING["rollen"]
-KIND_PROFILES = {"facts": "fakten", "fakten": "fakten", "explain": "erklaer", "erklaer": "erklaer"}    # spec.kind -> Profil
+KIND_PROFILES = {"facts": "fakten", "fakten": "fakten", "explain": "erklaer", "erklaer": "erklaer",
+                 "satire": "satire"}    # spec.kind -> Profil
 
 
 def speech_profile_override() -> str:
