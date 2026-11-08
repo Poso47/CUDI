@@ -130,7 +130,7 @@ für TikTok/YouTube Shorts.
 
 - Tests: `python -m pytest tests -q` (lokal ~15 s; GitHub-Workflow „Tests“ installiert ffmpeg).
 - Ausgaben nur in `video_output/` (gitignored); Arbeitsdateien in `video_output/_work/`.
-- Commits auf Deutsch, Push auf den eigenen Zweig; PRs nur auf Wunsch, Merge nur mit OK des Nutzers.
+- Commits auf Deutsch, Push auf den eigenen Zweig. **Merge: Der Nutzer hat dauerhaft erlaubt, fertige und in der Hauptsitzung geprüfte Pakete selbst per PR zu mergen** (ganze Suite grün); danach kurz berichten.
 - Textprüfungen für Claude-Texte (Zahlen werttreu, Vornamen, ganze Wörter als Beleg): `cudi_video/textcheck.py`.
 - Probeläufe in der Cloud: Auftrag als `jobs/<id>` anlegen (ArtifactData), `fire_trigger` mit dem JSON, dann
   `jobs/<id>.session` setzen; Ergebnis in `results/<id>`, Videos als Assets (Artifact read mit `path` = Asset-ID).
