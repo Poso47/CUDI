@@ -42,6 +42,7 @@ GEÄNDERT: <Dateien/Zweig/Commit>
 GEPRÜFT: <Tests, Probelauf, was genau gesehen wurde>
 OFFEN/RISIKEN: <was nicht geht und warum, ehrlich>
 NÄCHSTER SCHRITT: <Vorschlag, falls sinnvoll>
+SKILL: <wiederverwendbarer Ablauf/Befehle/Stolperfallen, ≤ 10 Zeilen – oder „keiner“>
 ```
 
 ## Beispiel
@@ -56,3 +57,28 @@ AUFGABE: 1. Mitarbeiter „Welt-Blick“ (RSS/GDELT, ≥ 3 Länder einig) … 2.
 NICHT TUN: Unbelegtes als Tatsache; Meinungen über Personen; Merge.
 ABNAHME: Tests grün, echter lokaler Lauf, Beispielauszug.
 ```
+
+## Lernen: Erfahrung als Skill festhalten
+
+Damit gleiche Arbeit beim nächsten Mal ohne neuen Agenten und ohne Suchschritte geht, wird jede erledigte Aufgabe zu
+Wissen in `.claude/skills/<name>/SKILL.md`. Jede Sitzung kennt diese Skills automatisch.
+
+- Der Bericht jedes Agenten endet mit **SKILL**: Was davon wiederverwendbar ist, also Ablauf, Befehle, Stolperfallen,
+  in höchstens 10 Zeilen.
+- Die Hauptsitzung trägt das in den passenden Skill ein oder legt einen neuen an. Den Commit macht sie selbst, im
+  selben Merge wie die Arbeit.
+- Aufbau eines Skills: Kopf mit `name` und `description` (wann nutzen), dann eine Checkliste, Befehle und bekannte
+  Fehler mit ihrer Lösung. Kurz halten, nur Erprobtes.
+- Erst wenn kein Skill passt und die Arbeit groß ist, wird ein Agent gestartet. Kleine Aufgaben mit Skill erledigt die
+  Hauptsitzung selbst.
+
+## Lösungsorientiert (Skill `ausweg-finden`)
+
+Scheitert ein Weg, wird nicht aufgehört. Die Reihenfolge ist:
+1. Ursache lesen.
+2. Denselben Weg reparieren.
+3. Einen anderen kostenlosen Weg zum selben Ziel nehmen.
+4. Kleiner schneiden.
+5. Erst dann den Nutzer fragen, mit dem, was schon versucht wurde.
+
+Die Regeln aus GRUNDSÄTZE gelten dabei immer.

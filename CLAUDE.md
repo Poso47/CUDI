@@ -154,6 +154,11 @@ für TikTok/YouTube Shorts.
   verstanden“). Vorlage mit ZIEL, WARUM, GRUNDSÄTZE, KONTEXT, AUFGABE, NICHT TUN, ABNAHME und BERICHT steht in
   `docs/kommunikation.md`. Agenten bekommen immer den vollständigen Prompt und liefern einen Bericht nach der
   Vorlage (ERGEBNIS, GEÄNDERT, GEPRÜFT, OFFEN, NÄCHSTER SCHRITT). Ergänzungen heißen „Ergänzung vom Projektleiter“.
+- **Lernen:** Erledigte Arbeit wird als Skill gespeichert (`.claude/skills/`, z. B. `firma-mitarbeiter`, `pruefen-und-mergen`,
+  `app-artefakt`, `cloud-probelauf`, `ausweg-finden`). Agenten-Berichte enden mit SKILL. Gibt es einen passenden Skill, macht die
+  Hauptsitzung die Arbeit selbst statt einen Agenten zu starten.
+- **Lösungsorientiert:** Scheitert ein Weg, wird nicht aufgegeben. Erst Ursache lesen, dann reparieren, dann einen anderen kostenlosen
+  Weg suchen, dann kleiner schneiden, erst dann fragen (Skill `ausweg-finden`). Die Regeln bleiben dabei bestehen.
 - Agenten arbeiten immer in einem eigenen Worktree (`isolation: "worktree"`), nie im Hauptordner.
 
 ## Sparsam mit dem Nutzungslimit (Wunsch des Nutzers: gleiche Qualität, weniger Verbrauch)
