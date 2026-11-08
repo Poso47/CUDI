@@ -185,8 +185,14 @@ def run(
         caption_file.write_text(meta["caption"] + "\n", "utf-8")
         files.update({"metadata": meta, "description_file": meta_file.name, "caption_file": caption_file.name})
         result["videos"][script.lang] = files
+        if files.get("qa"):
+            result["warnings"] = list(result["warnings"]) + [f"Endkontrolle ({script.lang}): {b}" for b in files["qa"]["befunde"]]
 
-    (out / "review.md").write_text(build_review(spec, research, scripts), "utf-8")   # endgültige Texte
+    review = build_review(spec, research, scripts)                                    # endgültige Texte
+    qa_lines = [f"- {lang}: " + ("bestanden" if f["qa"]["ok"] else "; ".join(f["qa"]["befunde"]))
+                + f" (Lautheit {f['qa']['lufs_vor']} -> {f['qa']['lufs_nach']} LUFS)"
+                for lang, f in result["videos"].items() if f.get("qa")]
+    (out / "review.md").write_text(review + ("\n## Endkontrolle\n\n" + "\n".join(qa_lines) + "\n" if qa_lines else ""), "utf-8")
     _save(out / "result.json", result)
     progress("Fertig", 1.0)
     return result
