@@ -1,14 +1,13 @@
-# CUDI als dauerhaft erreichbare App (kostenlos, Hugging Face Spaces) – danach jederzeit vom Handy nutzbar.
+# CUDI als erreichbare App (Hugging Face Spaces) – OPTIONAL und nur noch manuell startbar.
+# Hugging Face verlangt für Docker-Spaces inzwischen ein PRO-Abo (402). Der Notbetrieb läuft deshalb über
+# GitHub-Issues (auftrag.yml -> notbetrieb.yml, docs/notbetrieb-einrichten.md). Ohne HF_TOKEN oder bei 402
+# überspringt deploy_space.py freundlich, statt rot zu werden.
 # Einmalig: Repository-Secrets HF_TOKEN (Hugging Face, Schreibrecht) und CUDI_VIDEO_TOKEN (dein Zugangscode).
-# Notbetrieb (Claude-Limit erreicht): zusätzlich CUDI_LLM_* (z. B. Gemini) – Anleitung docs/notbetrieb-einrichten.md.
 # Optional: Variablen HF_SPACE_NAME (Standard cudi-video), HF_SPACE_PRIVATE (Standard true) und Schlüssel als Secrets.
 name: CUDI Cloud-App
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ["cudi_video/**", "presets/**", "Dockerfile", ".github/workflows/cloud-app.yml", ".github/scripts/deploy_space.py"]
 
 jobs:
   deploy:

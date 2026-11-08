@@ -1,6 +1,7 @@
 """Auftrag aus der CUDI-App-Seite starten: vorausgefülltes GitHub-Issue -> passender Cloud-Ablauf.
 
-Die App-Seite in Claude öffnet ein ausgefülltes Issue; nach „Absenden“ läuft dieses Skript
+Die App-Seite in Claude öffnet ein ausgefülltes Issue (Felder „Art: …“ oder, im Notbetrieb bei erreichtem
+Claude-Limit, der App-Auftrag als JSON-Block – dann läuft „CUDI Notbetrieb“ mit dem freien Sprachmodell); nach „Absenden“ läuft dieses Skript
 (Workflow „CUDI Auftrag“). Es prüft, dass der Auftrag vom Besitzer des Repositorys kommt, liest die
 Angaben, prüft jede gegen eine Liste erlaubter Werte und startet „CUDI Video“ (Ranking) oder
 „CUDI Story“ mit der Issue-Nummer. Der gestartete Lauf meldet das Ergebnis im selben Issue.
@@ -18,6 +19,9 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 MARKER = "cudi-auftrag"
 LABEL = "cudi"
@@ -82,6 +86,9 @@ def presets() -> set[str]:
     return {p.stem for p in PRESETS_DIR.glob("*.yaml")}
 
 
+preset_ids = presets
+
+
 def build_order(fields: dict[str, str], known_presets: set[str]) -> tuple[str, dict[str, str]]:
     """Workflow-Datei und Eingaben für den Auftrag – oder ValueError mit verständlichem Grund."""
     kind = _norm(fields.get("art", ""))
@@ -126,6 +133,35 @@ def build_order(fields: dict[str, str], known_presets: set[str]) -> tuple[str, d
     raise ValueError("Unbekannte Art – „Art: Ranking“ oder „Art: Story“ angeben.")
 
 
+def extract_json(body: str) -> dict | None:
+    """App-Auftrag als JSON im Issue (Notbetrieb): erster Codeblock, der ein Objekt mit „art“ enthält."""
+    blocks = re.findall(r"```[A-Za-z]*[ \t]*\r?\n(.*?)```", body or "", re.S)
+    for block in blocks:
+        try:
+            data = json.loads(block)
+        except json.JSONDecodeError:
+            if block.lstrip().startswith("{"):
+                raise ValueError("Der Auftrag im JSON-Block ist kein gültiges JSON.") from None
+            continue
+        if isinstance(data, dict) and "art" in data:
+            return data
+    return None
+
+
+def build_json_order(raw: dict, number: int, known_presets: set[str]) -> dict:
+    """App-Auftrag prüfen (job.parse_order, nur Ranking/Story in einem Zug) – ValueError mit verständlichem Grund.
+    Die Kennung ergibt sich aus der Issue-Nummer."""
+    from cudi_video import job
+
+    import notbetrieb
+
+    try:
+        order = notbetrieb.prepare_order({**raw, "id": f"gh{number:04d}"}, known_presets)
+    except job.OrderError as exc:
+        raise ValueError(str(exc)) from None
+    return order
+
+
 def allowed(event: dict) -> bool:
     issue = event.get("issue", {})
     owner = event.get("repository", {}).get("owner", {}).get("login", "")
@@ -134,6 +170,12 @@ def allowed(event: dict) -> bool:
 
 
 def summary_line(workflow: str, inputs: dict[str, str]) -> str:
+    if workflow == "notbetrieb.yml":
+        order = json.loads(inputs["auftrag"])
+        what = order.get("thema") or order.get("vorlage") or order.get("wunsch") or order.get("stimmung") or ""
+        up = order.get("hochladen")
+        return (f"Notbetrieb · {order['art']} **{what}**"
+                + (f" · Hochladen: {up['ziel']} ({up['sichtbarkeit']})" if up else ""))
     if workflow == "video.yml":
         extra = [x for x, on in (("streng", inputs["streng"] == "true"), ("nur Skript", inputs["nur_skript"] == "true")) if on]
         return (f"Ranking **{inputs['preset']}** · Sprachen {inputs['langs']} · Top {inputs['count']}"
@@ -170,7 +212,12 @@ def main() -> int:
        "--force", check=False)
     gh("issue", "edit", str(number), "--repo", repo, "--add-label", LABEL, check=False)
     try:
-        workflow, inputs = build_order(parse_body(issue.get("body") or ""), presets())
+        raw = extract_json(issue.get("body") or "")
+        if raw is not None:                                  # Notbetrieb: App-Auftrag als JSON, Sprachmodell statt Claude
+            order = build_json_order(raw, number, preset_ids())
+            workflow, inputs = "notbetrieb.yml", {"auftrag": json.dumps(order, ensure_ascii=False, separators=(",", ":"))}
+        else:
+            workflow, inputs = build_order(parse_body(issue.get("body") or ""), presets())
     except ValueError as exc:
         comment(repo, number, f"❌ **Auftrag nicht verstanden:** {exc}\n\nBitte in der CUDI-App neu starten.")
         gh("issue", "close", str(number), "--repo", repo, "--reason", "not planned", check=False)
@@ -188,8 +235,8 @@ def main() -> int:
     server = os.environ.get("GITHUB_SERVER_URL", "https://github.com")
     comment(repo, number,
             f"✅ **Auftrag angenommen:** {summary_line(workflow, inputs)}\n\n"
-            f"Der Cloud-Ablauf startet jetzt und braucht meist 10 bis 20 Minuten. Sobald das Video fertig ist, "
-            f"steht es hier – mit Download-Links und den Texten für YouTube und TikTok.\n\n"
+            f"Der Cloud-Ablauf startet jetzt und braucht meist 10 bis 30 Minuten. Sobald das Video fertig ist, "
+            f"steht es hier – mit Download-Link (Artefakt) und den Texten für YouTube und TikTok.\n\n"
             f"Fortschritt: {server}/{repo}/actions/workflows/{workflow}")
     print(f"Gestartet: {workflow} {inputs}")
     return 0
