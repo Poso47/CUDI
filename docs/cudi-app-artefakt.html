@@ -204,6 +204,25 @@
                  color: var(--paper); font: 700 15px var(--body); display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
   svg.i { width: 20px; height: 20px; flex: none; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+  /* Firma: 3D-Büro (Ergänzung; die Liste bleibt als Ersatz) */
+  .ofbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .ofbar button { min-height: 44px; min-width: 64px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink);
+                  color: var(--paper); font: 700 14px var(--body); cursor: pointer; }
+  .ofbar button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #04141a; }
+  .office { display: grid; gap: 10px; }
+  .office .stage { position: relative; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #0c0e16; height: min(380px, 100vw); }
+  .office canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; outline-offset: -3px; }
+  .office canvas:active { cursor: grabbing; }
+  .office .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); }
+  .office .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+  .ofcard { border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: var(--ink); display: grid; gap: 10px; }
+  .ofcard .top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+  .ofcard h3 { margin: 0; font: 800 15px/1.3 var(--display); overflow-wrap: anywhere; }
+  .ofcard p { margin: 0; }
+  .ofcard ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .ofcard li { display: grid; gap: 6px; justify-items: start; font-size: 14px; }
+  .ofcard .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ofcard .x { min-width: 44px; min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--paper); font: 700 18px var(--body); cursor: pointer; }
 </style>
 <main>
   <header>
@@ -421,6 +440,14 @@
     <h2>Firma</h2>
     <p class="lead">Jeder Auftrag ist ein Mitarbeiter. Der Projektleiter wacht darüber – gerechnet wird nur hier im Browser, ohne zusätzliche Claude-Aufrufe.</p>
     <p class="note" id="firmaMsg" hidden role="status"></p>
+    <div class="ofbar" id="officeBar" role="group" aria-label="Ansicht der Firma"></div>
+    <div class="office" id="office" hidden>
+      <div class="stage"><canvas id="officeCv" tabindex="0" role="img"
+        aria-label="3D-Büro: jeder Auftrag ist ein Mitarbeiter am Schreibtisch, der Projektleiter steht in der Mitte. Dieselben Angaben stehen in der Listenansicht."></canvas></div>
+      <div class="ofcard" id="officeCard" hidden aria-live="polite"></div>
+      <p class="meta">Ziehen dreht das Büro, zwei Finger zoomen, eine Figur antippen öffnet ihre Karte.</p>
+      <div class="legend" aria-hidden="true"><span><i style="background:#2fd6f0"></i>Rechercheur &amp; Autor</span><span><i style="background:#a78bfa"></i>Faktenprüfer</span><span><i style="background:#f472b6"></i>Story-Autor</span><span><i style="background:#fb923c"></i>Clipper</span></div>
+    </div>
     <div class="boss" id="boss"></div>
     <div class="stats" id="stats"></div>
     <h3 class="staffh" id="staffTitle">Mitarbeiter</h3>
@@ -1895,6 +1922,415 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       ul.append(li);
     });
   }
+  /* ---------- Firma: 3D-Büro (nur Ergänzung; gleiche Daten wie die Liste, Liste bleibt Ersatz) ---------- */
+  const OFFICE_KEY = "cudiFirmaAnsicht";
+  const THREE_URL = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+  const ROLE_COLOR = { "Rechercheur & Autor": 0x2fd6f0, "Faktenprüfer": 0xa78bfa, "Story-Autor": 0xf472b6, "Clipper": 0xfb923c };
+  const office = { pref: "3d", failed: false, ready: false, loading: false, sig: "", slots: [], sel: "", raf: 0, last: 0, dirty: true,
+                   cam: { th: 0.78, ph: 0.98, zoom: 1 }, mats: new Map(), tick1s: 0 };
+  try { office.pref = localStorage.getItem(OFFICE_KEY) === "liste" ? "liste" : "3d"; } catch (e) { /* Standard 3D */ }
+  const reduceMotion = () => { try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } };
+  const officeMode = () => (office.failed ? "liste" : office.pref);
+
+  function loadThree() {
+    return new Promise((resolve, reject) => {
+      if (window.THREE) { resolve(); return; }
+      const s = document.createElement("script"), to = setTimeout(() => reject(new Error("timeout")), 9000);
+      s.src = THREE_URL; s.crossOrigin = "anonymous";
+      s.onload = () => { clearTimeout(to); window.THREE ? resolve() : reject(new Error("leer")); };
+      s.onerror = () => { clearTimeout(to); reject(new Error("laden")); };
+      document.head.appendChild(s);
+    });
+  }
+  function officeFail() {
+    office.failed = true; office.ready = false;
+    if (office.raf) { cancelAnimationFrame(office.raf); office.raf = 0; }
+    try { if (office.r) office.r.dispose(); } catch (e) { /* egal */ }
+    office.r = null;
+    applyOfficeView();
+  }
+  function applyOfficeView() {
+    const list = officeMode() === "liste";
+    $("office").hidden = list;
+    ["boss", "staffTitle", "staff"].forEach((id) => { $(id).hidden = !list; });
+    const bar = $("officeBar"); bar.textContent = "";
+    [["3d", "3D"], ["liste", "Liste"]].forEach((p) => {
+      const b = h("button", "", p[1]); b.type = "button"; b.setAttribute("aria-pressed", String(officeMode() === p[0]));
+      if (p[0] === "3d" && office.failed) { b.disabled = true; b.title = "3D ist auf diesem Gerät nicht verfügbar."; }
+      b.addEventListener("click", () => {
+        if (p[0] === "3d" && office.failed) return;
+        office.pref = p[0];
+        try { localStorage.setItem(OFFICE_KEY, p[0]); } catch (e) { /* egal */ }
+        applyOfficeView(); updateOffice();
+      });
+      bar.append(b);
+    });
+    if (office.failed) bar.append(h("span", "meta", "3D nicht verfügbar – Listenansicht."));
+  }
+
+  function initOffice() {
+    if (office.ready || office.loading || office.failed) return;
+    office.loading = true;
+    loadThree().then(() => {
+      const T = window.THREE, cv = $("officeCv");
+      let r;
+      try { r = new T.WebGLRenderer({ canvas: cv, antialias: true, alpha: false, powerPreference: "low-power" }); } catch (e) { officeFail(); return; }
+      if (!r || !r.getContext()) { officeFail(); return; }
+      r.setClearColor(0x0c0e16, 1);
+      office.r = r; office.T = T;
+      office.scene = new T.Scene();
+      office.camera = new T.PerspectiveCamera(28, 1, 0.5, 200);
+      office.scene.add(new T.AmbientLight(0xffffff, 0.78));
+      const dl = new T.DirectionalLight(0xffffff, 0.75); dl.position.set(6, 12, 7); office.scene.add(dl);
+      office.unit = new T.BoxGeometry(1, 1, 1);
+      office.ray = new T.Raycaster();
+      cv.addEventListener("webglcontextlost", (ev) => { ev.preventDefault(); officeFail(); });
+      bindOfficeInput(cv);
+      try { new ResizeObserver(() => { office.dirty = true; fitOffice(); }).observe(cv.parentElement); } catch (e) { window.addEventListener("resize", fitOffice); }
+      office.ready = true; office.loading = false;
+      updateOffice();
+    }).catch(() => { office.loading = false; officeFail(); });
+  }
+  function fitOffice() {
+    if (!office.ready) return;
+    const cv = $("officeCv"), w = cv.parentElement.clientWidth, hgt = cv.parentElement.clientHeight;
+    if (!w || !hgt) return;
+    office.r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    office.r.setSize(w, hgt, false);
+    office.camera.aspect = w / hgt; office.camera.updateProjectionMatrix();
+    office.dirty = true;
+  }
+  function placeCamera() {
+    const c = office.cam, cam = office.camera, T = office.T;
+    const half = (office.extent || 8) * 1.04;
+    const tv = Math.tan(T.MathUtils.degToRad(cam.fov / 2));
+    const dist = Math.max(half / tv, half / (tv * cam.aspect)) * 1.02 * c.zoom;
+    cam.position.set(Math.sin(c.th) * Math.sin(c.ph) * dist, Math.cos(c.ph) * dist + 0.8, Math.cos(c.th) * Math.sin(c.ph) * dist);
+    cam.lookAt(0, 0.8, 0);
+  }
+
+  /* --- Eingabe: Ziehen dreht (Maus: auch kippen; Touch: waagerecht, senkrecht scrollt die Seite), Zwei Finger/Rad zoomen, Tippen wählt --- */
+  function bindOfficeInput(cv) {
+    const ptrs = new Map(); let down = null, pinch = 0;
+    cv.addEventListener("pointerdown", (ev) => {
+      ptrs.set(ev.pointerId, { x: ev.clientX, y: ev.clientY, t: ev.pointerType });
+      try { cv.setPointerCapture(ev.pointerId); } catch (e) { /* egal */ }
+      if (ptrs.size === 1) down = { x: ev.clientX, y: ev.clientY, t: performance.now(), moved: 0 };
+      else { down = null; const [a, b] = [...ptrs.values()]; pinch = Math.hypot(a.x - b.x, a.y - b.y); }
+    });
+    cv.addEventListener("pointermove", (ev) => {
+      const p = ptrs.get(ev.pointerId); if (!p) return;
+      const dx = ev.clientX - p.x, dy = ev.clientY - p.y; p.x = ev.clientX; p.y = ev.clientY;
+      if (ptrs.size >= 2) {
+        const [a, b] = [...ptrs.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (pinch > 0 && d > 0) { office.cam.zoom = Math.min(1.5, Math.max(0.5, office.cam.zoom * pinch / d)); }
+        pinch = d; office.dirty = true; return;
+      }
+      if (down) down.moved += Math.abs(dx) + Math.abs(dy);
+      office.cam.th -= dx * 0.008;
+      if (p.t !== "touch") office.cam.ph = Math.min(1.35, Math.max(0.4, office.cam.ph - dy * 0.006));
+      office.dirty = true;
+    });
+    const up = (ev) => {
+      const had = ptrs.delete(ev.pointerId);
+      if (had && ptrs.size === 0 && down && ev.type === "pointerup" && down.moved < 10 && performance.now() - down.t < 700) pickAt(ev.clientX, ev.clientY);
+      if (ptrs.size < 2) pinch = 0;
+      if (ptrs.size === 0) down = null;
+    };
+    cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+    cv.addEventListener("wheel", (ev) => { ev.preventDefault(); office.cam.zoom = Math.min(1.5, Math.max(0.5, office.cam.zoom * (ev.deltaY > 0 ? 1.08 : 0.92))); office.dirty = true; }, { passive: false });
+    cv.addEventListener("keydown", (ev) => {
+      const k = ev.key, c = office.cam;
+      if (k === "ArrowLeft") c.th -= 0.15; else if (k === "ArrowRight") c.th += 0.15;
+      else if (k === "ArrowUp") c.ph = Math.max(0.4, c.ph - 0.1); else if (k === "ArrowDown") c.ph = Math.min(1.35, c.ph + 0.1);
+      else if (k === "+") c.zoom = Math.max(0.5, c.zoom * 0.9); else if (k === "-") c.zoom = Math.min(1.5, c.zoom * 1.1);
+      else return;
+      ev.preventDefault(); office.dirty = true;
+    });
+  }
+  function pickAt(cx, cy) {
+    const cv = $("officeCv"), rc = cv.getBoundingClientRect(), T = office.T;
+    const v = new T.Vector2(((cx - rc.left) / rc.width) * 2 - 1, -((cy - rc.top) / rc.height) * 2 + 1);
+    office.ray.setFromCamera(v, office.camera);
+    const hits = office.ray.intersectObjects(office.slots.map((s) => s.hit), false);
+    if (hits.length) { office.sel = hits[0].object.userData.key; office.dirty = true; showOfficeCard(); }
+  }
+
+  /* --- Szene --- */
+  function mat(color) {
+    let m = office.mats.get(color);
+    if (!m) { m = new office.T.MeshLambertMaterial({ color: color }); office.mats.set(color, m); }
+    return m;
+  }
+  function box(parent, w, hh, d, color, x, y, z) {
+    const m = new office.T.Mesh(office.unit, typeof color === "number" ? mat(color) : color);
+    m.scale.set(w, hh, d); m.position.set(x, y, z); parent.add(m); return m;
+  }
+  function makePerson(color, standing) {
+    const T = office.T, g = new T.Group(), skin = 0xf1c9a5;
+    const body = new T.Group(); g.add(body);
+    const baseY = standing ? 0 : 0;
+    if (standing) {
+      box(body, 0.26, 0.8, 0.28, 0x232a3d, -0.16, 0.4, 0); box(body, 0.26, 0.8, 0.28, 0x232a3d, 0.16, 0.4, 0);
+      box(body, 0.7, 0.85, 0.42, color, 0, 1.2, 0);
+      box(body, 0.1, 0.5, 0.06, 0xffffff, 0, 1.3, 0.22);
+      box(body, 0.1, 0.1, 0.07, 0xf87171, 0, 1.45, 0.23);
+    } else {
+      box(body, 0.6, 0.7, 0.4, color, 0, 0.95 + baseY, 0);
+      box(body, 0.22, 0.22, 0.7, 0x232a3d, -0.17, 0.62, 0.3); box(body, 0.22, 0.22, 0.7, 0x232a3d, 0.17, 0.62, 0.3);
+    }
+    const hy = standing ? 1.95 : 1.55;
+    const head = new T.Mesh(new T.SphereGeometry(0.27, 14, 10), new T.MeshLambertMaterial({ color: skin }));
+    head.position.set(0, hy, 0); head.userData.own = true; body.add(head);
+    box(body, 0.5, 0.2, 0.5, 0x2a2118, 0, hy + 0.17, -0.03);
+    const arms = [-1, 1].map((sx) => {
+      const p = new T.Group(); p.position.set(sx * 0.4, standing ? 1.55 : 1.25, 0);
+      box(p, 0.14, 0.6, 0.14, color, 0, -0.3, 0);
+      box(p, 0.15, 0.15, 0.15, skin, 0, -0.64, 0);
+      p.rotation.x = standing ? 0 : -1.3; g.add(p); return p;
+    });
+    return { g: g, body: body, arms: arms };
+  }
+  function makeSprite(w, hh) {
+    const T = office.T, cvs = document.createElement("canvas"); cvs.width = 256; cvs.height = 128;
+    const tex = new T.CanvasTexture(cvs); tex.minFilter = T.LinearFilter;
+    const sp = new T.Sprite(new T.SpriteMaterial({ map: tex, transparent: true, depthTest: false }));
+    sp.scale.set(w, hh, 1); sp.renderOrder = 10;
+    return { sp: sp, cvs: cvs, tex: tex, ctx: cvs.getContext("2d") };
+  }
+  function drawLabel(L, title, kind, pct, text) {
+    const c = L.ctx, col = { work: "#2fd6f0", done: "#4ade80", bad: "#f87171", wait: "#f5b23d", free: "#9aa3b8", boss: "#f5b23d" }[kind] || "#9aa3b8";
+    c.clearRect(0, 0, 256, 128);
+    c.fillStyle = "rgba(12,14,22,.9)"; c.strokeStyle = col; c.lineWidth = 4;
+    c.beginPath(); c.roundRect ? c.roundRect(4, 4, 248, 120, 18) : c.rect(4, 4, 248, 120); c.fill(); c.stroke();
+    c.textAlign = "center"; c.textBaseline = "middle"; c.fillStyle = "#f3f0e8"; c.font = "700 34px system-ui, sans-serif";
+    let t = title; while (t.length > 3 && c.measureText(t).width > 224) t = t.slice(0, -2);
+    if (t !== title) t += "…";
+    c.fillText(t, 128, 36);
+    if (kind === "work") {
+      c.fillStyle = "#2a3045"; c.fillRect(20, 76, 216, 28);
+      c.fillStyle = col; c.fillRect(20, 76, Math.max(8, 216 * pct), 28);
+    } else if (kind === "done") {
+      c.fillStyle = col; c.beginPath(); c.arc(60, 88, 24, 0, 7); c.fill();
+      c.strokeStyle = "#04141a"; c.lineWidth = 7; c.lineCap = "round"; c.lineJoin = "round";
+      c.beginPath(); c.moveTo(49, 88); c.lineTo(58, 97); c.lineTo(72, 78); c.stroke();
+      c.fillStyle = col; c.font = "800 30px system-ui, sans-serif"; c.textAlign = "left"; c.fillText(text || "fertig", 96, 90);
+    } else if (kind === "bad") {
+      c.fillStyle = col; c.beginPath(); c.moveTo(60, 64); c.lineTo(84, 108); c.lineTo(36, 108); c.closePath(); c.fill();
+      c.fillStyle = "#1a0505"; c.font = "900 32px system-ui, sans-serif"; c.textAlign = "center"; c.fillText("!", 60, 92);
+      c.fillStyle = col; c.font = "800 28px system-ui, sans-serif"; c.textAlign = "left"; c.fillText(text || "Fehler", 96, 90);
+    } else {
+      c.fillStyle = col; c.font = "800 30px system-ui, sans-serif"; c.fillText(text || "", 128, 90);
+    }
+    L.tex.needsUpdate = true;
+  }
+  function slotInfo(e) {                              // wie die Liste: gleiche Zustände, nur als Figur-Zustand
+    const bad = e.hung || e.state === "Fehler" || (e.half && e.res && (e.res.fehler || !e.res.ok));
+    if (bad) return { kind: "bad", text: e.hung ? "hängt" : "Fehler" };
+    if (e.state === "fertig") return { kind: "done", text: "fertig" };
+    if (e.state === "arbeitet") return { kind: "work", text: "arbeitet" };
+    return { kind: "wait", text: e.state === "halbe Arbeit" ? "halbe Arbeit" : e.state };
+  }
+  function expectMin(e) { const a = (e.job && e.job.art) || ""; return a === "story" ? 25 : a === "clip" ? 15 : 20; }
+  function progressOf(e) {
+    const t = e.job && e.job.gestartet ? (Date.now() - new Date(e.job.gestartet).getTime()) / 60000 : 0;
+    return Math.min(0.95, Math.max(0.06, t / expectMin(e)));
+  }
+  function disposeWorld() {
+    if (!office.world) return;
+    office.world.traverse((o) => {
+      if (o.isSprite) { if (o.material.map) o.material.map.dispose(); o.material.dispose(); }
+      else if (o.isLineSegments) { o.geometry.dispose(); o.material.dispose(); }
+      else if (o.isMesh) { if (o.geometry !== office.unit) o.geometry.dispose(); if (o.userData.own) o.material.dispose(); }
+    });
+    office.scene.remove(office.world); office.world = null;
+  }
+  function buildOffice(m) {
+    const T = office.T;
+    disposeWorld();
+    const world = new T.Group(); office.world = world; office.scene.add(world);
+    const slots = [];
+    const staff = m.staff.slice(0, 10);
+    const n = Math.max(4, staff.length);
+    const R = n <= 6 ? 4.6 : 5.6;
+    office.extent = R + 2.2;
+    const half = office.extent + 0.6;
+    box(world, half * 2, 0.3, half * 2, 0x1d2336, 0, -0.15, 0);
+    box(world, half * 2 + 0.3, 0.12, half * 2 + 0.3, 0x2a3045, 0, -0.34, 0);
+    const grid = new T.GridHelper(half * 2, Math.round(half * 2 / 1.5), 0x2a3045, 0x252c40); grid.position.y = 0.01; world.add(grid);
+    const rug = new T.Mesh(new T.CylinderGeometry(2.2, 2.2, 0.04, 28), new T.MeshLambertMaterial({ color: 0x2b3350 })); rug.position.y = 0.03; rug.userData.own = true; world.add(rug);
+    [[-1, -1], [1, -1], [-1, 1]].forEach((p) => {                    // Zimmerpflanzen in den Ecken
+      const pl = new T.Group(); pl.position.set(p[0] * (half - 0.8), 0, p[1] * (half - 0.8)); world.add(pl);
+      box(pl, 0.5, 0.45, 0.5, 0x5a3b2a, 0, 0.22, 0); box(pl, 0.55, 0.7, 0.55, 0x2f8f5b, 0, 0.8, 0); box(pl, 0.35, 0.5, 0.35, 0x3fb06f, 0, 1.3, 0);
+    });
+    // Projektleiter in der Mitte
+    const bossProblems = m.hung.length + m.half.length;
+    const bossG = new T.Group(); world.add(bossG);
+    const bp = makePerson(0xf5b23d, true); bp.g.rotation.y = 0.78; bossG.add(bp.g);
+    box(bossG, 1.5, 0.08, 0.8, 0x3a4262, 0, 0.75, 0.9).rotation.y = 0.78;
+    box(bossG, 0.1, 0.75, 0.1, 0x232a3d, 0.5, 0.37, 1.2); box(bossG, 0.1, 0.75, 0.1, 0x232a3d, -0.5, 0.37, 1.2);
+    const bl = makeSprite(3.4, 1.7); bl.sp.position.set(0, 3.5, 0); bossG.add(bl.sp);
+    drawLabel(bl, "Projektleiter", bossProblems ? "bad" : "boss", 0, bossProblems ? bossProblems + (bossProblems === 1 ? " Problem" : " Probleme") : "alles im Plan");
+    const bhit = box(bossG, 2.4, 3.4, 2.4, mat(0x000000), 0, 1.7, 0.4); bhit.visible = false; bhit.userData.key = "boss";
+    slots.push({ key: "boss", kind: "boss", g: bossG, person: bp, label: bl, bad: !!bossProblems, hit: bhit });
+    // Schreibtische im Kreis
+    for (let i = 0; i < n; i++) {
+      const e = staff[i] || null, a = (i / n) * Math.PI * 2 + 0.4;
+      const x = Math.sin(a) * R, z = Math.cos(a) * R;
+      const g = new T.Group(); g.position.set(x, 0, z); g.rotation.y = Math.atan2(-x, -z); world.add(g);
+      const info = e ? slotInfo(e) : { kind: "free", text: "frei" };
+      box(g, 2.2, 0.08, 1.1, 0x8a6a4a, 0, 0.78, 0.05);
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach((q) => box(g, 0.08, 0.76, 0.08, 0x3a2f24, q[0] * 1.0, 0.38, 0.05 + q[1] * 0.45));
+      const screenMat = new T.MeshBasicMaterial({ color: 0x1a2030 });
+      const scr = box(g, 1.0, 0.62, 0.05, screenMat, 0, 1.25, 0.32); scr.userData.own = true;
+      box(g, 1.06, 0.68, 0.04, 0x10131c, 0, 1.25, 0.35); box(g, 0.12, 0.3, 0.12, 0x10131c, 0, 0.95, 0.32);
+      scr.rotation.y = Math.PI; scr.position.z = 0.29;
+      box(g, 0.7, 0.04, 0.24, 0x10131c, 0, 0.84, -0.12);
+      let person = null, label;
+      if (e) {
+        const col = ROLE_COLOR[e.role[0]] || 0x2fd6f0;
+        box(g, 0.8, 0.1, 0.8, 0x252c40, 0, 0.5, -1.0); box(g, 0.8, 0.8, 0.1, 0x252c40, 0, 0.95, -1.4);
+        person = makePerson(col, false); person.g.position.set(0, 0, -1.0); g.add(person.g);
+        label = makeSprite(3.4, 1.7); label.sp.position.set(0, 3.0, -1.0); g.add(label.sp);
+      } else {
+        box(g, 0.7, 0.45, 0.04, 0xf3f0e8, 0.6, 0.98, -0.1);
+        label = makeSprite(2.2, 1.1); label.sp.position.set(0, 2.1, 0); g.add(label.sp);
+      }
+      drawLabel(label, e ? e.name : "frei", info.kind, e && info.kind === "work" ? progressOf(e) : 0, info.text);
+      const key = e ? "s:" + e.id : "f:" + i;
+      const hit = box(g, 2.6, 3.0, 3.0, mat(0x000000), 0, 1.5, -0.4); hit.visible = false; hit.userData.key = key;
+      const ring = new T.Mesh(new T.RingGeometry(1.7, 1.95, 32), new T.MeshBasicMaterial({ color: 0x2fd6f0, side: T.DoubleSide }));
+      ring.rotation.x = -Math.PI / 2; ring.position.set(0, 0.06, -0.3); ring.visible = false; ring.userData.own = true; g.add(ring);
+      slots.push({ key: key, kind: e ? "staff" : "free", e: e, g: g, person: person, label: label, info: info, screen: screenMat, ring: ring, hit: hit, ph: i * 1.7, pct: -1 });
+    }
+    office.slots = slots;
+    const ring0 = office.slots.find((s) => s.key === office.sel); if (ring0 && ring0.ring) ring0.ring.visible = true;
+    office.dirty = true;
+  }
+
+  /* --- Takt: nur wenn Tab sichtbar, höchstens 30 fps, ruhende Szene wird nicht neu gezeichnet --- */
+  function officeActive() {
+    return office.ready && !office.failed && officeMode() === "3d" && !$("firma").hidden && document.visibilityState === "visible";
+  }
+  function officeTick(now) {
+    office.raf = 0;
+    if (!officeActive()) return;
+    office.raf = requestAnimationFrame(officeTick);
+    if (now - office.last < 33) return;
+    office.last = now;
+    const t = now / 1000, anim = !reduceMotion();
+    let moving = false;
+    const live = now - office.tick1s > 1000; if (live) office.tick1s = now;
+    for (const s of office.slots) {
+      if (s.ring) s.ring.visible = s.key === office.sel;
+      if (s.kind === "boss") {
+        if (s.bad && anim) { s.person.g.rotation.z = Math.sin(t * 9) * 0.03; moving = true; }
+        continue;
+      }
+      if (s.kind !== "staff") continue;
+      const k = s.info.kind;
+      if (k === "work") {
+        s.screen.color.setHex(0x2fd6f0).multiplyScalar(0.55 + 0.45 * (anim ? Math.sin(t * 5 + s.ph) * 0.5 + 0.5 : 1));
+        if (anim) { s.person.arms[0].rotation.x = -1.3 + Math.sin(t * 15 + s.ph) * 0.12; s.person.arms[1].rotation.x = -1.3 + Math.sin(t * 15 + s.ph + 2) * 0.12; s.person.body.position.y = Math.sin(t * 3 + s.ph) * 0.015; moving = true; }
+        if (live) { const p = progressOf(s.e); if (Math.abs(p - s.pct) > 0.004) { s.pct = p; drawLabel(s.label, s.e.name, "work", p, ""); } }
+      } else if (k === "bad") {
+        s.screen.color.setHex(0xf87171);
+        if (anim) { s.person.g.rotation.z = Math.sin(t * 28 + s.ph) * 0.05; s.label.sp.position.y = 3.0 + Math.abs(Math.sin(t * 6)) * 0.15; moving = true; }
+      } else if (k === "done") s.screen.color.setHex(0x1f8f55);
+      else s.screen.color.setHex(0x8a6a1f);
+    }
+    if (moving || office.dirty) { placeCamera(); office.r.render(office.scene, office.camera); office.dirty = false; }
+  }
+  function officeLoop() {
+    if (officeActive() && !office.raf) office.raf = requestAnimationFrame(officeTick);
+    else if (!officeActive() && office.raf) { cancelAnimationFrame(office.raf); office.raf = 0; }
+  }
+  document.addEventListener("visibilitychange", () => { office.dirty = true; officeLoop(); });
+
+  /* --- Karte zur gewählten Figur: ruft die vorhandenen Funktionen auf --- */
+  function ofBtn(label, ic, primary, fn) {
+    const b = h("button", "btn" + (primary ? " primary" : "")); b.type = "button"; if (ic) b.append(icon(ic)); b.append(document.createTextNode(label));
+    b.addEventListener("click", () => fn(b)); return b;
+  }
+  function suggestionList() {
+    const ul = h("ul");
+    suggestions().forEach((sg) => {
+      const li = h("li"); li.append(h("b", "", sg.title), h("span", "meta", sg.why));
+      li.append(ofBtn("Starten", "play", true, (b) => startJob({ label: sg.label, order: sg.order }, "firmaMsg", b)));
+      ul.append(li);
+    });
+    return ul;
+  }
+  function showOfficeCard() {
+    const card = $("officeCard"), s = office.slots.find((x) => x.key === office.sel);
+    card.textContent = "";
+    if (!s) { card.hidden = true; return; }
+    card.hidden = false;
+    const m = firmaModel(), top = h("div", "top"), title = h("h3");
+    const close = h("button", "x", "×"); close.type = "button"; close.setAttribute("aria-label", "Karte schließen");
+    close.addEventListener("click", () => { office.sel = ""; office.dirty = true; card.hidden = true; });
+    if (s.kind === "boss") {
+      title.append(icon("user"), document.createTextNode("Projektleiter")); top.append(title, close); card.append(top);
+      const problems = m.hung.length + m.half.length;
+      if (problems) {
+        const ul = h("ul");
+        [...m.hung, ...m.half.filter((e) => !e.hung)].forEach((e) => {
+          const li = h("li"); li.append(h("b", "", (e.hung ? "Hängt: " : "Halbe Arbeit: ") + e.name), h("span", "meta", e.reason));
+          if (e.job.auftrag) li.append(restartBtn(e));
+          ul.append(li);
+        });
+        card.append(ul);
+      } else card.append(h("p", "hint", jobs.size ? "Alles im Plan – keine hängenden Aufträge, keine halbe Arbeit." : "Noch keine Mitarbeiter. Starte ein Video oder nimm einen Vorschlag."));
+      card.append(h("p", "meta", m.working + (m.working === 1 ? " Mitarbeiter arbeitet" : " Mitarbeiter arbeiten") + " · " + m.staff.length + " insgesamt"));
+      if (!m.working) { card.append(h("p", "hint", "Alle Mitarbeiter sind frei. Drei Vorschläge – ein Tipp startet das Video."), suggestionList()); }
+      return;
+    }
+    if (s.kind === "free") {
+      title.append(icon("user"), document.createTextNode("Freier Platz")); top.append(title, close); card.append(top);
+      card.append(h("p", "hint", "Hier arbeitet gerade niemand. Drei Vorschläge – ein Tipp startet das Video."), suggestionList());
+      return;
+    }
+    const e = firmaModel().staff.find((x) => x.id === s.e.id) || s.e, o = (e.job && e.job.auftrag) || {};
+    title.append(icon(e.role[1]), document.createTextNode(e.name)); top.append(title, close); card.append(top);
+    card.append(h("p", "meta", e.role[0] + (e.job.gestartet ? " · gestartet " + when(e.job.gestartet) : "")));
+    const desc = [o.art, o.thema || o.vorlage || o.wunsch || o.stimmung, o.format].filter(Boolean).join(" · ");
+    if (desc) card.append(h("p", "meta", "Auftrag: " + desc));
+    const st = h("p"); st.append(h("span", "pill " + e.pill, e.state)); card.append(st);
+    if (e.reason) card.append(h("p", "hint", e.reason));
+    const acts = h("div", "acts");
+    if ((e.hung || e.half || e.state === "Fehler") && e.job.auftrag) acts.append(restartBtn(e));
+    if (e.res && (e.res.videos || []).some((v) => v && v.video_url)) {
+      acts.append(ofBtn("Video ansehen", "play", false, () => {
+        goTab("videos");
+        setTimeout(() => { const c = cards.get(e.id); if (c && c.el && c.el.scrollIntoView) c.el.scrollIntoView({ block: "start", behavior: "smooth" }); }, 60);
+      }));
+    }
+    const del = ofBtn(e.state === "arbeitet" ? "Abbrechen" : "Löschen", "alert", false, () => {
+      acts.textContent = "";
+      acts.append(h("span", "meta", e.state === "arbeitet" ? "Auftrag wirklich abbrechen?" : "Video und Auftrag wirklich löschen?"));
+      acts.append(ofBtn("Ja", "", true, async (b) => { b.disabled = true; try { await removeJob(e.id); office.sel = ""; } finally { render(); } }),
+                  ofBtn("Nein", "", false, () => showOfficeCard()));
+    });
+    acts.append(del);
+    card.append(acts);
+  }
+
+  function updateOffice() {
+    applyOfficeView();
+    if (officeMode() !== "3d" || $("firma").hidden) { officeLoop(); return; }
+    if (!office.ready) { initOffice(); return; }
+    fitOffice();
+    const m = firmaModel();
+    const sig = m.staff.slice(0, 10).map((e) => e.id + ":" + e.state + ":" + e.role[0]).join("|") + "#" + m.hung.length + "," + m.half.length;
+    if (sig !== office.sig) { office.sig = sig; buildOffice(m); if (office.sel) { if (office.slots.some((s) => s.key === office.sel)) showOfficeCard(); else { office.sel = ""; $("officeCard").hidden = true; } } }
+    officeLoop();
+  }
+  const renderFirmaBase = renderFirma;
+  renderFirma = function () {
+    renderFirmaBase();
+    try { updateOffice(); } catch (e) { officeFail(); }
+  };
+
   setInterval(() => { if (jobs.size) renderFirma(); }, 60000);     // „hängt“ nach 40 Min. auch ohne neue Daten
 
   /* ---------- Volle App: Adresse merken ---------- */
@@ -2058,6 +2494,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       buckets.set("session_demo000000005", "WORKING");
       J("d6", "story", "Spannend – Der Nachbar", 55, { art: "story", stimmung: "spannend", wunsch: "Nachbar" }, "session_demo000000006");
       buckets.set("session_demo000000006", "WORKING");
+      J("d8", "clip", "Podcast-Clip – Highlights", 6, { art: "clip", url: "https://example.com/podcast" }, "session_demo000000008");
+      buckets.set("session_demo000000008", "WORKING");
     }
     render();
     pill("Demo", "warn");

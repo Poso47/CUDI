@@ -20,6 +20,7 @@ from ..script import as_of_year, extras_lines, format_date
 from ..spec import VideoSpec
 from ..units import quantity
 from ..verify import confirmed_sources
+from . import audio
 from .icons import icon_for
 from .theme import pick_style
 
@@ -178,31 +179,26 @@ def _music_track(length: int) -> np.ndarray | None:
     return np.tile(track, reps)[:length]
 
 
-def moving_average(x: "np.ndarray", width: int) -> "np.ndarray":
-    """Gleitender Mittelwert in linearer Zeit über kumulierte Summen.
-
-    Ergebnis wie np.convolve(x, np.ones(width) / width, mode="same"), aber ohne width-fache
-    Rechenarbeit je Sample (bei 3 Minuten 48 kHz sonst Milliarden Rechenschritte)."""
-    n = len(x)
-    half = (width - 1) // 2
-    sums = np.concatenate(([0.0], np.cumsum(x, dtype=np.float64)))
-    idx = np.arange(n)
-    hi = np.minimum(idx + half + 1, n)
-    lo = np.maximum(idx - (width - 1 - half), 0)
-    return ((sums[hi] - sums[lo]) / width).astype(np.float32)
+moving_average = audio.moving_average   # bleibt hier erreichbar (Tests, Altaufrufe)
 
 
-def build_audio(script: Script, jobs: list[dict], out_path: Path, voice_path: Path | None = None) -> None:
-    """Ton aus Stimme, Übergängen und Musik. voice_path: zusätzlich nur die Stimme (für das Maskottchen)."""
+def build_audio(script: Script, jobs: list[dict], out_path: Path, voice_path: Path | None = None,
+                music_style: str | None = None, seed_key: str = "") -> None:
+    """Ton aus Stimme, Übergängen, Musik und Akzenten. voice_path: zusätzlich nur die Stimme (fürs Maskottchen).
+
+    music_style: Stimmung der selbst erzeugten Musik (None = ohne; eine Datei in assets/music hat Vorrang)."""
     total = int(sum(j["duration"] for j in jobs) * SAMPLE_RATE) + SAMPLE_RATE
     voice = np.zeros(total, dtype=np.float32)
     fx = np.zeros(total, dtype=np.float32)
+    accents: list[float] = []
     whoosh = _whoosh()
     t = 0.0
     for job, seg in zip(jobs, script.segments):
         start = int((t + job["lead"]) * SAMPLE_RATE)
         clip = _decode(seg.audio_path)
         voice[start:start + len(clip)] += clip[: max(0, total - start)]
+        if job["kind"] == "item":
+            accents.append(t + job["lead"] - 0.05)       # Enthüllung von Platz/Zahl
         if job["index"] > 0:
             s = int(t * SAMPLE_RATE)
             fx[s:s + len(whoosh)] += whoosh[: max(0, total - s)]
@@ -214,13 +210,12 @@ def build_audio(script: Script, jobs: list[dict], out_path: Path, voice_path: Pa
             w.setframerate(SAMPLE_RATE)
             w.writeframes((np.clip(voice, -1, 1) * 32767).astype(np.int16).tobytes())
     mix = voice + fx
-    music = _music_track(total)
-    if music is not None:
-        # Musik leiser, während gesprochen wird ("Ducking").
-        env = moving_average(np.abs(voice), 4800)
-        duck = np.where(env > 0.01, 0.35, 1.0).astype(np.float32)
-        duck = moving_average(duck, 9600)
-        mix += music / (np.abs(music).max() + 1e-9) * 0.16 * duck
+    if music_style is not None and audio.enabled():
+        music = _music_track(total)
+        if music is None:
+            music = audio.generate_music(music_style, total / SAMPLE_RATE, out_path.parent, seed_key or "cudi", _decode)
+        mix += audio.mix_music(voice, music)
+        audio.place_accents(mix, accents, (audio.rms(voice[np.abs(voice) > 0.01]) or 0.1) * 0.9)
     peak = np.abs(mix).max() or 1.0
     mix = mix / peak * 0.89
     pcm = (np.clip(mix, -1, 1) * 32767).astype(np.int16)
@@ -276,15 +271,20 @@ def render_video(spec: VideoSpec, research: Research, script: Script, out_dir: P
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat_list),
                     "-c", "copy", str(video_only)], check=True)
 
-    audio = work / "audio.wav"
-    build_audio(script, jobs, audio)          # das Maskottchen ist schon in den Bildern (render_part)
+    audio_file = work / "audio.wav"
+    music = audio.music_style(spec.kind, jobs[0]["style"].get("format", ""), " ".join(spec.title.values()))
+    build_audio(script, jobs, audio_file, music_style=music, seed_key=spec.id)          # das Maskottchen ist schon in den Bildern (render_part)
 
     final = out_dir / f"{spec.id}_{script.lang}.mp4"
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video_only), "-i", str(audio),
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video_only), "-i", str(audio_file),
                     # Lautheit wie auf TikTok/YouTube üblich (ca. -14 LUFS), damit das Video nicht leiser wirkt
                     "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", str(SAMPLE_RATE),
                     "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
                     str(final)], check=True)
+
+    from .. import qa
+    limit = config.LONG_MAX_SECONDS if spec.target_seconds > config.STORY_MAX_SECONDS else config.STORY_MAX_SECONDS
+    qa_block = qa.safe_check(final, spec.kind, limit)      # Endkontrolle; korrigiert die Lautheit höchstens einmal
 
     cover = out_dir / f"{spec.id}_{script.lang}_cover.jpg"
     render_frame(jobs[0], min(2.2, jobs[0]["duration"] - 0.1), cover)
@@ -292,5 +292,5 @@ def render_video(spec: VideoSpec, research: Research, script: Script, out_dir: P
     write_srt(script, jobs, srt)
     return {
         "video": final.name, "cover": cover.name, "subtitles": srt.name,
-        "duration": round(sum(j["duration"] for j in jobs), 1),
+        "duration": round(sum(j["duration"] for j in jobs), 1), "qa": qa_block,
     }
