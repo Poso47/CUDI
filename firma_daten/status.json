@@ -30,13 +30,15 @@
    "naechste_planung": "2026-11-15T21:31:02Z"
   },
   "ideen": {
-   "letzter_lauf": "2026-11-08T21:47:40Z",
-   "dauer_s": 32.1,
+   "letzter_lauf": "2026-11-08T21:57:43Z",
+   "dauer_s": 45.5,
    "ergebnis": "ok",
-   "zusammenfassung": "16 neue Ideen (llm)",
-   "hinweise": [],
-   "naechste_planung": "2026-11-09T21:47:40Z"
+   "zusammenfassung": "7 neue Ideen (regeln)",
+   "hinweise": [
+    "Sprachmodell nicht nutzbar, regelbasiert: HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+   ],
+   "naechste_planung": "2026-11-09T21:57:43Z"
   }
  },
- "erzeugt": "2026-11-08T21:47:40Z"
+ "erzeugt": "2026-11-08T21:57:43Z"
 }
