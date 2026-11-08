@@ -200,7 +200,7 @@ def metadata(skeleton: dict, part_index: int, visuals: list[Visual]) -> dict:
               " ".join(f"#{t}" for t in tags)]
     ai_voice = "KI-Stimme" if de else "AI voice"
     caption = "\n".join([f"{skeleton['title']}{part} {icon}", f"{credit} · {ai_voice}" if credit else ai_voice,
-                          "", " ".join(f"#{t}" for t in TAGS[mood][lang])])
+                          "", " ".join(f"#{t}" for t in [*TAGS[mood][lang], "fyp"])])
     return {"title": title, "description": "\n".join(lines).replace("\n\n\n", "\n\n"), "caption": caption, "tags": tags}
 
 

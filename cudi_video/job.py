@@ -337,6 +337,8 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
         data["videos"].append({
             "key": key, "video": str(app), "cover": str(cover) if cover else None,
             "teile": [str(c) for c in chunks] if len(chunks) > 1 else [],
+            "titel_varianten": (files.get("metadata") or {}).get("titles") or [],            # Paket C: Kopier-Knöpfe
+            "titel_gewaehlt": (files.get("metadata") or {}).get("title_chosen") or "",
             "qa": files.get("qa"), "dauer": files.get("duration"), "mb": round(app.stat().st_size / 1048576, 1),
             "youtube": _read(out / files["description_file"]) if files.get("description_file") else "",
             "tiktok": _read(out / files["caption_file"]) if files.get("caption_file") else "",
@@ -744,7 +746,8 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
             url = ""                                       # langes Video: nur als Stücke in der Ablage
         videos.append({"key": v["key"], "video_url": url, "teile_urls": parts, "cover_url": cover, "dauer": v.get("dauer"),
                        "mb": v.get("mb"), "datei": Path(v["video"]).name.replace("_app.mp4", ".mp4"),
-                       "youtube": v.get("youtube", ""), "tiktok": v.get("tiktok", "")})
+                       "youtube": v.get("youtube", ""), "tiktok": v.get("tiktok", ""),
+                       "titel_varianten": v.get("titel_varianten") or [], "titel_gewaehlt": v.get("titel_gewaehlt", "")})
     ok = bool(data.get("ok"))
     error = data.get("fehler", "")
     repeatable = bool(data.get("wiederholbar", True))
