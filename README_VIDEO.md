@@ -488,3 +488,17 @@ als JSON zwischengespeichert) → bestes 30–90-s-Fenster nach Regeln (Fragen, 
 Hook (Cold Open + 0,15-s-Blitz, wenn er nicht am Anfang steht) → Pausen > 0,35 s heraus → Sprecher-Zuschnitt (Haar-Kaskade,
 Bewegung im Mundbereich; braucht `opencv-python-headless` 4.x, in 5.x fehlen die Kaskaden → Bildmitte) → Untertitel
 (Anton aus `video_assets/fonts`, 1–3 Wörter, Großbuchstaben, Schlüsselwort #FFD400). Code: `cudi_video/clip/`.
+
+## Video in der App bearbeiten und freigeben
+
+- Beim Rendern sichert `cudi_video/bearbeiten.py` die Grundlage (`bearbeitung.json` im Auftragsordner, kompakt ≤ 160 KB in
+  `results/<id>.bearbeitung`): Skript je Sprache, Format, Design, Maskottchen, Tempo, Reihenfolge, Recherche (Medien werden
+  beim Neu-Rendern nur nachgeladen, falls lokal weg).
+- App-Karte: „Bearbeiten“ (Texte, Titel, Einstieg, Format, Design, Tempo, Maskottchen, Plätze umsortieren/weglassen – Platznummern
+  bleiben wahr, Platz 1 und mindestens 3 Plätze bleiben –, Freitext-Wunsch) → „Neu rendern“ = Auftrag `"schritt":"bearbeiten"`
+  (Arbeitsstand `bearbeitungen/<id>` = {basis, neu}; Datei per `out_dir "cudi_bearbeitungen"`). Geänderte Zeilen prüft
+  `bearbeiten.check_text` (keine neuen Zahlen/Namen/Wörter ohne Beleg, Länge); abgelehnte bleiben alt und erscheinen als Hinweis.
+  Der Freitext geht als Schreibaufgabe `bearbeiten` über `handoff`. Das alte Video wird ersetzt.
+- Freigabe: Auftragsfeld `hochladen` bereitet standardmäßig nur vor (`freigabe: true`, Ergebnis `hochladen_offen`); „Veröffentlichen“
+  in der Karte startet `"schritt":"hochladen"` (Dokument per `out_dir "cudi_hochladen"`, Videodateien als `<Asset-Kennung>.mp4`
+  in `cudi_hochladen/<id>/`) und lädt ohne Neu-Rendern hoch; Link/Fehler als Hinweis, die Karte bleibt erhalten. `freigabe: false` = sofort.

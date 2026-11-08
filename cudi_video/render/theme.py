@@ -113,16 +113,18 @@ STYLE: dict = {**STYLES["neon"], "name": "neon", **MOTIONS["gleiten"], "motion":
 FORMAT_NAMES = ["karte", "vollbild", "kreis", "magazin", "polaroid", "zahl", "manuskript"]     # Bildaufbau, s. render/formats.py
 
 
-def pick_style(spec_id: str, icon: str | None, kind: str = "numbers", wanted: str = "", topic: str = "") -> dict:
+def pick_style(spec_id: str, icon: str | None, kind: str = "numbers", wanted: str = "", topic: str = "",
+               design: str = "") -> dict:
     """Look eines Videos: Farben passend zum Thema, dazu Format (ganz anderer Bildaufbau) und Bewegungsprofil –
-    je Video verschieden, aber fest je Video-ID. `wanted` = im Auftrag gewähltes Format."""
+    je Video verschieden, aber fest je Video-ID. `wanted` = im Auftrag gewähltes Format, `design` = gewählte Farben
+    (App-Bearbeitung; leer = passend zum Thema)."""
     import hashlib
 
     def h(salt: str, n: int) -> int:
         return int(hashlib.md5(f"{spec_id}{salt}".encode()).hexdigest(), 16) % n
 
     options = palette_options(icon, kind, topic)
-    name = options[h("design", len(options))]
+    name = design if design in STYLES and design != "manuskript" else options[h("design", len(options))]
     fmt = wanted if wanted in FORMAT_NAMES else FORMAT_NAMES[h("format", len(FORMAT_NAMES))]
     if fmt == "manuskript":
         name = "manuskript"                  # der Buchlook hat eigene Farben (fast schwarz, Off-White)
