@@ -34,11 +34,28 @@ def point(text: str, links: list[tuple[str, str]] | None = None) -> dict:
 
 # --------------------------------------------------------------------------- Wichtigste Meldungen + Archiv
 
+def _unabh(m: dict, qs: list[dict]) -> int:
+    """Anzahl unabhängiger Gruppen unter den passenden Quellen (ältere Daten ohne Gruppenangabe: je Quelle eine)."""
+    if any("gruppe" in q for q in qs):
+        return len({q.get("gruppe") for q in qs if "gruppe" in q} | {f"x{i}" for i, q in enumerate(qs) if "gruppe" not in q})
+    return len(qs)
+
+
 def agreeing(m: dict) -> list[dict]:
     """Nur Quellen, deren Titel zur Hauptmeldung passt (Schutz vor fehlerhaft zusammengefassten Gruppen)."""
     tok = newsmod.tokens(m["titel"])
     return [q for i, q in enumerate(m.get("quellen", []))
             if q.get("titel") == m["titel"] or i == 0 or newsmod.similar(tok, newsmod.tokens(q.get("titel", "")))]
+
+
+def _wer(q: dict) -> str:
+    """„Welt – gehört Axel Springer SE“ bzw. „… – Eigentümer unbekannt“; abhängige Quellen mit Grund."""
+    text = q.get("quelle", "")
+    if q.get("eigentuemer"):
+        text += f" – {q['eigentuemer']}"
+    if q.get("zaehlt_nicht"):
+        text += f" [zählt nicht: {q['zaehlt_nicht']}]"
+    return text
 
 
 def top_items(news: dict, welt: dict, limit: int = 5) -> list[dict]:
@@ -50,13 +67,15 @@ def top_items(news: dict, welt: dict, limit: int = 5) -> list[dict]:
             head = f"übereinstimmend berichtet in {len(g['laender_einig'])} Ländern ({', '.join(g['laender_einig'])})"
             if skipped:
                 head += f"; beteiligte Länder nicht mitgezählt: {', '.join(skipped)}"
-            out.append({"titel": _cut(g["titel"], 150), "kopf": head, "zeilen": g.get("zusammenfassung", [])[:5],
+            zeilen = [_wer(q) for q in g.get("quellen", []) if q.get("zaehlt_nicht")]
+            out.append({"titel": _cut(g["titel"], 150), "kopf": head,
+                        "zeilen": g.get("zusammenfassung", [])[:5] + [f"Eigentümer: {_wer(q)}" for q in g.get("quellen", [])[:5] if q.get("eigentuemer")] + zeilen,
                         "links": [(f"{q['quelle']} ({q['land']})", q["link"]) for q in g.get("quellen", [])]})
     for m in news.get("meldungen", []):
         qs = agreeing(m) if m.get("status") == "bestätigt" else []
-        if len(qs) >= 2:
-            out.append({"titel": _cut(m["titel"], 150), "kopf": f"bestätigt von {len(qs)} unabhängigen Betreibern",
-                        "zeilen": [f"{q.get('quelle', '')}: {_cut(q.get('titel'), 140)}" for q in qs][:5],
+        if len(qs) >= 2 and _unabh(m, qs) >= 2:
+            out.append({"titel": _cut(m["titel"], 150), "kopf": f"bestätigt von {_unabh(m, qs)} unabhängigen Quellgruppen",
+                        "zeilen": [f"{_wer(q)}: {_cut(q.get('titel'), 140)}" for q in qs][:5],
                         "links": [(q.get("quelle", ""), q.get("link", "")) for q in qs]})
     return out[:limit]
 
@@ -123,10 +142,11 @@ def section_confirmed(news: dict) -> list[dict]:
     pts = []
     for m in news.get("meldungen", []):
         qs = agreeing(m) if m.get("status") == "bestätigt" else []
-        if len(qs) < 2:
+        if len(qs) < 2 or _unabh(m, qs) < 2:
             continue
         links = [(q.get("quelle", ""), q.get("link", "")) for q in qs]
-        pts.append(point(f"{_cut(m['titel'], 150)} – bestätigt von {len(qs)} unabhängigen Betreibern.", links))
+        wer = "; ".join(_wer(q) for q in qs[:5])
+        pts.append(point(f"{_cut(m['titel'], 150)} – bestätigt von {_unabh(m, qs)} unabhängigen Quellgruppen ({wer}).", links))
         if len(pts) >= 6:
             break
     return pts
@@ -153,6 +173,9 @@ def section_abroad(welt: dict) -> list[dict]:
             pts[-1]["text"] += f" Beteiligte Länder (für die Übereinstimmung nicht gezählt): {', '.join(beteiligt)}."
         if g.get("staatsnah"):
             pts[-1]["text"] += f" Hinweis: {', '.join(g['staatsnah'])} ist staatsnah getragen."
+        wer = "; ".join(_wer(q) for q in g.get("quellen", [])[:5] if q.get("eigentuemer"))
+        if wer:
+            pts[-1]["text"] += f" Quellen: {wer}."
     return pts
 
 

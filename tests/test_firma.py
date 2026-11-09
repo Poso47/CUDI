@@ -24,6 +24,7 @@ class Resp:
 @pytest.fixture(autouse=True)
 def daten(tmp_path, monkeypatch):
     monkeypatch.setattr(common, "DATA_DIR", tmp_path / "firma_daten")
+    monkeypatch.setenv("CUDI_EIGENTUEMER_WIKIDATA", "0")
     monkeypatch.delenv("CUDI_YT_API_KEY", raising=False)
     monkeypatch.delenv("CUDI_YT_REFRESH_TOKEN", raising=False)
     monkeypatch.delenv("CUDI_LLM_BASE_URL", raising=False)
