@@ -1,66 +1,151 @@
 {
- "erzeugt": "2026-11-08T22:44:40Z",
+ "erzeugt": "2026-11-09T07:05:18Z",
  "anzahl": 60,
- "bestaetigt": 17,
- "hinweise": [],
+ "bestaetigt": 13,
+ "hinweise": [
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+ ],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen; nur Titel, Kurzzeile und Link",
  "meldungen": [
   {
-   "titel": "Kanzler Merz will Aigner als Bundespräsidentin vorschlagen",
-   "kurz": "Bislang hatte sich Kanzler Merz in der Frage zur Bundespräsidenten-Nachfolge zurückgehalten. Jetzt machte er es offiziell: Der CDU-Chef will am Montag Ilse…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-merz-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:05:22+01:00",
-   "status": "bestätigt",
-   "n_quellen": 4,
-   "quellen": [
-    {
-     "quelle": "tagesschau.de",
-     "titel": "Kanzler Merz will Aigner als Bundespräsidentin vorschlagen",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-merz-100.html"
-    },
-    {
-     "quelle": "t-online.de",
-     "titel": "Merz will Ilse Aigner als Bundespräsidentin vorschlagen",
-     "link": "https://www.t-online.de/nachrichten/deutschland/innenpolitik/id_101518916/merz-will-ilse-aigner-als-bundespraesidentin-vorschlagen.html"
-    },
-    {
-     "quelle": "focus.de",
-     "titel": "Merz will Ilse Aigner als Bundespräsidentin vorschlagen",
-     "link": "https://www.focus.de/politik/deutschland/merz-will-ilse-aigner-als-bundespraesidentin-vorschlagen_428a02a1-a4bc-41be-a731-95db7ad1985e.html"
-    },
-    {
-     "quelle": "orf.at",
-     "titel": "D : Merz wird Aigner als Bundespräsidentin vorschlagen",
-     "link": "https://orf.at/stories/3447632/"
-    }
-   ]
-  },
-  {
-   "titel": "Seven dead and more than 100 injured after trains collide in Egypt",
-   "kurz": "Several carriages derailed after two trains travelling in the same direction crashed outside the city of Giza.",
-   "link": "https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss",
+   "titel": "Krakow shooting suspect has died in hospital, police say",
+   "kurz": "At least six people were killed in the shooting and a dozen more were injured.",
+   "link": "https://www.bbc.co.uk/news/articles/c6y434dw8319o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-08T19:58:02Z",
+   "zeit": "2026-11-09T06:53:00Z",
    "status": "bestätigt",
    "n_quellen": 3,
    "quellen": [
     {
-     "quelle": "bbc.com",
-     "titel": "Seven dead and more than 100 injured after trains collide in Egypt",
-     "link": "https://www.bbc.com/news/articles/cwvgr20mmmevo"
+     "quelle": "BBC World",
+     "titel": "'I treat all these people like they are victims', says doctor who treated Krakow shooting suspect",
+     "link": "https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss"
     },
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "Egypt train crash leaves several dead, over 100 injured",
-     "link": "https://www.dw.com/en/egypt-train-crash-leaves-several-dead-over-100-injured/a-79892916?maca=en-rss-en-all-1573-xml-mrss"
+     "titel": "Poland: Gunman kills 6 in Krakow main square, police say",
+     "link": "https://www.dw.com/en/poland-gunman-kills-6-in-krakow-main-square-police-say/a-79886489?maca=en-rss-en-all-1573-xml-mrss"
+    },
+    {
+     "quelle": "Wikipedia · Reuters",
+     "titel": "Six people are killed and 15 more injured in a drive-by mass shooting in the center of Kraków , Poland . The perpetrator, who also killed…",
+     "link": "https://www.reuters.com/world/europe/two-kiled-least-10-injured-shooting-polish-city-krakow-tvn24-reports-2026-11-07/"
+    }
+   ]
+  },
+  {
+   "titel": "At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a…",
+   "kurz": "At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a sandbank to collapse in…",
+   "link": "https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter",
+   "quelle": "Wikipedia · Al Jazeera",
+   "sprache": "en",
+   "zeit": "",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "quellen": [
+    {
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a…",
+     "link": "https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter"
+    },
+    {
+     "quelle": "Wikipedia · Shafaq",
+     "titel": "Three people are killed and more than 300 others are rescued from severe flooding in Erbil , Kurdistan Region , Iraq .",
+     "link": "https://shafaq.com/en/Kurdistan/Erbil-floods-kill-three-over-300-rescued"
     },
     {
      "quelle": "Wikipedia · AP",
-     "titel": "A train derails near Giza , Egypt , killing seven people and wounding over 100 more.",
-     "link": "https://apnews.com/article/egypt-train-crash-giza-collision-cairo-injuries-4ad591268ce015d85ae302e22185b235"
+     "titel": "Two people are killed and 16 injured in a bus crash in Lent , Ain , France . (AP)",
+     "link": "https://apnews.com/article/france-bus-crash-e024a5428966dd6c3415c881bc503811"
+    }
+   ]
+  },
+  {
+   "titel": "G7 ministers meet as Europe seeks greater say in Ukraine peace talks",
+   "kurz": "With Washington preparing negotiations with Moscow and Kyiv, European leaders fear Ukraine could face pressure to accept a bad deal. Iran tensions and the…",
+   "link": "https://www.dw.com/en/g7-ministers-meet-as-europe-seeks-greater-say-in-ukraine-peace-talks/a-79894960?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T04:18:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "G7 ministers meet as Europe seeks greater say in Ukraine peace talks",
+     "link": "https://www.dw.com/en/g7-ministers-meet-as-europe-seeks-greater-say-in-ukraine-peace-talks/a-79894960?maca=en-rss-en-all-1573-xml-mrss"
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Europe to join U.S.-brokered Ukraine talks in Abu Dhabi, defying Kremlin objections",
+     "link": "https://www.npr.org/2026/11/08/nx-s1-6034014/europe-join-us-brokered-ukraine-talks-abu-dhabi-russia"
+    }
+   ]
+  },
+  {
+   "titel": "Pope Leo urges Argentina's Milei to put people before the economy",
+   "kurz": "Pope Leo XIV has urged Argentina to protect democracy and ensure economic growth benefits the poor, delivering a message to President Javier Milei over…",
+   "link": "https://www.dw.com/en/pope-leo-urges-argentina-s-milei-to-put-people-before-the-economy/a-79894779?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T01:35:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Pope Leo urges Argentina's Milei to put people before the economy",
+     "link": "https://www.dw.com/en/pope-leo-urges-argentina-s-milei-to-put-people-before-the-economy/a-79894779?maca=en-rss-en-all-1573-xml-mrss"
+    },
+    {
+     "quelle": "NPR",
+     "titel": "After a successful trip to Uruguay, Pope Leo heads to Argentina",
+     "link": "https://www.npr.org/2026/11/08/nx-s1-6033992/after-a-successful-trip-to-uruguay-pope-leo-heads-to-argentina"
+    }
+   ]
+  },
+  {
+   "titel": "Paraguay's former president charged after bank collapse",
+   "kurz": "Santiago Peña was ousted due to a banking crisis which left millions of people unable to access their money.",
+   "link": "https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T01:20:44-05:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Paraguay's former president charged after bank collapse",
+     "link": "https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss"
+    },
+    {
+     "quelle": "NPR",
+     "titel": "How a bank collapse left millions in limbo and toppled Paraguay's president",
+     "link": "https://www.npr.org/2026/11/09/nx-s1-6034066/paraguay-president-pena-ueno"
+    }
+   ]
+  },
+  {
+   "titel": "Nvidia CEO Huang admits affair amid rumors of China spy ties",
+   "kurz": "Following reports of Nvidia's chief Jensen Huang becoming involved with a Chinese spy, Huang offered an apology for cheating on his wife. Meanwhile, the US…",
+   "link": "https://www.dw.com/en/nvidia-ceo-huang-admits-affair-amid-rumors-of-china-spy-ties/a-79894747?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-08T23:07:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Nvidia CEO Huang admits affair amid rumors of China spy ties",
+     "link": "https://www.dw.com/en/nvidia-ceo-huang-admits-affair-amid-rumors-of-china-spy-ties/a-79894747?maca=en-rss-en-all-1573-xml-mrss"
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Nvidia launches investigation into CEO's alleged relationship with Chinese spy",
+     "link": "https://www.npr.org/2026/11/08/nx-s1-6034036/nvidia-launches-investigation-into-ceos-alleged-relationship-with-chinese-spy"
     }
    ]
   },
@@ -87,112 +172,46 @@
    ]
   },
   {
-   "titel": "Ilse Aigner im Porträt: Krisenerprobt, bürgernah - und bald Staatsoberhaupt?",
-   "kurz": "Ilse Aigner hat beste Chancen, die erste Bundespräsidentin Deutschlands zu werden. Obwohl sie bereits hohe Ämter auf Bundes- und Landesebene innehatte, stand…",
-   "link": "https://www.tagesschau.de/inland/ilse-aigner-portraet-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Ilse Aigner im Porträt: Krisenerprobt, bürgernah - und bald Staatsoberhaupt?",
-     "link": "https://www.tagesschau.de/inland/ilse-aigner-portraet-100.html"
-    },
-    {
-     "quelle": "dw.com",
-     "titel": "Ilse Aigner wird wohl das erste weibliche Staatsoberhaupt",
-     "link": "https://www.dw.com/de/die-csu-politikerin-ilse-aigner-ist-als-erste-bundespr%C3%A4sidentin-nun-favoritin/a-79873744"
-    }
-   ]
-  },
-  {
-   "titel": "Sturm der Liebe - Star Dieter Bach spricht über Kinderlosigkeit",
-   "kurz": "",
-   "link": "https://www.t-online.de/unterhaltung/stars/id_101517306/-sturm-der-liebe-star-dieter-bach-spricht-ueber-kinderlosigkeit.html",
-   "quelle": "t-online.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "quellen": [
-    {
-     "quelle": "t-online.de",
-     "titel": "Sturm der Liebe - Star Dieter Bach spricht über Kinderlosigkeit",
-     "link": "https://www.t-online.de/unterhaltung/stars/id_101517306/-sturm-der-liebe-star-dieter-bach-spricht-ueber-kinderlosigkeit.html"
-    },
-    {
-     "quelle": "focus.de",
-     "titel": "„ Sturm der Liebe - Star Dieter Bach über seine Kinderlosigkeit : „ Nie weit oben auf meiner Bucket List",
-     "link": "https://www.focus.de/kultur/stars/sturm-der-liebe-star-dieter-bach-ueber-seine-kinderlosigkeit-nie-weit-oben-auf-meiner-bucket-list_9364fc37-5b55-47c2-9c41-c9cfbf8b1fdd.html"
-    }
-   ]
-  },
-  {
-   "titel": "Homes and temples glow across India to mark Diwali",
-   "kurz": "Millions of Indians are marking the festival of lights with glowing lamps, fireworks and traditional sweets.",
-   "link": "https://www.bbc.co.uk/news/articles/cm70pdwz122ro?at_medium=RSS&at_campaign=rss",
+   "titel": "Aramco Tower hit in heart of Saudi capital as Houthis launch fresh strikes",
+   "kurz": "Footage authenticated by BBC Verify shows damage to the building in the capital's central financial district.",
+   "link": "https://www.bbc.co.uk/news/articles/c6ly3mjx958eo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
+   "zeit": "2026-11-08T21:37:36Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Homes and temples glow across India to mark Diwali",
-     "link": "https://www.bbc.co.uk/news/articles/cm70pdwz122ro?at_medium=RSS&at_campaign=rss"
+     "titel": "Aramco Tower hit in heart of Saudi capital as Houthis launch fresh strikes",
+     "link": "https://www.bbc.co.uk/news/articles/c6ly3mjx958eo?at_medium=RSS&at_campaign=rss"
     },
     {
-     "quelle": "economictimes.indiatimes.com",
-     "titel": "Temple is not made for India : Deepinder Goyal responds to criticism in Diwali posts , promises to publish detailed note",
-     "link": "https://economictimes.indiatimes.com/tech/startups/temple-is-not-made-for-india-deepinder-goyal-responds-to-criticism-in-diwali-posts-promises-to-publish-detailed-note/articleshow/135665088.cms"
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "Several floors of Aramco Tower , a skyscraper owned by Saudi Aramco located in the King Abdullah Financial District of Riyadh , Saudi…",
+     "link": "https://www.aljazeera.com/news/2026/11/8/saudi-arabia-intercepts-houthi-missiles-targeting-riyadh-eastern-province"
     }
    ]
   },
   {
-   "titel": "South Africa elections: ANC marks its worst-ever performance",
-   "kurz": "The African National Congress, the party of late Nobel Prize winner Nelson Mandela, slumped to its worst-ever result in South Africa's municipal election. The…",
-   "link": "https://www.dw.com/en/south-africa-elections-anc-marks-its-worst-ever-performance/a-79887482?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
+   "titel": "Seven dead and more than 100 injured after trains collide in Egypt",
+   "kurz": "Several carriages derailed after two trains travelling in the same direction crashed outside the city of Giza.",
+   "link": "https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-08T19:30:00Z",
+   "zeit": "2026-11-08T19:58:02Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Seven dead and more than 100 injured after trains collide in Egypt",
+     "link": "https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss"
+    },
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "South Africa elections: ANC marks its worst-ever performance",
-     "link": "https://www.dw.com/en/south-africa-elections-anc-marks-its-worst-ever-performance/a-79887482?maca=en-rss-en-all-1573-xml-mrss"
-    },
-    {
-     "quelle": "bbc.com",
-     "titel": "South Africa ANC records worst - ever results in local elections",
-     "link": "https://www.bbc.com/news/articles/cwrkygrxp11mo"
-    }
-   ]
-  },
-  {
-   "titel": "Ist es die vermisste Lisa ( 13 )? Leiche auf Gehöft in Brandenburg gefunden",
-   "kurz": "",
-   "link": "https://www.bild.de/news/inland/ist-es-die-vermisste-lisa-13-leiche-auf-gehoeft-in-brandenburg-gefunden-6af09480d487d5232edf1048",
-   "quelle": "bild.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T19:30:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "quellen": [
-    {
-     "quelle": "bild.de",
-     "titel": "Ist es die vermisste Lisa ( 13 )? Leiche auf Gehöft in Brandenburg gefunden",
-     "link": "https://www.bild.de/news/inland/ist-es-die-vermisste-lisa-13-leiche-auf-gehoeft-in-brandenburg-gefunden-6af09480d487d5232edf1048"
-    },
-    {
-     "quelle": "sueddeutsche.de",
-     "titel": "Verbrechen - Vermisste Schülerin tot - genaue Umstände unklar - Panorama",
-     "link": "https://www.sueddeutsche.de/panorama/verbrechen-vermisste-schuelerin-tot-genaue-umstaende-unklar-dpa.urn-newsml-dpa-com-20090101-261108-930-965170"
+     "titel": "Egypt train crash leaves several dead, over 100 injured",
+     "link": "https://www.dw.com/en/egypt-train-crash-leaves-several-dead-over-100-injured/a-79892916?maca=en-rss-en-all-1573-xml-mrss"
     }
    ]
   },
@@ -207,36 +226,36 @@
    "n_quellen": 2,
    "quellen": [
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Many killed after migrant boat sinks off Senegal",
-     "link": "https://www.dw.com/en/many-killed-after-migrant-boat-sinks-off-senegal/a-79890883?maca=en-rss-en-all-1573-xml-mrss"
+     "quelle": "Wikipedia · DW",
+     "titel": "At least 34 people are killed when a small boat carrying migrants capsizes off the coast of Kébémer , Louga , Senegal . (DW)",
+     "link": "https://www.dw.com/en/many-killed-after-migrant-boat-sinks-off-senegal/a-79890883"
     },
     {
      "quelle": "Wikipedia · Xinhua",
-     "titel": "Twenty-one people are killed and one person has been rescued after a migrant boat sinks off the coast of Kebemer , Senegal .",
+     "titel": "Twenty-one people are killed and one person has been rescued after a migrant boat sinks off the coast of Kebemer , Louga region , Senegal .",
      "link": "https://english.news.cn/20261108/b421ddd6df0c45a7aff62b629f9a3581/c.html"
     }
    ]
   },
   {
-   "titel": "Jensen Huang leather jacket : Jensen Huang wife and daughter dress him : Who really picks the Nvidia CEO famous leather jacket",
-   "kurz": "",
-   "link": "https://economictimes.indiatimes.com/news/international/us/jensen-huangs-wife-and-daughter-dress-him-who-really-picks-the-nvidia-ceos-famous-leather-jacket/articleshow/135660430.cms",
-   "quelle": "economictimes.indiatimes.com",
+   "titel": "Footage shows derailed carriages after fatal train crash in Egypt",
+   "kurz": "At least seven people died when two trains collided, causing several carriages to derail and fall down an embankment.",
+   "link": "https://www.bbc.co.uk/news/videos/cw78p2km7d94o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-08T17:00:00Z",
+   "zeit": "2026-11-08T16:05:57Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "quellen": [
     {
-     "quelle": "economictimes.indiatimes.com",
-     "titel": "Jensen Huang leather jacket : Jensen Huang wife and daughter dress him : Who really picks the Nvidia CEO famous leather jacket",
-     "link": "https://economictimes.indiatimes.com/news/international/us/jensen-huangs-wife-and-daughter-dress-him-who-really-picks-the-nvidia-ceos-famous-leather-jacket/articleshow/135660430.cms"
+     "quelle": "BBC World",
+     "titel": "Footage shows derailed carriages after fatal train crash in Egypt",
+     "link": "https://www.bbc.co.uk/news/videos/cw78p2km7d94o?at_medium=RSS&at_campaign=rss"
     },
     {
-     "quelle": "Wikipedia · New York Times",
-     "titel": "NVIDIA announces it is opening an investigation into CEO Jensen Huang , after American intelligence reported that a close associate of…",
-     "link": "https://www.nytimes.com/2026/11/08/technology/nvidia-investigation-jensen-huang-china.html"
+     "quelle": "Wikipedia · AP",
+     "titel": "A train derails near Giza , Egypt , killing seven people and wounding 125 more. (AP)",
+     "link": "https://apnews.com/article/egypt-train-crash-giza-collision-cairo-injuries-4ad591268ce015d85ae302e22185b235"
     }
    ]
   },
@@ -263,134 +282,466 @@
    ]
   },
   {
-   "titel": "More than 40,000 gather as Pope Leo XIV celebrates Mass in Uruguay",
-   "kurz": "Leo celebrated the first Mass of his South America tour less than a month after undergoing cancer surgery. He is seeking to raise interest in the Catholic…",
-   "link": "https://www.dw.com/en/more-than-40-000-gather-as-pope-leo-xiv-celebrates-mass-in-uruguay/a-79886543?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-08T11:30:16-05:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "More than 40,000 gather as Pope Leo XIV celebrates Mass in Uruguay",
-     "link": "https://www.dw.com/en/more-than-40-000-gather-as-pope-leo-xiv-celebrates-mass-in-uruguay/a-79886543?maca=en-rss-en-all-1573-xml-mrss"
-    },
-    {
-     "quelle": "NPR",
-     "titel": "After a successful trip to Uruguay, Pope Leo heads to Argentina",
-     "link": "https://www.npr.org/2026/11/08/nx-s1-6033992/after-a-successful-trip-to-uruguay-pope-leo-heads-to-argentina"
-    }
-   ]
-  },
-  {
-   "titel": "Papst Leo XIV. setzt Südamerika-Reise fort",
-   "kurz": "Zum Auftakt seiner Südamerika-Reise traf Papst Leo XIV. in Uruguay auf Armut und Gläubige in einer meist säkularen Gesellschaft. Nun geht es nach Argentinien…",
-   "link": "https://www.tagesschau.de/ausland/amerika/papst-leo-suedamerika-uruguay-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-08T09:27:56+01:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Papst Leo XIV. setzt Südamerika-Reise fort",
-     "link": "https://www.tagesschau.de/ausland/amerika/papst-leo-suedamerika-uruguay-100.html"
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Reise mit Strapazen: Papst Leo XIV. ist in Südamerika zurück",
-     "link": "https://www.dw.com/de/reise-mit-strapazen-papst-leo-xiv-ist-in-südamerika-zurück/a-79885738?maca=de-rss-de-all-1119-xml-mrss"
-    }
-   ]
-  },
-  {
-   "titel": "Bankenkrise: Anklage gegen Paraguays Ex-Präsidenten",
-   "kurz": "Nur einen Tag nach seiner Amtsenthebung muss sich Paraguays Ex-Präsident Peña wegen seiner Rolle im Bankenskandal vor der Justiz verantworten. Die…",
-   "link": "https://www.tagesschau.de/ausland/amerika/ermittlungen-paraguay-pena-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-08T05:54:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Bankenkrise: Anklage gegen Paraguays Ex-Präsidenten",
-     "link": "https://www.tagesschau.de/ausland/amerika/ermittlungen-paraguay-pena-100.html"
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Bankenskandal in Paraguay: Ex-Präsident Peña muss in Untersuchungshaft",
-     "link": "https://www.dw.com/de/bankenskandal-in-paraguay-ex-präsident-peña-muss-in-untersuchungshaft/a-79874532?maca=de-rss-de-all-1119-xml-mrss"
-    }
-   ]
-  },
-  {
-   "titel": "Trump offers White House press secretary role to Dana White",
-   "kurz": "US President Donald Trump has offered the White House press secretary job to Dana White, the chief executive of the Ultimate Fighting Championship. White has…",
-   "link": "https://www.dw.com/en/trump-offers-white-house-press-secretary-role-to-dana-white/a-79888119?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-08T02:35:29-05:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Trump offers White House press secretary role to Dana White",
-     "link": "https://www.dw.com/en/trump-offers-white-house-press-secretary-role-to-dana-white/a-79888119?maca=en-rss-en-all-1573-xml-mrss"
-    },
-    {
-     "quelle": "NPR",
-     "titel": "UFC's Dana White says he will meet with Trump Monday over offer to be White House press secretary",
-     "link": "https://www.npr.org/2026/11/08/nx-s1-6033900/ufc-dana-white-trump-white-house-press-secretary"
-    }
-   ]
-  },
-  {
-   "titel": "Paraguay's former president charged after bank collapse",
-   "kurz": "Santiago Peña was ousted due to a banking crisis which left millions of people unable to access their money.",
-   "link": "https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-07T19:17:22Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Paraguay's former president charged after bank collapse",
-     "link": "https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss"
-    },
-    {
-     "quelle": "Wikipedia · AFP",
-     "titel": "The Paraguayan Senate unanimously removes Santiago Peña as the country's president over alleged conflicts of interest involving Ueno Bank …",
-     "link": "https://www.afp.com/en/paraguay-senate-begins-president-impeachment-trial"
-    }
-   ]
-  },
-  {
-   "titel": "The High Court of Tanzania acquits Chadema chairperson Tundu Lissu of treason but sentences him to four years in prison for incitement…",
-   "kurz": "The High Court of Tanzania acquits Chadema chairperson Tundu Lissu of treason but sentences him to four years in prison for incitement related to statements…",
-   "link": "https://www.france24.com/en/live-news/20261106-tanzania-opposition-leader-avoids-death-penalty-in-treason-trial",
-   "quelle": "Wikipedia · AFP via France 24",
+   "titel": "Three people are arrested as pro- Palestine protesters are confronted by pro- Israel counterprotesters in Rittenhouse Square , Philadelphia…",
+   "kurz": "Three people are arrested as pro- Palestine protesters are confronted by pro- Israel counterprotesters in Rittenhouse Square , Philadelphia , Pennsylvania …",
+   "link": "https://www.nbcnews.com/news/us-news/billboards-urge-boycott-boycott-jewish-owned-businesses-rcna608119",
+   "quelle": "Wikipedia · NBC News",
    "sprache": "en",
    "zeit": "",
    "status": "bestätigt",
    "n_quellen": 2,
    "quellen": [
     {
-     "quelle": "Wikipedia · AFP via France 24",
-     "titel": "The High Court of Tanzania acquits Chadema chairperson Tundu Lissu of treason but sentences him to four years in prison for incitement…",
-     "link": "https://www.france24.com/en/live-news/20261106-tanzania-opposition-leader-avoids-death-penalty-in-treason-trial"
+     "quelle": "Wikipedia · NBC News",
+     "titel": "Three people are arrested as pro- Palestine protesters are confronted by pro- Israel counterprotesters in Rittenhouse Square , Philadelphia…",
+     "link": "https://www.nbcnews.com/news/us-news/billboards-urge-boycott-boycott-jewish-owned-businesses-rcna608119"
     },
     {
-     "quelle": "Wikipedia · AFP",
-     "titel": "The Hong Kong High Court sentences pro-democracy activist Joshua Wong to an additional 10 years in prison under the national security law…",
-     "link": "https://www.afp.com/en/hong-kong-activist-joshua-wong-given-10-more-years-collusion"
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "More than 200,000 people march in Amsterdam , Netherlands , to protest against the Israel's genocide in Gaza and the Dutch government 's…",
+     "link": "https://www.aljazeera.com/news/2026/11/8/hundreds-of-thousands-protesters-storm-amsterdam"
+    }
+   ]
+  },
+  {
+   "titel": "G7-Außenminister sprechen über Ukraine und Iran",
+   "kurz": "Welche Rolle spielt Europa bei der Lösung des Ukraine-Kriegs? Wie geht es mit Iran weiter? Diese Fragen stehen im Zentrum der G7-Gespräche in Paris, an denen…",
+   "link": "https://www.tagesschau.de/ausland/europa/g7-paris-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T07:50:09+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "G7-Außenminister sprechen über Ukraine und Iran",
+     "link": "https://www.tagesschau.de/ausland/europa/g7-paris-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Todesschütze von Krakau ist tot",
+   "kurz": "Die tödlichen Schüsse in Krakau haben Entsetzen ausgelöst, aber auch viele Fragen aufgeworfen. Vor allem nach dem Motiv des Täters. Er kann nicht mehr…",
+   "link": "https://www.tagesschau.de/ausland/europa/krakau-todesschuetze-tot-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T07:47:46+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Todesschütze von Krakau ist tot",
+     "link": "https://www.tagesschau.de/ausland/europa/krakau-todesschuetze-tot-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Marktbericht: Kurserholung bleibt vorerst wohl aus",
+   "kurz": "Nach dem Ausverkauf in der vergangenen Woche hoffen die Anleger jetzt auf eine Gegenbewegung. Bislang bleiben die Märkte aber risikoscheu, der DAX dürfte…",
+   "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-geldanlage-170.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T07:34:40+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Marktbericht: Kurserholung bleibt vorerst wohl aus",
+     "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-geldanlage-170.html"
+    }
+   ]
+  },
+  {
+   "titel": "Klimagipfel in Antalya: Eine Premiere und viel Konfliktpotenzial",
+   "kurz": "In der Türkei beginnt die Klimakonferenz in neuem Format und mit alten Streitpunkten. Und wieder ist die große Frage: Kommt die Weltgemeinschaft beim Ausstieg…",
+   "link": "https://www.tagesschau.de/ausland/asien/klimagipfel-204.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T07:02:50+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Klimagipfel in Antalya: Eine Premiere und viel Konfliktpotenzial",
+     "link": "https://www.tagesschau.de/ausland/asien/klimagipfel-204.html"
+    }
+   ]
+  },
+  {
+   "titel": "11KM-Podcast: Gletschersterben in der Schweiz",
+   "kurz": "Die Gletscher in den Schweizer Alpen schmelzen so schnell wie nie. 11KM über die internationalen Folgen und was man jetzt noch tun kann.",
+   "link": "https://www.tagesschau.de/multimedia/podcast/11km/podcast-11km-schweiz-umwelt-gletscher-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T06:54:46+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "11KM-Podcast: Gletschersterben in der Schweiz",
+     "link": "https://www.tagesschau.de/multimedia/podcast/11km/podcast-11km-schweiz-umwelt-gletscher-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Weltklimakonferenz COP31 - Was kann der Gipfel in Antalya liefern?",
+   "kurz": "In Antalya steht viel auf der Agenda, doch nicht alle Länder sind sich einig. Kleinere Bündnisse könnten künftig Elektrifizierung, Klimafinanzierung und den…",
+   "link": "https://www.dw.com/de/weltklimakonferenz-cop31-was-kann-der-gipfel-in-antalya-liefern/a-79670957?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-09T06:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Weltklimakonferenz COP31 - Was kann der Gipfel in Antalya liefern?",
+     "link": "https://www.dw.com/de/weltklimakonferenz-cop31-was-kann-der-gipfel-in-antalya-liefern/a-79670957?maca=de-rss-de-all-1119-xml-mrss"
+    }
+   ]
+  },
+  {
+   "titel": "US President Donald Trump says deportation policy was 'too tough' for voters",
+   "kurz": "Trump said his deportation policy may be one of the reasons the Republicans lost so much ground in the midterm elections.",
+   "link": "https://www.dw.com/en/us-president-donald-trump-says-deportation-policy-was-too-tough-for-voters/a-79895321?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T06:14:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "US President Donald Trump says deportation policy was 'too tough' for voters",
+     "link": "https://www.dw.com/en/us-president-donald-trump-says-deportation-policy-was-too-tough-for-voters/a-79895321?maca=en-rss-en-all-1573-xml-mrss"
+    }
+   ]
+  },
+  {
+   "titel": "Jensen Huang: Why a personal scandal for the face of the AI boom has provoked a national security scare",
+   "kurz": "Once lauded as the \"Taylor Swift of tech\", Huang is mired in scandal after an affair with a suspected Chinese spy.",
+   "link": "https://www.bbc.co.uk/news/articles/ckgel338xql3o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T06:01:52Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Jensen Huang: Why a personal scandal for the face of the AI boom has provoked a national security scare",
+     "link": "https://www.bbc.co.uk/news/articles/ckgel338xql3o?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  },
+  {
+   "titel": "Inside the French drug gangs recruiting children to kill",
+   "kurz": "The BBC enters Marseille's dangerous underworld, where young people are trapped, brutalised and exploited.",
+   "link": "https://www.bbc.co.uk/news/articles/cq62y01r2313o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T06:00:26Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Inside the French drug gangs recruiting children to kill",
+     "link": "https://www.bbc.co.uk/news/articles/cq62y01r2313o?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  },
+  {
+   "titel": "Aigner wird wohl Bundespräsidentin / Demokratie-Umfrage / Verschleppter Infekt",
+   "kurz": "Unsere Infos heute: (00:00:07) Themenvorschau (00:01:10) Wird Ilse Aigner Bundespräsidentin? Die CSU-Politikerin Ilse Aigner hat beste Chancen, die erste…",
+   "link": "https://www.tagesschau.de/multimedia/podcast/15-minuten/audio-bundespraesidentin-warum-es-wohl-ilse-aigner-wird-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T05:51:16+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Aigner wird wohl Bundespräsidentin / Demokratie-Umfrage / Verschleppter Infekt",
+     "link": "https://www.tagesschau.de/multimedia/podcast/15-minuten/audio-bundespraesidentin-warum-es-wohl-ilse-aigner-wird-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Pope delivers veiled rebuke of Milei's austerity measures",
+   "kurz": "Pope Leo made the comments as he arrived in Argentina on the second leg of his Latin America tour.",
+   "link": "https://www.bbc.co.uk/news/articles/ckj0l082jqzvo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T05:30:37Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Pope delivers veiled rebuke of Milei's austerity measures",
+     "link": "https://www.bbc.co.uk/news/articles/ckj0l082jqzvo?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  },
+  {
+   "titel": "ARD-Umfrage: Was die Deutschen an der Demokratie kritisieren",
+   "kurz": "Die Demokratie genießt breiten Rückhalt. Aber nur jeder Dritte ist der Meinung, dass sie in Deutschland gut funktioniert. Warum das so ist und was helfen kann…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/sorge-um-demokratie-umfrage-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T05:01:12+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "ARD-Umfrage: Was die Deutschen an der Demokratie kritisieren",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/sorge-um-demokratie-umfrage-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "31. Klimakonferenz der UN startet - Guterres fordert mehr Einsatz",
+   "kurz": "Im türkischen Antalya beginnt die 31. Klimakonferenz der Vereinten Nationen. Zwei Wochen lang beraten Vertreter von fast 200 Ländern über Maßnahmen gegen die…",
+   "link": "https://www.tagesschau.de/wissen/klima/cop-in-antalya-beginnt-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T04:59:05+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "31. Klimakonferenz der UN startet - Guterres fordert mehr Einsatz",
+     "link": "https://www.tagesschau.de/wissen/klima/cop-in-antalya-beginnt-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau in 100 Sekunden",
+   "kurz": "tagesschau in 100 Sekunden",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680542.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T04:48:06+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau in 100 Sekunden",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680542.html"
+    }
+   ]
+  },
+  {
+   "titel": "Bundespräsidenten-Wahl: Merz bricht sein Schweigen und schlägt Aigner vor",
+   "kurz": "Lange hatte er darüber nachgedacht und sich zurückgehalten - am Abend sprach sich Kanzler Merz dann für Ilse Aigner als Bundespräsidentin aus. Heute wollen…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T04:34:40+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Kanzler Merz will Aigner als Bundespräsidentin vorschlagen",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-merz-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Untersuchung gegen Nvidia-Chef Huang wegen möglicher Spionin aus China",
+   "kurz": "Der KI-Chip-Gigant Nvidia hat nach Berichten über einen Spionageverdacht eine Untersuchung gegen seinen Gründer und Konzernchef Jensen Huang eingeleitet. Er…",
+   "link": "https://www.tagesschau.de/ausland/amerika/nvidia-spionage-pruefung-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T04:32:51+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Untersuchung gegen Nvidia-Chef Huang wegen möglicher Spionin aus China",
+     "link": "https://www.tagesschau.de/ausland/amerika/nvidia-spionage-pruefung-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Trump will Kampfsportunternehmer White als Pressesprecher",
+   "kurz": "\"Ein gewalttätiger Kämpfer und Krieger\": Mit einem unkonventionellen Vorschlag löst US-Präsident Trump Rätselraten aus: Der Chef der Kampfsportliga UFC soll…",
+   "link": "https://www.tagesschau.de/ausland/amerika/trump-sprecher-white-ufc-kampfsport-spekulationen-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T03:49:02+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Trump will Kampfsportunternehmer White als Pressesprecher",
+     "link": "https://www.tagesschau.de/ausland/amerika/trump-sprecher-white-ufc-kampfsport-spekulationen-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Historische Niederlage: ANC stürzt bei Kommunalwahl in Südafrika ab",
+   "kurz": "Bei den Kommunalwahlen in Südafrika hat der Afrikanische Nationalkongress (ANC) eine herbe Niederlage eingefahren. Viele sind angesichts Kriminalität und…",
+   "link": "https://www.tagesschau.de/ausland/amerika/wahlen-suedafrika-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T03:47:21+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Historische Niederlage: ANC stürzt bei Kommunalwahl in Südafrika ab",
+     "link": "https://www.tagesschau.de/ausland/amerika/wahlen-suedafrika-102.html"
+    }
+   ]
+  },
+  {
+   "titel": "Krakau nach der Tat - der Stand der Ermittlungen",
+   "kurz": "Hunderte Menschen in Krakau haben gemeinsam der sechs Opfer gedacht, die am Wochenende auf einem zentralen Platz der Stadt erschossen wurden. Gleichzeitig…",
+   "link": "https://www.tagesschau.de/ausland/europa/ermittlungen-krakau-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T03:02:19+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Krakau nach der Tat - der Stand der Ermittlungen",
+     "link": "https://www.tagesschau.de/ausland/europa/ermittlungen-krakau-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Cruise ship pianist rescued from sea after nine hours in Pacific Ocean",
+   "kurz": "Two US fishermen say they spotted the man treading water around 20 miles (32km) off the Californian coast.",
+   "link": "https://www.bbc.co.uk/news/articles/ck1wvrrgln13o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T02:50:13Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Cruise ship pianist rescued from sea after nine hours in Pacific Ocean",
+     "link": "https://www.bbc.co.uk/news/articles/ck1wvrrgln13o?at_medium=RSS&at_campaign=rss"
+    }
+   ]
+  },
+  {
+   "titel": "Papst Leo XIV. fordert in Argentinien mehr Rücksicht auf Schwache",
+   "kurz": "Zu Beginn seines Argentinienbesuchs hat Papst Leo XIV. Kritik an der \"Kettensägen-Politik\" von Präsident Milei geübt und zu mehr Rücksicht aufgerufen. Seit…",
+   "link": "https://www.tagesschau.de/ausland/amerika/papst-in-argentinien-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T01:43:39+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Papst Leo XIV. fordert in Argentinien mehr Rücksicht auf Schwache",
+     "link": "https://www.tagesschau.de/ausland/amerika/papst-in-argentinien-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Mindestens 21 Tote nach Bootsunglück vor Senegal gemeldet",
+   "kurz": "Vor der Küste Senegals ist ein Boot gekentert. Die Behörden bestätigten mehr als 20 Tote, mit weiteren wird gerechnet. Zahlreiche Menschen versuchen jedes…",
+   "link": "https://www.tagesschau.de/ausland/afrika/viele-tote-bootsunglueck-senegal-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T01:32:33+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Mindestens 21 Tote nach Bootsunglück vor Senegal gemeldet",
+     "link": "https://www.tagesschau.de/ausland/afrika/viele-tote-bootsunglueck-senegal-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Leverkusen gewinnt in Köln 2:1",
+   "kurz": "Der 1. FC Köln rutscht immer tiefer in die Abstiegszone: Gegen den ungeliebten Nachbarn aus Leverkusen gab es eine 1:2 Heimpleite.",
+   "link": "https://www.sportschau.de/regional/wdr/wdr-1-fc-koeln-bittere-pleite-gegen-ungeliebten-nachbarn-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T00:00:17+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Leverkusen gewinnt in Köln 2:1",
+     "link": "https://www.sportschau.de/regional/wdr/wdr-1-fc-koeln-bittere-pleite-gegen-ungeliebten-nachbarn-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Ein Tor, aber keine Punkte für Schalke 04 gegen Hoffenheim",
+   "kurz": "Mal wieder ein Tor, aber kein Punkt: Der FC Schalke 04 hängt nach einer Niederlage bei der TSG Hoffenheim im Tabellenkeller der Fußball-Bundesliga fest und…",
+   "link": "https://www.sportschau.de/fussball/bundesliga/ein-tor-aber-keine-punkte-fuer-fc-schalke-04,spielbericht-tsg-hoffenheim-schalke-04-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T00:00:00+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Ein Tor, aber keine Punkte für Schalke 04 gegen Hoffenheim",
+     "link": "https://www.sportschau.de/fussball/bundesliga/ein-tor-aber-keine-punkte-fuer-fc-schalke-04,spielbericht-tsg-hoffenheim-schalke-04-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Null Torgefahr: Union bewirbt sich gegen Freiburg für den Abstiegskampf",
+   "kurz": "Der SC Freiburg feierte einen ungefährdeten Heimsieg gegen erschreckend schwache Berliner. Allein Schlussmann Rönnow war es zu verdanken, dass die Niederlage…",
+   "link": "https://www.sportschau.de/fussball/bundesliga/null-torgefahr-union-bewirbt-sich-fuer-abstiegskampf,spielbericht-sc-freiburg-union-berlin-106.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T00:00:00+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Null Torgefahr: Union bewirbt sich gegen Freiburg für den Abstiegskampf",
+     "link": "https://www.sportschau.de/fussball/bundesliga/null-torgefahr-union-bewirbt-sich-fuer-abstiegskampf,spielbericht-sc-freiburg-union-berlin-106.html"
+    }
+   ]
+  },
+  {
+   "titel": "Surgeon having lunch near Krakow shooting undoubtedly saved officer's life, colleague says",
+   "kurz": "Further details have emerged about two police officers hailed for preventing a Polish gunman from killing more.",
+   "link": "https://www.bbc.co.uk/news/articles/c5x2vw4e1gx1o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-08T23:34:18Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Surgeon having lunch near Krakow shooting undoubtedly saved officer's life, colleague says",
+     "link": "https://www.bbc.co.uk/news/articles/c5x2vw4e1gx1o?at_medium=RSS&at_campaign=rss"
     }
    ]
   },
@@ -425,40 +776,6 @@
      "quelle": "Tagesschau",
      "titel": "Julie Kurz, ARD Berlin, zur Personalie Aigner",
      "link": "https://www.tagesschau.de/tagesthemen/video-1680508.html"
-    }
-   ]
-  },
-  {
-   "titel": "Ein Tor, aber keine Punkte für den FC Schalke 04",
-   "kurz": "Mal wieder ein Tor, aber kein Punkt: Der FC Schalke 04 hängt nach einer Niederlage bei der TSG Hoffenheim im Tabellenkeller der Fußball-Bundesliga fest und…",
-   "link": "https://www.sportschau.de/fussball/bundesliga/ein-tor-aber-keine-punkte-fuer-fc-schalke-04,spielbericht-tsg-hoffenheim-schalke-04-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-08T22:26:08+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Ein Tor, aber keine Punkte für den FC Schalke 04",
-     "link": "https://www.sportschau.de/fussball/bundesliga/ein-tor-aber-keine-punkte-fuer-fc-schalke-04,spielbericht-tsg-hoffenheim-schalke-04-100.html"
-    }
-   ]
-  },
-  {
-   "titel": "Doctor who treated victims of Krakow shooting speaks to the BBC",
-   "kurz": "Two doctors were eating near the city's Main Market Square when a gunman began firing at random.",
-   "link": "https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-08T22:05:12Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Doctor who treated victims of Krakow shooting speaks to the BBC",
-     "link": "https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss"
     }
    ]
   },
@@ -514,227 +831,6 @@
    ]
   },
   {
-   "titel": "tagesschau in 100 Sekunden",
-   "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680488.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:06:53+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680488.html"
-    }
-   ]
-  },
-  {
-   "titel": "Wackelt Polens Ruf als sicheres Land?",
-   "kurz": "Der Terroranschlag in Krakau hat Polen schwer erschüttert. Trotzdem geht der Machtkampf zwischen dem Mitte-Links-Lager von Donald Tusk und der rechten…",
-   "link": "https://www.dw.com/de/wackelt-polens-ruf-als-sicheres-land/a-79893042?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "dw.com",
-     "titel": "Wackelt Polens Ruf als sicheres Land ?",
-     "link": "https://www.dw.com/de/wackelt-polens-ruf-als-sicheres-land/a-79893042"
-    }
-   ]
-  },
-  {
-   "titel": "White House vows to keep up immigration crackdown after midterms defeat",
-   "kurz": "",
-   "link": "https://www.bbc.co.uk/news/articles/cmg476w7wnl2o",
-   "quelle": "bbc.co.uk",
-   "sprache": "en",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "bbc.co.uk",
-     "titel": "White House vows to keep up immigration crackdown after midterms defeat",
-     "link": "https://www.bbc.co.uk/news/articles/cmg476w7wnl2o"
-    }
-   ]
-  },
-  {
-   "titel": "Top House Democrat Hakeem Jeffries a hard ye on impeaching Pete Hegseth",
-   "kurz": "",
-   "link": "https://www.bbc.co.uk/news/articles/cj4g1nwx39wno",
-   "quelle": "bbc.co.uk",
-   "sprache": "en",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "bbc.co.uk",
-     "titel": "Top House Democrat Hakeem Jeffries a hard ye on impeaching Pete Hegseth",
-     "link": "https://www.bbc.co.uk/news/articles/cj4g1nwx39wno"
-    }
-   ]
-  },
-  {
-   "titel": "„ Im selben Hotel übernachtet : Regina Halmich wird erneut von Stalker verfolgt",
-   "kurz": "",
-   "link": "https://www.focus.de/kultur/stars/im-selben-hotel-uebernachtet-regina-halmich-wird-erneut-von-stalker-verfolgt_cd791a93-5616-4c6f-919f-3d87c03f9421.html",
-   "quelle": "focus.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "focus.de",
-     "titel": "„ Im selben Hotel übernachtet : Regina Halmich wird erneut von Stalker verfolgt",
-     "link": "https://www.focus.de/kultur/stars/im-selben-hotel-uebernachtet-regina-halmich-wird-erneut-von-stalker-verfolgt_cd791a93-5616-4c6f-919f-3d87c03f9421.html"
-    }
-   ]
-  },
-  {
-   "titel": "Öko - Pionier Nissan Leaf macht Schluss mit dem Touchscreen - Wahn",
-   "kurz": "",
-   "link": "https://www.focus.de/auto/oeko-pionier-nissan-leaf-macht-schluss-mit-dem-touchscreen-wahn_aa917116-af72-4e36-9b6a-fff742928307.html",
-   "quelle": "focus.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "focus.de",
-     "titel": "Öko - Pionier Nissan Leaf macht Schluss mit dem Touchscreen - Wahn",
-     "link": "https://www.focus.de/auto/oeko-pionier-nissan-leaf-macht-schluss-mit-dem-touchscreen-wahn_aa917116-af72-4e36-9b6a-fff742928307.html"
-    }
-   ]
-  },
-  {
-   "titel": "Schwache Knochen hängen mit schneller alterndem Hirn zusammen",
-   "kurz": "",
-   "link": "https://www.focus.de/gesundheit/ratgeber/schwache-knochen-haengen-mit-schneller-alterndem-hirn-zusammen_6f7fa9fd-ac51-4fc0-b878-a595f430d240.html",
-   "quelle": "focus.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "focus.de",
-     "titel": "Schwache Knochen hängen mit schneller alterndem Hirn zusammen",
-     "link": "https://www.focus.de/gesundheit/ratgeber/schwache-knochen-haengen-mit-schneller-alterndem-hirn-zusammen_6f7fa9fd-ac51-4fc0-b878-a595f430d240.html"
-    }
-   ]
-  },
-  {
-   "titel": "Das ZDF bringt „ Zone of Interest mit Sandra Hüller erstmals ins Free - TV",
-   "kurz": "",
-   "link": "https://www.focus.de/kultur/kino-tv/das-zdf-bringt-zone-of-interest-mit-sandra-hueller-erstmals-ins-free-tv_e3ffc6b7-6189-4d43-b671-afd1f33fd58c.html",
-   "quelle": "focus.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "focus.de",
-     "titel": "Das ZDF bringt „ Zone of Interest mit Sandra Hüller erstmals ins Free - TV",
-     "link": "https://www.focus.de/kultur/kino-tv/das-zdf-bringt-zone-of-interest-mit-sandra-hueller-erstmals-ins-free-tv_e3ffc6b7-6189-4d43-b671-afd1f33fd58c.html"
-    }
-   ]
-  },
-  {
-   "titel": "Nvidia - Chef Huang gesteht Affäre mit mutmaßlicher Spionin",
-   "kurz": "",
-   "link": "https://www.focus.de/panorama/welt/nvidia-chef-huang-gesteht-affaere-mit-mutmasslicher-spionin_2c3f4e1d-066c-4818-91f4-cc8d7f3e87b1.html",
-   "quelle": "focus.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "focus.de",
-     "titel": "Nvidia - Chef Huang gesteht Affäre mit mutmaßlicher Spionin",
-     "link": "https://www.focus.de/panorama/welt/nvidia-chef-huang-gesteht-affaere-mit-mutmasslicher-spionin_2c3f4e1d-066c-4818-91f4-cc8d7f3e87b1.html"
-    }
-   ]
-  },
-  {
-   "titel": "Nach Aus bei „ Kommissarin Lucas : Ulrike Kriener spricht über ihren eigenwilligen Ruhestand",
-   "kurz": "",
-   "link": "https://www.focus.de/kultur/stars/nach-aus-bei-kommissarin-lucas-ulrike-kriener-spricht-ueber-ihren-eigenwilligen-ruhestand_43e0af3d-4214-4545-96ea-eb3726573c30.html",
-   "quelle": "focus.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "focus.de",
-     "titel": "Nach Aus bei „ Kommissarin Lucas : Ulrike Kriener spricht über ihren eigenwilligen Ruhestand",
-     "link": "https://www.focus.de/kultur/stars/nach-aus-bei-kommissarin-lucas-ulrike-kriener-spricht-ueber-ihren-eigenwilligen-ruhestand_43e0af3d-4214-4545-96ea-eb3726573c30.html"
-    }
-   ]
-  },
-  {
-   "titel": "„ Wusste gar nicht , dass es diese Möglichkeit gibt : Josefine ( 23 ) wählt gefährdeten Beruf",
-   "kurz": "",
-   "link": "https://www.focus.de/finanzen/karriere/wusste-gar-nicht-dass-es-diese-moeglichkeit-gibt-josefine-23-waehlt-gefaehrdeten-beruf_13b3aa55-4b8d-4ced-8806-10d221c77a60.html",
-   "quelle": "focus.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "focus.de",
-     "titel": "„ Wusste gar nicht , dass es diese Möglichkeit gibt : Josefine ( 23 ) wählt gefährdeten Beruf",
-     "link": "https://www.focus.de/finanzen/karriere/wusste-gar-nicht-dass-es-diese-moeglichkeit-gibt-josefine-23-waehlt-gefaehrdeten-beruf_13b3aa55-4b8d-4ced-8806-10d221c77a60.html"
-    }
-   ]
-  },
-  {
-   "titel": "Trump : Neue Angriffe im Iran bei Gesprächen unwahrscheinlich",
-   "kurz": "",
-   "link": "https://orf.at/stories/3447629/",
-   "quelle": "orf.at",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "orf.at",
-     "titel": "Trump : Neue Angriffe im Iran bei Gesprächen unwahrscheinlich",
-     "link": "https://orf.at/stories/3447629/"
-    }
-   ]
-  },
-  {
-   "titel": "UNO - Klimagipfel in Antalya startet",
-   "kurz": "",
-   "link": "https://orf.at/stories/3447635/",
-   "quelle": "orf.at",
-   "sprache": "de",
-   "zeit": "2026-11-08T21:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "orf.at",
-     "titel": "UNO - Klimagipfel in Antalya startet",
-     "link": "https://orf.at/stories/3447635/"
-    }
-   ]
-  },
-  {
    "titel": "Iran: Trump says strikes unlikely if peace talks keep moving",
    "kurz": "After weeks of rumors that the US and Israel were preparing new strikes on Iran, President Donald Trump said it was \"highly unlikely\" that he would order a new…",
    "link": "https://www.dw.com/en/iran-trump-says-strikes-unlikely-if-peace-talks-keep-moving/a-79894190?maca=en-rss-en-all-1573-xml-mrss",
@@ -762,8 +858,8 @@
    "n_quellen": 1,
    "quellen": [
     {
-     "quelle": "tagesschau.de",
-     "titel": "Chef der Jungen Union : Junge Generation wird von der Politik vernachlässigt",
+     "quelle": "Tagesschau",
+     "titel": "Chef der Jungen Union: \"Junge Generation wird von der Politik vernachlässigt\"",
      "link": "https://www.tagesschau.de/inland/innenpolitik/bericht-aus-berlin-junge-generation-100.html"
     }
    ]
@@ -782,312 +878,6 @@
      "quelle": "Tagesschau",
      "titel": "tagesschau 20:00 Uhr",
      "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1680482.html"
-    }
-   ]
-  },
-  {
-   "titel": "Parteitag: FDP bündelt Kräfte für Landtagswahlen kommendes Jahr",
-   "kurz": "Die FDP kämpft ums Überleben. Ihre letzte Chance dürften die Landtagswahlen kommendes Jahr sein. Während des digitalen Parteitags versuchte FDP-Chef Kubicki…",
-   "link": "https://www.tagesschau.de/inland/fdp-bundesparteitag-122.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "tagesschau.de",
-     "titel": "Parteitag : FDP bündelt Kräfte für Landtagswahlen kommendes Jahr",
-     "link": "https://www.tagesschau.de/inland/fdp-bundesparteitag-122.html"
-    }
-   ]
-  },
-  {
-   "titel": "Cascade of poppies an enormously moving Remembrance tribute",
-   "kurz": "",
-   "link": "https://www.bbc.co.uk/news/articles/cwr5ygpvpq67o",
-   "quelle": "bbc.co.uk",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "bbc.co.uk",
-     "titel": "Cascade of poppies an enormously moving Remembrance tribute",
-     "link": "https://www.bbc.co.uk/news/articles/cwr5ygpvpq67o"
-    }
-   ]
-  },
-  {
-   "titel": "Man arrested after pedestrian hit during Taunton police pursuit",
-   "kurz": "",
-   "link": "https://www.bbc.co.uk/news/articles/cqwy7036dglko",
-   "quelle": "bbc.co.uk",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "bbc.co.uk",
-     "titel": "Man arrested after pedestrian hit during Taunton police pursuit",
-     "link": "https://www.bbc.co.uk/news/articles/cqwy7036dglko"
-    }
-   ]
-  },
-  {
-   "titel": "Arson attack causes devastating damage to Wakefield club",
-   "kurz": "",
-   "link": "https://www.bbc.co.uk/news/articles/cqn7301kegkro",
-   "quelle": "bbc.co.uk",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "bbc.co.uk",
-     "titel": "Arson attack causes devastating damage to Wakefield club",
-     "link": "https://www.bbc.co.uk/news/articles/cqn7301kegkro"
-    }
-   ]
-  },
-  {
-   "titel": "CM , Hassan DC deny HDK bribery allegations | Bengaluru News",
-   "kurz": "",
-   "link": "https://timesofindia.indiatimes.com/city/bengaluru/cm-hassan-dc-deny-hdks-bribery-allegations/articleshow/135665277.cms",
-   "quelle": "timesofindia.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "timesofindia.indiatimes.com",
-     "titel": "CM , Hassan DC deny HDK bribery allegations | Bengaluru News",
-     "link": "https://timesofindia.indiatimes.com/city/bengaluru/cm-hassan-dc-deny-hdks-bribery-allegations/articleshow/135665277.cms"
-    }
-   ]
-  },
-  {
-   "titel": "Aries Shani Horoscope Today , 9 November 2026 : New Moon on Somvati Amavasya Lands as Shani Retrograde Clears Your Slate",
-   "kurz": "",
-   "link": "https://timesofindia.indiatimes.com/astrology/horoscope/aries-shani-horoscope-today-9-november-2026-new-moon-on-somvati-amavasya-lands-as-shani-retrograde-clears-your-slate/articleshow/135535487.cms",
-   "quelle": "timesofindia.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "timesofindia.indiatimes.com",
-     "titel": "Aries Shani Horoscope Today , 10 November 2026 : Anuradha Moon Rewards Loyalty in Hard Times",
-     "link": "https://timesofindia.indiatimes.com/astrology/horoscope/aries-shani-horoscope-today-10-november-2026-anuradha-moon-rewards-loyalty-in-hard-times/articleshow/135536252.cms"
-    }
-   ]
-  },
-  {
-   "titel": "CM on ethanol row : Evidence at blending units also collected | Bengaluru News",
-   "kurz": "",
-   "link": "https://timesofindia.indiatimes.com/city/bengaluru/cm-on-ethanol-row-evidence-at-blending-units-also-collected/articleshow/135665269.cms",
-   "quelle": "timesofindia.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "timesofindia.indiatimes.com",
-     "titel": "CM on ethanol row : Evidence at blending units also collected | Bengaluru News",
-     "link": "https://timesofindia.indiatimes.com/city/bengaluru/cm-on-ethanol-row-evidence-at-blending-units-also-collected/articleshow/135665269.cms"
-    }
-   ]
-  },
-  {
-   "titel": "First foreign astronaut on China Tiangong station will be from Pak",
-   "kurz": "",
-   "link": "https://timesofindia.indiatimes.com/science/first-foreign-astronaut-on-chinas-tiangong-station-will-be-from-pak/articleshow/135665082.cms",
-   "quelle": "timesofindia.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "timesofindia.indiatimes.com",
-     "titel": "First foreign astronaut on China Tiangong station will be from Pak",
-     "link": "https://timesofindia.indiatimes.com/science/first-foreign-astronaut-on-chinas-tiangong-station-will-be-from-pak/articleshow/135665082.cms"
-    }
-   ]
-  },
-  {
-   "titel": "Away From Bihar This Chhath Puja ? Check These Ghats in Delhi , Mumbai and Bengaluru",
-   "kurz": "",
-   "link": "https://economictimes.indiatimes.com/astrology/others/away-from-bihar-this-chhath-puja-check-these-ghats-in-delhi-mumbai-and-bengaluru/articleshow/135664662.cms",
-   "quelle": "economictimes.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "economictimes.indiatimes.com",
-     "titel": "Away From Bihar This Chhath Puja ? Check These Ghats in Delhi , Mumbai and Bengaluru",
-     "link": "https://economictimes.indiatimes.com/astrology/others/away-from-bihar-this-chhath-puja-check-these-ghats-in-delhi-mumbai-and-bengaluru/articleshow/135664662.cms"
-    }
-   ]
-  },
-  {
-   "titel": "SEC sets the stage for likely local body polls in Jan | Bengaluru News",
-   "kurz": "",
-   "link": "https://timesofindia.indiatimes.com/city/bengaluru/sec-sets-the-stage-for-likely-local-body-polls-in-jan/articleshow/135665263.cms",
-   "quelle": "timesofindia.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "timesofindia.indiatimes.com",
-     "titel": "SEC sets the stage for likely local body polls in Jan | Bengaluru News",
-     "link": "https://timesofindia.indiatimes.com/city/bengaluru/sec-sets-the-stage-for-likely-local-body-polls-in-jan/articleshow/135665263.cms"
-    }
-   ]
-  },
-  {
-   "titel": "Social Security benefits cut : One move can prevent beneficiaries losing out 22 per cent , here are details",
-   "kurz": "",
-   "link": "https://economictimes.indiatimes.com/news/international/us/social-security-benefits-cut-one-move-can-prevent-beneficiaries-losing-out-22-per-cent-here-are-details/articleshow/135664782.cms",
-   "quelle": "economictimes.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "economictimes.indiatimes.com",
-     "titel": "Social Security benefits cut : One move can prevent beneficiaries losing out 22 per cent , here are details",
-     "link": "https://economictimes.indiatimes.com/news/international/us/social-security-benefits-cut-one-move-can-prevent-beneficiaries-losing-out-22-per-cent-here-are-details/articleshow/135664782.cms"
-    }
-   ]
-  },
-  {
-   "titel": "Pune AQI slips to poor by Diwali evening , likely to be very poor in morning",
-   "kurz": "",
-   "link": "https://timesofindia.indiatimes.com/city/pune/pune-aqi-slips-to-poor-by-diwali-evening-likely-to-be-very-poor-in-morning/articleshow/135665091.cms",
-   "quelle": "timesofindia.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "timesofindia.indiatimes.com",
-     "titel": "Pune AQI slips to poor by Diwali evening , likely to be very poor in morning",
-     "link": "https://timesofindia.indiatimes.com/city/pune/pune-aqi-slips-to-poor-by-diwali-evening-likely-to-be-very-poor-in-morning/articleshow/135665091.cms"
-    }
-   ]
-  },
-  {
-   "titel": "Pune police find decomposed body in Mula - Mutha river",
-   "kurz": "",
-   "link": "https://timesofindia.indiatimes.com/city/pune/pune-police-find-decomposed-body-in-mula-mutha-river/articleshow/135665251.cms",
-   "quelle": "timesofindia.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "timesofindia.indiatimes.com",
-     "titel": "Pune police find decomposed body in Mula - Mutha river",
-     "link": "https://timesofindia.indiatimes.com/city/pune/pune-police-find-decomposed-body-in-mula-mutha-river/articleshow/135665251.cms"
-    }
-   ]
-  },
-  {
-   "titel": "Why Bengalis in Pune have been flying in delicately packed Kolkata biryani periodically , especially during festive season , for an authentic taste of home",
-   "kurz": "",
-   "link": "https://timesofindia.indiatimes.com/city/pune/why-bengalis-in-pune-have-been-flying-in-delicately-packed-kolkata-biryani-periodically-especially-during-festive-season-for-an-authentic-taste-of-home/articleshow/135665200.cms",
-   "quelle": "timesofindia.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "timesofindia.indiatimes.com",
-     "titel": "Why Bengalis in Pune have been flying in delicately packed Kolkata biryani periodically , especially during festive season , for an authentic taste of home",
-     "link": "https://timesofindia.indiatimes.com/city/pune/why-bengalis-in-pune-have-been-flying-in-delicately-packed-kolkata-biryani-periodically-especially-during-festive-season-for-an-authentic-taste-of-home/articleshow/135665200.cms"
-    }
-   ]
-  },
-  {
-   "titel": "Jewellery store owner detained for cheating about 50 customers of Rs8 . 7 lakh",
-   "kurz": "",
-   "link": "https://timesofindia.indiatimes.com/city/pune/jewellery-store-owner-detained-for-cheating-about-50-customers-of-rs8-7-lakh/articleshow/135665229.cms",
-   "quelle": "timesofindia.indiatimes.com",
-   "sprache": "en",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "timesofindia.indiatimes.com",
-     "titel": "Jewellery store owner detained for cheating about 50 customers of Rs8 . 7 lakh",
-     "link": "https://timesofindia.indiatimes.com/city/pune/jewellery-store-owner-detained-for-cheating-about-50-customers-of-rs8-7-lakh/articleshow/135665229.cms"
-    }
-   ]
-  },
-  {
-   "titel": "Heino irritiert mit Gedenken an tote Ehefrau : Ungewöhnliches Bild",
-   "kurz": "",
-   "link": "https://www.t-online.de/unterhaltung/stars/id_101518896/heino-irritiert-mit-gedenken-an-tote-ehefrau-ungewoehnliches-bild.html",
-   "quelle": "t-online.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "t-online.de",
-     "titel": "Heino irritiert mit Gedenken an tote Ehefrau : Ungewöhnliches Bild",
-     "link": "https://www.t-online.de/unterhaltung/stars/id_101518896/heino-irritiert-mit-gedenken-an-tote-ehefrau-ungewoehnliches-bild.html"
-    }
-   ]
-  },
-  {
-   "titel": "Schlagerstar Alexandra Hofmann spricht über den Tod",
-   "kurz": "",
-   "link": "https://www.t-online.de/unterhaltung/stars/id_101518866/schlagerstar-alexandra-hofmann-spricht-ueber-den-tod.html",
-   "quelle": "t-online.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "t-online.de",
-     "titel": "Schlagerstar Alexandra Hofmann spricht über den Tod",
-     "link": "https://www.t-online.de/unterhaltung/stars/id_101518866/schlagerstar-alexandra-hofmann-spricht-ueber-den-tod.html"
-    }
-   ]
-  },
-  {
-   "titel": "Vermisste Schülerin ist tot - Was wir wissen und was nicht",
-   "kurz": "",
-   "link": "https://www.t-online.de/nachrichten/panorama/ungluecke/id_101518872/vermisste-schuelerin-ist-tot-was-wir-wissen-und-was-nicht.html",
-   "quelle": "t-online.de",
-   "sprache": "de",
-   "zeit": "2026-11-08T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "quellen": [
-    {
-     "quelle": "t-online.de",
-     "titel": "Vermisste Schülerin ist tot - Was wir wissen und was nicht",
-     "link": "https://www.t-online.de/nachrichten/panorama/ungluecke/id_101518872/vermisste-schuelerin-ist-tot-was-wir-wissen-und-was-nicht.html"
     }
    ]
   },
@@ -1122,6 +912,193 @@
      "quelle": "Tagesschau",
      "titel": "Amsterdam: Zehntausende demonstrieren gegen Israels Gaza-Politik",
      "link": "https://www.tagesschau.de/ausland/europa/demonstration-amsterdam-israel-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Koalition muss noch viele offene Punkte für Bundeshaushalt 2027 aushandeln",
+   "kurz": "Koalition muss noch viele offene Punkte für Bundeshaushalt 2027 aushandeln",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1680456.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-08T20:20:00+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Koalition muss noch viele offene Punkte für Bundeshaushalt 2027 aushandeln",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1680456.html"
+    }
+   ]
+  },
+  {
+   "titel": "Parteitag: FDP bündelt Kräfte für Landtagswahlen kommendes Jahr",
+   "kurz": "Die FDP kämpft ums Überleben. Ihre letzte Chance dürften die Landtagswahlen kommendes Jahr sein. Während des digitalen Parteitags versuchte FDP-Chef Kubicki…",
+   "link": "https://www.tagesschau.de/inland/fdp-bundesparteitag-122.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-08T19:53:14+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Parteitag: FDP bündelt Kräfte für Landtagswahlen kommendes Jahr",
+     "link": "https://www.tagesschau.de/inland/fdp-bundesparteitag-122.html"
+    }
+   ]
+  },
+  {
+   "titel": "Germany: Chancellor Merz to nominate Aigner for president",
+   "kurz": "German Chancellor Friedrich Merz announced that he will nominate Ilse Aigner for federal president, paving the way for her to be the first woman to hold the…",
+   "link": "https://www.dw.com/en/germany-chancellor-merz-to-nominate-aigner-for-president/live-79883533?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-08T19:43:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Germany: Chancellor Merz to nominate Aigner for president",
+     "link": "https://www.dw.com/en/germany-chancellor-merz-to-nominate-aigner-for-president/live-79883533?maca=en-rss-en-all-1573-xml-mrss"
+    }
+   ]
+  },
+  {
+   "titel": "Die CSU-Politikerin Ilse Aigner ist als erste Bundespräsidentin nun Favoritin",
+   "kurz": "Sie wäre die erste Bundespräsidentin, auch die erste CSU-Politikerin im höchsten deutschen Staatsamt. Ilse Aigner ist nun bis zur Wahl in der Bundesversammlung…",
+   "link": "https://www.dw.com/de/die-csu-politikerin-ilse-aigner-ist-als-erste-bundespräsidentin-nun-favoritin/a-79873744?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-08T19:34:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Die CSU-Politikerin Ilse Aigner ist als erste Bundespräsidentin nun Favoritin",
+     "link": "https://www.dw.com/de/die-csu-politikerin-ilse-aigner-ist-als-erste-bundespräsidentin-nun-favoritin/a-79873744?maca=de-rss-de-all-1119-xml-mrss"
+    }
+   ]
+  },
+  {
+   "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
+   "kurz": "Montag ist es zunächst meist bedeckt durch Nebel und Hochnebel. Später gibts regional Sonnenschein. Im Süden breitet sich am Nachmittag mit dichten Wolken…",
+   "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-08T18:58:48+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
+     "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "NASA is looking for astronauts to live and work on the Moon",
+   "kurz": "NASA needs more recruits in order to return to the moon after being gone more than half a century.",
+   "link": "https://www.npr.org/2026/11/08/nx-s1-6034002/nasa-astronaut-class-applications-2026",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-08T18:36:47-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "NASA is looking for astronauts to live and work on the Moon",
+     "link": "https://www.npr.org/2026/11/08/nx-s1-6034002/nasa-astronaut-class-applications-2026"
+    }
+   ]
+  },
+  {
+   "titel": "South Africa elections: ANC marks its worst-ever performance",
+   "kurz": "The African National Congress, the party of late Nobel Prize winner Nelson Mandela, slumped to its worst-ever result in South Africa's municipal election. The…",
+   "link": "https://www.dw.com/en/south-africa-elections-anc-marks-its-worst-ever-performance/a-79887482?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-08T17:35:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "South Africa elections: ANC marks its worst-ever performance",
+     "link": "https://www.dw.com/en/south-africa-elections-anc-marks-its-worst-ever-performance/a-79887482?maca=en-rss-en-all-1573-xml-mrss"
+    }
+   ]
+  },
+  {
+   "titel": "Ukraine-Gespräche in Abu Dhabi: Europäer sind laut Frankreich \"gut vertreten\"",
+   "kurz": "Ab Dienstag soll in Abu Dhabi über einen möglichen Frieden in der Ukraine verhandelt werden. Laut dem französischen Außenminister Barrot ist auch Europa…",
+   "link": "https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-08T17:33:42+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Ukraine-Gespräche in Abu Dhabi: Europäer sind laut Frankreich \"gut vertreten\"",
+     "link": "https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Wackelt Polens Ruf als sicheres Land?",
+   "kurz": "Der Terroranschlag in Krakau hat Polen schwer erschüttert. Trotzdem geht der Machtkampf zwischen dem Mitte-Links-Lager von Donald Tusk und der rechten…",
+   "link": "https://www.dw.com/de/wackelt-polens-ruf-als-sicheres-land/a-79893042?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-08T17:29:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Wackelt Polens Ruf als sicheres Land?",
+     "link": "https://www.dw.com/de/wackelt-polens-ruf-als-sicheres-land/a-79893042?maca=de-rss-de-all-1119-xml-mrss"
+    }
+   ]
+  },
+  {
+   "titel": "Viele Gebäude weiterhin ohne Elementarschadenversicherung",
+   "kurz": "Immer häufiger führen Starkregen und Überschwemmungen zu teuren Schäden an Häusern. Nur gut die Hälfte der Gebäude in Deutschland sind gegen solche Folgen…",
+   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/klimaschaeden-versicherungen-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-08T16:28:00+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Viele Gebäude weiterhin ohne Elementarschadenversicherung",
+     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/klimaschaeden-versicherungen-100.html"
+    }
+   ]
+  },
+  {
+   "titel": "Berliner Linken-Politikerin Emde lehnt Mandatsverzicht ab",
+   "kurz": "Die Berliner Linken-Abgeordnete Emde hat der Forderung des Parteivorstands, ihr Mandat niederzulegen, eine klare Absage erteilt. Auch von ihrer umstrittenen…",
+   "link": "https://www.tagesschau.de/inland/regional/berlin/berlin-linke-emde-ablehnung-mandatsverzicht-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-08T15:50:57+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Berliner Linken-Politikerin Emde lehnt Mandatsverzicht ab",
+     "link": "https://www.tagesschau.de/inland/regional/berlin/berlin-linke-emde-ablehnung-mandatsverzicht-100.html"
     }
    ]
   }
