@@ -24,10 +24,12 @@ jobs:
         with:
           python-version: "3.12"
       - name: Python-Pakete
-        run: pip install requests pyyaml yt-dlp
+        run: pip install requests pyyaml yt-dlp beautifulsoup4 lxml
       - name: Aktuellen Stand holen
         run: git pull --ff-only
       - name: Clip-Scout arbeitet
+        env:
+          CUDI_BRAVE_API_KEY: ${{ secrets.CUDI_BRAVE_API_KEY }}
         run: python -m cudi_video.firma clipscout
       - name: Ergebnis sichern
         run: bash scripts/firma_commit.sh "Clip-Scout"

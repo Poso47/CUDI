@@ -62,17 +62,19 @@
    "naechste_planung": "2026-11-10T12:04:33Z"
   },
   "clipscout": {
-   "letzter_lauf": "2026-11-09T14:59:24Z",
+   "letzter_lauf": "2026-11-09T16:48:06Z",
    "dauer_s": 20.2,
    "ergebnis": "ok",
-   "zusammenfassung": "18 Creator entdeckt, 17 geprüft: 0 erlaubt, 1 geduldet, 16 unklar, 0 gesperrt; 71 aktuelle Videos/Clips, 1 Vorschläge, 25 offene Kampagnen",
+   "zusammenfassung": "13 Creator entdeckt, 13 geprüft: 0 erlaubt, 0 geduldet, 13 unklar, 0 gesperrt; 82 aktuelle Videos/Clips, 0 Vorschläge, 25 offene Kampagnen",
    "hinweise": [
     "clip_creators.json fehlt oder ist leer – optional: eigene Creator/Sperrliste eintragen (docs/clip-team.md).",
     "Entdeckung Aufruf-Suche: nicht erreichbar (RuntimeError: YouTube-Suche nicht lesbar)",
     "Entdeckung YouTube-Trends: keine Daten erhalten",
-    "Twitch-Top-Liste: ohne Anmeldung gibt es keine öffentliche Quelle – Twitch-Kanäle kommen über Reddit, Wikidata und Kampagnen."
+    "Entdeckung Wikipedia-Personen: keine Daten erhalten",
+    "Twitch-Top-Liste: ohne Anmeldung gibt es keine öffentliche Quelle – Twitch-Kanäle kommen über Grundliste, Reddit, Wikidata und Kampagnen.",
+    "Sprachfokus de: 15 Treffer anderer Sprache nicht beobachtet."
    ],
-   "naechste_planung": "2026-11-09T20:59:24Z"
+   "naechste_planung": "2026-11-09T22:48:06Z"
   },
   "messung": {
    "letzter_lauf": "2026-11-09T14:43:23Z",
@@ -83,7 +85,17 @@
     "Noch keine Post-Links (uploads.json / clip_radar.json clip_posts) – nichts zu messen."
    ],
    "naechste_planung": "2026-11-10T14:43:23Z"
+  },
+  "lernen": {
+   "letzter_lauf": "2026-11-09T16:50:09Z",
+   "dauer_s": 0.0,
+   "ergebnis": "ok",
+   "zusammenfassung": "erkundung: 0 Videos ausgewertet, 0 Gewinner",
+   "hinweise": [
+    "Noch keine Uploads in firma_daten/uploads.json – es gibt nichts auszuwerten (Erkundung)."
+   ],
+   "naechste_planung": "2026-11-10T16:50:09Z"
   }
  },
- "erzeugt": "2026-11-09T16:42:03Z"
+ "erzeugt": "2026-11-09T16:50:09Z"
 }

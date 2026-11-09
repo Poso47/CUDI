@@ -25,12 +25,13 @@ jobs:
         with:
           python-version: "3.12"
       - name: Python-Pakete
-        run: pip install requests pyyaml
+        run: pip install requests pyyaml beautifulsoup4 lxml
       - name: Wissens-Sammler arbeitet
         env:
           CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
           CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
           CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+          CUDI_BRAVE_API_KEY: ${{ secrets.CUDI_BRAVE_API_KEY }}
         run: python -m cudi_video.firma wissen
       - name: Ergebnis sichern
         run: bash scripts/firma_commit.sh "Wissens-Sammler"

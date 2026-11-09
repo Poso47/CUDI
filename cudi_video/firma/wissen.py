@@ -130,6 +130,21 @@ def europe_pmc() -> list[dict]:
 
 # --------------------------------------------------------------------------- Regeln ableiten
 
+RECHERCHE_FRAGE = "Kurzvideo Zuschauerbindung Hook Retention Empfehlungsalgorithmus TikTok YouTube Shorts"
+
+
+def recherche_quellen() -> list[dict]:
+    """Aktuelle Webseiten (Behörden/Fachquellen/Plattform-Blogs), vom Recherche-Agent gelesen und datiert; nur mit Datum."""
+    from .. import recherche
+
+    if not recherche.aktiv():
+        return []
+    recherche.neuer_lauf()
+    e = recherche.recherchiere(RECHERCHE_FRAGE, "wissen", "de", max_seiten=5, llm=False)
+    return [{"quelle": q["name"], "datum": q["datum"], "titel": q["titel"], "text": q["text"][:900], "link": q["link"], "art": "recherche"}
+            for q in recherche.seiten_als_quellen(e) if q.get("datum")]
+
+
 def ableiten(sources: list[dict], answer) -> list[dict]:
     """Regeln des Modells prüfen: Quelle muss existieren, Länge passen, Zahlen im Auszug stehen. Quelle/Datum/Link vom Code."""
     found = answer.get("regeln") if isinstance(answer, dict) else answer
@@ -169,6 +184,7 @@ def run() -> dict:
     for name, art, url in FEEDS:
         items += run_source(name, lambda n=name, a=art, u=url: feed_items(n, a, u), notes)
     items += run_source("Europe PMC", europe_pmc, notes)
+    items += run_source("Recherche (aktuelle Webquellen)", recherche_quellen, notes)
     previous = common.read_json("wissen.json", {}) or {}
     old_rules = previous.get("regeln") or []
     new_rules: list[dict] = []

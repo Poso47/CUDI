@@ -90,6 +90,15 @@ def build() -> dict:
             "vorschlaege": len(radar.get("vorschlaege", [])),
             "kampagnen": len(radar.get("kampagnen", [])),
             "messung": {"posts": mess.get("anzahl", 0), "aufrufe": mess.get("gesamt_aufrufe", 0)}}
+    rech = common.read_json("recherche.json", {}) or {}
+    if rech.get("ergebnisse"):
+        data["recherche"] = {"anzahl": rech.get("anzahl", 0), "seiten_gelesen": rech.get("seiten_gelesen", 0),
+                             "bestaetigt": rech.get("bestaetigte_aussagen", 0),
+                             "themen": [{"thema": _cut(r.get("thema"), 120), "stand": r.get("stand", ""),
+                                         "aussagen": [{"text": _cut(a.get("text"), 200), "status": a.get("status", ""),
+                                                       "datum": a.get("datum"), "quellen": [_cut(b.get("quelle"), 40) for b in a.get("belege", [])[:3]],
+                                                       "link": (a.get("belege") or [{}])[0].get("url", "")} for a in r.get("aussagen", [])[:2]]}
+                                        for r in rech["ergebnisse"][:3]]}
     for key in ("lernen", "wahrheit"):
         extra = _extra(key + ".json")
         if extra:
