@@ -98,6 +98,13 @@ für TikTok/YouTube Shorts.
     dieselbe Kennung mit `"schritt":"video"`: Die Sitzung holt `skelette/<id>` per `ArtifactData get` mit
     `out_dir "cudi_skelette"` als Datei (nie abschreiben), `job.app_skeleton` liest sie, `validate_skeleton` prüft.
   - **Bearbeiten/Freigabe** (`cudi_video/bearbeiten.py`, README_VIDEO.md): fertige Ranking-/Story-Karte → „Bearbeiten“ → `schritt:"bearbeiten"` (Datei `bearbeitungen/<id>` per `out_dir "cudi_bearbeitungen"`, rendert nur neu, Texte per `check_text` geprüft); `hochladen` bereitet nur vor (`freigabe` Standard true), „Veröffentlichen“ = `schritt:"hochladen"` (`cudi_hochladen`, kein Rendern). Geplante Aufgabe braucht dafür eine Zusatzzeile in Schritt 1 (nur mit OK des Nutzers ändern).
+  - **Aufbau (Überarbeitung, hell/dunkel per prefers-color-scheme, EB Garamond + Figtree)**: feste untere Tab-Leiste **Start · Videos · Firma · Briefing · Kommunikation**.
+    Start = Kacheln Ranking, Fakten (Ranking mit freiem Thema, „Streng“ an), Story, Reportage, Satire (`art:"satire"`, `thema` oder `meldung` + `links`, `sprache`; Auswahl
+    bestätigter Meldungen aus dem Export), Erklärvideo, Clip; je Formular ≤ 3 Pflichtfelder, Rest unter „Mehr Optionen“; Unterseiten (`#ranking` …) mit Zurück-Knopf, „Volle App und Notbetrieb“
+    (`#app`) vom Start aus. Clip-Formular fest: `url` ODER `twitch_kanal` (+`zeitraum`), `clip_stil` (vollbild Standard|zuschnitt), `bestaetigt_erlaubnis` nur bei „unklar“, `hochladen` youtube/tiktok/instagram/alle; Karte zeigt Erlaubnis-Pille (erlaubt/gesperrt/unklar) aus dem Prüfbericht. Nur `erklaer` bleibt hinter `CFG.felder` ausgeblendet, bis `job.py` die Art kennt (Ansehen: `?felder=erklaer`).
+    **Briefing**: `briefing` aus `firma/stand` (Karten `top` mit Quellen-Chips, `abschnitte` aufklappbar), fehlt es: ehrlich „Briefing noch nicht im Export“ + Link zum Issue-Label `briefing`.
+    **Kommunikation**: Sammlung `kommunikation/<id>` (`wunsch`, `prompt`, `agent`, `status` geplant/läuft/fertig/blockiert, `bericht`, `zeit`), die Seite liest nur, geschrieben wird von der Hauptsitzung.
+    Firma/3D-Büro: zusätzliche Stationen Welt-Blick, Morgen-Briefing, Clip-Scout, Messung nur bei vorhandenen Daten (`status.*`, `welt`, `briefing`, `clipteam`). Laufende Aufträge zeigen einen Fortschrittsbalken (Schätzung nach Laufzeit).
   - **Firma-Tab** (Leitstand, rein im Browser aus `jobs`/`results`/`bewertungen`, kein Claude-Aufruf): Aufträge als „Mitarbeiter“
     (Rolle nach Art: Rechercheur & Autor, Faktenprüfer = freies Thema, Story-Autor, Clipper); „Projektleiter“: hängt (> 40 Min. ohne
     Ergebnis oder `ohne`), halbe Arbeit (Ergebnis ohne Video/mit Fehler), „Neu starten“ = `restartJob` (gleiche Logik wie die Karte),
