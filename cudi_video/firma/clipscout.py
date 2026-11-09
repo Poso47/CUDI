@@ -329,6 +329,27 @@ def evidence_from_campaigns(creator: dict, camps: list[dict], channel_ids: list[
 MAX_NEU, MAX_SCAN, THIN_DAYS, MAX_TWITCH_PROBEN = 50, 60, 14, 10
 CLIP_SUBS = ("LivestreamFail",)
 SUCHEN = ("clipper gesucht", "clippers wanted")
+SUCH_SPRACHE = {"clipper gesucht": "de", "clippers wanted": "en"}
+REGION_SPRACHE = {"de": "de", "at": "de", "ch": "de", "DE": "de", "AT": "de", "CH": "de"}
+
+
+def erlaubte_sprachen() -> set[str]:
+    """Fokus des Nutzers: deutschsprachiger Raum. Englisch erst, wenn er es freigibt
+    (clip_creators.json {"sprachen": ["de","en"]} oder Umgebung CUDI_CLIP_SPRACHEN=de,en)."""
+    import os
+    env = os.environ.get("CUDI_CLIP_SPRACHEN", "").strip()
+    if env:
+        return {x.strip() for x in env.split(",") if x.strip()}
+    cfg = common.read_json(CREATORS, {}) or {}
+    return set(cfg.get("sprachen") or ["de"])
+
+
+def src_de_bekannt() -> list[dict]:
+    """g) Grundliste bekannter deutschsprachiger Streamer (cudi_video/data/creator_de.json) – werden immer beobachtet."""
+    from pathlib import Path
+    data = json.loads((Path(__file__).resolve().parent.parent / "data" / "creator_de.json").read_text("utf-8"))
+    return [_cand(c["name"], "twitch", c["twitch"], "Bekannter deutschsprachiger Creator (Grundliste)", "grundliste_de", 15,
+                  {}, f"https://www.twitch.tv/{c['twitch']}", sprache="de") for c in data.get("creators", [])]
 JOB = re.compile(r"youtuber|streamer|influencer|vlogger|content creator|twitch|let'?s player|gamer", re.I)
 NAME_STOP = {"the", "this", "that", "when", "after", "what", "why", "how", "who", "his", "her", "their", "new", "just", "now", "one",
              "man", "woman", "guy", "girl", "twitch", "kick", "youtube", "streamer", "streamers", "stream", "chat", "viewer", "viewers",
@@ -343,8 +364,8 @@ def _kkey(plattform: str, kanal: str, name: str) -> str:
 
 
 def _cand(name: str, plattform: str, kanal: str, grund: str, quelle: str, punkte: float, signal: dict | None = None,
-          link: str = "", bestaetigt: bool = True) -> dict:
-    return {"key": _kkey(plattform, kanal, name), "name": _norm(name)[:60], "plattform": plattform, "kanal": kanal,
+          link: str = "", bestaetigt: bool = True, sprache: str = "") -> dict:
+    return {"key": _kkey(plattform, kanal, name), "name": _norm(name)[:60], "plattform": plattform, "kanal": kanal, "sprache": sprache,
             "grund": grund, "quellen": [quelle], "signal": dict(signal or {}), "punkte": round(punkte, 1), "link": link,
             "kanal_bestaetigt": bestaetigt}
 
@@ -356,7 +377,7 @@ def src_kampagnen(camps: list[dict]) -> list[dict]:
         for url in c.get("kanaele", []):
             handle = url.rstrip("/").split("/")[-1]
             out.append(_cand(handle.lstrip("@"), "youtube", handle, f"Kampagne „{c['titel'][:60]}“ (contentrewards) nennt den Kanal",
-                             "kampagne", 30, {"kampagnen": 1}, c["link"]))
+                             "kampagne", 30, {"kampagnen": 1}, c["link"], sprache=c.get("sprache", "")))
     return out
 
 
@@ -379,7 +400,7 @@ def src_aufruf_suche() -> list[dict]:
                 continue
             out.append(_cand(e.get("channel") or e.get("uploader") or cid, "youtube", cid,
                              f"Videotitel nennt Clipper-Suche: „{_norm(title)[:80]}“", "aufruf", 25, {"aufruf_titel": True},
-                             e.get("url") or ""))
+                             e.get("url") or "", sprache=SUCH_SPRACHE.get(q, "")))
     return out
 
 
@@ -405,7 +426,8 @@ def src_youtube_trends(trends: dict, cache: dict) -> list[dict]:
             if handle:
                 rang = int(q.get("rang") or 25)
                 out.append(_cand(info["name"], "youtube", handle, f"YouTube-Trends {q.get('region', '')} Rang {rang}", "youtube-trends",
-                                 max(5, 40 - 1.5 * rang), {"yt_trend_rang": rang, "region": q.get("region", "")}, q["link"]))
+                                 max(5, 40 - 1.5 * rang), {"yt_trend_rang": rang, "region": q.get("region", "")}, q["link"],
+                                 sprache=REGION_SPRACHE.get(q.get("region", ""), "en")))
     return out
 
 
@@ -450,7 +472,8 @@ def src_wikipedia(trends: dict, cache: dict) -> list[dict]:
         rang = int(q.get("rang") or 25)
         plat, kanal = ("youtube", info["yt"]) if info.get("yt") else ("twitch", info["tw"]) if info.get("tw") else ("unbekannt", "")
         out.append(_cand(title, plat, kanal, f"Wikipedia-Top Rang {rang} ({q.get('region', '')}), Beruf laut Wikidata passt",
-                         "wikipedia", 20 + max(0, 26 - rang), {"wiki_rang": rang}, q.get("link", "")))
+                         "wikipedia", 20 + max(0, 26 - rang), {"wiki_rang": rang}, q.get("link", ""),
+                         sprache=REGION_SPRACHE.get(q.get("region", "de"), "en")))
     return out
 
 
@@ -483,7 +506,7 @@ def src_reddit() -> list[dict]:
                 login = name.lower() if re.fullmatch(r"[a-z0-9_]{4,25}", name.lower()) else ""
                 out.append(_cand(name, "twitch", login, f"In r/{sub} {e['n']}× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
                                  "reddit", 5 * e["n"] + min(e["punkte"] / 50, 10),
-                                 {"reddit_beitraege": e["n"], "reddit_sub": sub}, e["link"], bestaetigt=False))
+                                 {"reddit_beitraege": e["n"], "reddit_sub": sub}, e["link"], bestaetigt=False, sprache="en"))
     return out
 
 
@@ -527,10 +550,15 @@ def entdecke(notes: list[str], camps: list[dict], old: list[dict], cache: dict) 
                        ("Entdeckung Aufruf-Suche", src_aufruf_suche),
                        ("Entdeckung YouTube-Trends", lambda: src_youtube_trends(trends, cache.setdefault("oembed", {}))),
                        ("Entdeckung Reddit", src_reddit),
-                       ("Entdeckung Wikipedia-Personen", lambda: src_wikipedia(trends, cache.setdefault("wikidata", {})))):
+                       ("Entdeckung Wikipedia-Personen", lambda: src_wikipedia(trends, cache.setdefault("wikidata", {}))),
+                       ("Entdeckung Grundliste DE", src_de_bekannt)):
         cands += common.run_source(name, func, notes)
-    notes.append("Twitch-Top-Liste: ohne Anmeldung gibt es keine öffentliche Quelle – Twitch-Kanäle kommen über Reddit, Wikidata und Kampagnen.")
-    return merge_entdeckt(cands, old)
+    notes.append("Twitch-Top-Liste: ohne Anmeldung gibt es keine öffentliche Quelle – Twitch-Kanäle kommen über Grundliste, Reddit, Wikidata und Kampagnen.")
+    erlaubt = erlaubte_sprachen()
+    weg = sum(1 for c in cands if c.get("sprache") not in erlaubt)
+    if weg:
+        notes.append(f"Sprachfokus {', '.join(sorted(erlaubt))}: {weg} Treffer anderer Sprache nicht beobachtet.")
+    return [c for c in merge_entdeckt([c for c in cands if c.get("sprache") in erlaubt], old) if c.get("sprache") in erlaubt]
 
 
 # --------------------------------------------------------------------------- Lauf

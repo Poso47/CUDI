@@ -123,14 +123,14 @@ def build_order(area: str, idea: dict, check: dict) -> dict | None:
     """Idee im Auftragsformat der CUDI-App (art/vorlage|thema/…). Erklärvideos haben noch keinen App-Auftrag."""
     thema = idea["thema"][:120]
     if area == "ranking":
-        order = {"art": "ranking", "plaetze": 10, "sprachen": ["de", "en"]}
+        order = {"art": "ranking", "plaetze": 10, "sprachen": ["de"]}
         if check.get("vorlage"):
             order["vorlage"] = check["vorlage"]
         else:
             order["thema"] = thema
         return order
     if area == "fakten":
-        return {"art": "ranking", "thema": thema, "plaetze": 7, "sprachen": ["de", "en"]}
+        return {"art": "ranking", "thema": thema, "plaetze": 7, "sprachen": ["de"]}
     if area == "story":
         return {"art": "story", "wunsch": thema[:300], "stimmung": "auto", "sprache": "de", "laenge": "3min"}
     if area == "satire":                               # Satire (satire/__init__.py): Quelle ist die bestätigte Meldung selbst

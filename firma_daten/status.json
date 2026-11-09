@@ -1,17 +1,15 @@
 {
  "mitarbeiter": {
   "trends": {
-   "letzter_lauf": "2026-11-09T06:09:01Z",
-   "dauer_s": 34.4,
+   "letzter_lauf": "2026-11-09T16:42:03Z",
+   "dauer_s": 31.9,
    "ergebnis": "ok",
-   "zusammenfassung": "80 Themen aus 2 Quellen",
+   "zusammenfassung": "80 Themen aus 3 Quellen",
    "hinweise": [
-    "YouTube DE: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)",
-    "YouTube US: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)",
-    "Wikipedia de: nicht erreichbar (HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/de.wikipedia/all-access/2026/11/07)",
-    "Wikipedia en: nicht erreichbar (HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/2026/11/07)"
+    "YouTube DE: nicht erreichbar (HTTPError: 403 Client Error: Forbidden for url: https://www.googleapis.com/youtube/v3/videos?…)",
+    "YouTube US: nicht erreichbar (HTTPError: 403 Client Error: Forbidden for url: https://www.googleapis.com/youtube/v3/videos?…)"
    ],
-   "naechste_planung": "2026-11-09T09:09:01Z"
+   "naechste_planung": "2026-11-09T19:42:03Z"
   },
   "news": {
    "letzter_lauf": "2026-11-09T14:37:13Z",
@@ -87,5 +85,5 @@
    "naechste_planung": "2026-11-10T14:43:23Z"
   }
  },
- "erzeugt": "2026-11-09T14:59:24Z"
+ "erzeugt": "2026-11-09T16:42:03Z"
 }
