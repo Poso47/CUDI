@@ -211,7 +211,7 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
         topic, preset = _text(raw.get("thema"), 120), str(raw.get("vorlage") or "")
         if not topic and preset not in presets:
             raise OrderError(f"Unbekannte Vorlage „{preset}“.")
-        langs = [l for l in ("de", "en") if l in (raw.get("sprachen") or ["de", "en"])]
+        langs = [l for l in ("de", "en") if l in (raw.get("sprachen") or ["de"])]
         if not langs:
             raise OrderError("Mindestens eine Sprache wählen.")
         length = str(raw.get("laenge") or "")
