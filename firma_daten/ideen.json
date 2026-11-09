@@ -1,12 +1,473 @@
 {
- "erzeugt": "2026-11-08T21:57:43Z",
- "modus": "regeln",
- "hinweise": [
-  "Sprachmodell nicht nutzbar, regelbasiert: HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
- ],
- "anzahl": 28,
- "neu": 7,
+ "erzeugt": "2026-11-09T13:59:17Z",
+ "modus": "llm",
+ "hinweise": [],
+ "anzahl": 44,
+ "neu": 18,
  "ideen": [
+  {
+   "id": "idee-4fb701b3",
+   "bereich": "fakten",
+   "titel": "Das Marine-Kaffeebecher-Tabu",
+   "thema": "Fakten über eine ungewöhnliche Tradition in der Marine",
+   "begruendung": "Der Trend 'TIL that there is a serious taboo against cleaning coffee mugs in the Navy' ist auf Reddit r/todayilearned mit 8.210 Punkten auf Platz 5.",
+   "quelle": {
+    "name": "TIL that there is a serious taboo against cleaning coffee mugs in the Navy",
+    "typ": "trend",
+    "score": 65.7,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über eine ungewöhnliche Tradition in der Marine",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-0dd91050",
+   "bereich": "fakten",
+   "titel": "Whoopi Goldbergs echter Name",
+   "thema": "Fakten zur Namensänderung einer bekannten Persönlichkeit",
+   "begruendung": "Der Trend 'TIL that Whoopi Goldberg's real name is Caryn Johnson, and she adopted the last name \"Goldberg\" at her mother's suggestion because a Jewish-sounding name gave her a better chance of making it in Hollywood.' ist auf Reddit r/today",
+   "quelle": {
+    "name": "TIL that Whoopi Goldberg's real name is Caryn Johnson, and she adopted the last name \"Goldberg\" at her mother's suggestion because a Jewish-sounding name gave her a better chance of making it in Hollywood.",
+    "typ": "trend",
+    "score": 63.5,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zur Namensänderung einer bekannten Persönlichkeit",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-1a457dfb",
+   "bereich": "fakten",
+   "titel": "Mikroplastik im Kaugummi",
+   "thema": "Fakten über die Freisetzung von Mikroplastik beim Kaugummikauen",
+   "begruendung": "Der Trend 'TIL chewing gum can release tiny plastic particles directly into your saliva. Researchers discovered that as gum is chewed, microscopic particles gradually break away from its structure and mix with your saliva.' ist auf Reddit r",
+   "quelle": {
+    "name": "TIL chewing gum can release tiny plastic particles directly into your saliva. Researchers discovered that as gum is chewed, microscopic particles gradually break away from its structure and mix with your saliva.",
+    "typ": "trend",
+    "score": 60.3,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über die Freisetzung von Mikroplastik beim Kaugummikauen",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-a6fbcdeb",
+   "bereich": "fakten",
+   "titel": "Kinder ohne Handys",
+   "thema": "Fakten über das Aufwachsen von Kindern ohne Smartphones",
+   "begruendung": "Der Trend 'Kids without phones' ist auf Reddit r/interestingasfuck mit 21.904 Punkten auf Platz 2.",
+   "quelle": {
+    "name": "Kids without phones",
+    "typ": "trend",
+    "score": 68.9,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über das Aufwachsen von Kindern ohne Smartphones",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-0dc85936",
+   "bereich": "fakten",
+   "titel": "Looksmaxxing: Was steckt dahinter?",
+   "thema": "Fakten über den Trend Looksmaxxing und seine psychologischen Aspekte",
+   "begruendung": "Der Trend 'Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distres",
+   "quelle": {
+    "name": "Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distress, and harmful appearance-modification practices.",
+    "typ": "trend",
+    "score": 62.5,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über den Trend Looksmaxxing und seine psychologischen Aspekte",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-8da633a8",
+   "bereich": "story",
+   "titel": "Die geheime Regel der Navy-Becher",
+   "thema": "Eine Geschichte über eine kuriose Tradition in der Marine",
+   "begruendung": "Der Trend 'TIL that there is a serious taboo against cleaning coffee mugs in the Navy' ist auf Reddit r/todayilearned mit 8.210 Punkten auf Platz 5.",
+   "quelle": {
+    "name": "TIL that there is a serious taboo against cleaning coffee mugs in the Navy",
+    "typ": "trend",
+    "score": 65.7,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über eine kuriose Tradition in der Marine",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-309bdb85",
+   "bereich": "story",
+   "titel": "Kindheit ohne Smartphone",
+   "thema": "Eine Geschichte über das Aufwachsen ohne digitale Ablenkungen",
+   "begruendung": "Der Trend 'Kids without phones' ist auf Reddit r/interestingasfuck mit 21.904 Punkten auf Platz 2.",
+   "quelle": {
+    "name": "Kids without phones",
+    "typ": "trend",
+    "score": 68.9,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über das Aufwachsen ohne digitale Ablenkungen",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-560f262c",
+   "bereich": "story",
+   "titel": "Der Weg zum Künstlernamen",
+   "thema": "Eine Geschichte über die Entscheidung für einen Künstlernamen",
+   "begruendung": "Der Trend 'TIL that Whoopi Goldberg's real name is Caryn Johnson, and she adopted the last name \"Goldberg\" at her mother's suggestion because a Jewish-sounding name gave her a better chance of making it in Hollywood.' ist auf Reddit r/today",
+   "quelle": {
+    "name": "TIL that Whoopi Goldberg's real name is Caryn Johnson, and she adopted the last name \"Goldberg\" at her mother's suggestion because a Jewish-sounding name gave her a better chance of making it in Hollywood.",
+    "typ": "trend",
+    "score": 63.5,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über die Entscheidung für einen Künstlernamen",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-fa836beb",
+   "bereich": "erklaer",
+   "titel": "Was ist Looksmaxxing?",
+   "thema": "Erklärung des Phänomens Looksmaxxing und seiner potenziellen Risiken",
+   "begruendung": "Der Trend 'Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distres",
+   "quelle": {
+    "name": "Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distress, and harmful appearance-modification practices.",
+    "typ": "trend",
+    "score": 62.5,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung des Phänomens Looksmaxxing und seiner potenziellen Risiken"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-29b1f6e0",
+   "bereich": "erklaer",
+   "titel": "Wie Mikroplastik in den Mund gelangt",
+   "thema": "Erklärung, wie Kaugummi Mikroplastik freisetzen kann",
+   "begruendung": "Der Trend 'TIL chewing gum can release tiny plastic particles directly into your saliva. Researchers discovered that as gum is chewed, microscopic particles gradually break away from its structure and mix with your saliva.' ist auf Reddit r",
+   "quelle": {
+    "name": "TIL chewing gum can release tiny plastic particles directly into your saliva. Researchers discovered that as gum is chewed, microscopic particles gradually break away from its structure and mix with your saliva.",
+    "typ": "trend",
+    "score": 60.3,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung, wie Kaugummi Mikroplastik freisetzen kann"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-1524f12d",
+   "bereich": "erklaer",
+   "titel": "Palmöl und Regenwald-Zerstörung",
+   "thema": "Erklärung der Auswirkungen von Palmölplantagen auf den indonesischen Regenwald",
+   "begruendung": "Der Trend 'Millions of acres of Indonesia rainforest were burned up to give way for palm plantation expansion.This is sickening' ist auf Reddit r/interestingasfuck mit 12.774 Punkten auf Platz 3.",
+   "quelle": {
+    "name": "Millions of acres of Indonesia rainforest were burned up to give way for palm plantation expansion.This is sickening",
+    "typ": "trend",
+    "score": 67.8,
+    "quellen": [
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung der Auswirkungen von Palmölplantagen auf den indonesischen Regenwald"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-6e996f53",
+   "bereich": "erklaer",
+   "titel": "Fantasy Sports einfach erklärt",
+   "thema": "Erklärung des Konzepts und der Funktionsweise von Fantasy Sports",
+   "begruendung": "Der Trend 'fantasy' ist auf Platz 2 der Google-Trends (DE) mit über 100 Suchen; Meldung: „NFL Fantasy 2026 Start 'Em, Sit 'Em: Quarterbacks for Week 9“ (NFL.com).",
+   "quelle": {
+    "name": "fantasy",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung des Konzepts und der Funktionsweise von Fantasy Sports"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-b6ebb039",
+   "bereich": "erklaer",
+   "titel": "Der Luftqualitätsindex (AQI)",
+   "thema": "Erklärung, was der Air Quality Index (AQI) aussagt",
+   "begruendung": "Der Trend 'delhi aqi' ist auf Platz 3 der Google-Trends (US) mit über 200 Suchen; Meldung: „India: Delhi chokes on most polluted Diwali eve in 10 years“ (DW.com).",
+   "quelle": {
+    "name": "delhi aqi",
+    "typ": "trend",
+    "score": 91.8,
+    "quellen": [
+     "google",
+     "reddit"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung, was der Air Quality Index (AQI) aussagt"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-09T13:59:17Z"
+  },
+  {
+   "id": "idee-9ce3cbd1",
+   "bereich": "reportage",
+   "titel": "Gedenken an die Reichspogromnacht",
+   "thema": "Berichterstattung über das Gedenken an den Jahrestag der Reichspogromnacht",
+   "begruendung": "Der Trend 'reichspogromnacht' ist Platz 1 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Verbrechen an deutschen Juden: Gedenken an den 88. Jahrestag der Reichspogromnacht - Video“ (WELT).",
+   "quelle": {
+    "name": "reichspogromnacht",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Berichterstattung über das Gedenken an den Jahrestag der Reichspogromnacht",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-fa4127a9",
+   "bereich": "reportage",
+   "titel": "G7-Ministertreffen zur Ukraine",
+   "thema": "Bericht über das Treffen der G7-Minister und Europas Rolle bei den Ukraine-Friedensgesprächen",
+   "begruendung": "Die Nachricht 'G7 ministers meet as Europe seeks greater say in Ukraine peace talks' ist von 2 Quellen bestätigt (Deutsche Welle (en)).",
+   "quelle": {
+    "name": "G7 ministers meet as Europe seeks greater say in Ukraine peace talks",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Bericht über das Treffen der G7-Minister und Europas Rolle bei den Ukraine-Friedensgesprächen",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-620a3147",
+   "bereich": "reportage",
+   "titel": "Ex-Präsident Paraguays angeklagt",
+   "thema": "Bericht über die Anklage gegen Paraguays ehemaligen Präsidenten nach Bankenkollaps",
+   "begruendung": "Die Nachricht 'Paraguay's former president charged after bank collapse' ist von 2 Quellen bestätigt (BBC World).",
+   "quelle": {
+    "name": "Paraguay's former president charged after bank collapse",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Bericht über die Anklage gegen Paraguays ehemaligen Präsidenten nach Bankenkollaps",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-ed74aef8",
+   "bereich": "reportage",
+   "titel": "Nvidia CEO bestätigt Gerüchte",
+   "thema": "Bericht über die Bestätigung eines CEOs und Gerüchte",
+   "begruendung": "Die Nachricht 'Nvidia CEO Huang admits affair amid rumors of China spy ties' ist von 2 Quellen bestätigt (Deutsche Welle (en)).",
+   "quelle": {
+    "name": "Nvidia CEO Huang admits affair amid rumors of China spy ties",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Bericht über die Bestätigung eines CEOs und Gerüchte",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-a6c5f7bb",
+   "bereich": "reportage",
+   "titel": "Regierungsbildung in Israel",
+   "thema": "Bericht über die Beauftragung zur Regierungsbildung in Israel",
+   "begruendung": "Die Nachricht 'Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung' ist von 2 Quellen bestätigt (Tagesschau).",
+   "quelle": {
+    "name": "Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Bericht über die Beauftragung zur Regierungsbildung in Israel",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-09T13:59:17Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
   {
    "id": "idee-ad64a89c",
    "bereich": "fakten",
@@ -684,53 +1145,6 @@
    "auftrag": {
     "art": "erklaer",
     "thema": "Eine ruhige Erklärung, wie die Regierungsbildung in Israel nach Wahlen abläuft."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-08T21:37:15Z"
-  },
-  {
-   "id": "idee-b2ac3be8",
-   "bereich": "erklaer",
-   "titel": ".xxx: Die Domain erklärt",
-   "thema": "Eine ruhige Erklärung, was die Top-Level-Domain .xxx ist und wofür sie verwendet wird.",
-   "begruendung": "Der Trend \".xxx\" ist Platz 8 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06 mit 199.678 Aufrufen.",
-   "quelle": {
-    "name": ".xxx",
-    "typ": "trend",
-    "score": 74.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine ruhige Erklärung, was die Top-Level-Domain .xxx ist und wofür sie verwendet wird."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-08T21:37:15Z"
-  },
-  {
-   "id": "idee-1319d315",
-   "bereich": "erklaer",
-   "titel": "Südafrika Wahlen: Das System erklärt",
-   "thema": "Eine ruhige Erklärung, wie das Wahlsystem in Südafrika funktioniert.",
-   "begruendung": "Die News \"South Africa elections: ANC marks its worst-ever performance\" ist von 2 Quellen (Deutsche Welle (en)) bestätigt.",
-   "quelle": {
-    "name": "South Africa elections: ANC marks its worst-ever performance",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "bbc.com"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine ruhige Erklärung, wie das Wahlsystem in Südafrika funktioniert."
    },
    "app_auftrag": false,
    "erstellt": "2026-11-08T21:37:15Z"

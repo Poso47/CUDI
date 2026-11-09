@@ -1,95 +1,101 @@
-# CUDI-Briefing 2026-11-08
+# CUDI-Briefing 2026-11-09
 
-Wichtigste Meldungen: 5. Firma: 11 Punkte. Bestätigte Meldungen: 6. Deutschland von außen: 8 Themen. Belegte Verbindungen: 2. Offene Fragen: 2. Alles mit Quellenlinks; Unbelegtes steht nur als Frage.
+Der Krakauer Schießverdächtige ist im Krankenhaus gestorben. Mindestens fünf Menschen, darunter vier Kinder, wurden nach starken Regenfällen und Überschwemmungen getötet. G7-Minister treffen sich, während Europa eine größere Rolle bei Ukraine-Friedensgesprächen anstrebt. Papst Leo fordert Argentiniens Milei auf, Menschen vor die Wirtschaft zu stellen. Paraguays ehemaliger Präsident wurde nach einem Bankenkollaps angeklagt. Nvidia-CEO Huang gibt eine Affäre zu. Offene Frage: Warum berichten ausländische Betreiber über Hitlers Adlerhorst, während deutsche Medien keine passende Meldung haben?
 
 ## 0. Die wichtigsten Meldungen (je höchstens 5 Zeilen)
 
-- Kanzler Merz will Aigner als Bundespräsidentin vorschlagen – bestätigt von 4 unabhängigen Betreibern.
-    · tagesschau.de: Kanzler Merz will Aigner als Bundespräsidentin vorschlagen
-    · t-online.de: Merz will Ilse Aigner als Bundespräsidentin vorschlagen
-    · focus.de: Merz will Ilse Aigner als Bundespräsidentin vorschlagen
-    · orf.at: D : Merz wird Aigner als Bundespräsidentin vorschlagen
-  Quellen: [tagesschau.de](https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-merz-100.html) [t-online.de](https://www.t-online.de/nachrichten/deutschland/innenpolitik/id_101518916/merz-will-ilse-aigner-als-bundespraesidentin-vorschlagen.html) [focus.de](https://www.focus.de/politik/deutschland/merz-will-ilse-aigner-als-bundespraesidentin-vorschlagen_428a02a1-a4bc-41be-a731-95db7ad1985e.html) [orf.at](https://orf.at/stories/3447632/)
-- Seven dead and more than 100 injured after trains collide in Egypt – bestätigt von 3 unabhängigen Betreibern.
-    · bbc.com: Seven dead and more than 100 injured after trains collide in Egypt
-    · Deutsche Welle (en): Egypt train crash leaves several dead, over 100 injured
-    · Wikipedia · AP: A train derails near Giza , Egypt , killing seven people and wounding over 100 more.
-  Quellen: [bbc.com](https://www.bbc.com/news/articles/cwvgr20mmmevo) [Deutsche Welle (en)](https://www.dw.com/en/egypt-train-crash-leaves-several-dead-over-100-injured/a-79892916?maca=en-rss-en-all-1573-xml-mrss) [Wikipedia · AP](https://apnews.com/article/egypt-train-crash-giza-collision-cairo-injuries-4ad591268ce015d85ae302e22185b235)
-- Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung – bestätigt von 2 unabhängigen Betreibern.
-    · Tagesschau: Israel: Oppositionsführer Eisenkot soll neue Regierung bilden
-    · Deutsche Welle: Israel: Netanjahu-Rivale Gadi Eisenkot soll Regierung bilden
-  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/asien/israel-auftrag-regierungsbildung-eisenkot-100.html) [Deutsche Welle](https://www.dw.com/de/israel-netanjahu-rivale-gadi-eisenkot-soll-regierung-bilden/a-79889744?maca=de-rss-de-all-1119-xml-mrss)
-- Ilse Aigner im Porträt: Krisenerprobt, bürgernah - und bald Staatsoberhaupt? – bestätigt von 2 unabhängigen Betreibern.
-    · Tagesschau: Ilse Aigner im Porträt: Krisenerprobt, bürgernah - und bald Staatsoberhaupt?
-    · dw.com: Ilse Aigner wird wohl das erste weibliche Staatsoberhaupt
-  Quellen: [Tagesschau](https://www.tagesschau.de/inland/ilse-aigner-portraet-100.html) [dw.com](https://www.dw.com/de/die-csu-politikerin-ilse-aigner-ist-als-erste-bundespr%C3%A4sidentin-nun-favoritin/a-79873744)
-- Sturm der Liebe - Star Dieter Bach spricht über Kinderlosigkeit – bestätigt von 2 unabhängigen Betreibern.
-    · t-online.de: Sturm der Liebe - Star Dieter Bach spricht über Kinderlosigkeit
-    · focus.de: „ Sturm der Liebe - Star Dieter Bach über seine Kinderlosigkeit : „ Nie weit oben auf meiner Bucket List
-  Quellen: [t-online.de](https://www.t-online.de/unterhaltung/stars/id_101517306/-sturm-der-liebe-star-dieter-bach-spricht-ueber-kinderlosigkeit.html) [focus.de](https://www.focus.de/kultur/stars/sturm-der-liebe-star-dieter-bach-ueber-seine-kinderlosigkeit-nie-weit-oben-auf-meiner-bucket-list_9364fc37-5b55-47c2-9c41-c9cfbf8b1fdd.html)
+- Krakow shooting suspect has died in hospital, police say – bestätigt von 2 unabhängigen Betreibern.
+    · BBC World: 'I treat all these people like they are victims', says doctor who treated Krakow shooting suspect
+    · Deutsche Welle (en): Poland: Gunman kills 6 in Krakow main square, police say
+  Quellen: [BBC World](https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/poland-gunman-kills-6-in-krakow-main-square-police-say/a-79886489?maca=en-rss-en-all-1573-xml-mrss)
+- At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a… – bestätigt von 3 unabhängigen Betreibern.
+    · Wikipedia · Al Jazeera: At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a…
+    · Wikipedia · Shafaq: Three people are killed and more than 300 others are rescued from severe flooding in Erbil , Kurdistan Region , Iraq .
+    · Wikipedia · AP: Two people are killed and 16 injured in a bus crash in Lent , Ain , France . (AP)
+  Quellen: [Wikipedia · Al Jazeera](https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter) [Wikipedia · Shafaq](https://shafaq.com/en/Kurdistan/Erbil-floods-kill-three-over-300-rescued) [Wikipedia · AP](https://apnews.com/article/france-bus-crash-e024a5428966dd6c3415c881bc503811)
+- G7 ministers meet as Europe seeks greater say in Ukraine peace talks – bestätigt von 2 unabhängigen Betreibern.
+    · Deutsche Welle (en): G7 ministers meet as Europe seeks greater say in Ukraine peace talks
+    · NPR: Europe to join U.S.-brokered Ukraine talks in Abu Dhabi, defying Kremlin objections
+  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/g7-ministers-meet-as-europe-seeks-greater-say-in-ukraine-peace-talks/a-79894960?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6034014/europe-join-us-brokered-ukraine-talks-abu-dhabi-russia)
+- Pope Leo urges Argentina's Milei to put people before the economy – bestätigt von 2 unabhängigen Betreibern.
+    · Deutsche Welle (en): Pope Leo urges Argentina's Milei to put people before the economy
+    · NPR: After a successful trip to Uruguay, Pope Leo heads to Argentina
+  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/pope-leo-urges-argentina-s-milei-to-put-people-before-the-economy/a-79894779?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6033992/after-a-successful-trip-to-uruguay-pope-leo-heads-to-argentina)
+- Paraguay's former president charged after bank collapse – bestätigt von 2 unabhängigen Betreibern.
+    · BBC World: Paraguay's former president charged after bank collapse
+    · NPR: How a bank collapse left millions in limbo and toppled Paraguay's president
+  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss) [NPR](https://www.npr.org/2026/11/09/nx-s1-6034066/paraguay-president-pena-ueno)
+- Frühere Meldung vom 2026-11-08: „Six people are killed and 15 more injured in a drive-by mass shooting in the center of Kraków , Poland . The perpetrator, who…“ – zu „At least five people are killed, including four children, and several injured people are rescued…“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.reuters.com/world/europe/two-kiled-least-10-injured-shooting-polish-city-krakow-tvn24-reports-2026-11-07/)
+- Frühere Meldung vom 2026-11-08: „Paraguay's former president charged after bank collapse“ – zu „Paraguay's former president charged after bank collapse“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss)
+- Frühere Meldung vom 2026-11-08: „Jensen Huang leather jacket : Jensen Huang wife and daughter dress him : Who really picks the Nvidia CEO famous leather jacket“ – zu „Nvidia CEO Huang admits affair amid rumors of China spy ties“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://economictimes.indiatimes.com/news/international/us/jensen-huangs-wife-and-daughter-dress-him-who-really-picks-the-nvidia-ceos-famous-leather-jacket/articleshow/135660430.cms)
+- Frühere Meldung vom 2026-11-08: „Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung“ – zu „Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.tagesschau.de/ausland/asien/israel-auftrag-regierungsbildung-eisenkot-100.html)
+- Frühere Meldung vom 2026-11-08: „Seven dead and more than 100 injured after trains collide in Egypt“ – zu „Seven dead and more than 100 injured after trains collide in Egypt“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss)
 
 ## 1. Firma – was lief
 
 - Ideen-Entwickler: 7 neue Ideen (regeln) (Lauf 2026-11-08T21:57:43Z).
 - Hinweis von Ideen-Entwickler: Sprachmodell nicht nutzbar, regelbasiert: HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions
-- News-Reporter: 60 Meldungen, davon 17 bestätigt (Lauf 2026-11-08T22:44:40Z).
-- Trend-Scout: 80 Themen aus 3 Quellen (Lauf 2026-11-08T21:21:52Z).
+- News-Reporter: 60 Meldungen, davon 13 bestätigt (Lauf 2026-11-09T07:05:18Z).
+- Hinweis von News-Reporter: GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)
+- Putzmann: 0 entfernt (Lauf 2026-11-09T12:04:33Z).
+- Trend-Scout: 80 Themen aus 2 Quellen (Lauf 2026-11-09T06:09:01Z).
 - Hinweis von Trend-Scout: YouTube DE: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)
 - Hinweis von Trend-Scout: YouTube US: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)
-- Welt-Blick: 10 Themen, 0 nur im Ausland, 2 Verbindungen (Lauf 2026-11-08T22:33:15Z).
-- Hinweis von Welt-Blick: GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)
-- Wissens-Sammler: 28 Quellen gelesen, 6 neue Regeln, 6 gesamt (Lauf 2026-11-08T21:31:02Z).
+- Welt-Blick: 16 Themen, 1 nur im Ausland, 0 Verbindungen (Lauf 2026-11-09T06:56:32Z).
+- Wissens-Sammler: 28 Quellen gelesen, 6 neue Regeln, 12 gesamt (Lauf 2026-11-09T13:17:53Z).
 - 28 neue Video-Ideen in den letzten 24 Stunden, z. B. „bundespräsident deutschland: die wichtigsten Fakten“ und „seahawks game today: die wichtigsten Fakten“.
 - Wissens-Sammler: 6 neue Regeln gelernt.
 
 ## 2. Bestätigte Meldungen (≥ 2 unabhängige Betreiber)
 
-- Kanzler Merz will Aigner als Bundespräsidentin vorschlagen – bestätigt von 4 unabhängigen Betreibern.
-  Quellen: [tagesschau.de](https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-merz-100.html) [t-online.de](https://www.t-online.de/nachrichten/deutschland/innenpolitik/id_101518916/merz-will-ilse-aigner-als-bundespraesidentin-vorschlagen.html) [focus.de](https://www.focus.de/politik/deutschland/merz-will-ilse-aigner-als-bundespraesidentin-vorschlagen_428a02a1-a4bc-41be-a731-95db7ad1985e.html) [orf.at](https://orf.at/stories/3447632/)
-- Seven dead and more than 100 injured after trains collide in Egypt – bestätigt von 3 unabhängigen Betreibern.
-  Quellen: [bbc.com](https://www.bbc.com/news/articles/cwvgr20mmmevo) [Deutsche Welle (en)](https://www.dw.com/en/egypt-train-crash-leaves-several-dead-over-100-injured/a-79892916?maca=en-rss-en-all-1573-xml-mrss) [Wikipedia · AP](https://apnews.com/article/egypt-train-crash-giza-collision-cairo-injuries-4ad591268ce015d85ae302e22185b235)
-- Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung – bestätigt von 2 unabhängigen Betreibern.
-  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/asien/israel-auftrag-regierungsbildung-eisenkot-100.html) [Deutsche Welle](https://www.dw.com/de/israel-netanjahu-rivale-gadi-eisenkot-soll-regierung-bilden/a-79889744?maca=de-rss-de-all-1119-xml-mrss)
-- Ilse Aigner im Porträt: Krisenerprobt, bürgernah - und bald Staatsoberhaupt? – bestätigt von 2 unabhängigen Betreibern.
-  Quellen: [Tagesschau](https://www.tagesschau.de/inland/ilse-aigner-portraet-100.html) [dw.com](https://www.dw.com/de/die-csu-politikerin-ilse-aigner-ist-als-erste-bundespr%C3%A4sidentin-nun-favoritin/a-79873744)
-- Sturm der Liebe - Star Dieter Bach spricht über Kinderlosigkeit – bestätigt von 2 unabhängigen Betreibern.
-  Quellen: [t-online.de](https://www.t-online.de/unterhaltung/stars/id_101517306/-sturm-der-liebe-star-dieter-bach-spricht-ueber-kinderlosigkeit.html) [focus.de](https://www.focus.de/kultur/stars/sturm-der-liebe-star-dieter-bach-ueber-seine-kinderlosigkeit-nie-weit-oben-auf-meiner-bucket-list_9364fc37-5b55-47c2-9c41-c9cfbf8b1fdd.html)
-- Homes and temples glow across India to mark Diwali – bestätigt von 2 unabhängigen Betreibern.
-  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/cm70pdwz122ro?at_medium=RSS&at_campaign=rss) [economictimes.indiatimes.com](https://economictimes.indiatimes.com/tech/startups/temple-is-not-made-for-india-deepinder-goyal-responds-to-criticism-in-diwali-posts-promises-to-publish-detailed-note/articleshow/135665088.cms)
+- Krakow shooting suspect has died in hospital, police say – bestätigt von 2 unabhängigen Betreibern.
+  Quellen: [BBC World](https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/poland-gunman-kills-6-in-krakow-main-square-police-say/a-79886489?maca=en-rss-en-all-1573-xml-mrss)
+- At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a… – bestätigt von 3 unabhängigen Betreibern.
+  Quellen: [Wikipedia · Al Jazeera](https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter) [Wikipedia · Shafaq](https://shafaq.com/en/Kurdistan/Erbil-floods-kill-three-over-300-rescued) [Wikipedia · AP](https://apnews.com/article/france-bus-crash-e024a5428966dd6c3415c881bc503811)
+- G7 ministers meet as Europe seeks greater say in Ukraine peace talks – bestätigt von 2 unabhängigen Betreibern.
+  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/g7-ministers-meet-as-europe-seeks-greater-say-in-ukraine-peace-talks/a-79894960?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6034014/europe-join-us-brokered-ukraine-talks-abu-dhabi-russia)
+- Pope Leo urges Argentina's Milei to put people before the economy – bestätigt von 2 unabhängigen Betreibern.
+  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/pope-leo-urges-argentina-s-milei-to-put-people-before-the-economy/a-79894779?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6033992/after-a-successful-trip-to-uruguay-pope-leo-heads-to-argentina)
+- Paraguay's former president charged after bank collapse – bestätigt von 2 unabhängigen Betreibern.
+  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss) [NPR](https://www.npr.org/2026/11/09/nx-s1-6034066/paraguay-president-pena-ueno)
+- Nvidia CEO Huang admits affair amid rumors of China spy ties – bestätigt von 2 unabhängigen Betreibern.
+  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/nvidia-ceo-huang-admits-affair-amid-rumors-of-china-spy-ties/a-79894747?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6034036/nvidia-launches-investigation-into-ceos-alleged-relationship-with-chinese-spy)
 
 ## 3. Deutschland von außen
 
-- Ausland (Schweiz): „Kanzler Friedrich Merz schlägt Ilse Aigner als Bundespräsidentin vor“ – Deutschland (Tagesschau): „Kanzler Merz will Aigner als Bundespräsidentin vorschlagen“. Beides ist nur nebeneinandergestellt, nicht bewertet.
-  Quellen: [NZZ (Schweiz)](https://www.nzz.ch/international/friedrich-merz-schlaegt-ilse-aigner-als-bundespraesidentin-vor-ld.10058169) [Tagesschau](https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-merz-100.html)
-- Ausland (Österreich): Vermisste 13-Jährige aus Berlin tot: Verdächtiger festgenommen
-  Quellen: [Der Standard (Österreich)](https://www.derstandard.at/story/3000000348116/vermisste-sch252lerin-aus-berlin-ist-tot-verd228chtiger-festgenommen?ref=rss)
-- Ausland (Indien): Poland calls Krakow shooting rampage 'terrorist' attack
-  Quellen: [The Hindu (Indien)](https://www.thehindu.com/news/international/poland-calls-krakow-shooting-rampage-terrorist-attack/article71681007.ece)
-- Ausland (Österreich): „Protestaktion vor Reichstag: Aktivist tauscht Deutschland- gegen Palästinaflagge“ – Deutschland (Tagesschau): „Mann hisst Palästinenser-Flagge vor Reichstagsgebäude“. Beides ist nur nebeneinandergestellt, nicht bewertet.
-  Quellen: [Der Standard (Österreich)](https://www.derstandard.at/story/3000000348107/protestaktion-vor-reichstag-aktivist-tauscht-deutschland-gegen-palaestinaflagge?ref=rss) [Tagesschau](https://www.tagesschau.de/tagesschau_20_uhr/video-1680466.html)
-- Ausland (Österreich): "Die Statistik macht mir Hoffnung": Eva Umlauf hat als Zweijährige den Holocaust überlebt
-  Quellen: [Der Standard (Österreich)](https://www.derstandard.at/story/3000000347357/die-statistik-macht-mir-hoffnung-eva-umlauf-hat-als-zweijaehrige-den-holocaust-ueberlebt?ref=rss)
-- Ausland (Spanien): Nacionalismo y duelos de sables: las fraternidades de estudiantes que sirven de ‘cantera’ de AfD
-  Quellen: [El País (Spanien)](https://elpais.com/internacional/2026-11-08/nacionalismo-y-duelos-de-sables-las-fraternidades-de-estudiantes-que-sirven-de-cantera-de-afd.html)
-- Ausland (Türkei): Krakow attacker may be influenced by 'far-right ideologies': Polish interior minister Hinweis: Anadolu ist staatsnah getragen.
-  Quellen: [Anadolu (Türkei)](https://www.aa.com.tr/en/europe/krakow-attacker-may-be-influenced-by-far-right-ideologies-polish-interior-minister/4115593)
-- Ausland (Großbritannien): Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat
-  Quellen: [BBC Europe (Großbritannien)](https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss)
+- Nur im Ausland gefunden (2 Betreiber: Großbritannien, Pakistan): Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat – in den ausgewerteten deutschen Medien keine passende Meldung.
+  Quellen: [BBC Europe (Großbritannien)](https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss) [Dawn (Pakistan)](https://www.dawn.com/news/2043132/hitlers-retreat-sparks-debate-over-germanys-past-and-present)
+- Ausland (Indien, Katar): „Chancellor Merz to nominate Aigner as Germany’s first woman president“ – Deutschland (Tagesschau): „Kanzler Merz will Aigner als Bundespräsidentin vorschlagen“. Beides ist nur nebeneinandergestellt, nicht bewertet. Hinweis: Al Jazeera ist staatsnah getragen.
+  Quellen: [Al Jazeera (Katar)](https://www.aljazeera.com/news/2026/11/8/chancellor-merz-to-nominate-aigner-as-germanys-first-woman-president?traffic_source=rss) [Times of India (Indien)](https://timesofindia.indiatimes.com/world/europe/chancellor-merz-backs-ilse-aigner-as-germanys-first-female-president/articleshow/135669055.cms) [Tagesschau](https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-merz-100.html)
+- Ausland (Indien): G7 Ministers meet on efforts to end Ukraine conflict, halt new Iran war
+  Quellen: [The Hindu (Indien)](https://www.thehindu.com/news/international/g7-ministers-meeting-in-paris-russia-ukraine-conflict-us-israel-strikes-on-iran/article71681281.ece)
+- Ausland (Katar): How Israel’s separation wall compares with the Berlin Wall Hinweis: Al Jazeera ist staatsnah getragen.
+  Quellen: [Al Jazeera (Katar)](https://www.aljazeera.com/news/2026/11/9/how-israels-separation-wall-compares-with-the-berlin-wall?traffic_source=rss)
+- Ausland (Spain): Alemania y Reino Unido dicen que su proyecto para lanzar misiles a 2 . 000 km va por buen camino
+  Quellen: [libertaddigital.com (Spain)](https://www.libertaddigital.com/defensa/2026-11-09/alemania-y-reino-unido-dicen-que-su-proyecto-para-lanzar-misiles-a-2-000-km-va-por-buen-camino-7485875/)
+- Ausland (France): Pouvoir dachat . Faire ses courses en Allemagne : avez - vous déjà franchi le pas ?
+  Quellen: [dna.fr (France)](https://www.dna.fr/economie/2026/11/09/faire-ses-courses-en-allemagne-avez-vous-deja-franchi-le-pas)
+- Ausland (China): Sindhudesh Global Conference in Germany forms International Anti - Colonial Alliance , appoints Mehran Marri to lead initiative
+  Quellen: [beijingbulletin.com (China)](http://www.beijingbulletin.com/news/279420881/sindhudesh-global-conference-in-germany-forms-international-anti-colonial-alliance-appoints-mehran-marri-to-lead-initiative)
+- Ausland (Schweiz): Moritz von Uslar: vom Stadtintellektuellen zum Försterlandwirt
+  Quellen: [NZZ (Schweiz)](https://www.nzz.ch/feuilleton/moritz-von-uslar-vom-stadtintellektuellen-zum-foersterlandwirt-ld.10056100)
 
 ## 4. Belegte Verbindungen (Wikidata)
 
-- Friedrich Merz – laut Wikidata Amt: Mitglied des Deutschen Bundestages (kein Enddatum eingetragen – ob noch aktuell, ist offen); Partei: Christlich Demokratische Union Deutschlands (kein Enddatum eingetragen – ob noch aktuell, ist offen); Arbeitgeber: BlackRock (kein Enddatum eingetragen – ob noch aktuell, ist offen); Arbeitgeber: Mayer Brown (kein Enddatum eingetragen – ob noch aktuell, ist offen). Genannt in: „Kanzler Friedrich Merz schlägt Ilse Aigner als Bundespräsidentin vor“.
-  Quellen: [Friedrich Merz (Wikidata)](https://www.wikidata.org/wiki/Q566257) [Mitglied des Deutschen Bundestages](https://www.wikidata.org/wiki/Q1939555) [Christlich Demokratische Union…](https://www.wikidata.org/wiki/Q49762) [BlackRock](https://www.wikidata.org/wiki/Q219635) [Mayer Brown](https://www.wikidata.org/wiki/Q6797057)
-- Ilse Aigner – laut Wikidata Amt: Präsident des Bayerischen Landtags (kein Enddatum eingetragen – ob noch aktuell, ist offen); Partei: Christlich-Soziale Union in Bayern (kein Enddatum eingetragen – ob noch aktuell, ist offen); Mitglied von: Enquete-Kommission Zukunft des bürgerschaftlichen Engagements (kein Enddatum eingetragen – ob noch aktuell, ist offen); Mitglied von: Kabinett Merkel I (kein Enddatum eingetragen – ob noch aktuell, ist offen). Genannt in: „Kanzler Friedrich Merz schlägt Ilse Aigner als Bundespräsidentin vor“.
-  Quellen: [Ilse Aigner (Wikidata)](https://www.wikidata.org/wiki/Q153460) [Präsident des Bayerischen Landtags](https://www.wikidata.org/wiki/Q15303400) [Christlich-Soziale Union in Bayern](https://www.wikidata.org/wiki/Q49763) [Enquete-Kommission Zukunft des…](https://www.wikidata.org/wiki/Q19969620) [Kabinett Merkel I](https://www.wikidata.org/wiki/Q315863)
+- Keine belegte Verbindung gefunden.
 
 ## 5. Offene Fragen (nicht belegt, nur Fragen)
 
-- OFFENE FRAGE (unbelegt): Wird „Nach den Schüssen in Polen: Was über den Täter bekannt ist“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
-  Quellen: [Tagesschau](https://www.tagesschau.de/tagesthemen/video-1680510.html)
-- OFFENE FRAGE (unbelegt): Wird „Julie Kurz, ARD Berlin, zur Personalie Aigner“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
-  Quellen: [Tagesschau](https://www.tagesschau.de/tagesthemen/video-1680508.html)
-
-_Hinweise: Sprachmodell nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions)_
+- OFFENE FRAGE (unbelegt): Warum berichten 2 ausländische Betreiber über „Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat“, während in den ausgewerteten deutschen Medien keine passende Meldung auftaucht? Eine Erklärung ist nicht belegt.
+  Quellen: [BBC Europe](https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss) [Dawn](https://www.dawn.com/news/2043132/hitlers-retreat-sparks-debate-over-germanys-past-and-present)
+- OFFENE FRAGE (unbelegt): Wird „G7-Außenminister sprechen über Ukraine und Iran“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
+  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/europa/g7-paris-100.html)
+- OFFENE FRAGE (unbelegt): Wird „Todesschütze von Krakau ist tot“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
+  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/europa/krakau-todesschuetze-tot-100.html)
 
 _Nur aus den gesammelten Daten; Quellen in Klammern. Unbelegtes steht nur als „offene Frage“._
