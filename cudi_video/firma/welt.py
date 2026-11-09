@@ -12,6 +12,7 @@ import re
 import time
 from datetime import timedelta
 
+from .. import eigentuemer as eig
 from . import common, news
 from .common import fetch, iso, now, run_source
 
@@ -196,7 +197,12 @@ def build_groups(items: list[dict], de_news: list[dict]) -> list[dict]:
         involved = involved_countries(" ".join(i["titel"] + " " + i.get("kurz", "") for i in its))
         for i in by_pub.values():
             i["beteiligt"] = i["land"] in involved
-        einig = sorted({i["land"] for i in by_pub.values() if not i["beteiligt"] and i["land"] != "?"})
+        reps = list(by_pub.values())
+        ana = eig.gruppiere(reps)
+        # Länder zählen nur mit unabhängigen Quellen: je Gruppe (gleicher Eigentümer/Geldgeber/Agentur/Staat) die erste nicht beteiligte
+        nb = [i for i in reps if not i["beteiligt"] and i["land"] != "?"]
+        ana_nb = eig.gruppiere(nb)
+        einig = sorted({i["land"] for k, i in enumerate(nb) if not ana_nb["zaehlt_nicht"][k]})
         first = next((i for i in its if not i.get("gdelt")), its[0])
         de = match_german(g, de_news)
         n = len(by_pub)
@@ -208,8 +214,10 @@ def build_groups(items: list[dict], de_news: list[dict]) -> list[dict]:
             "beteiligte_laender": sorted(involved), "zusammenfassung": summary(by_pub.values()),
             "staatsnah": sorted({i["quelle"] for i in by_pub.values() if i.get("art") == "staatsnah"}),
             "deutsch_quellen": de, "nur_ausland": n >= 2 and not de,
-            "quellen": [{"quelle": i["quelle"], "land": i["land"], "art": i.get("art", ""), "beteiligt": i["beteiligt"], "titel": i["titel"], "link": i["link"]}
-                        for i in by_pub.values()][:5],
+            "unabhaengig_n": ana["n"], "abhaengig": ana["abhaengig"][:6], "eigentuemer_unbekannt": ana["unbekannt"][:6],
+            "quellen": [{"quelle": i["quelle"], "land": i["land"], "art": i.get("art", ""), "beteiligt": i["beteiligt"], "titel": i["titel"],
+                         "link": i["link"], "eigentuemer": ana["eigentuemer"][k], "zaehlt_nicht": ana["zaehlt_nicht"][k]}
+                        for k, i in enumerate(reps)][:5],
         })
     out.sort(key=lambda g: (g["bestaetigt_laender"], len(g["laender_einig"]), g["nur_ausland"], g["ausland_quellen"], g["zeit"]), reverse=True)
     return out[:MAX_GROUPS]
@@ -294,6 +302,7 @@ def connections(groups: list[dict], cache: dict, notes: list[str]) -> list[dict]
 
 def run() -> dict:
     started = time.monotonic()
+    eig.neuer_lauf()
     notes: list[str] = []
     items: list[dict] = []
     for f in FEEDS:
@@ -311,7 +320,7 @@ def run() -> dict:
     links = connections(groups, cache, notes)
     only = sum(g["nur_ausland"] for g in groups)
     data = {"erzeugt": iso(), "anzahl": len(groups), "nur_ausland": only, "hinweise": notes,
-            "regel": "Ausland-Betreiber zählen einzeln; nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; "
+            "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; "
                      "Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
             "themen": groups, "verbindungen": links, "wikidata_cache": dict(list(cache.items())[-200:])}
     changed = common.write_json("welt.json", data)

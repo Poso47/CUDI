@@ -3,6 +3,7 @@
 Zugangsdaten stehen NUR in Umgebungsvariablen (nie im Repo, nie in Ausgaben oder Logs):
   YouTube: CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET, CUDI_YT_REFRESH_TOKEN
   TikTok:  CUDI_TIKTOK_ACCESS_TOKEN (oder CUDI_TIKTOK_CLIENT_KEY/_CLIENT_SECRET/_REFRESH_TOKEN)
+  Instagram: CUDI_IG_USER_ID, CUDI_IG_ACCESS_TOKEN (Reels über die Graph API)
 Einrichtung Schritt für Schritt: docs/upload-einrichten.md
 """
 
@@ -22,7 +23,8 @@ log = logging.getLogger(__name__)
 
 VISIBILITY = {"privat": "private", "ungelistet": "unlisted", "oeffentlich": "public", "öffentlich": "public"}
 SECRET_VARS = ("CUDI_YT_CLIENT_ID", "CUDI_YT_CLIENT_SECRET", "CUDI_YT_REFRESH_TOKEN", "CUDI_TIKTOK_ACCESS_TOKEN",
-               "CUDI_TIKTOK_CLIENT_KEY", "CUDI_TIKTOK_CLIENT_SECRET", "CUDI_TIKTOK_REFRESH_TOKEN")
+               "CUDI_TIKTOK_CLIENT_KEY", "CUDI_TIKTOK_CLIENT_SECRET", "CUDI_TIKTOK_REFRESH_TOKEN",
+               "CUDI_IG_ACCESS_TOKEN", "CUDI_IG_USER_ID")
 RETRIES = 5
 PAUSE = 2.0                 # Sekunden, verdoppelt sich je Versuch (Tests setzen 0)
 

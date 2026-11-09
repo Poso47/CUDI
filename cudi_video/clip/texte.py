@@ -17,6 +17,8 @@ def _kurz(text: str, limit: int) -> str:
 
 def titel(info: dict) -> str:
     """Titel aus dem Hook (erster Satz, höchstens 70 Zeichen); ohne Hook der Anfang des Transkripts."""
+    if info.get("titel_vorschlag"):                       # geprüfter Vorschlag aus dem Inhaltsurteil
+        return _kurz(str(info["titel_vorschlag"]).rstrip(".,;:"), 70)
     hook = (info.get("hook") or {}).get("text") or info.get("transkript") or "Clip"
     erster = re.split(r"(?<=[.?!])\s+", hook.strip())[0]
     return _kurz(erster.rstrip(".,;:"), 70)
@@ -47,11 +49,27 @@ def pruefbericht(info: dict, auftrag: dict | None = None) -> str:
     if q.get("titel") or q.get("kanal"):
         z.append(f"- Titel/Kanal der Quelle: {q.get('titel', '')} / {q.get('kanal', '')}")
     z.append(f"- Lizenz/Herkunft: {q.get('lizenz') or info.get('herkunft') or 'nicht angegeben (Standard-Lizenz der Plattform)'}")
+    from . import erlaubnis as erl
+
+    zeilen = erl.bericht_zeilen(info.get("erlaubnis"))
+    if zeilen:
+        z += zeilen
     if auftrag and auftrag.get("bestaetigt_erlaubnis"):
         z.append("- Erlaubnis: Der Nutzer hat bestätigt, dass er die Erlaubnis des Creators zum Clippen hat.")
+    z.append(f"- Stil: {info.get('stil', 'zuschnitt')}")
     f = info["fenster"]
     z.append(f"- Fenster in der Quelle: {f['start']}–{f['ende']} s ({'vorgegeben' if f['erzwungen'] else 'automatisch nach Regeln'}; "
              f"Auswahl: {info.get('auswahl')})")
+    u = info.get("urteil")
+    if u:
+        z.append(f"- Inhaltsurteil ({u['quelle']}): {u['punkte']}/10, Pointe: {'ja' if u['pointe'] else 'nein'}, "
+                 f"ohne Vorwissen verständlich: {'ja' if u['verstaendlich'] else 'nein'} – {u['grund']}")
+        for b in u.get("befunde") or []:
+            z.append(f"- Titelvorschlag verworfen: {b}")
+    sg = info.get("signale") or {}
+    if sg:
+        z.append(f"- Auswahl-Signale: {', '.join(f'{k}={v}' for k, v in sg.items())}; Bildschnitte erkannt: "
+                 f"{info.get('bildschnitte', 0)}")
     h = info.get("hook")
     if h:
         z.append(f"- Hook ({h['start']}–{h['ende']} s, Punkte {h['wert']}): „{h['text']}“ – "
@@ -74,5 +92,48 @@ def schreibe(ausgabe: Path, info: dict, auftrag: dict | None = None, url: str = 
     (ausgabe / "tiktok.txt").write_text(tt, "utf-8")
     (ausgabe / "review.md").write_text(pruefbericht(info, auftrag), "utf-8")
     (ausgabe / "spec.json").write_text(json.dumps({"title": {"de": titel(info)}}, ensure_ascii=False), "utf-8")
+    return {"clip": {"video": "clip.mp4", "duration": info["dauer"], "description_file": "youtube.txt",
+                     "caption_file": "tiktok.txt"}}
+
+
+def ranking_titel(info: dict) -> str:
+    return _kurz(f"Top {len(info['teile'])} Twitch-Clips: {info['kanal']}", 60)
+
+
+def ranking_beschreibungen(info: dict, sprache: str = "de") -> tuple[str, str]:
+    """Texte fürs Twitch-Ranking: nur belegte Angaben (Kanal, Zeitraum, Clip-Links), Creator-Nennung."""
+    zeitraum = {"24hr": "der letzten 24 Stunden", "7d": "der letzten 7 Tage", "30d": "der letzten 30 Tage"}.get(
+        info.get("zeitraum"), "des gewählten Zeitraums")
+    t = ranking_titel(info)
+    quellen = "\n".join(f"#{p['platz']} {p['url']}" for p in sorted(info["teile"], key=lambda x: x["platz"]))
+    credit = f"Die meistgesehenen Twitch-Clips von {info['kanal']} {zeitraum}. Quelle: {info['quelle']}"
+    tags = ["#shorts", "#twitch", "#clips"]
+    yt = f"{t}\n\n{credit}\n{quellen}\n\n{' '.join(tags)}\n"
+    tt = f"{_kurz(t, 90)}\n{_kurz(credit, 160)}\n{' '.join(tags[1:] + ['#fyp'])}\n"
+    return yt, tt
+
+
+def ranking_pruefbericht(info: dict, auftrag: dict | None = None) -> str:
+    from . import erlaubnis as erl
+
+    z = ["# Prüfbericht Twitch-Ranking", "", f"- Kanal: {info['kanal']} (Zeitraum {info['zeitraum']}), Quelle: {info['quelle']}"]
+    z += erl.bericht_zeilen(info.get("erlaubnis"))
+    z.append(f"- Stil: {info.get('stil')}; Dauer {info['dauer']} s; Reihenfolge als Countdown (Platz 1 zuletzt)")
+    for p in sorted(info["teile"], key=lambda x: x["platz"]):
+        z.append(f"- Platz {p['platz']}: „{p['titel']}“ – {p['aufrufe']} Aufrufe laut Twitch, {p['dauer']} s – {p['url']}")
+    for h in info.get("hinweise", []):
+        z.append(f"- Hinweis: {h}")
+    z += ["", "## Transkript (Ausschnitt)", "", info.get("transkript", "")[:3000]]
+    return "\n".join(z) + "\n"
+
+
+def schreibe_ranking(ausgabe: Path, info: dict, auftrag: dict | None = None, sprache: str = "de") -> dict:
+    yt, tt = ranking_beschreibungen(info, sprache)
+    ausgabe.mkdir(parents=True, exist_ok=True)
+    (ausgabe / "youtube.txt").write_text(yt, "utf-8")
+    (ausgabe / "tiktok.txt").write_text(tt, "utf-8")
+    (ausgabe / "review.md").write_text(ranking_pruefbericht(info, auftrag), "utf-8")
+    (ausgabe / "spec.json").write_text(json.dumps({"title": {"de": ranking_titel(info)}}, ensure_ascii=False), "utf-8")
+    (ausgabe / "clip.json").write_text(json.dumps(info, ensure_ascii=False, indent=1, default=str), "utf-8")
     return {"clip": {"video": "clip.mp4", "duration": info["dauer"], "description_file": "youtube.txt",
                      "caption_file": "tiktok.txt"}}

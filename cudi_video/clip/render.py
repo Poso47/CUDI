@@ -30,9 +30,10 @@ def _schnitt_filter(s: Schnitt, an: Analyse) -> str:
     return f + ",format=yuv420p"
 
 
-def _render_schnitt(i: int, s: Schnitt, video: Path, an: Analyse, ordner: Path) -> Path:
+def _render_schnitt(i: int, s: Schnitt, video: Path, an: Analyse | None, ordner: Path, filter_fn=None) -> Path:
     ziel = ordner / f"s{i:03d}.mp4"
-    _ffmpeg(["-ss", f"{s.a:.3f}", "-i", str(video), "-frames:v", str(s.frames), "-an", "-vf", _schnitt_filter(s, an),
+    vf = filter_fn(s) if filter_fn else _schnitt_filter(s, an)
+    _ffmpeg(["-ss", f"{s.a:.3f}", "-i", str(video), "-frames:v", str(s.frames), "-an", "-vf", vf,
              "-c:v", "libx264", "-preset", "veryfast", "-crf", "17", "-r", str(FPS), "-pix_fmt", "yuv420p", str(ziel)])
     return ziel
 
@@ -67,13 +68,14 @@ def audio_bauen(video: Path, schnitte: list[Schnitt], ziel: Path, arbeit: Path) 
     _ffmpeg(["-i", str(video), "-filter_complex_script", str(skript), "-map", "[aus]", "-c:a", "pcm_s16le", str(ziel)])
 
 
-def rendern(video: Path, schnitte: list[Schnitt], an: Analyse, ass: Path | None, fontsdir: Path | None,
-            arbeit: Path, ziel: Path) -> float:
-    """Erzeugt `ziel` (clip.mp4) und gibt die Dauer in Sekunden zurück."""
+def rendern(video: Path, schnitte: list[Schnitt], an: Analyse | None, ass: Path | None, fontsdir: Path | None,
+            arbeit: Path, ziel: Path, filter_fn=None) -> float:
+    """Erzeugt `ziel` (clip.mp4) und gibt die Dauer in Sekunden zurück. `filter_fn(schnitt) -> ffmpeg-Filter`
+    ersetzt den Sprecher-Zuschnitt (Stil „vollbild“)."""
     teile = arbeit / "schnitte"
     teile.mkdir(parents=True, exist_ok=True)
     with ThreadPoolExecutor(max_workers=max(1, min(4, os.cpu_count() or 2))) as pool:
-        dateien = list(pool.map(lambda p: _render_schnitt(p[0], p[1], video, an, teile), enumerate(schnitte)))
+        dateien = list(pool.map(lambda p: _render_schnitt(p[0], p[1], video, an, teile, filter_fn), enumerate(schnitte)))
     liste = arbeit / "concat.txt"
     liste.write_text("".join(f"file '{d.resolve()}'\n" for d in dateien), "utf-8")
     roh = arbeit / "video_roh.mp4"

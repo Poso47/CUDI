@@ -13,6 +13,7 @@ from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from urllib.parse import urlparse
 
+from .. import eigentuemer as eig
 from . import common
 from .common import fetch, iso, now, run_source
 
@@ -175,21 +176,27 @@ def cluster(items: list[dict]) -> list[dict]:
     for g in groups:
         its = g["items"]
         pubs = {i["betreiber"] for i in its}
+        reps = list({i["betreiber"]: i for i in its}.values())
+        ana = eig.gruppiere(reps)          # gleicher Eigentümer/Geldgeber/Agentur/Staat zählt nur einmal
+        order = sorted(range(len(reps)), key=lambda k: (bool(ana["zaehlt_nicht"][k]), k))
         first = next((i for i in its if not i.get("gdelt") and not i.get("wikipedia")), its[0])
         times = [i["zeit"] for i in its if i["zeit"]]
         out.append({
             "titel": first["titel"], "kurz": first["kurz"], "link": first["link"], "quelle": first["quelle"],
             "sprache": g["sprache"], "zeit": max(times) if times else "",
-            "status": "bestätigt" if len(pubs) >= 2 else "unbestätigt", "n_quellen": len(pubs),
-            "quellen": [{"quelle": i["quelle"], "titel": i["titel"], "link": i["link"]}
-                        for i in {i["betreiber"]: i for i in its}.values()][:4],
+            "status": "bestätigt" if ana["n"] >= 2 else "unbestätigt", "n_quellen": len(pubs),
+            "unabhaengig_n": ana["n"], "abhaengig": ana["abhaengig"][:6], "eigentuemer_unbekannt": ana["unbekannt"][:6],
+            "quellen": [{"quelle": reps[k]["quelle"], "titel": reps[k]["titel"], "link": reps[k]["link"],
+                         "eigentuemer": ana["eigentuemer"][k], "gruppe": ana["gruppe"][k], "zaehlt_nicht": ana["zaehlt_nicht"][k]}
+                        for k in order][:5],
         })
-    out.sort(key=lambda m: (m["status"] == "bestätigt", m["n_quellen"], m["zeit"]), reverse=True)
+    out.sort(key=lambda m: (m["status"] == "bestätigt", m["unabhaengig_n"], m["n_quellen"], m["zeit"]), reverse=True)
     return out[:MAX_ITEMS]
 
 
 def run() -> dict:
     started = time.monotonic()
+    eig.neuer_lauf()
     notes: list[str] = []
     items: list[dict] = []
     for name, pub, lang, url in FEEDS:
@@ -204,7 +211,8 @@ def run() -> dict:
     meldungen = cluster(items)
     confirmed = sum(m["status"] == "bestätigt" for m in meldungen)
     data = {"erzeugt": iso(), "anzahl": len(meldungen), "bestaetigt": confirmed, "hinweise": notes,
-            "regel": "bestätigt = mindestens 2 unabhängige Quellen; nur Titel, Kurzzeile und Link", "meldungen": meldungen}
+            "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe "
+                     "Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link", "meldungen": meldungen}
     changed = common.write_json("news.json", data)
     common.record_status("news", started, bool(items), f"{len(meldungen)} Meldungen, davon {confirmed} bestätigt"
                          + ("" if changed else " (unverändert)"), notes)

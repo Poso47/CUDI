@@ -195,6 +195,7 @@ cython_debug/
 # CUDI-Laufzeitdaten (nicht versionieren)
 .env
 data/
+!cudi_video/data/
 logs/
 workspace/
 import/

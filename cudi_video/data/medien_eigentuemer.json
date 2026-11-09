@@ -1,0 +1,990 @@
+{
+ "stand": "2026-11-09",
+ "regel": "Nur belegte Angaben mit Link; leere Eigentümerliste = unbekannt (Lücke), nie geraten. 'wikidata' = Abgleich mit Wikidata (bestätigt / nur Tabelle / abweichend / nicht geprüft).",
+ "medien": [
+  {
+   "name": "Tagesschau (ARD)",
+   "domains": [
+    "tagesschau.de"
+   ],
+   "eigentuemer": [
+    "ARD (Landesrundfunkanstalten)"
+   ],
+   "geldgeber": [
+    "Rundfunkbeitrag (Deutschland)"
+   ],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/ARD_(broadcaster)",
+    "https://en.wikipedia.org/wiki/Tagesschau_(German_TV_program)"
+   ],
+   "hinweis": "ARD gehört laut Wikipedia niemandem, auch nicht dem Staat; über den Rundfunkbeitrag finanziert",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "ZDF",
+   "domains": [
+    "zdf.de"
+   ],
+   "eigentuemer": [
+    "ZDF (Anstalt des öffentlichen Rechts der Länder)"
+   ],
+   "geldgeber": [
+    "Rundfunkbeitrag (Deutschland)"
+   ],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/ZDF"
+   ],
+   "hinweis": "",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "Deutsche Welle",
+   "domains": [
+    "dw.com"
+   ],
+   "eigentuemer": [
+    "Bundesrepublik Deutschland"
+   ],
+   "geldgeber": [
+    "Bundeshaushalt (Deutschland)"
+   ],
+   "agentur": null,
+   "staatsnah": true,
+   "staat": "Deutschland",
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Deutsche_Welle"
+   ],
+   "hinweis": "",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "BBC",
+   "domains": [
+    "bbc.co.uk",
+    "bbc.com",
+    "bbci.co.uk"
+   ],
+   "eigentuemer": [
+    "BBC (Royal Charter)"
+   ],
+   "geldgeber": [
+    "Rundfunkgebühr (Vereinigtes Königreich)"
+   ],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/BBC"
+   ],
+   "hinweis": "Wikidata nennt zusätzlich das Kulturministerium als übergeordnete Stelle",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "NPR",
+   "domains": [
+    "npr.org"
+   ],
+   "eigentuemer": [
+    "NPR (gemeinnützig, Mitgliedssender)"
+   ],
+   "geldgeber": [
+    "Mitgliedssender (Beiträge)",
+    "Sponsoren (Underwriting)",
+    "Open Society Foundations"
+   ],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/NPR"
+   ],
+   "hinweis": "Bundesmittel der Corporation for Public Broadcasting bis 2025",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "The Guardian",
+   "domains": [
+    "theguardian.com"
+   ],
+   "eigentuemer": [
+    "Guardian Media Group"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Guardian_Media_Group",
+    "https://en.wikipedia.org/wiki/The_Guardian"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Al Jazeera",
+   "domains": [
+    "aljazeera.com",
+    "aljazeera.net"
+   ],
+   "eigentuemer": [
+    "Al Jazeera Media Network"
+   ],
+   "geldgeber": [
+    "Staat Katar"
+   ],
+   "agentur": null,
+   "staatsnah": true,
+   "staat": "Katar",
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Al_Jazeera_Media_Network",
+    "https://en.wikipedia.org/wiki/Al_Jazeera"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "France 24",
+   "domains": [
+    "france24.com"
+   ],
+   "eigentuemer": [
+    "France Médias Monde"
+   ],
+   "geldgeber": [
+    "Staat Frankreich"
+   ],
+   "agentur": null,
+   "staatsnah": true,
+   "staat": "Frankreich",
+   "quelle": [
+    "https://en.wikipedia.org/wiki/France_24"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Le Monde",
+   "domains": [
+    "lemonde.fr"
+   ],
+   "eigentuemer": [
+    "Groupe Le Monde"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Le_Monde"
+   ],
+   "hinweis": "Anteilseigner der Groupe Le Monde sind hier nicht eingetragen (nicht belegt geprüft)",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "El País",
+   "domains": [
+    "elpais.com"
+   ],
+   "eigentuemer": [
+    "PRISA"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/El_País"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "NZZ",
+   "domains": [
+    "nzz.ch"
+   ],
+   "eigentuemer": [
+    "NZZ-Mediengruppe"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Neue_Zürcher_Zeitung"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Der Standard",
+   "domains": [
+    "derstandard.at",
+    "derstandard.de"
+   ],
+   "eigentuemer": [
+    "Oscar Bronner"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Der_Standard"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Anadolu Agency",
+   "domains": [
+    "aa.com.tr"
+   ],
+   "eigentuemer": [
+    "Republik Türkei"
+   ],
+   "geldgeber": [
+    "Staat Türkei"
+   ],
+   "agentur": "Anadolu",
+   "staatsnah": true,
+   "staat": "Türkei",
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Anadolu_Agency"
+   ],
+   "hinweis": "laut Wikipedia „quasi-staatliche Einrichtung“",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "Dawn",
+   "domains": [
+    "dawn.com"
+   ],
+   "eigentuemer": [
+    "Dawn Media Group"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Dawn_(newspaper)"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "South China Morning Post",
+   "domains": [
+    "scmp.com"
+   ],
+   "eigentuemer": [
+    "Alibaba Group"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/South_China_Morning_Post"
+   ],
+   "hinweis": "Stand der Wikipedia-Angabe (Kauf 2016); spätere Übertragungen sind nicht eingetragen",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "The Times of India",
+   "domains": [
+    "timesofindia.indiatimes.com",
+    "indiatimes.com"
+   ],
+   "eigentuemer": [
+    "Bennett, Coleman & Co.",
+    "The Times Group"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/The_Times_of_India"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "The Economic Times",
+   "domains": [
+    "economictimes.indiatimes.com"
+   ],
+   "eigentuemer": [
+    "Bennett, Coleman & Co.",
+    "The Times Group"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/The_Economic_Times"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "The Hindu",
+   "domains": [
+    "thehindu.com"
+   ],
+   "eigentuemer": [
+    "Kasturi & Sons Limited",
+    "The Hindu Group"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/The_Hindu"
+   ],
+   "hinweis": "",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "Rappler",
+   "domains": [
+    "rappler.com"
+   ],
+   "eigentuemer": [
+    "Rappler Holdings Corporation"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Rappler"
+   ],
+   "hinweis": "",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "The Philippine Star",
+   "domains": [
+    "philstar.com"
+   ],
+   "eigentuemer": [
+    "PhilStar Daily, Inc.",
+    "MediaQuest Holdings",
+    "Belmonte-Familie"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/The_Philippine_Star"
+   ],
+   "hinweis": "Anteile laut Wikipedia: MediaQuest 51 %, Belmonte-Familie 21 %",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "Daily Nation",
+   "domains": [
+    "nation.africa"
+   ],
+   "eigentuemer": [
+    "Nation Media Group"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Nation_Media_Group"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Daily Maverick",
+   "domains": [
+    "dailymaverick.co.za"
+   ],
+   "eigentuemer": [
+    "Daily Maverick (privat, kein Anteilseigner über 50 %)"
+   ],
+   "geldgeber": [
+    "Open Society Foundations",
+    "Donald Gordon Foundation",
+    "Elaine & David Potter Foundation",
+    "ABSA"
+   ],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Daily_Maverick"
+   ],
+   "hinweis": "",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "Punch (Nigeria)",
+   "domains": [
+    "punchng.com"
+   ],
+   "eigentuemer": [],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [],
+   "hinweis": "Eigentümer nicht belegt – Lücke",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "Post-Courier (Papua-Neuguinea)",
+   "domains": [
+    "postcourier.com.pg"
+   ],
+   "eigentuemer": [],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [],
+   "hinweis": "Eigentümer nicht belegt (Wikidata nennt News Corp., Stand unklar) – Lücke",
+   "wikidata": "nur Wikidata (Tabelle leer)"
+  },
+  {
+   "name": "La Nación (Argentinien)",
+   "domains": [
+    "lanacion.com.ar"
+   ],
+   "eigentuemer": [],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [],
+   "hinweis": "Eigentümer nicht belegt – Lücke",
+   "wikidata": "nur Wikidata (Tabelle leer)"
+  },
+  {
+   "name": "Agência Brasil",
+   "domains": [
+    "agenciabrasil.ebc.com.br",
+    "ebc.com.br"
+   ],
+   "eigentuemer": [
+    "Empresa Brasil de Comunicação"
+   ],
+   "geldgeber": [
+    "Staat Brasilien"
+   ],
+   "agentur": null,
+   "staatsnah": true,
+   "staat": "Brasilien",
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Agência_Brasil",
+    "https://en.wikipedia.org/wiki/Empresa_Brasil_de_Comunicação"
+   ],
+   "hinweis": "",
+   "wikidata": "abweichend"
+  },
+  {
+   "name": "Welt",
+   "domains": [
+    "welt.de"
+   ],
+   "eigentuemer": [
+    "Axel Springer SE"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Die_Welt"
+   ],
+   "hinweis": "",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "Bild",
+   "domains": [
+    "bild.de"
+   ],
+   "eigentuemer": [
+    "Axel Springer SE"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Bild"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Business Insider",
+   "domains": [
+    "businessinsider.com",
+    "businessinsider.de"
+   ],
+   "eigentuemer": [
+    "Axel Springer SE"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Business_Insider"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Politico",
+   "domains": [
+    "politico.com",
+    "politico.eu"
+   ],
+   "eigentuemer": [
+    "Axel Springer SE"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Politico"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Focus",
+   "domains": [
+    "focus.de"
+   ],
+   "eigentuemer": [
+    "Hubert Burda Media"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Hubert_Burda_Media",
+    "https://en.wikipedia.org/wiki/Focus_(German_magazine)"
+   ],
+   "hinweis": "",
+   "wikidata": "abweichend"
+  },
+  {
+   "name": "t-online",
+   "domains": [
+    "t-online.de"
+   ],
+   "eigentuemer": [
+    "Ströer"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Ströer",
+    "https://en.wikipedia.org/wiki/T-Online"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Süddeutsche Zeitung",
+   "domains": [
+    "sueddeutsche.de"
+   ],
+   "eigentuemer": [
+    "Südwestdeutsche Medienholding"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Süddeutsche_Zeitung"
+   ],
+   "hinweis": "",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "ORF",
+   "domains": [
+    "orf.at"
+   ],
+   "eigentuemer": [
+    "ORF (Stiftung öffentlichen Rechts)"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/ORF_(broadcaster)"
+   ],
+   "hinweis": "",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "Xinhua",
+   "domains": [
+    "xinhuanet.com",
+    "news.cn",
+    "english.news.cn"
+   ],
+   "eigentuemer": [
+    "Volksrepublik China"
+   ],
+   "geldgeber": [
+    "Staat China"
+   ],
+   "agentur": "Xinhua",
+   "staatsnah": true,
+   "staat": "China",
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Xinhua_News_Agency"
+   ],
+   "hinweis": "",
+   "wikidata": "abweichend"
+  },
+  {
+   "name": "Reuters",
+   "domains": [
+    "reuters.com"
+   ],
+   "eigentuemer": [
+    "Thomson Reuters"
+   ],
+   "geldgeber": [],
+   "agentur": "Reuters",
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Reuters",
+    "https://en.wikipedia.org/wiki/Thomson_Reuters"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "Associated Press",
+   "domains": [
+    "apnews.com",
+    "ap.org"
+   ],
+   "eigentuemer": [
+    "The Associated Press (Genossenschaft der Mitgliedsmedien)"
+   ],
+   "geldgeber": [],
+   "agentur": "AP",
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Associated_Press"
+   ],
+   "hinweis": "",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "Agence France-Presse",
+   "domains": [
+    "afp.com"
+   ],
+   "eigentuemer": [
+    "Agence France-Presse"
+   ],
+   "geldgeber": [
+    "Staat Frankreich"
+   ],
+   "agentur": "AFP",
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Agence_France-Presse"
+   ],
+   "hinweis": "rund ein Drittel der Einnahmen vom französischen Staat (113,3 Mio. € 2022); gesetzlich unabhängig",
+   "wikidata": "nur Tabelle"
+  },
+  {
+   "name": "dpa",
+   "domains": [
+    "dpa.com",
+    "dpa-international.com"
+   ],
+   "eigentuemer": [
+    "dpa Deutsche Presse-Agentur"
+   ],
+   "geldgeber": [],
+   "agentur": "dpa",
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Deutsche_Presse-Agentur"
+   ],
+   "hinweis": "Gesellschafter sind Medienhäuser (laut Wikidata u. a. Axel Springer, ARD-Anstalten, ZDF); hier nicht einzeln eingetragen",
+   "wikidata": "abweichend"
+  },
+  {
+   "name": "The New York Times",
+   "domains": [
+    "nytimes.com"
+   ],
+   "eigentuemer": [
+    "The New York Times Company"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/The_New_York_Times"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "CNN",
+   "domains": [
+    "cnn.com"
+   ],
+   "eigentuemer": [
+    "Warner Bros. Discovery"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/CNN"
+   ],
+   "hinweis": "Eigentümer laut Wikidata; Konzernstruktur kann sich ändern – Stand beachten",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "The Washington Post",
+   "domains": [
+    "washingtonpost.com"
+   ],
+   "eigentuemer": [
+    "Jeff Bezos"
+   ],
+   "geldgeber": [],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/The_Washington_Post"
+   ],
+   "hinweis": "",
+   "wikidata": "bestätigt"
+  },
+  {
+   "name": "ABC News (Australien)",
+   "domains": [
+    "abc.net.au"
+   ],
+   "eigentuemer": [
+    "Australian Broadcasting Corporation"
+   ],
+   "geldgeber": [
+    "Regierung von Australien"
+   ],
+   "agentur": null,
+   "staatsnah": false,
+   "staat": null,
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Australian_Broadcasting_Corporation"
+   ],
+   "hinweis": "Wikidata nennt die Regierung Australiens als Eigentümer",
+   "wikidata": "bestätigt"
+  }
+ ],
+ "konzerne": {
+  "Thomson Reuters": {
+   "eigner": [
+    "Woodbridge Company"
+   ],
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Thomson_Reuters"
+   ]
+  },
+  "Guardian Media Group": {
+   "eigner": [
+    "Scott Trust Limited"
+   ],
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Guardian_Media_Group"
+   ]
+  },
+  "France Médias Monde": {
+   "eigner": [
+    "Staat Frankreich"
+   ],
+   "quelle": [
+    "https://en.wikipedia.org/wiki/France_24"
+   ]
+  },
+  "Empresa Brasil de Comunicação": {
+   "eigner": [
+    "Staat Brasilien"
+   ],
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Empresa_Brasil_de_Comunicação"
+   ]
+  },
+  "Republik Türkei": {
+   "eigner": [
+    "Staat Türkei"
+   ],
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Anadolu_Agency"
+   ]
+  },
+  "Volksrepublik China": {
+   "eigner": [
+    "Staat China"
+   ],
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Xinhua_News_Agency"
+   ]
+  },
+  "Bundesrepublik Deutschland": {
+   "eigner": [
+    "Staat Deutschland"
+   ],
+   "quelle": [
+    "https://en.wikipedia.org/wiki/Deutsche_Welle"
+   ]
+  }
+ },
+ "agenturen": {
+  "AFP": [
+   "AFP",
+   "Agence France-Presse"
+  ],
+  "dpa": [
+   "dpa"
+  ],
+  "Reuters": [
+   "Reuters"
+  ],
+  "AP": [
+   "AP",
+   "Associated Press"
+  ],
+  "APA": [
+   "APA"
+  ],
+  "SDA": [
+   "SDA",
+   "Keystone-SDA"
+  ],
+  "Xinhua": [
+   "Xinhua"
+  ],
+  "EFE": [
+   "EFE"
+  ],
+  "ANSA": [
+   "ANSA"
+  ],
+  "TASS": [
+   "TASS"
+  ],
+  "Anadolu": [
+   "Anadolu"
+  ],
+  "PTI": [
+   "PTI"
+  ],
+  "IANS": [
+   "IANS"
+  ],
+  "Kyodo": [
+   "Kyodo"
+  ]
+ },
+ "pruefliste": {
+  "stand": "2026-11-09",
+  "erklaerung": "Abgleich mit Wikidata (Eigentümer P127, Mutterorganisation P749, Geldgeber P8324) über gemeinsame Namen. bestätigt = Wikidata nennt einen der eingetragenen Eigentümer/Geldgeber; nur Tabelle = Wikidata hat keine Angabe, der Eintrag stützt sich nur auf den Beleglink; abweichend = Wikidata nennt andere Namen (kein bewiesener Widerspruch, Benennung prüfen); nur Wikidata (Tabelle leer) = Tabelle hat keinen belegten Eigentümer.",
+  "ergebnis": {
+   "nur Tabelle": [
+    "Tagesschau (ARD)",
+    "ZDF",
+    "Deutsche Welle",
+    "BBC",
+    "Anadolu Agency",
+    "The Hindu",
+    "Rappler",
+    "The Philippine Star",
+    "Daily Maverick",
+    "Punch (Nigeria)",
+    "Welt",
+    "Süddeutsche Zeitung",
+    "ORF",
+    "Associated Press",
+    "Agence France-Presse"
+   ],
+   "bestätigt": [
+    "NPR",
+    "The Guardian",
+    "Al Jazeera",
+    "France 24",
+    "Le Monde",
+    "El País",
+    "NZZ",
+    "Der Standard",
+    "Dawn",
+    "South China Morning Post",
+    "The Times of India",
+    "The Economic Times",
+    "Daily Nation",
+    "Bild",
+    "Business Insider",
+    "Politico",
+    "t-online",
+    "Reuters",
+    "The New York Times",
+    "CNN",
+    "The Washington Post",
+    "ABC News (Australien)"
+   ],
+   "nur Wikidata (Tabelle leer)": [
+    "Post-Courier (Papua-Neuguinea)",
+    "La Nación (Argentinien)"
+   ],
+   "abweichend": [
+    "Agência Brasil",
+    "Focus",
+    "Xinhua",
+    "dpa"
+   ]
+  },
+  "luecken_ohne_eigentuemer": [
+   "Punch (Nigeria)",
+   "Post-Courier (Papua-Neuguinea)",
+   "La Nación (Argentinien)"
+  ]
+ }
+}
