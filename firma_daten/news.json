@@ -1,9 +1,9 @@
 {
- "erzeugt": "2026-11-09T14:37:13Z",
+ "erzeugt": "2026-11-09T19:59:33Z",
  "anzahl": 60,
  "bestaetigt": 15,
  "hinweise": [
-  "GDELT: keine Daten erhalten"
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
@@ -38,7 +38,7 @@
     },
     {
      "quelle": "Wikipedia · Al Jazeera",
-     "titel": "The 24-year-old man who opened fire in Kraków 's Main Square , in Poland , two days ago, has died at hospital after being seriously injured…",
+     "titel": "The 24-year-old man responsible for the drive-by mass shooting at the Main Square in Kraków , Poland , two days ago, which killed six…",
      "link": "https://www.aljazeera.com/news/2026/11/9/poland-mass-shooting-assailant-dies-in-hospital-police-say",
      "eigentuemer": "staatlich (Katar)",
      "gruppe": 2,
@@ -55,12 +55,12 @@
    ]
   },
   {
-   "titel": "At least 34 dead after Europe-bound migrant boat sinks off Senegal",
+   "titel": "At least 39 die after Europe-bound migrant boat sinks off Senegal",
    "kurz": "The Atlantic crossing to Spain's Canary Islands remains dangerous for migrants seeking a better life",
    "link": "https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-09T10:59:26Z",
+   "zeit": "2026-11-09T16:33:55Z",
    "status": "bestätigt",
    "n_quellen": 3,
    "unabhaengig_n": 3,
@@ -69,17 +69,17 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "At least 34 dead after Europe-bound migrant boat sinks off Senegal",
+     "titel": "At least 39 die after Europe-bound migrant boat sinks off Senegal",
      "link": "https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · DW",
-     "titel": "At least 34 people are killed when a small boat carrying migrants capsizes off the coast of Kébémer , Louga , Senegal . (DW)",
-     "link": "https://www.dw.com/en/many-killed-after-migrant-boat-sinks-off-senegal/a-79890883",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "Wikipedia · AFP via France 24",
+     "titel": "At least 39 people are killed when a small boat carrying migrants capsizes off the coast of Kébémer , Louga , Senegal .",
+     "link": "https://www.france24.com/en/live-news/20261109-senegal-officials-raise-migrant-boat-death-toll-to-39",
+     "eigentuemer": "staatlich (Frankreich)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     },
@@ -88,6 +88,45 @@
      "titel": "Twenty-one people are killed and one person has been rescued after a migrant boat sinks off the coast of Kebemer , Louga region , Senegal .",
      "link": "https://english.news.cn/20261108/b421ddd6df0c45a7aff62b629f9a3581/c.html",
      "eigentuemer": "staatlich (China)",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russell Brand sentenced to over 10 years in prison for rape and sexual assault convictions",
+   "kurz": "The former comedian was found guilty of raping one woman and sexually assaulting three others last week. The judge referred to Brand as a \"predator.\"",
+   "link": "https://www.dw.com/en/russell-brand-sentenced-to-over-10-years-in-prison-for-rape-and-sexual-assault-convictions/a-79896124?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T14:30:00Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Russell Brand sentenced to over 10 years in prison for rape and sexual assault convictions",
+     "link": "https://www.dw.com/en/russell-brand-sentenced-to-over-10-years-in-prison-for-rape-and-sexual-assault-convictions/a-79896124?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "British comedian Russell Brand sentenced to over 10 years for rape and sexual assault",
+     "link": "https://www.npr.org/2026/11/09/nx-s1-6034335/british-comedian-russell-brand-sentenced",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · CNN",
+     "titel": "English actor Russell Brand is sentenced to 10 years and 6 months imprisonment for one rape and three counts of sexual assault . (CNN)",
+     "link": "https://edition.cnn.com/2026/11/09/entertainment/russell-brand-rape-sentence-prison-intl",
+     "eigentuemer": "gehört Warner Bros. Discovery",
      "gruppe": 2,
      "zaehlt_nicht": ""
     }
@@ -135,12 +174,12 @@
    ]
   },
   {
-   "titel": "Untersuchungen nach Affäre von Nvidia-Chef Huang mit mutmaßlicher Spionin",
-   "kurz": "Untersuchungen nach Affäre von Nvidia-Chef Huang mit mutmaßlicher Spionin",
-   "link": "https://www.tagesschau.de/video/video-1680710.html",
+   "titel": "Chef des Chipherstellers Nvidia in mögliche Spionageaffäre verwickelt",
+   "kurz": "Chef des Chipherstellers Nvidia in mögliche Spionageaffäre verwickelt",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681016.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-09T14:58:03+01:00",
+   "zeit": "2026-11-09T20:47:06+01:00",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -166,12 +205,167 @@
    ]
   },
   {
+   "titel": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
+   "kurz": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681010.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T20:44:36+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "\"Zum dritten Mal eine Nichtakademikerin\", Christoph Mestmacher, ARD Berlin, zu Aigner als möglicher neuer Bundespräsidentin",
+     "link": "https://www.tagesschau.de/video/video-1680630.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Die CSU-Politikerin Ilse Aigner ist als erste Bundespräsidentin nun Favoritin",
+     "link": "https://www.dw.com/de/die-csu-politikerin-ilse-aigner-ist-als-erste-bundespräsidentin-nun-favoritin/a-79873744?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nvidia shares tumble over investigation into Huang's affair with alleged Chinese spy",
+   "kurz": "The share price dropped wiped hundreds of billions of dollars from the value of Nvidia.",
+   "link": "https://www.bbc.co.uk/news/articles/c6zxjx01vyleo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T19:58:01Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Wikipedia · BBC News",
+     "titel": "NVIDIA announces it is opening an investigation into CEO Jensen Huang after American intelligence reported that a close associate of Huang…",
+     "link": "https://www.bbc.com/news/live/cm78p221e313t",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Why Nvidia CEO's affair with alleged Chinese spy matters",
+     "link": "https://www.dw.com/en/why-nvidia-ceo-s-affair-with-alleged-chinese-spy-matters/a-79898338?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Pope delivers veiled rebuke of Milei's austerity measures",
+   "kurz": "Pope Leo made the comments as he arrived in Argentina on the second leg of his Latin America tour.",
+   "link": "https://www.bbc.co.uk/news/articles/ckj0l082jqzvo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T18:38:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Pope delivers veiled rebuke of Milei's austerity measures",
+     "link": "https://www.bbc.co.uk/news/articles/ckj0l082jqzvo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Pope Leo draws 2.5 million in Buenos Aires, renews warning over Milei's austerity",
+     "link": "https://www.dw.com/en/pope-leo-draws-2-5-million-in-buenos-aires-renews-warning-over-milei-s-austerity/a-79904137?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "France accuses Iran of supermarket fridge hacking",
+   "kurz": "The cyber-attack last month saw fridges and freezers in hundreds of supermarkets across France heated up.",
+   "link": "https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T18:33:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "France accuses Iran of supermarket fridge hacking",
+     "link": "https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "French officials blame Iran for supermarket fridge hacking",
+     "link": "https://www.dw.com/en/french-officials-blame-iran-for-supermarket-fridge-hacking/a-79903646?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Turkey steel factory blast kills at least 16 people",
+   "kurz": "Eyewitnesses say the explosion shook the ground, with one believing an earthquake had hit near the Habas Demir Celik plant in Aliaga.",
+   "link": "https://www.bbc.co.uk/news/articles/cq2d6d5z9y5jo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T18:04:01Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Wikipedia · BBC News",
+     "titel": "An explosion at a factory in Aliağa , Turkey , leaves sixteen people dead and thirteen others injured.",
+     "link": "https://www.bbc.com/news/articles/cq2d6d5z9y5jo",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Turkey: Workers killed in Izmir steel plant blast",
+     "link": "https://www.dw.com/en/turkey-workers-killed-in-izmir-steel-plant-blast/a-79900748?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Ukraine-Gespräche in Abu Dhabi: EU kündigt Teilnahme an",
    "kurz": "Ab Dienstag soll in Abu Dhabi über einen möglichen Frieden in der Ukraine verhandelt werden. Auch Vertreter Europas haben sich dazu angekündigt. Moskau will…",
    "link": "https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-09T14:52:00+01:00",
+   "zeit": "2026-11-09T17:29:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -202,7 +396,7 @@
    "link": "https://www.tagesschau.de/inland/innenpolitik/aigner-merz-bundespraesidentin-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-09T14:35:15+01:00",
+   "zeit": "2026-11-09T15:45:20+01:00",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -219,163 +413,8 @@
     },
     {
      "quelle": "Deutsche Welle",
-     "titel": "Die CSU-Politikerin Ilse Aigner ist als erste Bundespräsidentin nun Favoritin",
-     "link": "https://www.dw.com/de/die-csu-politikerin-ilse-aigner-ist-als-erste-bundespräsidentin-nun-favoritin/a-79873744?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "What do we know about Nvidia CEO’s affair with a suspected Chinese spy?",
-   "kurz": "Adoration for the US tech giant’s CEO Jensen Huang has been labelled “Jensanity”, but can his reputation survive the news of his affair?",
-   "link": "https://www.bbc.co.uk/news/videos/cq3989nkzn3ko?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-09T13:10:32Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · BBC News",
-     "titel": "NVIDIA announces it is opening an investigation into CEO Jensen Huang after American intelligence reported that a close associate of Huang…",
-     "link": "https://www.bbc.com/news/live/cm78p221e313t",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Nvidia CEO Huang admits affair amid rumors of China spy ties",
-     "link": "https://www.dw.com/en/nvidia-ceo-huang-admits-affair-amid-rumors-of-china-spy-ties/a-79894747?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Aramco Tower hit in heart of Saudi capital as Houthis launch fresh strikes",
-   "kurz": "Footage authenticated by BBC Verify shows damage to the building in the capital's central financial district.",
-   "link": "https://www.bbc.co.uk/news/articles/c6ly3mjx958eo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-08T21:37:36Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Aramco Tower hit in heart of Saudi capital as Houthis launch fresh strikes",
-     "link": "https://www.bbc.co.uk/news/articles/c6ly3mjx958eo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · Al Jazeera",
-     "titel": "Several floors of Aramco Tower , a skyscraper owned by Saudi Aramco located in Riyadh , Saudi Arabia , are damaged after a Houthi ballistic…",
-     "link": "https://www.aljazeera.com/news/2026/11/8/saudi-arabia-intercepts-houthi-missiles-targeting-riyadh-eastern-province",
-     "eigentuemer": "staatlich (Katar)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Seven dead and more than 100 injured after trains collide in Egypt",
-   "kurz": "Several carriages derailed after two trains travelling in the same direction crashed outside the city of Giza.",
-   "link": "https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-08T19:58:02Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Seven dead and more than 100 injured after trains collide in Egypt",
-     "link": "https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Egypt train crash leaves several dead, over 100 injured",
-     "link": "https://www.dw.com/en/egypt-train-crash-leaves-several-dead-over-100-injured/a-79892916?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "'Devastating message' as ANC records worst-ever result in South Africa election",
-   "kurz": "President Cyril Ramaphosa says the verdict must be respected, while the party's secretary-general calls the outcome \"catastrophic\".",
-   "link": "https://www.bbc.co.uk/news/articles/cwrkygrxp11mo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-08T17:51:03Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "'Devastating message' as ANC records worst-ever result in South Africa election",
-     "link": "https://www.bbc.co.uk/news/articles/cwrkygrxp11mo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "South Africa elections: ANC marks its worst-ever performance",
-     "link": "https://www.dw.com/en/south-africa-elections-anc-marks-its-worst-ever-performance/a-79887482?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Israel: Oppositionsführer Eisenkot soll neue Regierung bilden",
-   "kurz": "Nun ist es offiziell: Israels Präsident Herzog hat den Oppositionspolitiker Eisenkot mit der Regierungsbildung beauftragt. Der Ex-Militärchef appellierte an…",
-   "link": "https://www.tagesschau.de/ausland/asien/israel-auftrag-regierungsbildung-eisenkot-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-08T17:07:41+01:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Israel: Oppositionsführer Eisenkot soll neue Regierung bilden",
-     "link": "https://www.tagesschau.de/ausland/asien/israel-auftrag-regierungsbildung-eisenkot-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Israel: Netanjahu-Rivale Gadi Eisenkot soll Regierung bilden",
-     "link": "https://www.dw.com/de/israel-netanjahu-rivale-gadi-eisenkot-soll-regierung-bilden/a-79889744?maca=de-rss-de-all-1119-xml-mrss",
+     "titel": "llse Aigner soll Bundespräsidentin werden. Sie wäre die erste Frau",
+     "link": "https://www.dw.com/de/llse-aigner-soll-bundespräsidentin-werden-sie-wäre-die-erste-frau/a-79895956?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
@@ -408,37 +447,6 @@
      "titel": "Saudi Arabia launches an airstrike against a market in Taiz Governorate , Yemen , killing 30 people and wounding eight more.",
      "link": "https://apnews.com/article/yemen-airstrikes-market-houthis-bcc2409ada0398125173d84261bd1fff",
      "eigentuemer": "gehört The Associated Press",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Israel: Eisenkot officially tasked with forming a government",
-   "kurz": "Israeli President Isaac Herzog tasked Gadi Eisenkot with the right of trying to form a government. The opposition leader's way to replacing Benjamin Netanyahu…",
-   "link": "https://www.dw.com/en/israel-eisenkot-officially-tasked-with-forming-a-government/a-79891422?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-08T15:18:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Israel: Eisenkot officially tasked with forming a government",
-     "link": "https://www.dw.com/en/israel-eisenkot-officially-tasked-with-forming-a-government/a-79891422?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · ABC News Australia",
-     "titel": "Israeli president Isaac Herzog selects Yashar party leader Gadi Eisenkot to attempt to form a coalition government following inconclusive…",
-     "link": "https://www.abc.net.au/news/2026-11-08/israel-president-prime-minister-government-picked-eisenkot/107360472",
-     "eigentuemer": "gehört Australian Broadcasting Corporation",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -507,12 +515,12 @@
    ]
   },
   {
-   "titel": "G7-Außenminister sprechen über Ukraine und Iran",
-   "kurz": "Welche Rolle spielt Europa bei der Lösung des Ukraine-Kriegs? Wie geht es mit Iran weiter? Diese Fragen stehen im Zentrum der G7-Gespräche in Paris…",
-   "link": "https://www.tagesschau.de/ausland/europa/g7-paris-100.html",
+   "titel": "Auftakt der 31. Weltklimakonferenz im türkischen Antalya",
+   "kurz": "Auftakt der 31. Weltklimakonferenz im türkischen Antalya",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681020.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-09T15:21:47+01:00",
+   "zeit": "2026-11-09T20:48:50+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -521,8 +529,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "G7-Außenminister sprechen über Ukraine und Iran",
-     "link": "https://www.tagesschau.de/ausland/europa/g7-paris-100.html",
+     "titel": "Auftakt der 31. Weltklimakonferenz im türkischen Antalya",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681020.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -530,12 +538,12 @@
    ]
   },
   {
-   "titel": "Christoph Mestmacher, ARD Berlin, zur offiziellen Nominierung von Ilse Aigner als Bundespräsidentin",
-   "kurz": "Christoph Mestmacher, ARD Berlin, zur offiziellen Nominierung von Ilse Aigner als Bundespräsidentin",
-   "link": "https://www.tagesschau.de/video/video-1680774.html",
+   "titel": "Attentäter von Kraukau erliegt seinen Verletzungen",
+   "kurz": "Attentäter von Kraukau erliegt seinen Verletzungen",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681018.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-09T14:55:11+01:00",
+   "zeit": "2026-11-09T20:48:29+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -544,8 +552,675 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "\"Zum dritten Mal eine Nichtakademikerin\", Christoph Mestmacher, ARD Berlin, zu Aigner als möglicher neuer Bundespräsidentin",
-     "link": "https://www.tagesschau.de/video/video-1680630.html",
+     "titel": "Attentäter von Kraukau erliegt seinen Verletzungen",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681018.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Buenos Aires: Papst Leo XIV. feiert Messe vor zwei Millionen Menschen",
+   "kurz": "Argentinien ist im \"Papa-León-Fieber\": An einem gigantischen Freiluft-Gottesdienst nahmen gut zwei Millionen Menschen teil. Leo XIV. würdigte dabei die…",
+   "link": "https://www.tagesschau.de/ausland/amerika/papst-leo-argentinien-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T20:34:13+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Papst Leo XIV. fordert in Argentinien mehr Rücksicht auf Schwache",
+     "link": "https://www.tagesschau.de/ausland/amerika/papst-in-argentinien-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Michael Strempel, ARD Paris, über Frankreichs Vorwürfe gegen Iran zu Hackerangriffen auf Kühlsysteme",
+   "kurz": "Michael Strempel, ARD Paris, über Frankreichs Vorwürfe gegen Iran zu Hackerangriffen auf Kühlsysteme",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681012.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T20:33:58+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Michael Strempel, ARD Paris, über Frankreichs Vorwürfe gegen Iran zu Hackerangriffen auf Kühlsysteme",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681012.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Synagogen-Festakt in München: Ein Jubiläum in schwierigen Zeiten",
+   "kurz": "Am Jahrestag der NS-Pogromnacht feiert die Münchner Hauptsynagoge ihr 20-jähriges Bestehen. Die Holocaust-Überlebende Knobloch warnte dabei vor einem als…",
+   "link": "https://www.tagesschau.de/inland/gesellschaft/synagoge-muenchen-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T20:14:42+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Synagogen-Festakt in München: Ein Jubiläum in schwierigen Zeiten",
+     "link": "https://www.tagesschau.de/inland/gesellschaft/synagoge-muenchen-102.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Republican congressman to force impeachment vote on Defence Secretary Hegseth",
+   "kurz": "The effort will likely fail, but Representative Thomas Massie wants to push Trump to fire Hegseth before Democrats can launch their own impeachment process.",
+   "link": "https://www.bbc.co.uk/news/articles/cwr5y58jjp8ro?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T19:39:33Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Republican congressman to force impeachment vote on Defence Secretary Hegseth",
+     "link": "https://www.bbc.co.uk/news/articles/cwr5y58jjp8ro?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Weltklimakonferenz in Antalya: Erster Tag, erster Konflikt",
+   "kurz": "Im türkischen Antalya hat die UN-Klimakonferenz begonnen - mit eindringlichen Worten und einem vielversprechenden Vorschlag. Doch kaum eröffnet, gab es auch…",
+   "link": "https://www.tagesschau.de/ausland/cop-136.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T19:19:45+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Weltklimakonferenz in Antalya: Erster Tag, erster Konflikt",
+     "link": "https://www.tagesschau.de/ausland/cop-136.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
+   "kurz": "Am Dienstag vom Südwesten bis in den Süden Regen. Sonst teils dichte Wolken oder Nebel, teils Sonnenschein. Schauer vor allem an den Küsten, am Vormittag auch…",
+   "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T19:14:01+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
+     "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Frankreich macht Iran für Cyberangriffe auf Supermarkt-Kühltruhen verantwortlich",
+   "kurz": "In mehreren Ländern Europas hatte es zuletzt Cyberangriffe auf Supermarkt-Kühlanlagen gegeben - als möglicher Urheber galt Russland. Der französische…",
+   "link": "https://www.tagesschau.de/ausland/europa/kuehlanlagen-cyberangriffe-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T18:51:23+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Frankreich macht Iran für Cyberangriffe auf Supermarkt-Kühltruhen verantwortlich",
+     "link": "https://www.tagesschau.de/ausland/europa/kuehlanlagen-cyberangriffe-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau in 100 Sekunden",
+   "kurz": "tagesschau in 100 Sekunden",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680940.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T18:39:38+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau in 100 Sekunden",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680940.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Wadephul zweifelt an Russlands Verhandlungswillen",
+   "kurz": "In Abu Dhabi geht es ab Dienstag um ein mögliches Ende des Ukraine-Kriegs. Sind das ernsthafte Friedensgespräche? Außenminister Wadephul zweifelt am…",
+   "link": "https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T18:19:07+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Wadephul zweifelt an Russlands Verhandlungswillen",
+     "link": "https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-102.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Marktbericht: DAX erholt sich kräftig",
+   "kurz": "Der deutsche Aktienmarkt ist stark in die neue Woche gestartet. Während große Fragezeichen über der Technologiebranche bleiben, kam heute Entlastung von…",
+   "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-geldanlage-170.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T18:18:50+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Marktbericht: DAX erholt sich kräftig",
+     "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-geldanlage-170.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russia's leading independent newspaper closes after eviction",
+   "kurz": "The outlet has been evicted from its offices of three decades and says it's been blocked from receiving donations.",
+   "link": "https://www.bbc.co.uk/news/videos/cvrlylj9r11go?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T18:08:07Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Russia's leading independent newspaper closes after eviction",
+     "link": "https://www.bbc.co.uk/news/videos/cvrlylj9r11go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Trump questions midterm elections integrity after previously accepting results",
+   "kurz": "Trump made the claims, without evidence, on Truth Social on Monday.",
+   "link": "https://www.bbc.co.uk/news/articles/ck79p9350zp9o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T17:47:29Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Trump questions midterm elections integrity after previously accepting results",
+     "link": "https://www.bbc.co.uk/news/articles/ck79p9350zp9o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russland: Letzte unabhängige Zeitung Nowaja Gaseta stellt Arbeit ein",
+   "kurz": "Sie galt als die letzte regierungskritische Stimme in Russland - bis heute. Nun hat die Zeitung Nowaja Gaseta ihren Betrieb eingestellt. Der Druck des Kreml…",
+   "link": "https://www.tagesschau.de/ausland/europa/russland-zeitung-nowaja-gaseta-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T17:35:08+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Russland: Letzte unabhängige Zeitung Nowaja Gaseta stellt Arbeit ein",
+     "link": "https://www.tagesschau.de/ausland/europa/russland-zeitung-nowaja-gaseta-102.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Frankreichs Linksradikale: \"Weniger polarisieren? Werde ich nicht tun\"",
+   "kurz": "In Frankreich könnte es zur Stichwahl ums Präsidentenamt zwischen der rechtsnationalen Le Pen und ihm kommen: Mélenchon, Anführer der Linksradikalen…",
+   "link": "https://www.tagesschau.de/ausland/europa/frankreich-melenchon-lfi-wahlkampf-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T17:25:48+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Frankreichs Linksradikale: \"Weniger polarisieren? Werde ich nicht tun\"",
+     "link": "https://www.tagesschau.de/ausland/europa/frankreich-melenchon-lfi-wahlkampf-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Frankreich erhöht Mindestlohn um 1,6 Prozent",
+   "kurz": "Die Regierung in Paris will angesichts der anhaltenden Proteste offenbar ein Zeichen setzen: Die für Januar geplante Erhöhung des Mindestlohns wird nun…",
+   "link": "https://www.tagesschau.de/ausland/europa/frankreich-erhoehung-mindestlohn-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T17:25:22+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Frankreich erhöht Mindestlohn um 1,6 Prozent",
+     "link": "https://www.tagesschau.de/ausland/europa/frankreich-erhoehung-mindestlohn-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Zucker-, Plastik- und Stromsteuer: Die offenen Baustellen im Haushalt",
+   "kurz": "Nachdem Finanzminister Klingbeil die Plastiksteuer angekündigt hatte, scheint jetzt wieder alles offen. Auch bei der Krypto- und Zuckersteuer ist offenbar…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/haushalt-steuerplaene-bundesregierung-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T17:24:36+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Zucker-, Plastik- und Stromsteuer: Die offenen Baustellen im Haushalt",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/haushalt-steuerplaene-bundesregierung-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Mobilfunkunternehmen Vodafone plant Abbau von 2.300 Stellen",
+   "kurz": "Der Telekommunikationskonzern Vodafone muss sparen. In Deutschland soll nun rund jeder fünfte Job wegfallen - insgesamt 2.300 Stellen. Dafür will der Konzern…",
+   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vodafone-stellenabbau-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T17:09:03+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Mobilfunkunternehmen Vodafone plant Abbau von 2.300 Stellen",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vodafone-stellenabbau-102.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nine Zimbabweans caught allegedly trying to leave South Africa to fight in Ukraine",
+   "kurz": "Hundreds of people from different African countries have been recruited to fight for Russia, according to Ukraine.",
+   "link": "https://www.bbc.co.uk/news/articles/cm93z3lp5lnpo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T17:06:18Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Nine Zimbabweans caught allegedly trying to leave South Africa to fight in Ukraine",
+     "link": "https://www.bbc.co.uk/news/articles/cm93z3lp5lnpo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Watch: Rare insight into France's drug gangs recruiting children to commit violence",
+   "kurz": "\"It destroys people, but we all make our own choices\" - Marseille drug-gang members spoke to the BBC.",
+   "link": "https://www.bbc.co.uk/news/videos/cwe9l98l5n2po?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T16:59:46Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Watch: Rare insight into France's drug gangs recruiting children to commit violence",
+     "link": "https://www.bbc.co.uk/news/videos/cwe9l98l5n2po?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russell Brand zu mehr als zehn Jahren Haft verurteilt",
+   "kurz": "Vor wenigen Tagen war der Ex-Comedian in London wegen Vergewaltigung und sexueller Nötigung verurteilt worden. Nun wurde das Strafmaß verkündet: Er muss…",
+   "link": "https://www.tagesschau.de/ausland/russell-brand-strafmass-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T16:56:52+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Russell Brand zu mehr als zehn Jahren Haft verurteilt",
+     "link": "https://www.tagesschau.de/ausland/russell-brand-strafmass-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Steinmeier zu Novemberpogromen: \"Anlass, die Augen zu öffnen\"",
+   "kurz": "Bundespräsident Steinmeier hat zum Jahrestag der Novemberpogrome von 1938 die historische Verantwortung Deutschlands betont. Dass wieder mehr Juden hierzulande…",
+   "link": "https://www.tagesschau.de/inland/gesellschaft/novemberpogrome-jahrestag-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T16:51:17+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Steinmeier zu Novemberpogromen: \"Anlass, die Augen zu öffnen\"",
+     "link": "https://www.tagesschau.de/inland/gesellschaft/novemberpogrome-jahrestag-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Warum die Affäre des Nvidia-CEOs mit einer mutmaßlichen chinesischen Spionin von Bedeutung ist",
+   "kurz": "Nvidia-Chef Jensen Huang hat sich für eine Affäre mit einer Frau entschuldigt, die nach Einschätzung der USA für China spioniert hat. Wie weitreichend sind die…",
+   "link": "https://www.dw.com/de/warum-die-affäre-des-nvidia-ceos-mit-einer-mutmaßlichen-chinesischen-spionin-von-bedeutung-ist/a-79900932?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-09T16:24:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Warum die Affäre des Nvidia-CEOs mit einer mutmaßlichen chinesischen Spionin von Bedeutung ist",
+     "link": "https://www.dw.com/de/warum-die-affäre-des-nvidia-ceos-mit-einer-mutmaßlichen-chinesischen-spionin-von-bedeutung-ist/a-79900932?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russia: Independent Novaya Gazeta shuts its Moscow newsroom",
+   "kurz": "The investigative newspaper is closing its doors after Russian authorities labeled it a \"foreign agent\" and ordered it vacate its Moscow premises.",
+   "link": "https://www.dw.com/en/russia-independent-novaya-gazeta-shuts-its-moscow-newsroom/a-79899827?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T16:22:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Russia: Independent Novaya Gazeta shuts its Moscow newsroom",
+     "link": "https://www.dw.com/en/russia-independent-novaya-gazeta-shuts-its-moscow-newsroom/a-79899827?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "India’s demonetization: 10 years on, promises remain unfulfilled",
+   "kurz": "A decade after the 2016 currency ban, its impact on India's economy and the fight against black money remains contested.",
+   "link": "https://www.dw.com/en/india-s-demonetization-10-years-on-promises-remain-unfulfilled/a-79903331?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T16:21:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "India’s demonetization: 10 years on, promises remain unfulfilled",
+     "link": "https://www.dw.com/en/india-s-demonetization-10-years-on-promises-remain-unfulfilled/a-79903331?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ice hockey: Norway says it's been kicked out of World Juniors in favor of Russia",
+   "kurz": "The wrangling over Russia's return to international ice hockey continues, with Norway saying it has been kicked out of the next major tournament to accommodate…",
+   "link": "https://www.dw.com/en/ice-hockey-norway-says-it-s-been-kicked-out-of-world-juniors-in-favor-of-russia/a-79901844?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T16:02:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Ice hockey: Norway says it's been kicked out of World Juniors in favor of Russia",
+     "link": "https://www.dw.com/en/ice-hockey-norway-says-it-s-been-kicked-out-of-world-juniors-in-favor-of-russia/a-79901844?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Fake news in Africa: In an age of disinformation, who decides what's true?",
+   "kurz": "From Ghana to Mozambique, the fight against fake news keeps gaining momentum. But combating disinformation also requires safeguards for free speech, leaving…",
+   "link": "https://www.dw.com/en/fake-news-in-africa-in-an-age-of-disinformation-who-decides-what-s-true/a-79874039?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T15:56:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Fake news in Africa: In an age of disinformation, who decides what's true?",
+     "link": "https://www.dw.com/en/fake-news-in-africa-in-an-age-of-disinformation-who-decides-what-s-true/a-79874039?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Die Hetze von AfD und BSW gegen angebliche rumänische \"Sozialschmarotzer\" empört rumänische Politiker und Rumänen in Deutschland",
+   "kurz": "Alice Weidel und Sahra Wagenknecht werfen Rumänen pauschal vor, den deutschen Sozialstaat zu missbrauchen. In Rumänien und unter Rumänen in Deutschland stößt…",
+   "link": "https://www.dw.com/de/die-hetze-von-afd-und-bsw-gegen-angebliche-rumänische-sozialschmarotzer-empört-rumänische-politiker-und-rumänen-in-deutschland/a-79899421?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-09T15:54:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Die Hetze von AfD und BSW gegen angebliche rumänische \"Sozialschmarotzer\" empört rumänische Politiker und Rumänen in Deutschland",
+     "link": "https://www.dw.com/de/die-hetze-von-afd-und-bsw-gegen-angebliche-rumänische-sozialschmarotzer-empört-rumänische-politiker-und-rumänen-in-deutschland/a-79899421?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Luca Manns, Forschungsstelle Nachrichtendienste Uni Köln, zum Spionageverdacht bei Nvidia",
+   "kurz": "Luca Manns, Forschungsstelle Nachrichtendienste Uni Köln, zum Spionageverdacht bei Nvidia",
+   "link": "https://www.tagesschau.de/video/video-1680800.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T15:50:44+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Luca Manns, Forschungsstelle Nachrichtendienste Uni Köln, zum Spionageverdacht bei Nvidia",
+     "link": "https://www.tagesschau.de/video/video-1680800.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Warum Merz sich doch für Aigner als Bundespräsidentin stark macht",
+   "kurz": "Lange hatte der Kanzler gezögert - nun ist es offiziell: Die CDU überlässt das höchste Staatsamt der kleinen Schwesterpartei aus Bayern. Die viel befürchtete…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/merz-aigner-kandidatin-bundespraesidentin-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T15:48:54+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Warum Merz sich doch für Aigner als Bundespräsidentin stark macht",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/merz-aigner-kandidatin-bundespraesidentin-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -576,6 +1251,29 @@
    ]
   },
   {
+   "titel": "Strait of Hormuz still a source of leverage for Iran",
+   "kurz": "Attacks in the Strait of Hormuz put crews at risk and drive up energy shipping costs. Iran's ability to sustain them and the limits of US protection will shape…",
+   "link": "https://www.dw.com/en/strait-of-hormuz-still-a-source-of-leverage-for-iran/a-79901647?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T14:49:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Strait of Hormuz still a source of leverage for Iran",
+     "link": "https://www.dw.com/en/strait-of-hormuz-still-a-source-of-leverage-for-iran/a-79901647?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Nvidia-Affäre lässt Aktie einbrechen",
    "kurz": "Die mutmaßliche Spionageaffäre um Nvidia-Chef Huang trifft den Chiphersteller und die gesamte KI-Branche zu einem äußerst ungünstigen Zeitpunkt. Wie es…",
    "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktbericht-nvidia-ki-huang-100.html",
@@ -599,12 +1297,12 @@
    ]
   },
   {
-   "titel": "tagesschau in 100 Sekunden",
-   "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680768.html",
-   "quelle": "Tagesschau",
+   "titel": "Von Panik keine Spur: Deutschland und seine Gasvorräte",
+   "kurz": "Die deutschen Gasspeicher sind zwar nicht nach Plan gefüllt, aber die Politik scheint das nicht zu sorgen. Die italienische Regierung wirft der Bundesregierung…",
+   "link": "https://www.dw.com/de/von-panik-keine-spur-deutschland-und-seine-gasvorräte/a-79872731?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
    "sprache": "de",
-   "zeit": "2026-11-09T14:41:01+01:00",
+   "zeit": "2026-11-09T14:40:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -612,79 +1310,10 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680768.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Russell Brand sentenced to over 10 years in prison for rape and sexual assault convictions",
-   "kurz": "The former comedian was found guilty of raping one woman and sexually assaulting three others last week. The judge referred to Brand as a \"predator.\"",
-   "link": "https://www.dw.com/en/russell-brand-sentenced-to-over-10-years-in-prison-for-rape-and-sexual-assault-convictions/a-79896124?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-09T14:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Russell Brand sentenced to over 10 years in prison for rape and sexual assault convictions",
-     "link": "https://www.dw.com/en/russell-brand-sentenced-to-over-10-years-in-prison-for-rape-and-sexual-assault-convictions/a-79896124?maca=en-rss-en-all-1573-xml-mrss",
+     "quelle": "Deutsche Welle",
+     "titel": "Von Panik keine Spur: Deutschland und seine Gasvorräte",
+     "link": "https://www.dw.com/de/von-panik-keine-spur-deutschland-und-seine-gasvorräte/a-79872731?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "\"Eine COP der Superlative\", Katharina Willinger, ARD Istanbul, zum COP31-Start in Antalya",
-   "kurz": "\"Eine COP der Superlative\", Katharina Willinger, ARD Istanbul, zum COP31-Start in Antalya",
-   "link": "https://www.tagesschau.de/video/video-1680756.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T14:26:43+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "\"Eine COP der Superlative\", Katharina Willinger, ARD Istanbul, zum COP31-Start in Antalya",
-     "link": "https://www.tagesschau.de/video/video-1680756.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "\"Beteiligung von 15.000 Beschäftigen\", Katrin Nöbauer, BR, zum IG Metall-Warnstreik bei Audi in Ingolstadt",
-   "kurz": "\"Beteiligung von 15.000 Beschäftigen\", Katrin Nöbauer, BR, zum IG Metall-Warnstreik bei Audi in Ingolstadt",
-   "link": "https://www.tagesschau.de/video/video-1680748.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T14:14:48+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "\"Beteiligung von 15.000 Beschäftigen\", Katrin Nöbauer, BR, zum IG Metall-Warnstreik bei Audi in Ingolstadt",
-     "link": "https://www.tagesschau.de/video/video-1680748.html",
-     "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -914,627 +1543,6 @@
      "quelle": "Tagesschau",
      "titel": "Opferbeauftragte Zupke warnt vor Verdrehung der DDR-Geschichte",
      "link": "https://www.tagesschau.de/inland/november-gedenken-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
-   "kurz": "Am Dienstag vom Südwesten bis in den Süden Regen. Sonst teils dichte Wolken oder Nebel, teils Sonnenschein. Schauer vor allem an den Küsten, am Vormittag auch…",
-   "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T12:40:37+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
-     "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Nine foreigners caught allegedly trying to leave South Africa to fight in Ukraine",
-   "kurz": "Police declined to disclose their nationalities but said none of them lived in South Africa.",
-   "link": "https://www.bbc.co.uk/news/articles/cm93z3lp5lnpo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-09T12:33:24Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Nine foreigners caught allegedly trying to leave South Africa to fight in Ukraine",
-     "link": "https://www.bbc.co.uk/news/articles/cm93z3lp5lnpo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Laut Polizei ist mutmaßlicher Attentäter von Krakau tot",
-   "kurz": "Laut Polizei ist mutmaßlicher Attentäter von Krakau tot",
-   "link": "https://www.tagesschau.de/video/video-1680690.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T12:16:46+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Laut Polizei ist mutmaßlicher Attentäter von Krakau tot",
-     "link": "https://www.tagesschau.de/video/video-1680690.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany: CDU names Ilse Aigner as candidate for president",
-   "kurz": "The steering committtee of the CDU have announced Bavarian politician Ilse Aigner as presidential candidate. This gives her a good chance of becoming the first…",
-   "link": "https://www.dw.com/en/germany-cdu-names-ilse-aigner-as-candidate-for-president/a-79898143?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-09T12:11:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Germany: Chancellor Merz to nominate Aigner for president",
-     "link": "https://www.dw.com/en/germany-chancellor-merz-to-nominate-aigner-for-president/live-79883533?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "EU aims to pick new ECB chief by year-end",
-   "kurz": "Christine Lagarde's decision to step down early as head of the European Central Bank (ECB) has put the European Union on a tight schedule. The bloc expects to…",
-   "link": "https://www.dw.com/en/eu-aims-to-pick-new-ecb-chief-by-year-end/a-79898169?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-09T11:55:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "EU aims to pick new ECB chief by year-end",
-     "link": "https://www.dw.com/en/eu-aims-to-pick-new-ecb-chief-by-year-end/a-79898169?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Streiks und neue Gespräche in Bayerns Metall- und Elektroindustrie",
-   "kurz": "Zum Start der dritten Verhandlungsrunde hat die IG Metall zu einer großen Warnstreik-Kundgebung in Ingolstadt aufgerufen. Erwartet wurden mehr als 15.000…",
-   "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/streiks-tarifgespraeche-ig-metall-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T11:52:08+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Streiks und neue Gespräche in Bayerns Metall- und Elektroindustrie",
-     "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/streiks-tarifgespraeche-ig-metall-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "US-Präsident Trump bezeichnet Jobangebot für White als Spaß",
-   "kurz": "US-Präsident Trump bezeichnet Jobangebot für White als Spaß",
-   "link": "https://www.tagesschau.de/video/video-1680608.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T11:41:19+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Trump bezeichnet Sprecher-Angebot an Dana White als \"Scherz\"",
-     "link": "https://www.tagesschau.de/ausland/amerika/usa-trump-pressesprecher-dana-white-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Ostbeauftragte Kaiser sieht Demokratie im Osten unter Druck",
-   "kurz": "Zum Jahrestag des Mauerfalls schlägt die Ostbeauftragte der Bundesregierung Alarm. Elisabeth Kaiser sieht demokratische Kräfte im Osten erheblich unter Druck…",
-   "link": "https://www.dw.com/de/ostbeauftragte-kaiser-sieht-demokratie-im-osten-unter-druck/a-79898142?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T11:05:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Ostbeauftragte Kaiser sieht Demokratie im Osten unter Druck",
-     "link": "https://www.dw.com/de/ostbeauftragte-kaiser-sieht-demokratie-im-osten-unter-druck/a-79898142?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "BVB-Fanabteilung kritisiert Nmechas Jubel-Geste: Evangelikales Netzwerk \"Ballers in God\" steht im Mittelpunkt der Debatte",
-   "kurz": "Borussia Dortmunds Felix Nmecha zeigt erneut seinen Jubel, der der konservativ-religiösen Bewegung \"Ballers in God\" zugerechnet wird. Das sorgt für…",
-   "link": "https://www.dw.com/de/bvb-fanabteilung-kritisiert-nmechas-jubel-geste-evangelikales-netzwerk-ballers-in-god-steht-im-mittelpunkt-der-debatte/a-79897268?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T11:02:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "BVB-Fanabteilung kritisiert Nmechas Jubel-Geste: Evangelikales Netzwerk \"Ballers in God\" steht im Mittelpunkt der Debatte",
-     "link": "https://www.dw.com/de/bvb-fanabteilung-kritisiert-nmechas-jubel-geste-evangelikales-netzwerk-ballers-in-god-steht-im-mittelpunkt-der-debatte/a-79897268?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Mindestens 20 Tote bei Schiffsunglücken vor Kreta",
-   "kurz": "Sie brachen in Libyen auf und zahlten Tausende Euro für die Überfahrt Richtung EU: Bei mehreren Bootsunglücken sind in den vergangenen Tagen mindestens 20…",
-   "link": "https://www.tagesschau.de/ausland/europa/bootsunglueck-kreta-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T10:59:46+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Mindestens 20 Tote bei Schiffsunglücken vor Kreta",
-     "link": "https://www.tagesschau.de/ausland/europa/bootsunglueck-kreta-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "KI im Klassenzimmer: Der Kampf gegen die Verdummung",
-   "kurz": "Die Forschung zeigt recht klar in eine Richtung: Wenn junge Menschen Künstliche Intelligenz nicht richtig nutzen, kann die Leistung in der Schule in den Keller…",
-   "link": "https://www.dw.com/de/ki-im-klassenzimmer-der-kampf-gegen-die-verdummung/a-79863775?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T10:43:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "KI im Klassenzimmer: Der Kampf gegen die Verdummung",
-     "link": "https://www.dw.com/de/ki-im-klassenzimmer-der-kampf-gegen-die-verdummung/a-79863775?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Four killed in Gaza after sand embankment collapses onto tents, health ministry says",
-   "kurz": "Three children are among those killed in the incident that came a day after heavy rain reportedly flooded tens of thousands of tents across Gaza.",
-   "link": "https://www.bbc.co.uk/news/articles/cqd090ee8px5o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-09T10:41:57Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Four killed in Gaza after sand embankment collapses onto tents, health ministry says",
-     "link": "https://www.bbc.co.uk/news/articles/cqd090ee8px5o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "\"Heftiges Symbol\", Silke Diettrich, ARD Moskau, zum Aus von unabhängiger russischer Zeitung Nowaja Gaseta",
-   "kurz": "\"Heftiges Symbol\", Silke Diettrich, ARD Moskau, zum Aus von unabhängiger russischer Zeitung Nowaja Gaseta",
-   "link": "https://www.tagesschau.de/video/video-1680638.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T10:24:28+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "\"Heftiges Symbol\", Silke Diettrich, ARD Moskau, zum Aus von unabhängiger russischer Zeitung Nowaja Gaseta",
-     "link": "https://www.tagesschau.de/video/video-1680638.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "COP31-Gastgeberland Türkei: noch stark abhängig von Fossil-Importen",
-   "kurz": "Das Gastgeberland des diesjährigen UN-Klimagipfels ist noch stark von fossilen Brennstoffen abhängig. Gleichzeitig will die Türkei den weltweiten Umstieg auf…",
-   "link": "https://www.dw.com/de/cop31-gastgeberland-türkei-noch-stark-abhängig-von-fossil-importen/a-79875337?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T10:07:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "COP31-Gastgeberland Türkei: noch stark abhängig von Fossil-Importen",
-     "link": "https://www.dw.com/de/cop31-gastgeberland-türkei-noch-stark-abhängig-von-fossil-importen/a-79875337?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Schneider fordert Alternative zur Plastiksteuer",
-   "kurz": "\"Die Plastiksteuer machen wir nicht.\" Die Ansage von Unionsfraktionschef Frei war klar und deutlich - doch mit den Einnahmen daraus wird schon geplant…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/diskussion-plastiksteuer-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T10:03:50+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Schneider fordert Alternative zur Plastiksteuer",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/diskussion-plastiksteuer-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Hoffen auf Ende des Iran-Krieges: Ölpreise deutlich gesunken",
-   "kurz": "Noch ist kein Abkommen unterzeichnet - doch Anleger glauben an ein Ende des US-Iran-Krieges. Das zeigt sich an den Ölpreisen. Und auch an der Tankstelle sinken…",
-   "link": "https://www.tagesschau.de/wirtschaft/weltwirtschaft/oelpreise-gesunken-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T09:52:19+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Hoffen auf Ende des Iran-Krieges: Ölpreise deutlich gesunken",
-     "link": "https://www.tagesschau.de/wirtschaft/weltwirtschaft/oelpreise-gesunken-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Wie steht es um den Klimaschutz im Gastgeberland Türkei?",
-   "kurz": "Den Anteil elektrischer Energie bis 2035 weltweit auf 35 Prozent erhöhen - mit diesem Vorschlag geht Gastgeberin Türkei in die Klimakonferenz. Das Land selbst…",
-   "link": "https://www.tagesschau.de/ausland/europa/cop-gastgeber-turkei-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T09:05:32+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Wie steht es um den Klimaschutz im Gastgeberland Türkei?",
-     "link": "https://www.tagesschau.de/ausland/europa/cop-gastgeber-turkei-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Trump says he was 'kidding' about Dana White press secretary offer",
-   "kurz": "The president told the Ultimate Fighting Championship boss to \"please take the job\" in a Truth Social post on Saturday.",
-   "link": "https://www.bbc.co.uk/news/articles/ck0j0j87959eo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-09T08:49:17Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Trump says he was 'kidding' about Dana White press secretary offer",
-     "link": "https://www.bbc.co.uk/news/articles/ck0j0j87959eo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "\"Gai Puja\", Doppelgänger-Wettbewerb, Quellerkraut",
-   "kurz": "\"Gai Puja\", Doppelgänger-Wettbewerb, Quellerkraut",
-   "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10556.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T08:42:36+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "\"Gai Puja\", Doppelgänger-Wettbewerb, Quellerkraut",
-     "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10556.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Turkey pushes for transition at COP31 as coal burns",
-   "kurz": "The host of this year's UN climate summit remains heavily dependent on fossil fuels as it tries to inspire a global switch to clean energy.",
-   "link": "https://www.dw.com/en/turkey-pushes-for-transition-at-cop31-as-coal-burns/a-79871687?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-09T08:31:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Turkey pushes for transition at COP31 as coal burns",
-     "link": "https://www.dw.com/en/turkey-pushes-for-transition-at-cop31-as-coal-burns/a-79871687?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Todesschütze von Krakau ist tot",
-   "kurz": "Die tödlichen Schüsse in Krakau haben Entsetzen ausgelöst, aber auch viele Fragen aufgeworfen. Vor allem nach dem Motiv des Täters. Er kann nicht mehr…",
-   "link": "https://www.tagesschau.de/ausland/europa/krakau-todesschuetze-tot-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T08:06:15+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Todesschütze von Krakau ist tot",
-     "link": "https://www.tagesschau.de/ausland/europa/krakau-todesschuetze-tot-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Erstes Manöver der Ukraine-Koalition beginnt in Polen - News kompakt: Das Wichtigste kurz gefasst",
-   "kurz": "Die Verbündeten der Ukraine bauen eine Truppe auf, um einen möglichen Waffenstillstand mit Russland abzusichern. Der Todesschütze von Krakau ist gestorben. Der…",
-   "link": "https://www.dw.com/de/erstes-manöver-der-ukraine-koalition-beginnt-in-polen-news-kompakt-das-wichtigste-kurz-gefasst/a-79895616?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T08:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Erstes Manöver der Ukraine-Koalition beginnt in Polen - News kompakt: Das Wichtigste kurz gefasst",
-     "link": "https://www.dw.com/de/erstes-manöver-der-ukraine-koalition-beginnt-in-polen-news-kompakt-das-wichtigste-kurz-gefasst/a-79895616?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "37 Jahre nach dem Mauerfall: Wie getrennt sind wir? Drei Kreative schildern, wie sie auf das Zusammenwachsen von Ost und West blicken.",
-   "kurz": "Kindheitserinnerungen an die DDR, Kritik an der Aufarbeitung und die Frage nach einem gemeinsamen Wir: Drei Kreative schildern, wie sie auf das Zusammenwachsen…",
-   "link": "https://www.dw.com/de/37-jahre-nach-dem-mauerfall-wie-getrennt-sind-wir-drei-kreative-schildern-wie-sie-auf-das-zusammenwachsen-von-ost-und-west-blicken/a-79864704?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T07:53:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "37 Jahre nach dem Mauerfall: Wie getrennt sind wir? Drei Kreative schildern, wie sie auf das Zusammenwachsen von Ost und West blicken.",
-     "link": "https://www.dw.com/de/37-jahre-nach-dem-mauerfall-wie-getrennt-sind-wir-drei-kreative-schildern-wie-sie-auf-das-zusammenwachsen-von-ost-und-west-blicken/a-79864704?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Congress is back after GOP's midterm defeat. And, Trump appoints new chief of staff",
-   "kurz": "Republicans have just weeks left of control of Congress. Here's what to expect. And, Trump has appointed Stephen Miller as his new chief of staff, signaling…",
-   "link": "https://www.npr.org/2026/11/09/g-s1-152627/up-first-newsletter-stephen-miller-trump-congress-nvidia-cop31",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-09T07:45:14-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Congress is back after GOP's midterm defeat. And, Trump appoints new chief of staff",
-     "link": "https://www.npr.org/2026/11/09/g-s1-152627/up-first-newsletter-stephen-miller-trump-congress-nvidia-cop31",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany news: Germany marks fateful date of November 9",
-   "kurz": "Germany is commemorating the Nazi-led November pogroms 88 years ago. Events are also being held to mark the anniversary of the fall of the Berlin Wall in 1989…",
-   "link": "https://www.dw.com/en/germany-news-germany-marks-fateful-date-of-november-9/live-79895613?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-09T07:43:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Germany news: Germany marks fateful date of November 9",
-     "link": "https://www.dw.com/en/germany-news-germany-marks-fateful-date-of-november-9/live-79895613?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "India news: Delhi air quality level 'severe' after Diwali",
-   "kurz": "Illegal fireworks during Diwali celebrations have impacted New Delhi's air quality level. DW has the latest.",
-   "link": "https://www.dw.com/en/india-news-delhi-air-quality-level-severe-after-diwali/live-79895307?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-09T07:12:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "India news: Delhi air quality level 'severe' after Diwali",
-     "link": "https://www.dw.com/en/india-news-delhi-air-quality-level-severe-after-diwali/live-79895307?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Klimagipfel in Antalya: Eine Premiere und viel Konfliktpotenzial",
-   "kurz": "In der Türkei beginnt die Klimakonferenz in neuem Format und mit alten Streitpunkten. Und wieder ist die große Frage: Kommt die Weltgemeinschaft beim Ausstieg…",
-   "link": "https://www.tagesschau.de/ausland/asien/klimagipfel-204.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T07:02:50+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Klimagipfel in Antalya: Eine Premiere und viel Konfliktpotenzial",
-     "link": "https://www.tagesschau.de/ausland/asien/klimagipfel-204.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
