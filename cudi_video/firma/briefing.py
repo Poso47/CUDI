@@ -17,7 +17,7 @@ from . import news as newsmod
 from .common import iso, now
 
 NAMES = {"trends": "Trend-Scout", "news": "News-Reporter", "welt": "Welt-Blick", "ideen": "Ideen-Entwickler",
-         "putzen": "Putzmann", "lernen": "Lern-Analyst", "wissen": "Wissens-Sammler", "briefing": "Morgen-Briefing"}
+         "putzen": "Putzmann", "clipscout": "Clip-Scout", "messung": "Messung", "lernen": "Lern-Analyst", "wissen": "Wissens-Sammler", "briefing": "Morgen-Briefing"}
 FRESH_H = 24
 MAX_MD = 60_000
 ARCHIV, ARCHIV_DAYS = "briefing_archiv.json", 30
@@ -119,6 +119,27 @@ def section_firma(status: dict, ideen: dict, lernen: dict, wissen: dict) -> list
     return pts
 
 
+def section_clipteam(radar: dict, erl: dict, mess: dict) -> list[dict]:
+    """Clip-Team: nur Belegtes – virale Videos mit belegter Erlaubnis, Creator mit Erlaubnis (Zitat+Link), Messwerte eigener Posts."""
+    pts = []
+    t0 = now() - timedelta(hours=FRESH_H)
+    for v in [v for v in radar.get("videos", []) if v.get("erlaubt") and v.get("faktor", 0) >= 1.5][:3]:
+        pts.append(point(f"Virales erlaubtes Material: {_cut(v.get('creator'), 40)} – „{_cut(v.get('titel'), 90)}“, "
+                         f"{v.get('aufrufe_je_stunde', 0):.0f} Aufrufe/Stunde ({v.get('faktor')}× Kanal-Median).", [("Video", v.get("url", ""))]))
+    for c in erl.get("creators", []):
+        if c.get("status") != "erlaubt":
+            continue
+        b = next((b for b in c.get("belege", []) if b.get("url") and b.get("zitat")), None)
+        when = common.parse_time(c.get("geprueft", ""))
+        if b and when and when >= t0:
+            pts.append(point(f"Erlaubnis belegt: {_cut(c.get('name'), 40)} – „{_cut(b['zitat'], 120)}“ ({b.get('datum', '')}).", [("Beleg", b["url"])]))
+    for url, e in sorted((mess.get("posts") or {}).items(), key=lambda kv: -(kv[1].get("verlauf") or [{"aufrufe": 0}])[-1]["aufrufe"])[:3]:
+        if e.get("verlauf"):
+            last = e["verlauf"][-1]
+            pts.append(point(f"Eigener Post: {last['aufrufe']} Aufrufe, {last.get('likes') or 0} Likes (Stand {last['zeit'][:10]}).", [("Post", url)]))
+    return pts
+
+
 def section_confirmed(news: dict) -> list[dict]:
     pts = []
     for m in news.get("meldungen", []):
@@ -191,10 +212,12 @@ def build_sections(top: list[dict] | None = None, hints: list[dict] | None = Non
             ("2. Bestätigte Meldungen (≥ 2 unabhängige Betreiber)", section_confirmed(news)),
             ("3. Deutschland von außen", section_abroad(welt)),
             ("4. Belegte Verbindungen (Wikidata)", section_links(welt)),
-            ("5. Offene Fragen (nicht belegt, nur Fragen)", section_questions(welt, news))]
+            ("5. Offene Fragen (nicht belegt, nur Fragen)", section_questions(welt, news)),
+            ("6. Clip-Team (nur Belegtes)", section_clipteam(r("clip_radar.json", {}) or {}, r("clip_erlaubnis.json", {}) or {},
+                                                            r("messung.json", {}) or {}))]
     empty = {"0": "Heute keine Meldung, die mehrere Länder bzw. Betreiber bestätigen.", "1": "Keine Mitarbeiter-Daten vorhanden.",
              "2": "Heute keine Meldung mit zwei unabhängigen Betreibern.", "3": "Keine Auslandsberichte mit Deutschland-Bezug erhalten.",
-             "4": "Keine belegte Verbindung gefunden.", "5": "Keine offenen Fragen."}
+             "4": "Keine belegte Verbindung gefunden.", "5": "Keine offenen Fragen.", "6": "Kein belegtes Clip-Material und keine Messwerte heute."}
     return [{"titel": t, "punkte": p or [point(empty[t[0]])]} for t, p in secs]
 
 
@@ -210,7 +233,7 @@ LLM_SYSTEM = (
 def rule_overview(sections: list[dict]) -> str:
     n = [len(s["punkte"]) for s in sections]
     return (f"Wichtigste Meldungen: {n[0]}. Firma: {n[1]} Punkte. Bestätigte Meldungen: {n[2]}. Deutschland von außen: {n[3]} Themen. "
-            f"Belegte Verbindungen: {n[4]}. Offene Fragen: {n[5]}. Alles mit Quellenlinks; Unbelegtes steht nur als Frage.")
+            f"Belegte Verbindungen: {n[4]}. Offene Fragen: {n[5]}. Clip-Team: {n[6]}. Alles mit Quellenlinks; Unbelegtes steht nur als Frage.")
 
 
 INTERNA = re.compile(r"Sprachmodell|GDELT|Workflow|\bAPI\b|nicht erreichbar|Mitarbeiter|Hinweis|Secret|Zugangsdaten", re.I)
@@ -238,7 +261,7 @@ def overview(sections: list[dict], notes: list[str]) -> tuple[str, str]:
         return plain, "regeln"
     # nur die Nachrichten-Abschnitte – Firma-Interna (Ausfälle, Hinweise) gehören nicht in den Welt-Überblick
     source = "\n".join(f"[{s['titel']}] " + " | ".join(p["text"] for p in s["punkte"])
-                       for s in sections if not s["titel"].startswith("1."))
+                       for s in sections if not s["titel"].startswith(("1.", "6.")))
     try:
         text = " ".join(str(llm.chat_json(LLM_SYSTEM, source, temperature=0.2, timeout=90).get("ueberblick", "")).split())
         problems = check_overview(text, source) if text else ["leer"]

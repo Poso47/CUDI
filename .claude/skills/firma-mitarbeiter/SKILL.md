@@ -33,3 +33,9 @@ description: Neuen Firma-Mitarbeiter (GitHub-Workflow, kein Claude-Verbrauch) ba
 - Meldungen gruppieren: zusätzlich zur Wortähnlichkeit **gemeinsamer Eigenname nötig** (`news.names`) – sonst landen „sentenced … years in prison“ aus Kenia/Tansania/Hongkong in einer Gruppe.
 - Workflows, die Daten anderer Mitarbeiter lesen (Ideen, Briefing): vor dem Lauf `git pull --ff-only` – der Checkout ist sonst der Stand beim Auslösen.
 - Wikidata-Verbindungen ohne Enddatum nie als „aktuell“ darstellen: „kein Enddatum eingetragen – ob noch aktuell, ist offen“.
+
+## Clip-Scout / Messung (Stand 11/2026)
+- `clipscout.py` (6 h) + `messung.py` (täglich); Daten `clip_creators.json` (Nutzer), `clip_radar.json`, `clip_erlaubnis.json`, `messung.json`. Doku `docs/clip-team.md`.
+- Regeln: Erlaubnis nur mit wörtlichem Zitat+Link+Datum (`decide`); Sperre gewinnt; Kampagne/schwacher Hinweis = „unklar“; leere Creator-Liste = ehrlich leer mit Hinweis, nie Creator erfinden.
+- Workflows brauchen `pip install yt-dlp` und `git pull --ff-only`. Live geprüft: YouTube-@Handle-Auflösung (Kanalseite), Feed, contentrewards-Liste (robots.txt erlaubt `/c/discover`).
+- Tests ohne Netz: `tests/test_clipteam.py` (Atom-Feed als Fixture).

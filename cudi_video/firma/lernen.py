@@ -90,11 +90,30 @@ def measure(rows: list[dict], notes: list[str]) -> list[dict]:
             if hit:
                 out.append({**r, "views": hit["views"], "likes": hit["likes"], "comments": hit["comments"],
                             "shares": hit["shares"]})
+    _from_messung(rows, out, notes)
     for r in out:
         t = parse_time(r.get("hochgeladen", ""))
         r["alter_tage"] = round((now() - t).total_seconds() / 86400, 2) if t else 0
         r["punkte"] = r.get("views", 0) + 25 * r.get("likes", 0) + 60 * r.get("comments", 0) + 80 * r.get("shares", 0)
     return [r for r in out if r["alter_tage"] >= MIN_ALTER_TAGE and r.get("varianten")]
+
+
+def _from_messung(rows: list[dict], out: list[dict], notes: list[str]) -> None:
+    """Fehlen API-Zahlen, hilft die öffentliche Messreihe des Mitarbeiters „Messung“ (messung.json, nur Aufrufe/Likes/Kommentare)."""
+    from . import messung
+    data = common.read_json(messung.FILE, {}) or {}
+    added = 0
+    for r in rows:
+        if any(r.get("auftrag") == o.get("auftrag") and r.get("ziel") == o.get("ziel") for o in out):
+            continue
+        url = r.get("url") or (f"https://www.youtube.com/watch?v={r['video_id']}" if r.get("video_id") else "")
+        point = messung.latest(url, data) if url else None
+        if point:
+            out.append({**r, "views": point["aufrufe"], "likes": point.get("likes") or 0, "comments": point.get("kommentare") or 0,
+                        "shares": 0})
+            added += 1
+    if added:
+        notes.append(f"{added} Video(s) mit Zahlen der Messung (öffentlich, ohne API) ausgewertet.")
 
 
 # --------------------------------------------------------------------------- Auswertung
