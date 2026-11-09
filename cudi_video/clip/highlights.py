@@ -67,6 +67,7 @@ class Fenster:
     ende: float
     wert: float
     saetze: list[Satz] = field(default_factory=list)
+    signale: dict = field(default_factory=dict)      # Einzelwerte der Auswahl (für Prüfbericht und Kalibrierung)
 
 
 def saetze_bilden(words: list[dict]) -> list[Satz]:
@@ -173,34 +174,101 @@ def _hooks_bewerten(saetze: list[Satz], words: list[dict], lg: str) -> None:
         s.hook_wert, s.hook_n = beste, bn
 
 
-def fenster_finden(saetze: list[Satz], min_s: float = 30.0, max_s: float = 90.0) -> Fenster:
-    """Bestes Fenster an Satzgrenzen: Dichte der Punkte, starker Einstieg, Pointe am Ende, Länge."""
+OFFEN_ENDE = {"de": {"und", "aber", "oder", "weil", "dass", "denn", "also", "dann", "sondern", "wenn", "als", "mit",
+                     "der", "die", "das", "ein", "eine", "zu", "von", "für", "ich", "wir", "es", "ja", "ähm", "äh"},
+              "en": {"and", "but", "or", "because", "that", "so", "then", "if", "when", "the", "a", "an", "to", "of",
+                     "with", "i", "we", "it", "um", "uh"}}
+RUECKBEZUG = {"de": {"das", "dann", "deshalb", "deswegen", "darum", "also", "und", "aber", "dort", "dabei", "danach",
+                     "daher", "genau", "eben", "ja", "sie", "er", "es", "dieser", "diese", "dieses"},
+              "en": {"and", "but", "so", "then", "that", "this", "those", "these", "he", "she", "they", "it"}}
+
+
+def offenes_ende(text: str, sprache: str | None = "de") -> bool:
+    """Endet der Satz mitten im Gedanken (kein Satzzeichen, Bindewort/Artikel am Schluss, Gedankenstrich)?"""
+    t = text.strip()
+    if not t:
+        return True
+    if re.search(r"[.?!…][\"”“)]*$", t):
+        return bool(re.search(r"(\.\.\.|…)$", t))
+    letzt = _norm(t.split()[-1])
+    return bool(re.search(r"[,;:–-]$", t)) or letzt in OFFEN_ENDE[_lang(sprache)]
+
+
+def rueckbezug_start(text: str, sprache: str | None = "de") -> bool:
+    """Beginnt der Ausschnitt mit einem Rückbezug („und dann“, „das war“) – ohne Vorwissen schwer verständlich?"""
+    toks = [_norm(w) for w in text.split()[:2]]
+    return bool(toks) and toks[0] in RUECKBEZUG[_lang(sprache)]
+
+
+def titel_treffer(satz_text: str, titel: str, sprache: str | None = "de") -> int:
+    """Wie viele Inhaltswörter des Videotitels kommen im Text vor?"""
+    lg = _lang(sprache)
+    tw = {_norm(w) for w in titel.split() if len(_norm(w)) >= 4 and _norm(w) not in STOP[lg]}
+    sw = {_norm(w) for w in satz_text.split()}
+    return len(tw & sw)
+
+
+def _gewicht(g: dict | None, name: str) -> float:
+    return float((g or {}).get(name, 1.0))
+
+
+def fenster_rangliste(saetze: list[Satz], min_s: float = 30.0, max_s: float = 90.0, schnitte: list[float] | None = None,
+                      titel: str = "", gewichte: dict | None = None, sprache: str | None = "de",
+                      anzahl: int = 3) -> list[Fenster]:
+    """Die besten Fenster (sich nicht überlappend) an Satzgrenzen. Bewertet werden: Dichte der Punkte, starker Einstieg,
+    Pointe am Ende, Länge, Treffer des Videotitels, Episodenanfang (Szenenschnitt) bzw. Schnitt mitten im Fenster
+    (zwei Episoden) und ein offenes Ende (endet mitten im Gedanken)."""
     if not saetze:
         raise ValueError("keine Sätze")
+    schnitte = schnitte or []
     gesamt = saetze[-1].ende - saetze[0].start
-    if gesamt <= max_s:
-        return Fenster(saetze[0].start, saetze[-1].ende, sum(s.wert for s in saetze), list(saetze))
+    if gesamt <= max_s and not schnitte:
+        return [Fenster(saetze[0].start, saetze[-1].ende, sum(s.wert for s in saetze), list(saetze))]
     min_s = min(min_s, gesamt)
     pref = np.concatenate([[0.0], np.cumsum([s.wert for s in saetze])])
-    beste: Fenster | None = None
+    treffer = [titel_treffer(s.text, titel, sprache) if titel else 0 for s in saetze]
+    th = np.concatenate([[0], np.cumsum(treffer)])
+    offen = [offenes_ende(s.text, sprache) for s in saetze]
+    alle: list[Fenster] = []
     for a in range(len(saetze)):
         for b in range(a, len(saetze)):
             dauer = saetze[b].ende - saetze[a].start
             if dauer > max_s:
                 break
-            if dauer < min_s:
+            if dauer < min_s and not (a == 0 and b == len(saetze) - 1):
                 continue
-            dichte = (pref[b + 1] - pref[a]) / dauer * 30.0
-            einstieg = 1.2 * saetze[a].hook_wert     # Hook am Fensteranfang ist ideal (kein Cold Open)
+            dichte = (pref[b + 1] - pref[a]) / max(dauer, 1.0) * 30.0
+            einstieg = 1.2 * saetze[a].hook_wert
             lastend = saetze[b]
             pointe = 0.5 * min(lastend.wert, 4.0) + (0.8 if lastend.dauer < 5 and lastend.wert >= 1.0 else 0)
             laenge = 3.0 * min(dauer, 75.0) / 75.0
-            wert = dichte + einstieg + pointe + laenge
-            if beste is None or wert > beste.wert:
-                beste = Fenster(saetze[a].start, saetze[b].ende, wert, saetze[a:b + 1])
-    if beste is None:  # nur riesige Sätze
-        beste = Fenster(saetze[0].start, min(saetze[-1].ende, saetze[0].start + max_s), 0.0, saetze[:1])
-    return beste
+            t_wert = 1.0 * min(int(th[b + 1] - th[a]), 3)
+            kreuzt = sum(1 for c in schnitte if saetze[a].start + 1.5 < c < saetze[b].ende - 1.0)
+            episode = any(-0.6 <= saetze[a].start - c <= 1.5 for c in schnitte)
+            szene = (2.0 if episode else 0.0) - 8.0 * min(kreuzt, 2)
+            offen_w = -3.0 if offen[b] else 0.0
+            sig = {"dichte": dichte, "einstieg": einstieg, "pointe": pointe, "laenge": laenge, "titel": t_wert,
+                   "szene": szene, "offen": offen_w}
+            wert = sum(_gewicht(gewichte, k) * v for k, v in sig.items())
+            sig = {k: round(v, 2) for k, v in sig.items()}
+            sig.update(kreuzt_schnitt=bool(kreuzt), episodenstart=bool(episode), offenes_ende=bool(offen[b]))
+            alle.append(Fenster(saetze[a].start, saetze[b].ende, wert, saetze[a:b + 1], sig))
+    if not alle:   # nur riesige Sätze
+        return [Fenster(saetze[0].start, min(saetze[-1].ende, saetze[0].start + max_s), 0.0, saetze[:1])]
+    alle.sort(key=lambda f: -f.wert)
+    out: list[Fenster] = []
+    for f in alle:
+        if all(f.ende <= o.start or f.start >= o.ende for o in out):
+            out.append(f)
+            if len(out) >= anzahl:
+                break
+    return out
+
+
+def fenster_finden(saetze: list[Satz], min_s: float = 30.0, max_s: float = 90.0, schnitte: list[float] | None = None,
+                   titel: str = "", gewichte: dict | None = None, sprache: str | None = "de") -> Fenster:
+    """Bestes Fenster (siehe `fenster_rangliste`)."""
+    return fenster_rangliste(saetze, min_s, max_s, schnitte, titel, gewichte, sprache, 1)[0]
 
 
 def fenster_erzwingen(saetze: list[Satz], start: float, ende: float) -> Fenster:

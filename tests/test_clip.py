@@ -163,7 +163,7 @@ def test_clip_ende_zu_ende(tmp_path, monkeypatch, w, h):
     _video(video, w, h, 20)
     monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path / "out")
     monkeypatch.setattr(transcribe, "erkenne", lambda audio, sprache: [dict(x) for x in _skript()])
-    info = pipeline.make_clip(str(video), sprache="de")
+    info = pipeline.make_clip(str(video), sprache="de", stil="zuschnitt")
     clip = tmp_path / "out" / "clips" / video.stem / "clip.mp4"
     assert clip.exists() and (clip.parent / "clip.json").exists()
     p = _probe(clip)
@@ -192,9 +192,9 @@ def test_erzwungenes_fenster_und_cache(tmp_path, monkeypatch):
         return [dict(x) for x in _skript() if x["s"] < 8 and x["e"] < 7.5][:12]
 
     monkeypatch.setattr(transcribe, "erkenne", fake)
-    info = pipeline.make_clip(str(video), start=0.0, ende=8.0)
+    info = pipeline.make_clip(str(video), start=0.0, ende=8.0, stil="zuschnitt")
     assert info["fenster"]["erzwungen"] and info["fenster"]["start"] >= 0
-    pipeline.make_clip(str(video), start=0.0, ende=8.0)
+    pipeline.make_clip(str(video), start=0.0, ende=8.0, stil="zuschnitt")
     assert len(aufrufe) == 1                           # zweiter Lauf nutzt das JSON-Zwischenergebnis
     with pytest.raises(ClipError):
         pipeline.make_clip(str(video), start=5.0, ende=2.0)

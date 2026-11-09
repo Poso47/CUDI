@@ -489,6 +489,24 @@ Hook (Cold Open + 0,15-s-Blitz, wenn er nicht am Anfang steht) → Pausen > 0,35
 Bewegung im Mundbereich; braucht `opencv-python-headless` 4.x, in 5.x fehlen die Kaskaden → Bildmitte) → Untertitel
 (Anton aus `video_assets/fonts`, 1–3 Wörter, Großbuchstaben, Schlüsselwort #FFD400). Code: `cudi_video/clip/`.
 
+**Ausbau (Clip-Kern):**
+- **Erlaubnis** (`clip/erlaubnis.py`, Vertrag mit dem Clip-Scout): vor dem Download ordnet `pruefe(url)` die URL einem Kanal zu (YouTube-Kanal-ID/@Handle
+  per Adresse oder yt-dlp-Metadaten, Twitch-Login, TikTok-Handle) und liest `firma_daten/clip_creators.json` (deine Sperrliste, geht immer vor) und
+  `clip_erlaubnis.json` (Clip-Scout; „erlaubt“ zählt nur mit wörtlichem Beleg samt Link). Ergebnis: **erlaubt** → läuft; **gesperrt** → Abbruch mit Grund (auch
+  mit Bestätigung); **unklar** → nur mit `bestaetigt_erlaubnis: true` und dem Vermerk „Erlaubnis UNKLAR“ im Prüfbericht. Belege/Bedingungen stehen im Prüfbericht.
+  Nach dem Download wird mit den echten Metadaten nachgeprüft. Lokale Dateien (eigenes Material) brauchen keine Erlaubnis.
+- **Auswahl:** zusätzlich zu den Punkten zählen Bildschnitte (`szenen.py`: ein Fenster beginnt an einem Schnitt = eine Episode und kreuzt keinen weiteren),
+  Treffer des Videotitels, ein offenes Ende (endet mitten im Gedanken) und Rückbezüge am Anfang; Gewichte aus `firma_daten/clip_kalibrierung.json`
+  (`kalibrierung.py`, erst ab 20 Urteilen je Seite gut/schlecht, sonst Standard). **Inhaltsurteil** (`urteil.py`): Aufgabe `clip_urteil` über `handoff`
+  (Pointe? ohne Vorwissen verständlich? Titelvorschlag), geprüft auf kopierten Videotitel, erfundene Zahlen und unbelegte Namen/Vermutungen; ohne Modell
+  Regelweg (dort wird ein schwaches Fenster durch eines der nächstbesten ersetzt). Ein schwaches Urteil erscheint als Hinweis, bricht nie ab.
+- **Stil** (`clip_stil`, CLI `--stil`): **vollbild** (Standard) = ganzes Bild in voller Breite auf unscharfem Hintergrund desselben Videos, Hook-Titel oben,
+  Wort-für-Wort-Untertitel unten, Pausenschnitt, optional Teaser (`clip/vollbild.py`, kein Gesichts-Modell nötig); **zuschnitt** = Sprecher-Zuschnitt wie bisher.
+- **Twitch-Ranking** (`art: "clip"` mit `twitch_kanal`, optional `zeitraum` 24hr|7d|30d; CLI `clip <kanal> --twitch`): meistgesehene Clips des Kanals
+  (öffentlich, ohne Login, gleiche Momente nur einmal), Erlaubnis je Kanal, jeder Clip muss laut Metadaten zum Kanal gehören; Countdown (schwächster zuerst),
+  Dauer nach Pausenschnitt zählt (> 60 s für TikTok, sonst Hinweis); Aufrufe laut Twitch und Clip-Links im Prüfbericht. Code: `clip/twitch.py`.
+- **Instagram** als Upload-Ziel (`hochladen: instagram` oder `alle`): siehe `docs/upload-einrichten.md`.
+
 ## Video in der App bearbeiten und freigeben
 
 - Beim Rendern sichert `cudi_video/bearbeiten.py` die Grundlage (`bearbeitung.json` im Auftragsordner, kompakt ≤ 160 KB in

@@ -10,7 +10,7 @@ import numpy as np
 
 from .. import config
 from . import FPS, MAX_SECONDS, ClipError
-from . import cuts, highlights, reframe, render, source, subtitles, transcribe
+from . import cuts, erlaubnis as erlaubnis_mod, highlights, kalibrierung, reframe, render, source, subtitles, szenen, transcribe, urteil as urteil_mod, vollbild
 
 log = logging.getLogger(__name__)
 
@@ -33,7 +33,10 @@ def _kuerzen(words: list[dict], limit: float, reserve: float) -> list[dict]:
 
 def make_clip(quelle: str, start: float | None = None, ende: float | None = None, sprache: str | None = "de",
               max_laenge: float = 90.0, name: str | None = None, fortschritt=None,
-              herkunft: str | None = None, ausgabe: Path | None = None, arbeit: Path | None = None) -> dict:
+              herkunft: str | None = None, ausgabe: Path | None = None, arbeit: Path | None = None,
+              stil: str = "vollbild", bestaetigt_erlaubnis: bool = False, erlaubnis: dict | None = None) -> dict:
+    """`stil`: „vollbild“ (Standard: ganzes Bild auf unscharfem Hintergrund) oder „zuschnitt“ (Sprecher-Zuschnitt 9:16).
+    Für URLs wird vor dem Download die Erlaubnis geprüft (`erlaubnis.py`); `erlaubnis` = schon geprüftes Ergebnis."""
     def schritt(text: str):
         log.info(text)
         if fortschritt:
@@ -45,9 +48,21 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
     arbeit = arbeit or config.OUTPUT_DIR / "_work" / f"clip_{stem}"
     ausgabe = ausgabe or config.OUTPUT_DIR / "clips" / stem
     arbeit.mkdir(parents=True, exist_ok=True)
+    if stil not in ("vollbild", "zuschnitt"):
+        raise ClipError("Stil: „vollbild“ oder „zuschnitt“.")
 
+    if source.ist_url(quelle) and erlaubnis is None:
+        schritt("Erlaubnis prüfen")
+        erlaubnis = erlaubnis_mod.pruefe_auftrag(quelle, bestaetigt_erlaubnis)
     schritt("Quelle beschaffen")
     video = source.beschaffen(quelle, arbeit)
+    meta = source.metadaten(arbeit) if source.ist_url(quelle) else {}
+    if source.ist_url(quelle):                                   # jetzt kennt yt-dlp den Kanal sicher: Sperre nachprüfen
+        nach = erlaubnis_mod.pruefe(quelle, source.rohdaten(arbeit) or None, online=False)
+        if nach["status"] == erlaubnis_mod.GESPERRT:
+            raise ClipError("Clip abgebrochen: " + nach["grund"])
+        if erlaubnis and erlaubnis["status"] == erlaubnis_mod.UNKLAR and nach["status"] == erlaubnis_mod.ERLAUBT:
+            erlaubnis = {**nach, "vermerk": "Erlaubnis geprüft: " + nach["grund"]}
     sw, sh, vdauer = reframe.probe(video)
     forced = start is not None or ende is not None
     t_start = max(0.0, start or 0.0)
@@ -68,10 +83,17 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
     saetze = highlights.saetze_bilden(words)
     highlights.bewerte(saetze, words, rms, offset, sprache)
     max_fenster = min(max_laenge, MAX_SECONDS - 10)
+    gewichte = kalibrierung.gewichte()
+    rangliste: list[highlights.Fenster] = []
     if forced:
         fenster = highlights.fenster_erzwingen(saetze, t_start, t_ende)
+        szenen_zeiten: list[float] = []
     else:
-        fenster = highlights.fenster_finden(saetze, 30.0, max_fenster)
+        schritt("Bildschnitte erkennen")
+        szenen_zeiten = szenen.erkenne(video, arbeit)
+        rangliste = highlights.fenster_rangliste(saetze, 30.0, max_fenster, szenen_zeiten, meta.get("titel", ""),
+                                                 gewichte, sprache, 3)
+        fenster = rangliste[0]
     hook = None
     begruendung = None
     if not forced:
@@ -85,14 +107,30 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
     if not fw:
         raise ClipError("Im gewählten Bereich wurde nichts gesprochen.")
     hook = hook or highlights.hook_finden(fenster)
+    schritt("Inhalt beurteilen")
+    urteil = urteil_mod.urteilen(fenster, hook, words, meta)
+    hinweise_aus: list[str] = []
+    if not forced and urteil["quelle"] == "Regeln" and not begruendung:
+        for alt in rangliste[1:]:                       # Regelweg: ein schwaches Fenster durch ein besseres ersetzen
+            if urteil_mod.angenommen(urteil):
+                break
+            alt_hook = highlights.hook_finden(alt)
+            u2 = urteil_mod.regel_urteil(alt, alt_hook)
+            if u2["punkte"] > urteil["punkte"]:
+                fenster, hook, urteil = alt, alt_hook, u2
+    if not urteil_mod.angenommen(urteil):
+        hinweise_aus.append(f"Inhaltsurteil schwach ({urteil['punkte']}/10, {urteil['quelle']}): {urteil['grund']}")
     teaser = hook is not None and highlights.braucht_teaser(hook, fenster)
     reserve = (hook.dauer + cuts.BLITZ + 0.2) if teaser else 0.0
     fw = _kuerzen(fw, MAX_SECONDS - 1.0, reserve)
     if teaser and hook.ende > fw[-1]["e"]:
         teaser = False
 
-    schritt("Gesichter und Sprecher analysieren")
-    an = reframe.analysiere(video, fw[0]["s"], fw[-1]["e"] + 0.3, sw, sh)
+    if stil == "zuschnitt":
+        schritt("Gesichter und Sprecher analysieren")
+        an = reframe.analysiere(video, fw[0]["s"], fw[-1]["e"] + 0.3, sw, sh)
+    else:
+        an = None
 
     schritt("Schnittplan")
     ab_main = cuts.Abschnitt("main", cuts.pausen_intervalle(fw))
@@ -103,7 +141,10 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
         hook_words = words[hook.i0:hook.i1 + 1]
         ab_teaser = cuts.Abschnitt("teaser", cuts.pausen_intervalle(hook_words))
         abschnitte = [ab_teaser, ab_main]
-    schnitte = cuts.plane(abschnitte, an, words, laut, hook.ende if teaser else None, blitz=teaser)
+    if stil == "zuschnitt":
+        schnitte = cuts.plane(abschnitte, an, words, laut, hook.ende if teaser else None, blitz=teaser)
+    else:
+        schnitte = vollbild.plane(abschnitte)
     erste_main = next(s for s in schnitte if s.art == "main")
     ab_main.out0 = erste_main.out0
     if ab_teaser:
@@ -117,18 +158,34 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
 
     schritt("Untertitel")
     fontsdir, familie, fett = subtitles.schrift_bereitstellen(arbeit / "fonts")
-    ass_text, n_gruppen = subtitles.ass_bauen(out_words, sprache, familie, fett, gesamt)
+    from . import texte
+
+    clip_titel = texte.titel({"hook": {"text": hook.text} if hook else None, "transkript": " ".join(w["w"] for w in fw),
+                              "titel_vorschlag": urteil.get("titel")})
+    if stil == "zuschnitt":
+        ass_text, n_gruppen = subtitles.ass_bauen(out_words, sprache, familie, fett, gesamt)
+    else:
+        ass_text, n_gruppen = vollbild.ass_bauen(out_words, clip_titel, familie, fett, gesamt)
     ass = arbeit / "untertitel.ass"
     ass.write_text(ass_text, "utf-8")
 
     schritt(f"Rendern ({len(schnitte)} Schnitte)")
     ziel = ausgabe / "clip.mp4"
-    dauer = render.rendern(video, schnitte, an, ass, fontsdir, arbeit, ziel)
+    dauer = render.rendern(video, schnitte, an, ass, fontsdir, arbeit, ziel,
+                           vollbild.filter_fn(sw, sh) if stil == "vollbild" else None)
 
     info = {
         "quelle": quelle,
         "herkunft": herkunft,
-        "quelle_info": source.metadaten(arbeit) if source.ist_url(quelle) else {},
+        "quelle_info": meta,
+        "stil": stil,
+        "erlaubnis": erlaubnis,
+        "urteil": urteil,
+        "titel_text": clip_titel,
+        "titel_vorschlag": urteil.get("titel") or None,
+        "signale": {k: v for k, v in fenster.signale.items()},
+        "gewichte": gewichte,
+        "bildschnitte": len(szenen_zeiten),
         "auswahl": begruendung or "Regeln",
         "datei": str(ziel),
         "dauer": round(dauer, 2),
@@ -137,8 +194,8 @@ def make_clip(quelle: str, start: float | None = None, ende: float | None = None
         "hook": ({"text": hook.text, "start": round(hook.start, 2), "ende": round(hook.ende, 2),
                   "wert": round(hook.hook_wert, 2), "teaser_vorangestellt": bool(teaser)} if hook else None),
         "pausen_entfernt_s": round((fw[-1]["e"] - fw[0]["s"]) - ab_main.dauer, 2),
-        "personen": an.spuren,
-        "hinweise": an.hinweise,
+        "personen": an.spuren if an else 0,
+        "hinweise": (an.hinweise if an else []) + hinweise_aus,
         "schnitte": [{"art": s.art, "ausgabe_start": round(s.out0, 2), "dauer": round(s.frames / FPS, 2),
                       "quelle_start": round(s.a, 2), "person": s.person, "zoom": s.zoom, "punch": s.punch}
                      for s in schnitte],

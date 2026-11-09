@@ -75,7 +75,7 @@ def _flag(value, default: bool) -> bool:
 
 
 def _upload_wish(raw) -> dict | None:
-    """Auftragsfeld „hochladen“ (Standard aus): {"ziel": youtube|tiktok|beide, "sichtbarkeit": privat|ungelistet|oeffentlich}
+    """Auftragsfeld „hochladen“ (Standard aus): {"ziel": youtube|tiktok|instagram|beide|alle, "sichtbarkeit": privat|ungelistet|oeffentlich}
     oder nur der Zielname; "freigabe" (Standard true: nur vorbereiten, die App-Karte zeigt „Veröffentlichen“; false: sofort
     hochladen). Nur Backend – Zugangsdaten stehen in Umgebungsvariablen (docs/upload-einrichten.md)."""
     if not raw:
@@ -84,8 +84,8 @@ def _upload_wish(raw) -> dict | None:
     target = str(wish.get("ziel") or "").strip().lower()
     if target in ("1", "true", "ja"):
         target = "youtube"
-    if target not in ("youtube", "tiktok", "beide"):
-        raise OrderError("Hochladen: „youtube“, „tiktok“ oder „beide“.")
+    if target not in ("youtube", "tiktok", "instagram", "beide", "alle"):
+        raise OrderError("Hochladen: „youtube“, „tiktok“, „instagram“, „beide“ (YouTube + TikTok) oder „alle“.")
     visibility = str(wish.get("sichtbarkeit") or "privat").lower().replace("ö", "oe")
     if visibility not in ("privat", "ungelistet", "oeffentlich"):
         raise OrderError("Sichtbarkeit: privat, ungelistet oder oeffentlich.")
@@ -193,7 +193,7 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError("Unbekannter Schritt für diese Art.")
         order["schritt"] = step
     if order.get("schritt") == "hochladen" and not order.get("hochladen"):
-        raise OrderError("Hochladen: Ziel („youtube“, „tiktok“ oder „beide“) fehlt.")
+        raise OrderError("Hochladen: Ziel („youtube“, „tiktok“, „instagram“, „beide“ oder „alle“) fehlt.")
     prefs = parse_preferences(raw.get("vorlieben"))
     if prefs:
         order["vorlieben"] = prefs
@@ -248,9 +248,25 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
                 "schritt": step, "maskottchen": _flag(raw.get("maskottchen"), None),
                 "hochladen": _upload_wish(raw.get("hochladen"))}
     if kind == "clip":
-        if not _flag(raw.get("bestaetigt_erlaubnis"), False):
-            raise OrderError("Clip: Bitte bestätigen, dass du die Erlaubnis des Creators zum Clippen hast "
-                             "(bestaetigt_erlaubnis).")
+        # Erlaubnis: erst der Lauf prüft den Creator (clip/erlaubnis.py): erlaubt → läuft, gesperrt → Abbruch,
+        # unklar → nur mit bestaetigt_erlaubnis
+        stil = str(raw.get("clip_stil") or "vollbild").strip().lower()
+        if stil not in ("vollbild", "zuschnitt"):
+            raise OrderError("Clip-Stil: „vollbild“ oder „zuschnitt“.")
+        twitch = str(raw.get("twitch_kanal") or "").strip().lstrip("@").lower()
+        if twitch:
+            if not re.fullmatch(r"[a-z0-9_]{3,25}", twitch):
+                raise OrderError("Twitch-Kanal: nur der Anmeldename (3–25 Zeichen: Buchstaben, Zahlen, _).")
+            zeitraum = str(raw.get("zeitraum") or "7d").strip().lower()
+            if zeitraum not in ("24hr", "7d", "30d"):
+                raise OrderError("Zeitraum: „24hr“, „7d“ oder „30d“.")
+            lang = str(raw.get("sprache") or "de")
+            if lang not in ("de", "en", "auto"):
+                raise OrderError("Sprache: „de“, „en“ oder „auto“.")
+            return {"id": job_id, "art": "clip", "twitch_kanal": twitch, "zeitraum": zeitraum, "quelle": "",
+                    "start": None, "ende": None, "sprache": lang, "laenge": 170, "format": _format(raw.get("format")),
+                    "clip_stil": stil, "bestaetigt_erlaubnis": _flag(raw.get("bestaetigt_erlaubnis"), False),
+                    "hochladen": _upload_wish(raw.get("hochladen"))}
         start, end = _seconds(raw.get("start"), "Start"), _seconds(raw.get("ende"), "Ende")
         if start is not None and end is not None:
             if end <= start:
@@ -267,7 +283,8 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
         if not 30 <= length <= 170:
             raise OrderError("Länge: Sekunden von 30 bis 170.")
         return {"id": job_id, "art": "clip", "quelle": _clip_url(raw.get("quelle")), "start": start, "ende": end,
-                "sprache": lang, "laenge": length, "format": _format(raw.get("format")), "bestaetigt_erlaubnis": True,
+                "sprache": lang, "laenge": length, "format": _format(raw.get("format")),
+                "clip_stil": stil, "bestaetigt_erlaubnis": _flag(raw.get("bestaetigt_erlaubnis"), False),
                 "hochladen": _upload_wish(raw.get("hochladen"))}
     if kind == "reportage":
         topic = _text(raw.get("thema"), 160)
@@ -656,17 +673,36 @@ def _clip(order: dict, folder: Path, progress) -> dict:
 
     out = folder / "clip"
     out.mkdir(parents=True, exist_ok=True)
-    stages = ["Quelle beschaffen", "Spracherkennung", "Höhepunkt suchen", "Gesichter und Sprecher analysieren",
-              "Schnittplan", "Untertitel"]
+    if order.get("twitch_kanal"):
+        return _twitch(order, folder, progress)
+    stages = ["Erlaubnis prüfen", "Quelle beschaffen", "Spracherkennung", "Bildschnitte erkennen",
+              "Höhepunkt suchen", "Inhalt beurteilen", "Gesichter und Sprecher analysieren", "Schnittplan", "Untertitel"]
 
     def stage(text: str) -> None:
         base = text.split(" (")[0]
-        progress(text, (stages.index(base) + 1) / 8 if base in stages else 0.9)
+        progress(text, (stages.index(base) + 1) / 11 if base in stages else 0.9)
 
     info = clip_pipeline.make_clip(order["quelle"], order["start"], order["ende"], order["sprache"],
                                    float(order["laenge"]), name="clip", fortschritt=stage, ausgabe=out,
-                                   arbeit=folder / "_work", herkunft=order["quelle"])
+                                   arbeit=folder / "_work", herkunft=order["quelle"], stil=order.get("clip_stil", "vollbild"),
+                                   bestaetigt_erlaubnis=bool(order.get("bestaetigt_erlaubnis")))
     videos = texte.schreibe(out, info, order, order["quelle"], order["sprache"])
+    return {"output_dir": str(out), "videos": videos, "kind": "clip", "warnings": list(info.get("hinweise", []))}
+
+
+def _twitch(order: dict, folder: Path, progress) -> dict:
+    """Ranking aus den meistgesehenen Twitch-Clips eines Kanals (clip/twitch.py), Erlaubnis je Kanal geprüft."""
+    from .clip import texte, twitch
+
+    out = folder / "clip"
+
+    def stage(text: str, anteil: float = 0.5) -> None:
+        progress(text, anteil)
+
+    info = twitch.ranking(order["twitch_kanal"], order.get("zeitraum", "7d"), order["sprache"], out, folder / "_work",
+                          bestaetigt_erlaubnis=bool(order.get("bestaetigt_erlaubnis")), fortschritt=stage,
+                          stil=order.get("clip_stil", "vollbild"))
+    videos = texte.schreibe_ranking(out, info, order, order["sprache"])
     return {"output_dir": str(out), "videos": videos, "kind": "clip", "warnings": list(info.get("hinweise", []))}
 
 
@@ -822,7 +858,7 @@ def upload_records(order: dict, data: dict) -> list[dict]:
 
 def upload_note(entry: dict) -> str:
     """Eine Zeile je Upload für die App: Ziel, Ergebnis, Link bzw. Fehler."""
-    name = {"youtube": "YouTube", "tiktok": "TikTok"}.get(entry.get("ziel"), entry.get("ziel", "Upload"))
+    name = {"youtube": "YouTube", "tiktok": "TikTok", "instagram": "Instagram"}.get(entry.get("ziel"), entry.get("ziel", "Upload"))
     if not entry.get("ok"):
         return f"{name}: Hochladen fehlgeschlagen – {entry.get('fehler', 'unbekannter Fehler')}"
     if entry.get("url"):

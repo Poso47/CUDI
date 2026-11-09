@@ -65,5 +65,18 @@ Gut zu wissen:
 
 ## Über Aufträge (Backend)
 
-Im Auftrag (`job.py`) gibt es das optionale Feld `"hochladen": {"ziel": "youtube|tiktok|beide", "sichtbarkeit": "privat"}`.
+Im Auftrag (`job.py`) gibt es das optionale Feld `"hochladen": {"ziel": "youtube|tiktok|instagram|beide|alle", "sichtbarkeit": "privat"}`
+(`beide` = YouTube + TikTok, `alle` = zusätzlich Instagram).
 Standard ist aus. Fehler beim Hochladen brechen den Auftrag nie ab; sie stehen im Ergebnis unter `hochgeladen`.
+
+## Instagram (Reels)
+
+Offizielle Graph API, Resumable Upload der lokalen Datei (`cudi_video/upload/instagram.py`). Voraussetzungen: Instagram-**Profikonto** (Creator/Business),
+eine Meta-App (Facebook Login for Business) mit den Berechtigungen `instagram_basic`, `instagram_content_publish`, `pages_read_engagement` und ein
+**langlebiger Zugriffstoken**. Zugang nur über Umgebungsvariablen (nie ins Repo/in den Chat, Ausgaben werden mit `upload.redact` geschwärzt):
+
+- `CUDI_IG_USER_ID` – ID des Instagram-Kontos, `CUDI_IG_ACCESS_TOKEN` – Token, optional `CUDI_IG_API_VERSION` (Standard `v25.0`).
+- Test: `python -m cudi_video hochladen video.mp4 --ziel instagram --sichtbarkeit oeffentlich --probe` (Trockenlauf, sendet nichts).
+- **Reels sind sofort öffentlich** – Instagram kennt kein privat/ungelistet. Darum lädt CUDI nur mit Sichtbarkeit `oeffentlich` hoch, sonst Fehlermeldung.
+- Ein Konto darf höchstens 100 Beiträge in 24 Stunden veröffentlichen; Caption ≤ 2200 Zeichen, ≤ 30 Hashtags (CUDI kürzt).
+- Stand: per Test mit Attrappen geprüft, gegen die echte API noch nicht (es lag kein Zugang vor).
