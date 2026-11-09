@@ -320,3 +320,22 @@ def test_clip_erlaubnis_geduldet_braucht_bestaetigung_und_credit(tmp_path, monke
     r = erlaubnis.pruefe_auftrag(url, True)
     assert r["vermerk"].startswith("geduldet, vom Nutzer bestätigt") and r["credit"] == f"Original: Ana – {url}"
     assert any("Credit" in z for z in erlaubnis.bericht_zeilen(r))
+
+
+def test_sprachfokus_deutsch(monkeypatch, tmp_path):
+    from cudi_video.firma import clipscout, common
+    monkeypatch.setattr(common, "DATA_DIR", tmp_path)
+    monkeypatch.delenv("CUDI_CLIP_SPRACHEN", raising=False)
+    assert clipscout.erlaubte_sprachen() == {"de"}
+    de = clipscout.src_de_bekannt()
+    assert de and all(c["sprache"] == "de" and c["plattform"] == "twitch" for c in de)
+    monkeypatch.setattr(clipscout, "src_kampagnen", lambda camps: [])
+    monkeypatch.setattr(clipscout, "src_aufruf_suche", lambda: [])
+    monkeypatch.setattr(clipscout, "src_youtube_trends", lambda t, c: [])
+    monkeypatch.setattr(clipscout, "src_wikipedia", lambda t, c: [])
+    monkeypatch.setattr(clipscout, "src_reddit", lambda: [clipscout._cand("Destiny", "twitch", "destiny", "x", "reddit", 10, sprache="en")])
+    notes = []
+    out = ECHTE_ENTDECKUNG(notes, [], [], {})
+    assert out and all(c["sprache"] == "de" for c in out) and any("Sprachfokus" in n for n in notes)
+    monkeypatch.setenv("CUDI_CLIP_SPRACHEN", "de,en")
+    assert any(c["name"] == "Destiny" for c in ECHTE_ENTDECKUNG([], [], [], {}))
