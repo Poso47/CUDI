@@ -1,11 +1,414 @@
 {
- "erzeugt": "2026-11-08T21:58:28Z",
+ "erzeugt": "2026-11-09T06:09:01Z",
  "anzahl": 80,
  "hinweise": [
   "YouTube DE: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)",
-  "YouTube US: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)"
+  "YouTube US: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)",
+  "Wikipedia de: nicht erreichbar (HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/de.wikipedia/all-access/2026/11/07)",
+  "Wikipedia en: nicht erreichbar (HTTPError: 404 Client Error: Not Found for url: https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/2026/11/07)"
  ],
  "themen": [
+  {
+   "thema": "reichspogromnacht",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 1,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 1 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Verbrechen an deutschen Juden: Gedenken an den 88. Jahrestag der Reichspogromnacht - Video“ (WELT)",
+   "score": 100.0,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "janice tjen",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 1,
+     "suchen": 500
+    }
+   ],
+   "warum": "Platz 1 der Google-Trends (US) mit über 500 Suchen; Meldung: „Rain postpones Chennai title match between Tjen, Linette“ (WTA Tennis)",
+   "score": 100.0,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "fantasy",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 2,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 2 der Google-Trends (DE) mit über 100 Suchen; Meldung: „NFL Fantasy 2026 Start 'Em, Sit 'Em: Quarterbacks for Week 9“ (NFL.com)",
+   "score": 93.3,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "juju watkins",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 2,
+     "suchen": 2000
+    }
+   ],
+   "warum": "Platz 2 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „Utah State Aggies vs No. 3 USC Trojans Highlights | Women's College Basketball“ (Fox News)",
+   "score": 93.3,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "delhi aqi",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 3,
+     "suchen": 200
+    },
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 30,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xr4x75/"
+    }
+   ],
+   "warum": "Platz 3 der Google-Trends (US) mit über 200 Suchen; Meldung: „India: Delhi chokes on most polluted Diwali eve in 10 years“ (DW.com) · Reddit r/interestingasfuck (archiv), Platz 30. 2.119 Punkte",
+   "score": 91.8,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "wetter bremen",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 3,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Niedersachsen & Bremen: Nebel, dann Regen: So wird das Wetter in der neuen Woche“ (n-tv.de)",
+   "score": 86.7,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "üstra",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 4,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 4 der Google-Trends (DE) mit über 100 Suchen; Meldung: „ÜSTRA Sound: Ein neuer Klang für die ÜSTRA“ (ÜSTRA)",
+   "score": 80.0,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "carson wentz",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 4,
+     "suchen": 500
+    }
+   ],
+   "warum": "Platz 4 der Google-Trends (US) mit über 500 Suchen; Meldung: „Carson Wentz to start at QB for Vikings on Monday night vs. Bills, with Kyler Murray nursing hamstring injury“ (Yahoo Sports)",
+   "score": 80.0,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "rory mcilroy",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 5,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 5 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Can Rory McIlroy hit the iconic 18th green at Yas Links from a moving boat?“ (DP World Tour)",
+   "score": 73.3,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "claressa shields",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 5,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 5 der Google-Trends (US) mit über 200 Suchen; Meldung: „Claressa Shields Makes Serious Allegation Against Gervonta Davis — 'I Saw It With My Own Two Eyes'“ (Yahoo Sports)",
+   "score": 73.3,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "NVIDIA CEO Admits Infidelity With Suspected Chinese Spy",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 1,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xr86kx/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 1. 22.250 Punkte",
+   "score": 70.0,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "Kids without phones",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 2,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xr1sii/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 2. 21.904 Punkte",
+   "score": 68.9,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "Millions of acres of Indonesia rainforest were burned up to give way for palm plantation expansion.This is sickening",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 3,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xr1cpc/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 3. 12.774 Punkte",
+   "score": 67.8,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "‘That Stops When I’m Governor’: Dem Texas Governor-Elect Warns Big Tech",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 4,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xqxi5h/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 4. 12.217 Punkte",
+   "score": 66.8,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "timberwolves – jazz",
+   "kategorie": "Ereignis",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 6,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 6 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Ayo Dosunmu, Timberwolves handle Jazz for 4th straight win“ (Reuters)",
+   "score": 66.7,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "nfl standings",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 6,
+     "suchen": 20000
+    }
+   ],
+   "warum": "Platz 6 der Google-Trends (US) mit über 20.000 Suchen; Meldung: „Jets begin to unravel on and off field as losing streak hits 4 games“ (ESPN)",
+   "score": 66.7,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "TIL that there is a serious taboo against cleaning coffee mugs in the Navy",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 5,
+     "subreddit": "todayilearned",
+     "link": "https://www.reddit.com/r/todayilearned/comments/1xr087d/"
+    }
+   ],
+   "warum": "Reddit r/todayilearned (archiv), Platz 5. 8.210 Punkte",
+   "score": 65.7,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "President Volodymyr Zelensky has announced that Russian forces used North Korean KN-23 ballistic missiles in an overnight strike on a key Ukrainian energy facility, with air defenses able to intercept only four of 36 ballistic missiles due to an acute shortage of Patriot interceptors",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 6,
+     "subreddit": "worldnews",
+     "link": "https://www.reddit.com/r/worldnews/comments/1xrd9vc/"
+    }
+   ],
+   "warum": "Reddit r/worldnews (archiv), Platz 6. 8.775 Punkte",
+   "score": 64.6,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "TIL that Whoopi Goldberg's real name is Caryn Johnson, and she adopted the last name \"Goldberg\" at her mother's suggestion because a Jewish-sounding name gave her a better chance of making it in Hollywood.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 7,
+     "subreddit": "todayilearned",
+     "link": "https://www.reddit.com/r/todayilearned/comments/1xre4s7/"
+    }
+   ],
+   "warum": "Reddit r/todayilearned (archiv), Platz 7. 9.109 Punkte",
+   "score": 63.5,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distress, and harmful appearance-modification practices.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 8,
+     "subreddit": "science",
+     "link": "https://www.reddit.com/r/science/comments/1xqpcsm/"
+    }
+   ],
+   "warum": "Reddit r/science (archiv), Platz 8. 7.563 Punkte",
+   "score": 62.5,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "Protest erupts at Boyle Heights hospital after ICE transports patient, blocks ambulance entrance",
+   "kategorie": "Ereignis",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 9,
+     "subreddit": "news",
+     "link": "https://www.reddit.com/r/news/comments/1xr2b0a/"
+    }
+   ],
+   "warum": "Reddit r/news (archiv), Platz 9. 8.990 Punkte",
+   "score": 61.4,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "TIL chewing gum can release tiny plastic particles directly into your saliva. Researchers discovered that as gum is chewed, microscopic particles gradually break away from its structure and mix with your saliva.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 10,
+     "subreddit": "todayilearned",
+     "link": "https://www.reddit.com/r/todayilearned/comments/1xrety2/"
+    }
+   ],
+   "warum": "Reddit r/todayilearned (archiv), Platz 10. 7.886 Punkte",
+   "score": 60.3,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "fc carl zeiss jena",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 7,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 7 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Fans des FC Carl Zeiss Jena fordern Rauswurf: Ostklub trifft Trainerentscheidung“ (BILD)",
+   "score": 60.0,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "mv odyssey cruise ship detained",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 7,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 7 der Google-Trends (US) mit über 200 Suchen; Meldung: „\"Forever cruise\" arrested at Singapore port, court records show“ (CBS News)",
+   "score": 60.0,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
   {
    "thema": "vvv venlo",
    "kategorie": "Thema",
@@ -18,7 +421,7 @@
     }
    ],
    "warum": "Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Amir Bouhamdi is een gelukkig PSV-talent, maar leunt niet achterover: ‘Ik ben nog jong en moet gewoon voetballen, punt’“ (Eindhovens Dagblad)",
-   "score": 100.0,
+   "score": 60.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -34,9 +437,43 @@
     }
    ],
    "warum": "Platz 1 der Google-Trends (US) mit über 10.000 Suchen; Meldung: „Kalshi promo code CBSSPORTS55: Land $55 bonus for Raiders-49ers, Packers-Patriots, NFL predictions“ (CBS Sports)",
-   "score": 100.0,
+   "score": 60.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "PS6 doesn't need more power, ex-PlayStation boss says, because \"true innovation\" would be making a $300 console again",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 11,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xqovch/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 11. 7.495 Punkte",
+   "score": 59.2,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "Putin Seizes Three More Japan Tobacco Businesses, Bringing Takeover to $3.7 Billion",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 12,
+     "subreddit": "worldnews",
+     "link": "https://www.reddit.com/r/worldnews/comments/1xqvpmi/"
+    }
+   ],
+   "warum": "Reddit r/worldnews (archiv), Platz 12. 7.806 Punkte",
+   "score": 58.2,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Russell Brand",
@@ -59,7 +496,7 @@
     }
    ],
    "warum": "Platz 8 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 28.393 Aufrufe · Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 507.816 Aufrufe",
-   "score": 96.8,
+   "score": 58.1,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -90,9 +527,26 @@
     }
    ],
    "warum": "Platz 5 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 219.097 Aufrufe · Platz 17 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 101.863 Aufrufe · Platz 18 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 97.301 Aufrufe",
-   "score": 95.8,
+   "score": 57.5,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "The Best and Most Informative Video About Alcohol I’ve Ever Seen",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 13,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xqwmmy/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 13. 6.573 Punkte",
+   "score": 57.1,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Abdul El-Sayed",
@@ -114,9 +568,26 @@
     }
    ],
    "warum": "Platz 14 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 16.824 Aufrufe · Platz 3 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 437.069 Aufrufe",
-   "score": 94.3,
+   "score": 56.6,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "What speedster power looked like on Japanese TV 20 years ago",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 14,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xqv6ue/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 14. 8.084 Punkte",
+   "score": 56.0,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "maga bewegung",
@@ -130,7 +601,7 @@
     }
    ],
    "warum": "Platz 2 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Das woke Amerika ist wieder da. Ist jetzt Schluss mit Trumps MAGA?“ (Berliner Morgenpost)",
-   "score": 93.3,
+   "score": 56.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -146,9 +617,26 @@
     }
    ],
    "warum": "Platz 2 der Google-Trends (US) mit über 20.000 Suchen; Meldung: „College Football Playoff top 12 projection after Week 10“ (ESPN)",
-   "score": 93.3,
+   "score": 56.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "Federal judges ordered their release from Aurora’s detention center. ICE was waiting outside to re-arrest them.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 15,
+     "subreddit": "news",
+     "link": "https://www.reddit.com/r/news/comments/1xqzf60/"
+    }
+   ],
+   "warum": "Reddit r/news (archiv), Platz 15. 6.328 Punkte",
+   "score": 54.9,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Ilse Aigner",
@@ -164,7 +652,7 @@
     }
    ],
    "warum": "Platz 1 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 203.577 Aufrufe",
-   "score": 90.0,
+   "score": 54.0,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -181,9 +669,75 @@
     }
    ],
    "warum": "Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 785.245 Aufrufe",
-   "score": 90.0,
+   "score": 54.0,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "Hackers Claim Leaked Rosstat Records Reveal Up to 450,000 Russian War Deaths",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 16,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xqxe29/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 16. 5.713 Punkte",
+   "score": 53.8,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "katastrophe",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 8,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 8 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Überschwemmungen in Gaza schüren Sorge vor neuer Katastrophe“ (tagesschau.de)",
+   "score": 53.3,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "ut arlington vs hawaii",
+   "kategorie": "Ereignis",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 8,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 8 der Google-Trends (US) mit über 200 Suchen; Meldung: „UT Arlington vs Hawaii Prediction, Picks & Odds | 08 Nov 2026“ (Sportsgambler)",
+   "score": 53.3,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "TIL After losses or ties, Ohio State coach Woody Hayes conducted locker room interviews while completely naked. A journalist from his tenure noted, \"He was an ugly guy so it would clear the locker room out pretty fast.\"",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 17,
+     "subreddit": "todayilearned",
+     "link": "https://www.reddit.com/r/todayilearned/comments/1xqy925/"
+    }
+   ],
+   "warum": "Reddit r/todayilearned (archiv), Platz 17. 5.613 Punkte",
+   "score": 52.8,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Hubert Aiwanger",
@@ -199,7 +753,7 @@
     }
    ],
    "warum": "Platz 2 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 108.895 Aufrufe",
-   "score": 87.8,
+   "score": 52.7,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -215,7 +769,7 @@
     }
    ],
    "warum": "Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Quem mais? Prestianni abre o marcador do Estrela-Benfica com um grande golo para ver e rever“ (O Jogo)",
-   "score": 86.7,
+   "score": 52.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -231,9 +785,26 @@
     }
    ],
    "warum": "Platz 3 der Google-Trends (US) mit über 1.000 Suchen; Meldung: „NFL Playoff Picture 2026 After Week 8: Can the Bears or Chiefs Take the No. 1 Seed?“ (Yahoo Sports)",
-   "score": 86.7,
+   "score": 52.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "\"Ram Altman\" Is Now a Linux Script That Emails Sam Altman Daily to Report How Much Unused RAM Is in Your PC",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 18,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xqyo60/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 18. 5.772 Punkte",
+   "score": 51.7,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Tanja Schweiger",
@@ -249,9 +820,26 @@
     }
    ],
    "warum": "Platz 3 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 48.651 Aufrufe",
-   "score": 85.5,
+   "score": 51.3,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "TIL stress causes men to be attracted to larger women",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 19,
+     "subreddit": "todayilearned",
+     "link": "https://www.reddit.com/r/todayilearned/comments/1xr6ssu/"
+    }
+   ],
+   "warum": "Reddit r/todayilearned (archiv), Platz 19. 4.431 Punkte",
+   "score": 50.6,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Leonard Cohen",
@@ -267,7 +855,7 @@
     }
    ],
    "warum": "Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 35.698 Aufrufe",
-   "score": 83.2,
+   "score": 49.9,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -284,9 +872,26 @@
     }
    ],
    "warum": "Platz 4 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 220.230 Aufrufe",
-   "score": 83.2,
+   "score": 49.9,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "These drones can fly through orchards, identify ripe apples, and pick them straight off the tree without human help",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 20,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xqx3lb/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 20. 2.989 Punkte",
+   "score": 49.5,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Zwei zu eins",
@@ -302,9 +907,26 @@
     }
    ],
    "warum": "Platz 5 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 33.506 Aufrufe",
-   "score": 81.0,
+   "score": 48.6,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "Teens with authoritarian parents tend to hold more antisocial beliefs, study finds",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 21,
+     "subreddit": "science",
+     "link": "https://www.reddit.com/r/science/comments/1xqzyam/"
+    }
+   ],
+   "warum": "Reddit r/science (archiv), Platz 21. 3.633 Punkte",
+   "score": 48.5,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "erling haaland",
@@ -318,7 +940,7 @@
     }
    ],
    "warum": "Platz 4 der Google-Trends (DE) mit über 2.000 Suchen; Meldung: „FPL rank climbing strategy: template, differentials and hits before GW11“ (The False 9)",
-   "score": 80.0,
+   "score": 48.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -334,9 +956,26 @@
     }
    ],
    "warum": "Platz 4 der Google-Trends (US) mit über 500 Suchen; Meldung: „Packers' Christian Watson: Will be 'full go' Sunday“ (CBS Sports)",
-   "score": 80.0,
+   "score": 48.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "Nvidia Opens Investigation Into Jensen Huang’s Relationship With Chinese Spy",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 22,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xr7tzk/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 22. 3.065 Punkte",
+   "score": 47.4,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Liste der größten Auslegerbrücken",
@@ -352,7 +991,7 @@
     }
    ],
    "warum": "Platz 6 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 33.338 Aufrufe",
-   "score": 78.8,
+   "score": 47.3,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -369,9 +1008,58 @@
     }
    ],
    "warum": "Platz 6 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 211.594 Aufrufe",
-   "score": 78.8,
+   "score": 47.3,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "super league darts",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 9,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 9 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Auch Wenig dabei: Diese Deutschen sind für die Darts-WM schon qualifiziert“ (Kicker)",
+   "score": 46.7,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "caroline dubois",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 9,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 9 der Google-Trends (US) mit über 200 Suchen; Meldung: „Caroline Dubois calls out 'disrespectful' Alycia Baumgardner, eyes '27 clash“ (ESPN)",
+   "score": 46.7,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "TIL people with blue eyes don't have any blue color pigments, rather it's how we perceive light refracting similar to how we perceive the sky and ocean as blue.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 23,
+     "subreddit": "todayilearned",
+     "link": "https://www.reddit.com/r/todayilearned/comments/1xr4epp/"
+    }
+   ],
+   "warum": "Reddit r/todayilearned (archiv), Platz 23. 3.045 Punkte",
+   "score": 46.3,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Reinhold Messner",
@@ -387,7 +1075,7 @@
     }
    ],
    "warum": "Platz 7 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 30.213 Aufrufe",
-   "score": 76.5,
+   "score": 45.9,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -404,9 +1092,26 @@
     }
    ],
    "warum": "Platz 7 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 209.858 Aufrufe",
-   "score": 76.5,
+   "score": 45.9,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "Egypt announces new Mediterranean gas field discovery estimated at 200 billion cubic feet",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 24,
+     "subreddit": "worldnews",
+     "link": "https://www.reddit.com/r/worldnews/comments/1xqxgs5/"
+    }
+   ],
+   "warum": "Reddit r/worldnews (archiv), Platz 24. 3.321 Punkte",
+   "score": 45.2,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": ".xxx",
@@ -421,9 +1126,26 @@
     }
    ],
    "warum": "Platz 8 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 199.678 Aufrufe",
-   "score": 74.2,
+   "score": 44.5,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "Nvidia CEO Jensen Huang faces bipartisan congressional scrutiny over reported China spy link",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 25,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xr4wwy/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 25. 3.067 Punkte",
+   "score": 44.2,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "nasa",
@@ -437,7 +1159,7 @@
     }
    ],
    "warum": "Platz 5 der Google-Trends (DE) mit über 500 Suchen; Meldung: „Nasa seeks next generation of astronauts to live and work on the moon“ (The Guardian)",
-   "score": 73.3,
+   "score": 44.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -453,7 +1175,7 @@
     }
    ],
    "warum": "Platz 5 der Google-Trends (US) mit über 200 Suchen; Meldung: „NFL insider shares promising A.J. Brown update, possible target return date“ (Boston.com)",
-   "score": 73.3,
+   "score": 44.0,
    "erstmals": "2026-11-08T21:58:28Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -471,7 +1193,7 @@
     }
    ],
    "warum": "Platz 9 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 28.011 Aufrufe",
-   "score": 72.0,
+   "score": 43.2,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -488,9 +1210,43 @@
     }
    ],
    "warum": "Platz 9 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 184.633 Aufrufe",
-   "score": 72.0,
+   "score": 43.2,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "Cats can bond with any creature If done right",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 26,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xr31gl/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 26. 3.082 Punkte",
+   "score": 43.1,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
+  },
+  {
+   "thema": "TIL that California law requires public swimming pools to post signs warning anyone with diarrhea, or who has had it within the past 14 days, not to enter the water because they may still spread pathogens such as Cryptosporidium, a parasite resistant to normal pool chlorination",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 27,
+     "subreddit": "todayilearned",
+     "link": "https://www.reddit.com/r/todayilearned/comments/1xr182m/"
+    }
+   ],
+   "warum": "Reddit r/todayilearned (archiv), Platz 27. 2.461 Punkte",
+   "score": 42.0,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Sinking oil rig",
@@ -505,7 +1261,7 @@
     }
    ],
    "warum": "Reddit r/interestingasfuck (archiv), Platz 1. 37.144 Punkte",
-   "score": 70.0,
+   "score": 42.0,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -523,7 +1279,7 @@
     }
    ],
    "warum": "Platz 10 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 24.108 Aufrufe",
-   "score": 69.8,
+   "score": 41.9,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -540,7 +1296,7 @@
     }
    ],
    "warum": "Platz 10 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 171.286 Aufrufe",
-   "score": 69.8,
+   "score": 41.9,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -557,9 +1313,26 @@
     }
    ],
    "warum": "Reddit r/worldnews (archiv), Platz 2. 27.370 Punkte",
-   "score": 68.9,
+   "score": 41.3,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
+  },
+  {
+   "thema": "TIL about the Texas A&M University bonfire collapse which killed 12 people and injured 27 others in 1999. The annual tradition started in 1909, but the official school-sanctioned event was canceled after the tragedy.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 28,
+     "subreddit": "todayilearned",
+     "link": "https://www.reddit.com/r/todayilearned/comments/1xrahym/"
+    }
+   ],
+   "warum": "Reddit r/todayilearned (archiv), Platz 28. 2.482 Punkte",
+   "score": 40.9,
+   "erstmals": "2026-11-09T06:09:01Z",
+   "zuletzt": "2026-11-09T06:09:01Z"
   },
   {
    "thema": "Democrats win the Arizona House, Senate and governor’s office for the first time since 1966",
@@ -574,7 +1347,7 @@
     }
    ],
    "warum": "Reddit r/news (archiv), Platz 3. 16.901 Punkte",
-   "score": 67.8,
+   "score": 40.7,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -592,7 +1365,7 @@
     }
    ],
    "warum": "Platz 11 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 23.214 Aufrufe",
-   "score": 67.5,
+   "score": 40.5,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   },
@@ -609,777 +1382,7 @@
     }
    ],
    "warum": "Platz 11 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 159.862 Aufrufe",
-   "score": 67.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "TIL that monkeys first reached the Americas by crossing the Atlantic Ocean on floating mats of vegetation.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 4,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xqkh2n/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 4. 12.394 Punkte",
-   "score": 66.8,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "haaland",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 6,
-     "suchen": 500
-    }
-   ],
-   "warum": "Platz 6 der Google-Trends (DE) mit über 500 Suchen; Meldung: „Everton ace Thierno Barry backed to join 'top-six club' as Erling Haaland-like similarity highlighted“ (Yahoo Sports)",
-   "score": 66.7,
-   "erstmals": "2026-11-08T21:58:28Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "nfc",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 6,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 6 der Google-Trends (US) mit über 200 Suchen; Meldung: „John Harbaugh pushing all the right buttons for Giants“ (ESPN)",
-   "score": 66.7,
-   "erstmals": "2026-11-08T21:58:28Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Millions of acres of Indonesia rainforest were burned up to give way for palm plantation expansion.This is sickening",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 5,
-     "subreddit": "interestingasfuck",
-     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xr1cpc/"
-    }
-   ],
-   "warum": "Reddit r/interestingasfuck (archiv), Platz 5. 12.774 Punkte",
-   "score": 65.7,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Janosch",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 12,
-     "aufrufe": 20031,
-     "link": "https://de.wikipedia.org/wiki/Janosch",
-     "beschreibung": "deutscher Illustrator und Schriftsteller (1931–2026)"
-    }
-   ],
-   "warum": "Platz 12 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 20.031 Aufrufe",
-   "score": 65.3,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Joe Fagnano",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 12,
-     "aufrufe": 149695,
-     "link": "https://en.wikipedia.org/wiki/Joe_Fagnano"
-    }
-   ],
-   "warum": "Platz 12 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 149.695 Aufrufe",
-   "score": 65.3,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "An iconic 1990s anti-smoking poster created by Martin Williams advertising agency",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 6,
-     "subreddit": "interestingasfuck",
-     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xqi4lv/"
-    }
-   ],
-   "warum": "Reddit r/interestingasfuck (archiv), Platz 6. 11.521 Punkte",
-   "score": 64.6,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Kids without phones",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 7,
-     "subreddit": "interestingasfuck",
-     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xr1sii/"
-    }
-   ],
-   "warum": "Reddit r/interestingasfuck (archiv), Platz 7. 9.800 Punkte",
-   "score": 63.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Sarah Tacke",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 13,
-     "aufrufe": 18363,
-     "link": "https://de.wikipedia.org/wiki/Sarah_Tacke"
-    }
-   ],
-   "warum": "Platz 13 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 18.363 Aufrufe",
-   "score": 63.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Gina Hinojosa",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 13,
-     "aufrufe": 138504,
-     "link": "https://en.wikipedia.org/wiki/Gina_Hinojosa"
-    }
-   ],
-   "warum": "Platz 13 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 138.504 Aufrufe",
-   "score": 63.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "TIL that there is a serious taboo against cleaning coffee mugs in the Navy",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 8,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xr087d/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 8. 8.210 Punkte",
-   "score": 62.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "‘That Stops When I’m Governor’: Dem Texas Governor-Elect Warns Big Tech",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 9,
-     "subreddit": "technology",
-     "link": "https://www.reddit.com/r/technology/comments/1xqxi5h/"
-    }
-   ],
-   "warum": "Reddit r/technology (archiv), Platz 9. 8.379 Punkte",
-   "score": 61.4,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Deaths in 2026",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 14,
-     "aufrufe": 136047,
-     "link": "https://en.wikipedia.org/wiki/Deaths_in_2026"
-    }
-   ],
-   "warum": "Platz 14 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 136.047 Aufrufe",
-   "score": 60.8,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Putin Seizes Three More Japan Tobacco Businesses, Bringing Takeover to $3.7 Billion",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 10,
-     "subreddit": "worldnews",
-     "link": "https://www.reddit.com/r/worldnews/comments/1xqvpmi/"
-    }
-   ],
-   "warum": "Reddit r/worldnews (archiv), Platz 10. 7.806 Punkte",
-   "score": 60.3,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "wdr live",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 7,
-     "suchen": 500
-    }
-   ],
-   "warum": "Platz 7 der Google-Trends (DE) mit über 500 Suchen; Meldung: „Highlights der Leverkusener Jazztage 2026“ (WDR)",
-   "score": 60.0,
-   "erstmals": "2026-11-08T21:58:28Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "wes moore",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 7,
-     "suchen": 2000
-    }
-   ],
-   "warum": "Platz 7 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „Moore says he led troops in combat. His Army supervisor tells a different story.“ (WBFF)",
-   "score": 60.0,
-   "erstmals": "2026-11-08T21:58:28Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "seahawks game today",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 1,
-     "suchen": 2000
-    }
-   ],
-   "warum": "Platz 1 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „Sources: Seahawks' Sam Darnold in jeopardy of missing Week 10 game vs. Raiders“ (ESPN)",
-   "score": 60.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:21:52Z"
-  },
-  {
-   "thema": "The Best and Most Informative Video About Alcohol I’ve Ever Seen",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 11,
-     "subreddit": "interestingasfuck",
-     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xqwmmy/"
-    }
-   ],
-   "warum": "Reddit r/interestingasfuck (archiv), Platz 11. 6.573 Punkte",
-   "score": 59.2,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Die weiße Rose (Film)",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 15,
-     "aufrufe": 16296,
-     "link": "https://de.wikipedia.org/wiki/Die_weiße_Rose_(Film)"
-    }
-   ],
-   "warum": "Platz 15 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 16.296 Aufrufe",
-   "score": 58.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Godzilla Minus Zero",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 15,
-     "aufrufe": 122560,
-     "link": "https://en.wikipedia.org/wiki/Godzilla_Minus_Zero"
-    }
-   ],
-   "warum": "Platz 15 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 122.560 Aufrufe",
-   "score": 58.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "What speedster power looked like on Japanese TV 20 years ago",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 12,
-     "subreddit": "interestingasfuck",
-     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xqv6ue/"
-    }
-   ],
-   "warum": "Reddit r/interestingasfuck (archiv), Platz 12. 8.084 Punkte",
-   "score": 58.2,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distress, and harmful appearance-modification practices.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 13,
-     "subreddit": "science",
-     "link": "https://www.reddit.com/r/science/comments/1xqpcsm/"
-    }
-   ],
-   "warum": "Reddit r/science (archiv), Platz 13. 6.084 Punkte",
-   "score": 57.1,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Benjamin von Stuckrad-Barre",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 16,
-     "aufrufe": 15962,
-     "link": "https://de.wikipedia.org/wiki/Benjamin_von_Stuckrad-Barre"
-    }
-   ],
-   "warum": "Platz 16 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 15.962 Aufrufe",
-   "score": 56.2,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Joran van der Sloot",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 16,
-     "aufrufe": 114800,
-     "link": "https://en.wikipedia.org/wiki/Joran_van_der_Sloot"
-    }
-   ],
-   "warum": "Platz 16 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 114.800 Aufrufe",
-   "score": 56.2,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "PS6 doesn't need more power, ex-PlayStation boss says, because \"true innovation\" would be making a $300 console again",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 14,
-     "subreddit": "technology",
-     "link": "https://www.reddit.com/r/technology/comments/1xqovch/"
-    }
-   ],
-   "warum": "Reddit r/technology (archiv), Platz 14. 6.848 Punkte",
-   "score": 56.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "chargers – texans",
-   "kategorie": "Ereignis",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 2,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 2 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Week 9 inactives for Texans“ (Yahoo Sports)",
-   "score": 56.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:21:52Z"
-  },
-  {
-   "thema": "xavier worthy",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 2,
-     "suchen": 500
-    }
-   ],
-   "warum": "Platz 2 der Google-Trends (US) mit über 500 Suchen; Meldung: „Xavier Worthy Hurts Hamstring“ (Draft Sharks)",
-   "score": 56.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:21:52Z"
-  },
-  {
-   "thema": "Israel’s president taps opposition candidate Eisenkot to form a government, in setback for Netanyahu",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 15,
-     "subreddit": "news",
-     "link": "https://www.reddit.com/r/news/comments/1xqfj9l/"
-    }
-   ],
-   "warum": "Reddit r/news (archiv), Platz 15. 6.870 Punkte",
-   "score": 54.9,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Bettina Zimmermann",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 17,
-     "aufrufe": 15711,
-     "link": "https://de.wikipedia.org/wiki/Bettina_Zimmermann"
-    }
-   ],
-   "warum": "Platz 17 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 15.711 Aufrufe",
-   "score": 54.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "South Carolina man arrested after leaving sleeping 6-year-old daughter in line for Pokémon card release, police say",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 16,
-     "subreddit": "news",
-     "link": "https://www.reddit.com/r/news/comments/1xqgvvr/"
-    }
-   ],
-   "warum": "Reddit r/news (archiv), Platz 16. 6.626 Punkte",
-   "score": 53.8,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "gabriel",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 8,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 8 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Noni Madueke has become a 'different' player, says Mikel Arteta, as winger finds new level of creativity and efficiency“ (Sky Sports)",
-   "score": 53.3,
-   "erstmals": "2026-11-08T21:58:28Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "espn nfl scores",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 8,
-     "suchen": 5000
-    }
-   ],
-   "warum": "Platz 8 der Google-Trends (US) mit über 5.000 Suchen; Meldung: „NFL Week 9 picks: Upset and score predictions, matchup breakdowns for every game“ (NFL.com)",
-   "score": 53.3,
-   "erstmals": "2026-11-08T21:58:28Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "TIL Šćepan Mali, the fake \"tsar\" of Montenegro (who ruled for five years in the 1700s due to rumor that he was the deposed and dead Russian Tsar Peter III) was such a good ruler, even after he was revealed to be an impostor and imprisoned, the Montenegrin people still wanted him to be their leader.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 17,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xqivxo/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 17. 7.008 Punkte",
-   "score": 52.8,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "cham",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 3,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „In Cham trifft am Sonntag Gesundheit auf Genuss“ (Idowa.de)",
-   "score": 52.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:21:52Z"
-  },
-  {
-   "thema": "jerry jeudy",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 3,
-     "suchen": 500
-    }
-   ],
-   "warum": "Platz 3 der Google-Trends (US) mit über 500 Suchen; Meldung: „Browns Unlikely To Trade WR Jerry Jeudy“ (ProFootballRumors.com)",
-   "score": 52.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:21:52Z"
-  },
-  {
-   "thema": "Glass (2019)",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 18,
-     "aufrufe": 15439,
-     "link": "https://de.wikipedia.org/wiki/Glass_(2019)"
-    }
-   ],
-   "warum": "Platz 18 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 15.439 Aufrufe",
-   "score": 51.7,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Protect & Swerve",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 18,
-     "subreddit": "interestingasfuck",
-     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xqss48/"
-    }
-   ],
-   "warum": "Reddit r/interestingasfuck (archiv), Platz 18. 6.669 Punkte",
-   "score": 51.7,
-   "erstmals": "2026-11-08T21:58:28Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Federal judges ordered their release from Aurora’s detention center. ICE was waiting outside to re-arrest them.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 19,
-     "subreddit": "news",
-     "link": "https://www.reddit.com/r/news/comments/1xqzf60/"
-    }
-   ],
-   "warum": "Reddit r/news (archiv), Platz 19. 6.328 Punkte",
-   "score": 50.6,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Maria Innocentia Hummel",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 19,
-     "aufrufe": 14205,
-     "link": "https://de.wikipedia.org/wiki/Maria_Innocentia_Hummel"
-    }
-   ],
-   "warum": "Platz 19 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 14.205 Aufrufe",
-   "score": 49.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Ansel Adams",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 19,
-     "aufrufe": 95161,
-     "link": "https://en.wikipedia.org/wiki/Ansel_Adams"
-    }
-   ],
-   "warum": "Platz 19 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 95.161 Aufrufe",
-   "score": 49.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "TIL In 1850, George Merryweather invented the leech barometer. It contained several leeches, which when agitated by atmospheric disturbance, would climb tubes in the device causing a bell to ring, alerting of an incoming storm.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 20,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xqfv6o/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 20. 6.646 Punkte",
-   "score": 49.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "1 dead, at least 12 injured after elderly driver plows into group of cyclists in North Carolina",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 21,
-     "subreddit": "news",
-     "link": "https://www.reddit.com/r/news/comments/1xqmjic/"
-    }
-   ],
-   "warum": "Reddit r/news (archiv), Platz 21. 5.507 Punkte",
-   "score": 48.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "justin timberlake",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 4,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 4 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Justin Timberlake Reveals ‘What Goes Around… Comes Around’ Is Not About Britney Spears“ (IMDb)",
-   "score": 48.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:21:52Z"
-  },
-  {
-   "thema": "spencer shrader",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 4,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 4 der Google-Trends (US) mit über 200 Suchen; Meldung: „Colts' Spencer Shrader: Makes sole kick in blowout loss“ (CBS Sports)",
-   "score": 48.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:21:52Z"
-  },
-  {
-   "thema": "\"Ram Altman\" Is Now a Linux Script That Emails Sam Altman Daily to Report How Much Unused RAM Is in Your PC",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 22,
-     "subreddit": "technology",
-     "link": "https://www.reddit.com/r/technology/comments/1xqyo60/"
-    }
-   ],
-   "warum": "Reddit r/technology (archiv), Platz 22. 5.772 Punkte",
-   "score": 47.4,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-08T21:58:28Z"
-  },
-  {
-   "thema": "Christian Freuding",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 20,
-     "aufrufe": 13587,
-     "link": "https://de.wikipedia.org/wiki/Christian_Freuding"
-    }
-   ],
-   "warum": "Platz 20 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 13.587 Aufrufe",
-   "score": 47.2,
+   "score": 40.5,
    "erstmals": "2026-11-08T21:21:52Z",
    "zuletzt": "2026-11-08T21:58:28Z"
   }
