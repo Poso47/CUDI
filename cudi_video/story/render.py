@@ -349,10 +349,15 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
     bounds = [0.0] + [starts[i + 1] for i in range(1, n)] + [total]
     segments = []
     with zeiten.stufe("render"):
-        for i in range(n):
-            seg = render_segment(visuals[i], bounds[i + 1] - bounds[i], i, mood, work / f"seg_{i:02d}.mp4")
-            segments.append(seg)
-            progress(0.25 + 0.45 * (i + 1) / n)
+        from concurrent.futures import ThreadPoolExecutor
+
+        # Tempo: die Hintergrund-Clips sind voneinander unabhängige ffmpeg-Läufe -> so viele gleichzeitig wie Kerne
+        with ThreadPoolExecutor(max_workers=max(1, min(config.RENDER_WORKERS, n))) as pool:
+            futures = [pool.submit(render_segment, visuals[i], bounds[i + 1] - bounds[i], i, mood, work / f"seg_{i:02d}.mp4")
+                       for i in range(n)]
+            for i, future in enumerate(futures):
+                segments.append(future.result())
+                progress(0.25 + 0.45 * (i + 1) / n)
         concat = work / "segments.txt"
         concat.write_text("".join(f"file '{p.name}'\n" for p in segments), "utf-8")
         _run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", concat.name, "-c", "copy",
@@ -388,7 +393,7 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
     with zeiten.stufe("encode"):
         _run(["ffmpeg", "-y", "-loglevel", "error", "-i", "visual.mp4", "-loop", "1", "-t", f"{intro_end:.2f}",
               "-i", "card.png", "-i", "voice.wav", "-i", "music.wav", *extra_inputs, "-filter_complex", filters,
-              "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-preset", "medium", "-crf", "21", "-maxrate", "9M",
+              "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-preset", "faster", "-crf", "21", "-maxrate", "9M",
               "-bufsize", "18M", "-pix_fmt", "yuv420p",
               "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-t", f"{total:.2f}", "-movflags", "+faststart",
               str(out.resolve())], cwd=work)

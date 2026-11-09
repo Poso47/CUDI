@@ -335,7 +335,7 @@ def app_version(src: Path, dst: Path, budget: int = APP_BUDGET) -> Path:
     for scale, share in (("1080:-2", 0.95), ("1080:-2", 0.82), ("720:-2", 0.82)):
         video_bps = max(250_000, int((budget * 8 / seconds - AUDIO_BPS) * share))
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(src), "-vf", f"scale={scale}:flags=lanczos",
-                        "-c:v", "libx264", "-preset", "medium", "-crf", "23", "-maxrate", str(video_bps),
+                        "-c:v", "libx264", "-preset", "fast", "-crf", "23", "-maxrate", str(video_bps),
                         "-bufsize", str(video_bps * 2), "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "96k",
                         "-movflags", "+faststart", str(dst)], check=True)
         if dst.stat().st_size <= budget:
