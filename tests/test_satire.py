@@ -25,6 +25,8 @@ NEWS = {"meldungen": [
 def daten(tmp_path, monkeypatch):
     (tmp_path / "news.json").write_text(json.dumps(NEWS), "utf-8")
     monkeypatch.setenv("CUDI_FIRMA_DATEN", str(tmp_path))
+    from cudi_video.firma import common
+    monkeypatch.setattr(common, "DATA_DIR", tmp_path)   # DATA_DIR wird beim Import festgelegt – sonst echte firma_daten
     from cudi_video import handoff
     monkeypatch.setattr(handoff, "request", lambda *a, **k: None)
     return tmp_path
