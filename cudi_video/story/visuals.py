@@ -412,6 +412,20 @@ def cartoon_prompt(prompt: str, mood: str, figure: str) -> str:
             f"character design, vertical, no text: {subject}{who}, {CARTOON_STYLE.get(mood, '')}")
 
 
+def _prewarm(scenes: list[dict], workers: int = 4) -> None:
+    """Tempo: Suchanfragen und Clip-Downloads der Stock-Quellen für alle Szenen GLEICHZEITIG in den Datei-Cache holen.
+    Die eigentliche Auswahl läuft danach unverändert nacheinander (keine doppelten Clips) und findet alles im Cache.
+    Ergebnisse werden hier verworfen; jeder Fehler ist egal (dann holt die Auswahl es wie bisher selbst)."""
+    def warm(scene: dict) -> None:
+        try:
+            pexels(scene["query"], set()) or pixabay(scene["query"], set())
+        except Exception as exc:                          # noqa: BLE001 - nur Vorwärmen
+            log.info("Vorwärmen für %r übersprungen: %s", scene.get("query"), exc)
+
+    with ThreadPoolExecutor(max_workers=min(workers, max(1, len(scenes)))) as pool:
+        list(pool.map(warm, scenes))
+
+
 def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int = 1,
                  progress=lambda done, total: None, figure: str = "") -> tuple[list[Visual], list[str]]:
     """Ein Bild/Clip je Szene. Gibt (Visuals, Hinweise) zurück. figure: Hauptfigur im Cartoon-Modus."""
@@ -460,6 +474,8 @@ def pick_visuals(scenes: list[dict], mood: str, mode: str = "videos", seed: int 
 
     total = len(scenes)
     visuals: list[Visual | None] = [None] * total
+    if "stock" in order and order[0] == "stock" and has_stock:
+        _prewarm(scenes)
     # Stock-Suchen nacheinander (keine doppelten Clips); KI-Bilder werden in ai_image ohnehin nacheinander geholt
     with ThreadPoolExecutor(max_workers=1) as pool:
         futures = {pool.submit(one, i, scene): i for i, scene in enumerate(scenes)}

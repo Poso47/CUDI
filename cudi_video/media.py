@@ -256,14 +256,26 @@ def pixabay_photos(item: RankItem) -> list[Candidate]:
     return out
 
 
-def alternatives(item: RankItem) -> list[Candidate]:
-    """Weitere Fotos des Platzes, bestes zuerst. Fällt eine Quelle aus, zählen die anderen."""
-    found: list[Candidate] = []
-    for source in (pexels_photos, pixabay_photos, openverse, nasa):
+def gather(sources, item: RankItem, what: str = "") -> list:
+    """Alle Quellen GLEICHZEITIG fragen (Tempo: sie hängen nicht voneinander ab); Ergebnisse in der Reihenfolge von
+    `sources`, damit alles wie bei der Abfrage nacheinander sortiert bleibt. Fällt eine Quelle aus, zählen die anderen."""
+    from concurrent.futures import ThreadPoolExecutor
+
+    def one(source):
         try:
-            found += source(item)
+            return source(item)
         except net.FetchError as exc:
             log.info("%s für %s nicht erreichbar: %s", source.__name__, item.qid, exc)
+            return []
+
+    with ThreadPoolExecutor(max_workers=len(sources)) as pool:
+        parts = list(pool.map(one, sources))
+    return [x for part in parts for x in part]
+
+
+def alternatives(item: RankItem) -> list[Candidate]:
+    """Weitere Fotos des Platzes, bestes zuerst. Fällt eine Quelle aus, zählen die anderen."""
+    found = gather((pexels_photos, pixabay_photos, openverse, nasa), item)
     return sorted(found, key=lambda c: c.score, reverse=True)
 
 
@@ -449,14 +461,8 @@ def rank_by_image(item: RankItem, clips: list[Clip]) -> list[Clip]:
 def find_clips(item: RankItem, limit: int = MAX_CLIPS) -> list[dict]:
     """Bis zu `limit` passende Clips laden – Stockvideos in HD zuerst, dann NASA, dann Commons.
     Ergebnis: [{"path": …, "credit": …, "duration": …}] (leer = Foto mit Zoom wie bisher)."""
-    found: list[Clip] = []
-    for source in (pexels_clips, pixabay_clips, nasa_clips, commons_clips):
-        if len(found) >= limit * 2:
-            break
-        try:
-            found += source(item)
-        except net.FetchError as exc:
-            log.info("%s für %s nicht erreichbar: %s", source.__name__, item.qid, exc)
+    # Stockvideos (Pexels/Pixabay) und NASA/Commons gleichzeitig suchen; die Reihenfolge der Quellen bleibt erhalten
+    found: list[Clip] = gather((pexels_clips, pixabay_clips, nasa_clips, commons_clips), item)
     out, seen = [], set()
     for clip in rank_by_image(item, found):
         if clip.key in seen:

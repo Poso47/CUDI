@@ -42,8 +42,8 @@ WIDTH = 1080
 HEIGHT = 1920
 FPS = int(os.environ.get("CUDI_VIDEO_FPS", "30"))
 _CPUS = os.cpu_count() or 2
-# Bei vielen Kernen einen für System/ffmpeg frei lassen, bei 1–2 Kernen alle nutzen.
-RENDER_WORKERS = int(os.environ.get("CUDI_VIDEO_WORKERS", str(_CPUS - 1 if _CPUS > 2 else _CPUS)))
+# Bis 4 Kerne alle nutzen (Tempo: der Hauptprozess wartet nur), bei mehr Kernen einen für ffmpeg frei lassen.
+RENDER_WORKERS = int(os.environ.get("CUDI_VIDEO_WORKERS", str(_CPUS if _CPUS <= 4 else _CPUS - 1)))
 
 # Stimmen (edge-tts, kostenlos). Auswahl: `edge-tts --list-voices`
 VOICES = {

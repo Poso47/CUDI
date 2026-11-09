@@ -94,6 +94,22 @@ def loudness_ok(m: dict) -> bool:
             and (m["true_peak"] is None or m["true_peak"] <= MAX_TRUE_PEAK))
 
 
+def loudnorm_filter(audio: Path) -> str:
+    """Zweistufiges (lineares) loudnorm-Filter für eine Tonspur – gemessen wird nur der Ton (Sekunden), so liegt die
+    Lautheit schon beim ersten Muxen im Ziel und qa muss das Video nicht noch einmal anfassen. Ausfall: einstufig wie bisher."""
+    single = f"loudnorm=I={TARGET_LUFS}:TP=-1.5:LRA=11"
+    try:
+        first = _run(["ffmpeg", "-nostats", "-i", str(audio), "-vn", "-af", single + ":print_format=json", "-f", "null", "-"]).stderr
+        blob = re.search(r"\{[^{}]*\"input_i\"[^{}]*\}", first, re.S)
+        if not blob:
+            return single
+        m = json.loads(blob.group(0))
+        return (f"{single}:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:"
+                f"measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
+    except Exception:  # noqa: BLE001 - Messung ist nur Optimierung
+        return single
+
+
 def normalize_loudness(path: Path) -> bool:
     """Zweistufiges loudnorm nur auf die Tonspur; ersetzt die Datei. True bei Erfolg."""
     first = _run(["ffmpeg", "-nostats", "-i", str(path), "-vn", "-af",
@@ -131,7 +147,12 @@ def check(path: Path, kind: str = "", max_seconds: float | None = None, fix: boo
     if info["bild_dauer"] and info["ton_dauer"] and abs(info["bild_dauer"] - info["ton_dauer"]) > SYNC_MAX:
         befunde.append(f"Bild ({info['bild_dauer']:.2f} s) und Ton ({info['ton_dauer']:.2f} s) laufen auseinander.")
 
-    black, freeze = detect_video_faults(path)
+    from concurrent.futures import ThreadPoolExecutor
+
+    with ThreadPoolExecutor(max_workers=2) as pool:        # Tempo: Bildprüfung und Lautheitsmessung laufen gleichzeitig
+        loud_job = pool.submit(measure_loudness, path)
+        black, freeze = detect_video_faults(path)
+        m = loud_job.result()
     qa["schwarz"] = [[round(a, 1), round(b, 1)] for a, b in black
                      if a > BLACK_EDGE and b < info["dauer"] - BLACK_EDGE]
     if qa["schwarz"]:
@@ -142,7 +163,6 @@ def check(path: Path, kind: str = "", max_seconds: float | None = None, fix: boo
             befunde.append("Standbild über 3 s bei " + ", ".join(f"{a}–{b} s" for a, b in qa["standbild"]) + ".")
     befunde.extend(layout_findings())
 
-    m = measure_loudness(path)
     qa["lufs_vor"], qa["true_peak"] = m["lufs"], m["true_peak"]
     if m["lufs"] is None:
         befunde.append("Lautheit nicht messbar (keine Tonspur?).")

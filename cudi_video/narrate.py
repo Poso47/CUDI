@@ -127,12 +127,21 @@ def places_for(spec: VideoSpec, research: Research, lang: str) -> list[dict]:
             for i, item in enumerate(countdown)]
 
 
-def request(spec: VideoSpec, research: Research, langs: list[str]) -> dict:
-    """Erzählte Texte {Sprache: {Platz: Text}} von Claude oder {} (nicht aktiv / keine Antwort)."""
+def task(spec: VideoSpec, research: Research, langs: list[str]) -> tuple[str, str, dict] | None:
+    """Die Schreibaufgabe „erzaehlen“ (Name, Anleitung, Daten) – für `handoff.request_many` (eine Runde mit den Titeln)."""
     if not handoff.active() or not research.items:
-        return {}
+        return None
     data = {lang: {"titel": spec.title[lang], **themen.focus(spec, lang), "plaetze": places_for(spec, research, lang)}
             for lang in langs}
+    return "erzaehlen", INSTRUCTIONS, data
+
+
+def request(spec: VideoSpec, research: Research, langs: list[str]) -> dict:
+    """Erzählte Texte {Sprache: {Platz: Text}} von Claude oder {} (nicht aktiv / keine Antwort)."""
+    asked = task(spec, research, langs)
+    if asked is None:
+        return {}
+    data = asked[2]
     texts = _texts(handoff.request("erzaehlen", INSTRUCTIONS, data))
     if not texts:
         return {}

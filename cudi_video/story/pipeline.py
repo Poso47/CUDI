@@ -13,7 +13,7 @@ import re
 import zlib
 from pathlib import Path
 
-from .. import config, net
+from .. import config, net, zeiten
 from .editor import build_skeleton
 from .moods import MOODS, narrator_gender, plan_from_description, subreddits_for, voice_for
 from .render import render_part
@@ -57,7 +57,8 @@ def search(description: str = "", mood: str | None = None, lang: str = "de", len
         plan["mood"] = mood
         if not re.search(r"\br/\w+", description):
             plan["subreddits"] = subreddits_for(mood, lang)
-    posts, notes = find_stories(plan, length=length, limit=limit, seed=seed, lang=lang)
+    with zeiten.stufe("planen"):
+        posts, notes = find_stories(plan, length=length, limit=limit, seed=seed, lang=lang)
     return {"plan": plan, "stories": [p.to_dict() for p in posts], "notes": notes}
 
 
@@ -73,7 +74,8 @@ def prepare(story: dict | None = None, url: str = "", text: str = "", title: str
         post = fetch_post(url)
     else:
         post = post_from_text(title, text)
-    skeleton = build_skeleton(post, lang=lang, mood=mood, length=length, visuals=visuals, soften=soften)
+    with zeiten.stufe("schreiben"):
+        skeleton = build_skeleton(post, lang=lang, mood=mood, length=length, visuals=visuals, soften=soften)
     folder = new_folder(skeleton["title"])
     save_skeleton(folder, skeleton)
     return skeleton, folder
@@ -126,10 +128,11 @@ def render(folder_path: Path, skeleton: dict | None = None, progress=lambda stag
     n_parts = len(skeleton["parts"])
     all_scenes = [s for p in skeleton["parts"] for s in p["scenes"]]
     progress("Bilder und Clips", 0.02)
-    visuals, notes = pick_visuals(all_scenes, mood, skeleton.get("visuals", "videos"),
-                                  seed=zlib.crc32((skeleton["post"].get("id") or skeleton["title"]).encode()) % 10_000,
-                                  progress=lambda d, t: progress("Bilder und Clips", 0.02 + 0.2 * d / t),
-                                  figure=str(skeleton.get("figur") or ""))
+    with zeiten.stufe("bilder"):
+        visuals, notes = pick_visuals(all_scenes, mood, skeleton.get("visuals", "videos"),
+                                      seed=zlib.crc32((skeleton["post"].get("id") or skeleton["title"]).encode()) % 10_000,
+                                      progress=lambda d, t: progress("Bilder und Clips", 0.02 + 0.2 * d / t),
+                                      figure=str(skeleton.get("figur") or ""))
     result = {"output_dir": str(folder), "warnings": [*skeleton.get("rights", []), *notes], "videos": {}, "kind": "story"}
     base = f"story_{_slug(skeleton['title'])[:30]}_{lang}"
     offset = 0

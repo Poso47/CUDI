@@ -156,6 +156,7 @@ für TikTok/YouTube Shorts.
   fremden Hosts** (nur Dateien neben der Seite) → Pages-Weg läuft in Claude vermutlich nicht; verlässlich ist `firma/stand`: bei jedem Auftrags-Lauf
   `ArtifactData set` (collection `firma`, doc_id `stand`, file_path `docs/firma/firma.json` – siehe Zusatzzeile in der Aufgabe, nur mit OK des Nutzers).
   Demo: `?demo=1`.
+- **Tempo** (Skill `tempo`, `cudi_video/zeiten.py`): Zeit je Stufe in `ergebnis.json["zeiten"]`/Prüfbericht „Zeiten“; Bündel-Schreibrunde `handoff.request_many` (Erzählen + Titel), parallele Quellen/Plätze/TTS, Cover nur auf dem Intro, Ton-loudnorm vorab, kleine Paketliste `requirements-basis.txt`; Messen immer mit frischem Cache (`CUDI_VIDEO_CACHE`), Umgebungs-Vorschlag `docs/umgebung-setup.sh`.
 - Kosten: alles kostenlose Dienste; App-Aufträge zählen nur zum Claude-Nutzungslimit des Nutzers.
 - **Keine Fehlschläge** (Wunsch des Nutzers) – kostenlose Ausweichwege, siehe README „Probleme?“:
   edge-tts 6 Versuche → Piper offline (`tts.PIPER_VOICES`, Modelle in `video_output/_piper`, `piper-tts`

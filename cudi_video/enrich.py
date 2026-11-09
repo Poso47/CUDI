@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import logging
 import re
+import threading
 import time
 from html import unescape
 from urllib.parse import quote
@@ -147,6 +148,8 @@ def _commons_image(item: RankItem) -> tuple[str, int]:
     path, error = None, ""
     for url in urls:
         try:
+            if not net.cached_file(url, ".img"):
+                wikimedia_pace()
             path = net.download(url, suffix=".img", retries=2, max_wait=15)
             break
         except net.FetchError as exc:
@@ -205,6 +208,34 @@ def _enrich_item(item: RankItem, langs: list[str], images: bool) -> bool:
     return ok
 
 
+IMAGE_WORKERS = 3              # Plätze gleichzeitig (Wikimedia selbst bleibt über net-Slots/IMAGE_PAUSE einzeln und höflich)
+
+
+def parallel_map(fn, items, workers: int = IMAGE_WORKERS) -> list:
+    """`map` mit Threads, Reihenfolge bleibt; eine Ausnahme je Eintrag bricht nicht alles ab (wird erneut geworfen,
+    wenn sie die erste ist – wie beim sequentiellen Lauf)."""
+    from concurrent.futures import ThreadPoolExecutor
+
+    items = list(items)
+    if len(items) < 2:
+        return [fn(it) for it in items]
+    with ThreadPoolExecutor(max_workers=min(workers, len(items))) as pool:
+        return list(pool.map(fn, items))
+
+
+_wm_lock = threading.Lock()
+_wm_last = [0.0]
+
+
+def wikimedia_pace(pause: float | None = None) -> None:
+    """Zwischen zwei Bild-Downloads von Wikimedia mindestens `IMAGE_PAUSE` Sekunden (auch über Threads hinweg)."""
+    with _wm_lock:
+        wait = _wm_last[0] + (IMAGE_PAUSE if pause is None else pause) - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        _wm_last[0] = time.monotonic()
+
+
 IMAGE_PAUSE = 1.0              # Sekunden zwischen zwei Bildern (Wikimedia drosselt Bild-Downloads aus Rechenzentren)
 IMAGE_RETRY_PAUSES = (45, 90)  # weitere Versuche für gedrosselte Bilder – ein Video ohne Fotos ist ein Fehlschlag
 
@@ -232,18 +263,17 @@ def enrich(research: Research, langs: list[str], images: bool = True) -> Researc
                 time.sleep(pause)
                 net.reset_blocks()
             retry = []
-            for i, item in enumerate(pending):
-                if i:
-                    time.sleep(IMAGE_PAUSE)
-                if not fetch_image(item):
-                    retry.append(item)
+            retry = parallel_map(lambda it: (it, fetch_image(it)), pending)      # Tempo: mehrere Plätze gleichzeitig
+            retry = [item for item, ok in retry if not ok]
             pending = retry
         from . import config, media
 
         if config.RANKING_CLIPS:
-            for item in research.items:                          # echte Videoclips: mehrere kurze Ausschnitte
+            def clips_of(item):
                 if item.image_kind == "photo" and not item.clips:
                     item.clips = media.find_clips(item)
+
+            parallel_map(clips_of, research.items)               # echte Videoclips: mehrere kurze Ausschnitte, Plätze gleichzeitig
             short = [it.labels.get(langs[0], it.qid) for it in research.items
                      if it.image_kind == "photo" and not any(c.get("kind") != "image" for c in it.clips)]
             if short:

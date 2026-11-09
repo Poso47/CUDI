@@ -143,16 +143,24 @@ TITLE_INSTRUCTIONS = (
 )
 
 
-def request_titles(spec: VideoSpec, research: Research, langs: list[str]) -> dict:
-    """Titelvarianten von Claude bzw. dem Notbetrieb-LLM {Sprache: [Titel]} oder {} (nicht aktiv / keine Antwort).
-    Geprüft wird erst in `choose_titles`; was nicht besteht, ersetzen die Regel-Varianten."""
+def title_task(spec: VideoSpec, research: Research, langs: list[str]) -> tuple[str, str, dict] | None:
+    """Die Schreibaufgabe „titel“ (Name, Anleitung, Daten) – für `handoff.request_many` (eine Runde mit dem Erzählen)."""
     if not handoff.active() or not research.items:
-        return {}
+        return None
     data = {lang: {"titel": spec.title[lang], "erlaubte_zahlen": sorted(allowed_title_numbers(spec, research, lang)),
                    "plaetze": [{"platz": it.rank, "name": it.labels.get(lang) or it.labels.get("en", "")}
                                for it in sorted(research.items, key=lambda i: i.rank)[:5]]}
             for lang in langs}
-    answer = handoff.request("titel", TITLE_INSTRUCTIONS, data)
+    return "titel", TITLE_INSTRUCTIONS, data
+
+
+def request_titles(spec: VideoSpec, research: Research, langs: list[str]) -> dict:
+    """Titelvarianten von Claude bzw. dem Notbetrieb-LLM {Sprache: [Titel]} oder {} (nicht aktiv / keine Antwort).
+    Geprüft wird erst in `choose_titles`; was nicht besteht, ersetzen die Regel-Varianten."""
+    asked = title_task(spec, research, langs)
+    if asked is None:
+        return {}
+    answer = handoff.request(*asked)
     return answer if isinstance(answer, dict) else {}
 
 

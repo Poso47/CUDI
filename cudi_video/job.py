@@ -31,7 +31,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
-from . import config, experimente, handoff
+from . import config, experimente, handoff, zeiten
 
 log = logging.getLogger(__name__)
 
@@ -335,7 +335,7 @@ def app_version(src: Path, dst: Path, budget: int = APP_BUDGET) -> Path:
     for scale, share in (("1080:-2", 0.95), ("1080:-2", 0.82), ("720:-2", 0.82)):
         video_bps = max(250_000, int((budget * 8 / seconds - AUDIO_BPS) * share))
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(src), "-vf", f"scale={scale}:flags=lanczos",
-                        "-c:v", "libx264", "-preset", "medium", "-crf", "23", "-maxrate", str(video_bps),
+                        "-c:v", "libx264", "-preset", "fast", "-crf", "23", "-maxrate", str(video_bps),
                         "-bufsize", str(video_bps * 2), "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "96k",
                         "-movflags", "+faststart", str(dst)], check=True)
         if dst.stat().st_size <= budget:
@@ -396,11 +396,13 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
         long_video = (files.get("duration") or _duration(video)) > 185
         if not files.get("qa") and result.get("kind") in ("story", "clip"):          # Ranking/Erklär prüfen schon beim Rendern
             from . import qa
-            files["qa"] = qa.safe_check(video, result["kind"])
+            with zeiten.stufe("qa"):
+                files["qa"] = qa.safe_check(video, result["kind"])
             data["hinweise"] += [f"Endkontrolle: {b}" for b in (files["qa"] or {}).get("befunde", [])]
             data["hinweise"] = data["hinweise"][:20]
-        app = app_version(video, video.with_name(video.stem + "_app.mp4"), LONG_APP_BUDGET if long_video else APP_BUDGET)
-        chunks = split_for_app(app)
+        with zeiten.stufe("app"):
+            app = app_version(video, video.with_name(video.stem + "_app.mp4"), LONG_APP_BUDGET if long_video else APP_BUDGET)
+            chunks = split_for_app(app)
         cover = out / files["cover"] if files.get("cover") and (out / files["cover"]).exists() else None
         data["videos"].append({
             "key": key, "video": str(app), "cover": str(cover) if cover else None,
@@ -411,6 +413,15 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
             "youtube": _read(out / files["description_file"]) if files.get("description_file") else "",
             "tiktok": _read(out / files["caption_file"]) if files.get("caption_file") else "",
         })
+    block = zeiten.bericht(out)                               # Tempo: Sekunden je Stufe (Prüfbericht „Zeiten“)
+    data["zeiten"] = block
+    section = zeiten.review_section(block)
+    if section:
+        try:
+            with open(out / "review.md", "a", encoding="utf-8") as fh:
+                fh.write("\n" + section)
+        except OSError:
+            pass
     data["pruefbericht"] = _read(out / "review.md", MAX_REVIEW)
     try:                                                      # Regie & Psychologie: Score vorher/nachher, Änderungen
         data["regie"] = json.loads((out / "regie.json").read_text("utf-8"))
@@ -432,15 +443,16 @@ def _ranking(order: dict, folder: Path, progress) -> dict:
     from .spec import VideoSpec
     from .topics import PlanError
 
-    try:
-        spec = _load(order["thema"] or order["vorlage"], order["plaetze"])
-    except PlanError as exc:                             # Thema außerhalb der Vorlagen: Claude deutet es
-        planned = plan_with_claude(order["thema"], order["plaetze"]) if order["thema"] else None
-        if planned is None:
-            raise
-        spec = VideoSpec.from_dict(planned)
-        print(f"  Thema verstanden: {spec.title['de']}", flush=True)
-        log.info("Thema per Claude geplant (Stichwort-Planer: %s): %s", exc, planned)
+    with zeiten.stufe("planen"):
+        try:
+            spec = _load(order["thema"] or order["vorlage"], order["plaetze"])
+        except PlanError as exc:                             # Thema außerhalb der Vorlagen: Claude deutet es
+            planned = plan_with_claude(order["thema"], order["plaetze"]) if order["thema"] else None
+            if planned is None:
+                raise
+            spec = VideoSpec.from_dict(planned)
+            print(f"  Thema verstanden: {spec.title['de']}", flush=True)
+            log.info("Thema per Claude geplant (Stichwort-Planer: %s): %s", exc, planned)
     if order.get("laenge") == "lang":                    # bis 10 Minuten: mehr Plätze, ausführlicher erzählt
         spec.target_seconds = int(min(config.LONG_MAX_SECONDS - 10, 30 + 22 * order["plaetze"]))
     out = folder / "video"
@@ -731,6 +743,7 @@ def run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=No
     try:
         return _run_order(order, folder, via_claude, on_progress)
     finally:
+        zeiten.speichern(folder)
         experimente.end_order()                           # vom Bandit gesetzte Umgebung wieder entfernen
 
 
@@ -740,6 +753,9 @@ def _run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=N
     from .story.translate import CLAUDE_FILE_ENV, TranslationNeeded
 
     folder.mkdir(parents=True, exist_ok=True)
+    zeiten.reset()
+    zeiten.laden(folder)                                  # früher gemessene Zeiten (Fortsetzen nach Schreibaufgabe)
+    zeiten.pakete_aus_umgebung()
     (folder / "auftrag.json").write_text(json.dumps(order, ensure_ascii=False, indent=1), "utf-8")
     translation = folder / TRANSLATION_FILE
     if via_claude:

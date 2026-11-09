@@ -206,6 +206,9 @@ def piper_synthesize(text: str, edge_voice: str, out_wav: Path, rate: str = "+0%
     return words
 
 
+TTS_PARALLEL = int(os.environ.get("CUDI_TTS_PARALLEL", "6"))     # gleichzeitige edge-tts-Abrufe (Messung: 6 ≈ doppelt so schnell wie 3)
+
+
 async def _speak_all(texts: list[str], out_dir: Path, voice: str, rate: str, pitch: str,
                      parallel: int = 2, prosody: list[tuple[str, str, str]] | None = None
                      ) -> list[tuple[Path, list[dict]]]:
@@ -639,7 +642,7 @@ def assemble_parts(parts: list[Part], spoken: list[tuple[Path, list[dict]]], wav
     return words, len(pcm) / SAMPLE_RATE
 
 
-async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = 3,
+async def _voice_script(script: Script, out_dir: Path, voice: str, rate: str, parallel: int = TTS_PARALLEL,
                         profile: str = "ranking") -> None:
     seed = f"{script.title}|{script.lang}"                # fester Startwert je Video: gleiche Betonung bei jedem Lauf
     plans = [_complete(plan_parts(seg.text, seg.kind, profile, f"{seed}|{i}"), seg.text) if profile != "aus" else [Part(seg.text)]
@@ -661,7 +664,10 @@ def voice_script(script: Script, out_dir: Path, voice: str | None = None, rate: 
     out_dir.mkdir(parents=True, exist_ok=True)
     voice = voice or config.VOICES[script.lang]
     chosen = speech_profile_override() or profile or "ranking"
-    asyncio.run(_voice_script(script, out_dir, voice, rate or config.VOICE_RATE, profile=chosen))
+    from . import zeiten
+
+    with zeiten.stufe("tts"):
+        asyncio.run(_voice_script(script, out_dir, voice, rate or config.VOICE_RATE, profile=chosen))
     return script
 
 
@@ -677,7 +683,7 @@ async def _voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str, p
         return result
     plans = [plan_story_parts(text, mood, seed=f"{texts[0][:30] if texts else ''}|{i}") for i, text in enumerate(texts)]
     flat = [part for plan in plans for part in plan]
-    spoken = await _speak_all([part.text for part in flat], out_dir, voice, rate, pitch, max(parallel, 3),
+    spoken = await _speak_all([part.text for part in flat], out_dir, voice, rate, pitch, max(parallel, TTS_PARALLEL),
                               [part_prosody(part, rate, pitch) for part in flat])
     result, pos = [], 0
     for i, plan in enumerate(plans):
@@ -695,4 +701,7 @@ def voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str = "+0%", 
     out_dir.mkdir(parents=True, exist_ok=True)
     if speech_profile_override() == "aus":
         mood = None
-    return asyncio.run(_voice_texts(texts, out_dir, voice, rate, pitch, max_pause, mood=mood))
+    from . import zeiten
+
+    with zeiten.stufe("tts"):
+        return asyncio.run(_voice_texts(texts, out_dir, voice, rate, pitch, max_pause, mood=mood))

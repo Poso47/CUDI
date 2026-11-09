@@ -17,7 +17,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from .. import config, mascot
+from .. import config, mascot, zeiten
 from ..render import theme
 from ..tts import voice_texts
 from .moods import MOODS
@@ -348,17 +348,24 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
     n = len(part["scenes"])
     bounds = [0.0] + [starts[i + 1] for i in range(1, n)] + [total]
     segments = []
-    for i in range(n):
-        seg = render_segment(visuals[i], bounds[i + 1] - bounds[i], i, mood, work / f"seg_{i:02d}.mp4")
-        segments.append(seg)
-        progress(0.25 + 0.45 * (i + 1) / n)
-    concat = work / "segments.txt"
-    concat.write_text("".join(f"file '{p.name}'\n" for p in segments), "utf-8")
-    _run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", concat.name, "-c", "copy",
-          "visual.mp4"], cwd=work)
+    with zeiten.stufe("render"):
+        from concurrent.futures import ThreadPoolExecutor
 
-    voice_track([(wav, s) for (wav, _, _), s in zip(voiced, starts)], total, work / "voice.wav")
-    make_music(MOODS[mood]["music"], total, work / "music.wav", seed=part_index + 1)
+        # Tempo: die Hintergrund-Clips sind voneinander unabhängige ffmpeg-Läufe -> so viele gleichzeitig wie Kerne
+        with ThreadPoolExecutor(max_workers=max(1, min(config.RENDER_WORKERS, n))) as pool:
+            futures = [pool.submit(render_segment, visuals[i], bounds[i + 1] - bounds[i], i, mood, work / f"seg_{i:02d}.mp4")
+                       for i in range(n)]
+            for i, future in enumerate(futures):
+                segments.append(future.result())
+                progress(0.25 + 0.45 * (i + 1) / n)
+        concat = work / "segments.txt"
+        concat.write_text("".join(f"file '{p.name}'\n" for p in segments), "utf-8")
+        _run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", concat.name, "-c", "copy",
+              "visual.mp4"], cwd=work)
+
+    with zeiten.stufe("ton"):
+        voice_track([(wav, s) for (wav, _, _), s in zip(voiced, starts)], total, work / "voice.wav")
+        make_music(MOODS[mood]["music"], total, work / "music.wav", seed=part_index + 1)
     post_card(skeleton, part_index + 1, n_parts, work / "card.png")
     font_name = _font_for_ass(work)
     label = (f"{'TEIL' if lang == 'de' else 'PART'} {part_index + 1}/{n_parts}") if n_parts > 1 else None
@@ -383,12 +390,13 @@ def render_part(skeleton: dict, part_index: int, visuals: list[Visual], work: Pa
         "[mu][sc]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=450[duck];"   # beim Sprechen leiser
         f"[vo][duck]amix=inputs=2:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=11,{AFMT}[a]"
     )
-    _run(["ffmpeg", "-y", "-loglevel", "error", "-i", "visual.mp4", "-loop", "1", "-t", f"{intro_end:.2f}",
-          "-i", "card.png", "-i", "voice.wav", "-i", "music.wav", *extra_inputs, "-filter_complex", filters,
-          "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-preset", "medium", "-crf", "21", "-maxrate", "9M",
-          "-bufsize", "18M", "-pix_fmt", "yuv420p",
-          "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-t", f"{total:.2f}", "-movflags", "+faststart",
-          str(out.resolve())], cwd=work)
+    with zeiten.stufe("encode"):
+        _run(["ffmpeg", "-y", "-loglevel", "error", "-i", "visual.mp4", "-loop", "1", "-t", f"{intro_end:.2f}",
+              "-i", "card.png", "-i", "voice.wav", "-i", "music.wav", *extra_inputs, "-filter_complex", filters,
+              "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-preset", "faster", "-crf", "21", "-maxrate", "9M",
+              "-bufsize", "18M", "-pix_fmt", "yuv420p",
+              "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-t", f"{total:.2f}", "-movflags", "+faststart",
+              str(out.resolve())], cwd=work)
     progress(0.95)
     cover = out.with_name(out.stem + "_cover.jpg")
     _run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{min(1.0, intro_end / 2):.2f}", "-i", str(out.resolve()),
