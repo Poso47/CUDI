@@ -28,7 +28,7 @@ from .theme import pick_style
 log = logging.getLogger(__name__)
 
 SAMPLE_RATE = 48_000
-LEAD = {"intro": 0.25, "item": 0.45, "outro": 0.35}   # Pause vor dem Sprechen (Animation startet)
+LEAD = {"intro": 0.12, "item": 0.45, "outro": 0.35}   # Pause vor dem Sprechen (Animation startet); Hook ≤ 0,15 s Vorlauf
 TAIL = {"intro": 0.35, "item": 0.55, "outro": 1.6}    # Pause danach
 
 

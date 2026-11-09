@@ -29,7 +29,8 @@ MIN_FRAMES = 2               # von 3 Bildern
 MAX_CANDIDATES = 8           # Kandidaten je Suche
 BUDGET_SECONDS = 9.0         # Zeitbudget je Suche für die Kandidatenprüfung (danach: bester bisher)
 GOOD_ENOUGH = 0.9            # ab diesem Wert wird nicht weiter gesucht
-COUNTERS = ("a photo of the ocean", "a photo of a person", "a photo of text", "a blurry photo of nothing in particular")
+COUNTERS = ("a photo of the ocean", "a photo of a person", "a photo of text", "a blurry photo of nothing in particular",
+            "a picture of a planet or the moon in space", "a map or a globe", "a logo, icon or illustration")
 
 _state: dict = {"model": None, "failed": False}
 

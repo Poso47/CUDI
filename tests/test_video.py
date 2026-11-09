@@ -737,7 +737,7 @@ def test_enrich_retries_throttled_images(monkeypatch):
 
     calls = []
 
-    def fake_image(item):
+    def fake_image(item, seen=None):
         calls.append(item.qid)
         if len(calls) == 1:
             return False                     # erster Versuch: gedrosselt
@@ -939,7 +939,13 @@ def test_missing_wikidata_image_falls_back_to_article_image(monkeypatch, tmp_pat
         tries.append(url)
         if len(tries) == 1:
             raise enrich_mod.net.FetchError("HTTP 429")
-        return tmp_path / "b.img"
+        import numpy as np
+        from PIL import Image
+
+        rng = np.random.default_rng(3)
+        Image.fromarray(rng.integers(0, 255, (50, 60, 3), dtype=np.uint8)).resize((1200, 1000), Image.NEAREST) \
+            .save(tmp_path / "b.png")                     # scharfes, großes Testbild (Bildgüte-Prüfung)
+        return tmp_path / "b.png"
 
     monkeypatch.setattr(enrich_mod.net, "download", fake_download)
     item = RankItem(qid="Q20063766", value=1, unit="1", wiki_titles={"en": "Cangde Grand Bridge"})

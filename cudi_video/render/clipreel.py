@@ -29,8 +29,9 @@ class ClipReel:
                 cmd += ["-loop", "1", "-framerate", str(fps), "-t", f"{take:.2f}", "-i", clip["path"]]
                 bw, bh = int(w * 1.12) // 2 * 2, int(h * 1.12) // 2 * 2
                 x = f"(iw-ow)*t/{take:.2f}" if i % 2 == 0 else f"(iw-ow)*(1-t/{take:.2f})"
+                y = f"(ih-oh)*(0.65-0.3*t/{take:.2f})" if i % 3 else f"(ih-oh)*(0.35+0.3*t/{take:.2f})"    # zusätzlich leicht auf/ab
                 filters.append(f"[{i}:v]scale={bw}:{bh}:force_original_aspect_ratio=increase,crop={bw}:{bh},"
-                               f"crop={w}:{h}:x='{x}':y='(ih-oh)/2',fps={fps},setsar=1,format=rgb24,"
+                               f"crop={w}:{h}:x='{x}':y='{y}',fps={fps},setsar=1,format=rgb24,"
                                f"setpts=PTS-STARTPTS[v{i}]")
                 self.cuts.append((t, clip.get("credit", "")))
                 t += take

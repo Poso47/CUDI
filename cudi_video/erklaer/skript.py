@@ -25,7 +25,7 @@ def validate_script(data: dict) -> dict:
             raise ScriptError(f"Szene {i}: „text“ (Sprechertext) fehlt.")
         visual = dict(sz.get("visual") or {"typ": "beschriftung"})
         typ = visual.get("typ")
-        if typ not in VISUALS:
+        if typ not in VISUALS and typ != "reportage":
             raise ScriptError(f"Szene {i}: unbekannte Grafik „{typ}“ – erlaubt: {', '.join(VISUALS)}.")
         if typ == "figur" and visual.get("pose", "stehen") not in POSES:
             raise ScriptError(f"Szene {i}: unbekannte Pose „{visual.get('pose')}“ – erlaubt: {', '.join(POSES)}.")

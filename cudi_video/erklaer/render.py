@@ -16,6 +16,7 @@ from ..tts import voice_texts
 # Sprechprofil „erklaer“: ruhig, etwas tiefer und langsamer, längere Atempausen als bei Rankings
 PROFILE = {"rate": "-6%", "pitch": "-2Hz", "pause": 0.5}
 LEAD, TAIL = 0.7, 0.9
+HOOK_LEAD, NEWS_LEAD, NEWS_TAIL = 0.12, 0.35, 0.7      # Reportage: Hook beginnt nach höchstens 0,15 s, ruhiger Schnitt
 STYLE = {"name": "manuskript", "format": "manuskript", "motion": "gleiten"}
 
 
@@ -26,10 +27,13 @@ def voice_name(lang: str) -> str:
 def build_jobs(script: dict, voiced: list[tuple[Path, list[dict], float]], work: Path) -> list[dict]:
     jobs = []
     for i, (sz, (wav, words, dur)) in enumerate(zip(script["szenen"], voiced)):
-        frames = int(round((LEAD + dur + TAIL) * config.FPS))
+        news = (sz.get("visual") or {}).get("typ") == "reportage"
+        lead = (HOOK_LEAD if i == 0 else NEWS_LEAD) if news else LEAD
+        frames = int(round((lead + dur + (NEWS_TAIL if news else TAIL)) * config.FPS))
         jobs.append({
-            "index": i, "kind": "erklaer", "lang": script["sprache"], "title": script["titel"], "text": sz["text"],
-            "words": words, "lead": LEAD, "voice_dur": dur, "frames": frames, "duration": frames / config.FPS,
+            "index": i, "kind": "reportage" if news else "erklaer", "lang": script["sprache"], "title": script["titel"],
+            "text": sz["text"], "words": words, "lead": lead, "voice_dur": dur, "frames": frames,
+            "duration": frames / config.FPS,
             "fps": config.FPS, "n_items": len(script["szenen"]), "channel": "", "voice_path": str(wav), "mascot": False,
             "out": str(work / f"part_{i:02d}.mp4"), "style": STYLE, "szene": sz,
         })

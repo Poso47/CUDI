@@ -160,23 +160,40 @@ def _commons_image(item: RankItem) -> tuple[str, int]:
     return "ok", min(lic["width"], THUMB_WIDTH)
 
 
-def fetch_image(item: RankItem) -> bool:
-    """Bestes freies Foto laden: Commons (Wikidata/Artikel), sonst oder wenn zu klein Openverse (Flickr …) und
-    NASA. False, wenn es an der Verbindung scheiterte (neuer Versuch lohnt sich)."""
-    from . import media
+def fetch_image(item: RankItem, seen: "bildguete.Seen | None" = None) -> bool:
+    """Bestes freies Foto laden: Commons (Wikidata/Artikel), sonst oder wenn zu klein Openverse (Flickr …), NASA und
+    Commons-Suche. Jedes Foto muss die Bildgüte bestehen (Auflösung, Schärfe, kein Doppelbild gegen `seen`) und zum
+    Ort passen (Bildprüfung). False, wenn es an der Verbindung scheiterte (neuer Versuch lohnt sich)."""
+    from . import bildguete, media
 
     status, width = _commons_image(item)
+    if status == "ok":
+        good, why = media.verify_photo(item, item.image_path, seen, official=True)
+        if not good:
+            IMAGE_ERRORS[item.qid] = f"Foto verworfen: {why}"
+            log.info("Wikidata-Foto von %s verworfen: %s", item.qid, why)
+            item.image_path = item.image_credit = None
+            status, width = "fehlt", 0
     if item.image_kind != "photo" or (status == "ok" and width >= media.GOOD_WIDTH):
         if status == "ok":
             IMAGE_ERRORS.pop(item.qid, None)
         return status != "gedrosselt"
+    dead: set[str] = set()                            # Server, von denen schon ein Download scheiterte (spart Minuten)
     for cand in media.alternatives(item):
         if status == "ok" and cand.width <= width:
             break                                     # Commons-Foto ist schon das größte
+        host = cand.url.split("/")[2] if "//" in cand.url else ""
+        if host in dead:
+            continue
         try:
             path = media.download(cand)
         except net.FetchError as exc:
             log.info("Alternative %s nicht geladen: %s", cand.origin, exc)
+            dead.add(host)
+            continue
+        good, why = media.verify_photo(item, path, seen)
+        if not good:
+            log.info("Alternative %s für %s verworfen: %s", cand.origin, item.qid, why)
             continue
         item.image_path, item.image_credit = str(path), cand.credit
         IMAGE_ERRORS.pop(item.qid, None)
@@ -186,7 +203,7 @@ def fetch_image(item: RankItem) -> bool:
     return status != "gedrosselt"
 
 
-def _enrich_item(item: RankItem, langs: list[str], images: bool) -> bool:
+def _enrich_item(item: RankItem, langs: list[str], images: bool, seen=None) -> bool:
     """Fehlende Einleitungen und Bild laden. False, wenn etwas an der Verbindung scheiterte."""
     ok = True
     for lang in langs:
@@ -201,7 +218,7 @@ def _enrich_item(item: RankItem, langs: list[str], images: bool) -> bool:
             if text:
                 item.summary[lang] = text
     if images and not item.image_path:
-        ok = fetch_image(item) and ok
+        ok = fetch_image(item, seen) and ok
     return ok
 
 
@@ -223,6 +240,12 @@ def enrich(research: Research, langs: list[str], images: bool = True) -> Researc
         for item in failed:
             _enrich_item(item, langs, False)
     if images:
+        from . import bildguete
+
+        seen = bildguete.Seen()                                  # kein Bild zweimal im selben Video
+        for it in research.items:
+            if it.image_path and it.image_kind == "photo":
+                bildguete.remember(seen, it.image_path)
         pending = [it for it in research.items if not it.image_path]
         for pause in (0, *IMAGE_RETRY_PAUSES):                   # Bilder nacheinander, bei Drosselung später erneut
             if not pending:
@@ -235,7 +258,7 @@ def enrich(research: Research, langs: list[str], images: bool = True) -> Researc
             for i, item in enumerate(pending):
                 if i:
                     time.sleep(IMAGE_PAUSE)
-                if not fetch_image(item):
+                if not fetch_image(item, seen):
                     retry.append(item)
             pending = retry
         from . import config, media

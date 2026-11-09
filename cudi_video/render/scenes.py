@@ -438,7 +438,7 @@ class ItemScene(Scene):
         if self.photo is None:
             return self.graphic.render(t, self.job["duration"])
         cw, ch = self.card_size
-        p = ease_in_out(clamp(t / max(1.0, self.job["duration"])))
+        p = clamp(t / max(1.0, self.job["duration"]))          # gleichmäßig (Ken Burns): nie ein Standbild ohne Bewegung
         zoom = 1.0 + 0.14 * p
         bw, bh = self.photo.size
         w, h = bw / zoom, bh / zoom

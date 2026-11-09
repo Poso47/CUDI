@@ -588,7 +588,7 @@ class ManuskriptItem(ItemScene):
 
     def frame(self, t):
         f = M.background(t)
-        fade = M.fade_in_out(t, self.job["duration"], 0.45, 0.5)
+        fade = M.fade_in_out(t, self.job["duration"], 0.3, 0.2)
         top = M.TEXT_Y_PILL
         paste(f, self.pill, ((W - self.pill.width) / 2, M.PILL_Y - 22), opacity=fade)
         self.sentence.draw(f, t, top, fade)
@@ -673,16 +673,26 @@ class ManuskriptOutro(OutroScene):
             self.rows_l.append(img)
         self.cta = M.caps_layer(self.L["cta"].rstrip("!"), 24, 6.0, underline=True)
 
+    @staticmethod
+    def panel(height: int) -> Image.Image:
+        img = Image.new("RGBA", (960, height), (0, 0, 0, 0))
+        ImageDraw.Draw(img).rounded_rectangle((0, 0, 959, height - 1), 26, fill=(50, 48, 44, 255),
+                                              outline=(*M.INK_FAINT, 255), width=2)
+        return img
+
     def frame(self, t):
         f = M.background(t)
-        fade = M.fade_in_out(t, self.job["duration"], 0.5, 0.7)
+        fade = M.fade_in_out(t, self.job["duration"], 0.12, 0.7)
         paste(f, self.pill, ((W - self.pill.width) / 2, M.PILL_Y - 22), opacity=fade)
         self.sentence.draw(f, t, M.TEXT_Y_PILL, fade)
-        y0 = max(700, M.TEXT_Y_PILL + self.sentence.height + 40)
+        drift = 5.0 * math.sin(t * 1.1)                       # ruhiges Schweben: nie ein Standbild ohne Bewegung
+        y0 = max(700, M.TEXT_Y_PILL + self.sentence.height + 40) + drift
         x0 = (W - 900) / 2
+        panel_h = self.per * self.row_h + 70
+        paste(f, self.panel(panel_h), (x0 - 30, y0 - 30), opacity=fade)     # helle Fläche: Abschluss wirkt nie schwarz
         for i, img in enumerate(self.rows_l):
             col, r = divmod(i, self.per)
-            pr = ease_out_cubic(progress(t, 0.3 + i * min(0.12, 1.8 / max(1, self.n)), 0.5))
+            pr = ease_out_cubic(progress(t, 0.02 + i * min(0.08, 1.2 / max(1, self.n)), 0.35))
             paste(f, img, (x0 + col * (self.col_w + 20), y0 + r * self.row_h + (1 - pr) * 10), opacity=fade * pr)
         paste(f, self.cta, ((W - self.cta.width) / 2, min(1500, y0 + self.per * self.row_h + 40)),
               opacity=fade * progress(t, 1.4, 0.6))
@@ -745,6 +755,8 @@ class ErklaerScene(Scene):
         return f
 
 
+from .reportage import ReportageScene                                # noqa: E402
+
 SCENES = {
     "karte": {},
     "vollbild": {"item": FullItem, "intro": CinemaIntro},
@@ -752,7 +764,8 @@ SCENES = {
     "magazin": {"item": MagazineItem, "intro": MagazineIntro},
     "polaroid": {"item": PolaroidItem, "intro": PolaroidIntro, "outro": PodiumOutro},
     "zahl": {"item": NumberItem, "intro": NumberIntro, "outro": PodiumOutro},
-    "manuskript": {"item": ManuskriptItem, "intro": ManuskriptIntro, "outro": ManuskriptOutro, "erklaer": ErklaerScene},
+    "manuskript": {"item": ManuskriptItem, "intro": ManuskriptIntro, "outro": ManuskriptOutro, "erklaer": ErklaerScene,
+                   "reportage": ReportageScene},
 }
 BASE = {"intro": IntroScene, "item": ItemScene, "outro": OutroScene}
 

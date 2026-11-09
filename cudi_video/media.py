@@ -16,7 +16,7 @@ import logging
 import re
 from dataclasses import dataclass
 
-from . import bildcheck, net
+from . import bildcheck, bildguete, net
 from .models import RankItem
 
 log = logging.getLogger(__name__)
@@ -91,7 +91,7 @@ def motif_matches(motif: str, text: str, loose: bool = False) -> bool:
     words = motif_words(motif)
     if loose:
         words = words[-1:]
-    if not words or any(x in text.lower() for x in NOT_FOOTAGE):
+    if not words or any(x in text.lower() for x in NOT_FOOTAGE) or bildguete.excluded(text, motif):
         return False
     have = {stem(w) for w in re.findall(r"[a-z]+", text.lower())}
     return all(w in have for w in words)
@@ -112,6 +112,20 @@ TYPE_WORDS = {"river", "fluss", "strom", "lake", "see", "mountain", "berg", "pea
               "burg", "schloss", "church", "kirche", "temple", "tempel", "statue", "ship", "schiff", "train", "zug"}
 
 
+ENGLISH_TYPES = {"river", "lake", "mountain", "peak", "island", "waterfall", "falls", "bridge", "tower", "building",
+                 "skyscraper", "volcano", "glacier", "desert", "dam", "canyon", "cave", "sea", "ocean", "city", "forest",
+                 "stadium", "palace", "castle", "church", "temple", "statue", "ship", "train"}
+TYPE_VISUAL = {"island": "an island with coast, ice and rock", "river": "a river flowing through a landscape",
+               "lake": "a lake with shore and water", "mountain": "a mountain with a rocky peak", "peak": "a mountain peak",
+               "waterfall": "a waterfall with falling water", "falls": "a waterfall with falling water",
+               "bridge": "a large bridge over water", "tower": "a tall tower", "skyscraper": "a tall skyscraper",
+               "building": "a large building", "volcano": "a volcano", "glacier": "a glacier with ice",
+               "desert": "a desert with sand", "dam": "a large dam", "canyon": "a canyon with rock walls",
+               "cave": "the inside of a cave", "sea": "the sea", "ocean": "the ocean", "city": "a city skyline",
+               "forest": "a forest", "stadium": "a stadium", "palace": "a palace", "castle": "a castle",
+               "church": "a church", "temple": "a temple", "statue": "a statue", "ship": "a ship", "train": "a train"}
+
+
 def type_words(item: RankItem) -> set[str]:
     """Art des Objekts aus Namen und Wikidata-Beschreibung („major river in Africa“ -> river)."""
     text = " ".join([item.labels.get("en", ""), item.labels.get("de", ""),
@@ -125,6 +139,9 @@ def names_match(item: RankItem, text: str) -> bool:
     daher muss hier „Abraj Al Bait“ (abraj, bait) passen. Bleibt nur EIN unterscheidendes Wort („Nile“,
     „Yellow River“), muss zusätzlich die Art im Text stehen – sonst passen „Lily of the Nile“ oder eine gelbe
     Straßenbahn."""
+    if bildguete.excluded(text, " ".join([item.labels.get("en", ""), item.labels.get("de", ""),
+                                          item.descriptions.get("en", ""), item.descriptions.get("de", "")])):
+        return False                                     # Planet/Mond/Globus/Logo/3D … bei einem Ort ist das nie das Motiv
     words = re.findall(r"[^\W_]+", text.lower())
     hay = set(words)
     # Wortfolgen nur innerhalb eines Schlagworts/Satzteils: „yellow, river“ (zwei Tags) ist nicht „yellow river“
@@ -153,10 +170,20 @@ def search_name(item: RankItem) -> str:
     names = [n for n in (item.labels.get("en", ""), item.labels.get("de", "")) if n]
     name = max(names, key=lambda n: len(key_tokens(n)), default="")
     words = set(re.findall(r"[^\W_]+", name.lower()))
-    english = sorted(k for k in type_words(item) if k.isascii() and k not in ("see", "land", "berg", "park"))
+    english = sorted(k for k in type_words(item) if k in ENGLISH_TYPES)
     if len(key_tokens(name)) == 1 and english and not (words & TYPE_WORDS):
         name = f"{name} {english[0]}"                  # „Nile“ -> „Nile river“: Stockseiten finden das Richtige
     return name
+
+
+def visual_motif(item: RankItem) -> str:
+    """Motiv für die Bildprüfung (CLIP): Name + Art + typisches Aussehen, z. B. „Greenland, an island with coast, ice
+    and rock“ – so wird ein Planet/Mond/Globus/Logo mit dem Namen im Tag nicht für das Foto des Ortes gehalten."""
+    name = max([n for n in (item.labels.get("en", ""), item.labels.get("de", "")) if n], key=lambda n: len(key_tokens(n)),
+               default="")
+    kinds = sorted(k for k in type_words(item) if k in TYPE_VISUAL)
+    look = TYPE_VISUAL[kinds[0]] if kinds else ""
+    return f"{name}, {look}" if look else name
 
 
 def _cc_name(code: str, version: str) -> str:
@@ -256,15 +283,63 @@ def pixabay_photos(item: RankItem) -> list[Candidate]:
     return out
 
 
-def alternatives(item: RankItem) -> list[Candidate]:
+def commons_photos(item: RankItem) -> list[Candidate]:
+    """Fotos aus Wikimedia Commons (Suche im Dateinamen-Raum), nur freie Lizenzen mit nennbarem Urheber."""
+    from .enrich import NON_FREE, credit_author
+
+    name = search_name(item)
+    if not name:
+        return []
+    data = net.get_json("https://commons.wikimedia.org/w/api.php", params={
+        "action": "query", "format": "json", "formatversion": 2, "generator": "search", "gsrsearch": f"{name} filetype:bitmap",
+        "gsrnamespace": 6, "gsrlimit": 15, "prop": "imageinfo", "iiprop": "url|size|mime|extmetadata", "iiurlwidth": 1920,
+        "iiextmetadatafilter": "LicenseShortName|Artist|Attribution|AttributionRequired|ImageDescription"},
+        cache_hours=24 * 7, retries=1, max_wait=10)
+    out = []
+    for page in sorted(data.get("query", {}).get("pages", []), key=lambda pg: pg.get("index", 99)):
+        info = (page.get("imageinfo") or [{}])[0]
+        title = page.get("title", "")
+        meta = info.get("extmetadata", {})
+        text = f"{title} {re.sub('<[^>]+>', ' ', (meta.get('ImageDescription') or {}).get('value', ''))}"
+        lic = (meta.get("LicenseShortName") or {}).get("value", "")
+        if not lic or NON_FREE.search(lic) or not names_match(item, text) or NOT_PHOTO.search(title) \
+                or (info.get("width") or 0) < MIN_WIDTH or info.get("mime") not in ("image/jpeg", "image/png"):
+            continue
+        artist = credit_author(meta, lic)
+        url = info.get("thumburl") or info.get("url")
+        if artist and url:
+            out.append(Candidate(url, min(info["width"], 1920), info.get("height") or 0,
+                                 f"{artist[:60]} – {lic} – Wikimedia Commons: {title}", "Commons"))
+    return out
+
+
+def alternatives(item: RankItem, sources=None) -> list[Candidate]:
     """Weitere Fotos des Platzes, bestes zuerst. Fällt eine Quelle aus, zählen die anderen."""
     found: list[Candidate] = []
-    for source in (pexels_photos, pixabay_photos, openverse, nasa):
+    for source in sources or (pexels_photos, pixabay_photos, openverse, nasa, commons_photos):
         try:
             found += source(item)
         except net.FetchError as exc:
             log.info("%s für %s nicht erreichbar: %s", source.__name__, item.qid, exc)
     return sorted(found, key=lambda c: c.score, reverse=True)
+
+
+PHOTO_MIN_PROB = 0.3         # Bildprüfung (CLIP) für Alternativfotos: so sicher muss das Motiv vorn liegen
+OFFICIAL_MIN_PROB = 0.08     # Wikidata-/Artikelbild: nur offensichtlich Falsches (Planet, Karte …) fliegt raus
+
+
+def verify_photo(item: RankItem, path, seen: "bildguete.Seen | None" = None, official: bool = False) -> tuple[bool, str]:
+    """Taugt das geladene Foto für den Platz? Auflösung, Schärfe, kein Doppelbild – und mit Bildprüfung (CLIP) muss der
+    Ort/das Objekt zu sehen sein (Name + Art + Aussehen, Gegenproben u. a. Planet/Mond, Karte, Logo)."""
+    ok, why = bildguete.check(path, seen, min_long=800 if official else bildguete.MIN_LONG_SIDE)
+    if not ok:
+        return False, why
+    if bildcheck.available():
+        probs = bildcheck.probabilities(visual_motif(item) or search_name(item), [path])
+        if probs and probs[0] < (OFFICIAL_MIN_PROB if official else PHOTO_MIN_PROB):
+            return False, f"Bildprüfung ({probs[0]:.2f})"
+    bildguete.remember(seen, path)
+    return True, ""
 
 
 def download(candidate: Candidate):
@@ -416,13 +491,16 @@ def too_dark(path, limit: float = 28.0) -> bool:
     return bool(values) and sum(values) / len(values) < limit
 
 
+WRONG_CLIP = 0.1             # darunter zeigt der Clip mit hoher Sicherheit etwas anderes
+
+
 def rank_by_image(item: RankItem, clips: list[Clip]) -> list[Clip]:
     """Bildprüfung (CLIP) als RANGFOLGE: Clips, die den Platz sichtbar zeigen, kommen zuerst. Nie ein Ausschluss –
     bleibt sonst nichts, werden auch die schwächeren genommen. Ohne Modell oder ohne Vorschau: Reihenfolge bleibt."""
     import time
 
-    motif = search_name(item)
-    if not motif or len(clips) < 2 or not bildcheck.available():
+    motif = visual_motif(item) or search_name(item)
+    if not motif or not clips or not bildcheck.available():
         return clips
     started = time.time()
     for clip in clips[:bildcheck.MAX_CANDIDATES]:
@@ -442,11 +520,13 @@ def rank_by_image(item: RankItem, clips: list[Clip]) -> list[Clip]:
             clip.score = round(bildcheck.judge(motif, frames)[1], 2)
         except (net.FetchError, OSError) as exc:
             log.info("Vorschau von %s nicht prüfbar: %s", clip.origin, exc)
-    # stabil: geprüfte nach Wert, ungeprüfte (NASA/Commons, Vorschau fehlt) zwischen gutem und schwachem Wert
+    # offensichtlich Falsches (Planet, Karte, Logo statt Ort) fliegt raus; sonst stabil: geprüfte nach Wert,
+    # ungeprüfte (NASA/Commons, Vorschau fehlt) zwischen gutem und schwachem Wert
+    clips = [c for c in clips if c.score is None or c.score >= WRONG_CLIP]
     return sorted(clips, key=lambda c: -(c.score if c.score is not None else 0.3))
 
 
-def find_clips(item: RankItem, limit: int = MAX_CLIPS) -> list[dict]:
+def find_clips(item: RankItem, limit: int = MAX_CLIPS, stills: bool = True) -> list[dict]:
     """Bis zu `limit` passende Clips laden – Stockvideos in HD zuerst, dann NASA, dann Commons.
     Ergebnis: [{"path": …, "credit": …, "duration": …}] (leer = Foto mit Zoom wie bisher)."""
     found: list[Clip] = []
@@ -473,7 +553,7 @@ def find_clips(item: RankItem, limit: int = MAX_CLIPS) -> list[dict]:
         out.append({"path": str(path), "credit": clip.credit, "duration": clip.duration, "kind": "video"})
         if len(out) >= limit:
             break
-    return out + _stills(item, limit - len(out), bool(out))
+    return out + (_stills(item, limit - len(out), bool(out)) if stills else [])
 
 
 def _stills(item: RankItem, room: int, has_clips: bool) -> list[dict]:
@@ -484,6 +564,9 @@ def _stills(item: RankItem, room: int, has_clips: bool) -> list[dict]:
         return []
     own = [{"path": item.image_path, "credit": item.image_credit or "", "duration": 0, "kind": "image"}] \
         if item.image_path and item.image_kind == "photo" else []
+    seen = bildguete.Seen()
+    if own:
+        bildguete.remember(seen, item.image_path)
     extra = []
     try:
         candidates = alternatives(item)
@@ -491,12 +574,17 @@ def _stills(item: RankItem, room: int, has_clips: bool) -> list[dict]:
         log.info("Weitere Fotos für %s nicht verfügbar: %s", item.qid, exc)
         candidates = []
     known = {item.image_credit}
+    dead: set[str] = set()
     for cand in candidates:
-        if len(own) + len(extra) >= room or cand.credit in known:
+        host = cand.url.split("/")[2] if "//" in cand.url else ""
+        if len(own) + len(extra) >= room or cand.credit in known or host in dead:
             continue
         try:
             path = download(cand)
         except net.FetchError:
+            dead.add(host)
+            continue
+        if not verify_photo(item, path, seen)[0]:
             continue
         known.add(cand.credit)
         extra.append({"path": str(path), "credit": cand.credit, "duration": 0, "kind": "image"})

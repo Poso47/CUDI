@@ -220,12 +220,12 @@ class Sentence:
     SIZE, LINE, MAX_W = 61, 76, 920
 
     def __init__(self, text: str, words: list[dict], offset: float, bold: list[str] | None = None, size: int | None = None,
-                 max_h: int | None = None):
+                 max_h: int | None = None, min_size: int = 36):
         size = size or self.SIZE
         self.offset, self.text, self.words, self.bold = offset, text, words, bold
         self._build(size)
-        while max_h and self.height > max_h and size > 36:      # langer Text: Schrift kleiner statt zu viele Zeilen
-            size -= 4
+        while max_h and self.height > max_h and size > min_size:      # langer Text: Schrift kleiner statt zu viele Zeilen
+            size = max(min_size, size - 4)
             self._build(size)
 
     def _build(self, size: int) -> None:

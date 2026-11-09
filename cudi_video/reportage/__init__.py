@@ -45,8 +45,8 @@ INSTRUCTIONS = (
     "Daten dürfen nur vorkommen, wenn sie in den Zitaten stehen. Keine Wertung, keine Spekulation (kein „vermutlich“, "
     "„könnte“), keine Spannungs- oder Schock-Wörter, keine Namen von Opfern oder Betroffenen, keine Schuldzuweisung "
     "ohne Quelle, kein Aufruf zum Kommentieren. Lieber weniger Sätze als ein unbelegter. 4 bis 8 Sätze, in der Sprache "
-    "„sprache“. Schlage außerdem einen sachlichen Titel vor (höchstens 60 Zeichen, ohne Clickbait). Antwort NUR als JSON: "
-    "{{\"titel\": \"…\", \"saetze\": [{{\"text\": \"…\", \"belege\": [{{\"quelle\": \"Q1\", \"zitat\": \"…\"}}, "
+    "„sprache“. Optional je Satz: „ort“ (Ortsname, wörtlich wie im Satz) und „bild“ (englischer Suchbegriff für ein passendes Foto: Name + Art, z. B. „Gotthard Base Tunnel portal“). Schlage außerdem einen sachlichen Titel vor (höchstens 60 Zeichen, ohne Clickbait). Antwort NUR als JSON: "
+    "{{\"titel\": \"…\", \"saetze\": [{{\"text\": \"…\", \"ort\": \"…\", \"bild\": \"…\", \"belege\": [{{\"quelle\": \"Q1\", \"zitat\": \"…\"}}, "
     "{{\"quelle\": \"Q2\", \"zitat\": \"…\"}}]}}]}}")
 
 
@@ -153,7 +153,7 @@ def pruefe_satz(satz: dict, quellen: dict[str, dict], lang: str) -> tuple[dict |
     text = re.sub(r"\s+", " ", str(satz.get("text") or "")).strip()
     if not text:
         return None, "leerer Satz"
-    if len(text.split()) > 40:
+    if len(text.split()) > 34:
         return None, "zu lang"
     verified, quotes = [], []
     for b in satz.get("belege") or []:
@@ -176,7 +176,14 @@ def pruefe_satz(satz: dict, quellen: dict[str, dict], lang: str) -> tuple[dict |
     for rule, name in ((CLICKBAIT, "Clickbait"), (DRAMA, "reißerisches Wort"), (SPECULATION, "Spekulation")):
         if found := rule.search(text):
             return None, f"{name}: „{found.group(0)}“"
-    return {"text": text, "belege": verified}, ""
+    out = {"text": text, "belege": verified}
+    ort = re.sub(r"\s+", " ", str(satz.get("ort") or "")).strip()
+    if ort and ort.casefold() in (text + " " + quote_text).casefold():        # Ort nur, wenn er im Satz/Beleg steht
+        out["ort"] = ort
+    bild = re.sub(r"\s+", " ", str(satz.get("bild") or "")).strip()
+    if re.fullmatch(r"[A-Za-z0-9 .,'\-]{3,60}", bild):
+        out["bild"] = bild
+    return out, ""
 
 
 def pruefe_antwort(answer, quellen: list[dict], lang: str) -> tuple[list[dict], list[tuple[str, str]], str]:
@@ -266,17 +273,23 @@ def waehle_titel(vorschlag: str, thema: str, saetze: list[dict]) -> str:
     return short if len(short) <= TITLE_MAX else short[:TITLE_MAX].rsplit(" ", 1)[0]
 
 
-def baue_skript(titel: str, saetze: list[dict], lang: str, ident: str) -> dict:
-    """Szenen-Skript für den Erklär-Renderer (Buchlook): Einstieg, ein Satz je Szene mit Quellen-Zeile, Quellen und Stand."""
+def baue_skript(titel: str, saetze: list[dict], lang: str, ident: str, visuals: list[dict] | None = None) -> dict:
+    """Szenen-Skript für den Erklär-Renderer: Einstieg, ein Satz je Szene, Quellen und Stand. Mit `visuals`
+    (aus `bilder.anreichern`, je Satz eines, optional Einstieg unter „intro“) im Nachrichten-Look mit Bild/Karte/Datum,
+    sonst als einfache Beschriftung im Buchlook."""
     s = STRINGS[lang]
     names = list(dict.fromkeys(b["name"] for sat in saetze for b in sat["belege"]))
+    intro = (visuals or {}).get("intro") if isinstance(visuals, dict) else None
+    per = (visuals or {}).get("saetze") if isinstance(visuals, dict) else visuals
     scenes = [{"kapitel": s["label"], "text": s["intro"].format(titel=titel), "betont": [],
-               "visual": {"typ": "beschriftung", "label": s["label"]}}]
-    for sat in saetze:
+               "visual": intro or {"typ": "beschriftung", "label": s["label"]}}]
+    for i, sat in enumerate(saetze):
+        label = " · ".join(dict.fromkeys(b["name"] for b in sat["belege"]))
         scenes.append({"kapitel": "", "text": sat["text"], "betont": [],
-                       "visual": {"typ": "beschriftung", "label": " · ".join(dict.fromkeys(b["name"] for b in sat["belege"]))}})
+                       "visual": per[i] if per and i < len(per) else {"typ": "beschriftung", "label": label}})
     scenes.append({"kapitel": s["sources"], "text": s["outro"].format(datum=_datum(lang), quellen=", ".join(names)),
-                   "betont": [], "visual": {"typ": "beschriftung", "label": s["sources"]}})
+                   "betont": [], "visual": ({"typ": "reportage", "datum": _datum(lang), "jahre": [], "quelle": ""}
+                                            if per else {"typ": "beschriftung", "label": s["sources"]})})
     return {"id": ident, "titel": titel, "sprache": lang, "szenen": scenes}
 
 
@@ -293,7 +306,7 @@ def abnahme(skript: dict, saetze: list[dict], titel: str) -> dict:
     return {"ok": not gruende, "gruende": gruende}
 
 
-def texte(titel: str, saetze: list[dict], quellen: list[dict], lang: str) -> tuple[str, str]:
+def texte(titel: str, saetze: list[dict], quellen: list[dict], lang: str, bilder: list[str] | None = None) -> tuple[str, str]:
     """(youtube.txt, tiktok.txt): erste Zeile = Titel; Quellen mit Adresse nur in der Beschreibung."""
     s = STRINGS[lang]
     used = {b["quelle"] for sat in saetze for b in sat["belege"]}
@@ -302,6 +315,8 @@ def texte(titel: str, saetze: list[dict], quellen: list[dict], lang: str) -> tup
     yt = [titel, "", s["note"], ""] + [sat["text"] for sat in saetze]
     yt += ["", f"{s['sources']} ({'Stand' if lang == 'de' else 'as of'} {stand}):"]
     yt += [f"- {q['name']}: {q['titel']} {q['link']}".rstrip() for q in lines]
+    if bilder:
+        yt += ["", ("Bilder:" if lang == "de" else "Images:")] + [f"- {b}" for b in bilder]
     yt += ["", "#Nachrichten #Hintergrund #shorts" if lang == "de" else "#news #background #shorts"]
     names = ", ".join(dict.fromkeys(q["name"] for q in lines))
     tt = f"{titel} · {s['sources']}: {names} · {stand}"[:140] + (" #Nachrichten" if lang == "de" else " #news")
@@ -366,9 +381,23 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
                              "zwei unabhängigen Quellen wörtlich bestätigt. Es wird nichts ergänzt – bitte weitere "
                              "Quellen (Links) angeben.")
     titel = waehle_titel(vorschlag, thema, saetze)
-    skript = validate_script(baue_skript(titel, saetze, lang, "reportage"))
+    progress("Bilder suchen", 0.25)
+    try:
+        from .. import bildguete
+        from . import bilder
+        seen = bildguete.Seen()                                # kein Bild zweimal im Video
+        intro = bilder.intro_visual(titel, thema, lang, out / "bilder", seen)
+        visuals, bild_notes = bilder.anreichern(saetze, thema, lang, out / "bilder", saetze, seen)
+    except Exception as exc:                                  # noqa: BLE001 – ohne Bilder bleibt es der Buchlook
+        log.warning("Bildsuche der Reportage ausgefallen: %s", exc)
+        visuals, intro, bild_notes = None, None, [f"Bildsuche ausgefallen ({type(exc).__name__}) – Buchlook ohne Bilder"]
+    notes += bild_notes
+    credits = list(dict.fromkeys(v["credit_voll"] for v in [intro or {}, *(visuals or [])] if v.get("credit_voll")))
+    credits += ["Karten: © OpenStreetMap-Mitwirkende (ODbL)"] if any(v.get("karte") for v in visuals or []) else []
+    skript = validate_script(baue_skript(titel, saetze, lang, "reportage", {"saetze": visuals, "intro": intro}
+                                         if visuals else None))
     ab = abnahme(skript, saetze, titel)
-    yt, tt = texte(titel, saetze, quellen, lang)
+    yt, tt = texte(titel, saetze, quellen, lang, credits)
     (out / "youtube.txt").write_text(yt, "utf-8")
     (out / "tiktok.txt").write_text(tt, "utf-8")
     (out / "spec.json").write_text(json.dumps({"title": {"de": titel, "en": titel}}, ensure_ascii=False), "utf-8")
