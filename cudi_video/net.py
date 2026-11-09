@@ -36,6 +36,7 @@ _blocked_hosts: dict[str, int] = {}       # Host -> Anzahl erschöpfter 429-Seri
 _blocked_at: dict[str, float] = {}        # Host -> Beginn der aktuellen Sperre
 _block_lock = threading.Lock()
 BLOCK_AFTER = 3
+throttled_count = 0                       # wie oft eine Anfrage trotz Wartens mit 429 endete (die Vorrecherche erkennt damit lückenhafte Abgleiche)
 BLOCK_SECONDS = 300.0
 
 
@@ -56,7 +57,9 @@ def is_blocked(host: str) -> bool:
 
 
 def _note_throttled(host: str) -> None:
+    global throttled_count
     with _block_lock:
+        throttled_count += 1
         _blocked_hosts[host] = _blocked_hosts.get(host, 0) + 1
         if _blocked_hosts[host] >= BLOCK_AFTER:
             _blocked_at[host] = time.monotonic()

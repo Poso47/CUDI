@@ -284,6 +284,9 @@ def build_review(spec: VideoSpec, research: Research, scripts: list[Script]) -> 
     """Markdown-Bericht für die Freigabe vor dem Hochladen."""
     out = [f"# Prüfbericht: {spec.title.get('de') or next(iter(spec.title.values()))}", "",
            f"Daten abgerufen: {research.fetched_at}", ""]
+    from .vorrecherche import review_zeile
+    if review_zeile(research):
+        out += [f"**{review_zeile(research)}**", ""]
     if spec.angle:
         out += [f"**Deutung des Themas:** {spec.angle}", ""]
     question = (spec.focus.get("frage") or {}).get("de")

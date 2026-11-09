@@ -1,0 +1,35 @@
+# Firma-Mitarbeiter „Vorrecherche“ (kostenlos, kein Claude-Verbrauch): holt nachts Wikidata-Abfrage + Quellen-Abgleich für alle
+# Ranking-Vorlagen und Top-Ideen vorab -> firma_daten/vorrecherche/*.json.gz. Die Pipeline nutzt junge Einträge (≤ 7 bzw. 30 Tage).
+# Siehe CLAUDE.md, Abschnitt „Firma-Mitarbeiter (GitHub)“ und Skill tempo.
+name: Firma · Vorrecherche
+
+on:
+  schedule:
+    - cron: "41 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Alle Firma-Läufe nacheinander, damit sich die Commits nicht in die Quere kommen
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  vorrecherche:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - name: Neuesten Datenstand holen (Ideen-Entwickler hat evtl. gerade committet)
+        run: git pull -q --ff-only origin "${GITHUB_REF_NAME}" || true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install -r cudi_video/requirements-basis.txt
+      - name: Vorrecherche arbeitet
+        run: python -m cudi_video.firma vorrecherche
+      - name: Ergebnis sichern
+        run: bash scripts/firma_commit.sh "Vorrecherche"

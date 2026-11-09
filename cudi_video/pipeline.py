@@ -7,7 +7,7 @@ import logging
 from pathlib import Path
 from typing import Callable
 
-from . import config, handoff, net, zeiten
+from . import config, handoff, net, vorrecherche, zeiten
 from .compare import load_references
 from .enrich import enrich
 from .metadata import build_metadata, build_review
@@ -43,15 +43,23 @@ def research_stage(spec: VideoSpec, out: Path, fresh: bool = True, images: bool 
         research = research_facts(spec, spec.langs)
         _save(out / "research.json", research.to_dict())
         return research
-    with zeiten.stufe("planen"):
-        research = fetch_ranking(spec, fresh=fresh)
-        if not research.items:
-            raise RuntimeError("Keine Daten gefunden – Vorgabe prüfen (Klasse/Eigenschaft).")
-        fetch_identifiers(research.items, config.CHECK_LANGS)
-    with zeiten.stufe("pruefen"):
-        verify(spec, research, strict=strict)      # Abgleich mit unabhängigen Quellen
+    cached = None
+    if not strict:                                 # streng: immer frisch abgleichen
+        with zeiten.stufe("vorrecherche"):
+            cached = vorrecherche.lade(spec)       # junger Eintrag der nächtlichen Vorrecherche (sonst None = live)
+    if cached is not None:
+        research = cached
         research.warnings.extend(check_consistency(spec, research))
-        research.references = load_references(spec)    # belegte Vergleiche ("5-mal so hoch wie …")
+    else:
+        with zeiten.stufe("planen"):
+            research = fetch_ranking(spec, fresh=fresh)
+            if not research.items:
+                raise RuntimeError("Keine Daten gefunden – Vorgabe prüfen (Klasse/Eigenschaft).")
+            fetch_identifiers(research.items, config.CHECK_LANGS)
+        with zeiten.stufe("pruefen"):
+            verify(spec, research, strict=strict)      # Abgleich mit unabhängigen Quellen
+            research.warnings.extend(check_consistency(spec, research))
+            research.references = load_references(spec)    # belegte Vergleiche ("5-mal so hoch wie …")
     with zeiten.stufe("bilder"):
         enrich(research, spec.langs, images=images)
     _save(out / "research.json", research.to_dict())
