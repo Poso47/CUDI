@@ -17,12 +17,12 @@
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --ink: #0c0e16; --panel: #151926; --line: #2a3045; --paper: #f3f0e8; --muted: #9aa3b8;
-      --accent: #2fd6f0; --on-accent: var(--on-accent); --warn: #f5b23d; --ok: #4ade80; --bad: #f87171;
+      --accent: #2fd6f0; --on-accent: #0c0e16; --warn: #f5b23d; --ok: #4ade80; --bad: #f87171;
     }
   }
   :root[data-theme="dark"] {
     --ink: #0c0e16; --panel: #151926; --line: #2a3045; --paper: #f3f0e8; --muted: #9aa3b8;
-    --accent: #2fd6f0; --on-accent: var(--on-accent); --warn: #f5b23d; --ok: #4ade80; --bad: #f87171;
+    --accent: #2fd6f0; --on-accent: #0c0e16; --warn: #f5b23d; --ok: #4ade80; --bad: #f87171;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
@@ -310,7 +310,7 @@
     <svg class="ic" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3zM12 10v5M12 18v.5"/></svg>
     <span id="limitText">Claude-Limit erreicht – Notbetrieb nutzen</span>
     <div class="acts">
-      <a class="btn primary" id="limitGo" href="#" target="_blank" rel="noopener" hidden>Notbetrieb öffnen</a>
+      <a class="btn primary" id="limitGo" href="#" target="_blank" rel="noopener" hidden>Im Notbetrieb erstellen</a>
       <button class="btn primary" type="button" id="limitSetup" hidden>Notbetrieb einrichten</button>
       <button class="btn" type="button" id="limitClose">Schließen</button>
     </div>
@@ -408,6 +408,36 @@
         </div></details>
         <button class="go" id="rankingGo" type="submit">Ranking-Video erstellen</button>
         <p class="note" id="rankingMsg" hidden role="status"></p>
+      </div>
+    </form>
+  </section>
+
+  <!-- Fakten -->
+  <section class="card" id="fakten" role="tabpanel" aria-labelledby="tab-start" hidden>
+    <button type="button" class="back" data-go="start" aria-label="Zurück zum Start"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Start</button>
+    <h2>Fakten-Video</h2>
+    <p class="lead">Frei gewähltes Thema: Jeder Fakt kommt mit wörtlichem Beleg aus einer Quelle, Zahlen werden ein zweites Mal geprüft. Fertig meist nach 10 bis 20 Minuten – du kannst die App solange schließen.</p>
+    <form id="faktenForm" novalidate>
+      <div style="display:grid;gap:12px">
+        <div>
+          <label for="factTopic">Thema</label>
+          <input id="factTopic" type="text" maxlength="120" placeholder="z. B. Der Mond oder Wie Bienen kommunizieren" autocomplete="off" aria-describedby="faktenMsg">
+        </div>
+        <div>
+          <label for="factCount">Anzahl Fakten (3 bis 10)</label>
+          <input id="factCount" type="number" min="3" max="10" value="5" inputmode="numeric">
+        </div>
+        <details class="mehr"><summary>Mehr Optionen</summary><div class="inner">
+          <div>
+            <label for="factLang">Sprache</label>
+            <select id="factLang"><option value="de" selected>Deutsch</option><option value="en">Englisch</option></select>
+          </div>
+          <div class="checks">
+            <label class="check" for="factStrict"><input type="checkbox" id="factStrict" checked> Streng: nur mehrfach bestätigte Fakten</label>
+          </div>
+        </div></details>
+        <button class="go" id="faktenGo" type="submit">Fakten-Video erstellen</button>
+        <p class="note" id="faktenMsg" hidden role="status"></p>
       </div>
     </form>
   </section>
@@ -767,10 +797,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   /* ---------- Bereiche: untere Tab-Leiste + Unterseiten des Starts (mit #name in der Adresse) ---------- */
   const NAVTABS = ["start", "videos", "firma", "briefing", "kommunikation"];
-  const SUBPAGES = ["ranking", "story", "reportage", "satire", "erklaer", "clips", "app"];
+  const SUBPAGES = ["ranking", "fakten", "story", "reportage", "satire", "erklaer", "clips", "app"];
   const TABS = NAVTABS.concat(SUBPAGES);
+  let currentTab = "start";
   function showTab(name) {
     if (!TABS.includes(name)) name = "start";
+    currentTab = name;
     TABS.forEach((t) => { $(t).hidden = t !== name; });
     const nav = NAVTABS.includes(name) ? name : "start";
     NAVTABS.forEach((t) => $("tab-" + t).setAttribute("aria-selected", String(t === nav)));
@@ -788,11 +820,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const b = ev.target.closest && ev.target.closest("[data-go]");
     if (!b) return;
     const g = b.dataset.go;
-    if (g === "fakten") {
-      goTab("ranking"); $("strict").checked = true;
-      note("rankingMsg", "Fakten: Eigenes Thema eintragen – jede Zahl wird gegen mehrere Quellen geprüft („Streng“ ist an).", "");
-      try { $("topic").focus(); } catch (e) { /* egal */ }
-    } else goTab(g);
+    goTab(g);
+    if (g === "fakten") { try { $("factTopic").focus(); } catch (e) { /* egal */ } }
   });
   $("alertGo").addEventListener("click", () => goTab("firma"));
   window.addEventListener("hashchange", () => showTab(location.hash.slice(1)));
@@ -836,6 +865,13 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
                streng: $("strict").checked, nur_skript: $("onlyScript").checked, laenge: long ? "lang" : "",
                maskottchen: $("mascotRank").checked, format: $("format").value },
     };
+  }
+  function faktenOrder() {
+    const topic = $("factTopic").value.trim().replace(/\s+/g, " ").slice(0, 120);
+    if (topic.length < 3) return { error: "Bitte ein Thema nennen (mindestens 3 Zeichen), z. B. „Der Mond“." };
+    const raw = $("factCount").value.trim(), count = Number(raw);
+    if (!raw || !Number.isInteger(count) || count < 3 || count > 10) return { error: "Anzahl Fakten: bitte eine ganze Zahl von 3 bis 10." };
+    return { label: "Fakten: " + topic, order: { art: "fakten", thema: topic, plaetze: count, sprache: $("factLang").value, streng: $("factStrict").checked } };
   }
   function storyOrder() {
     const wish = $("wish").value.trim().replace(/\s+/g, " ").slice(0, 300);
@@ -962,6 +998,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (o.art === "clip") return 30;                                    // ein Short bis 3 Minuten, App-Fassung ≤ 19 MB
     const per = o.laenge === "lang" ? 160 : 20;                         // lange Videos bis ~150 MB
     const videos = o.art === "ranking" ? Math.max(1, (o.sprachen || []).length)
+      : o.art === "fakten" ? 1
       : (o.laenge === "teile" ? 6 : 2);
     return videos * per + 10;
   }
@@ -996,6 +1033,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const free = await freeMB(), need = needMB(built.order);
     if (free < need) { button.disabled = false; offerCleanup(msgId, free, need, () => startJob(built, msgId, button)); return; }
     note(msgId, "Auftrag wird gestartet …", "");
+    const fromTab = currentTab;
     const id = newId();
     const order = Object.assign({ id: id }, built.order);
     const prefs = preferences();
@@ -1013,16 +1051,28 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       await ref.update({ session: started.session, weg: started.weg });
       callLimit = null; try { updateLimit(); } catch (e) { /* egal */ }          // Claude antwortet wieder
       note(msgId, "Gestartet! Fortschritt und Ergebnis siehst du unter „Videos“ – meist nach 5 bis 20 Minuten.", "ok");
-      setTimeout(() => goTab("videos"), 900);
+      setTimeout(() => { if (currentTab === fromTab) goTab("videos"); }, 900);   // nur, wenn die Person nicht schon woanders ist
     } catch (err) {
-      await ref.delete().catch(() => {});
-      note(msgId, explain(err), err && err.code === "not_in_manifest" ? "warn" : "bad");
-      flagLimit(err, built.order);                                              // Claude nicht verfügbar: Notbetrieb anbieten
+      if (isLimitError(err)) {                                                  // Claude-Limit: Auftrag bleibt in der Liste, Notbetrieb anbieten
+        await ref.update({ limit: true, limit_zeit: new Date().toISOString() }).catch(() => {});
+        flagLimit(err, built.order, id);
+        const link = notbetriebLink(built.order);
+        note(msgId, "Claudes Nutzungslimit ist erreicht – der Auftrag wurde nicht gestartet." + (link ? " " : " Er geht nur mit Claude; später neu starten unter „Videos“."), "warn");
+        if (link) {
+          const a = h("a", "btn primary", "Im Notbetrieb erstellen"); a.href = link; a.target = "_blank"; a.rel = "noopener noreferrer";
+          a.addEventListener("click", () => { ref.update({ notbetrieb: new Date().toISOString(), limit: false }).catch(() => {}); });
+          $(msgId).appendChild(a);
+        }
+      } else {
+        await ref.delete().catch(() => {});
+        note(msgId, explain(err), err && err.code === "not_in_manifest" ? "warn" : "bad");
+      }
     } finally {
       button.disabled = false;
     }
   }
 
+  $("faktenForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(faktenOrder(), "faktenMsg", $("faktenGo")); });
   $("rankingForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(rankingOrder(), "rankingMsg", $("rankingGo")); });
   $("reportForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(reportageOrder(), "reportMsg", $("reportGo")); });
   $("clipForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(clipOrder(), "clipMsg", $("clipGo")); });
@@ -1124,7 +1174,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   // Die letzten Bewertungen als „Vorlieben“ für den nächsten Auftrag (Claude lernt daraus; die Varianten steuern die Experimente)
   function preferences() {
     const all = [...ratings.values()].sort((a, b) => String(b.zeit || "").localeCompare(String(a.zeit || "")));
-    const line = (r) => [r.art === "story" ? "Story" : r.art === "clip" ? "Clip" : "Ranking", r.titel || r.thema].filter(Boolean).join(": ") + (r.notiz ? " – " + r.notiz : "");
+    const line = (r) => [{ story: "Story", clip: "Clip", fakten: "Fakten", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[r.art] || "Ranking", r.titel || r.thema].filter(Boolean).join(": ") + (r.notiz ? " – " + r.notiz : "");
     const gut = all.filter((r) => r.wert === 1).slice(0, 8).map(line);
     const schlecht = all.filter((r) => r.wert === -1).slice(0, 8).map(line);
     const vg = all.filter((r) => r.wert === 1 && r.varianten).slice(0, 8).map((r) => r.varianten);
@@ -1165,6 +1215,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   function stateOf(id) {
     const job = jobs.get(id), res = results.get(id);
     if (job && job.wechsel) return "laeuft";                    // Skelett -> Video wird gerade gestartet
+    if (job && !res && job.notbetrieb) return "notbetrieb";     // an den Notbetrieb übergeben (GitHub-Issue)
+    if (job && !res && job.limit) return "limit";               // Start scheiterte am Claude-Limit, Auftrag bleibt stehen
     if (res && res.schritt === "skelett" && job && job.auftrag && job.auftrag.schritt === "video") return "laeuft";
     if (res) return res.ok ? (res.schritt === "skelett" ? "skelett" : "fertig") : "fehler";
     const b = (job && buckets.get(job.session)) || "";
@@ -1222,7 +1274,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       if (job.versuch || retrying.has(id) || !job.auftrag || !job.session) continue;
       const state = stateOf(id), res = results.get(id);
       if (state !== "fehler" && state !== "ohne") continue;
-      if (res && (res.wiederholbar === false || NO_RETRY.test(res.fehler || "") ||
+      if (res && (res.wiederholbar === false || NO_RETRY.test(res.fehler || "") || LIMIT_RUN.test(res.fehler || "") ||
                   (res.videos || []).some((v) => urlsOf(v).length))) continue;
       retrying.add(id);
       (async () => {
@@ -1241,6 +1293,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         } catch (err) {
           const still = await ref.get().catch(() => null);
           if (!still || !still.exists) return;                   // gelöscht: kein verwaistes Ergebnis anlegen
+          if (isLimitError(err)) {                               // Claude-Limit: nicht als Fehler melden, Notbetrieb anbieten
+            await db.doc("results/" + id).delete().catch(() => {});
+            await ref.update({ limit: true, limit_zeit: new Date().toISOString() }).catch(() => {});
+            flagLimit(err, job.auftrag, id);
+            return;
+          }
           await db.doc("results/" + id).set({ id: id, art: job.art || "", ok: false, titel: "", videos: [], hinweise: [],
             pruefbericht: "", fehler: "Automatischer Neustart ging nicht: " + explain(err), wiederholbar: false,
             fertig: new Date().toISOString() }).catch(() => {});
@@ -1260,8 +1318,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       await relaunch(id, job, res);
       note(msgId, "Neu gestartet.", "ok");
     } catch (err) {
-      note(msgId, explain(err), "bad");
-      flagLimit(err, job.auftrag);
+      if (isLimitError(err)) {
+        await db.doc("jobs/" + id).update({ limit: true, limit_zeit: new Date().toISOString() }).catch(() => {});
+        note(msgId, "Claudes Nutzungslimit ist erreicht – der Auftrag bleibt in der Liste, dort gibt es „Im Notbetrieb erstellen“.", "warn");
+      } else note(msgId, explain(err), "bad");
+      flagLimit(err, job.auftrag, id);
       button.disabled = false;
     }
   }
@@ -1287,7 +1348,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       if (started.session) mcp.callTool(CFG.server, "archive_session", { session_id: started.session }).catch(() => {});
       return;
     }
-    await ref.update({ session: started.session, weg: started.weg, gestartet: new Date().toISOString() });
+    await ref.update({ session: started.session, weg: started.weg, gestartet: new Date().toISOString(), limit: false, notbetrieb: false });
   }
 
   // ---------- Skelett prüfen und anpassen (Story-Schritt 1) ----------
@@ -1829,17 +1890,31 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (!m) return "";
     return /UNKLAR/.test(m[1]) ? "unklar" : /gesperrt/i.test(m[1]) ? "gesperrt" : /Erlaubnis geprüft|erlaubt/i.test(m[1]) ? "erlaubt" : /bestätigt/.test(m[1]) ? "unklar" : "";
   }
+  // Knopf „Im Notbetrieb erstellen“ (öffnet das GitHub-Issue mit genau diesem Auftrag) und merkt den Auftrag als „im Notbetrieb“
+  function nbActions(id, job, actions, already) {
+    const link = job && job.auftrag ? notbetriebLink(job.auftrag) : "";
+    if (!link) {
+      actions.appendChild(h("span", "meta", "Dieser Auftrag (Zwischenschritt oder zu lang) geht nur mit Claude – später neu starten."));
+      return;
+    }
+    const a = h("a", "btn primary", already ? "Im Notbetrieb erneut öffnen" : "Im Notbetrieb erstellen");
+    a.href = link; a.target = "_blank"; a.rel = "noopener noreferrer";
+    a.addEventListener("click", () => {
+      if (db && !already) db.doc("jobs/" + id).update({ notbetrieb: new Date().toISOString(), limit: false }).catch(() => {});
+    });
+    actions.appendChild(a);
+  }
   function cardFor(id) {
     const job = jobs.get(id) || {}, res = results.get(id), state = stateOf(id);
     const li = document.createElement("li");
     const top = document.createElement("div"); top.className = "top";
     const title = document.createElement("b"); title.textContent = (res && res.titel) || job.label || "Auftrag";
     const LABEL = { fertig: ["fertig", "ok"], fehler: ["Fehler", "bad"], wartet: ["wartet", "warn"], ohne: ["ohne Ergebnis", "bad"],
-                    laeuft: ["läuft", "run"], skelett: ["Skelett prüfen", "warn"] };
+                    laeuft: ["läuft", "run"], skelett: ["Skelett prüfen", "warn"], limit: ["Limit erreicht", "warn"], notbetrieb: ["im Notbetrieb", "warn"] };
     const p = document.createElement("span"); p.className = "pill " + LABEL[state][1]; p.textContent = LABEL[state][0];
     top.append(title, p);
     const meta = document.createElement("div"); meta.className = "meta";
-    meta.textContent = [{ story: "Story", ranking: "Ranking", clip: "Clip", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[job.art] || "", when(job.gestartet || (res && res.fertig))]
+    meta.textContent = [{ story: "Story", ranking: "Ranking", fakten: "Fakten", clip: "Clip", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[job.art] || "", when(job.gestartet || (res && res.fertig))]
       .filter(Boolean).join(" · ");
     li.append(top, meta);
     const perm = (job.art === "clip" || (job.auftrag && job.auftrag.art === "clip")) ? permissionOf(res) : "";
@@ -1863,6 +1938,17 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       info.textContent = (job.versuch === 2 ? "2. Versuch nach einer Störung – " : "") + "Läuft seit " +
         minutes(job.gestartet) + " Min. – meist 10 bis 20 Minuten. Du kannst die App solange schließen.";
       li.appendChild(info);
+    } else if (state === "limit" || state === "notbetrieb") {
+      const info = h("p", "note warn", state === "notbetrieb"
+        ? "Im Notbetrieb: Der Auftrag läuft über GitHub (Issue im Repository). Das fertige Video steht dort als Kommentar mit Download-Link, sobald es fertig ist. Hier bleibt der Auftrag zur Übersicht stehen."
+        : "Claudes Nutzungslimit ist erreicht, der Auftrag wurde nicht gestartet. Du kannst ihn im Notbetrieb erstellen lassen oder später neu starten.");
+      li.appendChild(info);
+      nbActions(id, job, actions, state === "notbetrieb");
+      if (job.auftrag) {
+        const again = h("button", "", "Neu starten"); again.type = "button";
+        again.addEventListener("click", () => restartJob(id, job, res, again, "videosMsg"));
+        actions.appendChild(again);
+      }
     } else if (state === "wartet") {
       const info = document.createElement("p"); info.className = "note warn";
       info.textContent = job.weg === "aufgabe"
@@ -1873,6 +1959,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       const box = document.createElement("div"); box.className = "errbox";
       box.textContent = (res && res.fehler) || (state === "ohne" ? "Der Auftrag ist ohne Ergebnis beendet." : "Die Cloud-Sitzung ist abgebrochen.");
       li.appendChild(box);
+      if (res ? LIMIT_RUN.test(String(res.fehler || "")) : state === "fehler") nbActions(id, job, actions, false);
       if (job.auftrag && job.auftrag.schritt === "video") {
         const edit = document.createElement("button"); edit.type = "button"; edit.textContent = "Skelett bearbeiten";
         edit.addEventListener("click", () => backToSkeleton(id, edit));
@@ -1979,7 +2066,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const job = jobs.get(id) || {}, res = results.get(id), state = stateOf(id);
     return JSON.stringify([state, res ? res.fertig || 1 : 0, job.label || "", state === "laeuft" ? minutes(job.gestartet) : 0,
                            job.versuch || 1, job.session || "", (ratings.get(id) || {}).wert || 0, (ratings.get(id) || {}).notiz || "",
-                           editing.has(id), job.pub ? job.pub.seit : ""]);
+                           editing.has(id), job.pub ? job.pub.seit : "", job.limit ? 1 : 0, job.notbetrieb ? 1 : 0]);
   }
   // Nur geänderte Karten neu zeichnen – ein laufendes Video wird nie neu geladen
   // Viele Videos: die neuesten zuerst, ältere per Knopf nachladen (alle bleiben speicher- und löschbar)
@@ -2054,15 +2141,14 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const o = (job && job.auftrag) || {};
     const art = (job && job.art) || o.art || "";
     if (art === "story") return ROLES.story;
+    if (art === "fakten") return ROLES.fakten;
     if (art === "clip") return ROLES.clip;
     if (art === "reportage") return ROLES.reportage;
     if (art === "satire") return ROLES.satire;
     return o.thema ? ROLES.fakten : ROLES.ranking;      // freies Thema: Fakten werden einzeln geprüft
   }
   const PRESET_FORMATS = ["karte", "vollbild", "kreis", "magazin", "polaroid", "zahl"];
-  const FACT_IDEAS = ["die schnellsten Landtiere", "die längsten Flüsse Europas", "die ältesten Städte der Welt",
-                      "die größten Wüsten der Erde", "die tiefsten Höhlen der Welt", "die heißesten Orte der Erde",
-                      "die größten Raubtiere der Welt"];
+  const FACT_IDEAS = ["der Mond", "Bienen", "die Tiefsee", "Vulkane", "das menschliche Gehirn", "schwarze Löcher", "der Schlaf"];
   const HUNG_MIN = 40;
 
   function staffEntry(id) {
@@ -2074,6 +2160,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     else if (st === "wartet") { e.state = "wartet"; e.pill = "warn"; }
     else if (st === "skelett") { e.state = "wartet auf dich"; e.pill = "warn"; }
     else if (st === "fertig") { e.state = "fertig"; e.pill = "ok"; }
+    else if (st === "notbetrieb") { e.state = "im Notbetrieb"; e.pill = "warn"; }
+    else if (st === "limit") { e.state = "Limit erreicht"; e.pill = "warn"; e.reason = "Claude-Limit: im Notbetrieb erstellen oder später neu starten."; }
     else { e.state = "Fehler"; e.pill = "bad"; }
     if (!res && (st === "ohne" || (st === "laeuft" && mins > HUNG_MIN))) {      // Regel 1: hängt
       e.hung = true; e.state = "hängt"; e.pill = "bad";
@@ -2140,7 +2228,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const usedTopics = new Set([...jobs.values()].map((j) => j.auftrag && j.auftrag.thema).filter(Boolean));
     const ideas = FACT_IDEAS.filter((t) => !usedTopics.has(t)), pool = ideas.length ? ideas : FACT_IDEAS;
     const idea = pool[Math.floor(Date.now() / 864e5) % pool.length];
-    out.push({ title: "Fakten-Idee", why: "Freies Thema: " + idea + ".", label: idea, order: baseRanking({ thema: idea }) });
+    out.push({ title: "Fakten-Idee", why: "Freies Thema: " + idea + ".", label: idea,
+                      order: { art: "fakten", thema: idea, plaetze: 5, sprache: "de", streng: true } });
     for (const p of (fresh.length > 1 ? fresh.slice(1) : presets)) {          // auf drei auffüllen
       if (out.length >= 3) break;
       out.splice(out.length - 1, 0, { title: "Noch eine Vorlage", why: "„" + p[1] + "“.", label: p[1], order: baseRanking({ vorlage: p[0] }) });
@@ -3363,6 +3452,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     for (const [id, job] of jobs) {
       if (!job || !job.auftrag || !job.gestartet || minutes(job.gestartet) > STALE_MIN) continue;
       const res = results.get(id);
+      if (!res && job.limit && !job.notbetrieb) { out.push({ id: id, order: job.auftrag }); continue; }
+      if (job.notbetrieb) continue;
       if (res) {
         if (!res.ok && LIMIT_RUN.test(String(res.fehler || ""))) out.push({ id: id, order: job.auftrag });
       } else if (buckets.get(job.session) === "FAILED" && minutes(job.gestartet) > 10) {
@@ -3374,14 +3465,19 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   /* nb-issue:start */
   const NB_REPO = "https://github.com/Poso47/CUDI";
   const NB_URL_MAX = 6000;                                 // GitHub nimmt URLs bis ca. 8000 Zeichen – Luft lassen
+  const NB_FIELDS = {
+    ranking: ["thema", "vorlage", "plaetze", "sprachen", "laenge", "streng", "nur_skript", "maskottchen", "format", "hochladen"],
+    fakten: ["thema", "plaetze", "sprache", "streng", "hochladen"],
+    story: ["wunsch", "stimmung", "sprache", "laenge", "bilder", "entschaerfen", "maskottchen", "hochladen"],
+    reportage: ["thema", "sprache", "links", "hochladen"],
+    satire: ["thema", "meldung", "links", "sprache", "hochladen"],
+    clip: ["url", "quelle", "start", "ende", "sprache", "clip_stil", "bestaetigt_erlaubnis", "twitch_kanal", "zeitraum", "hochladen"],
+  };
   function nbIssueOrder(o, withPrefs) {
-    // nur Ranking/Story/Reportage im ganzen Lauf; Zwischenschritte (Skelett …) und Clips gehen im Notbetrieb nicht
-    if (!o || (o.art !== "ranking" && o.art !== "story" && o.art !== "reportage")) return null;
-    const out = { art: o.art }, keep = o.art === "ranking"
-      ? ["thema", "vorlage", "plaetze", "sprachen", "laenge", "streng", "nur_skript", "maskottchen", "format", "hochladen"]
-      : o.art === "reportage" ? ["thema", "sprache", "links", "hochladen"]
-      : ["wunsch", "stimmung", "sprache", "laenge", "bilder", "entschaerfen", "maskottchen", "hochladen"];
-    keep.forEach((k) => { if (o[k] !== undefined && o[k] !== null && o[k] !== "") out[k] = o[k]; });
+    // alle Videoarten im ganzen Lauf; Bearbeiten und Veröffentlichen gehen im Notbetrieb nicht; Story-Schritt „video“ wird dort direkt zum Video
+    if (!o || !NB_FIELDS[o.art] || o.schritt === "bearbeiten" || o.schritt === "hochladen") return null;
+    const out = { art: o.art };
+    NB_FIELDS[o.art].forEach((k) => { if (o[k] !== undefined && o[k] !== null && o[k] !== "") out[k] = o[k]; });
     if (o.art === "ranking" && out.thema) delete out.vorlage;
     if (withPrefs && o.vorlieben) out.vorlieben = o.vorlieben;
     return out;
@@ -3402,7 +3498,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   }
   /* nb-issue:end */
   function notbetriebLink(order) {
-    if (!nbUrl) return nbIssueLink(order);                 // Standard: GitHub-Issue; mit Space-Adresse deren Formular
+    const o0 = order || {};
+    if (!nbUrl || (o0.art !== "ranking" && o0.art !== "story")) return nbIssueLink(order);   // Standard: GitHub-Issue; mit Space-Adresse deren Formular (nur Ranking/Story)
     const q = new URLSearchParams(), o = order || {};
     if (o.art === "ranking") {
       q.set("art", "ranking");
@@ -3420,6 +3517,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   }
   function updateLimit() {
     const cands = limitCandidates();
+    if (callLimit && callLimit.id && jobs.has(callLimit.id) && jobs.get(callLimit.id).notbetrieb) callLimit = null;   // schon an den Notbetrieb übergeben
     const key = callLimit ? "call" + callLimit.at : cands.length ? "job" + cands[0].id : "";
     const show = Boolean(key) && key !== limitDismissed;
     $("limitBanner").hidden = !show;
@@ -3429,17 +3527,21 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     $("limitGo").hidden = !link;
     if (link) $("limitGo").href = link;
     $("limitSetup").hidden = true;
-    $("limitText").textContent = "Claude-Limit erreicht – Notbetrieb nutzen. " + (!link
-      ? "Dieser Auftrag (Clip oder Zwischenschritt) geht nur mit Claude."
-      : nbUrl ? "Öffnet deine Web-App mit dem Auftrag."
-      : "Öffnet GitHub – dort nur \u201eSubmit new issue\u201c tippen.");
+    $("limitText").textContent = "Claudes Nutzungslimit ist erreicht. " + (!link
+      ? "Dieser Auftrag (Zwischenschritt) geht nur mit Claude."
+      : nbUrl && (order.art === "ranking" || order.art === "story") ? "Der Knopf öffnet deine Web-App mit dem Auftrag."
+      : "Der Knopf öffnet GitHub – dort nur \u201eSubmit new issue\u201c tippen.");
     $("limitBanner").dataset.key = key;
   }
-  function flagLimit(err, order) {
+  function flagLimit(err, order, id) {
     if (!isLimitError(err)) return;
-    callLimit = { order: order, at: Date.now() }; limitDismissed = "";
+    callLimit = { order: order, at: Date.now(), id: id || "" }; limitDismissed = "";
     try { updateLimit(); } catch (e) { /* egal */ }
   }
+  $("limitGo").addEventListener("click", () => {
+    const id = callLimit ? callLimit.id : (limitCandidates()[0] || {}).id;
+    if (id && db && jobs.has(id)) db.doc("jobs/" + id).update({ notbetrieb: new Date().toISOString(), limit: false }).catch(() => {});
+  });
   $("limitClose").addEventListener("click", () => { limitDismissed = $("limitBanner").dataset.key || ""; updateLimit(); });
   $("limitSetup").addEventListener("click", () => { goTab("app"); $("notbetrieb").scrollIntoView({ block: "start" }); });
   function showNb(url) {

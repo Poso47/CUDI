@@ -182,6 +182,27 @@ CONTINENT_QIDS = {"europa": "Q46", "asien": "Q48", "afrika": "Q15", "nordamerika
                   "suedamerika": "Q18", "ozeanien": "Q55643"}
 
 
+FACTS_ONLY = (" WICHTIG: Der Auftrag ist ausdrücklich ein FAKTEN-Ranking. Antworte IMMER mit dem Fakten-Format "
+              "(\"art\": \"fakten\" …), nie mit einem Zahlen-Ranking.")
+
+
+def plan_facts(topic: str, count: int) -> dict:
+    """Auftrag „fakten“: Fakten-Ranking zu einem freien Thema. Claude bzw. das freie Sprachmodell wählt die Fachartikel;
+    ohne Antwort gilt das Thema selbst als Artikelsuche (facts.gather_sources prüft jeden Titel bei Wikipedia)."""
+    from . import handoff
+
+    answer = handoff.request("planen_fakten", CLAUDE_PLAN + FACTS_ONLY,
+                             {"wunsch": topic, "plaetze": count, "eigenschaften": {}})
+    if isinstance(answer, dict) and answer.get("fehler"):
+        raise PlanFailed(str(answer["fehler"])[:300])
+    if isinstance(answer, dict) and answer.get("art") == "fakten":
+        try:
+            return _fact_plan(topic, count, {**answer, "anzahl": count})
+        except PlanFailed:
+            pass
+    return _fact_plan(topic, count, {"artikel_de": [topic], "artikel_en": [topic], "anzahl": count})
+
+
 def plan_with_claude(topic: str, count: int) -> dict | None:
     """Freies Thema, das der Stichwort-Planer nicht kennt: Claude (Auftrags-Sitzung) deutet es, der Code prüft
     Klasse, Eigenschaft und Region gegen Wikidata. None = Claude nicht verfügbar."""

@@ -49,7 +49,7 @@ RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch 
 # Dazu für fertige Videos: „bearbeiten“ (Texte/Format/Design/Tempo/Maskottchen aus der App, ohne neue Recherche) und
 # „hochladen“ (fertiges Video nach Freigabe in der App hochladen, ohne Neu-Rendern).
 STEPS = ("", "skelett", "video", "bearbeiten", "hochladen")
-STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "clip": ("hochladen",), "reportage": ("hochladen",), "satire": ("hochladen",)}
+STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "fakten": ("hochladen",), "clip": ("hochladen",), "reportage": ("hochladen",), "satire": ("hochladen",)}
 SKELETON_DIR = "cudi_skelette"         # dorthin legt die Sitzung das bearbeitete Skelett (ArtifactData out_dir)
 EDIT_DIR = "cudi_bearbeitungen"        # … die Änderungen eines fertigen Videos (Sammlung „bearbeitungen“)
 UPLOAD_DIR = "cudi_hochladen"          # … das Ergebnisdokument (Sammlung „results“) und die Video-Dateien zum Hochladen
@@ -228,6 +228,22 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
                 "plaetze": count, "streng": _flag(raw.get("streng"), False), "laenge": length,
                 "nur_skript": _flag(raw.get("nur_skript"), False), "maskottchen": _flag(raw.get("maskottchen"), None),
                 "format": _format(raw.get("format")), "hochladen": _upload_wish(raw.get("hochladen"))}
+    if kind == "fakten":                                      # Fakten-Ranking zu einem freien Thema (facts.py)
+        topic = _text(raw.get("thema"), 120)
+        if len(topic) < 3:
+            raise OrderError("Fakten: bitte das Thema nennen.")
+        lang = str(raw.get("sprache") or "de")
+        if lang not in ("de", "en"):
+            raise OrderError("Sprache: „de“ oder „en“.")
+        try:
+            count = int(raw.get("plaetze", 5))
+        except (TypeError, ValueError):
+            raise OrderError("Plätze: bitte eine Zahl von 3 bis 10.") from None
+        if not 3 <= count <= 10:
+            raise OrderError("Plätze: bitte eine Zahl von 3 bis 10.")
+        return {"id": job_id, "art": "fakten", "thema": topic, "plaetze": count, "sprache": lang, "sprachen": [lang],
+                "streng": _flag(raw.get("streng"), False), "maskottchen": _flag(raw.get("maskottchen"), None),
+                "format": _format(raw.get("format")), "hochladen": _upload_wish(raw.get("hochladen"))}
     if kind == "story":
         wish = _text(raw.get("wunsch"), 300)
         mood = str(raw.get("stimmung") or "auto")
@@ -311,7 +327,7 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
         return {"id": job_id, "art": "satire", "thema": topic, "meldung": _link(report) if re.match(r"https?://", report, re.I) else report,
                 "sprache": lang, "links": [_link(u) for u in links if str(u or "").strip()],
                 "hochladen": _upload_wish(raw.get("hochladen"))}
-    raise OrderError("Unbekannte Art – „ranking“, „story“, „clip“, „reportage“ oder „satire“.")
+    raise OrderError("Unbekannte Art – „ranking“, „fakten“, „story“, „clip“, „reportage“ oder „satire“.")
 
 
 def job_folder(job_id: str) -> Path:
@@ -459,6 +475,24 @@ def _ranking(order: dict, folder: Path, progress) -> dict:
     out.mkdir(parents=True, exist_ok=True)
     return run(spec, out=out, langs=order["sprachen"], render=not order["nur_skript"], strict=order["streng"],
                progress=progress)
+
+
+def _fakten(order: dict, folder: Path, progress) -> dict:
+    """Fakten-Ranking (facts.py): Fachartikel -> geschriebene Fakten mit wörtlichem Beleg -> Prüfung je Fakt.
+    Ohne Schreibhilfe (weder Claude noch freies Sprachmodell) ehrlicher Abbruch: Fakten werden nie erfunden."""
+    from .pipeline import run
+    from .planner import plan_facts
+    from .spec import VideoSpec
+
+    if not handoff.active():
+        raise RuntimeError("Fakten brauchen ein Sprachmodell zum Formulieren (Claude oder CUDI_LLM_*) – gerade keines "
+                           "erreichbar. Erfunden wird nichts; bitte später erneut versuchen.")
+    with zeiten.stufe("planen"):
+        spec = VideoSpec.from_dict(plan_facts(order["thema"], order["plaetze"]))
+        print(f"  Thema verstanden: {spec.title['de']}", flush=True)
+    out = folder / "video"
+    out.mkdir(parents=True, exist_ok=True)
+    return run(spec, out=out, langs=order["sprachen"], render=True, strict=order["streng"], progress=progress)
 
 
 def app_file(job_id: str, folder_name: str, collection: str, marker: str, wait: int = 60) -> dict:
@@ -803,7 +837,7 @@ def _run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=N
     for attempt in (1, 2):                                    # eine vorübergehende Störung heilt sich selbst
         try:
             run = (_bearbeiten if order.get("schritt") == "bearbeiten"
-                   else {"ranking": _ranking, "story": _story, "clip": _clip,
+                   else {"ranking": _ranking, "fakten": _fakten, "story": _story, "clip": _clip,
                                                    "reportage": _reportage, "satire": _satire}[order["art"]])
             result = run(order, folder, progress)
             data = _summary(order, result)

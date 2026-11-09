@@ -149,7 +149,7 @@ def extract_json(body: str) -> dict | None:
 
 
 def build_json_order(raw: dict, number: int, known_presets: set[str]) -> dict:
-    """App-Auftrag prüfen (job.parse_order, nur Ranking/Story in einem Zug) – ValueError mit verständlichem Grund.
+    """App-Auftrag prüfen (notbetrieb.prepare_order: alle Arten in einem Zug) – ValueError mit verständlichem Grund.
     Die Kennung ergibt sich aus der Issue-Nummer."""
     from cudi_video import job
 
@@ -172,7 +172,8 @@ def allowed(event: dict) -> bool:
 def summary_line(workflow: str, inputs: dict[str, str]) -> str:
     if workflow == "notbetrieb.yml":
         order = json.loads(inputs["auftrag"])
-        what = order.get("thema") or order.get("vorlage") or order.get("wunsch") or order.get("stimmung") or ""
+        what = (order.get("thema") or order.get("vorlage") or order.get("wunsch") or order.get("quelle")
+                or order.get("twitch_kanal") or order.get("meldung") or order.get("stimmung") or "")
         up = order.get("hochladen")
         return (f"Notbetrieb · {order['art']} **{what}**"
                 + (f" · Hochladen: {up['ziel']} ({up['sichtbarkeit']})" if up else ""))
