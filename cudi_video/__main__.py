@@ -74,7 +74,13 @@ def main(argv=None) -> int:
     au.add_argument("--adressen", help='hochgeladene Dateien als JSON {"datei": "url"}')
 
     cl = sub.add_parser("clip", help="Podcast-/Streamer-Clip im Hochformat (Hook, Sprecher-Zuschnitt, Untertitel)")
-    cl.add_argument("quelle", help="Videodatei oder URL (yt-dlp)")
+    cl.add_argument("quelle", help="Videodatei oder URL (yt-dlp); mit --twitch der Kanalname")
+    cl.add_argument("--stil", choices=("vollbild", "zuschnitt"), default="vollbild",
+                    help="vollbild = ganzes Bild auf unscharfem Hintergrund (Standard), zuschnitt = Sprecher-Zuschnitt")
+    cl.add_argument("--bestaetigt-erlaubnis", action="store_true",
+                    help="ich habe die Erlaubnis des Creators (nötig, wenn clip_erlaubnis.json ihn nicht kennt)")
+    cl.add_argument("--twitch", action="store_true", help="Ranking aus den meistgesehenen Clips des Twitch-Kanals <quelle>")
+    cl.add_argument("--zeitraum", choices=("24hr", "7d", "30d"), default="7d", help="Zeitraum für --twitch")
     cl.add_argument("--start", type=float, default=None, help="Fensteranfang in Sekunden (erzwingt das Fenster)")
     cl.add_argument("--ende", type=float, default=None, help="Fensterende in Sekunden")
     cl.add_argument("--sprache", default="de", help="Sprache des Gesprächs (de, en, auto)")
@@ -84,7 +90,7 @@ def main(argv=None) -> int:
 
     up = sub.add_parser("hochladen", help="fertiges Video zu YouTube Shorts / TikTok hochladen (docs/upload-einrichten.md)")
     up.add_argument("quelle", help="Pfad zu einer .mp4 oder Auftrags-ID")
-    up.add_argument("--ziel", default="youtube", choices=["youtube", "tiktok", "beide"])
+    up.add_argument("--ziel", default="youtube", choices=["youtube", "tiktok", "instagram", "beide", "alle"])
     up.add_argument("--sichtbarkeit", default="privat", choices=["privat", "ungelistet", "oeffentlich", "öffentlich"])
     up.add_argument("--sprache", default="", choices=["", "de", "en"], help="bei Aufträgen nur diese Sprachfassung")
     up.add_argument("--tiktok-modus", default="inbox", choices=["inbox", "direkt"],
@@ -124,8 +130,20 @@ def main(argv=None) -> int:
         from .clip.pipeline import make_clip
 
         try:
+            if args.twitch:
+                from .clip import texte, twitch
+                from . import config
+
+                ziel = config.OUTPUT_DIR / "clips" / (args.name or f"twitch_{args.quelle.lower()}")
+                info = twitch.ranking(args.quelle.lstrip("@").lower(), args.zeitraum, args.sprache, ziel,
+                                      ziel.parent / "_work" / ziel.name, bestaetigt_erlaubnis=args.bestaetigt_erlaubnis,
+                                      fortschritt=lambda t, a=0: print(f"… {t}", flush=True), stil=args.stil)
+                texte.schreibe_ranking(ziel, info, None, args.sprache)
+                print(f"\nTwitch-Ranking: {info['datei']} ({info['dauer']} s, {len(info['teile'])} Clips)")
+                return 0
             info = make_clip(args.quelle, args.start, args.ende, args.sprache, min(max(args.laenge, 30.0), 170.0),
-                             args.name, fortschritt=lambda t: print(f"… {t}", flush=True), herkunft=args.herkunft)
+                             args.name, fortschritt=lambda t: print(f"… {t}", flush=True), herkunft=args.herkunft,
+                             stil=args.stil, bestaetigt_erlaubnis=args.bestaetigt_erlaubnis)
         except WritingNeeded as exc:
             print(f"Schreibaufgabe für Claude abgelegt: {exc.path} – beantworten und den Befehl erneut ausführen.")
             return 2

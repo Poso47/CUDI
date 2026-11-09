@@ -5,18 +5,21 @@ from __future__ import annotations
 import json
 import logging
 
-from . import Material, UploadError, materials, redact, tiktok, youtube
+from . import Material, UploadError, instagram, materials, redact, tiktok, youtube
 
 log = logging.getLogger(__name__)
 
 
 def _targets(target: str) -> list[str]:
-    return ["youtube", "tiktok"] if target == "beide" else [target]
+    """„beide“ = YouTube + TikTok, „alle“ = zusätzlich Instagram; sonst ein einzelnes Ziel."""
+    return {"beide": ["youtube", "tiktok"], "alle": ["youtube", "tiktok", "instagram"]}.get(target, [target])
 
 
 def run_one(material: Material, target: str, visibility: str, mode: str = "inbox") -> dict:
     if target == "youtube":
         return youtube.upload(material, visibility)
+    if target == "instagram":
+        return instagram.upload(material, visibility)
     result = tiktok.upload(material, mode, visibility)
     try:                                              # Status ist nur Zugabe
         result["status"] = tiktok.status(result["publish_id"]) if result.get("publish_id") else ""
@@ -38,6 +41,7 @@ def hochladen(args) -> int:
         for target in _targets(args.ziel):
             if args.probe:
                 plan = (youtube.plan(material, visibility) if target == "youtube"
+                        else instagram.plan(material, visibility) if target == "instagram"
                         else tiktok.plan(material, args.tiktok_modus, visibility))
                 print(f"[Probe – nichts wird gesendet] {target}: {material.video.name}")
                 print(json.dumps(plan, ensure_ascii=False, indent=1))

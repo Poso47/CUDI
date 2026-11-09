@@ -60,3 +60,12 @@ def beschaffen(quelle: str, arbeitsordner: Path) -> Path:
                        "`python -m cudi_video clip <datei>`).")
         raise ClipError(f"Download fehlgeschlagen ({letzte[:200]}).{hinweis}", wiederholbar=gesperrt)
     return files[0]
+
+
+def rohdaten(arbeitsordner: Path) -> dict:
+    """Die ganze yt-dlp-Info-Datei (für die Erlaubnis-Prüfung); leer, wenn es keine gibt."""
+    try:
+        d = json.loads((arbeitsordner / "quelle.info.json").read_text("utf-8"))
+        return d if isinstance(d, dict) else {}
+    except (OSError, ValueError):
+        return {}

@@ -9,7 +9,7 @@ import numpy as np
 import pytest
 
 from cudi_video import config
-from cudi_video.clip import ClipError, reframe, source, subtitles, transcribe
+from cudi_video.clip import ClipError, erlaubnis, reframe, source, subtitles, transcribe
 
 needs_ffmpeg = pytest.mark.skipif(not shutil.which("ffmpeg"), reason="ffmpeg fehlt")
 
@@ -38,6 +38,12 @@ def _video(pfad, w=320, h=240, dauer=20):
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"testsrc2=size={w}x{h}:rate=30:duration={dauer}",
                     "-f", "lavfi", "-i", f"sine=frequency=330:duration={dauer}", "-c:v", "libx264", "-pix_fmt", "yuv420p",
                     "-c:a", "aac", "-shortest", str(pfad)], check=True)
+
+
+@pytest.fixture(autouse=True)
+def _erlaubnis_ohne_netz(tmp_path, monkeypatch):
+    monkeypatch.setenv("CUDI_FIRMA_DATEN", str(tmp_path / "firma_daten"))
+    monkeypatch.setattr(erlaubnis, "meta_holen", lambda url: {})
 
 
 def _auftrag(**kw):
@@ -76,8 +82,7 @@ def test_clip_auftrag_pruefung():
     ok = job.parse_order(_auftrag(start="1:30", ende=150, sprache="en", laenge="60"), set())
     assert (ok["start"], ok["ende"], ok["sprache"], ok["laenge"], ok["art"]) == (90.0, 150.0, "en", 60, "clip")
     assert job.parse_order(_auftrag(), set())["start"] is None
-    for bad, teil in [({"bestaetigt_erlaubnis": False}, "Erlaubnis"), ({"bestaetigt_erlaubnis": None}, "Erlaubnis"),
-                      ({"quelle": ""}, "Link"), ({"quelle": "ftp://example.org/x"}, "Link"),
+    for bad, teil in [({"quelle": ""}, "Link"), ({"quelle": "ftp://example.org/x"}, "Link"),
                       ({"quelle": "http://localhost/x.mp4"}, "lokale"), ({"quelle": "http://192.168.1.5/x"}, "lokale"),
                       ({"start": 50, "ende": 20}, "Ende"), ({"start": 0, "ende": 400}, "175"),
                       ({"sprache": "fr"}, "Sprache"), ({"laenge": 5}, "Länge"), ({"start": "abc"}, "Start")]:
@@ -108,6 +113,13 @@ def test_clip_auftrag_lauf_schreiben_und_weiter(tmp_path, monkeypatch):
     f["antwort"] = {"nr": 1, "begruendung": "stärkste Frage"}
     Path(aufgabe).write_text(json.dumps(f), "utf-8")
     code, data = job.run_order(order, folder)
+    assert code == job.EXIT_WRITE and data is None                       # danach das Inhaltsurteil „clip_urteil“
+    aufgabe = (folder / "schreiben_offen.txt").read_text("utf-8")
+    f = json.loads(Path(aufgabe).read_text("utf-8"))
+    assert f["aufgabe"] == "clip_urteil" and f["daten"]["saetze"]
+    f["antwort"] = {"punkte": 8, "pointe": True, "verstaendlich": True, "titel": "Warum glaubst du das nicht", "grund": "klarer Streit"}
+    Path(aufgabe).write_text(json.dumps(f), "utf-8")
+    code, data = job.run_order(order, folder)
     assert code == 0 and data["ok"] and data["art"] == "clip"
     v = data["videos"][0]
     assert v["dauer"] <= 179 and v["mb"] <= 19 and Path(v["video"]).exists()
@@ -115,7 +127,7 @@ def test_clip_auftrag_lauf_schreiben_und_weiter(tmp_path, monkeypatch):
     assert "Clip aus: Test-Podcast / Kanal X – Quelle: https://example.org/watch?v=abc" in v["youtube"]
     assert "Quelle: https://example.org" in v["tiktok"]
     assert data["titel"] and "Hook" in data["pruefbericht"] and "Erlaubnis" in data["pruefbericht"]
-    assert "von Claude gewählt" in data["pruefbericht"]
+    assert "von Claude gewählt" in data["pruefbericht"] and "Inhaltsurteil (Claude): 8/10" in data["pruefbericht"]
     doc = job.document(folder, {v["video"]: "https://x/clip.mp4"})
     assert doc["ok"] and doc["videos"][0]["video_url"] == "https://x/clip.mp4"
 

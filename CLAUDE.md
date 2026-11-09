@@ -120,6 +120,9 @@ für TikTok/YouTube Shorts.
   1080×1920 (faster-whisper → Höhepunkt/Hook nach Regeln, optional Claude-Auswahl `clip_hook` über `handoff` → Pausenschnitt →
   Sprecher-Zuschnitt mit YuNet/Haar → ASS-Untertitel). App-Auftrag `art: "clip"` (`job._clip`): Pflichtfeld `bestaetigt_erlaubnis`,
   nur http(s)-Links, Texte/Prüfbericht in `clip/texte.py`; YouTube sperrt Cloud-IPs oft (`ClipError.wiederholbar`, Hinweis „später/PC“).
+  **Clip-Kern** (Skill `clip-engine`): `clip/erlaubnis.py` `pruefe(url)` (Sperrliste `clip_creators.json` vor Scout-Ergebnis `clip_erlaubnis.json`; erlaubt → läuft, gesperrt → Abbruch,
+  unklar → nur mit `bestaetigt_erlaubnis` + Vermerk), Auswahl mit Bildschnitten/Titeltreffern/offenem Ende + Gewichte `clip_kalibrierung.json`, Inhaltsurteil `clip_urteil` (`urteil.py`),
+  Auftragsfeld `clip_stil` `vollbild` (Standard, `vollbild.py`) | `zuschnitt`, Twitch-Ranking `twitch_kanal` (`twitch.py`), Upload-Ziel `instagram`/`alle` (`upload/instagram.py`, `CUDI_IG_*`).
 - Weitere Wege: GitHub Actions „CUDI Video“/„CUDI Story“, Issue mit `cudi-auftrag` („CUDI Auftrag“),
   Hugging Face Space („CUDI Cloud-App“, optional, braucht Secret HF_TOKEN).
 - **Firma-Mitarbeiter (GitHub)** (`cudi_video/firma/`, Workflows `.github/workflows/firma-*.yml`, cron + manuell, kein Claude-Verbrauch;
