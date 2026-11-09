@@ -1,0 +1,33 @@
+# Firma-Mitarbeiter „Clip-Scout“ (kostenlos, kein Claude-Verbrauch): schreibt firma_daten/, sichert per Bot-Commit.
+# Siehe CLAUDE.md, Abschnitt „Firma-Mitarbeiter (GitHub)“ und docs/clip-team.md.
+name: Firma · Clip-Scout
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  clipscout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml yt-dlp
+      - name: Aktuellen Stand holen
+        run: git pull --ff-only
+      - name: Clip-Scout arbeitet
+        run: python -m cudi_video.firma clipscout
+      - name: Ergebnis sichern
+        run: bash scripts/firma_commit.sh "Clip-Scout"
