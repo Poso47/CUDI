@@ -1,106 +1,169 @@
 {
- "erzeugt": "2026-11-09T06:56:32Z",
- "anzahl": 16,
- "nur_ausland": 1,
- "hinweise": [],
- "regel": "Ausland-Betreiber zählen einzeln; nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
+ "erzeugt": "2026-11-09T22:34:40Z",
+ "anzahl": 10,
+ "nur_ausland": 0,
+ "hinweise": [
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+ ],
+ "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat",
-   "kurz": "While some believe the site should be partially or completely rebuilt, others want it abandoned and all memory of its Nazi past forgotten.",
-   "link": "https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-09T08:35:10+05:00",
-   "ausland_quellen": 2,
+   "titel": "Durchsuchung bei \"Hells Angels\": Großeinsatz in Berlin",
+   "kurz": "300 Einsatzkräfte der Polizei sind beteiligt. Laut einem Polizeisprecher geht es um Schusswaffenkriminalität",
+   "link": "https://www.derstandard.at/story/3000000348339/durchsuchung-bei-hells-angels-grosseinsatz-in-berlin?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-09T21:03:59Z",
+   "ausland_quellen": 1,
    "laender": [
-    "Großbritannien",
-    "Pakistan"
+    "Österreich"
    ],
    "laender_einig": [
-    "Großbritannien",
-    "Pakistan"
+    "Österreich"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "BBC Europe (Großbritannien): Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat",
-    "Dawn (Pakistan): Hitler’s ‘retreat’ sparks debate over Germany’s past and present"
+    "Der Standard (Österreich): Durchsuchung bei \"Hells Angels\": Großeinsatz in Berlin"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
-   "nur_ausland": true,
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat",
-     "link": "https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss"
-    },
-    {
-     "quelle": "Dawn",
-     "land": "Pakistan",
+     "quelle": "Der Standard",
+     "land": "Österreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Hitler’s ‘retreat’ sparks debate over Germany’s past and present",
-     "link": "https://www.dawn.com/news/2043132/hitlers-retreat-sparks-debate-over-germanys-past-and-present"
+     "titel": "Durchsuchung bei \"Hells Angels\": Großeinsatz in Berlin",
+     "link": "https://www.derstandard.at/story/3000000348339/durchsuchung-bei-hells-angels-grosseinsatz-in-berlin?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Chancellor Merz to nominate Aigner as Germany’s first woman president",
-   "kurz": "Ilse Aigner, speaker of the Bavarian state parliament, belongs to the Christian Social Union in Bavaria (CSU) party.",
-   "link": "https://www.aljazeera.com/news/2026/11/8/chancellor-merz-to-nominate-aigner-as-germanys-first-woman-president?traffic_source=rss",
-   "sprache": "en",
-   "zeit": "2026-11-09T08:37:21+05:30",
-   "ausland_quellen": 2,
+   "titel": "La CDU confirma a Ilse Aigner como candidata a la presidencia de Alemania: “Represento la fuerza del centro frente a los populismos”",
+   "kurz": "Los democristianos alemanes presentan a la política bávara para ser la primera mujer jefa de Estado con un mensaje contra los extremismos",
+   "link": "https://elpais.com/internacional/2026-11-09/la-cdu-confirma-a-ilse-aigner-como-candidata-a-la-presidencia-de-alemania-represento-la-fuerza-del-centro-frente-a-los-populismos.html",
+   "sprache": "es",
+   "zeit": "2026-11-09T14:40:30Z",
+   "ausland_quellen": 1,
    "laender": [
-    "Indien",
-    "Katar"
+    "Spanien"
    ],
    "laender_einig": [
-    "Indien",
-    "Katar"
+    "Spanien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "Al Jazeera (Katar): Chancellor Merz to nominate Aigner as Germany’s first woman president",
-    "Times of India (Indien): Chancellor Merz backs Ilse Aigner as Germany's first female President"
+    "El País (Spanien): La CDU confirma a Ilse Aigner como candidata a la presidencia de Alemania: “Represento la fuerza del centro frente a los populismos”"
    ],
-   "staatsnah": [
-    "Al Jazeera"
-   ],
+   "staatsnah": [],
    "deutsch_quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Kanzler Merz will Aigner als Bundespräsidentin vorschlagen",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-merz-100.html"
-    },
-    {
-     "quelle": "Tagesschau",
-     "titel": "Ilse Aigner im Porträt: Krisenerprobt, bürgernah - und bald Staatsoberhaupt?",
-     "link": "https://www.tagesschau.de/inland/ilse-aigner-portraet-100.html"
+     "titel": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681010.html"
     }
    ],
    "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Chancellor Merz to nominate Aigner as Germany’s first woman president",
-     "link": "https://www.aljazeera.com/news/2026/11/8/chancellor-merz-to-nominate-aigner-as-germanys-first-woman-president?traffic_source=rss"
-    },
-    {
-     "quelle": "Times of India",
-     "land": "Indien",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Chancellor Merz backs Ilse Aigner as Germany's first female President",
-     "link": "https://timesofindia.indiatimes.com/world/europe/chancellor-merz-backs-ilse-aigner-as-germanys-first-female-president/articleshow/135669055.cms"
+     "titel": "La CDU confirma a Ilse Aigner como candidata a la presidencia de Alemania: “Represento la fuerza del centro frente a los populismos”",
+     "link": "https://elpais.com/internacional/2026-11-09/la-cdu-confirma-a-ilse-aigner-como-candidata-a-la-presidencia-de-alemania-represento-la-fuerza-del-centro-frente-a-los-populismos.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "AfD, neonazis y Javier Milei: una feria del libro en Alemania se convierte en la gran fiesta de la extrema derecha",
+   "kurz": "Miles de personas visitan Seitenwechsel, el mayor escaparate del nacionalismo alemán y la doctrina ultra en Europa",
+   "link": "https://elpais.com/internacional/2026-11-09/afd-neonazis-y-javier-milei-una-feria-del-libro-en-alemania-se-convierte-en-la-gran-fiesta-de-la-extrema-derecha.html",
+   "sprache": "es",
+   "zeit": "2026-11-09T10:39:27Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): AfD, neonazis y Javier Milei: una feria del libro en Alemania se convierte en la gran fiesta de la extrema derecha"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "AfD, neonazis y Javier Milei: una feria del libro en Alemania se convierte en la gran fiesta de la extrema derecha",
+     "link": "https://elpais.com/internacional/2026-11-09/afd-neonazis-y-javier-milei-una-feria-del-libro-en-alemania-se-convierte-en-la-gran-fiesta-de-la-extrema-derecha.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Vodafone baut in Deutschland rund 2300 Stellen ab",
+   "kurz": "Fast jeder fünfte Arbeitsplatz ist betroffen. Grund sei unter anderem der verstärkte Einsatz von KI",
+   "link": "https://www.derstandard.at/story/3000000348215/vodafone-baut-in-deutschland-rund-2300-stellen-ab?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-09T10:37:09Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Vodafone baut in Deutschland rund 2300 Stellen ab"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Mobilfunkunternehmen Vodafone plant Abbau von 2.300 Stellen",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vodafone-stellenabbau-102.html"
+    }
+   ],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Vodafone baut in Deutschland rund 2300 Stellen ab",
+     "link": "https://www.derstandard.at/story/3000000348215/vodafone-baut-in-deutschland-rund-2300-stellen-ab?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
     }
    ]
   },
@@ -131,6 +194,9 @@
    "staatsnah": [],
    "deutsch_quellen": [],
    "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
      "quelle": "The Hindu",
@@ -138,205 +204,46 @@
      "art": "privat",
      "beteiligt": false,
      "titel": "G7 Ministers meet on efforts to end Ukraine conflict, halt new Iran war",
-     "link": "https://www.thehindu.com/news/international/g7-ministers-meeting-in-paris-russia-ukraine-conflict-us-israel-strikes-on-iran/article71681281.ece"
+     "link": "https://www.thehindu.com/news/international/g7-ministers-meeting-in-paris-russia-ukraine-conflict-us-israel-strikes-on-iran/article71681281.ece",
+     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "How Israel’s separation wall compares with the Berlin Wall",
-   "kurz": "How Israel's wall, checkpoints and permits divide Palestinians in the occupied West Bank and cut farmers off from land.",
-   "link": "https://www.aljazeera.com/news/2026/11/9/how-israels-separation-wall-compares-with-the-berlin-wall?traffic_source=rss",
-   "sprache": "en",
-   "zeit": "2026-11-09T06:32:18Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Katar"
-   ],
-   "laender_einig": [
-    "Katar"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Israel"
-   ],
-   "zusammenfassung": [
-    "Al Jazeera (Katar): How Israel’s separation wall compares with the Berlin Wall"
-   ],
-   "staatsnah": [
-    "Al Jazeera"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "quellen": [
-    {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "How Israel’s separation wall compares with the Berlin Wall",
-     "link": "https://www.aljazeera.com/news/2026/11/9/how-israels-separation-wall-compares-with-the-berlin-wall?traffic_source=rss"
-    }
-   ]
-  },
-  {
-   "titel": "Alemania y Reino Unido dicen que su proyecto para lanzar misiles a 2 . 000 km va por buen camino",
-   "kurz": "",
-   "link": "https://www.libertaddigital.com/defensa/2026-11-09/alemania-y-reino-unido-dicen-que-su-proyecto-para-lanzar-misiles-a-2-000-km-va-por-buen-camino-7485875/",
+   "titel": "Rearme japonés",
+   "kurz": "Los planes de Japón responden, como los de Alemania, a las nuevas amenazas, pero exigen el máximo cuidado para no reavivar recelos históricos",
+   "link": "https://elpais.com/opinion/2026-11-09/rearme-japones.html",
    "sprache": "es",
-   "zeit": "2026-11-09T06:30:00Z",
+   "zeit": "2026-11-09T04:30:01Z",
    "ausland_quellen": 1,
    "laender": [
-    "Spain"
+    "Spanien"
    ],
    "laender_einig": [
-    "Spain"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Großbritannien"
-   ],
-   "zusammenfassung": [
-    "libertaddigital.com (Spain): Alemania y Reino Unido dicen que su proyecto para lanzar misiles a 2 . 000 km va por buen camino"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "quellen": [
-    {
-     "quelle": "libertaddigital.com",
-     "land": "Spain",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "Alemania y Reino Unido dicen que su proyecto para lanzar misiles a 2 . 000 km va por buen camino",
-     "link": "https://www.libertaddigital.com/defensa/2026-11-09/alemania-y-reino-unido-dicen-que-su-proyecto-para-lanzar-misiles-a-2-000-km-va-por-buen-camino-7485875/"
-    }
-   ]
-  },
-  {
-   "titel": "Pouvoir dachat . Faire ses courses en Allemagne : avez - vous déjà franchi le pas ?",
-   "kurz": "",
-   "link": "https://www.dna.fr/economie/2026/11/09/faire-ses-courses-en-allemagne-avez-vous-deja-franchi-le-pas",
-   "sprache": "fr",
-   "zeit": "2026-11-09T06:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "France"
-   ],
-   "laender_einig": [
-    "France"
+    "Spanien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "dna.fr (France): Pouvoir dachat . Faire ses courses en Allemagne : avez - vous déjà franchi le pas ?"
+    "El País (Spanien): Rearme japonés"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
    "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "dna.fr",
-     "land": "France",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "Pouvoir dachat . Faire ses courses en Allemagne : avez - vous déjà franchi le pas ?",
-     "link": "https://www.dna.fr/economie/2026/11/09/faire-ses-courses-en-allemagne-avez-vous-deja-franchi-le-pas"
-    }
-   ]
-  },
-  {
-   "titel": "Sindhudesh Global Conference in Germany forms International Anti - Colonial Alliance , appoints Mehran Marri to lead initiative",
-   "kurz": "",
-   "link": "http://www.beijingbulletin.com/news/279420881/sindhudesh-global-conference-in-germany-forms-international-anti-colonial-alliance-appoints-mehran-marri-to-lead-initiative",
-   "sprache": "en",
-   "zeit": "2026-11-09T06:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "China"
-   ],
-   "laender_einig": [
-    "China"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "beijingbulletin.com (China): Sindhudesh Global Conference in Germany forms International Anti - Colonial Alliance , appoints Mehran Marri to lead initiative"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "quellen": [
-    {
-     "quelle": "beijingbulletin.com",
-     "land": "China",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "Sindhudesh Global Conference in Germany forms International Anti - Colonial Alliance , appoints Mehran Marri to lead initiative",
-     "link": "http://www.beijingbulletin.com/news/279420881/sindhudesh-global-conference-in-germany-forms-international-anti-colonial-alliance-appoints-mehran-marri-to-lead-initiative"
-    }
-   ]
-  },
-  {
-   "titel": "Moritz von Uslar: vom Stadtintellektuellen zum Försterlandwirt",
-   "kurz": "Zwischen Berlin und fränkischem Hinterland, Wurstsprache und Weltpolitik: In «Meldungen aus dem Wald» schreibt der ehemalige «Zeit»-Feuilletonist über den…",
-   "link": "https://www.nzz.ch/feuilleton/moritz-von-uslar-vom-stadtintellektuellen-zum-foersterlandwirt-ld.10056100",
-   "sprache": "de",
-   "zeit": "2026-11-09T04:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): Moritz von Uslar: vom Stadtintellektuellen zum Försterlandwirt"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Moritz von Uslar: vom Stadtintellektuellen zum Försterlandwirt",
-     "link": "https://www.nzz.ch/feuilleton/moritz-von-uslar-vom-stadtintellektuellen-zum-foersterlandwirt-ld.10056100"
-    }
-   ]
-  },
-  {
-   "titel": "Vermisste 13-Jährige aus Berlin tot: Verdächtiger festgenommen",
-   "kurz": "Seit Dienstag wurde das Mädchen vermisst. Sie hat ihr Wohnhaus verlassen, um zur Schule zu fahren – kam jedoch nicht an",
-   "link": "https://www.derstandard.at/story/3000000348116/vermisste-sch252lerin-aus-berlin-ist-tot-verd228chtiger-festgenommen?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-08T19:44:12Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Vermisste 13-Jährige aus Berlin tot: Verdächtiger festgenommen"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Vermisste 13-Jährige aus Berlin tot: Verdächtiger festgenommen",
-     "link": "https://www.derstandard.at/story/3000000348116/vermisste-sch252lerin-aus-berlin-ist-tot-verd228chtiger-festgenommen?ref=rss"
+     "titel": "Rearme japonés",
+     "link": "https://elpais.com/opinion/2026-11-09/rearme-japones.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
     }
    ]
   },
@@ -365,6 +272,9 @@
    "staatsnah": [],
    "deutsch_quellen": [],
    "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
      "quelle": "The Hindu",
@@ -372,115 +282,46 @@
      "art": "privat",
      "beteiligt": false,
      "titel": "Poland calls Krakow shooting rampage 'terrorist' attack",
-     "link": "https://www.thehindu.com/news/international/poland-calls-krakow-shooting-rampage-terrorist-attack/article71681007.ece"
+     "link": "https://www.thehindu.com/news/international/poland-calls-krakow-shooting-rampage-terrorist-attack/article71681007.ece",
+     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Protestaktion vor Reichstag: Aktivist tauscht Deutschland- gegen Palästinaflagge",
-   "kurz": "Der 22-Jährige blieb rund eine Stunde am Fahnenmast und wurde nach dem Herunterklettern von der Polizei festgesetzt",
-   "link": "https://www.derstandard.at/story/3000000348107/protestaktion-vor-reichstag-aktivist-tauscht-deutschland-gegen-palaestinaflagge?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-08T16:34:20Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Protestaktion vor Reichstag: Aktivist tauscht Deutschland- gegen Palästinaflagge"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Mann hisst Palästinenser-Flagge vor Reichstagsgebäude",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1680466.html"
-    }
-   ],
-   "nur_ausland": false,
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Protestaktion vor Reichstag: Aktivist tauscht Deutschland- gegen Palästinaflagge",
-     "link": "https://www.derstandard.at/story/3000000348107/protestaktion-vor-reichstag-aktivist-tauscht-deutschland-gegen-palaestinaflagge?ref=rss"
-    }
-   ]
-  },
-  {
-   "titel": "\"Die Statistik macht mir Hoffnung\": Eva Umlauf hat als Zweijährige den Holocaust überlebt",
-   "kurz": "Die Präsidentin des Internationalen Auschwitz Komitees über ihr neues Buch \"Genauso fängt es an\" und die aktuellen politischen Entwicklungen in Deutschland",
-   "link": "https://www.derstandard.at/story/3000000347357/die-statistik-macht-mir-hoffnung-eva-umlauf-hat-als-zweijaehrige-den-holocaust-ueberlebt?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-08T14:01:58Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): \"Die Statistik macht mir Hoffnung\": Eva Umlauf hat als Zweijährige den Holocaust überlebt"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "\"Die Statistik macht mir Hoffnung\": Eva Umlauf hat als Zweijährige den Holocaust überlebt",
-     "link": "https://www.derstandard.at/story/3000000347357/die-statistik-macht-mir-hoffnung-eva-umlauf-hat-als-zweijaehrige-den-holocaust-ueberlebt?ref=rss"
-    }
-   ]
-  },
-  {
-   "titel": "Krakow attacker may be influenced by 'far-right ideologies': Polish interior minister",
-   "kurz": "5 of 16 injured individuals foreign nationals from Austria, Germany, Portugal, Russia, UK",
-   "link": "https://www.aa.com.tr/en/europe/krakow-attacker-may-be-influenced-by-far-right-ideologies-polish-interior-minister/4115593",
+   "titel": "Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat",
+   "kurz": "While some believe the site should be partially or completely rebuilt, others want it abandoned and all memory of its Nazi past forgotten.",
+   "link": "https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss",
    "sprache": "en",
-   "zeit": "2026-11-08T00:55:38+03:00",
+   "zeit": "2026-11-08T00:48:59Z",
    "ausland_quellen": 1,
    "laender": [
-    "Türkei"
+    "Großbritannien"
    ],
    "laender_einig": [
-    "Türkei"
+    "Großbritannien"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Großbritannien",
-    "Russland",
-    "Österreich"
-   ],
+   "beteiligte_laender": [],
    "zusammenfassung": [
-    "Anadolu (Türkei): Krakow attacker may be influenced by 'far-right ideologies': Polish interior minister"
+    "BBC Europe (Großbritannien): Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat"
    ],
-   "staatsnah": [
-    "Anadolu"
-   ],
+   "staatsnah": [],
    "deutsch_quellen": [],
    "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Anadolu",
-     "land": "Türkei",
-     "art": "staatsnah",
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
      "beteiligt": false,
-     "titel": "Krakow attacker may be influenced by 'far-right ideologies': Polish interior minister",
-     "link": "https://www.aa.com.tr/en/europe/krakow-attacker-may-be-influenced-by-far-right-ideologies-polish-interior-minister/4115593"
+     "titel": "Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat",
+     "link": "https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "zaehlt_nicht": ""
     }
    ]
   },
@@ -505,6 +346,9 @@
    "staatsnah": [],
    "deutsch_quellen": [],
    "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
      "quelle": "Guardian Germany",
@@ -512,76 +356,122 @@
      "art": "privat",
      "beteiligt": false,
      "titel": "Max’s journey to the grave 113 years after death, via a doctor fleeing murder charges and an Australian museum",
-     "link": "https://www.theguardian.com/australia-news/2026/nov/08/max-the-skeleton-buried-adelaide-south-australia-museum"
+     "link": "https://www.theguardian.com/australia-news/2026/nov/08/max-the-skeleton-buried-adelaide-south-australia-museum",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Der Bund sucht zwei neue Chefdiplomaten, aber ein Posten ist ein Schleudersitz – Ex-Mitte-Präsident kritisiert Cassis",
-   "kurz": "Der Bundesrat besetzt die zwei wichtigsten Posten für die Schweizer Aussen- und Wirtschaftspolitik neu. Ignazio Cassis will seine Nummer zwei trotz absehbarem…",
-   "link": "https://www.nzz.ch/schweiz/der-bund-sucht-zwei-neue-chefdiplomaten-aber-ein-posten-ist-ein-schleudersitz-ex-mitte-praesident-kritisiert-cassis-ld.10056106",
-   "sprache": "de",
-   "zeit": "2026-11-09T04:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Schweiz"
-   ],
-   "zusammenfassung": [
-    "NZZ (Schweiz): Der Bund sucht zwei neue Chefdiplomaten, aber ein Posten ist ein Schleudersitz – Ex-Mitte-Präsident kritisiert Cassis"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Der Bund sucht zwei neue Chefdiplomaten, aber ein Posten ist ein Schleudersitz – Ex-Mitte-Präsident kritisiert Cassis",
-     "link": "https://www.nzz.ch/schweiz/der-bund-sucht-zwei-neue-chefdiplomaten-aber-ein-posten-ist-ein-schleudersitz-ex-mitte-praesident-kritisiert-cassis-ld.10056106"
-    }
-   ]
-  },
-  {
-   "titel": "Five European leaders call for closer EU-UK ties ahead of Brussels summit",
-   "kurz": "Germany, Belgium, Netherlands, Luxembourg and Denmark say cooperation on clean energy will benefit both sides Five European leaders have called for closer ties…",
-   "link": "https://www.theguardian.com/world/2026/nov/07/europe-leaders-call-closer-eu-uk-ties-brussels-summit",
+   "titel": "Pakistani farmers in long fight to make German firms pay for 2022 flood damage",
+   "kurz": "In a village nestled in rice fields, Abdul Hafeez Khoso remembers the vast industrial zones he saw in Germany when he visited to file a pioneering climate…",
+   "link": "https://www.dawn.com/news/2043283/pakistani-farmers-in-long-fight-to-make-german-firms-pay-for-2022-flood-damage",
    "sprache": "en",
-   "zeit": "2026-11-07T15:30:35Z",
+   "zeit": "2026-11-09T17:20:52+05:00",
    "ausland_quellen": 1,
    "laender": [
-    "Großbritannien"
+    "Pakistan"
    ],
    "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Großbritannien"
+    "Pakistan"
    ],
    "zusammenfassung": [
-    "Guardian Germany (Großbritannien): Five European leaders call for closer EU-UK ties ahead of Brussels summit"
+    "Dawn (Pakistan): Pakistani farmers in long fight to make German firms pay for 2022 flood damage"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
    "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
+     "quelle": "Dawn",
+     "land": "Pakistan",
      "art": "privat",
      "beteiligt": true,
-     "titel": "Five European leaders call for closer EU-UK ties ahead of Brussels summit",
-     "link": "https://www.theguardian.com/world/2026/nov/07/europe-leaders-call-closer-eu-uk-ties-brussels-summit"
+     "titel": "Pakistani farmers in long fight to make German firms pay for 2022 flood damage",
+     "link": "https://www.dawn.com/news/2043283/pakistani-farmers-in-long-fight-to-make-german-firms-pay-for-2022-flood-damage",
+     "eigentuemer": "gehört Dawn Media Group",
+     "zaehlt_nicht": ""
     }
    ]
   }
  ],
- "verbindungen": [],
+ "verbindungen": [
+  {
+   "name": "Ilse Aigner",
+   "wikidata": "https://www.wikidata.org/wiki/Q153460",
+   "beschreibung": "German politician",
+   "verbindungen": [
+    {
+     "eigenschaft": "Amt",
+     "wert": "Bundesminister für Landwirtschaft, Ernährung und Heimat",
+     "link": "https://www.wikidata.org/wiki/Q30543319",
+     "beendet": "2013"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Bundesminister für Landwirtschaft, Ernährung und Heimat",
+     "link": "https://www.wikidata.org/wiki/Q30543319",
+     "beendet": "2009"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Deutschen Bundestages",
+     "link": "https://www.wikidata.org/wiki/Q1939555",
+     "beendet": "2002"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bayerischen Landtags",
+     "link": "https://www.wikidata.org/wiki/Q17586301",
+     "beendet": "1998"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bayerischen Landtags",
+     "link": "https://www.wikidata.org/wiki/Q17586301",
+     "beendet": "2023"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Präsident des Bayerischen Landtags",
+     "link": "https://www.wikidata.org/wiki/Q15303400",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Partei",
+     "wert": "Christlich-Soziale Union in Bayern",
+     "link": "https://www.wikidata.org/wiki/Q49763",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Enquete-Kommission Zukunft des bürgerschaftlichen Engagements",
+     "link": "https://www.wikidata.org/wiki/Q19969620",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Kabinett Merkel I",
+     "link": "https://www.wikidata.org/wiki/Q315863",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Kabinett Merkel II",
+     "link": "https://www.wikidata.org/wiki/Q632985",
+     "beendet": null
+    }
+   ],
+   "themen": [
+    "La CDU confirma a Ilse Aigner como candidata a la presidencia de Alemania: “Represento la fuerza del centro frente a los populismos”"
+   ]
+  }
+ ],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -748,6 +638,15 @@
    "keine_treffer": true
   },
   "Colonial Alliance": {
+   "keine_treffer": true
+  },
+  "Hells Angels": {
+   "name": "Hells Angels",
+   "wikidata": "https://www.wikidata.org/wiki/Q1603062",
+   "beschreibung": "German chapter of the Hells Angels",
+   "verbindungen": []
+  },
+  "Javier Milei": {
    "keine_treffer": true
   }
  }
