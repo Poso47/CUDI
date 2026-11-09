@@ -129,11 +129,12 @@ def test_page_issue_link_roundtrips_into_auftrag_py():
         {"art": "ranking", "vorlage": "groesste-seen", "plaetze": 5, "sprachen": ["de"]},
         {"art": "story", "wunsch": "Anruf & \"Nachbar\" #1", "stimmung": "creepy", "sprache": "de", "laenge": "kurz",
          "schritt": "skelett", "hochladen": {"ziel": "youtube", "sichtbarkeit": "privat"}},
-        {"art": "clip", "quelle": "https://example.com/v"},
+        {"art": "fakten", "thema": "Haie", "plaetze": 5, "sprache": "de", "streng": True},
+        {"art": "ranking", "vorlage": "groesste-seen", "schritt": "bearbeiten"},
     ]
     links = _js_links(orders)
-    assert links[3] == ""
-    for link, order in zip(links[:3], orders[:3]):
+    assert links[4] == ""                                   # Bearbeiten geht nur mit Claude
+    for link, order in zip(links[:4], orders[:4]):
         assert link.startswith("https://github.com/Poso47/CUDI/issues/new?") and len(link) < 6000
         query = parse_qs(urlparse(link).query)
         assert query["title"][0].startswith("CUDI-Auftrag (Notbetrieb): ")
