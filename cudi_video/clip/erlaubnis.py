@@ -3,8 +3,10 @@
 Quellen (Vertrag mit dem Clip-Scout, beide in `firma_daten/`):
 - `clip_creators.json` (pflegt der Nutzer): {"creators": [{"name", "youtube": [...], "twitch": [...], "tiktok": [...],
   "gesperrt": bool}]} – eine Sperre geht immer vor.
-- `clip_erlaubnis.json` (schreibt nur der Clip-Scout): je Creator Status „erlaubt“ | „gesperrt“ | „unklar“ mit
-  wörtlichen Belegen. „erlaubt“ gilt nur mit mindestens einem Beleg samt Link und Zitat.
+- `clip_erlaubnis.json` (schreibt nur der Clip-Scout): je Creator Status „erlaubt“ | „geduldet“ | „gesperrt“ | „unklar“
+  mit wörtlichen Belegen. „erlaubt“ gilt nur mit mindestens einem Beleg samt Link und Zitat. „geduldet“ = keine
+  ausdrückliche Aussage, aber Duldungssignale (`signale`) und kein Verbot gefunden: verhält sich wie „unklar“ (nur mit
+  `bestaetigt_erlaubnis`), plus Credit-Pflicht „Original: <Creator> – <Link>“. Duldung ist nie eine Erlaubnis.
 
 `pruefe(url)` ordnet die URL einem Kanal zu (YouTube-Kanal-ID/Handle, Twitch-Login, TikTok-Handle) und liefert
 {"erlaubt": bool, "status": ..., "grund": str, "belege": [...], ...}. Nichts wird geraten: ohne Eintrag ist der
@@ -24,7 +26,7 @@ from . import ClipError
 
 log = logging.getLogger(__name__)
 
-ERLAUBT, GESPERRT, UNKLAR = "erlaubt", "gesperrt", "unklar"
+ERLAUBT, GESPERRT, UNKLAR, GEDULDET = "erlaubt", "gesperrt", "unklar", "geduldet"
 _META_CACHE: dict[str, dict] = {}
 
 
@@ -160,6 +162,11 @@ def pruefe(url: str, meta: dict | None = None, online: bool = True) -> dict:
         elif status == ERLAUBT and belege:
             basis.update(erlaubt=True, status=ERLAUBT,
                          grund=f"Creator „{name}“ erlaubt Clips (Beleg: {belege[0]['url']}).")
+        elif status == GEDULDET:
+            signale = [str(x) for x in c.get("signale") or []]
+            basis.update(status=GEDULDET, signale=signale,
+                         grund=f"Creator „{name}“ ist nur geduldet, nicht ausdrücklich erlaubt (Signale: "
+                         + ("; ".join(signale) or "keine genannt") + ").")
         elif status == ERLAUBT:
             basis.update(status=UNKLAR, grund=f"Creator „{name}“ gilt als erlaubt, aber ohne wörtlichen Beleg mit Link – "
                          "zählt deshalb als unklar.")
@@ -178,6 +185,13 @@ def pruefe_auftrag(url: str, bestaetigt: bool, meta: dict | None = None) -> dict
         raise ClipError("Clip abgebrochen: " + r["grund"] + " Von gesperrten Creators wird nicht geclippt.")
     if r["status"] == ERLAUBT:
         r["vermerk"] = "Erlaubnis geprüft: " + r["grund"]
+    elif r["status"] == GEDULDET:
+        r["credit"] = f"Original: {r.get('creator') or '?'} – {url}"
+        if not bestaetigt:
+            raise ClipError("Clip abgebrochen: " + r["grund"] + " Nicht ausdrücklich erlaubt – bitte bestätigen "
+                            "(bestaetigt_erlaubnis); Credit „" + r["credit"] + "“ ist Pflicht.")
+        r["vermerk"] = ("geduldet, vom Nutzer bestätigt (Signale: " + ("; ".join(r.get("signale") or []) or "keine")
+                        + ") – nicht ausdrücklich erlaubt. Credit-Pflicht: " + r["credit"])
     elif bestaetigt:
         r["vermerk"] = ("ACHTUNG – Erlaubnis UNKLAR, nur auf deine Bestätigung geclippt (bestaetigt_erlaubnis): "
                         + r["grund"])
@@ -194,6 +208,8 @@ def bericht_zeilen(r: dict | None) -> list[str]:
     z = [f"- Erlaubnis: {r.get('vermerk') or r.get('grund')}"]
     if r.get("monetarisierung") not in (None, "", "unklar"):
         z.append(f"- Monetarisierung laut Scout: {r['monetarisierung']}")
+    if r.get("credit"):
+        z.append(f"- Credit (Pflicht in Video und Beschreibung): {r['credit']}")
     for b in r.get("bedingungen") or []:
         z.append(f"- Bedingung des Creators: {b}")
     for b in (r.get("belege") or [])[:3]:

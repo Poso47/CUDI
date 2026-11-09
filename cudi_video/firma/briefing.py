@@ -138,9 +138,37 @@ def section_firma(status: dict, ideen: dict, lernen: dict, wissen: dict) -> list
     return pts
 
 
-def section_clipteam(radar: dict, erl: dict, mess: dict) -> list[dict]:
-    """Clip-Team: nur Belegtes – virale Videos mit belegter Erlaubnis, Creator mit Erlaubnis (Zitat+Link), Messwerte eigener Posts."""
+STUFE = {"erlaubt": "erlaubt (Beleg)", "geduldet": "geduldet, nicht ausdrücklich erlaubt", "unklar": "Erlaubnis offen",
+         "gesperrt": "gesperrt"}
+
+
+def section_entdeckt(ent: dict) -> list[dict]:
+    """Entdeckte Creator im Hype: Top 10 mit ehrlicher Stufe, offene Fälle mit Link (ohne Wertung), neu erlaubte Zugänge."""
+    rows = [e for e in ent.get("creators", []) if isinstance(e, dict) and e.get("erlaubnis") != "gesperrt"]
     pts = []
+    if rows:
+        def wer(e):
+            extra = f", {e['aufrufe_je_stunde']:.0f} Aufrufe/Stunde" if e.get("aufrufe_je_stunde") else ""
+            sig = f" (Signale: {'; '.join(e['signale'][:3])})" if e.get("erlaubnis") == "geduldet" and e.get("signale") else ""
+            return f"{_cut(e.get('name'), 30)} ({e.get('plattform', '?')}{extra}, {STUFE.get(e.get('erlaubnis', 'unklar'), 'Erlaubnis offen')}{sig})"
+        top = rows[:10]
+        pts.append(point("Im Hype (Top 10 von " + str(len(rows)) + " entdeckten Creatorn): " + " · ".join(f"{i}. {wer(e)}" for i, e in enumerate(top, 1)),
+                         [(e.get("name", ""), e.get("link", "")) for e in top]))
+    for e in [e for e in rows if e.get("erlaubnis") == "unklar" and e.get("link")][:3]:
+        pts.append(point(f"Im Hype, Erlaubnis offen: {_cut(e.get('name'), 40)} – {_cut(e.get('grund'), 120)}.", [("Quelle", e["link"])]))
+    t0 = now() - timedelta(hours=48)
+    for e in rows:
+        seen = common.parse_time(e.get("erste_sichtung", ""))
+        if e.get("erlaubnis") == "erlaubt" and seen and seen >= t0:
+            pts.append(point(f"Neu entdeckt mit belegter Erlaubnis: {_cut(e.get('name'), 40)} – {_cut(e.get('grund'), 120)}.", [("Quelle", e.get("link", ""))]))
+            if len(pts) >= 8:
+                break
+    return pts
+
+
+def section_clipteam(radar: dict, erl: dict, mess: dict, ent: dict | None = None) -> list[dict]:
+    """Clip-Team: nur Belegtes – virale Videos mit belegter Erlaubnis, Creator mit Erlaubnis (Zitat+Link), Messwerte eigener Posts."""
+    pts = section_entdeckt(ent or {})
     t0 = now() - timedelta(hours=FRESH_H)
     for v in [v for v in radar.get("videos", []) if v.get("erlaubt") and v.get("faktor", 0) >= 1.5][:3]:
         pts.append(point(f"Virales erlaubtes Material: {_cut(v.get('creator'), 40)} – „{_cut(v.get('titel'), 90)}“, "
@@ -237,7 +265,7 @@ def build_sections(top: list[dict] | None = None, hints: list[dict] | None = Non
             ("4. Belegte Verbindungen (Wikidata)", section_links(welt)),
             ("5. Offene Fragen (nicht belegt, nur Fragen)", section_questions(welt, news)),
             ("6. Clip-Team (nur Belegtes)", section_clipteam(r("clip_radar.json", {}) or {}, r("clip_erlaubnis.json", {}) or {},
-                                                            r("messung.json", {}) or {}))]
+                                                            r("messung.json", {}) or {}, r("clip_entdeckt.json", {}) or {}))]
     empty = {"0": "Heute keine Meldung, die mehrere Länder bzw. Betreiber bestätigen.", "1": "Keine Mitarbeiter-Daten vorhanden.",
              "2": "Heute keine Meldung mit zwei unabhängigen Betreibern.", "3": "Keine Auslandsberichte mit Deutschland-Bezug erhalten.",
              "4": "Keine belegte Verbindung gefunden.", "5": "Keine offenen Fragen.", "6": "Kein belegtes Clip-Material und keine Messwerte heute."}
