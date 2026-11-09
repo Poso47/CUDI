@@ -22,6 +22,7 @@ _stack = threading.local()
 
 LABELS = {
     "pakete": "Pakete installieren", "planen": "Thema planen (Wikidata/Claude)", "pruefen": "Abgleich mit Quellen",
+    "vorrecherche": "Vorrecherche lesen (Cache statt Wikidata/Quellen)",
     "bilder": "Bilder/Clips suchen + Bildprüfung", "schreiben": "Texte bauen/Regie/Wahrheit (ohne Wartezeit auf Claude)",
     "tts": "Stimme (TTS)", "render": "Bilder zeichnen + Encode", "ton": "Ton mischen", "encode": "Zusammensetzen/Endencode",
     "qa": "Endkontrolle (qa/loudnorm)", "app": "App-Fassung (≤ 19 MB)", "sonst": "Sonstiges",

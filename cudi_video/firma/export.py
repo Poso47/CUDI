@@ -99,6 +99,11 @@ def build() -> dict:
                                                        "datum": a.get("datum"), "quellen": [_cut(b.get("quelle"), 40) for b in a.get("belege", [])[:3]],
                                                        "link": (a.get("belege") or [{}])[0].get("url", "")} for a in r.get("aussagen", [])[:2]]}
                                         for r in rech["ergebnisse"][:3]]}
+    vor = common.read_json("vorrecherche.json", {}) or {}
+    if vor.get("eintraege"):
+        data["vorrecherche"] = {"eintraege": len(vor["eintraege"]), "aktuell": vor.get("aktuell", 0), "neu": vor.get("neu", 0),
+                                "aufgeschoben": vor.get("aufgeschoben", 0),
+                                "neuester": max((e.get("stand") or "" for e in vor["eintraege"]), default="")}
     for key in ("lernen", "wahrheit"):
         extra = _extra(key + ".json")
         if extra:

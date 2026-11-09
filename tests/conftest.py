@@ -18,6 +18,7 @@ from cudi.models.base import ModelProvider, ModelResponse, ProviderError, ToolCa
 def _no_clip_model(monkeypatch):
     """Tests laden nie das CLIP-Modell (kein Download/Install); Bildprüfungs-Tests setzen ihre eigenen Attrappen."""
     monkeypatch.setenv("CUDI_BILDPRUEFUNG", "0")
+    monkeypatch.setenv("CUDI_VORRECHERCHE", "0")     # kein Cache der nächtlichen Vorrecherche in Tests (Tests dazu: test_vorrecherche.py)
     monkeypatch.setenv("CUDI_RECHERCHE", "0")        # Recherche-Agent greift in Tests nie ins Netz (Tests dazu: test_recherche.py)
     # Tests laufen ohne echtes Sprachmodell, auch wenn die Umgebung CUDI_LLM_* (Notbetrieb) gesetzt hat;
     # Notbetrieb-Tests setzen ihre eigenen Werte.
