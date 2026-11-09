@@ -303,3 +303,17 @@ def test_recherchiere_ehrlich_leer(monkeypatch):
 def test_anfragen_planung():
     a = ablauf.anfragen_planen("Wie hoch ist die aktuelle Inflationsrate in Deutschland?", "de", "fakten", HEUTE)
     assert len(a) == 4 and any("inflation rate Germany" in x for x in a) and any("site:destatis.de" in x for x in a)
+
+
+def test_einzelstimme_mit_gleichem_wert_ist_kein_widerspruch():
+    from datetime import date
+    from cudi_video.recherche import ablauf
+    def k(url, betr, zitat, z, datum):
+        return {"seite": {"url": url, "titel": "", "betreiber": betr, "eigentuemer": betr, "typ": "medium", "datum": datum},
+                "zitat": zitat, "text": zitat, "zahlen": z, "bezug": "2026-10"}
+    ks = [k("https://a.de/1", "a.de", "Die Inflationsrate in Deutschland beträgt im Oktober 2026 voraussichtlich 2,8 %.", {"2.8": "%"}, "2026-10-30"),
+          k("https://b.de/1", "b.de", "Im Oktober 2026 sank die Inflationsrate in Deutschland auf 2,8 %.", {"2.8": "%"}, "2026-10-30"),
+          k("https://c.de/1", "c.de", "Die aktuelle Inflationsrate in Deutschland beträgt 2,8 % (Oktober 2026, vorläufig).", {"2.8": "%"}, "2026-11-04"),
+          k("https://a.de/1", "a.de", "Die Inflationsrate ohne Nahrungsmittel und Energie beträgt im Oktober 2026 voraussichtlich 2,1 %.", {"2.1": "%"}, "2026-10-30")]
+    aussagen, _ = ablauf.abgleichen(ks, "fakten", date(2026, 11, 9))
+    assert not any(a["status"] == "widersprochen" for a in aussagen)

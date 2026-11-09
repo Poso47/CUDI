@@ -185,7 +185,8 @@ def llm_aussagen(frage: str, seiten: list[dict], kw: list[str], zahlfrage: bool,
 
 # --------------------------------------------------------------------------- Abgleich
 
-QUALIFIER = re.compile(r"kerninflation|ohne\s+(?:nahrungsmittel|energie)|excluding|core\b|vorläufig|endgültig|prognose|forecast", re.I)
+QUALIFIER = re.compile(r"kerninflation|ohne\s+(?:nahrungsmittel|energie)|excluding|core\b", re.I)   # anderer Gegenstand
+# Stand-Angaben (vorläufig/endgültig/Prognose) ändern nicht den Gegenstand – nur, wie sicher der Wert ist.
 
 
 def _thema_gleich(a: str, b: str) -> bool:
@@ -254,7 +255,13 @@ def abgleichen(kandidaten: list[dict], bereich: str, heute: date, wiki_pruefung:
                          "belege": belege, "_zahlen": set(zeigen["zahlen"])})
     # Widersprüche / ältere Stände zwischen Zahl-Aussagen
     widersprueche: list[dict] = []
-    num = [a for a in aussagen if a["_zahlen"]]
+    best = [a for a in aussagen if a["status"] == "bestaetigt" and a["_zahlen"]]
+    for a in aussagen:                                     # Einzelstimme mit gleichem Wert wie eine bestätigte Aussage: stützt sie
+        if a["status"] != "bestaetigt" and a["_zahlen"] and any(
+                set(a["zahlen"]) == set(b["zahlen"]) and _thema_gleich(a["zitat"], b["zitat"]) for b in best):
+            a["stuetzt"] = True
+            a["hinweis"] = "stimmt mit einer bestätigten Aussage überein"
+    num = [a for a in aussagen if a["_zahlen"] and not a.get("stuetzt")]
     for i, a in enumerate(num):
         for b in num[i + 1:]:
             if (a["_zahlen"] & b["_zahlen"] or not _thema_gleich(a["zitat"], b["zitat"])
