@@ -661,7 +661,10 @@ def voice_script(script: Script, out_dir: Path, voice: str | None = None, rate: 
     out_dir.mkdir(parents=True, exist_ok=True)
     voice = voice or config.VOICES[script.lang]
     chosen = speech_profile_override() or profile or "ranking"
-    asyncio.run(_voice_script(script, out_dir, voice, rate or config.VOICE_RATE, profile=chosen))
+    from . import zeiten
+
+    with zeiten.stufe("tts"):
+        asyncio.run(_voice_script(script, out_dir, voice, rate or config.VOICE_RATE, profile=chosen))
     return script
 
 
@@ -695,4 +698,7 @@ def voice_texts(texts: list[str], out_dir: Path, voice: str, rate: str = "+0%", 
     out_dir.mkdir(parents=True, exist_ok=True)
     if speech_profile_override() == "aus":
         mood = None
-    return asyncio.run(_voice_texts(texts, out_dir, voice, rate, pitch, max_pause, mood=mood))
+    from . import zeiten
+
+    with zeiten.stufe("tts"):
+        return asyncio.run(_voice_texts(texts, out_dir, voice, rate, pitch, max_pause, mood=mood))

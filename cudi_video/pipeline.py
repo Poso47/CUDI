@@ -7,7 +7,7 @@ import logging
 from pathlib import Path
 from typing import Callable
 
-from . import config, net
+from . import config, handoff, net, zeiten
 from .compare import load_references
 from .enrich import enrich
 from .metadata import build_metadata, build_review
@@ -43,14 +43,17 @@ def research_stage(spec: VideoSpec, out: Path, fresh: bool = True, images: bool 
         research = research_facts(spec, spec.langs)
         _save(out / "research.json", research.to_dict())
         return research
-    research = fetch_ranking(spec, fresh=fresh)
-    if not research.items:
-        raise RuntimeError("Keine Daten gefunden – Vorgabe prüfen (Klasse/Eigenschaft).")
-    fetch_identifiers(research.items, config.CHECK_LANGS)
-    verify(spec, research, strict=strict)          # Abgleich mit unabhängigen Quellen
-    research.warnings.extend(check_consistency(spec, research))
-    research.references = load_references(spec)    # belegte Vergleiche ("5-mal so hoch wie …")
-    enrich(research, spec.langs, images=images)
+    with zeiten.stufe("planen"):
+        research = fetch_ranking(spec, fresh=fresh)
+        if not research.items:
+            raise RuntimeError("Keine Daten gefunden – Vorgabe prüfen (Klasse/Eigenschaft).")
+        fetch_identifiers(research.items, config.CHECK_LANGS)
+    with zeiten.stufe("pruefen"):
+        verify(spec, research, strict=strict)      # Abgleich mit unabhängigen Quellen
+        research.warnings.extend(check_consistency(spec, research))
+        research.references = load_references(spec)    # belegte Vergleiche ("5-mal so hoch wie …")
+    with zeiten.stufe("bilder"):
+        enrich(research, spec.langs, images=images)
     _save(out / "research.json", research.to_dict())
     return research
 
@@ -195,31 +198,37 @@ def run(
         research = research_stage(spec, out, fresh=fresh, images=images, strict=strict)
 
     progress("Skript", 0.15)
-    from .narrate import request as narrate_request
-    narration = narrate_request(spec, research, langs) if use_llm is not False and spec.kind != "facts" else {}
-    from .metadata import request_titles
-    titles_llm = request_titles(spec, research, langs) if use_llm is not False else {}      # 3 Titel je Sprache
-    scripts: list[Script] = []
-    for lang in langs:
-        script = build_script(spec, research, lang, use_llm=use_llm, narration=narration.get(lang) or None)
-        _save(out / f"script_{lang}.json", script.to_dict())
-        scripts.append(script)
-    from . import wahrheit
+    with zeiten.stufe("schreiben"):
+        from .narrate import request as narrate_request
+        if use_llm is not False and spec.kind != "facts":          # Erzählen + Titel sind unabhängig: EINE Schreibrunde statt zwei
+            from . import narrate
+            from .metadata import title_task
 
-    pruefer = wahrheit.Pruefer(spec, research)
-    from . import regie
+            handoff.request_many([narrate.task(spec, research, langs), title_task(spec, research, langs)])
+        narration = narrate_request(spec, research, langs) if use_llm is not False and spec.kind != "facts" else {}
+        from .metadata import request_titles
+        titles_llm = request_titles(spec, research, langs) if use_llm is not False else {}      # 3 Titel je Sprache
+        scripts: list[Script] = []
+        for lang in langs:
+            script = build_script(spec, research, lang, use_llm=use_llm, narration=narration.get(lang) or None)
+            _save(out / f"script_{lang}.json", script.to_dict())
+            scripts.append(script)
+        from . import wahrheit
 
-    regie_block = regie.verbessere(spec, research, scripts, pruefer, use_llm)       # Psychologie + natürlicher Klang (max. 1 Runde)
-    _save(out / "regie.json", regie_block)
-    for s in scripts:
-        _save(out / f"script_{s.lang}.json", s.to_dict())
-    metas = {s.lang: build_metadata(spec, research, s, titles_llm) for s in scripts}
-    pruefer.gegenlesen(scripts, metas)                  # optional: Claude/Notbetrieb liest gegen (kann WritingNeeded werfen)
-    for s in scripts:
-        pruefer.korrigiere_skript(s)                    # Wahrheits-Prüfung: Sprechtext/Hook vor dem Vertonen
-        pruefer.korrigiere_meta(s, metas[s.lang])       # Titel/Beschreibung/Cover vollständig prüfen (Bericht auch ohne Render)
-        _save(out / f"script_{s.lang}.json", s.to_dict())
-    _save(out / "spec.json", spec.to_dict())            # Titel kann bei falscher Anzahl berichtigt sein
+        pruefer = wahrheit.Pruefer(spec, research)
+        from . import regie
+
+        regie_block = regie.verbessere(spec, research, scripts, pruefer, use_llm)       # Psychologie + natürlicher Klang (max. 1 Runde)
+        _save(out / "regie.json", regie_block)
+        for s in scripts:
+            _save(out / f"script_{s.lang}.json", s.to_dict())
+        metas = {s.lang: build_metadata(spec, research, s, titles_llm) for s in scripts}
+        pruefer.gegenlesen(scripts, metas)                  # optional: Claude/Notbetrieb liest gegen (kann WritingNeeded werfen)
+        for s in scripts:
+            pruefer.korrigiere_skript(s)                    # Wahrheits-Prüfung: Sprechtext/Hook vor dem Vertonen
+            pruefer.korrigiere_meta(s, metas[s.lang])       # Titel/Beschreibung/Cover vollständig prüfen (Bericht auch ohne Render)
+            _save(out / f"script_{s.lang}.json", s.to_dict())
+        _save(out / "spec.json", spec.to_dict())            # Titel kann bei falscher Anzahl berichtigt sein
     truth_review = lambda: wahrheit.review_section(pruefer, gruende)      # noqa: E731
     gruende: dict[str, list[str]] = {}
     (out / "review.md").write_text(wahrheit.in_review(build_review(spec, research, scripts),

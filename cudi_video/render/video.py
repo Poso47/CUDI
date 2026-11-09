@@ -13,7 +13,7 @@ from pathlib import Path
 
 import numpy as np
 
-from .. import config, mascot
+from .. import config, mascot, zeiten
 from ..compare import comparison
 from ..models import Research, Script
 from ..script import as_of_year, extras_lines, format_date
@@ -260,40 +260,45 @@ def render_video(spec: VideoSpec, research: Research, script: Script, out_dir: P
     jobs = build_jobs(spec, research, script, work)
 
     done = 0
-    with ProcessPoolExecutor(max_workers=config.RENDER_WORKERS) as pool:
-        for _ in pool.map(render_part, jobs):
-            done += 1
-            if progress_cb:
-                progress_cb(done / len(jobs))
+    with zeiten.stufe("render"):
+        with ProcessPoolExecutor(max_workers=config.RENDER_WORKERS) as pool:
+            for _ in pool.map(render_part, jobs):
+                done += 1
+                if progress_cb:
+                    progress_cb(done / len(jobs))
 
-    concat_list = work / "parts.txt"
-    concat_list.write_text("".join(f"file '{Path(j['out']).name}'\n" for j in jobs), "utf-8")
-    video_only = work / "video_only.mp4"
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat_list),
-                    "-c", "copy", str(video_only)], check=True)
+    with zeiten.stufe("encode"):
+        concat_list = work / "parts.txt"
+        concat_list.write_text("".join(f"file '{Path(j['out']).name}'\n" for j in jobs), "utf-8")
+        video_only = work / "video_only.mp4"
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat_list),
+                        "-c", "copy", str(video_only)], check=True)
 
-    cover = out_dir / f"{spec.id}_{script.lang}_cover.jpg"      # gestaltetes Cover, zugleich erstes Frame (0,2 s)
-    if cover_mod.make_cover_safe(cover, spec, research, script.lang, jobs[0]["style"]):
-        stamped = work / "video_cover.mp4"
-        if cover_mod.stamp_first_frame(video_only, cover, stamped):
-            video_only = stamped
-    else:
-        render_frame(jobs[0], min(2.2, jobs[0]["duration"] - 0.1), cover)
+        cover = out_dir / f"{spec.id}_{script.lang}_cover.jpg"      # gestaltetes Cover, zugleich erstes Frame (0,2 s)
+        if cover_mod.make_cover_safe(cover, spec, research, script.lang, jobs[0]["style"]):
+            stamped = work / "video_cover.mp4"
+            if cover_mod.stamp_first_frame(video_only, cover, stamped):
+                video_only = stamped
+        else:
+            render_frame(jobs[0], min(2.2, jobs[0]["duration"] - 0.1), cover)
 
     audio_file = work / "audio.wav"
     music = audio.music_style(spec.kind, jobs[0]["style"].get("format", ""), " ".join(spec.title.values()))
-    build_audio(script, jobs, audio_file, music_style=music, seed_key=spec.id)          # das Maskottchen ist schon in den Bildern (render_part)
+    with zeiten.stufe("ton"):
+        build_audio(script, jobs, audio_file, music_style=music, seed_key=spec.id)          # das Maskottchen ist schon in den Bildern (render_part)
 
     final = out_dir / f"{spec.id}_{script.lang}.mp4"
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video_only), "-i", str(audio_file),
-                    # Lautheit wie auf TikTok/YouTube üblich (ca. -14 LUFS), damit das Video nicht leiser wirkt
-                    "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", str(SAMPLE_RATE),
-                    "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
-                    str(final)], check=True)
+    with zeiten.stufe("encode"):
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video_only), "-i", str(audio_file),
+                        # Lautheit wie auf TikTok/YouTube üblich (ca. -14 LUFS), damit das Video nicht leiser wirkt
+                        "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", str(SAMPLE_RATE),
+                        "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
+                        str(final)], check=True)
 
     from .. import qa
     limit = config.LONG_MAX_SECONDS if spec.target_seconds > config.STORY_MAX_SECONDS else config.STORY_MAX_SECONDS
-    qa_block = qa.safe_check(final, spec.kind, limit)      # Endkontrolle; korrigiert die Lautheit höchstens einmal
+    with zeiten.stufe("qa"):
+        qa_block = qa.safe_check(final, spec.kind, limit)      # Endkontrolle; korrigiert die Lautheit höchstens einmal
 
     srt = out_dir / f"{spec.id}_{script.lang}.srt"
     write_srt(script, jobs, srt)

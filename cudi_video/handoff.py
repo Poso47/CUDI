@@ -120,6 +120,62 @@ def request(task: str, instructions: str, data: dict):
     raise WritingNeeded(path)
 
 
+BUNDLE_NOTE = ("Dies ist ein BÜNDEL aus {n} voneinander unabhängigen Schreibaufgaben ({names}) in einer Datei – jede Runde kostet "
+               "Wartezeit, darum werden sie zusammen gestellt. Jede Aufgabe steht unter „daten“ mit ihrer eigenen „anleitung“ "
+               "und ihren eigenen „daten“. Erledige jede genau nach ihrer Anleitung (alle Prüfregeln gelten unverändert für "
+               "jede einzelne). Antworte mit EINEM JSON-Objekt, das je Aufgabe einen Schlüssel hat ({names}); der Wert ist "
+               "genau die Antwort, die diese Aufgabe einzeln verlangt (Format der jeweiligen Anleitung). Eine Aufgabe, die du "
+               "nicht beantworten kannst, lässt du weg.")
+
+
+def request_many(tasks: list[tuple[str, str, dict]]) -> None:
+    """Mehrere VONEINANDER UNABHÄNGIGE Aufgaben in einer Runde stellen (spart je eine Neustart-/Wartezeit).
+
+    Danach liefert `request(task, …)` für jede die Antwort aus ihrer eigenen Datei – die Prüfungen laufen wie immer pro
+    Aufgabe. Claude-Sitzung: fehlt Antwort, wird EINE Bündeldatei abgelegt und WritingNeeded geworfen; nach `--weiter`
+    verteilt dieser Aufruf die Antworten auf die Aufgabendateien (was fehlt oder unbrauchbar ist, wird später einzeln
+    gefragt – nie endlos, nie ohne Antwort). Notbetrieb-Modell: alle Aufgaben gleichzeitig. Nicht aktiv: nichts."""
+    tasks = [t for t in tasks if t]
+    if len(tasks) < 2 or not active():
+        return
+    if not enabled():
+        from concurrent.futures import ThreadPoolExecutor
+
+        with ThreadPoolExecutor(max_workers=len(tasks)) as pool:
+            list(pool.map(lambda t: request(*t), tasks))      # Antworten landen im Zwischenspeicher (_llm_cached)
+        return
+    pending = [t for t in tasks if not task_file(t[0]).exists()]
+    if len(pending) < 2:
+        return                                                 # höchstens eine offen: ganz normal einzeln fragen
+    names = [t[0] for t in pending]
+    path = task_file("buendel_" + "_".join(names))
+    prefs = preferences()
+    parts = {name: {"anleitung": instr + (PREFS_NOTE if prefs else ""), "daten": ({**data, "vorlieben": prefs} if prefs else data)}
+             for name, instr, data in pending}
+    if path.exists():
+        try:
+            answer = json.loads(path.read_text("utf-8")).get("antwort")
+        except (OSError, ValueError, AttributeError):
+            return
+        if isinstance(answer, str):
+            answer = parse_json_answer(answer)
+        for name, instr, data in pending:
+            part = answer.get(name) if isinstance(answer, dict) else None
+            if part in (None, "", [], {}):
+                continue                                       # fehlt: wird später einzeln gefragt
+            try:
+                task_file(name).write_text(json.dumps({"aufgabe": name, "anleitung": parts[name]["anleitung"],
+                                                       "daten": parts[name]["daten"], "antwort": part, "von": "buendel"},
+                                                      ensure_ascii=False, indent=1), "utf-8")
+            except OSError:
+                pass
+        return
+    note = BUNDLE_NOTE.format(n=len(pending), names=", ".join(f"„{n}“" for n in names))
+    path.write_text(json.dumps({"aufgabe": "buendel: " + ", ".join(names), "anleitung": note, "daten": parts, "antwort": None},
+                               ensure_ascii=False, indent=1), "utf-8")
+    raise WritingNeeded(path)
+
+
 def _llm_cached(task: str, instructions: str, data: dict):
     """Notbetrieb: Sprachmodell fragen; mit Auftragsordner wird die Antwort in derselben Aufgabendatei gemerkt
     (ein Weiterlauf oder Neustart fragt nicht noch einmal). Fehlgeschlagene Anfragen werden nicht gemerkt."""
