@@ -1,0 +1,143 @@
+{
+ "erzeugt": "2026-11-08T21:31:02Z",
+ "hinweis": "Basis = fest gepflegte Grundlagen; Regeln = aus Quellen (mit Link und Datum).",
+ "basis": [
+  {
+   "id": "hook",
+   "name": "Hook in den ersten 1–2 Sekunden",
+   "regel": "Der erste Satz ist kurz (höchstens ~12 Wörter) und weckt sofort Neugier – Frage, überraschende Zahl oder Bild im Kopf.",
+   "begruendung": "Kurzvideo-Plattformen entscheiden in Sekunden über Weiterwischen; offizielle Creator-Hinweise nennen den Einstieg als wichtigsten Moment.",
+   "art": "basis"
+  },
+  {
+   "id": "neugier",
+   "name": "Neugierlücke",
+   "regel": "Eine Frage oder Lücke öffnen, die erst später im Video geschlossen wird – ohne die Antwort vorwegzunehmen.",
+   "begruendung": "Loewenstein 1994 (Information-Gap-Theorie der Neugier).",
+   "art": "basis"
+  },
+  {
+   "id": "musterbruch",
+   "name": "Musterunterbrechung alle paar Sekunden",
+   "regel": "Regelmäßig etwas Neues: Frage, direkte Ansprache, Zwischen-Aufhänger, Tempo- oder Themenwechsel.",
+   "begruendung": "Aufmerksamkeit fällt bei Gleichförmigkeit ab; Orientierungsreaktion auf Neues (Praxis-Standard im Schnitt).",
+   "art": "basis"
+  },
+  {
+   "id": "fortschritt",
+   "name": "Sichtbarer Fortschritt",
+   "regel": "Countdown, Platznummern oder „gleich kommt“ zeigen, wie weit das Video ist und was noch kommt.",
+   "begruendung": "Zielgradient-Effekt: Motivation wächst, je näher das Ziel rückt.",
+   "art": "basis"
+  },
+  {
+   "id": "payoff",
+   "name": "Payoff am Ende",
+   "regel": "Das Versprochene wird am Schluss eingelöst (Auflösung, „Heute gelernt“) – das Ende bleibt im Gedächtnis.",
+   "begruendung": "Peak-End-Regel (Kahneman): Rückblick wird von Höhepunkt und Ende geprägt.",
+   "art": "basis"
+  },
+  {
+   "id": "ansprache",
+   "name": "Natürliche Ansprache „du“",
+   "regel": "Zuschauer direkt ansprechen, wie im Gespräch mit einem Freund – nicht wie ein Vortrag.",
+   "begruendung": "Direkte Ansprache erhöht Beteiligung; gesprochene Sprache wird leichter verarbeitet als Schriftsprache.",
+   "art": "basis"
+  },
+  {
+   "id": "rhythmus",
+   "name": "Kurze Sätze, wechselnder Rhythmus",
+   "regel": "Kurze Sätze, dazwischen auch mal ein längerer; keine Schachtelsätze; Satzlängen variieren.",
+   "begruendung": "Gleichförmiger Satzbau klingt vorgelesen; Variation hält das Ohr wach.",
+   "art": "basis"
+  },
+  {
+   "id": "verbindung",
+   "name": "Sätze verbinden",
+   "regel": "Sätze mit und/aber/dann/weil verknüpfen statt Fakten aufzuzählen; jeder Satz knüpft an den vorigen an.",
+   "begruendung": "Kohärenz erleichtert das Verstehen beim Hören; Aufzählungen wirken wie vorgelesen.",
+   "art": "basis"
+  },
+  {
+   "id": "einordnung",
+   "name": "Zahlen einordnen",
+   "regel": "Jede wichtige Zahl bekommt ein Bild im Kopf oder einen Vergleich („so hoch wie …“, „nur noch X trennen …“).",
+   "begruendung": "Zahlen ohne Bezugsgröße werden schlecht behalten (Zahlenverständnis, Praxis der Wissenschaftskommunikation).",
+   "art": "basis"
+  },
+  {
+   "id": "kernaussage",
+   "name": "Eine Kernaussage pro Szene",
+   "regel": "Jede Szene bringt genau eine Hauptidee (höchstens wenige Zahlen), damit man sie beim Hören behält.",
+   "begruendung": "Begrenzte Arbeitsgedächtnis-Kapazität beim Hören (Cognitive-Load-Forschung).",
+   "art": "basis"
+  },
+  {
+   "id": "loop",
+   "name": "Loop-Ende",
+   "regel": "Das Ende greift den Anfang wieder auf oder lädt zum erneuten Ansehen/Kommentieren ein.",
+   "begruendung": "Wiedersehen und Kommentare zählen als starke Signale; ein Bogen zurück zum Hook belohnt das Zuhören.",
+   "art": "basis"
+  },
+  {
+   "id": "natuerlich",
+   "name": "Natürliche gesprochene Sprache",
+   "regel": "Schreib, wie man spricht: Alltagswörter, Kontraktionen im Englischen, kaum Amtsdeutsch, Füllwörter sparsam.",
+   "begruendung": "Vorgelesener Schrifttext wirkt künstlich und wird eher weggewischt.",
+   "art": "basis"
+  }
+ ],
+ "quellen_geprueft": 28,
+ "neue_regeln": 6,
+ "hinweise": [],
+ "regeln": [
+  {
+   "regel": "Biete hochwertige Inhalte an, um YouTube-Zuschauer dort zu erreichen, wo sie sind.",
+   "quelle": "YouTube Official Blog",
+   "titel": "5 ways media companies are growing audiences and revenue on YouTube",
+   "link": "https://blog.youtube/creator-and-artist-stories/media-companies-youtube-growth-strategies/",
+   "datum": "2026-10-28",
+   "art": "offiziell"
+  },
+  {
+   "regel": "Erstelle episodische Microdramas und mehrteilige Miniserien für YouTube Shorts.",
+   "quelle": "YouTube Official Blog",
+   "titel": "The evolution of web series on YouTube: Microdramas",
+   "link": "https://blog.youtube/culture-and-trends/the-evolution-of-web-series-on-youtube-microdramas/",
+   "datum": "2026-10-27",
+   "art": "offiziell"
+  },
+  {
+   "regel": "Nutze generative KI-Videos, um persönliche Identität auszudrücken und über gemeinsame Leidenschaften zu verbinden.",
+   "quelle": "YouTube Official Blog",
+   "titel": "Inside YouTube's findings on generative video and personal creativity",
+   "link": "https://blog.youtube/culture-and-trends/youtube-generative-ai-video-creativity-report/",
+   "datum": "2026-10-20",
+   "art": "offiziell"
+  },
+  {
+   "regel": "Erzähle Geschichten frei und baue direkt für dein ursprüngliches Publikum auf.",
+   "quelle": "YouTube Official Blog",
+   "titel": "Why Lilly Singh is returning to sketch comedy on YouTube",
+   "link": "https://blog.youtube/creator-and-artist-stories/lilly-singh-superwoman-youtube-return/",
+   "datum": "2026-10-15",
+   "art": "offiziell"
+  },
+  {
+   "regel": "Kombiniere YouTube-Engagement mit praktischen Lektionen, um Zuschauer zu fesseln.",
+   "quelle": "YouTube Official Blog",
+   "titel": "Mark Rober’s mission to support science classrooms",
+   "link": "https://blog.youtube/creator-and-artist-stories/mark-rober-class-crunchlabs-schools/",
+   "datum": "2026-09-29",
+   "art": "offiziell"
+  },
+  {
+   "regel": "Nutze episodische Shorts-Serien für Microdramas, um Zuschauer zu binden.",
+   "quelle": "YouTube Official Blog",
+   "titel": "Connect with creators on the biggest screen with YouTube’s latest features",
+   "link": "https://blog.youtube/news-and-events/made-on-youtube-creators-shorts-series-tv-features/",
+   "datum": "2026-09-23",
+   "art": "offiziell"
+  }
+ ]
+}

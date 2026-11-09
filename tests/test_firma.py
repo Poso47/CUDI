@@ -342,3 +342,152 @@ def test_heikle_themen_nur_als_reportage():
     out = ideen.finish(raw, cand, {}, False, [], set())
     assert out and out[0]["bereich"] == "reportage" and out[0]["regeln"]
     assert out[0]["app_auftrag"] is True and out[0]["auftrag"]["art"] == "reportage"      # startbar als Reportage-Auftrag
+
+
+def test_export_kompakt(daten, tmp_path, monkeypatch):
+    from cudi_video.firma import export
+    monkeypatch.setattr(export, "OUT", tmp_path / "docs" / "firma" / "firma.json")
+    assert export.write() is False                                    # ohne Läufe nichts veröffentlichen
+    common.write_json("trends.json", {"themen": [{"thema": f"T{i}", "kategorie": "Ereignis", "score": 10 - i} for i in range(9)]})
+    common.write_json("news.json", {"bestaetigt": 1, "anzahl": 2, "meldungen": [
+        {"titel": "a", "status": "unbestätigt", "link": "https://x.example"}, {"titel": "b", "status": "bestätigt", "n_quellen": 2}]})
+    common.write_json("ideen.json", {"ideen": [{"id": "i1", "bereich": "ranking", "titel": "t", "app_auftrag": True, "auftrag": {"art": "ranking"}},
+                                               {"id": "i2", "bereich": "reportage", "titel": "r", "app_auftrag": False, "auftrag": None}]})
+    common.record_status("trends", 0.0, True, "9 Themen", ["h1", "h2", "h3", "h4"])
+    assert export.write() is True
+    data = json.loads(export.OUT.read_text("utf-8"))
+    assert len(data["trends"]) == 5 and data["news"]["meldungen"][0]["titel"] == "b"
+    assert data["ideen"][0]["auftrag"] == {"art": "ranking"} and data["ideen"][1]["auftrag"] is None
+    assert data["status"]["trends"]["ergebnis"] == "ok" and len(data["status"]["trends"]["hinweise"]) == 3
+    assert export.write() is False                                    # unverändert -> kein neuer Commit
+    assert "cudi_video.firma export" in (ROOT / "scripts/firma_commit.sh").read_text("utf-8")
+
+
+def test_news_cluster_zieht_keine_fremde_meldung_ueber_wortmenge():
+    from cudi_video.firma import news
+    def it(titel, pub):
+        return {"titel": titel, "kurz": "", "link": "https://" + pub, "quelle": pub, "betreiber": pub,
+                "sprache": "en", "zeit": ""}
+    out = news.cluster([
+        it("Seven dead and more than 100 injured after trains collide in Egypt", "bbc.com"),
+        it("Egypt train crash leaves several dead, over 100 injured", "dw.com"),
+        it("Eight people are killed and another is injured in a shooting spree in Turkey", "apnews.com"),
+    ])
+    egypt = next(m for m in out if "Egypt" in m["titel"])
+    assert egypt["n_quellen"] == 2 and all("Turkey" not in q["titel"] for q in egypt["quellen"])
+
+
+def test_finish_keine_meta_rankings_und_news_nie_als_story():
+    cand = dict(CAND, **{"Merz schlägt Aigner vor": {"typ": "news", "score": None, "kategorie": "Ereignis", "warum": "bestätigt", "quellen": ["a", "b"]}})
+    raw = [{"bereich": "ranking", "titel": "Die meistgesuchten Begriffe", "thema": "Was Deutschland googelt",
+            "quelle_trend": "Berge in Europa"},
+           {"bereich": "story", "titel": "Aigner", "thema": "Weg zur Präsidentin", "quelle_trend": "Merz schlägt Aigner vor"}]
+    out = ideen.finish(raw, cand, PRESETS, False, [], set())
+    assert [i["bereich"] for i in out] == ["reportage"] and out[0]["auftrag"]["art"] == "reportage"
+
+
+def test_alte_ideen_werden_nach_heutigen_regeln_nachgeprueft():
+    assert not ideen.still_valid({"bereich": "ranking", "titel": "Die meistgesuchten Begriffe", "thema": ""})
+    assert not ideen.still_valid({"bereich": "story", "titel": "Aigner", "thema": "", "quelle": {"typ": "news"}})
+    assert not ideen.still_valid({"bereich": "fakten", "titel": "x", "thema": "", "hinweis": "Auftrag unvollständig: No module named 'PIL'"})
+    assert ideen.still_valid({"bereich": "ranking", "titel": "Die längsten Brücken", "thema": "", "hinweis": "ok"})
+
+
+# --------------------------------------------------------------------------- Welt-Blick und Morgen-Briefing
+
+def _it(titel, pub, land, lang="en", kurz=""):
+    return {"titel": titel, "kurz": kurz, "link": f"https://{pub}.example/{abs(hash(titel)) % 999}", "quelle": pub, "betreiber": pub,
+            "sprache": lang, "zeit": "", "land": land, "art": "privat"}
+
+
+def test_welt_laender_einig_ohne_beteiligte():
+    from cudi_video.firma import welt
+    titel = "Germany expels Russian diplomats over Berlin spy case"
+    items = [_it(titel, "a", "Indien"), _it(titel + " says Berlin", "b", "Kenia"), _it(titel + " report", "c", "Brasilien"),
+             _it(titel + " officials", "d", "Russland")]
+    g = welt.build_groups(items, [])[0]
+    assert g["laender_einig"] == ["Brasilien", "Indien", "Kenia"] and g["bestaetigt_laender"]
+    assert "Russland" in g["beteiligte_laender"] and g["quellen"][-1]["beteiligt"] in (True, False)
+    assert any(q["beteiligt"] and q["land"] == "Russland" for q in g["quellen"])
+    assert len(g["zusammenfassung"]) <= 5
+
+
+def test_welt_nur_ausland_und_deutscher_abgleich():
+    from cudi_video.firma import welt
+    t = "Merz announces Bundestag vote on pension reform in Berlin"
+    items = [_it(t, "a", "Indien"), _it(t + " today", "b", "Kenia")]
+    assert welt.build_groups(items, [])[0]["nur_ausland"]
+    de = [{"titel": "Merz kündigt Bundestag Abstimmung zur Rentenreform an", "kurz": "", "quelle": "Tagesschau", "link": "https://x/1"}]
+    g = welt.build_groups(items, de)[0]
+    assert not g["nur_ausland"] and g["deutsch_quellen"]
+
+
+def test_welt_deutschlandfilter_und_ausfall(monkeypatch):
+    from cudi_video.firma import welt
+    assert welt.about_germany({"titel": "Allemagne: Berlin annonce", "kurz": ""}) and not welt.about_germany({"titel": "Cricket final", "kurz": ""})
+    monkeypatch.setattr(welt, "FEEDS", [("X", "x", "en", "Indien", "privat", "u")])
+    monkeypatch.setattr(welt, "feed", lambda *a: (_ for _ in ()).throw(requests.ConnectionError("down")))
+    monkeypatch.setattr(welt, "gdelt", lambda: [])
+    out = welt.run()
+    assert out == {} or out.get("themen") in (None, [])
+    assert common.read_json("status.json")["mitarbeiter"]["welt"]["ergebnis"] == "fehler"
+
+
+def test_briefing_regeln_archiv_und_quellen(monkeypatch):
+    from cudi_video.firma import briefing
+    common.write_json("news.json", {"meldungen": [
+        {"titel": "Trains collide in Egypt, seven dead", "kurz": "", "link": "https://a/1", "quelle": "BBC", "status": "bestätigt", "n_quellen": 2,
+         "quellen": [{"quelle": "BBC", "titel": "Trains collide in Egypt, seven dead", "link": "https://a/1"},
+                     {"quelle": "DW", "titel": "Egypt trains collide, seven people dead", "link": "https://b/2"}]},
+        {"titel": "Falsch gruppiert", "kurz": "", "link": "https://c", "quelle": "X", "status": "bestätigt", "n_quellen": 2,
+         "quellen": [{"quelle": "X", "titel": "Falsch gruppiert", "link": "https://c"},
+                     {"quelle": "Y", "titel": "Ganz anderes Thema hier", "link": "https://d"}]},
+        {"titel": "Nur eine Quelle meldet das", "kurz": "", "link": "https://e", "quelle": "Z", "status": "unbestätigt", "n_quellen": 1}]})
+    common.write_json("welt.json", {"themen": [{"titel": "Merz visit", "link": "https://w", "ausland_quellen": 2, "nur_ausland": True,
+                                                 "laender": ["Indien"], "laender_einig": [], "bestaetigt_laender": False,
+                                                 "quellen": [{"quelle": "TOI", "land": "Indien", "link": "https://w"}]}],
+                                    "verbindungen": [{"name": "Ilse Aigner", "wikidata": "https://www.wikidata.org/wiki/Q1", "themen": ["Merz visit"],
+                                                      "verbindungen": [{"eigenschaft": "Partei", "wert": "CSU", "link": "https://www.wikidata.org/wiki/Q2"}]}]})
+    common.write_json("briefing_archiv.json", {"eintraege": [{"datum": "2000-01-01", "titel": "Trains collide in Egypt", "link": "https://old",
+                                                              "tokens": sorted(news.tokens("Trains collide in Egypt, seven dead"))}]})
+    data = briefing.run()
+    text = (common.DATA_DIR / "briefing.md").read_text("utf-8")
+    assert data["modus"] == "regeln" and "Falsch gruppiert" not in text and "OFFENE FRAGE (unbelegt)" in text
+    assert "wikidata.org/wiki/Q2" in text and "Frühere Meldung vom 2000-01-01" in text
+    arch = common.read_json("briefing_archiv.json")["eintraege"]
+    assert all(e["datum"] != "2000-01-01" for e in arch) and any(e["titel"].startswith("Trains") for e in arch)
+
+
+def test_briefing_llm_pruefung():
+    from cudi_video.firma import briefing
+    src = "Sieben Tote bei Zugunglück in Ägypten."
+    assert not briefing.check_overview("Sieben Tote in Ägypten.", src)
+    assert briefing.check_overview("Zwölf Tote in Ägypten.", src)
+    assert briefing.check_overview("Dazu https://x.de", src)
+
+
+def test_workflows_welt_briefing():
+    for name, needle in (("firma-welt.yml", "firma_commit.sh"), ("firma-briefing.yml", "gh issue create")):
+        wf = yaml.safe_load((ROOT / ".github" / "workflows" / name).read_text("utf-8"))
+        assert wf["concurrency"]["group"] == "firma-daten" and needle in (ROOT / ".github" / "workflows" / name).read_text("utf-8")
+    assert yaml.safe_load((ROOT / ".github/workflows/firma-briefing.yml").read_text("utf-8"))[True]["schedule"][0]["cron"] == "13 5 * * *"
+
+
+def test_briefing_uebersicht_ohne_interna():
+    from cudi_video.firma import briefing
+    assert "Interna im Text" in briefing.check_overview("Sprachmodell und GDELT waren nicht erreichbar.", "x")
+    assert briefing.check_overview("Merz will Aigner vorschlagen.", "Merz will Aigner vorschlagen.") == []
+
+
+def test_news_cluster_braucht_gemeinsamen_namen():
+    from cudi_video.firma import news
+    def it(titel, pub):
+        return {"titel": titel, "kurz": "", "link": "https://" + pub, "quelle": pub, "betreiber": pub, "sprache": "en", "zeit": ""}
+    out = news.cluster([
+        it("Kenyan cult leader Paul Mackenzie is sentenced to 200 years in prison for the mass murder of children.", "reuters.com"),
+        it("The High Court of Tanzania acquits Chadema chairperson Tundu Lissu of treason but sentences him to four years in prison", "france24.com"),
+        it("The Hong Kong High Court sentences pro-democracy activist Joshua Wong to an additional 10 years in prison", "afp.com"),
+        it("Kenya court sentences cult leader Paul Mackenzie to 200 years", "bbc.com"),
+    ])
+    kenya = next(m for m in out if "Mackenzie" in m["titel"])
+    assert {q["quelle"] for q in kenya["quellen"]} == {"reuters.com", "bbc.com"}

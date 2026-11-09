@@ -509,6 +509,14 @@ Bewegung im Mundbereich; braucht `opencv-python-headless` 4.x, in 5.x fehlen die
   für Nachrichten und Hintergrund, auch bei heiklen Themen. Nur Aussagen, die zwei unabhängige Quellen wörtlich bestätigen (News-Reporter-Daten,
   Wikipedia, deine Links); kein Clickbait, keine Spekulation, keine Musik, Quellen und Stand am Ende, Belege im Prüfbericht. Reichen die Quellen
   nicht, endet der Auftrag mit einer ehrlichen Meldung. Weitere geplante Formate: `docs/content-formate.md`.
+- **Satire** (`art: "satire"`, `cudi_video/satire/`; `thema` oder `meldung` = Titel/Link einer Meldung, optional `links`, `sprache`): kurzes, witziges
+  Video zu einer ECHTEN Nachricht, die nie mit einer Meldung verwechselt werden kann. Aufbau: nüchterner Fakt (nur Meldungen, die ≥ 2 unabhängige
+  Betreiber bringen, wörtlicher Beleg, geprüft von `reportage.pruefe_satz` und `wahrheit.Pruefer`) → erkennbar übertriebene Überspitzung (Signalwort wie
+  „angeblich“, „man stelle sich vor“) → Pointe. Feste Regeln: „SATIRE“-Stempel in jedem Bild, im Cover, im Titel („SATIRE: …“) und in der Beschreibung;
+  keine erfundenen Zitate (keine Anführungszeichen, kein „sagte/laut“), keine neuen Zahlen/Namen im satirischen Teil, kein Spott gegen Gruppen,
+  keine Beleidigungen, keine Tatsachenbehauptungen; heikle Themen (Tod, Gewalt, Unglück …) werden abgelehnt – „nur als Reportage“. Schreibaufgabe
+  `satire` (`handoff`); verstößt ein Text, gilt die Regel-Fassung, sonst ehrlicher Abbruch. Look: Zeitungspapier (echt) / Comic-Gelb (erfunden) / rote
+  Pointe, Musik „pluck“, Stimme nüchtern → verschmitzt (`SPEECH_PROFILES["satire"]`). Ideen-Entwickler: Bereich „satire“ nur aus bestätigten News.
 - **Experimente und Lernen**: Jedes Video bekommt je Stellschraube (Format, Design, Bewegung, Musik, Maskottchen) eine Variante, gewählt aus dem
   Gelernten (mindestens 20 % Erkundung); die Wahl steht im Ergebnis (`varianten`). Der tägliche Lern-Analyst wertet YouTube-/TikTok-Zahlen
   aus – Einrichtung und nötige Scopes: `docs/lernen-einrichten.md`.

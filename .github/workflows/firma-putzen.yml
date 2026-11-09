@@ -40,4 +40,4 @@ jobs:
           CUDI_PUTZEN_TROCKEN: ${{ inputs.trocken }}
         run: python -m cudi_video.firma putzen
       - name: Ergebnis sichern
-        run: scripts/firma_commit.sh "Putzmann"
+        run: bash scripts/firma_commit.sh "Putzmann"

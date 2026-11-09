@@ -21,11 +21,13 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Neuesten Datenstand holen (andere Mitarbeiter haben evtl. gerade committet)
+        run: git pull -q --ff-only origin "${GITHUB_REF_NAME}" || true
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Python-Pakete
-        run: pip install requests pyyaml
+        run: pip install requests pyyaml pillow
       - name: Ideen-Entwickler arbeitet
         env:
           CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
@@ -33,4 +35,4 @@ jobs:
           CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
         run: python -m cudi_video.firma ideen
       - name: Ergebnis sichern
-        run: scripts/firma_commit.sh "Ideen-Entwickler"
+        run: bash scripts/firma_commit.sh "Ideen-Entwickler"

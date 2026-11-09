@@ -46,6 +46,7 @@ für TikTok/YouTube Shorts.
   App-Bewertungen senden `vorlieben.varianten_gut/_schlecht` (zählen doppelt, Env `CUDI_VORLIEBEN_VARIANTEN`). Lern-Analyst (täglich, Workflow
   `firma-lernen.yml`) liest YouTube (`youtube.readonly` oder `CUDI_YT_API_KEY`) und TikTok (`video.list`; `youtube-login --lesen`, `tiktok-login --lesen`),
   Zuordnung über `firma_daten/uploads.json` (nur Notbetrieb-Job „liste“ schreibt; Claude-Läufe committen nie).
+- **Satire** (`satire/`, Auftrag `art: "satire"` mit `thema`/`meldung`, `sprache`): echter bestätigter Kern (≥ 2 Betreiber, Beleg, `wahrheit.Pruefer`) → erkennbare Überspitzung → Pointe; „SATIRE“ in jedem Bild/Cover/Titel/Beschreibung, keine erfundenen Zitate/Zahlen/Namen, kein Spott gegen Gruppen, heikel → abgelehnt („nur als Reportage“); eigener Look in `satire/render.py` (kein Eingriff in `render/*`), Ideen-Bereich „satire“.
 - **Reportage** (`reportage/`, Auftrag `art: "reportage"` mit `thema`, `links`, `sprache`; Tab „Reportage“ der App): sachlich, nur Aussagen mit wörtlichem Beleg
   aus ≥ 2 unabhängigen Betreibern (news.json, Wikipedia, Links), Aufgabe `reportage` (`handoff`) + Regelweg, Zahlen/Namen/Clickbait/Drama/Spekulation geprüft,
   Buchlook ohne Musik/Maskottchen, Quellen + Stand am Ende; zu wenig Quellen = ehrlicher Abbruch. Ideen mit `bereich: reportage` tragen einen Auftrag.
@@ -134,6 +135,15 @@ für TikTok/YouTube Shorts.
   sperren, `firma_daten/` ausdünnen → `putzen.json`; Probelauf `CUDI_PUTZEN_TROCKEN=1`). `status.json` = letzter Lauf/Dauer/Ergebnis/nächste Planung je Mitarbeiter
   (Grundlage fürs 3D-Büro). Jede Quelle einzeln abgesichert (Ausfall = Hinweis). Lokal: `python -m cudi_video.firma <trends|news|ideen|putzen>`,
   Ausgabeordner per `CUDI_FIRMA_DATEN` umlenkbar; Tests `tests/test_firma.py`.
+  **Welt-Blick** (`welt.py`, alle 6 h, `firma-welt.yml`): ausländische RSS (auch ferne Länder: Indien, Philippinen, Kenia, Nigeria, Südafrika, PNG, Argentinien, Brasilien; `land`, `art: staatsnah`; kein RT/Sputnik) + GDELT „Germany“ (ein Abruf) → `welt.json`: Themen mit Deutschland-Bezug, Abgleich mit `news.json` (`deutsch_quellen`, `nur_ausland`), Kernregel `laender_einig` (≥ 3 verschiedene Länder, direkt beteiligte Länder per Namenstabelle `beteiligt` zählen nicht), Zusammenfassung ≤ 5 Zeilen nur aus Titeln; belegte Verbindungen nur aus Wikidata mit Link (max. 5 Abfragen/Lauf, Cache). **Morgen-Briefing** (`briefing.py`, täglich 5:13 UTC, `firma-briefing.yml`): `briefing.json`/`.md` aus allen Mitarbeiter-Daten, nur belegte Punkte mit Links, Unbelegtes nur als „OFFENE FRAGE“, Übersicht optional per LLM (geprüft mit `textcheck`, sonst Regeln), Archiv `briefing_archiv.json` (30 T., Hinweis auf frühere ähnliche Meldung ohne Wertung); Workflow legt GitHub-Issue „CUDI-Briefing <Datum>“ (Label `briefing`) an und schließt das Vortags-Issue; Putzmann sperrt alte Briefing-Issues.
+  **Onkel-Büro** (Firma-Tab, 3D): alle Figuren sind freundliche Onkels (Bärte, Takke/Kufi/Kappe, Weste in Rollenfarbe, Teeglas am Tisch; Teppich-Canvas,
+  Arkade, Laternen, Pflanzen); je GitHub-Mitarbeiter eine Station (Trend-Wand, News-Pult, Ideen-Tafel, Bücherregal, Lern-Diagramm, Waage; Putz-Onkel läuft mit
+  Besen), Chips + Liste als Touch-/Ersatzansicht; Karte zeigt Top-3-Trends/bestätigte News/Ideen mit „Starten“ (`startJob`)/Wissensregeln/Putzbericht.
+  Datenweg ohne Claude-Verbrauch: `firma_commit.sh` ruft `python -m cudi_video.firma export` → `docs/firma/firma.json` (`firma/export.py`, nur bei Änderung);
+  die Seite liest erst die Datenbank `firma/stand`, dann Pages-Fetch `poso47.github.io/CUDI/firma/firma.json`. **Artefakt-CSP sperrt `fetch` zu
+  fremden Hosts** (nur Dateien neben der Seite) → Pages-Weg läuft in Claude vermutlich nicht; verlässlich ist `firma/stand`: bei jedem Auftrags-Lauf
+  `ArtifactData set` (collection `firma`, doc_id `stand`, file_path `docs/firma/firma.json` – siehe Zusatzzeile in der Aufgabe, nur mit OK des Nutzers).
+  Demo: `?demo=1`.
 - Kosten: alles kostenlose Dienste; App-Aufträge zählen nur zum Claude-Nutzungslimit des Nutzers.
 - **Keine Fehlschläge** (Wunsch des Nutzers) – kostenlose Ausweichwege, siehe README „Probleme?“:
   edge-tts 6 Versuche → Piper offline (`tts.PIPER_VOICES`, Modelle in `video_output/_piper`, `piper-tts`
@@ -141,6 +151,27 @@ für TikTok/YouTube Shorts.
   Beschreibung ohne Treffer → beliebte Story der Stimmung; `job.run_order` wiederholt Störungen einmal
   (`RETRY_PAUSE`); App startet Fehler/ohne Ergebnis einmal automatisch neu (`versuch: 2`) und prüft
   vor jedem Start den Speicherbedarf (`needMB`: 20 MB je möglichem Video + 10 MB; Skelett-Schritt 0).
+
+## Kommunikation (Wunsch des Nutzers: immer als klarer Prompt)
+
+- Jeden Nutzerwunsch zuerst in einen **Auftrags-Prompt** übersetzen und dem Nutzer kurz zeigen („So habe ich dich
+  verstanden“). Vorlage mit ZIEL, WARUM, GRUNDSÄTZE, KONTEXT, AUFGABE, NICHT TUN, ABNAHME und BERICHT steht in
+  `docs/kommunikation.md`. Agenten bekommen immer den vollständigen Prompt und liefern einen Bericht nach der
+  Vorlage (ERGEBNIS, GEÄNDERT, GEPRÜFT, OFFEN, NÄCHSTER SCHRITT). Ergänzungen heißen „Ergänzung vom Projektleiter“.
+- **Lernen:** Erledigte Arbeit wird als Skill gespeichert (`.claude/skills/`, z. B. `firma-mitarbeiter`, `pruefen-und-mergen`,
+  `app-artefakt`, `cloud-probelauf`, `ausweg-finden`). Agenten-Berichte enden mit SKILL. Gibt es einen passenden Skill, macht die
+  Hauptsitzung die Arbeit selbst statt einen Agenten zu starten.
+- **Gilt für alle:** Diese Regeln gelten für die Hauptsitzung, jeden Agenten und alle künftigen Sitzungen. Jeder Auftrags-Prompt
+  trägt sie unter GRUNDSÄTZE.
+- **Feste Agenten:** Kommt Arbeit immer wieder und nimmt ein fester Agent mit Skill langfristig Arbeit ab oder spart Kosten, wird
+  einer in `.claude/agents/` angelegt (z. B. `firma-techniker`, `app-gestalter`, `video-pruefer`). Sonst macht die Hauptsitzung die Arbeit mit
+  dem Skill selbst.
+- **Lösungsorientiert:** Scheitert ein Weg, wird nicht aufgegeben. Erst Ursache lesen, dann reparieren, dann einen anderen kostenlosen
+  Weg suchen, dann kleiner schneiden, erst dann fragen (Skill `ausweg-finden`). Die Regeln bleiben dabei bestehen.
+- **Agenten untereinander:** Sie dürfen sich direkt schreiben, helfen und voneinander lernen (ANFRAGE, ANTWORT und HINWEIS nach
+  Vorlage, höchstens 3 Nachrichten je Anliegen). Sie ändern nie die Dateien eines anderen, und Rechte reichen sie nicht weiter. Regeln dazu:
+  `docs/kommunikation.md` → „Zusammenarbeit der Agenten“.
+- Agenten arbeiten immer in einem eigenen Worktree (`isolation: "worktree"`), nie im Hauptordner.
 
 ## Sparsam mit dem Nutzungslimit (Wunsch des Nutzers: gleiche Qualität, weniger Verbrauch)
 

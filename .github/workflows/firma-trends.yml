@@ -35,4 +35,4 @@ jobs:
           CUDI_YT_REFRESH_TOKEN: ${{ secrets.CUDI_YT_REFRESH_TOKEN }}
         run: python -m cudi_video.firma trends
       - name: Ergebnis sichern
-        run: scripts/firma_commit.sh "Trend-Scout"
+        run: bash scripts/firma_commit.sh "Trend-Scout"

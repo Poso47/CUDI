@@ -15,7 +15,7 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 from . import common
 from .common import iso, now
 
-AREAS = ("ranking", "fakten", "story", "erklaer", "reportage")
+AREAS = ("ranking", "fakten", "story", "erklaer", "reportage", "satire")
 PER_AREA = (3, 5)
 KEEP_DAYS = 7
 MAX_PER_AREA = 15
@@ -31,9 +31,13 @@ SYSTEM = (
     "Eintrag der Listen stützen (exakter Name im Feld quelle_trend). Die Begründung darf nur wiedergeben, was in den "
     "Daten steht (z. B. Platz, Quelle, Meldung). Keine Personen in Verruf bringen, keine Gewalt-/Sexualthemen, keine "
     "unbestätigten Gerüchte. Bereiche: ranking = Liste von Dingen EINER Art, sortierbar nach einer messbaren Zahl "
-    "(z. B. höchste Berge, größte Seen; Thema als kurzer Satz); fakten = Wissens-Fakten zu einem Thema; story = "
-    "erzählte Geschichte/Reddit-Stimmung (Thema als Stimmungsbeschreibung); erklaer = ruhiges Erklärvideo, wie etwas "
-    "funktioniert oder zusammenhängt. Antworte NUR mit JSON: {\"ideen\": [{\"bereich\": \"ranking|fakten|story|erklaer\", "
+    "(z. B. höchste Berge, größte Seen; Thema als kurzer Satz) – nur echte Dinge mit festen Messwerten, NIE Listen "
+    "über Suchbegriffe, Klickzahlen, Trends, Aufrufe oder Beliebtheit; fakten = Wissens-Fakten zu einem Thema; story = "
+    "erzählte Alltagsgeschichte/Reddit-Stimmung (Thema als Stimmungsbeschreibung), NIE zu Nachrichten oder echten "
+    "Personen; reportage = sachliche Nachrichtenreportage zu einer bestätigten Meldung; erklaer = ruhiges Erklärvideo, wie etwas "
+    "funktioniert oder zusammenhängt; satire = kurze, klar gekennzeichnete Satire zu einer BESTÄTIGTEN, harmlosen Nachricht "
+    "(Spott nur gegen Mächtige, Institutionen oder Absurditäten; nie zu Leid, Gewalt, Unglück, Privatpersonen oder Gruppen). "
+    "Antworte NUR mit JSON: {\"ideen\": [{\"bereich\": \"ranking|fakten|story|erklaer|reportage|satire\", "
     "\"titel\": \"Videotitel, höchstens 60 Zeichen\", \"thema\": \"Thema in einem Satz\", \"begruendung\": \"…\", "
     "\"quelle_trend\": \"exakter Name aus den Listen\"}]}"
 )
@@ -129,6 +133,8 @@ def build_order(area: str, idea: dict, check: dict) -> dict | None:
         return {"art": "ranking", "thema": thema, "plaetze": 7, "sprachen": ["de", "en"]}
     if area == "story":
         return {"art": "story", "wunsch": thema[:300], "stimmung": "auto", "sprache": "de", "laenge": "3min"}
+    if area == "satire":                               # Satire (satire/__init__.py): Quelle ist die bestätigte Meldung selbst
+        return {"art": "satire", "thema": thema[:160], "sprache": "de"}
     if area == "reportage":                            # sachliche Reportage (reportage/__init__.py), Quellen sucht die Pipeline
         return {"art": "reportage", "thema": re.sub(r"^Sachliche Reportage:\s*", "", thema)[:160], "sprache": "de"}
     return {"art": "erklaer", "thema": thema}
@@ -147,10 +153,15 @@ def validate_order(order: dict | None, presets: dict[str, dict]) -> str:
 
 
 # Aus Leid wird kein Unterhaltungsvideo: Tod, Gewalt, Anschläge, Unglücke, Krieg, Missbrauch, Suizid – solche
+META_RANKING = re.compile(r"meist(gesucht|gelesen|geklickt|aufgerufen|gesehen)|suchbegriff|begriffe|aufrufe|klicks|"
+                          r"trends?\b|beliebteste", re.I)
+
 # Themen werden ausschließlich zu sachlichen Reportage-Ideen (Bereich „reportage“) mit festen Regeln.
 REPORTAGE_REGELN = ("Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten "
                     "mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; "
                     "Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.")
+SATIRE_HINWEIS = ("Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen "
+                  "Zitate, kein Leid, kein Spott gegen Gruppen.")
 HEIKEL = re.compile(
     r"\b(tot|tote[nr]?|getötet|stirbt|starb|gestorben|tod(es)?|leiche|mord\w*|ermordet|erschossen|schütze|amok\w*|"
     r"anschlag\w*|terror\w*|attentat\w*|geisel\w*|krieg\w*|luftangriff\w*|bomb\w*|explosion|opfer|verletzt\w*|"
@@ -235,6 +246,16 @@ def rule_ideas(trends: dict, cand: dict[str, dict], presets: dict[str, dict]) ->
     return ideas
 
 
+def still_valid(idea: dict) -> bool:
+    """Alte Ideen nach den heutigen Regeln nachprüfen (Meta-Rankings, Nachrichten als Story, Prüf-Abbrüche)."""
+    area, text = idea.get("bereich"), f"{idea.get('titel', '')} {idea.get('thema', '')}"
+    if area == "ranking" and META_RANKING.search(text):
+        return False
+    if area == "story" and (idea.get("quelle") or {}).get("typ") == "news":
+        return False
+    return "No module named" not in str(idea.get("hinweis", ""))
+
+
 def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use_llm: bool, notes: list[str],
            known: set[str]) -> list[dict]:
     per_area = {a: 0 for a in AREAS}
@@ -246,6 +267,15 @@ def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use
         src = match_source(str(r.get("quelle_trend", "")), cand)
         if area not in AREAS or not titel or not thema or not src:
             continue                                      # ohne Beleg in den Daten keine Idee
+        if area == "ranking" and META_RANKING.search(f"{titel} {thema}"):
+            continue                                      # Ranking über Klicks/Suchbegriffe: keine messbaren Dinge
+        if area == "story" and cand[src].get("typ") == "news":
+            area = "reportage"                            # echte Nachrichten nie als erzählte Story
+        satire_hinweis = ""
+        if area == "satire" and cand[src].get("typ") != "news":
+            continue                                      # Satire steht nur auf einer bestätigten Nachricht
+        if area == "satire" and cand[src].get("heikel"):
+            satire_hinweis = "Satire abgelehnt (heikles Thema) – nur als Reportage."
         if cand[src].get("heikel") or area == "reportage":
             area = "reportage"                            # Leid nie als Unterhaltung – nur sachliche Reportage
         ident = "idee-" + hashlib.sha1(f"{area}|{_norm(thema)}".encode()).hexdigest()[:8]
@@ -253,9 +283,12 @@ def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use
             continue
         per_area[area] += 1
         check = (check_ranking(thema, 10, presets, probes, use_llm) if area == "ranking"
-                 else {"geprueft": "idee", "hinweis": REPORTAGE_REGELN if area == "reportage"
+                 else {"geprueft": "idee", "hinweis": (satire_hinweis + " " if satire_hinweis else "") + REPORTAGE_REGELN
+                       if area == "reportage" else SATIRE_HINWEIS if area == "satire"
                        else "Fakten entstehen erst in der geprüften Pipeline"})
         order = build_order(area, {"thema": thema}, check)
+        if area == "satire" and order:
+            order["meldung"] = src[:400]                  # genau die bestätigte Meldung als Kern
         problem = validate_order(order, presets)
         if problem:
             check = {"geprueft": "idee", "hinweis": f"Auftrag unvollständig: {problem}"}
@@ -304,7 +337,7 @@ def run() -> dict:
         notes.append("kein Sprachmodell (CUDI_LLM_*) – regelbasierte Ideen")
     if not raw:
         raw = rule_ideas(trends, cand, presets)
-    old = common.thin_by_age(previous.get("ideen", []), "erstellt", KEEP_DAYS)
+    old = [i for i in common.thin_by_age(previous.get("ideen", []), "erstellt", KEEP_DAYS) if still_valid(i)]
     new = finish(raw, cand, presets, use_llm, notes, {i["id"] for i in old})
     ideas = new + old
     capped, count = [], {a: 0 for a in AREAS}

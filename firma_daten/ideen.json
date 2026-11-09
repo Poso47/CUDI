@@ -1,0 +1,739 @@
+{
+ "erzeugt": "2026-11-08T21:57:43Z",
+ "modus": "regeln",
+ "hinweise": [
+  "Sprachmodell nicht nutzbar, regelbasiert: HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+ ],
+ "anzahl": 28,
+ "neu": 7,
+ "ideen": [
+  {
+   "id": "idee-ad64a89c",
+   "bereich": "fakten",
+   "titel": "bundespräsident deutschland: die wichtigsten Fakten",
+   "thema": "Fakten über bundespräsident deutschland",
+   "begruendung": "Platz 1 der Google-Trends (DE) mit über 1.000 Suchen; Meldung: „Nach dem Aigner-Coup: Kann Söder jetzt noch Kanzler werden?“ (BILD) · Platz 25 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 11.694 Aufrufe",
+   "quelle": {
+    "name": "bundespräsident deutschland",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google",
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über bundespräsident deutschland",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:57:43Z"
+  },
+  {
+   "id": "idee-972942e0",
+   "bereich": "fakten",
+   "titel": "seahawks game today: die wichtigsten Fakten",
+   "thema": "Fakten über seahawks game today",
+   "begruendung": "Platz 1 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „Sources: Seahawks' Sam Darnold in jeopardy of missing Week 10 game vs. Raiders“ (ESPN)",
+   "quelle": {
+    "name": "seahawks game today",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über seahawks game today",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:57:43Z"
+  },
+  {
+   "id": "idee-2a3e1118",
+   "bereich": "fakten",
+   "titel": "Was du über Russell Brand wissen solltest",
+   "thema": "Fakten über Russell Brand",
+   "begruendung": "Platz 8 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 28.393 Aufrufe · Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 507.816 Aufrufe",
+   "quelle": {
+    "name": "Russell Brand",
+    "typ": "trend",
+    "score": 96.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über Russell Brand",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:57:43Z"
+  },
+  {
+   "id": "idee-b3e43e67",
+   "bereich": "erklaer",
+   "titel": "Was steckt hinter 2026 United States elections?",
+   "thema": "Hintergrund erklärt: 2026 United States elections",
+   "begruendung": "Platz 5 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 219.097 Aufrufe · Platz 17 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 101.863 Aufrufe · Platz 18 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 97.301 Auf",
+   "quelle": {
+    "name": "2026 United States elections",
+    "typ": "trend",
+    "score": 95.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Hintergrund erklärt: 2026 United States elections"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:57:43Z"
+  },
+  {
+   "id": "idee-23a3994d",
+   "bereich": "fakten",
+   "titel": "Abdul El-Sayed: die wichtigsten Fakten",
+   "thema": "Fakten über Abdul El-Sayed",
+   "begruendung": "Platz 14 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 16.824 Aufrufe · Platz 3 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06: 437.069 Aufrufe",
+   "quelle": {
+    "name": "Abdul El-Sayed",
+    "typ": "trend",
+    "score": 94.3,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über Abdul El-Sayed",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:57:43Z"
+  },
+  {
+   "id": "idee-27fb7fc3",
+   "bereich": "erklaer",
+   "titel": "Was steckt hinter chargers – texans?",
+   "thema": "Hintergrund erklärt: chargers – texans",
+   "begruendung": "Platz 2 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Week 9 inactives for Texans“ (Yahoo Sports)",
+   "quelle": {
+    "name": "chargers – texans",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Hintergrund erklärt: chargers – texans"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:57:43Z"
+  },
+  {
+   "id": "idee-6c4de047",
+   "bereich": "fakten",
+   "titel": "xavier worthy: die wichtigsten Fakten",
+   "thema": "Fakten über xavier worthy",
+   "begruendung": "Platz 2 der Google-Trends (US) mit über 500 Suchen; Meldung: „Xavier Worthy Hurts Hamstring“ (Draft Sharks)",
+   "quelle": {
+    "name": "xavier worthy",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über xavier worthy",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:57:43Z"
+  },
+  {
+   "id": "idee-b9eb1790",
+   "bereich": "ranking",
+   "titel": "Die längsten Auslegerbrücken",
+   "thema": "Eine Rangliste der größten Auslegerbrücken weltweit.",
+   "begruendung": "Der Trend \"Liste der größten Auslegerbrücken\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06 mit 33.338 Aufrufen.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184600 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de",
+     "en"
+    ],
+    "thema": "Eine Rangliste der größten Auslegerbrücken weltweit."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-23417def",
+   "bereich": "fakten",
+   "titel": "Fakten zum Epos Ramayana",
+   "thema": "Wissenswertes über das indische Epos Ramayana.",
+   "begruendung": "Der Trend \"Ramayana: Part 1\" ist Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06 mit 785.245 Aufrufen.",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 90.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über das indische Epos Ramayana.",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-e57ea7db",
+   "bereich": "fakten",
+   "titel": "Leonard Cohen: Wissenswertes",
+   "thema": "Fakten zum Leben und Werk des Künstlers Leonard Cohen.",
+   "begruendung": "Der Trend \"Leonard Cohen\" ist Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06 mit 35.698 Aufrufen.",
+   "quelle": {
+    "name": "Leonard Cohen",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zum Leben und Werk des Künstlers Leonard Cohen.",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-d618f55a",
+   "bereich": "fakten",
+   "titel": "Reinhold Messner: Die Fakten",
+   "thema": "Wissenswerte Fakten über den Bergsteiger Reinhold Messner.",
+   "begruendung": "Der Trend \"Reinhold Messner\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06 mit 30.213 Aufrufen.",
+   "quelle": {
+    "name": "Reinhold Messner",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswerte Fakten über den Bergsteiger Reinhold Messner.",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-787c92a2",
+   "bereich": "fakten",
+   "titel": "Was ist die .xyz-Domain?",
+   "thema": "Fakten zur Top-Level-Domain .xyz.",
+   "begruendung": "Der Trend \".xyz\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06 mit 209.858 Aufrufen.",
+   "quelle": {
+    "name": ".xyz",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zur Top-Level-Domain .xyz.",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-71eaee25",
+   "bereich": "fakten",
+   "titel": "Die .xxx-Domain erklärt",
+   "thema": "Fakten zur Top-Level-Domain .xxx.",
+   "begruendung": "Der Trend \".xxx\" ist Platz 8 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06 mit 199.678 Aufrufen.",
+   "quelle": {
+    "name": ".xxx",
+    "typ": "trend",
+    "score": 74.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zur Top-Level-Domain .xxx.",
+    "plaetze": 7,
+    "sprachen": [
+     "de",
+     "en"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-e958850a",
+   "bereich": "erklaer",
+   "titel": "Die Rolle des Bundespräsidenten",
+   "thema": "Ein Erklärvideo zur Funktion und Bedeutung des Bundespräsidenten in Deutschland.",
+   "begruendung": "Der Trend \"bundespräsident deutschland\" ist Platz 1 der Google-Trends (DE) und Platz 25 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06.",
+   "quelle": {
+    "name": "bundespräsident deutschland",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google",
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zur Funktion und Bedeutung des Bundespräsidenten in Deutschland."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-b63040ed",
+   "bereich": "erklaer",
+   "titel": "US-Wahlen 2026: Das System",
+   "thema": "Ein Erklärvideo zum Ablauf und den Besonderheiten der US-Wahlen.",
+   "begruendung": "Der Trend \"2026 United States elections\" ist Platz 5, 17 und 18 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06.",
+   "quelle": {
+    "name": "2026 United States elections",
+    "typ": "trend",
+    "score": 95.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zum Ablauf und den Besonderheiten der US-Wahlen."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-0f0e1630",
+   "bereich": "erklaer",
+   "titel": "Wie wird man Bundespräsidentin?",
+   "thema": "Ein Erklärvideo zum Prozess der Wahl einer Bundespräsidentin in Deutschland.",
+   "begruendung": "Die Meldung \"Kanzler Merz will Aigner als Bundespräsidentin vorschlagen\" ist von 4 Quellen bestätigt.",
+   "quelle": {
+    "name": "Kanzler Merz will Aigner als Bundespräsidentin vorschlagen",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "tagesschau.de",
+     "t-online.de",
+     "focus.de"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zum Prozess der Wahl einer Bundespräsidentin in Deutschland."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-c4a281d8",
+   "bereich": "erklaer",
+   "titel": "Regierungsbildung in Israel erklärt",
+   "thema": "Ein Erklärvideo zum Prozess der Regierungsbildung in Israel.",
+   "begruendung": "Die Meldung \"Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung\" ist von 3 Quellen bestätigt.",
+   "quelle": {
+    "name": "Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle",
+     "welt.de"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zum Prozess der Regierungsbildung in Israel."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-e0f3b211",
+   "bereich": "erklaer",
+   "titel": "Südafrikas Wahlsystem erklärt",
+   "thema": "Ein Erklärvideo zum politischen System und den Wahlen in Südafrika.",
+   "begruendung": "Die Meldung \"South Africa elections: ANC marks its worst-ever performance\" ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "South Africa elections: ANC marks its worst-ever performance",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "bbc.com"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zum politischen System und den Wahlen in Südafrika."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:47:40Z"
+  },
+  {
+   "id": "idee-0121fd57",
+   "bereich": "reportage",
+   "titel": "Merz schlägt Aigner als Bundespräsidentin vor",
+   "thema": "Eine sachliche Reportage über den Vorschlag zur Bundespräsidentschaftskandidatur von Ilse Aigner.",
+   "begruendung": "Die Meldung \"Kanzler Merz will Aigner als Bundespräsidentin vorschlagen\" ist von 4 Quellen bestätigt.",
+   "quelle": {
+    "name": "Kanzler Merz will Aigner als Bundespräsidentin vorschlagen",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "tagesschau.de",
+     "t-online.de",
+     "focus.de"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über den Vorschlag zur Bundespräsidentschaftskandidatur von Ilse Aigner.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-795a9afd",
+   "bereich": "reportage",
+   "titel": "Regierungsbildung in Israel: Eisenkot beauftragt",
+   "thema": "Eine Reportage über die Beauftragung Eisenkots mit der Regierungsbildung in Israel.",
+   "begruendung": "Die Meldung \"Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung\" ist von 3 Quellen bestätigt.",
+   "quelle": {
+    "name": "Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle",
+     "welt.de"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Beauftragung Eisenkots mit der Regierungsbildung in Israel.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-dd7015be",
+   "bereich": "reportage",
+   "titel": "Frankreich: Neue Gelbwesten-Proteste",
+   "thema": "Eine Reportage über die jüngsten Proteste der Gelbwesten und Studenten in Frankreich.",
+   "begruendung": "Die Meldung \"France sees new round of Yellow Vest, student protests\" ist von 3 Quellen bestätigt.",
+   "quelle": {
+    "name": "France sees new round of Yellow Vest, student protests",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "Wikipedia · AFP",
+     "Wikipedia · CNN"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die jüngsten Proteste der Gelbwesten und Studenten in Frankreich.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-40283a2b",
+   "bereich": "reportage",
+   "titel": "Südafrika-Wahl: ANC mit schlechtestem Ergebnis",
+   "thema": "Eine Reportage über das historische Wahlergebnis des ANC in Südafrika.",
+   "begruendung": "Die Meldung \"South Africa elections: ANC marks its worst-ever performance\" ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "South Africa elections: ANC marks its worst-ever performance",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "bbc.com"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über das historische Wahlergebnis des ANC in Südafrika.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-c7f5f559",
+   "bereich": "reportage",
+   "titel": "Diwali: Lichterfest in Indien",
+   "thema": "Eine Reportage über die Feierlichkeiten zum Diwali-Fest in Indien.",
+   "begruendung": "Die Meldung \"Homes and temples glow across India to mark Diwali\" ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Homes and temples glow across India to mark Diwali",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "economictimes.indiatimes.com"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Feierlichkeiten zum Diwali-Fest in Indien.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-08T21:47:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-b4810808",
+   "bereich": "erklaer",
+   "titel": "Bundespräsident: So funktioniert das Amt",
+   "thema": "Eine ruhige Erklärung, wie das Amt des Bundespräsidenten in Deutschland funktioniert und welche Befugnisse es hat.",
+   "begruendung": "Der Trend \"bundespräsident deutschland\" ist Platz 1 der Google-Trends (DE) mit über 1.000 Suchen.",
+   "quelle": {
+    "name": "bundespräsident deutschland",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google",
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine ruhige Erklärung, wie das Amt des Bundespräsidenten in Deutschland funktioniert und welche Befugnisse es hat."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:37:15Z"
+  },
+  {
+   "id": "idee-a5a47537",
+   "bereich": "erklaer",
+   "titel": "US-Wahlen 2026: Das Wahlsystem erklärt",
+   "thema": "Eine ruhige Erklärung, wie die Wahlen in den Vereinigten Staaten funktionieren.",
+   "begruendung": "Der Trend \"2026 United States elections\" ist Platz 5 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06 mit 219.097 Aufrufen.",
+   "quelle": {
+    "name": "2026 United States elections",
+    "typ": "trend",
+    "score": 95.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine ruhige Erklärung, wie die Wahlen in den Vereinigten Staaten funktionieren."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:37:15Z"
+  },
+  {
+   "id": "idee-6f89b318",
+   "bereich": "erklaer",
+   "titel": "Israel: Regierungsbildung erklärt",
+   "thema": "Eine ruhige Erklärung, wie die Regierungsbildung in Israel nach Wahlen abläuft.",
+   "begruendung": "Die News \"Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung\" ist von 3 Quellen (Tagesschau) bestätigt.",
+   "quelle": {
+    "name": "Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle",
+     "welt.de"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine ruhige Erklärung, wie die Regierungsbildung in Israel nach Wahlen abläuft."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:37:15Z"
+  },
+  {
+   "id": "idee-b2ac3be8",
+   "bereich": "erklaer",
+   "titel": ".xxx: Die Domain erklärt",
+   "thema": "Eine ruhige Erklärung, was die Top-Level-Domain .xxx ist und wofür sie verwendet wird.",
+   "begruendung": "Der Trend \".xxx\" ist Platz 8 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06 mit 199.678 Aufrufen.",
+   "quelle": {
+    "name": ".xxx",
+    "typ": "trend",
+    "score": 74.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine ruhige Erklärung, was die Top-Level-Domain .xxx ist und wofür sie verwendet wird."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:37:15Z"
+  },
+  {
+   "id": "idee-1319d315",
+   "bereich": "erklaer",
+   "titel": "Südafrika Wahlen: Das System erklärt",
+   "thema": "Eine ruhige Erklärung, wie das Wahlsystem in Südafrika funktioniert.",
+   "begruendung": "Die News \"South Africa elections: ANC marks its worst-ever performance\" ist von 2 Quellen (Deutsche Welle (en)) bestätigt.",
+   "quelle": {
+    "name": "South Africa elections: ANC marks its worst-ever performance",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "bbc.com"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine ruhige Erklärung, wie das Wahlsystem in Südafrika funktioniert."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-08T21:37:15Z"
+  }
+ ]
+}
