@@ -9,12 +9,14 @@ import yaml
 from cudi_video.firma import briefing, clipscout, common, export, lernen, messung
 
 ROOT = Path(__file__).resolve().parent.parent
+ECHTE_ENTDECKUNG = clipscout.entdecke
 
 
 @pytest.fixture(autouse=True)
 def daten(tmp_path, monkeypatch):
     monkeypatch.setattr(common, "DATA_DIR", tmp_path / "firma_daten")
     monkeypatch.setattr(clipscout, "campaigns", lambda notes: [])
+    monkeypatch.setattr(clipscout, "entdecke", lambda *a, **k: [])             # Entdeckung nur in den eigenen Tests
 
 
 def feed(desc: str, views: int = 5000, hours_old: int = 5, vid: str = "abc123") -> bytes:
@@ -160,3 +162,161 @@ def test_workflow_yaml(name):
     steps = wf["jobs"][name]["steps"]
     assert any(f"cudi_video.firma {name}" in s.get("run", "") for s in steps)
     assert any("firma_commit.sh" in s.get("run", "") for s in steps) and any("yt-dlp" in s.get("run", "") for s in steps)
+
+
+# ----------------------------------------------------------------------------- Entdeckung + vier Stufen
+
+def cand(name="Neo", plattform="youtube", kanal=CID, punkte=30, signal=None, bestaetigt=True, quelle="reddit"):
+    return clipscout._cand(name, plattform, kanal, "Testgrund", quelle, punkte, signal, "https://x.test/" + name, bestaetigt)
+
+
+def entdeckung_ohne_netz(monkeypatch, cands):
+    monkeypatch.setattr(clipscout, "entdecke", lambda notes, camps, old, cache: clipscout.merge_entdeckt(cands, old))
+
+
+def test_quelle_kampagne_und_aufrufsuche(monkeypatch):
+    camp = [{"titel": "Clip Max", "link": "https://contentrewards.com/c/campaigns/1", "kanaele": ["https://www.youtube.com/@max"]}]
+    c = clipscout.src_kampagnen(camp)[0]
+    assert c["kanal"] == "@max" and c["quellen"] == ["kampagne"] and c["signal"]["kampagnen"] == 1
+    monkeypatch.setattr(clipscout, "youtube_suche", lambda q, limit=10: [
+        {"title": "Clipper gesucht für meinen Kanal", "channel": "Ana", "channel_id": CID, "url": "https://y/1"},
+        {"title": "Hair clipper review", "channel": "Bob", "channel_id": "UC" + "b" * 22, "url": "https://y/2"}])
+    out = clipscout.src_aufruf_suche()
+    assert [o["name"] for o in out] == ["Ana", "Ana"]            # zwei Suchanfragen, Rauschen fällt weg
+
+
+def test_quelle_youtube_trends_und_wikipedia(monkeypatch):
+    trends = {"themen": [
+        {"thema": "Video", "kategorie": "Thema", "quellen": [{"quelle": "youtube", "region": "DE", "rang": 2, "kanal": "Kanal X",
+                                                              "link": "https://www.youtube.com/watch?v=v1"}]},
+        {"thema": "Kai Beispiel", "kategorie": "Person", "quellen": [{"quelle": "wikipedia", "region": "de", "rang": 4, "link": "https://w/1"}]},
+        {"thema": "Ein Politiker", "kategorie": "Person", "quellen": [{"quelle": "wikipedia", "region": "de", "rang": 5, "link": "https://w/2"}]}]}
+    class R:
+        def __init__(self, data): self.data = data
+        def json(self): return self.data
+    def fake(url, params=None, **kw):
+        if "oembed" in url:
+            return R({"author_name": "Kanal X", "author_url": "https://www.youtube.com/@kanalx"})
+        if "wikipedia.org" in url:
+            return R({"wikibase_item": "Q1" if "Kai" in url else "Q2"})
+        occ = "YouTuber" if "Q1" in params["query"] else "politician"
+        return R({"results": {"bindings": [{"occ": {"value": occ}, "yt": {"value": CID}}]}})
+    monkeypatch.setattr(common, "fetch", fake)
+    monkeypatch.setattr(clipscout.time, "sleep", lambda s: None)
+    yt = clipscout.src_youtube_trends(trends, {})
+    assert yt[0]["kanal"] == "@kanalx" and yt[0]["signal"]["yt_trend_rang"] == 2
+    wiki_cache: dict = {}
+    wp = clipscout.src_wikipedia(trends, wiki_cache)
+    assert [w["name"] for w in wp] == ["Kai Beispiel"] and wp[0]["kanal"] == CID      # Politiker: Beruf passt nicht
+    assert wiki_cache["de:Ein Politiker"] == {}                                        # Negativtreffer gemerkt
+
+
+def test_quelle_reddit_namen(monkeypatch):
+    posts = [{"title": "Destiny talks about things", "score": 10}, {"title": "Destiny reacts to chat", "score": 20},
+             {"title": "The streamer left", "score": 400}, {"title": "DariusIRL's girlfriend speaks", "score": 300}]
+    namen = clipscout.streamer_namen(posts)
+    assert namen["Destiny"]["n"] == 2 and "The" not in namen and namen["DariusIRL"]["punkte"] == 300
+    class R:
+        def json(self): return {"data": [{**p, "id": str(i), "over_18": False} for i, p in enumerate(posts)]}
+    monkeypatch.setattr(common, "fetch", lambda *a, **k: R())
+    out = clipscout.src_reddit()
+    assert {o["name"] for o in out} == {"Destiny", "DariusIRL"} and all(not o["kanal_bestaetigt"] for o in out)
+
+
+def test_limit_neue_und_ausduennen():
+    cands = [cand(f"N{i}", kanal=f"@n{i}", punkte=i) for i in range(70)]
+    out = clipscout.merge_entdeckt(cands, [])
+    assert len(out) == clipscout.MAX_NEU and out[0]["punkte"] == 69             # höchste Signale zuerst
+    alt = {**out[0], "zuletzt": common.iso(common.now() - __import__("datetime").timedelta(days=15))}
+    frisch = {**out[1], "zuletzt": common.iso(common.now() - __import__("datetime").timedelta(days=3))}
+    again = clipscout.merge_entdeckt([], [alt, frisch])
+    assert [e["key"] for e in again] == [frisch["key"]]                          # >14 Tage ohne Sichtung fliegt raus
+
+
+def test_zusammenfuehren_gleicher_kanal_aus_zwei_quellen():
+    out = clipscout.merge_entdeckt([cand(quelle="reddit", punkte=20), cand(quelle="kampagne", punkte=30)], [])
+    assert len(out) == 1 and out[0]["quellen"] == ["kampagne", "reddit"] and out[0]["punkte"] == 50
+
+
+def run_entdeckt(monkeypatch, eintrag, desc="Nur ein normales Video", creators=None):
+    common.write_json("clip_creators.json", {"creators": creators or []})
+    entdeckung_ohne_netz(monkeypatch, [eintrag])
+    monkeypatch.setattr(common, "fetch", lambda url, **kw: Resp(feed(desc)))
+    monkeypatch.setattr(clipscout, "twitch_clips", lambda login, limit=20: [])
+    clipscout.run()
+    return common.read_json("clip_entdeckt.json")["creators"][0], common.read_json("clip_radar.json")
+
+
+def test_entdeckter_mit_aufruf_ist_erlaubt_und_bekommt_vorschlag(monkeypatch):
+    e, radar = run_entdeckt(monkeypatch, cand(), "Clipper gesucht, Link: https://discord.gg/xyz")
+    assert e["erlaubnis"] == "erlaubt" and e["signal"]["aufruf"] and radar["vorschlaege"][0]["erlaubnis"] == "erlaubt"
+    assert common.read_json("clip_erlaubnis.json")["creators"][0]["belege"][0]["url"].endswith("abc123")
+
+
+def test_geduldet_nur_mit_signalen_und_ehrlichem_vorschlag(monkeypatch):
+    sig = {"reddit_beitraege": 4, "reddit_sub": "LivestreamFail", "yt_trend_rang": 3, "region": "DE"}
+    e, radar = run_entdeckt(monkeypatch, cand(signal=sig))
+    assert e["erlaubnis"] == "geduldet" and len({s.split(":")[0] for s in e["signale"]}) == 2
+    v = radar["vorschlaege"][0]
+    assert v["erlaubnis"] == "geduldet" and "nicht ausdrücklich erlaubt" in v["hinweis"] and v["credit"].startswith("Original: Neo")
+    assert "bestaetigt_erlaubnis" not in v and "geduldet" in radar["videos"][0]["grund"]
+    assert "nicht ausdrücklich erlaubt" in common.read_json("clip_erlaubnis.json")["creators"][0]["bedingungen"][0]
+
+
+def test_ein_signal_ist_unklar_und_ohne_vorschlag(monkeypatch):
+    e, radar = run_entdeckt(monkeypatch, cand(signal={"yt_trend_rang": 3, "region": "DE"}))
+    assert e["erlaubnis"] == "unklar" and radar["vorschlaege"] == [] and radar["im_hype_erlaubnis_offen"][0]["name"] == "Neo"
+
+
+def test_vermuteter_kanal_wird_nie_geduldet(monkeypatch):
+    sig = {"reddit_beitraege": 4, "reddit_sub": "LivestreamFail", "yt_trend_rang": 3, "region": "DE"}
+    e, radar = run_entdeckt(monkeypatch, cand(signal=sig, bestaetigt=False))
+    assert e["erlaubnis"] == "unklar" and radar["vorschlaege"] == []
+
+
+def test_verbot_in_beschreibung_sperrt_trotz_signalen(monkeypatch):
+    sig = {"reddit_beitraege": 4, "reddit_sub": "LivestreamFail", "yt_trend_rang": 3, "region": "DE"}
+    e, radar = run_entdeckt(monkeypatch, cand(signal=sig), "Clipper gesucht! https://discord.gg/x  Aber: no clips of the finale please")
+    assert e["erlaubnis"] == "gesperrt" and radar["vorschlaege"] == []
+    z = common.read_json("clip_erlaubnis.json")["creators"][0]
+    assert "ausdrückliches Verbot" in z["bedingungen"][0] and z["belege"][0]["art"] == "verbot"
+    for text in ("keine Clips bitte", "Don't reupload my content", "copyright strike"):
+        assert clipscout.VERBOT.search(text)
+
+
+def test_sperrliste_gewinnt_ueber_entdeckung(monkeypatch):
+    manual = {"name": "Neo", "youtube": [CID], "gesperrt": True}
+    e, radar = run_entdeckt(monkeypatch, cand(), "Clipper gesucht, Link: https://discord.gg/x", creators=[manual])
+    assert e["erlaubnis"] == "gesperrt" and e["bereits_manuell"] and radar["vorschlaege"] == []
+    assert [c["status"] for c in common.read_json("clip_erlaubnis.json")["creators"]] == ["gesperrt"]
+
+
+def test_briefing_und_export_zeigen_stufen_ehrlich(tmp_path, monkeypatch):
+    common.write_json("clip_entdeckt.json", {"anzahl": 3, "creators": [
+        {"name": "Ana", "plattform": "youtube", "erlaubnis": "geduldet", "signale": ["Reddit: 4 Beiträge", "Trends: Rang 3"], "link": "https://a/1", "aufrufe_je_stunde": 800},
+        {"name": "Bo", "plattform": "twitch", "erlaubnis": "unklar", "grund": "In r/LivestreamFail 3× genannt", "link": "https://b/1"},
+        {"name": "Cy", "plattform": "youtube", "erlaubnis": "erlaubt", "grund": "Aufruf", "link": "https://c/1", "erste_sichtung": common.iso()},
+        {"name": "Di", "plattform": "youtube", "erlaubnis": "gesperrt", "link": "https://d/1"}]})
+    texts = " ".join(p["text"] for p in briefing.build_sections()[-1]["punkte"])
+    assert "geduldet, nicht ausdrücklich erlaubt (Signale: Reddit: 4 Beiträge" in texts and "Im Hype, Erlaubnis offen: Bo" in texts
+    assert "Neu entdeckt mit belegter Erlaubnis: Cy" in texts and "Di" not in texts
+    monkeypatch.setattr(export, "OUT", tmp_path / "f.json")
+    common.record_status("clipscout", 0.0, True, "x")
+    export.write()
+    ct = json.loads(export.OUT.read_text("utf-8"))["clipteam"]
+    assert ct["entdeckt"] == 3 and [h["erlaubnis"] for h in ct["im_hype"]] == ["geduldet", "unklar", "erlaubt"]
+
+
+def test_clip_erlaubnis_geduldet_braucht_bestaetigung_und_credit(tmp_path, monkeypatch):
+    from cudi_video.clip import ClipError, erlaubnis
+    monkeypatch.setenv("CUDI_FIRMA_DATEN", str(tmp_path))
+    monkeypatch.setattr(erlaubnis, "meta_holen", lambda url: {})
+    (tmp_path / "clip_erlaubnis.json").write_text(json.dumps({"creators": [{"name": "Ana", "status": "geduldet", "kanaele": {"twitch": ["ana"]},
+                                                                           "signale": ["Reddit: 4 Beiträge"]}]}), "utf-8")
+    url = "https://www.twitch.tv/ana/clip/abc"
+    assert erlaubnis.pruefe(url)["status"] == "geduldet" and erlaubnis.pruefe(url)["erlaubt"] is False
+    with pytest.raises(ClipError, match="nicht ausdrücklich erlaubt"):
+        erlaubnis.pruefe_auftrag(url, False)
+    r = erlaubnis.pruefe_auftrag(url, True)
+    assert r["vermerk"].startswith("geduldet, vom Nutzer bestätigt") and r["credit"] == f"Original: Ana – {url}"
+    assert any("Credit" in z for z in erlaubnis.bericht_zeilen(r))

@@ -75,12 +75,18 @@ def build() -> dict:
         data["briefing"] = {"datum": brief.get("datum", ""), "ueberblick": _cut(brief.get("ueberblick"), 400),
                             "top": [_cut(p.get("text"), 220) for p in brief["abschnitte"][0]["punkte"][:5]]}
     radar, erl, mess = (common.read_json(n, {}) or {} for n in ("clip_radar.json", "clip_erlaubnis.json", "messung.json"))
-    if radar or erl or mess:
+    ent = common.read_json("clip_entdeckt.json", {}) or {}
+    if radar or erl or mess or ent:
         data["clipteam"] = {
             "creators": radar.get("creators", 0),
             "erlaubt": [_cut(c.get("name"), 40) for c in erl.get("creators", []) if c.get("status") == "erlaubt"][:8],
             "viral": [{"creator": _cut(v.get("creator"), 40), "titel": _cut(v.get("titel"), 90), "url": v.get("url", ""),
                        "je_stunde": v.get("aufrufe_je_stunde", 0)} for v in radar.get("videos", []) if v.get("erlaubt")][:3],
+            "geduldet": [_cut(c.get("name"), 40) for c in erl.get("creators", []) if c.get("status") == "geduldet"][:8],
+            "entdeckt": ent.get("anzahl", 0),
+            "im_hype": [{"name": _cut(e.get("name"), 40), "plattform": e.get("plattform", ""), "erlaubnis": e.get("erlaubnis", "unklar"),
+                         "je_stunde": e.get("aufrufe_je_stunde", 0)}
+                        for e in ent.get("creators", []) if e.get("erlaubnis") != "gesperrt"][:5],
             "vorschlaege": len(radar.get("vorschlaege", [])),
             "kampagnen": len(radar.get("kampagnen", [])),
             "messung": {"posts": mess.get("anzahl", 0), "aufrufe": mess.get("gesamt_aufrufe", 0)}}
