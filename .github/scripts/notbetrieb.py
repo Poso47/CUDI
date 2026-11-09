@@ -22,9 +22,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
+NOTBETRIEB_ARTEN = ("ranking", "fakten", "story", "reportage", "satire", "clip")
 MAX_COMMENT = 60_000
 MAX_REVIEW = 6_000            # Kurzform; der volle Prüfbericht liegt als review.md im Artefakt
-SECRET_ENV = ("CUDI_LLM_API_KEY", "CUDI_YT_CLIENT_SECRET", "CUDI_YT_REFRESH_TOKEN", "CUDI_TIKTOK_CLIENT_SECRET",
+SECRET_ENV = ("CUDI_LLM_API_KEY", "CUDI_LLM2_API_KEY", "CUDI_LLM3_API_KEY", "CUDI_YT_CLIENT_SECRET", "CUDI_YT_REFRESH_TOKEN", "CUDI_TIKTOK_CLIENT_SECRET",
               "CUDI_TIKTOK_REFRESH_TOKEN", "CUDI_PEXELS_API_KEY", "CUDI_PIXABAY_API_KEY", "CUDI_DEEPL_API_KEY",
               "CUDI_REDDIT_CLIENT_SECRET", "CUDI_POLLINATIONS_TOKEN")
 
@@ -50,15 +51,19 @@ def fenced(text: str, lang: str = "text") -> str:
 
 
 def prepare_order(raw: dict, presets: set[str]) -> dict:
-    """Auftrag prüfen und für den Notbetrieb zurichten: nur Ranking/Story im ganzen Lauf; Hochladen direkt
-    (es gibt keinen Freigabe-Knopf), außer der Auftrag setzt „freigabe“ ausdrücklich."""
+    """Auftrag prüfen und für den Notbetrieb zurichten. Alle Arten laufen in einem Zug: ranking, fakten, story,
+    reportage, satire, clip (Erlaubnisprüfung läuft im Lauf). Story-Zwischenschritte „skelett“/„video“ werden zu
+    „direkt Video“ (es gibt keine Bearbeiten-Ansicht); „bearbeiten“/„hochladen“ gehen nur in der App. Hochladen
+    direkt (kein Freigabe-Knopf), außer der Auftrag setzt „freigabe“ ausdrücklich."""
     from cudi_video import job
 
+    if isinstance(raw, dict) and raw.get("art") == "story" and str(raw.get("schritt") or "") in ("skelett", "video"):
+        raw = {**raw, "schritt": ""}
     order = job.parse_order(raw, presets)
-    if order["art"] not in ("ranking", "story", "reportage"):
-        raise job.OrderError("Im Notbetrieb gehen nur Rankings, Storys und Reportagen (Clips laufen in der App mit Claude).")
+    if order["art"] not in NOTBETRIEB_ARTEN:
+        raise job.OrderError("Diese Art gibt es im Notbetrieb nicht: " + ", ".join(NOTBETRIEB_ARTEN) + " gehen.")
     if order.get("schritt"):
-        raise job.OrderError("Im Notbetrieb läuft der Auftrag in einem Zug (ohne Zwischenschritte).")
+        raise job.OrderError("Im Notbetrieb läuft der Auftrag in einem Zug (ohne Zwischenschritte wie Bearbeiten/Hochladen).")
     wish = order.get("hochladen")
     if wish and "freigabe" not in wish:
         wish["freigabe"] = False
@@ -75,7 +80,8 @@ def comment_text(data: dict, run_url: str, artifact_url: str = "") -> str:
         error = scrub((data or {}).get("fehler") or "Der Lauf ist ohne Ergebnis beendet.")
         return "\n\n".join([
             "## ❌ Hat leider nicht geklappt", fenced(error[-2500:]),
-            "Bitte später noch einmal versuchen (Sprachmodell-Limit?) oder den Auftrag in der CUDI-App starten.",
+            "Bitte später noch einmal versuchen (Sprachmodell-Limit?) oder den Auftrag in der CUDI-App starten. "
+            "Erfunden wird nichts: fehlen Quellen oder Belege, endet der Auftrag ehrlich.",
             f"Alle Details: {run_url}"])
     videos = data.get("videos") or []
     title = defuse(data.get("titel") or "Ergebnis")
@@ -84,10 +90,20 @@ def comment_text(data: dict, run_url: str, artifact_url: str = "") -> str:
         key = v.get("key") or ""
         key = key[:2].upper() + key[2:]
         parts.append(f"### 🎬 {key}" + (f" · {round(v['dauer'])} s" if v.get("dauer") else ""))
+        variants = [t for t in (v.get("titel_varianten") or []) if isinstance(t, str) and t.strip()]
+        if variants:
+            chosen = v.get("titel_gewaehlt") or ""
+            parts.append(f"**Titel-Varianten {key}**\n" + "\n".join(
+                f"- {defuse(t)}" + (" ← gewählt" if t == chosen else "") for t in variants[:3]))
         if v.get("youtube"):
             parts.append(f"**YouTube-Titel, Beschreibung, Hashtags {key}**\n\n{fenced(defuse(v['youtube']))}")
         if v.get("tiktok"):
             parts.append(f"**TikTok-Text {key}**\n\n{fenced(defuse(v['tiktok']))}")
+        if not v.get("youtube") and not v.get("tiktok"):
+            parts.append(f"_Für dieses Video gibt es keinen fertigen Beschreibungstext – Titel oben, Prüfbericht unten._")
+        befunde = [b for b in ((v.get("qa") or {}).get("befunde") or []) if isinstance(b, str)]
+        if befunde:
+            parts.append(f"**Endkontrolle {key}:** " + "; ".join(defuse(b) for b in befunde[:4]))
     uploaded = data.get("hochgeladen") or []
     if uploaded:
         from cudi_video.job import upload_note

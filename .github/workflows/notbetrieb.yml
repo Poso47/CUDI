@@ -41,6 +41,13 @@ jobs:
           CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
           CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
           CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+          # Optionale Ausweichanbieter, falls der erste das Limit meldet (429) – siehe docs/notbetrieb-einrichten.md
+          CUDI_LLM2_BASE_URL: ${{ secrets.CUDI_LLM2_BASE_URL }}
+          CUDI_LLM2_API_KEY: ${{ secrets.CUDI_LLM2_API_KEY }}
+          CUDI_LLM2_MODEL: ${{ secrets.CUDI_LLM2_MODEL }}
+          CUDI_LLM3_BASE_URL: ${{ secrets.CUDI_LLM3_BASE_URL }}
+          CUDI_LLM3_API_KEY: ${{ secrets.CUDI_LLM3_API_KEY }}
+          CUDI_LLM3_MODEL: ${{ secrets.CUDI_LLM3_MODEL }}
           CUDI_BRAVE_API_KEY: ${{ secrets.CUDI_BRAVE_API_KEY }}
           CUDI_PEXELS_API_KEY: ${{ secrets.CUDI_PEXELS_API_KEY }}
           CUDI_PIXABAY_API_KEY: ${{ secrets.CUDI_PIXABAY_API_KEY }}
@@ -86,6 +93,8 @@ jobs:
           ISSUE: ${{ inputs.issue }}
           ARTIFACT_URL: ${{ steps.artefakt.outputs.artifact-url }}
           CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+          CUDI_LLM2_API_KEY: ${{ secrets.CUDI_LLM2_API_KEY }}
+          CUDI_LLM3_API_KEY: ${{ secrets.CUDI_LLM3_API_KEY }}
         run: python .github/scripts/notbetrieb.py melden
 
   # Nach einem Upload: Eintrag (Video -> Varianten) in firma_daten/uploads.json, damit der Lern-Analyst die Zahlen zuordnen kann.
