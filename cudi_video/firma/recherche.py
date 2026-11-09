@@ -12,7 +12,9 @@ MAX_THEMEN = 3
 
 def themen() -> list[str]:
     news = common.read_json("news.json", {}) or {}
-    out = [m.get("titel", "") for m in news.get("meldungen", []) if m.get("status") == "bestätigt" and m.get("titel")]
+    best = [m for m in news.get("meldungen", []) if m.get("status") == "bestätigt" and m.get("titel")]
+    # Sprachfokus des Nutzers: deutsche Meldungen zuerst, andere nur zum Auffüllen
+    out = [m["titel"] for m in sorted(best, key=lambda m: m.get("sprache") != "de")]
     trends = (common.read_json("trends.json", {}) or {}).get("themen", [])
     out += [t.get("thema", "") for t in trends[:2] if t.get("thema")]
     seen, res = set(), []
