@@ -317,3 +317,13 @@ def test_einzelstimme_mit_gleichem_wert_ist_kein_widerspruch():
           k("https://a.de/1", "a.de", "Die Inflationsrate ohne Nahrungsmittel und Energie beträgt im Oktober 2026 voraussichtlich 2,1 %.", {"2.1": "%"}, "2026-10-30")]
     aussagen, _ = ablauf.abgleichen(ks, "fakten", date(2026, 11, 9))
     assert not any(a["status"] == "widersprochen" for a in aussagen)
+
+
+def test_rechercheur_nimmt_deutsche_meldungen_zuerst(monkeypatch, tmp_path):
+    import json
+    from cudi_video.firma import common, recherche as fr
+    monkeypatch.setattr(common, "DATA_DIR", tmp_path)
+    (tmp_path / "news.json").write_text(json.dumps({"meldungen": [
+        {"titel": "Englische Meldung", "status": "bestätigt", "sprache": "en"},
+        {"titel": "Deutsche Meldung", "status": "bestätigt", "sprache": "de"}]}), "utf-8")
+    assert fr.themen()[0] == "Deutsche Meldung"
