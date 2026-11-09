@@ -118,12 +118,24 @@ def seite_quelle(url: str) -> list[dict]:
              "text": text, "art": "seite"}] if text else []
 
 
+def recherche_quellen(thema: str, lang: str, notes: list[str]) -> list[dict]:
+    """Recherche-Agent: Suche, gelesene Seiten mit Datum/Eigentümer. Wikipedia ist hier kein Beleg (nur in fakten/geschichte).
+    Protokoll als Abschnitt „Recherche“ in `notes` (kommt in den Prüfbericht)."""
+    from .. import recherche
+
+    if not recherche.aktiv():
+        return []
+    e = recherche.recherchiere(thema, "reportage", lang, zeitraum="monat", max_seiten=5, llm=False)
+    notes.append("RECHERCHE:\n" + recherche.bericht(e))
+    return [{**q, "text": q["text"]} for q in recherche.seiten_als_quellen(e)]
+
+
 def sammle(thema: str, links: list[str], lang: str) -> tuple[list[dict], list[str]]:
     """Alle Quellen (je Quelle bleibt ein Fehler lokal) – Rückgabe (Quellen mit Kennung Q1…, Hinweise)."""
     notes: list[str] = []
     raw: list[dict] = []
     for name, func in (("News-Reporter", lambda: news_quellen(thema, links)),
-                       ("Wikipedia", lambda: wikipedia_quelle(thema, lang))):
+                       ("Recherche", lambda: recherche_quellen(thema, lang, notes))):
         try:
             raw += func()
         except Exception as exc:                          # noqa: BLE001 – eine Quelle darf ausfallen
@@ -322,8 +334,11 @@ def pruefbericht(thema: str, quellen: list[dict], saetze: list[dict], rejected: 
         z += [f"    - {b['name']}: „{b['zitat']}“" for b in sat["belege"]]
     if rejected:
         z += ["", "## Verworfen", ""] + [f"- {t} – {why}" for t, why in rejected]
+    rech = [n[len("RECHERCHE:\n"):] for n in notes if n.startswith("RECHERCHE:\n")]
+    notes = [n for n in notes if not n.startswith("RECHERCHE:\n")]
     if notes:
         z += ["", "## Hinweise", ""] + [f"- {n}" for n in notes]
+    z += ["", *rech]
     return "\n".join(z) + "\n"
 
 
@@ -379,4 +394,5 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     result = render_erklaerung(skript, out, progress=lambda f: progress("Video rendern", 0.3 + 0.65 * f), musik=False)
     files = {"video": result["video"], "cover": result["cover"], "duration": result["duration"], "qa": result.get("qa"),
              "description_file": "youtube.txt", "caption_file": "tiktok.txt", "abnahme": ab}
-    return {"output_dir": str(out), "videos": {lang: files}, "kind": "reportage", "warnings": notes}
+    return {"output_dir": str(out), "videos": {lang: files}, "kind": "reportage",
+            "warnings": [n for n in notes if not n.startswith("RECHERCHE:")]}

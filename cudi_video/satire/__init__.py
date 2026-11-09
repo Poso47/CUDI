@@ -264,6 +264,17 @@ def sammle(thema: str, links: list[str]) -> tuple[list[dict], list[str], dict]:
                 raw.append({**q, "sprache": ""})
         except Exception as exc:                          # noqa: BLE001
             notes.append(f"Link {_publisher(url)} nicht lesbar ({type(exc).__name__})")
+    if len({_publisher(q["link"]) or q["name"].casefold() for q in raw}) < MIN_PUBLISHERS:
+        try:                                              # zu wenig Quellen im News-Reporter: Recherche-Agent sucht den Kern nach
+            from .. import recherche
+
+            if recherche.aktiv() and (thema or raw):
+                e = recherche.recherchiere(thema or raw[0]["titel"], "satire", info.get("sprache") or "de", zeitraum="monat",
+                                           max_seiten=5, llm=False)
+                notes.append("RECHERCHE:\n" + recherche.bericht(e))
+                raw += [{**q, "sprache": e["sprache"]} for q in recherche.seiten_als_quellen(e)]
+        except Exception as exc:                          # noqa: BLE001 – Recherche darf ausfallen
+            notes.append(f"Recherche nicht möglich ({type(exc).__name__})")
     out, seen = [], set()
     for q in raw:
         key = (q["name"].casefold(), _norm(q["titel"]))
@@ -425,8 +436,11 @@ def pruefbericht(thema: str, quellen: list[dict], fakten: list[dict], over: list
     z += [f"- {t}" for t in over] + [f"- Pointe: {pointe}"]
     if rejected:
         z += ["", "## Verworfen", ""] + [f"- {t} – {why}" for t, why in rejected]
+    rech = [n[len("RECHERCHE:\n"):] for n in notes if n.startswith("RECHERCHE:\n")]
+    notes = [n for n in notes if not n.startswith("RECHERCHE:\n")]
     if notes:
         z += ["", "## Hinweise", ""] + [f"- {n}" for n in notes]
+    z += ["", *rech]
     return "\n".join(z) + "\n"
 
 
@@ -516,4 +530,4 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     result = render_satire(skript, out, progress=lambda f: progress("Video rendern", 0.3 + 0.65 * f))
     files = {"video": result["video"], "cover": result["cover"], "duration": result["duration"], "qa": result.get("qa"),
              "description_file": "youtube.txt", "caption_file": "tiktok.txt", "abnahme": ab}
-    return {"output_dir": str(out), "videos": {lang: files}, "kind": "satire", "warnings": notes}
+    return {"output_dir": str(out), "videos": {lang: files}, "kind": "satire", "warnings": [n for n in notes if not n.startswith("RECHERCHE:")]}
