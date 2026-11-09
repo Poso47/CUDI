@@ -299,10 +299,14 @@ def verify(spec: VideoSpec, research: Research, strict: bool = False) -> Researc
         log.info("Nachprüfung von %d Plätzen ohne Bestätigung in %d s", len(alone), RECHECK_PAUSE)
         time.sleep(RECHECK_PAUSE)
         net.reset_blocks()
-        for i in alone:
+        def again(i: int):
             item = research.items[i]
             item.value = item.verification.get("original_value", item.value) if item.verification else item.value
-            results[i] = verify_item(spec, item, checkers)
+            return i, verify_item(spec, item, checkers)
+
+        with ThreadPoolExecutor(max_workers=2) as pool:        # Tempo: Nachprüfung mit zwei Plätzen gleichzeitig (Host-Slots bremsen)
+            for i, res in pool.map(again, alone):
+                results[i] = res
     for item, result in zip(research.items, results):
         notes[item.qid] = _warnings_for(spec, item, result)
 
