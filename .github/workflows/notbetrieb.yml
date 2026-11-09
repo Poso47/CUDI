@@ -41,6 +41,7 @@ jobs:
           CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
           CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
           CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+          CUDI_BRAVE_API_KEY: ${{ secrets.CUDI_BRAVE_API_KEY }}
           CUDI_PEXELS_API_KEY: ${{ secrets.CUDI_PEXELS_API_KEY }}
           CUDI_PIXABAY_API_KEY: ${{ secrets.CUDI_PIXABAY_API_KEY }}
           CUDI_DEEPL_API_KEY: ${{ secrets.CUDI_DEEPL_API_KEY }}

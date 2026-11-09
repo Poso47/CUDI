@@ -306,6 +306,23 @@ def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use
     return out
 
 
+def themenrecherche(ideas: list[dict], notes: list[str], n: int = 2) -> None:
+    """Die ersten neuen Ideen kurz nachrecherchieren (aktuelle Quellen mit Datum/Eigentümer); Ergebnis als Feld „recherche“."""
+    from .. import recherche
+
+    if not recherche.aktiv():
+        return
+    for idea in ideas[:n]:
+        try:
+            recherche.neuer_lauf()
+            e = recherche.recherchiere(idea.get("titel", ""), "ideen", "de", max_seiten=3, llm=False)
+            idea["recherche"] = [{"text": a["text"][:200], "status": a["status"], "datum": a["neuestes_datum"],
+                                  "quellen": [{"quelle": b["quelle"], "url": b["url"], "datum": b["datum"]} for b in a["belege"][:3]]}
+                                 for a in e["aussagen"][:2]]
+        except Exception as exc:                          # noqa: BLE001 – Nachrecherche ist Zugabe
+            notes.append(f"Themenrecherche „{str(idea.get('titel'))[:40]}“: {common.short_error(exc)}")
+
+
 def run() -> dict:
     started = time.monotonic()
     notes: list[str] = []
@@ -339,6 +356,7 @@ def run() -> dict:
         raw = rule_ideas(trends, cand, presets)
     old = [i for i in common.thin_by_age(previous.get("ideen", []), "erstellt", KEEP_DAYS) if still_valid(i)]
     new = finish(raw, cand, presets, use_llm, notes, {i["id"] for i in old})
+    themenrecherche(new, notes)
     ideas = new + old
     capped, count = [], {a: 0 for a in AREAS}
     for i in ideas:

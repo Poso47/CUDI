@@ -1,0 +1,36 @@
+# Firma-Mitarbeiter „Rechercheur“ (kostenlos, kein Claude-Verbrauch): schreibt firma_daten/recherche.json, sichert per Bot-Commit.
+# Siehe CLAUDE.md, Abschnitt „Firma-Mitarbeiter (GitHub)“.
+name: Firma · Rechercheur
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Alle Firma-Läufe nacheinander, damit sich die Commits nicht in die Quere kommen
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  recherche:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml beautifulsoup4 lxml
+      - name: Aktuellen Stand holen
+        run: git pull --ff-only
+      - name: Rechercheur arbeitet
+        env:
+          CUDI_BRAVE_API_KEY: ${{ secrets.CUDI_BRAVE_API_KEY }}
+        run: python -m cudi_video.firma recherche
+      - name: Ergebnis sichern
+        run: bash scripts/firma_commit.sh "Rechercheur"

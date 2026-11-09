@@ -420,10 +420,67 @@ class FactCheckSearch:
         return hits
 
 
+class RechercheChecker(Checker):
+    """Aktuelle Werte aus dem Web (Recherche-Agent): sucht „<Objekt> <Thema>“, liest die Treffer und prüft den Wert nahe dem Objektnamen.
+    Jede Seite bringt ihr Datum mit – bei Abweichung entscheidet der Abgleich (neuere unabhängige Quellen -> „korrigiert“, mit Datum).
+    Nur für freie Themen (confirmed_only), höchstens MAX_ITEMS Objekte je Lauf; Wikipedia zählt hier nicht (kein fakten/geschichte-Bereich)."""
+
+    name = "Recherche"
+    origin = "aktuelle Webquelle (gelesen, datiert)"
+    MAX_ITEMS = 4
+    MAX_PAGES = 3
+    _done = 0
+
+    @classmethod
+    def reset(cls) -> None:
+        cls._done = 0
+
+    def applies(self, spec, item):
+        return bool(spec.confirmed_only) and self._done < self.MAX_ITEMS
+
+    def check(self, spec, item):
+        from .. import recherche
+        from ..eigentuemer import host_von
+        from ..recherche import lesen, wikipedia
+
+        type(self)._done += 1
+        label = item.labels.get("de") or item.labels.get("en") or next(iter(item.labels.values()), "")
+        q = quantity(item.value, item.unit, spec.unit)
+        symbol = q.unit.symbol if q.unit else ""
+        if not label or symbol not in UNIT_FACTORS:
+            return []
+        recherche.neuer_lauf()
+        title = (getattr(spec, "title", None) or {}).get("de", "") if isinstance(getattr(spec, "title", None), dict) else ""
+        res = recherche.suche([f"{label} {title}".strip(), f"{label} {symbol}"], "de", None, "fakten")
+        out: list[Evidence] = []
+        for t in res["treffer"]:
+            if wikipedia.ist_wikipedia(t["url"]) or len(out) >= self.MAX_PAGES:
+                continue
+            page = lesen.lese(t["url"])
+            if not page["ok"]:
+                continue
+            low, pos = page["text"].casefold(), page["text"].casefold().find(label.casefold())
+            if pos < 0:
+                continue
+            near = page["text"][max(0, pos - 300): pos + 500]
+            found = closest_unit_value(near, q.value, symbol, window=0.3)
+            if found is None:
+                continue
+            value, precision = found
+            out.append(Evidence(f"Recherche: {host_von(t['url'])}", self.origin, page["url"], value / q.unit.factor, page["datum"],
+                                note=f"{value:g} {symbol} (Seite vom {page['datum'] or 'unbekannt'}, {page['eigentuemer']})",
+                                precision=precision / q.unit.factor))
+        return out
+
+
 def checkers_for(spec: VideoSpec, with_wikipedia: bool = True) -> list[Checker]:
     checkers: list[Checker] = [WikidataChecker(), WorldBankChecker(), FactbookChecker(), OSMChecker()]
     if with_wikipedia:
         checkers += [WikipediaLangChecker(lang) for lang in config.CHECK_LANGS]
     if config.CHECK_WEB:
         checkers.append(ExternalSourcesChecker())
+        from .. import recherche
+        if recherche.aktiv() and spec.confirmed_only:
+            RechercheChecker.reset()
+            checkers.append(RechercheChecker())
     return checkers
