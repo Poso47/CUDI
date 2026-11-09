@@ -1,70 +1,74 @@
 # CUDI-Briefing 2026-11-09
 
-Der Krakauer Schießverdächtige ist im Krankenhaus gestorben. Mindestens fünf Menschen, darunter vier Kinder, wurden nach starken Regenfällen und Überschwemmungen getötet. G7-Minister treffen sich, während Europa eine größere Rolle bei Ukraine-Friedensgesprächen anstrebt. Papst Leo fordert Argentiniens Milei auf, Menschen vor die Wirtschaft zu stellen. Paraguays ehemaliger Präsident wurde nach einem Bankenkollaps angeklagt. Nvidia-CEO Huang gibt eine Affäre zu. Offene Frage: Warum berichten ausländische Betreiber über Hitlers Adlerhorst, während deutsche Medien keine passende Meldung haben?
+Der Schießerei-Verdächtige in Krakau ist im Krankenhaus gestorben. Vor Senegal sank ein Migrantenboot mit mindestens 34 Toten. Nach starken Regenfällen und Überschwemmungen wurden mindestens fünf Menschen, darunter vier Kinder, getötet und mehrere gerettet. Es laufen Untersuchungen nach einer Affäre des Nvidia-Chefs Huang mit einer mutmaßlichen Spionin. Die EU kündigte ihre Teilnahme an Ukraine-Gesprächen in Abu Dhabi an. Offene Fragen betreffen Berichte über Hitlers Adlerhorst und die Bestätigung von Meldungen zu G7-Außenministern und der Nominierung von Ilse Aigner.
 
 ## 0. Die wichtigsten Meldungen (je höchstens 5 Zeilen)
 
-- Krakow shooting suspect has died in hospital, police say – bestätigt von 2 unabhängigen Betreibern.
-    · BBC World: 'I treat all these people like they are victims', says doctor who treated Krakow shooting suspect
-    · Deutsche Welle (en): Poland: Gunman kills 6 in Krakow main square, police say
-  Quellen: [BBC World](https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/poland-gunman-kills-6-in-krakow-main-square-police-say/a-79886489?maca=en-rss-en-all-1573-xml-mrss)
-- At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a… – bestätigt von 3 unabhängigen Betreibern.
-    · Wikipedia · Al Jazeera: At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a…
-    · Wikipedia · Shafaq: Three people are killed and more than 300 others are rescued from severe flooding in Erbil , Kurdistan Region , Iraq .
-    · Wikipedia · AP: Two people are killed and 16 injured in a bus crash in Lent , Ain , France . (AP)
+- Krakow shooting suspect has died in hospital, police say – bestätigt von 2 unabhängigen Quellgruppen.
+    · BBC World – gehört BBC: 'I treat all these people like they are victims', says doctor who treated Krakow shooting suspect
+    · Deutsche Welle (en) – staatlich (Deutschland): Krakow mass shooting suspect has died in hospital, police in Poland say
+  Quellen: [BBC World](https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/krakow-mass-shooting-suspect-has-died-in-hospital-police-in-poland-say/a-79895626?maca=en-rss-en-all-1573-xml-mrss)
+- At least 34 dead after Europe-bound migrant boat sinks off Senegal – bestätigt von 3 unabhängigen Quellgruppen.
+    · BBC World – gehört BBC: At least 34 dead after Europe-bound migrant boat sinks off Senegal
+    · Wikipedia · DW – staatlich (Deutschland): At least 34 people are killed when a small boat carrying migrants capsizes off the coast of Kébémer , Louga , Senegal . (DW)
+    · Wikipedia · Xinhua – staatlich (China): Twenty-one people are killed and one person has been rescued after a migrant boat sinks off the coast of Kebemer , Louga region , Senegal .
+  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss) [Wikipedia · DW](https://www.dw.com/en/many-killed-after-migrant-boat-sinks-off-senegal/a-79890883) [Wikipedia · Xinhua](https://english.news.cn/20261108/b421ddd6df0c45a7aff62b629f9a3581/c.html)
+- At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a… – bestätigt von 3 unabhängigen Quellgruppen.
+    · Wikipedia · Al Jazeera – staatlich (Katar): At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a…
+    · Wikipedia · Shafaq – Eigentümer unbekannt: Three people are killed and more than 300 others are rescued from severe flooding in Erbil , Kurdistan Region , Iraq .
+    · Wikipedia · AP – gehört The Associated Press: Two people are killed and 16 injured in a bus crash in Lent , Ain , France . (AP)
   Quellen: [Wikipedia · Al Jazeera](https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter) [Wikipedia · Shafaq](https://shafaq.com/en/Kurdistan/Erbil-floods-kill-three-over-300-rescued) [Wikipedia · AP](https://apnews.com/article/france-bus-crash-e024a5428966dd6c3415c881bc503811)
-- G7 ministers meet as Europe seeks greater say in Ukraine peace talks – bestätigt von 2 unabhängigen Betreibern.
-    · Deutsche Welle (en): G7 ministers meet as Europe seeks greater say in Ukraine peace talks
-    · NPR: Europe to join U.S.-brokered Ukraine talks in Abu Dhabi, defying Kremlin objections
-  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/g7-ministers-meet-as-europe-seeks-greater-say-in-ukraine-peace-talks/a-79894960?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6034014/europe-join-us-brokered-ukraine-talks-abu-dhabi-russia)
-- Pope Leo urges Argentina's Milei to put people before the economy – bestätigt von 2 unabhängigen Betreibern.
-    · Deutsche Welle (en): Pope Leo urges Argentina's Milei to put people before the economy
-    · NPR: After a successful trip to Uruguay, Pope Leo heads to Argentina
-  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/pope-leo-urges-argentina-s-milei-to-put-people-before-the-economy/a-79894779?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6033992/after-a-successful-trip-to-uruguay-pope-leo-heads-to-argentina)
-- Paraguay's former president charged after bank collapse – bestätigt von 2 unabhängigen Betreibern.
-    · BBC World: Paraguay's former president charged after bank collapse
-    · NPR: How a bank collapse left millions in limbo and toppled Paraguay's president
-  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss) [NPR](https://www.npr.org/2026/11/09/nx-s1-6034066/paraguay-president-pena-ueno)
+- Untersuchungen nach Affäre von Nvidia-Chef Huang mit mutmaßlicher Spionin – bestätigt von 2 unabhängigen Quellgruppen.
+    · Tagesschau – gehört ARD: Untersuchung gegen Nvidia-Chef Huang wegen möglicher Spionin aus China
+    · Deutsche Welle – staatlich (Deutschland): Nvidia-Chef Huang wegen Spionageverdachts unter Druck
+  Quellen: [Tagesschau](https://www.tagesschau.de/wirtschaft/unternehmen/nvidia-spionage-pruefung-100.html) [Deutsche Welle](https://www.dw.com/de/nvidia-chef-huang-wegen-spionageverdachts-unter-druck/a-79895905?maca=de-rss-de-all-1119-xml-mrss)
+- Ukraine-Gespräche in Abu Dhabi: EU kündigt Teilnahme an – bestätigt von 2 unabhängigen Quellgruppen.
+    · Tagesschau – gehört ARD: Ukraine-Gespräche in Abu Dhabi: EU kündigt Teilnahme an
+    · Deutsche Welle – staatlich (Deutschland): Russland lehnt Europas Teilnahme an Ukraine-Gesprächen ab
+  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-100.html) [Deutsche Welle](https://www.dw.com/de/russland-lehnt-europas-teilnahme-an-ukraine-gesprächen-ab/a-79897668?maca=de-rss-de-all-1119-xml-mrss)
+- Frühere Meldung vom 2026-11-08: „Many killed after migrant boat sinks off Senegal“ – zu „At least 34 dead after Europe-bound migrant boat sinks off Senegal“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.dw.com/en/many-killed-after-migrant-boat-sinks-off-senegal/a-79890883?maca=en-rss-en-all-1573-xml-mrss)
 - Frühere Meldung vom 2026-11-08: „Six people are killed and 15 more injured in a drive-by mass shooting in the center of Kraków , Poland . The perpetrator, who…“ – zu „At least five people are killed, including four children, and several injured people are rescued…“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
   Quellen: [frühere Meldung](https://www.reuters.com/world/europe/two-kiled-least-10-injured-shooting-polish-city-krakow-tvn24-reports-2026-11-07/)
-- Frühere Meldung vom 2026-11-08: „Paraguay's former president charged after bank collapse“ – zu „Paraguay's former president charged after bank collapse“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
-  Quellen: [frühere Meldung](https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss)
-- Frühere Meldung vom 2026-11-08: „Jensen Huang leather jacket : Jensen Huang wife and daughter dress him : Who really picks the Nvidia CEO famous leather jacket“ – zu „Nvidia CEO Huang admits affair amid rumors of China spy ties“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
-  Quellen: [frühere Meldung](https://economictimes.indiatimes.com/news/international/us/jensen-huangs-wife-and-daughter-dress-him-who-really-picks-the-nvidia-ceos-famous-leather-jacket/articleshow/135660430.cms)
-- Frühere Meldung vom 2026-11-08: „Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung“ – zu „Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
-  Quellen: [frühere Meldung](https://www.tagesschau.de/ausland/asien/israel-auftrag-regierungsbildung-eisenkot-100.html)
 - Frühere Meldung vom 2026-11-08: „Seven dead and more than 100 injured after trains collide in Egypt“ – zu „Seven dead and more than 100 injured after trains collide in Egypt“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
   Quellen: [frühere Meldung](https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss)
+- Frühere Meldung vom 2026-11-08: „South Africa elections: ANC marks its worst-ever performance“ – zu „'Devastating message' as ANC records worst-ever result in South Africa election“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.dw.com/en/south-africa-elections-anc-marks-its-worst-ever-performance/a-79887482?maca=en-rss-en-all-1573-xml-mrss)
+- Frühere Meldung vom 2026-11-08: „Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung“ – zu „Israel: Oppositionsführer Eisenkot soll neue Regierung bilden“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.tagesschau.de/ausland/asien/israel-auftrag-regierungsbildung-eisenkot-100.html)
 
 ## 1. Firma – was lief
 
-- Ideen-Entwickler: 7 neue Ideen (regeln) (Lauf 2026-11-08T21:57:43Z).
-- Hinweis von Ideen-Entwickler: Sprachmodell nicht nutzbar, regelbasiert: HTTPError: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions
-- News-Reporter: 60 Meldungen, davon 13 bestätigt (Lauf 2026-11-09T07:05:18Z).
-- Hinweis von News-Reporter: GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)
+- Clip-Scout: Keine Creator eingetragen (clip_creators.json), 25 offene Kampagnen gelesen (Lauf 2026-11-09T14:35:08Z).
+- Hinweis von Clip-Scout: clip_creators.json fehlt oder ist leer – bitte Creator eintragen (Beispiel: docs/clip-team.md).
+- Ideen-Entwickler: 18 neue Ideen (llm) (Lauf 2026-11-09T13:59:17Z).
+- Messung: Keine Post-Links vorhanden – nichts gemessen (Lauf 2026-11-09T14:43:23Z).
+- Hinweis von Messung: Noch keine Post-Links (uploads.json / clip_radar.json clip_posts) – nichts zu messen.
+- News-Reporter: 60 Meldungen, davon 15 bestätigt (Lauf 2026-11-09T14:37:13Z).
+- Hinweis von News-Reporter: GDELT: keine Daten erhalten
 - Putzmann: 0 entfernt (Lauf 2026-11-09T12:04:33Z).
 - Trend-Scout: 80 Themen aus 2 Quellen (Lauf 2026-11-09T06:09:01Z).
 - Hinweis von Trend-Scout: YouTube DE: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)
 - Hinweis von Trend-Scout: YouTube US: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)
 - Welt-Blick: 16 Themen, 1 nur im Ausland, 0 Verbindungen (Lauf 2026-11-09T06:56:32Z).
 - Wissens-Sammler: 28 Quellen gelesen, 6 neue Regeln, 12 gesamt (Lauf 2026-11-09T13:17:53Z).
-- 28 neue Video-Ideen in den letzten 24 Stunden, z. B. „bundespräsident deutschland: die wichtigsten Fakten“ und „seahawks game today: die wichtigsten Fakten“.
+- 44 neue Video-Ideen in den letzten 24 Stunden, z. B. „Das Marine-Kaffeebecher-Tabu“ und „Whoopi Goldbergs echter Name“.
 - Wissens-Sammler: 6 neue Regeln gelernt.
 
 ## 2. Bestätigte Meldungen (≥ 2 unabhängige Betreiber)
 
-- Krakow shooting suspect has died in hospital, police say – bestätigt von 2 unabhängigen Betreibern.
-  Quellen: [BBC World](https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/poland-gunman-kills-6-in-krakow-main-square-police-say/a-79886489?maca=en-rss-en-all-1573-xml-mrss)
-- At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a… – bestätigt von 3 unabhängigen Betreibern.
+- Krakow shooting suspect has died in hospital, police say – bestätigt von 2 unabhängigen Quellgruppen (BBC World – gehört BBC; Deutsche Welle (en) – staatlich (Deutschland)).
+  Quellen: [BBC World](https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/krakow-mass-shooting-suspect-has-died-in-hospital-police-in-poland-say/a-79895626?maca=en-rss-en-all-1573-xml-mrss)
+- At least 34 dead after Europe-bound migrant boat sinks off Senegal – bestätigt von 3 unabhängigen Quellgruppen (BBC World – gehört BBC; Wikipedia · DW – staatlich (Deutschland); Wikipedia · Xinhua – staatlich (China)).
+  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss) [Wikipedia · DW](https://www.dw.com/en/many-killed-after-migrant-boat-sinks-off-senegal/a-79890883) [Wikipedia · Xinhua](https://english.news.cn/20261108/b421ddd6df0c45a7aff62b629f9a3581/c.html)
+- At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a… – bestätigt von 3 unabhängigen Quellgruppen (Wikipedia · Al Jazeera – staatlich (Katar); Wikipedia · Shafaq – Eigentümer unbekannt; Wikipedia · AP – gehört The Associated Press).
   Quellen: [Wikipedia · Al Jazeera](https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter) [Wikipedia · Shafaq](https://shafaq.com/en/Kurdistan/Erbil-floods-kill-three-over-300-rescued) [Wikipedia · AP](https://apnews.com/article/france-bus-crash-e024a5428966dd6c3415c881bc503811)
-- G7 ministers meet as Europe seeks greater say in Ukraine peace talks – bestätigt von 2 unabhängigen Betreibern.
-  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/g7-ministers-meet-as-europe-seeks-greater-say-in-ukraine-peace-talks/a-79894960?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6034014/europe-join-us-brokered-ukraine-talks-abu-dhabi-russia)
-- Pope Leo urges Argentina's Milei to put people before the economy – bestätigt von 2 unabhängigen Betreibern.
-  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/pope-leo-urges-argentina-s-milei-to-put-people-before-the-economy/a-79894779?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6033992/after-a-successful-trip-to-uruguay-pope-leo-heads-to-argentina)
-- Paraguay's former president charged after bank collapse – bestätigt von 2 unabhängigen Betreibern.
-  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/c68jzzvjgdy9o?at_medium=RSS&at_campaign=rss) [NPR](https://www.npr.org/2026/11/09/nx-s1-6034066/paraguay-president-pena-ueno)
-- Nvidia CEO Huang admits affair amid rumors of China spy ties – bestätigt von 2 unabhängigen Betreibern.
-  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/nvidia-ceo-huang-admits-affair-amid-rumors-of-china-spy-ties/a-79894747?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/08/nx-s1-6034036/nvidia-launches-investigation-into-ceos-alleged-relationship-with-chinese-spy)
+- Untersuchungen nach Affäre von Nvidia-Chef Huang mit mutmaßlicher Spionin – bestätigt von 2 unabhängigen Quellgruppen (Tagesschau – gehört ARD; Deutsche Welle – staatlich (Deutschland)).
+  Quellen: [Tagesschau](https://www.tagesschau.de/wirtschaft/unternehmen/nvidia-spionage-pruefung-100.html) [Deutsche Welle](https://www.dw.com/de/nvidia-chef-huang-wegen-spionageverdachts-unter-druck/a-79895905?maca=de-rss-de-all-1119-xml-mrss)
+- Ukraine-Gespräche in Abu Dhabi: EU kündigt Teilnahme an – bestätigt von 2 unabhängigen Quellgruppen (Tagesschau – gehört ARD; Deutsche Welle – staatlich (Deutschland)).
+  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-100.html) [Deutsche Welle](https://www.dw.com/de/russland-lehnt-europas-teilnahme-an-ukraine-gesprächen-ab/a-79897668?maca=de-rss-de-all-1119-xml-mrss)
+- What do we know about Nvidia CEO’s affair with a suspected Chinese spy? – bestätigt von 2 unabhängigen Quellgruppen (Wikipedia · BBC News – gehört BBC; Deutsche Welle (en) – staatlich (Deutschland)).
+  Quellen: [Wikipedia · BBC News](https://www.bbc.com/news/live/cm78p221e313t) [Deutsche Welle (en)](https://www.dw.com/en/nvidia-ceo-huang-admits-affair-amid-rumors-of-china-spy-ties/a-79894747?maca=en-rss-en-all-1573-xml-mrss)
 
 ## 3. Deutschland von außen
 
@@ -95,7 +99,11 @@ Der Krakauer Schießverdächtige ist im Krankenhaus gestorben. Mindestens fünf 
   Quellen: [BBC Europe](https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss) [Dawn](https://www.dawn.com/news/2043132/hitlers-retreat-sparks-debate-over-germanys-past-and-present)
 - OFFENE FRAGE (unbelegt): Wird „G7-Außenminister sprechen über Ukraine und Iran“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
   Quellen: [Tagesschau](https://www.tagesschau.de/ausland/europa/g7-paris-100.html)
-- OFFENE FRAGE (unbelegt): Wird „Todesschütze von Krakau ist tot“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
-  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/europa/krakau-todesschuetze-tot-100.html)
+- OFFENE FRAGE (unbelegt): Wird „Christoph Mestmacher, ARD Berlin, zur offiziellen Nominierung von Ilse Aigner als Bundespräsidentin“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
+  Quellen: [Tagesschau](https://www.tagesschau.de/video/video-1680774.html)
+
+## 6. Clip-Team (nur Belegtes)
+
+- Kein belegtes Clip-Material und keine Messwerte heute.
 
 _Nur aus den gesammelten Daten; Quellen in Klammern. Unbelegtes steht nur als „offene Frage“._
