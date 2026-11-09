@@ -1,11 +1,13 @@
 {
- "erzeugt": "2026-11-09T14:59:24Z",
- "anzahl": 18,
+ "erzeugt": "2026-11-09T16:48:06Z",
+ "anzahl": 13,
  "hinweise": [
   "clip_creators.json fehlt oder ist leer – optional: eigene Creator/Sperrliste eintragen (docs/clip-team.md).",
   "Entdeckung Aufruf-Suche: nicht erreichbar (RuntimeError: YouTube-Suche nicht lesbar)",
   "Entdeckung YouTube-Trends: keine Daten erhalten",
-  "Twitch-Top-Liste: ohne Anmeldung gibt es keine öffentliche Quelle – Twitch-Kanäle kommen über Reddit, Wikidata und Kampagnen."
+  "Entdeckung Wikipedia-Personen: keine Daten erhalten",
+  "Twitch-Top-Liste: ohne Anmeldung gibt es keine öffentliche Quelle – Twitch-Kanäle kommen über Grundliste, Reddit, Wikidata und Kampagnen.",
+  "Sprachfokus de: 15 Treffer anderer Sprache nicht beobachtet."
  ],
  "cache": {
   "oembed": {},
@@ -17,440 +19,324 @@
    "de:Ilse Aigner": {},
    "de:Hubert Aiwanger": {},
    "de:Tanja Schweiger": {},
-   "de:Leonard Cohen": {}
+   "de:Leonard Cohen": {},
+   "de:Ronald Zehrfeld": {},
+   "de:Clint Eastwood": {},
+   "de:Vanessa Emde": {},
+   "de:Anna Pieri Zuercher": {}
   }
  },
  "creators": [
   {
-   "key": "youtube:ucswh8ovgup5bdg-0_jtyfnw",
-   "name": "Russell Brand",
-   "plattform": "youtube",
-   "kanal": "UCswH8ovgUp5Bdg-0_JTYFNw",
-   "grund": "Wikipedia-Top Rang 8 (de), Beruf laut Wikidata passt",
+   "key": "twitch:montanablack88",
+   "name": "MontanaBlack",
+   "plattform": "twitch",
+   "kanal": "montanablack88",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "wikipedia"
+    "grundliste_de"
    ],
    "signal": {
-    "wiki_rang": 8,
-    "aufrufe_je_stunde": 0
+    "aufrufe_je_stunde": 1.9
    },
-   "punkte": 38,
-   "link": "https://de.wikipedia.org/wiki/Russell_Brand",
+   "punkte": 15,
+   "link": "https://www.twitch.tv/montanablack88",
    "kanal_bestaetigt": true,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
    "signale": [
-    "Trends: Wikipedia-Top Rang 8"
+    "Twitch-Clips: 4 öffentliche Clips der letzten 24 h"
    ],
-   "aufrufe_je_stunde": 0,
+   "aufrufe_je_stunde": 1.9,
    "kanal_geprueft": true
   },
   {
-   "key": "youtube:ishowspeed",
-   "name": "IShowSpeed",
-   "plattform": "youtube",
-   "kanal": "@IShowSpeed",
-   "grund": "Kampagne „$8,000 Expedia x IShowSpeed Campaign“ (contentrewards) nennt den Kanal",
+   "key": "twitch:trymacs",
+   "name": "Trymacs",
+   "plattform": "twitch",
+   "kanal": "trymacs",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "kampagne"
+    "grundliste_de"
    ],
    "signal": {
-    "kampagnen": 1,
-    "aufrufe_je_stunde": 30759.1
+    "aufrufe_je_stunde": 42.3
    },
-   "punkte": 30,
-   "link": "https://contentrewards.com/c/campaigns/afeca1a0-f44c-46ad-8194-09d62b56589e",
+   "punkte": 15,
+   "link": "https://www.twitch.tv/trymacs",
    "kanal_bestaetigt": true,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
-   "erlaubnis": "geduldet",
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
+   "erlaubnis": "unklar",
    "signale": [
-    "Kampagne: contentrewards-Kampagne nennt den Kanal"
+    "Twitch-Clips: 20 öffentliche Clips der letzten 24 h"
    ],
-   "aufrufe_je_stunde": 30759.1,
+   "aufrufe_je_stunde": 42.3,
    "kanal_geprueft": true
   },
   {
-   "key": "twitch:destiny",
-   "name": "Destiny",
+   "key": "twitch:papaplatte",
+   "name": "Papaplatte",
    "plattform": "twitch",
-   "kanal": "destiny",
-   "grund": "In r/LivestreamFail 4× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
+   "kanal": "papaplatte",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "reddit"
+    "grundliste_de"
    ],
    "signal": {
-    "reddit_beitraege": 4,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 0
+    "aufrufe_je_stunde": 55.2
    },
-   "punkte": 29.8,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xrq1nu/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "punkte": 15,
+   "link": "https://www.twitch.tv/papaplatte",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
-   "signale": [],
-   "aufrufe_je_stunde": 0,
-   "kanal_geprueft": false
-  },
-  {
-   "key": "twitch:hachubby",
-   "name": "HAchubby",
-   "plattform": "twitch",
-   "kanal": "hachubby",
-   "grund": "In r/LivestreamFail 3× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
-   "quellen": [
-    "reddit"
+   "signale": [
+    "Twitch-Clips: 20 öffentliche Clips der letzten 24 h"
    ],
-   "signal": {
-    "reddit_beitraege": 3,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 0.9
-   },
-   "punkte": 25,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xr4hyh/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
-   "erlaubnis": "unklar",
-   "signale": [],
-   "aufrufe_je_stunde": 0.9,
+   "aufrufe_je_stunde": 55.2,
    "kanal_geprueft": true
   },
   {
-   "key": "twitch:dariusirl",
-   "name": "DariusIRL",
+   "key": "twitch:knossi",
+   "name": "Knossi",
    "plattform": "twitch",
-   "kanal": "dariusirl",
-   "grund": "In r/LivestreamFail 3× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
+   "kanal": "knossi",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "reddit"
+    "grundliste_de"
    ],
    "signal": {
-    "reddit_beitraege": 3,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 0
-   },
-   "punkte": 20.8,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xrlj6x/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
-   "erlaubnis": "unklar",
-   "signale": [],
-   "aufrufe_je_stunde": 0,
-   "kanal_geprueft": false
-  },
-  {
-   "key": "twitch:sodapoppin",
-   "name": "Sodapoppin",
-   "plattform": "twitch",
-   "kanal": "sodapoppin",
-   "grund": "In r/LivestreamFail 2× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
-   "quellen": [
-    "reddit"
-   ],
-   "signal": {
-    "reddit_beitraege": 2,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 2497.9
-   },
-   "punkte": 20,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xqtzj3/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
-   "erlaubnis": "unklar",
-   "signale": [],
-   "aufrufe_je_stunde": 2497.9,
-   "kanal_geprueft": true
-  },
-  {
-   "key": "twitch:dorozea",
-   "name": "Dorozea",
-   "plattform": "twitch",
-   "kanal": "dorozea",
-   "grund": "In r/LivestreamFail 2× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
-   "quellen": [
-    "reddit"
-   ],
-   "signal": {
-    "reddit_beitraege": 2,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 6.6
-   },
-   "punkte": 20,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xqh6bl/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
-   "erlaubnis": "unklar",
-   "signale": [],
-   "aufrufe_je_stunde": 6.6,
-   "kanal_geprueft": true
-  },
-  {
-   "key": "twitch:aris",
-   "name": "Aris",
-   "plattform": "twitch",
-   "kanal": "aris",
-   "grund": "In r/LivestreamFail 1× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
-   "quellen": [
-    "reddit"
-   ],
-   "signal": {
-    "reddit_beitraege": 1,
-    "reddit_sub": "LivestreamFail",
     "aufrufe_je_stunde": 0
    },
    "punkte": 15,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xrdiik/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "link": "https://www.twitch.tv/knossi",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
    "kanal_geprueft": false
   },
   {
-   "key": "twitch:kaya",
-   "name": "Kaya",
+   "key": "twitch:handofblood",
+   "name": "HandOfBlood",
    "plattform": "twitch",
-   "kanal": "kaya",
-   "grund": "In r/LivestreamFail 1× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
+   "kanal": "handofblood",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "reddit"
+    "grundliste_de"
    ],
    "signal": {
-    "reddit_beitraege": 1,
-    "reddit_sub": "LivestreamFail",
     "aufrufe_je_stunde": 0
    },
    "punkte": 15,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xrb8ck/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "link": "https://www.twitch.tv/handofblood",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
    "kanal_geprueft": false
   },
   {
-   "key": "twitch:forsen",
-   "name": "Forsen",
+   "key": "twitch:reved",
+   "name": "Reved",
    "plattform": "twitch",
-   "kanal": "forsen",
-   "grund": "In r/LivestreamFail 1× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
+   "kanal": "reved",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "reddit"
+    "grundliste_de"
    ],
    "signal": {
-    "reddit_beitraege": 1,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 29.8
+    "aufrufe_je_stunde": 0
    },
    "punkte": 15,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xr2ovu/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "link": "https://www.twitch.tv/reved",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
    "signale": [],
-   "aufrufe_je_stunde": 29.8,
+   "aufrufe_je_stunde": 0,
+   "kanal_geprueft": false
+  },
+  {
+   "key": "twitch:gronkh",
+   "name": "Gronkh",
+   "plattform": "twitch",
+   "kanal": "gronkh",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
+   "quellen": [
+    "grundliste_de"
+   ],
+   "signal": {
+    "aufrufe_je_stunde": 29.4
+   },
+   "punkte": 15,
+   "link": "https://www.twitch.tv/gronkh",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
+   "erlaubnis": "unklar",
+   "signale": [
+    "Twitch-Clips: 11 öffentliche Clips der letzten 24 h"
+   ],
+   "aufrufe_je_stunde": 29.4,
    "kanal_geprueft": true
   },
   {
-   "key": "twitch:zoil",
-   "name": "Zoil",
+   "key": "twitch:eliasn97",
+   "name": "EliasN97",
    "plattform": "twitch",
-   "kanal": "zoil",
-   "grund": "In r/LivestreamFail 1× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
+   "kanal": "eliasn97",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "reddit"
+    "grundliste_de"
    ],
    "signal": {
-    "reddit_beitraege": 1,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 2.3
+    "aufrufe_je_stunde": 22.9
    },
    "punkte": 15,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xqroee/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "link": "https://www.twitch.tv/eliasn97",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
-   "signale": [],
-   "aufrufe_je_stunde": 2.3,
+   "signale": [
+    "Twitch-Clips: 20 öffentliche Clips der letzten 24 h"
+   ],
+   "aufrufe_je_stunde": 22.9,
    "kanal_geprueft": true
   },
   {
-   "key": "twitch:tommy",
-   "name": "Tommy",
+   "key": "twitch:stegi",
+   "name": "Stegi",
    "plattform": "twitch",
-   "kanal": "tommy",
-   "grund": "In r/LivestreamFail 1× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
+   "kanal": "stegi",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "reddit"
+    "grundliste_de"
    ],
    "signal": {
-    "reddit_beitraege": 1,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 3.0
+    "aufrufe_je_stunde": 25.0
    },
    "punkte": 15,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xqmh92/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "link": "https://www.twitch.tv/stegi",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
    "signale": [],
-   "aufrufe_je_stunde": 3.0,
+   "aufrufe_je_stunde": 25.0,
    "kanal_geprueft": true
   },
   {
-   "key": "twitch:tyler1",
-   "name": "Tyler1",
+   "key": "twitch:rewinside",
+   "name": "Rewinside",
    "plattform": "twitch",
-   "kanal": "tyler1",
-   "grund": "In r/LivestreamFail 1× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
+   "kanal": "rewinside",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "reddit"
+    "grundliste_de"
    ],
    "signal": {
-    "reddit_beitraege": 1,
-    "reddit_sub": "LivestreamFail",
+    "aufrufe_je_stunde": 1.0
+   },
+   "punkte": 15,
+   "link": "https://www.twitch.tv/rewinside",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
+   "erlaubnis": "unklar",
+   "signale": [
+    "Twitch-Clips: 6 öffentliche Clips der letzten 24 h"
+   ],
+   "aufrufe_je_stunde": 1.0,
+   "kanal_geprueft": true
+  },
+  {
+   "key": "twitch:sidneyeweka",
+   "name": "Sidney",
+   "plattform": "twitch",
+   "kanal": "sidneyeweka",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
+   "quellen": [
+    "grundliste_de"
+   ],
+   "signal": {
     "aufrufe_je_stunde": 0
    },
-   "punkte": 11.7,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xq8naw/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "punkte": 15,
+   "link": "https://www.twitch.tv/sidneyeweka",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
    "kanal_geprueft": false
   },
   {
-   "key": "twitch:hasan",
-   "name": "Hasan",
+   "key": "twitch:mckytv",
+   "name": "Mcky",
    "plattform": "twitch",
-   "kanal": "hasan",
-   "grund": "In r/LivestreamFail 2× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
+   "kanal": "mckytv",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "reddit"
+    "grundliste_de"
    ],
    "signal": {
-    "reddit_beitraege": 2,
-    "reddit_sub": "LivestreamFail",
     "aufrufe_je_stunde": 0
    },
-   "punkte": 10.8,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xqber2/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "punkte": 15,
+   "link": "https://www.twitch.tv/mckytv",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
    "kanal_geprueft": false
   },
   {
-   "key": "twitch:paymoneywubby",
-   "name": "PayMoneyWubby",
+   "key": "twitch:staiy",
+   "name": "Staiy",
    "plattform": "twitch",
-   "kanal": "paymoneywubby",
-   "grund": "In r/LivestreamFail 1× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
+   "kanal": "staiy",
+   "sprache": "de",
+   "grund": "Bekannter deutschsprachiger Creator (Grundliste)",
    "quellen": [
-    "reddit"
+    "grundliste_de"
    ],
    "signal": {
-    "reddit_beitraege": 1,
-    "reddit_sub": "LivestreamFail",
     "aufrufe_je_stunde": 0
    },
-   "punkte": 10.1,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xqo323/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
+   "punkte": 15,
+   "link": "https://www.twitch.tv/staiy",
+   "kanal_bestaetigt": true,
+   "erste_sichtung": "2026-11-09T16:47:57Z",
+   "zuletzt": "2026-11-09T16:47:57Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
    "kanal_geprueft": false
-  },
-  {
-   "key": "twitch:daddygo",
-   "name": "DaddyGo",
-   "plattform": "twitch",
-   "kanal": "daddygo",
-   "grund": "In r/LivestreamFail 2× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
-   "quellen": [
-    "reddit"
-   ],
-   "signal": {
-    "reddit_beitraege": 2,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 0
-   },
-   "punkte": 10.0,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xrjsw3/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
-   "erlaubnis": "unklar",
-   "signale": [],
-   "aufrufe_je_stunde": 0,
-   "kanal_geprueft": false
-  },
-  {
-   "key": "twitch:clavicular",
-   "name": "Clavicular",
-   "plattform": "twitch",
-   "kanal": "clavicular",
-   "grund": "In r/LivestreamFail 2× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
-   "quellen": [
-    "reddit"
-   ],
-   "signal": {
-    "reddit_beitraege": 2,
-    "reddit_sub": "LivestreamFail",
-    "aufrufe_je_stunde": 0
-   },
-   "punkte": 10.0,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xqyge0/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
-   "erlaubnis": "unklar",
-   "signale": [],
-   "aufrufe_je_stunde": 0,
-   "kanal_geprueft": false
-  },
-  {
-   "key": "twitch:wow",
-   "name": "WoW",
-   "plattform": "twitch",
-   "kanal": "",
-   "grund": "In r/LivestreamFail 2× in Beitragstiteln genannt (48 h; Name aus Titeln, Kanal vermutet)",
-   "quellen": [
-    "reddit"
-   ],
-   "signal": {
-    "reddit_beitraege": 2,
-    "reddit_sub": "LivestreamFail"
-   },
-   "punkte": 10.0,
-   "link": "https://www.reddit.com/r/LivestreamFail/comments/1xqmxsx/",
-   "kanal_bestaetigt": false,
-   "erste_sichtung": "2026-11-09T14:59:16Z",
-   "zuletzt": "2026-11-09T14:59:16Z",
-   "erlaubnis": "unklar",
-   "signale": []
   }
  ]
 }
