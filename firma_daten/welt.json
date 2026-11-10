@@ -1,12 +1,357 @@
 {
- "erzeugt": "2026-11-10T07:32:52Z",
- "anzahl": 6,
+ "erzeugt": "2026-11-10T19:53:56Z",
+ "anzahl": 12,
  "nur_ausland": 0,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "German military bans commercially available Chinese drones, Spiegel reports",
+   "kurz": "BERLIN, Nov 10 (Reuters) - Germany's military has banned commercially available Chinese-made drones from its barracks and training grounds, effective…",
+   "link": "https://www.dailymaverick.co.za/article/2026-11-10-german-military-bans-commercially-available-chinese-drones-spiegel-reports/",
+   "sprache": "en",
+   "zeit": "2026-11-10T21:39:59Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Südafrika"
+   ],
+   "laender_einig": [
+    "Südafrika"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Hongkong/China"
+   ],
+   "zusammenfassung": [
+    "Daily Maverick (Südafrika): German military bans commercially available Chinese drones, Spiegel reports"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Daily Maverick",
+     "land": "Südafrika",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "German military bans commercially available Chinese drones, Spiegel reports",
+     "link": "https://www.dailymaverick.co.za/article/2026-11-10-german-military-bans-commercially-available-chinese-drones-spiegel-reports/",
+     "eigentuemer": "gehört Daily Maverick",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Myanmar summons German envoy over controversial video",
+   "kurz": "Mathias Licharz calls for the 'unconditional' release of ousted politicians, including former leader Aung San Suu Kyi.",
+   "link": "https://www.aljazeera.com/news/2026/11/10/myanmar-summons-german-diplomat-following-controversial-facebook-video?traffic_source=rss",
+   "sprache": "en",
+   "zeit": "2026-11-10T18:03:06Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Katar"
+   ],
+   "laender_einig": [
+    "Katar"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Al Jazeera (Katar): Myanmar summons German envoy over controversial video"
+   ],
+   "staatsnah": [
+    "Al Jazeera"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Al Jazeera",
+     "land": "Katar",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Myanmar summons German envoy over controversial video",
+     "link": "https://www.aljazeera.com/news/2026/11/10/myanmar-summons-german-diplomat-following-controversial-facebook-video?traffic_source=rss",
+     "eigentuemer": "staatlich (Katar)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Kristallnacht' 88th anniversary: Merz says Germany faces historic test over antisemitism",
+   "kurz": "It has been 88 years since \"Kristallnacht\", the \"Night of Broken Glass\" in Europe, a violent pogrom against the Jewish population across Nazi Germany and…",
+   "link": "https://www.france24.com/en/video/20261110-kristallnacht-88th-anniversary-merz-says-germany-faces-historic-test-over-antisemitism",
+   "sprache": "en",
+   "zeit": "2026-11-10T16:47:50Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [
+    "Frankreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "France 24 (Frankreich): Kristallnacht' 88th anniversary: Merz says Germany faces historic test over antisemitism"
+   ],
+   "staatsnah": [
+    "France 24"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "France 24",
+     "land": "Frankreich",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Kristallnacht' 88th anniversary: Merz says Germany faces historic test over antisemitism",
+     "link": "https://www.france24.com/en/video/20261110-kristallnacht-88th-anniversary-merz-says-germany-faces-historic-test-over-antisemitism",
+     "eigentuemer": "staatlich (Frankreich)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Merz accused of ‘blackmail’ by Slovak PM after demand for Ukraine aid in EU budget",
+   "kurz": "German chancellor has signalled he will block budget with no aid deal, complaining that burden is ‘carried mostly by only a few member states’ Friedrich Merz…",
+   "link": "https://www.theguardian.com/world/2026/nov/10/friedrich-merz-accused-blackmail-ukraine-aid-eu-budget",
+   "sprache": "en",
+   "zeit": "2026-11-10T16:44:27Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): Merz accused of ‘blackmail’ by Slovak PM after demand for Ukraine aid in EU budget"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Merz accused of ‘blackmail’ by Slovak PM after demand for Ukraine aid in EU budget",
+     "link": "https://www.theguardian.com/world/2026/nov/10/friedrich-merz-accused-blackmail-ukraine-aid-eu-budget",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "French wartime resistance heroine Solange Alexandre dies aged 104",
+   "kurz": "With 30 men under her orders, she organised sabotage operations, sheltered Allied airmen and joined the fight against the occupying German forces.",
+   "link": "https://www.bbc.co.uk/news/articles/cjdx3x7wg941o?at_medium=RSS&at_campaign=rss",
+   "sprache": "en",
+   "zeit": "2026-11-10T13:23:54Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "BBC Europe (Großbritannien): French wartime resistance heroine Solange Alexandre dies aged 104"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "French wartime resistance heroine Solange Alexandre dies aged 104",
+     "link": "https://www.bbc.co.uk/news/articles/cjdx3x7wg941o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Teure Essen, viele Boni: Ehemalige deutsche TV-Intendantin auf der Anklagebank",
+   "kurz": "Patricia Schlesinger, die Ex-Chefin des Rundfunks Berlin-Brandenburg (RBB), muss sich wegen Untreue-Vorwürfen in 26 Fällen vor dem Strafgericht verantworten",
+   "link": "https://www.derstandard.at/story/3000000348391/teure-essen-viele-boni-ehemalige-deutsche-tv-intendantin-auf-der-anklagebank?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-10T12:17:46Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Teure Essen, viele Boni: Ehemalige deutsche TV-Intendantin auf der Anklagebank"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Teure Essen, viele Boni: Ehemalige deutsche TV-Intendantin auf der Anklagebank",
+     "link": "https://www.derstandard.at/story/3000000348391/teure-essen-viele-boni-ehemalige-deutsche-tv-intendantin-auf-der-anklagebank?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Umstrittene Jubelgeste von BVB- und DFB-Kicker Nmecha entfacht Debatte in Deutschland",
+   "kurz": "Die Fan- und Förderabteilung von Borussia Dortmund hat in einer Stellungnahme eine klare Abgrenzung von evangelikalen Netzwerken gefordert. Nmecha von…",
+   "link": "https://www.derstandard.at/story/3000000348427/umstrittene-jubelgeste-von-bdfb-kicker-nmecha-entflammt-debatte-in-deutschland?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-10T10:42:22Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Umstrittene Jubelgeste von BVB- und DFB-Kicker Nmecha entfacht Debatte in Deutschland"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Umstrittene Jubelgeste von BVB- und DFB-Kicker Nmecha entfacht Debatte in Deutschland",
+     "link": "https://www.derstandard.at/story/3000000348427/umstrittene-jubelgeste-von-bdfb-kicker-nmecha-entflammt-debatte-in-deutschland?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "After fire destroys Hitler's 'Eagle's Nest' in the Bavarian Alps, debate erupts over whether to rebuild",
+   "kurz": "The arson attack that damaged the house built in the 1930s in the Berchtesgaden Alps, near the Austrian border, has sparked a debate over how Germany should…",
+   "link": "https://www.lemonde.fr/en/international/article/2026/11/10/after-fire-destroys-hitler-s-eagle-s-nest-in-the-bavarian-alps-debate-erupts-over-whether-to-rebuild_6776795_4.html",
+   "sprache": "en",
+   "zeit": "2026-11-10T10:00:05+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [
+    "Frankreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Österreich"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): After fire destroys Hitler's 'Eagle's Nest' in the Bavarian Alps, debate erupts over whether to rebuild"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "After fire destroys Hitler's 'Eagle's Nest' in the Bavarian Alps, debate erupts over whether to rebuild",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/10/after-fire-destroys-hitler-s-eagle-s-nest-in-the-bavarian-alps-debate-erupts-over-whether-to-rebuild_6776795_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits",
+   "kurz": "Eine aktuelle Ifo-Studie zeigt: Die Beschäftigung der 20- bis 24-Jährigen ging in Deutschland in den am stärksten von KI betroffenen Berufen zurück",
+   "link": "https://www.derstandard.at/story/3000000348293/berufseinsteiger-spueren-ki-folgen-auf-dem-jobmarkt-bereits?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-10T09:46:20Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits",
+     "link": "https://www.derstandard.at/story/3000000348293/berufseinsteiger-spueren-ki-folgen-auf-dem-jobmarkt-bereits?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "Las secadoras Bosch de bajo consumo tienen hasta 150 euros de reembolso antes de Black Friday",
    "kurz": "La temporada de lluvias ya ha comenzado y secar la ropa no es tarea sencilla. Fichamos los tres modelos de la firma alemana con mejor relación calidad-precio",
@@ -45,99 +390,22 @@
    ]
   },
   {
-   "titel": "LIVE-TICKER - Krieg in der Ukraine: Merz fordert Beteiligung aller EU-Staaten an Ukraine-Hilfe",
-   "kurz": "Seit über vier Jahren führt Russland Krieg gegen die Ukraine. Die wichtigsten Entwicklungen im Überblick.",
-   "link": "https://www.nzz.ch/international/krieg-in-der-ukraine-die-neusten-entwicklungen-im-liveticker-ld.10021245",
+   "titel": "\"Waltraud\" P. ist jetzt wieder ein Mann – und das stärkt auch die Gesetze gegen Rechts",
+   "kurz": "In Österreich und Deutschland versuchen Rechtsextreme Geschlechtsänderungen lächerlich zu machen. Der Gerichtsentscheid im Fall P. hilft insofern auch gegen…",
+   "link": "https://www.derstandard.at/story/3000000348425/waltraud-p-ist-jetzt-wieder-ein-mann-und-das-staerkt-auch-die-gesetze-gegen-rechts?ref=rss",
    "sprache": "de",
-   "zeit": "2026-11-10T05:02:29Z",
+   "zeit": "2026-11-10T14:24:37Z",
    "ausland_quellen": 1,
    "laender": [
-    "Schweiz"
+    "Österreich"
    ],
-   "laender_einig": [
-    "Schweiz"
-   ],
+   "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "NZZ (Schweiz): LIVE-TICKER - Krieg in der Ukraine: Merz fordert Beteiligung aller EU-Staaten an Ukraine-Hilfe"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "LIVE-TICKER - Krieg in der Ukraine: Merz fordert Beteiligung aller EU-Staaten an Ukraine-Hilfe",
-     "link": "https://www.nzz.ch/international/krieg-in-der-ukraine-die-neusten-entwicklungen-im-liveticker-ld.10021245",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Un lector da su apoyo a los acampados: “Si nos movemos los de abajo, caen los de arriba”",
-   "kurz": "El buzón contiene reflexiones sobre las razones de los acampados, el aniversario de la caída del Muro de Berlín, el agradecimiento a los cuidadores y…",
-   "link": "https://elpais.com/opinion/2026-11-10/un-lector-da-su-apoyo-a-los-acampados-si-nos-movemos-los-de-abajo-caen-los-de-arriba.html",
-   "sprache": "es",
-   "zeit": "2026-11-10T04:30:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Un lector da su apoyo a los acampados: “Si nos movemos los de abajo, caen los de arriba”"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Un lector da su apoyo a los acampados: “Si nos movemos los de abajo, caen los de arriba”",
-     "link": "https://elpais.com/opinion/2026-11-10/un-lector-da-su-apoyo-a-los-acampados-si-nos-movemos-los-de-abajo-caen-los-de-arriba.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Durchsuchung bei \"Hells Angels\": Großeinsatz in Berlin",
-   "kurz": "300 Einsatzkräfte der Polizei sind beteiligt. Laut einem Polizeisprecher geht es um Schusswaffenkriminalität",
-   "link": "https://www.derstandard.at/story/3000000348339/durchsuchung-bei-hells-angels-grosseinsatz-in-berlin?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-09T21:03:59Z",
-   "ausland_quellen": 1,
-   "laender": [
     "Österreich"
    ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
    "zusammenfassung": [
-    "Der Standard (Österreich): Durchsuchung bei \"Hells Angels\": Großeinsatz in Berlin"
+    "Der Standard (Österreich): \"Waltraud\" P. ist jetzt wieder ein Mann – und das stärkt auch die Gesetze gegen Rechts"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -150,80 +418,31 @@
      "quelle": "Der Standard",
      "land": "Österreich",
      "art": "privat",
-     "beteiligt": false,
-     "titel": "Durchsuchung bei \"Hells Angels\": Großeinsatz in Berlin",
-     "link": "https://www.derstandard.at/story/3000000348339/durchsuchung-bei-hells-angels-grosseinsatz-in-berlin?ref=rss",
+     "beteiligt": true,
+     "titel": "\"Waltraud\" P. ist jetzt wieder ein Mann – und das stärkt auch die Gesetze gegen Rechts",
+     "link": "https://www.derstandard.at/story/3000000348425/waltraud-p-ist-jetzt-wieder-ein-mann-und-das-staerkt-auch-die-gesetze-gegen-rechts?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Vodafone baut in Deutschland rund 2300 Stellen ab",
-   "kurz": "Fast jeder fünfte Arbeitsplatz ist betroffen. Grund sei unter anderem der verstärkte Einsatz von KI",
-   "link": "https://www.derstandard.at/story/3000000348215/vodafone-baut-in-deutschland-rund-2300-stellen-ab?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-09T10:37:09Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Vodafone baut in Deutschland rund 2300 Stellen ab"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Mobilfunkunternehmen Vodafone plant Abbau von 2.300 Stellen",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vodafone-stellenabbau-102.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Vodafone baut in Deutschland rund 2300 Stellen ab",
-     "link": "https://www.derstandard.at/story/3000000348215/vodafone-baut-in-deutschland-rund-2300-stellen-ab?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "G7 Ministers meet on efforts to end Ukraine conflict, halt new Iran war",
-   "kurz": "Ministers from the leading industrialised nations of Britain, Canada, France, Germany, Italy, Japan and the United States will be gathering with preoccupations…",
-   "link": "https://www.thehindu.com/news/international/g7-ministers-meeting-in-paris-russia-ukraine-conflict-us-israel-strikes-on-iran/article71681281.ece",
+   "titel": "France may back Pablo Hernandez de Cos over Klaas Knot for ECB president",
+   "kurz": "President Emmanuel Macron and German Chancellor Friedrich Merz discussed who will succeed Christine Lagarde as president of the European Central Bank over the…",
+   "link": "https://www.lemonde.fr/en/economy/article/2026/11/10/france-may-back-pablo-hernandez-de-cos-over-klaas-knot-for-ecb-president_6776761_19.html",
    "sprache": "en",
-   "zeit": "2026-11-09T07:42:23+05:30",
+   "zeit": "2026-11-10T09:39:36+01:00",
    "ausland_quellen": 1,
    "laender": [
-    "Indien"
+    "Frankreich"
    ],
-   "laender_einig": [
-    "Indien"
-   ],
+   "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Frankreich",
-    "Großbritannien",
-    "Iran",
-    "USA",
-    "Ukraine"
+    "Frankreich"
    ],
    "zusammenfassung": [
-    "The Hindu (Indien): G7 Ministers meet on efforts to end Ukraine conflict, halt new Iran war"
+    "Le Monde (en) (Frankreich): France may back Pablo Hernandez de Cos over Klaas Knot for ECB president"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -233,13 +452,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "The Hindu",
-     "land": "Indien",
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
      "art": "privat",
-     "beteiligt": false,
-     "titel": "G7 Ministers meet on efforts to end Ukraine conflict, halt new Iran war",
-     "link": "https://www.thehindu.com/news/international/g7-ministers-meeting-in-paris-russia-ukraine-conflict-us-israel-strikes-on-iran/article71681281.ece",
-     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "beteiligt": true,
+     "titel": "France may back Pablo Hernandez de Cos over Klaas Knot for ECB president",
+     "link": "https://www.lemonde.fr/en/economy/article/2026/11/10/france-may-back-pablo-hernandez-de-cos-over-klaas-knot-for-ecb-president_6776761_19.html",
+     "eigentuemer": "gehört Groupe Le Monde",
      "zaehlt_nicht": ""
     }
    ]
@@ -425,6 +644,24 @@
   },
   "Black Friday": {
    "keine_treffer": true
+  },
+  "Solange Alexandre": {
+   "keine_treffer": true
+  },
+  "Teure Essen": {
+   "keine_treffer": true
+  },
+  "Umstrittene Jubelgeste": {
+   "keine_treffer": true
+  },
+  "Kicker Nmecha": {
+   "keine_treffer": true
+  },
+  "Bavarian Alps": {
+   "name": "Bavarian Alps",
+   "wikidata": "https://www.wikidata.org/wiki/Q7411906",
+   "beschreibung": "alpine section in Bavaria, Germany, as well as Vorarlberg and Tyrol, Austria",
+   "verbindungen": []
   }
  }
 }
