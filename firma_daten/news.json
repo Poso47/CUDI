@@ -1,5 +1,5 @@
 {
- "erzeugt": "2026-11-09T19:59:33Z",
+ "erzeugt": "2026-11-10T03:47:18Z",
  "anzahl": 60,
  "bestaetigt": 15,
  "hinweise": [
@@ -8,40 +8,50 @@
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
   {
-   "titel": "Krakow shooting suspect has died in hospital, police say",
-   "kurz": "Six people were killed in the shooting, and three bodies of the suspect's family members were found at their home.",
-   "link": "https://www.bbc.co.uk/news/articles/c6y434dw8319o?at_medium=RSS&at_campaign=rss",
+   "titel": "Turkey steel factory blast kills at least 17 people",
+   "kurz": "Eyewitnesses say the explosion shook the ground, with one believing an earthquake had hit near the Habas Demir Celik plant in Aliaga.",
+   "link": "https://www.bbc.co.uk/news/articles/cq2d6d5z9y5jo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-09T11:56:25Z",
+   "zeit": "2026-11-09T20:42:04Z",
    "status": "bestätigt",
-   "n_quellen": 4,
-   "unabhaengig_n": 4,
+   "n_quellen": 6,
+   "unabhaengig_n": 6,
    "abhaengig": [],
-   "eigentuemer_unbekannt": [],
+   "eigentuemer_unbekannt": [
+    "shafaq.com"
+   ],
    "quellen": [
     {
-     "quelle": "BBC World",
-     "titel": "'I treat all these people like they are victims', says doctor who treated Krakow shooting suspect",
-     "link": "https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss",
+     "quelle": "Wikipedia · BBC News",
+     "titel": "Seventeen people are killed and twelve others are injured in an explosion at a factory in Aliağa , Turkey .",
+     "link": "https://www.bbc.com/news/articles/cq2d6d5z9y5jo",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "Krakow mass shooting suspect has died in hospital, police in Poland say",
-     "link": "https://www.dw.com/en/krakow-mass-shooting-suspect-has-died-in-hospital-police-in-poland-say/a-79895626?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "Turkey: Workers killed in Izmir steel plant blast",
+     "link": "https://www.dw.com/en/turkey-workers-killed-in-izmir-steel-plant-blast/a-79900748?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     },
     {
      "quelle": "Wikipedia · Al Jazeera",
-     "titel": "The 24-year-old man responsible for the drive-by mass shooting at the Main Square in Kraków , Poland , two days ago, which killed six…",
-     "link": "https://www.aljazeera.com/news/2026/11/9/poland-mass-shooting-assailant-dies-in-hospital-police-say",
+     "titel": "At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a…",
+     "link": "https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter",
      "eigentuemer": "staatlich (Katar)",
      "gruppe": 2,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · Shafaq",
+     "titel": "Three people are killed and more than 300 others are rescued from severe flooding in Erbil , Kurdistan Region , Iraq .",
+     "link": "https://shafaq.com/en/Kurdistan/Erbil-floods-kill-three-over-300-rescued",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 3,
      "zaehlt_nicht": ""
     },
     {
@@ -49,18 +59,18 @@
      "titel": "Six people are killed and 15 more injured in a drive-by mass shooting in the center of Kraków , Poland . The perpetrator, who also killed…",
      "link": "https://www.reuters.com/world/europe/two-kiled-least-10-injured-shooting-polish-city-krakow-tvn24-reports-2026-11-07/",
      "eigentuemer": "gehört Thomson Reuters",
-     "gruppe": 3,
+     "gruppe": 4,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "At least 39 die after Europe-bound migrant boat sinks off Senegal",
-   "kurz": "The Atlantic crossing to Spain's Canary Islands remains dangerous for migrants seeking a better life",
-   "link": "https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss",
+   "titel": "France accuses Iran of supermarket fridge hacking",
+   "kurz": "Tons of chilled and frozen food was spoiled last month as fridges and freezers in hundreds of supermarkets heated up.",
+   "link": "https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-09T16:33:55Z",
+   "zeit": "2026-11-09T20:20:08Z",
    "status": "bestätigt",
    "n_quellen": 3,
    "unabhaengig_n": 3,
@@ -69,25 +79,25 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "At least 39 die after Europe-bound migrant boat sinks off Senegal",
-     "link": "https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss",
+     "titel": "France accuses Iran of supermarket fridge hacking",
+     "link": "https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · AFP via France 24",
-     "titel": "At least 39 people are killed when a small boat carrying migrants capsizes off the coast of Kébémer , Louga , Senegal .",
-     "link": "https://www.france24.com/en/live-news/20261109-senegal-officials-raise-migrant-boat-death-toll-to-39",
-     "eigentuemer": "staatlich (Frankreich)",
+     "quelle": "Deutsche Welle (en)",
+     "titel": "French officials blame Iran for supermarket fridge hacking",
+     "link": "https://www.dw.com/en/french-officials-blame-iran-for-supermarket-fridge-hacking/a-79903646?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · Xinhua",
-     "titel": "Twenty-one people are killed and one person has been rescued after a migrant boat sinks off the coast of Kebemer , Louga region , Senegal .",
-     "link": "https://english.news.cn/20261108/b421ddd6df0c45a7aff62b629f9a3581/c.html",
-     "eigentuemer": "staatlich (China)",
+     "quelle": "NPR",
+     "titel": "France accuses Iran of cyber 'sabotage' in fridge attacks",
+     "link": "https://www.npr.org/2026/11/09/g-s1-152724/france-iran-cyber-sabotage-fridge-attacks",
+     "eigentuemer": "gehört NPR",
      "gruppe": 2,
      "zaehlt_nicht": ""
     }
@@ -133,42 +143,164 @@
    ]
   },
   {
-   "titel": "At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a…",
-   "kurz": "At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a sandbank to collapse in…",
-   "link": "https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter",
-   "quelle": "Wikipedia · Al Jazeera",
+   "titel": "Krakow shooting suspect has died in hospital, police say",
+   "kurz": "Six people were killed in the shooting, and three bodies of the suspect's family members were found at their home.",
+   "link": "https://www.bbc.co.uk/news/articles/c6y434dw8319o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "",
+   "zeit": "2026-11-09T11:56:25Z",
    "status": "bestätigt",
    "n_quellen": 3,
    "unabhaengig_n": 3,
    "abhaengig": [],
-   "eigentuemer_unbekannt": [
-    "shafaq.com"
-   ],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Wikipedia · Al Jazeera",
-     "titel": "At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a…",
-     "link": "https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter",
-     "eigentuemer": "staatlich (Katar)",
+     "quelle": "BBC World",
+     "titel": "'I treat all these people like they are victims', says doctor who treated Krakow shooting suspect",
+     "link": "https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · Shafaq",
-     "titel": "Three people are killed and more than 300 others are rescued from severe flooding in Erbil , Kurdistan Region , Iraq .",
-     "link": "https://shafaq.com/en/Kurdistan/Erbil-floods-kill-three-over-300-rescued",
-     "eigentuemer": "Eigentümer unbekannt",
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Krakow mass shooting suspect has died in hospital, police in Poland say",
+     "link": "https://www.dw.com/en/krakow-mass-shooting-suspect-has-died-in-hospital-police-in-poland-say/a-79895626?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · AP",
-     "titel": "Two people are killed and 16 injured in a bus crash in Lent , Ain , France . (AP)",
-     "link": "https://apnews.com/article/france-bus-crash-e024a5428966dd6c3415c881bc503811",
-     "eigentuemer": "gehört The Associated Press",
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "The 24-year-old man responsible for the drive-by mass shooting at the Main Square in Kraków , Poland , two days ago, which killed six…",
+     "link": "https://www.aljazeera.com/news/2026/11/9/poland-mass-shooting-assailant-dies-in-hospital-police-say",
+     "eigentuemer": "staatlich (Katar)",
      "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Gespräche in Abu Dhabi: Gedämpfte Erwartungen der Ukraine",
+   "kurz": "Heute beginnen die trilateralen Verhandlungen in Abu Dhabi. Können die Gespräche mit den USA und Russland zu einem echten Frieden führen - oder gar zu einer…",
+   "link": "https://www.tagesschau.de/ausland/europa/ukraine-erwartungen-gespraeche-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-10T02:13:48+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Gespräche in Abu Dhabi: Gedämpfte Erwartungen der Ukraine",
+     "link": "https://www.tagesschau.de/ausland/europa/ukraine-erwartungen-gespraeche-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Russland lehnt Europas Teilnahme an Ukraine-Gesprächen ab",
+     "link": "https://www.dw.com/de/russland-lehnt-europas-teilnahme-an-ukraine-gesprächen-ab/a-79897668?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Trump says FBI investigating Nvidia boss's affair with alleged Chinese spy",
+   "kurz": "The US president said he spoke with Jensen Huang on Monday and asked him about the affair with the alleged spy.",
+   "link": "https://www.bbc.co.uk/news/articles/cqg7x7dpvym8o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-10T01:44:53Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Wikipedia · BBC News",
+     "titel": "NVIDIA announces it is opening an investigation into CEO Jensen Huang after American intelligence reported that a close associate of Huang…",
+     "link": "https://www.bbc.com/news/live/cm78p221e313t",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Why Nvidia CEO's affair with alleged Chinese spy matters",
+     "link": "https://www.dw.com/en/why-nvidia-ceo-s-affair-with-alleged-chinese-spy-matters/a-79898338?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Republican congressman to force impeachment vote on Defence Secretary Hegseth",
+   "kurz": "The effort will likely fail, but Representative Thomas Massie wants to push Trump to fire Hegseth before Democrats can launch their own impeachment process…",
+   "link": "https://www.bbc.co.uk/news/articles/cwr5y58jjp8ro?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-10T01:38:49Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Republican congressman to force impeachment vote on Defence Secretary Hegseth",
+     "link": "https://www.bbc.co.uk/news/articles/cwr5y58jjp8ro?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Thomas Massie files articles of impeachment against Defense Secretary Pete Hegseth",
+     "link": "https://www.npr.org/2026/11/09/nx-s1-6034483/thomas-massie-impeachment-pete-hegseth",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
+   "kurz": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681010.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T23:35:25+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Warum Merz sich doch für Aigner als Bundespräsidentin stark macht",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/merz-aigner-kandidatin-bundespraesidentin-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Die CSU-Politikerin Ilse Aigner ist als erste Bundespräsidentin nun Favoritin",
+     "link": "https://www.dw.com/de/die-csu-politikerin-ilse-aigner-ist-als-erste-bundespräsidentin-nun-favoritin/a-79873744?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
      "zaehlt_nicht": ""
     }
    ]
@@ -205,74 +337,12 @@
    ]
   },
   {
-   "titel": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
-   "kurz": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681010.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T20:44:36+01:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "\"Zum dritten Mal eine Nichtakademikerin\", Christoph Mestmacher, ARD Berlin, zu Aigner als möglicher neuer Bundespräsidentin",
-     "link": "https://www.tagesschau.de/video/video-1680630.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Die CSU-Politikerin Ilse Aigner ist als erste Bundespräsidentin nun Favoritin",
-     "link": "https://www.dw.com/de/die-csu-politikerin-ilse-aigner-ist-als-erste-bundespräsidentin-nun-favoritin/a-79873744?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Nvidia shares tumble over investigation into Huang's affair with alleged Chinese spy",
-   "kurz": "The share price dropped wiped hundreds of billions of dollars from the value of Nvidia.",
-   "link": "https://www.bbc.co.uk/news/articles/c6zxjx01vyleo?at_medium=RSS&at_campaign=rss",
+   "titel": "Millions fill Buenos Aires streets to welcome Pope Leo XIV",
+   "kurz": "The Pope celebrated an outdoor Mass in Argentina's capital, the second stop on a 12-day tour of Latin America, just three weeks after having had surgery for…",
+   "link": "https://www.bbc.co.uk/news/videos/cvp8g82pled5o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-09T19:58:01Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · BBC News",
-     "titel": "NVIDIA announces it is opening an investigation into CEO Jensen Huang after American intelligence reported that a close associate of Huang…",
-     "link": "https://www.bbc.com/news/live/cm78p221e313t",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Why Nvidia CEO's affair with alleged Chinese spy matters",
-     "link": "https://www.dw.com/en/why-nvidia-ceo-s-affair-with-alleged-chinese-spy-matters/a-79898338?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Pope delivers veiled rebuke of Milei's austerity measures",
-   "kurz": "Pope Leo made the comments as he arrived in Argentina on the second leg of his Latin America tour.",
-   "link": "https://www.bbc.co.uk/news/articles/ckj0l082jqzvo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-09T18:38:00Z",
+   "zeit": "2026-11-09T19:09:27Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -281,8 +351,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Pope delivers veiled rebuke of Milei's austerity measures",
-     "link": "https://www.bbc.co.uk/news/articles/ckj0l082jqzvo?at_medium=RSS&at_campaign=rss",
+     "titel": "Millions fill Buenos Aires streets to welcome Pope Leo XIV",
+     "link": "https://www.bbc.co.uk/news/videos/cvp8g82pled5o?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -298,12 +368,12 @@
    ]
   },
   {
-   "titel": "France accuses Iran of supermarket fridge hacking",
-   "kurz": "The cyber-attack last month saw fridges and freezers in hundreds of supermarkets across France heated up.",
-   "link": "https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss",
+   "titel": "Russia's leading independent newspaper closes after eviction",
+   "kurz": "The outlet has been evicted from its offices of three decades and says it's been blocked from receiving donations.",
+   "link": "https://www.bbc.co.uk/news/videos/cvrlylj9r11go?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-09T18:33:00Z",
+   "zeit": "2026-11-09T18:08:07Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -312,29 +382,29 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "France accuses Iran of supermarket fridge hacking",
-     "link": "https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss",
+     "titel": "Russia's leading independent newspaper closes after eviction",
+     "link": "https://www.bbc.co.uk/news/videos/cvrlylj9r11go?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "French officials blame Iran for supermarket fridge hacking",
-     "link": "https://www.dw.com/en/french-officials-blame-iran-for-supermarket-fridge-hacking/a-79903646?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "Wikipedia · AP",
+     "titel": "Russian independent newspaper Novaya Gazeta closes its offices in Moscow , citing pressure from Russian authorities and security services …",
+     "link": "https://apnews.com/article/russian-newspaper-media-novaya-gazeta-closure-01cca444cb9636ee74a57979b0dcd604",
+     "eigentuemer": "gehört The Associated Press",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Turkey steel factory blast kills at least 16 people",
-   "kurz": "Eyewitnesses say the explosion shook the ground, with one believing an earthquake had hit near the Habas Demir Celik plant in Aliaga.",
-   "link": "https://www.bbc.co.uk/news/articles/cq2d6d5z9y5jo?at_medium=RSS&at_campaign=rss",
+   "titel": "At least 39 die after Europe-bound migrant boat sinks off Senegal",
+   "kurz": "The Atlantic crossing to Spain's Canary Islands remains dangerous for migrants seeking a better life",
+   "link": "https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-09T18:04:01Z",
+   "zeit": "2026-11-09T16:33:55Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -342,49 +412,18 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Wikipedia · BBC News",
-     "titel": "An explosion at a factory in Aliağa , Turkey , leaves sixteen people dead and thirteen others injured.",
-     "link": "https://www.bbc.com/news/articles/cq2d6d5z9y5jo",
+     "quelle": "BBC World",
+     "titel": "At least 39 die after Europe-bound migrant boat sinks off Senegal",
+     "link": "https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Turkey: Workers killed in Izmir steel plant blast",
-     "link": "https://www.dw.com/en/turkey-workers-killed-in-izmir-steel-plant-blast/a-79900748?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Ukraine-Gespräche in Abu Dhabi: EU kündigt Teilnahme an",
-   "kurz": "Ab Dienstag soll in Abu Dhabi über einen möglichen Frieden in der Ukraine verhandelt werden. Auch Vertreter Europas haben sich dazu angekündigt. Moskau will…",
-   "link": "https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T17:29:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Ukraine-Gespräche in Abu Dhabi: EU kündigt Teilnahme an",
-     "link": "https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Russland lehnt Europas Teilnahme an Ukraine-Gesprächen ab",
-     "link": "https://www.dw.com/de/russland-lehnt-europas-teilnahme-an-ukraine-gesprächen-ab/a-79897668?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "Wikipedia · AFP via France 24",
+     "titel": "The death toll from the boat capsizing yesterday off the coast of Kébémer , Louga , Senegal , increases to 39 people.",
+     "link": "https://www.france24.com/en/live-news/20261109-senegal-officials-raise-migrant-boat-death-toll-to-39",
+     "eigentuemer": "staatlich (Frankreich)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -453,37 +492,6 @@
    ]
   },
   {
-   "titel": "Mexican Navy personnel, working with intelligence from the National Intelligence Center and the United States Drug Enforcement…",
-   "kurz": "Mexican Navy personnel, working with intelligence from the National Intelligence Center and the United States Drug Enforcement Administration , arrest Rafael…",
-   "link": "https://www.aljazeera.com/news/2026/11/9/mexico-arrests-major-leader-of-jalisco-cartel",
-   "quelle": "Wikipedia · Al Jazeera",
-   "sprache": "en",
-   "zeit": "",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · Al Jazeera",
-     "titel": "Mexican Navy personnel, working with intelligence from the National Intelligence Center and the United States Drug Enforcement…",
-     "link": "https://www.aljazeera.com/news/2026/11/9/mexico-arrests-major-leader-of-jalisco-cartel",
-     "eigentuemer": "staatlich (Katar)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AFP via France 24",
-     "titel": "The United States Centers for Disease Control and Prevention reports 5,182 measles cases in 2026, the country's highest annual total since…",
-     "link": "https://www.france24.com/en/live-news/20261106-us-reports-highest-number-of-measles-cases-in-35-years",
-     "eigentuemer": "staatlich (Frankreich)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Three people are arrested as pro- Palestine protesters are confronted by pro- Israel counterprotesters in Rittenhouse Square , Philadelphia…",
    "kurz": "Three people are arrested as pro- Palestine protesters are confronted by pro- Israel counterprotesters in Rittenhouse Square , Philadelphia , Pennsylvania …",
    "link": "https://www.nbcnews.com/news/us-news/billboards-urge-boycott-boycott-jewish-owned-businesses-rcna608119",
@@ -515,6 +523,282 @@
    ]
   },
   {
+   "titel": "tagesschau in 100 Sekunden",
+   "kurz": "tagesschau in 100 Sekunden",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1681142.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-10T02:18:00+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau in 100 Sekunden",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1681142.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Qantas to outsource 850 local jobs with most roles moving to India",
+   "kurz": "The Australian airline said the move was aimed at modernising its IT systems and noted the impact of AI.",
+   "link": "https://www.bbc.co.uk/news/articles/cry838v4qzvyo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-10T01:55:22Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Qantas to outsource 850 local jobs with most roles moving to India",
+     "link": "https://www.bbc.co.uk/news/articles/cry838v4qzvyo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Verkehrsminister Bilger verteidigt \"Tankrabatt\"",
+   "kurz": "Seit Oktober gibt es den \"Tankrabatt\". Verkehrsminister Bilger findet das richtig. Entlastung sei nötig gewesen, sagte er in der ARD-Arena. Kritisch blickt er…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/bilger-wahlarena-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-10T00:40:08+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Verkehrsminister Bilger verteidigt \"Tankrabatt\"",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/bilger-wahlarena-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Epstein associate who still runs model agency 'put me in danger' says abuse survivor",
+   "kurz": "A woman says an agency boss sent her to photoshoots at the sex offender's Florida beach home.",
+   "link": "https://www.bbc.co.uk/news/articles/cm86z6w59gggo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-10T00:14:03Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Epstein associate who still runs model agency 'put me in danger' says abuse survivor",
+     "link": "https://www.bbc.co.uk/news/articles/cm86z6w59gggo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ukraine peace talks resume with 'some flexibility' by warring sides, US officials say",
+   "kurz": "Kyiv, Washington and Moscow are all sending delegation to the United Arab Emirates for the first trilateral talks since February.",
+   "link": "https://www.bbc.co.uk/news/articles/cqpvgvrpjvv8o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-10T00:09:49Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Ukraine peace talks resume with 'some flexibility' by warring sides, US officials say",
+     "link": "https://www.bbc.co.uk/news/articles/cqpvgvrpjvv8o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "The superpower battle over energy – and what it means for your bills",
+   "kurz": "A tug-of-war between China and the US could have a big impact on energy costs, but who will win?",
+   "link": "https://www.bbc.co.uk/news/articles/cw62y2z53pg1o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-10T00:08:28Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "The superpower battle over energy – and what it means for your bills",
+     "link": "https://www.bbc.co.uk/news/articles/cw62y2z53pg1o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "New trilateral talks on Ukraine war in Abu Dhabi: What to expect?",
+   "kurz": "Ukrainian and Russian representatives last met in February for talks on ending the war, but the same sticking points remain. Ukraine continues to demand…",
+   "link": "https://www.dw.com/en/new-trilateral-talks-on-ukraine-war-in-abu-dhabi-what-to-expect/a-79905734?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T23:46:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "New trilateral talks on Ukraine war in Abu Dhabi: What to expect?",
+     "link": "https://www.dw.com/en/new-trilateral-talks-on-ukraine-war-in-abu-dhabi-what-to-expect/a-79905734?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Judge denies motion to dismiss Lindsay Clancy's murder case",
+   "kurz": "The ruling means the case can move forward, possibly with reduced charges in a new trial.",
+   "link": "https://www.bbc.co.uk/news/articles/ck1l3le7q29vo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T23:28:53Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Judge denies motion to dismiss Lindsay Clancy's murder case",
+     "link": "https://www.bbc.co.uk/news/articles/ck1l3le7q29vo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Dana White declines Trump’s offer to be White House press secretary",
+   "kurz": "In a social media post over the weekend, the president asked the UFC boss to take over the role, but later said he was \"having a little fun\".",
+   "link": "https://www.bbc.co.uk/news/videos/cwm2328pyy1jo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T22:46:27Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Dana White declines Trump’s offer to be White House press secretary",
+     "link": "https://www.bbc.co.uk/news/videos/cwm2328pyy1jo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "California voters defeat billionaire tax proposal that divided Democrats",
+   "kurz": "The novel proposal would have charged billionaires a one-time 5% tax on most of their overall wealth, including their ownership in companies.",
+   "link": "https://www.npr.org/2026/11/09/g-s1-151625/california-billionaire-tax-referendum",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-09T22:05:39-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "California voters defeat billionaire tax proposal that divided Democrats",
+     "link": "https://www.npr.org/2026/11/09/g-s1-151625/california-billionaire-tax-referendum",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Republikaner Massie will Hegseth des Amtes entheben",
+   "kurz": "Nach der Wahlniederlage bei den Midterms wächst der Druck auf die US-Republikaner - auch wegen des Iran-Kriegs. Nun hat der Trump-kritische Republikaner Massie…",
+   "link": "https://www.tagesschau.de/ausland/amerika/usa-amtsenthebungsverfahren-hegseth-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T21:48:39+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Republikaner Massie will Hegseth des Amtes entheben",
+     "link": "https://www.tagesschau.de/ausland/amerika/usa-amtsenthebungsverfahren-hegseth-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Trial date of alleged Charlie Kirk killer set for June 2028",
+   "kurz": "Tyler Robinson has pleaded not guilty to aggravated murder and six other charges in connection with the 2025 killing of the conservative activist.",
+   "link": "https://www.bbc.co.uk/news/articles/cq0mem8d2p3xo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-09T21:48:38Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Trial date of alleged Charlie Kirk killer set for June 2028",
+     "link": "https://www.bbc.co.uk/news/articles/cq0mem8d2p3xo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Auftakt der 31. Weltklimakonferenz im türkischen Antalya",
    "kurz": "Auftakt der 31. Weltklimakonferenz im türkischen Antalya",
    "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681020.html",
@@ -538,12 +822,12 @@
    ]
   },
   {
-   "titel": "Attentäter von Kraukau erliegt seinen Verletzungen",
-   "kurz": "Attentäter von Kraukau erliegt seinen Verletzungen",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681018.html",
+   "titel": "Gedenkveranstaltungen zum Jahrestag der NS-Pogromnacht und des Mauerfalls",
+   "kurz": "Gedenkveranstaltungen zum Jahrestag der NS-Pogromnacht und des Mauerfalls",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681022.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-09T20:48:29+01:00",
+   "zeit": "2026-11-09T20:45:17+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -552,8 +836,31 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Attentäter von Kraukau erliegt seinen Verletzungen",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681018.html",
+     "titel": "Gedenkveranstaltungen zum Jahrestag der NS-Pogromnacht und des Mauerfalls",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681022.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau 20:00 Uhr",
+   "kurz": "CSU-Politikerin Ilse Aigner wird Kandidatin der Union für die Wahl der nächsten Bundespräsidentin, Frankreich macht Iran für Cyberangriffe auf…",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681028.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-09T20:38:06+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau 20:00 Uhr",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681028.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -575,8 +882,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Papst Leo XIV. fordert in Argentinien mehr Rücksicht auf Schwache",
-     "link": "https://www.tagesschau.de/ausland/amerika/papst-in-argentinien-100.html",
+     "titel": "Buenos Aires: Papst Leo XIV. feiert Messe vor zwei Millionen Menschen",
+     "link": "https://www.tagesschau.de/ausland/amerika/papst-leo-argentinien-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -607,6 +914,52 @@
    ]
   },
   {
+   "titel": "Skydance replaces James Gunn and Peter Safran as DC Studios chiefs following Warner Bros. takeover",
+   "kurz": "In another major shake-up for the DC Studios, Skydance is replacing Hollywood director James Gunn and producer Peter Safran with a former Marvel executive.",
+   "link": "https://www.dw.com/en/skydance-replaces-james-gunn-and-peter-safran-as-dc-studios-chiefs-following-warner-bros-takeover/a-79904972?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T20:19:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Skydance replaces James Gunn and Peter Safran as DC Studios chiefs following Warner Bros. takeover",
+     "link": "https://www.dw.com/en/skydance-replaces-james-gunn-and-peter-safran-as-dc-studios-chiefs-following-warner-bros-takeover/a-79904972?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "US Pentagon chief Hegseth faces impeachment push over Iran war",
+   "kurz": "Trump critic Thomas Massie is calling for a vote to impeach Pentagon chief Pete Hegseth, accusing Hegseth of waging war without congressional approval.",
+   "link": "https://www.dw.com/en/us-pentagon-chief-hegseth-faces-impeachment-push-over-iran-war/a-79905323?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-09T20:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "US Pentagon chief Hegseth faces impeachment push over Iran war",
+     "link": "https://www.dw.com/en/us-pentagon-chief-hegseth-faces-impeachment-push-over-iran-war/a-79905323?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Synagogen-Festakt in München: Ein Jubiläum in schwierigen Zeiten",
    "kurz": "Am Jahrestag der NS-Pogromnacht feiert die Münchner Hauptsynagoge ihr 20-jähriges Bestehen. Die Holocaust-Überlebende Knobloch warnte dabei vor einem als…",
    "link": "https://www.tagesschau.de/inland/gesellschaft/synagoge-muenchen-102.html",
@@ -630,12 +983,12 @@
    ]
   },
   {
-   "titel": "Republican congressman to force impeachment vote on Defence Secretary Hegseth",
-   "kurz": "The effort will likely fail, but Representative Thomas Massie wants to push Trump to fire Hegseth before Democrats can launch their own impeachment process.",
-   "link": "https://www.bbc.co.uk/news/articles/cwr5y58jjp8ro?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-09T19:39:33Z",
+   "titel": "Steinmeier-Rede zum 9. November: Die Scham der Reichspogromnacht, vom Glück des Mauerfalls",
+   "kurz": "Der 9. November wühlt die Deutschen auf. Als Tag der größten Nazi-Verbrechen, als Tag des Falls der Berliner Mauer. Der Bundespräsident zieht Lehren für die…",
+   "link": "https://www.dw.com/de/steinmeier-rede-zum-9-november-die-scham-der-reichspogromnacht-vom-glück-des-mauerfalls/a-79900308?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-09T20:07:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -643,10 +996,10 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC World",
-     "titel": "Republican congressman to force impeachment vote on Defence Secretary Hegseth",
-     "link": "https://www.bbc.co.uk/news/articles/cwr5y58jjp8ro?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
+     "quelle": "Deutsche Welle",
+     "titel": "Steinmeier-Rede zum 9. November: Die Scham der Reichspogromnacht, vom Glück des Mauerfalls",
+     "link": "https://www.dw.com/de/steinmeier-rede-zum-9-november-die-scham-der-reichspogromnacht-vom-glück-des-mauerfalls/a-79900308?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -722,29 +1075,6 @@
    ]
   },
   {
-   "titel": "tagesschau in 100 Sekunden",
-   "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680940.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T18:39:38+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1680940.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Wadephul zweifelt an Russlands Verhandlungswillen",
    "kurz": "In Abu Dhabi geht es ab Dienstag um ein mögliches Ende des Ukraine-Kriegs. Sind das ernsthafte Friedensgespräche? Außenminister Wadephul zweifelt am…",
    "link": "https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-102.html",
@@ -785,29 +1115,6 @@
      "titel": "Marktbericht: DAX erholt sich kräftig",
      "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-geldanlage-170.html",
      "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Russia's leading independent newspaper closes after eviction",
-   "kurz": "The outlet has been evicted from its offices of three decades and says it's been blocked from receiving donations.",
-   "link": "https://www.bbc.co.uk/news/videos/cvrlylj9r11go?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-09T18:08:07Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Russia's leading independent newspaper closes after eviction",
-     "link": "https://www.bbc.co.uk/news/videos/cvrlylj9r11go?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -1044,6 +1351,29 @@
    ]
   },
   {
+   "titel": "Supreme Court says border wall construction can continue in west Texas",
+   "kurz": "The Trump administration filed an emergency relief request with the high court earlier in October asking for the construction to continue while a lawsuit over…",
+   "link": "https://www.npr.org/2026/11/09/nx-s1-6019424/border-wall-big-bend-texas-trump",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-09T16:47:39-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "Supreme Court says border wall construction can continue in west Texas",
+     "link": "https://www.npr.org/2026/11/09/nx-s1-6019424/border-wall-big-bend-texas-trump",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Warum die Affäre des Nvidia-CEOs mit einer mutmaßlichen chinesischen Spionin von Bedeutung ist",
    "kurz": "Nvidia-Chef Jensen Huang hat sich für eine Affäre mit einer Frau entschuldigt, die nach Einschätzung der USA für China spioniert hat. Wie weitreichend sind die…",
    "link": "https://www.dw.com/de/warum-die-affäre-des-nvidia-ceos-mit-einer-mutmaßlichen-chinesischen-spionin-von-bedeutung-ist/a-79900932?maca=de-rss-de-all-1119-xml-mrss",
@@ -1205,29 +1535,6 @@
    ]
   },
   {
-   "titel": "Warum Merz sich doch für Aigner als Bundespräsidentin stark macht",
-   "kurz": "Lange hatte der Kanzler gezögert - nun ist es offiziell: Die CDU überlässt das höchste Staatsamt der kleinen Schwesterpartei aus Bayern. Die viel befürchtete…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/merz-aigner-kandidatin-bundespraesidentin-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T15:48:54+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Warum Merz sich doch für Aigner als Bundespräsidentin stark macht",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/merz-aigner-kandidatin-bundespraesidentin-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Krakauer Todesschütze hatte 500 Schuss Munition",
    "kurz": "Der Attentäter von Krakau war schwer genug bewaffnet, um noch mehr Menschen zu töten. Die polnische Staatsanwaltschaft hat neue Details zur Tat veröffentlicht…",
    "link": "https://www.tagesschau.de/ausland/europa/ermittlungen-krakau-102.html",
@@ -1244,305 +1551,6 @@
      "quelle": "Tagesschau",
      "titel": "Krakauer Todesschütze hatte 500 Schuss Munition",
      "link": "https://www.tagesschau.de/ausland/europa/ermittlungen-krakau-102.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Strait of Hormuz still a source of leverage for Iran",
-   "kurz": "Attacks in the Strait of Hormuz put crews at risk and drive up energy shipping costs. Iran's ability to sustain them and the limits of US protection will shape…",
-   "link": "https://www.dw.com/en/strait-of-hormuz-still-a-source-of-leverage-for-iran/a-79901647?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-09T14:49:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Strait of Hormuz still a source of leverage for Iran",
-     "link": "https://www.dw.com/en/strait-of-hormuz-still-a-source-of-leverage-for-iran/a-79901647?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Nvidia-Affäre lässt Aktie einbrechen",
-   "kurz": "Die mutmaßliche Spionageaffäre um Nvidia-Chef Huang trifft den Chiphersteller und die gesamte KI-Branche zu einem äußerst ungünstigen Zeitpunkt. Wie es…",
-   "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktbericht-nvidia-ki-huang-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T14:44:48+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Nvidia-Affäre lässt Aktie einbrechen",
-     "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktbericht-nvidia-ki-huang-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Von Panik keine Spur: Deutschland und seine Gasvorräte",
-   "kurz": "Die deutschen Gasspeicher sind zwar nicht nach Plan gefüllt, aber die Politik scheint das nicht zu sorgen. Die italienische Regierung wirft der Bundesregierung…",
-   "link": "https://www.dw.com/de/von-panik-keine-spur-deutschland-und-seine-gasvorräte/a-79872731?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T14:40:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Von Panik keine Spur: Deutschland und seine Gasvorräte",
-     "link": "https://www.dw.com/de/von-panik-keine-spur-deutschland-und-seine-gasvorräte/a-79872731?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "37 years after fall of Berlin Wall: How divided are Germans?",
-   "kurz": "Three artists share their thoughts on the reunification of East and West Germany. How do they perceive a shared \"we\" and what gives them cause for optimism?",
-   "link": "https://www.dw.com/en/37-years-after-fall-of-berlin-wall-how-divided-are-germans/a-79877461?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-09T13:59:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "37 years after fall of Berlin Wall: How divided are Germans?",
-     "link": "https://www.dw.com/en/37-years-after-fall-of-berlin-wall-how-divided-are-germans/a-79877461?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Das ist der Weg zum neuen Staatsoberhaupt",
-   "kurz": "Es soll eine Frau werden - und sie kommt aus der CSU: Ilse Aigner wäre in mehrfacher Hinsicht eine Premiere für Deutschland. Aber gewählt ist das neue…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/bundespraesidentin-bundesversammlung-aigner-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T13:53:31+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Das ist der Weg zum neuen Staatsoberhaupt",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/bundespraesidentin-bundesversammlung-aigner-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Commerzbank-Übernahme soll Anfang 2027 durch sein",
-   "kurz": "Noch diesen Monat könnte die UniCredit die letzten Genehmigungen für die Commerzbank-Übernahme erhalten. Auch die Fusion von Commerzbank und der…",
-   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/commerzbank-uebernahme-unicredit-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T13:52:38+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Commerzbank-Übernahme soll Anfang 2027 durch sein",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/commerzbank-uebernahme-unicredit-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Thirteen migrants die after boat sinks off Crete",
-   "kurz": "The Greek coastguard says it has rescued 18 people, all of whom were Sudanese nationals.",
-   "link": "https://www.bbc.co.uk/news/articles/c65ynyxrjdyeo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-09T13:50:01Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Thirteen migrants die after boat sinks off Crete",
-     "link": "https://www.bbc.co.uk/news/articles/c65ynyxrjdyeo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Terror auf Krakaus Marktplatz: Wie der erste Anschlag dieser Art Polens Sicherheitsgefühl erschütterte und das Land veränderte",
-   "kurz": "Der Terroranschlag von Krakau forderte sechs Menschenleben und erschüttert ganz Polen. Die Stadt will offen bleiben, doch das Gefühl von Sicherheit ist für…",
-   "link": "https://www.dw.com/de/terror-auf-krakaus-marktplatz-wie-der-erste-anschlag-dieser-art-polens-sicherheitsgefühl-erschütterte-und-das-land-veränderte/a-79898241?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T13:29:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Wackelt Polens Ruf als sicheres Land?",
-     "link": "https://www.dw.com/de/wackelt-polens-ruf-als-sicheres-land/a-79893042?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Quad-Staaten:: Gemeinsam gegen China - aber mit welchem Ziel?",
-   "kurz": "Die USA, Indien, Japan und Australien wollen ihren Einfluss im Indopazifik stärken. Doch unterschiedliche Interessen und Zweifel an der US-Führung erschweren…",
-   "link": "https://www.dw.com/de/quad-staaten-gemeinsam-gegen-china-aber-mit-welchem-ziel/a-79876044?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T13:26:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Quad-Staaten:: Gemeinsam gegen China - aber mit welchem Ziel?",
-     "link": "https://www.dw.com/de/quad-staaten-gemeinsam-gegen-china-aber-mit-welchem-ziel/a-79876044?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "UN-Klimachef warnt zum COP31-Auftakt vor Untätigkeit",
-   "kurz": "Die bisherigen Anstrengungen reichen nicht aus, um die Erderwärmung zu begrenzen. Bei der Klimakonferenz COP31 in der Türkei sollen konkrete Maßnahmen…",
-   "link": "https://www.dw.com/de/un-klimachef-warnt-zum-cop31-auftakt-vor-untätigkeit/a-79899874?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-09T13:14:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "UN-Klimachef warnt zum COP31-Auftakt vor Untätigkeit",
-     "link": "https://www.dw.com/de/un-klimachef-warnt-zum-cop31-auftakt-vor-untätigkeit/a-79899874?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Erste Übung der multinationalen Truppe für die Ukraine startet",
-   "kurz": "Etwa 2.800 Soldaten aus elf Ländern üben nicht weit von der ukrainischen Grenze entfernt. Eines Tages könnte die multinationale Truppe in der Ukraine einen…",
-   "link": "https://www.tagesschau.de/ausland/europa/polen-uebung-koalicja-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T13:04:38+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Erste Übung der multinationalen Truppe für die Ukraine startet",
-     "link": "https://www.tagesschau.de/ausland/europa/polen-uebung-koalicja-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Livestream: Die Nachrichten auf tagesschau24",
-   "kurz": "Aktuelle Meldungen, vertiefende Analysen und Interviews: Verfolgen Sie das Programm des ARD-Nachrichtenkanals tagesschau24 hier.",
-   "link": "https://www.tagesschau.de/multimedia/livestreams/livestream-ts24-104.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T13:01:59+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Livestream: Die Nachrichten auf tagesschau24",
-     "link": "https://www.tagesschau.de/multimedia/livestreams/livestream-ts24-104.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Opferbeauftragte Zupke warnt vor Verdrehung der DDR-Geschichte",
-   "kurz": "Der 9. November spielt eine besondere Rolle in der deutschen Geschichte. Die SED-Opferbeauftragte mahnt, das Erbe der friedlichen Revolution nicht politisch zu…",
-   "link": "https://www.tagesschau.de/inland/november-gedenken-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-09T12:50:06+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Opferbeauftragte Zupke warnt vor Verdrehung der DDR-Geschichte",
-     "link": "https://www.tagesschau.de/inland/november-gedenken-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
