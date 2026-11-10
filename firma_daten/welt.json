@@ -1,12 +1,126 @@
 {
- "erzeugt": "2026-11-09T22:34:40Z",
- "anzahl": 10,
+ "erzeugt": "2026-11-10T07:32:52Z",
+ "anzahl": 6,
  "nur_ausland": 0,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "Las secadoras Bosch de bajo consumo tienen hasta 150 euros de reembolso antes de Black Friday",
+   "kurz": "La temporada de lluvias ya ha comenzado y secar la ropa no es tarea sencilla. Fichamos los tres modelos de la firma alemana con mejor relación calidad-precio",
+   "link": "https://elpais.com/escaparate/ofertas-y-descuentos/secadoras-eficientes-bosch.html",
+   "sprache": "es",
+   "zeit": "2026-11-10T05:15:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Las secadoras Bosch de bajo consumo tienen hasta 150 euros de reembolso antes de Black Friday"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Las secadoras Bosch de bajo consumo tienen hasta 150 euros de reembolso antes de Black Friday",
+     "link": "https://elpais.com/escaparate/ofertas-y-descuentos/secadoras-eficientes-bosch.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "LIVE-TICKER - Krieg in der Ukraine: Merz fordert Beteiligung aller EU-Staaten an Ukraine-Hilfe",
+   "kurz": "Seit über vier Jahren führt Russland Krieg gegen die Ukraine. Die wichtigsten Entwicklungen im Überblick.",
+   "link": "https://www.nzz.ch/international/krieg-in-der-ukraine-die-neusten-entwicklungen-im-liveticker-ld.10021245",
+   "sprache": "de",
+   "zeit": "2026-11-10T05:02:29Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "NZZ (Schweiz): LIVE-TICKER - Krieg in der Ukraine: Merz fordert Beteiligung aller EU-Staaten an Ukraine-Hilfe"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "LIVE-TICKER - Krieg in der Ukraine: Merz fordert Beteiligung aller EU-Staaten an Ukraine-Hilfe",
+     "link": "https://www.nzz.ch/international/krieg-in-der-ukraine-die-neusten-entwicklungen-im-liveticker-ld.10021245",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Un lector da su apoyo a los acampados: “Si nos movemos los de abajo, caen los de arriba”",
+   "kurz": "El buzón contiene reflexiones sobre las razones de los acampados, el aniversario de la caída del Muro de Berlín, el agradecimiento a los cuidadores y…",
+   "link": "https://elpais.com/opinion/2026-11-10/un-lector-da-su-apoyo-a-los-acampados-si-nos-movemos-los-de-abajo-caen-los-de-arriba.html",
+   "sprache": "es",
+   "zeit": "2026-11-10T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Un lector da su apoyo a los acampados: “Si nos movemos los de abajo, caen los de arriba”"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Un lector da su apoyo a los acampados: “Si nos movemos los de abajo, caen los de arriba”",
+     "link": "https://elpais.com/opinion/2026-11-10/un-lector-da-su-apoyo-a-los-acampados-si-nos-movemos-los-de-abajo-caen-los-de-arriba.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "Durchsuchung bei \"Hells Angels\": Großeinsatz in Berlin",
    "kurz": "300 Einsatzkräfte der Polizei sind beteiligt. Laut einem Polizeisprecher geht es um Schusswaffenkriminalität",
@@ -40,86 +154,6 @@
      "titel": "Durchsuchung bei \"Hells Angels\": Großeinsatz in Berlin",
      "link": "https://www.derstandard.at/story/3000000348339/durchsuchung-bei-hells-angels-grosseinsatz-in-berlin?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "La CDU confirma a Ilse Aigner como candidata a la presidencia de Alemania: “Represento la fuerza del centro frente a los populismos”",
-   "kurz": "Los democristianos alemanes presentan a la política bávara para ser la primera mujer jefa de Estado con un mensaje contra los extremismos",
-   "link": "https://elpais.com/internacional/2026-11-09/la-cdu-confirma-a-ilse-aigner-como-candidata-a-la-presidencia-de-alemania-represento-la-fuerza-del-centro-frente-a-los-populismos.html",
-   "sprache": "es",
-   "zeit": "2026-11-09T14:40:30Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): La CDU confirma a Ilse Aigner como candidata a la presidencia de Alemania: “Represento la fuerza del centro frente a los populismos”"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1681010.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "La CDU confirma a Ilse Aigner como candidata a la presidencia de Alemania: “Represento la fuerza del centro frente a los populismos”",
-     "link": "https://elpais.com/internacional/2026-11-09/la-cdu-confirma-a-ilse-aigner-como-candidata-a-la-presidencia-de-alemania-represento-la-fuerza-del-centro-frente-a-los-populismos.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "AfD, neonazis y Javier Milei: una feria del libro en Alemania se convierte en la gran fiesta de la extrema derecha",
-   "kurz": "Miles de personas visitan Seitenwechsel, el mayor escaparate del nacionalismo alemán y la doctrina ultra en Europa",
-   "link": "https://elpais.com/internacional/2026-11-09/afd-neonazis-y-javier-milei-una-feria-del-libro-en-alemania-se-convierte-en-la-gran-fiesta-de-la-extrema-derecha.html",
-   "sprache": "es",
-   "zeit": "2026-11-09T10:39:27Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): AfD, neonazis y Javier Milei: una feria del libro en Alemania se convierte en la gran fiesta de la extrema derecha"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "AfD, neonazis y Javier Milei: una feria del libro en Alemania se convierte en la gran fiesta de la extrema derecha",
-     "link": "https://elpais.com/internacional/2026-11-09/afd-neonazis-y-javier-milei-una-feria-del-libro-en-alemania-se-convierte-en-la-gran-fiesta-de-la-extrema-derecha.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -209,269 +243,9 @@
      "zaehlt_nicht": ""
     }
    ]
-  },
-  {
-   "titel": "Rearme japonés",
-   "kurz": "Los planes de Japón responden, como los de Alemania, a las nuevas amenazas, pero exigen el máximo cuidado para no reavivar recelos históricos",
-   "link": "https://elpais.com/opinion/2026-11-09/rearme-japones.html",
-   "sprache": "es",
-   "zeit": "2026-11-09T04:30:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Rearme japonés"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Rearme japonés",
-     "link": "https://elpais.com/opinion/2026-11-09/rearme-japones.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Poland calls Krakow shooting rampage 'terrorist' attack",
-   "kurz": "A British national was among the dead, according to police. Among the 15 wounded were nationals from Austria, Britain, Germany, Portugal and Russia, says an…",
-   "link": "https://www.thehindu.com/news/international/poland-calls-krakow-shooting-rampage-terrorist-attack/article71681007.ece",
-   "sprache": "en",
-   "zeit": "2026-11-08T19:25:14+05:30",
-   "ausland_quellen": 1,
-   "laender": [
-    "Indien"
-   ],
-   "laender_einig": [
-    "Indien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Großbritannien",
-    "Russland",
-    "Österreich"
-   ],
-   "zusammenfassung": [
-    "The Hindu (Indien): Poland calls Krakow shooting rampage 'terrorist' attack"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "The Hindu",
-     "land": "Indien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Poland calls Krakow shooting rampage 'terrorist' attack",
-     "link": "https://www.thehindu.com/news/international/poland-calls-krakow-shooting-rampage-terrorist-attack/article71681007.ece",
-     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat",
-   "kurz": "While some believe the site should be partially or completely rebuilt, others want it abandoned and all memory of its Nazi past forgotten.",
-   "link": "https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-08T00:48:59Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "BBC Europe (Großbritannien): Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat",
-     "link": "https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Max’s journey to the grave 113 years after death, via a doctor fleeing murder charges and an Australian museum",
-   "kurz": "German immigrant’s skeleton, on display at South Australian Museum for 80 years, finally laid to rest in Adelaide on Saturday For almost 80 years, war hero Max…",
-   "link": "https://www.theguardian.com/australia-news/2026/nov/08/max-the-skeleton-buried-adelaide-south-australia-museum",
-   "sprache": "en",
-   "zeit": "2026-11-07T23:00:23Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): Max’s journey to the grave 113 years after death, via a doctor fleeing murder charges and an Australian museum"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Max’s journey to the grave 113 years after death, via a doctor fleeing murder charges and an Australian museum",
-     "link": "https://www.theguardian.com/australia-news/2026/nov/08/max-the-skeleton-buried-adelaide-south-australia-museum",
-     "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Pakistani farmers in long fight to make German firms pay for 2022 flood damage",
-   "kurz": "In a village nestled in rice fields, Abdul Hafeez Khoso remembers the vast industrial zones he saw in Germany when he visited to file a pioneering climate…",
-   "link": "https://www.dawn.com/news/2043283/pakistani-farmers-in-long-fight-to-make-german-firms-pay-for-2022-flood-damage",
-   "sprache": "en",
-   "zeit": "2026-11-09T17:20:52+05:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Pakistan"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Pakistan"
-   ],
-   "zusammenfassung": [
-    "Dawn (Pakistan): Pakistani farmers in long fight to make German firms pay for 2022 flood damage"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Dawn",
-     "land": "Pakistan",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Pakistani farmers in long fight to make German firms pay for 2022 flood damage",
-     "link": "https://www.dawn.com/news/2043283/pakistani-farmers-in-long-fight-to-make-german-firms-pay-for-2022-flood-damage",
-     "eigentuemer": "gehört Dawn Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
   }
  ],
- "verbindungen": [
-  {
-   "name": "Ilse Aigner",
-   "wikidata": "https://www.wikidata.org/wiki/Q153460",
-   "beschreibung": "German politician",
-   "verbindungen": [
-    {
-     "eigenschaft": "Amt",
-     "wert": "Bundesminister für Landwirtschaft, Ernährung und Heimat",
-     "link": "https://www.wikidata.org/wiki/Q30543319",
-     "beendet": "2013"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Bundesminister für Landwirtschaft, Ernährung und Heimat",
-     "link": "https://www.wikidata.org/wiki/Q30543319",
-     "beendet": "2009"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Deutschen Bundestages",
-     "link": "https://www.wikidata.org/wiki/Q1939555",
-     "beendet": "2002"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": "1998"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": "2023"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Präsident des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q15303400",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Partei",
-     "wert": "Christlich-Soziale Union in Bayern",
-     "link": "https://www.wikidata.org/wiki/Q49763",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Enquete-Kommission Zukunft des bürgerschaftlichen Engagements",
-     "link": "https://www.wikidata.org/wiki/Q19969620",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Kabinett Merkel I",
-     "link": "https://www.wikidata.org/wiki/Q315863",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Kabinett Merkel II",
-     "link": "https://www.wikidata.org/wiki/Q632985",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "La CDU confirma a Ilse Aigner como candidata a la presidencia de Alemania: “Represento la fuerza del centro frente a los populismos”"
-   ]
-  }
- ],
+ "verbindungen": [],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -647,6 +421,9 @@
    "verbindungen": []
   },
   "Javier Milei": {
+   "keine_treffer": true
+  },
+  "Black Friday": {
    "keine_treffer": true
   }
  }
