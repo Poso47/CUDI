@@ -1,93 +1,97 @@
-# CUDI-Briefing 2026-11-09
+# CUDI-Briefing 2026-11-10
 
-Der Schießerei-Verdächtige in Krakau ist im Krankenhaus gestorben. Vor Senegal sank ein Migrantenboot mit mindestens 34 Toten. Nach starken Regenfällen und Überschwemmungen wurden mindestens fünf Menschen, darunter vier Kinder, getötet und mehrere gerettet. Es laufen Untersuchungen nach einer Affäre des Nvidia-Chefs Huang mit einer mutmaßlichen Spionin. Die EU kündigte ihre Teilnahme an Ukraine-Gesprächen in Abu Dhabi an. Offene Fragen betreffen Berichte über Hitlers Adlerhorst und die Bestätigung von Meldungen zu G7-Außenministern und der Nominierung von Ilse Aigner.
+Wichtigste Meldungen: 10. Firma: 23 Punkte. Bestätigte Meldungen: 6. Deutschland von außen: 6 Themen. Belegte Verbindungen: 1. Offene Fragen: 2. Clip-Team: 4. Alles mit Quellenlinks; Unbelegtes steht nur als Frage.
 
 ## 0. Die wichtigsten Meldungen (je höchstens 5 Zeilen)
 
+- Turkey steel factory blast kills at least 17 people – bestätigt von 2 unabhängigen Quellgruppen.
+    · Wikipedia · BBC News – gehört BBC: Seventeen people are killed and twelve others are injured in an explosion at a factory in Aliağa , Turkey .
+    · Deutsche Welle (en) – staatlich (Deutschland): Turkey: Workers killed in Izmir steel plant blast
+  Quellen: [Wikipedia · BBC News](https://www.bbc.com/news/articles/cq2d6d5z9y5jo) [Deutsche Welle (en)](https://www.dw.com/en/turkey-workers-killed-in-izmir-steel-plant-blast/a-79900748?maca=en-rss-en-all-1573-xml-mrss)
+- France accuses Iran of supermarket fridge hacking – bestätigt von 3 unabhängigen Quellgruppen.
+    · BBC World – gehört BBC: France accuses Iran of supermarket fridge hacking
+    · Deutsche Welle (en) – staatlich (Deutschland): French officials blame Iran for supermarket fridge hacking
+    · NPR – gehört NPR: France accuses Iran of cyber 'sabotage' in fridge attacks
+  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/french-officials-blame-iran-for-supermarket-fridge-hacking/a-79903646?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/09/g-s1-152724/france-iran-cyber-sabotage-fridge-attacks)
+- Russell Brand sentenced to over 10 years in prison for rape and sexual assault convictions – bestätigt von 3 unabhängigen Quellgruppen.
+    · Deutsche Welle (en) – staatlich (Deutschland): Russell Brand sentenced to over 10 years in prison for rape and sexual assault convictions
+    · NPR – gehört NPR: British comedian Russell Brand sentenced to over 10 years for rape and sexual assault
+    · Wikipedia · CNN – gehört Warner Bros. Discovery: English actor Russell Brand is sentenced to 10 years and 6 months imprisonment for one rape and three counts of sexual assault . (CNN)
+  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/russell-brand-sentenced-to-over-10-years-in-prison-for-rape-and-sexual-assault-convictions/a-79896124?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/09/nx-s1-6034335/british-comedian-russell-brand-sentenced) [Wikipedia · CNN](https://edition.cnn.com/2026/11/09/entertainment/russell-brand-rape-sentence-prison-intl)
 - Krakow shooting suspect has died in hospital, police say – bestätigt von 2 unabhängigen Quellgruppen.
     · BBC World – gehört BBC: 'I treat all these people like they are victims', says doctor who treated Krakow shooting suspect
     · Deutsche Welle (en) – staatlich (Deutschland): Krakow mass shooting suspect has died in hospital, police in Poland say
   Quellen: [BBC World](https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/krakow-mass-shooting-suspect-has-died-in-hospital-police-in-poland-say/a-79895626?maca=en-rss-en-all-1573-xml-mrss)
-- At least 34 dead after Europe-bound migrant boat sinks off Senegal – bestätigt von 3 unabhängigen Quellgruppen.
-    · BBC World – gehört BBC: At least 34 dead after Europe-bound migrant boat sinks off Senegal
-    · Wikipedia · DW – staatlich (Deutschland): At least 34 people are killed when a small boat carrying migrants capsizes off the coast of Kébémer , Louga , Senegal . (DW)
-    · Wikipedia · Xinhua – staatlich (China): Twenty-one people are killed and one person has been rescued after a migrant boat sinks off the coast of Kebemer , Louga region , Senegal .
-  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss) [Wikipedia · DW](https://www.dw.com/en/many-killed-after-migrant-boat-sinks-off-senegal/a-79890883) [Wikipedia · Xinhua](https://english.news.cn/20261108/b421ddd6df0c45a7aff62b629f9a3581/c.html)
-- At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a… – bestätigt von 3 unabhängigen Quellgruppen.
-    · Wikipedia · Al Jazeera – staatlich (Katar): At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a…
-    · Wikipedia · Shafaq – Eigentümer unbekannt: Three people are killed and more than 300 others are rescued from severe flooding in Erbil , Kurdistan Region , Iraq .
-    · Wikipedia · AP – gehört The Associated Press: Two people are killed and 16 injured in a bus crash in Lent , Ain , France . (AP)
-  Quellen: [Wikipedia · Al Jazeera](https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter) [Wikipedia · Shafaq](https://shafaq.com/en/Kurdistan/Erbil-floods-kill-three-over-300-rescued) [Wikipedia · AP](https://apnews.com/article/france-bus-crash-e024a5428966dd6c3415c881bc503811)
-- Untersuchungen nach Affäre von Nvidia-Chef Huang mit mutmaßlicher Spionin – bestätigt von 2 unabhängigen Quellgruppen.
-    · Tagesschau – gehört ARD: Untersuchung gegen Nvidia-Chef Huang wegen möglicher Spionin aus China
-    · Deutsche Welle – staatlich (Deutschland): Nvidia-Chef Huang wegen Spionageverdachts unter Druck
-  Quellen: [Tagesschau](https://www.tagesschau.de/wirtschaft/unternehmen/nvidia-spionage-pruefung-100.html) [Deutsche Welle](https://www.dw.com/de/nvidia-chef-huang-wegen-spionageverdachts-unter-druck/a-79895905?maca=de-rss-de-all-1119-xml-mrss)
-- Ukraine-Gespräche in Abu Dhabi: EU kündigt Teilnahme an – bestätigt von 2 unabhängigen Quellgruppen.
-    · Tagesschau – gehört ARD: Ukraine-Gespräche in Abu Dhabi: EU kündigt Teilnahme an
-    · Deutsche Welle – staatlich (Deutschland): Russland lehnt Europas Teilnahme an Ukraine-Gesprächen ab
-  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-100.html) [Deutsche Welle](https://www.dw.com/de/russland-lehnt-europas-teilnahme-an-ukraine-gesprächen-ab/a-79897668?maca=de-rss-de-all-1119-xml-mrss)
-- Frühere Meldung vom 2026-11-08: „Many killed after migrant boat sinks off Senegal“ – zu „At least 34 dead after Europe-bound migrant boat sinks off Senegal“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+- Trump says FBI investigating Nvidia boss's affair with alleged Chinese spy – bestätigt von 2 unabhängigen Quellgruppen.
+    · Wikipedia · BBC News – gehört BBC: NVIDIA announces it is opening an investigation into CEO Jensen Huang after American intelligence reported that a close associate of Huang…
+    · Deutsche Welle (en) – staatlich (Deutschland): Why Nvidia CEO's affair with alleged Chinese spy matters
+  Quellen: [Wikipedia · BBC News](https://www.bbc.com/news/live/cm78p221e313t) [Deutsche Welle (en)](https://www.dw.com/en/why-nvidia-ceo-s-affair-with-alleged-chinese-spy-matters/a-79898338?maca=en-rss-en-all-1573-xml-mrss)
+- Frühere Meldung vom 2026-11-08: „Kenyan cult leader Paul Mackenzie is sentenced to 200 years in prison for the mass murder of children.“ – zu „Russell Brand sentenced to over 10 years in prison for rape and sexual assault convictions“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.reuters.com/world/africa/kenyan-court-sentences-cult-leader-200-years-prison-murder-190-children-2026-11-06/)
+- Frühere Meldung vom 2026-11-09: „Krakow shooting suspect has died in hospital, police say“ – zu „Krakow shooting suspect has died in hospital, police say“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss)
+- Frühere Meldung vom 2026-11-09: „Nvidia CEO Huang admits affair amid rumors of China spy ties“ – zu „Trump says FBI investigating Nvidia boss's affair with alleged Chinese spy“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.dw.com/en/nvidia-ceo-huang-admits-affair-amid-rumors-of-china-spy-ties/a-79894747?maca=en-rss-en-all-1573-xml-mrss)
+- Frühere Meldung vom 2026-11-08: „More than 40,000 gather as Pope Leo XIV celebrates Mass in Uruguay“ – zu „Millions fill Buenos Aires streets to welcome Pope Leo XIV“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
+  Quellen: [frühere Meldung](https://www.dw.com/en/more-than-40-000-gather-as-pope-leo-xiv-celebrates-mass-in-uruguay/a-79886543?maca=en-rss-en-all-1573-xml-mrss)
+- Frühere Meldung vom 2026-11-08: „Many killed after migrant boat sinks off Senegal“ – zu „At least 39 die after Europe-bound migrant boat sinks off Senegal“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
   Quellen: [frühere Meldung](https://www.dw.com/en/many-killed-after-migrant-boat-sinks-off-senegal/a-79890883?maca=en-rss-en-all-1573-xml-mrss)
-- Frühere Meldung vom 2026-11-08: „Six people are killed and 15 more injured in a drive-by mass shooting in the center of Kraków , Poland . The perpetrator, who…“ – zu „At least five people are killed, including four children, and several injured people are rescued…“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
-  Quellen: [frühere Meldung](https://www.reuters.com/world/europe/two-kiled-least-10-injured-shooting-polish-city-krakow-tvn24-reports-2026-11-07/)
-- Frühere Meldung vom 2026-11-08: „Seven dead and more than 100 injured after trains collide in Egypt“ – zu „Seven dead and more than 100 injured after trains collide in Egypt“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
-  Quellen: [frühere Meldung](https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss)
-- Frühere Meldung vom 2026-11-08: „South Africa elections: ANC marks its worst-ever performance“ – zu „'Devastating message' as ANC records worst-ever result in South Africa election“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
-  Quellen: [frühere Meldung](https://www.dw.com/en/south-africa-elections-anc-marks-its-worst-ever-performance/a-79887482?maca=en-rss-en-all-1573-xml-mrss)
-- Frühere Meldung vom 2026-11-08: „Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung“ – zu „Israel: Oppositionsführer Eisenkot soll neue Regierung bilden“ gehört möglicherweise eine Fortsetzung oder Korrektur; nicht bewertet.
-  Quellen: [frühere Meldung](https://www.tagesschau.de/ausland/asien/israel-auftrag-regierungsbildung-eisenkot-100.html)
 
 ## 1. Firma – was lief
 
-- Clip-Scout: Keine Creator eingetragen (clip_creators.json), 25 offene Kampagnen gelesen (Lauf 2026-11-09T14:35:08Z).
-- Hinweis von Clip-Scout: clip_creators.json fehlt oder ist leer – bitte Creator eintragen (Beispiel: docs/clip-team.md).
+- Clip-Scout: 13 Creator entdeckt, 13 geprüft: 0 erlaubt, 0 geduldet, 13 unklar, 0 gesperrt; 63 aktuelle Videos/Clips, 0 Vorschläge, 25 offene Kampagnen (Lauf 2026-11-10T01:37:32Z).
+- Hinweis von Clip-Scout: clip_creators.json fehlt oder ist leer – optional: eigene Creator/Sperrliste eintragen (docs/clip-team.md).
+- Hinweis von Clip-Scout: Entdeckung Aufruf-Suche: nicht erreichbar (RuntimeError: YouTube-Suche nicht lesbar)
 - Ideen-Entwickler: 18 neue Ideen (llm) (Lauf 2026-11-09T13:59:17Z).
+- Lern-Analyst: erkundung: 0 Videos ausgewertet, 0 Gewinner (Lauf 2026-11-09T16:50:09Z).
+- Hinweis von Lern-Analyst: Noch keine Uploads in firma_daten/uploads.json – es gibt nichts auszuwerten (Erkundung).
 - Messung: Keine Post-Links vorhanden – nichts gemessen (Lauf 2026-11-09T14:43:23Z).
 - Hinweis von Messung: Noch keine Post-Links (uploads.json / clip_radar.json clip_posts) – nichts zu messen.
-- News-Reporter: 60 Meldungen, davon 15 bestätigt (Lauf 2026-11-09T14:37:13Z).
-- Hinweis von News-Reporter: GDELT: keine Daten erhalten
-- Putzmann: 0 entfernt (Lauf 2026-11-09T12:04:33Z).
-- Trend-Scout: 80 Themen aus 2 Quellen (Lauf 2026-11-09T06:09:01Z).
-- Hinweis von Trend-Scout: YouTube DE: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)
-- Hinweis von Trend-Scout: YouTube US: nicht erreichbar (UploadError: Zugangsdaten fehlen (Umgebungsvariablen): CUDI_YT_CLIENT_ID, CUDI_YT_CLIENT_SECRET – siehe docs/upload-einrichten.md)
-- Welt-Blick: 16 Themen, 1 nur im Ausland, 0 Verbindungen (Lauf 2026-11-09T06:56:32Z).
+- News-Reporter: 60 Meldungen, davon 15 bestätigt (Lauf 2026-11-09T19:59:33Z).
+- Hinweis von News-Reporter: GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)
+- Putzmann: 0 entfernt (unverändert) (Lauf 2026-11-10T11:43:16Z).
+- recherche: 3 Themen, 11 Seiten gelesen, 1 bestätigte Aussagen (Lauf 2026-11-09T16:55:42Z).
+- Trend-Scout: 80 Themen aus 3 Quellen (Lauf 2026-11-09T16:42:03Z).
+- Hinweis von Trend-Scout: YouTube DE: nicht erreichbar (HTTPError: 403 Client Error: Forbidden for url: https://www.googleapis.com/youtube/v3/videos?…)
+- Hinweis von Trend-Scout: YouTube US: nicht erreichbar (HTTPError: 403 Client Error: Forbidden for url: https://www.googleapis.com/youtube/v3/videos?…)
+- vorrecherche: 32 Einträge (2 neu, 30 aktuell, 4 aufgeschoben) (Lauf 2026-11-10T10:40:22Z).
+- Hinweis von vorrecherche: groesste-laender (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut
+- Hinweis von vorrecherche: groesste-laender (5, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut
+- Welt-Blick: 6 Themen, 0 nur im Ausland, 0 Verbindungen (Lauf 2026-11-10T07:32:52Z).
+- Hinweis von Welt-Blick: GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)
 - Wissens-Sammler: 28 Quellen gelesen, 6 neue Regeln, 12 gesamt (Lauf 2026-11-09T13:17:53Z).
-- 44 neue Video-Ideen in den letzten 24 Stunden, z. B. „Das Marine-Kaffeebecher-Tabu“ und „Whoopi Goldbergs echter Name“.
+- 18 neue Video-Ideen in den letzten 24 Stunden, z. B. „Das Marine-Kaffeebecher-Tabu“ und „Whoopi Goldbergs echter Name“.
 - Wissens-Sammler: 6 neue Regeln gelernt.
 
 ## 2. Bestätigte Meldungen (≥ 2 unabhängige Betreiber)
 
+- Turkey steel factory blast kills at least 17 people – bestätigt von 2 unabhängigen Quellgruppen (Wikipedia · BBC News – gehört BBC; Deutsche Welle (en) – staatlich (Deutschland)).
+  Quellen: [Wikipedia · BBC News](https://www.bbc.com/news/articles/cq2d6d5z9y5jo) [Deutsche Welle (en)](https://www.dw.com/en/turkey-workers-killed-in-izmir-steel-plant-blast/a-79900748?maca=en-rss-en-all-1573-xml-mrss)
+- France accuses Iran of supermarket fridge hacking – bestätigt von 3 unabhängigen Quellgruppen (BBC World – gehört BBC; Deutsche Welle (en) – staatlich (Deutschland); NPR – gehört NPR).
+  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/french-officials-blame-iran-for-supermarket-fridge-hacking/a-79903646?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/09/g-s1-152724/france-iran-cyber-sabotage-fridge-attacks)
+- Russell Brand sentenced to over 10 years in prison for rape and sexual assault convictions – bestätigt von 3 unabhängigen Quellgruppen (Deutsche Welle (en) – staatlich (Deutschland); NPR – gehört NPR; Wikipedia · CNN – gehört Warner Bros. Discovery).
+  Quellen: [Deutsche Welle (en)](https://www.dw.com/en/russell-brand-sentenced-to-over-10-years-in-prison-for-rape-and-sexual-assault-convictions/a-79896124?maca=en-rss-en-all-1573-xml-mrss) [NPR](https://www.npr.org/2026/11/09/nx-s1-6034335/british-comedian-russell-brand-sentenced) [Wikipedia · CNN](https://edition.cnn.com/2026/11/09/entertainment/russell-brand-rape-sentence-prison-intl)
 - Krakow shooting suspect has died in hospital, police say – bestätigt von 2 unabhängigen Quellgruppen (BBC World – gehört BBC; Deutsche Welle (en) – staatlich (Deutschland)).
   Quellen: [BBC World](https://www.bbc.co.uk/news/videos/c63elgqqz5y0o?at_medium=RSS&at_campaign=rss) [Deutsche Welle (en)](https://www.dw.com/en/krakow-mass-shooting-suspect-has-died-in-hospital-police-in-poland-say/a-79895626?maca=en-rss-en-all-1573-xml-mrss)
-- At least 34 dead after Europe-bound migrant boat sinks off Senegal – bestätigt von 3 unabhängigen Quellgruppen (BBC World – gehört BBC; Wikipedia · DW – staatlich (Deutschland); Wikipedia · Xinhua – staatlich (China)).
-  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/cv2d6dpge65go?at_medium=RSS&at_campaign=rss) [Wikipedia · DW](https://www.dw.com/en/many-killed-after-migrant-boat-sinks-off-senegal/a-79890883) [Wikipedia · Xinhua](https://english.news.cn/20261108/b421ddd6df0c45a7aff62b629f9a3581/c.html)
-- At least five people are killed, including four children, and several injured people are rescued after heavy rain and flooding caused a… – bestätigt von 3 unabhängigen Quellgruppen (Wikipedia · Al Jazeera – staatlich (Katar); Wikipedia · Shafaq – Eigentümer unbekannt; Wikipedia · AP – gehört The Associated Press).
-  Quellen: [Wikipedia · Al Jazeera](https://www.aljazeera.com/news/2026/11/8/floods-in-gaza-leave-tens-of-thousands-without-shelter) [Wikipedia · Shafaq](https://shafaq.com/en/Kurdistan/Erbil-floods-kill-three-over-300-rescued) [Wikipedia · AP](https://apnews.com/article/france-bus-crash-e024a5428966dd6c3415c881bc503811)
-- Untersuchungen nach Affäre von Nvidia-Chef Huang mit mutmaßlicher Spionin – bestätigt von 2 unabhängigen Quellgruppen (Tagesschau – gehört ARD; Deutsche Welle – staatlich (Deutschland)).
-  Quellen: [Tagesschau](https://www.tagesschau.de/wirtschaft/unternehmen/nvidia-spionage-pruefung-100.html) [Deutsche Welle](https://www.dw.com/de/nvidia-chef-huang-wegen-spionageverdachts-unter-druck/a-79895905?maca=de-rss-de-all-1119-xml-mrss)
-- Ukraine-Gespräche in Abu Dhabi: EU kündigt Teilnahme an – bestätigt von 2 unabhängigen Quellgruppen (Tagesschau – gehört ARD; Deutsche Welle – staatlich (Deutschland)).
-  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/europa/ukraine-verhandlungen-abu-dhabi-100.html) [Deutsche Welle](https://www.dw.com/de/russland-lehnt-europas-teilnahme-an-ukraine-gesprächen-ab/a-79897668?maca=de-rss-de-all-1119-xml-mrss)
-- What do we know about Nvidia CEO’s affair with a suspected Chinese spy? – bestätigt von 2 unabhängigen Quellgruppen (Wikipedia · BBC News – gehört BBC; Deutsche Welle (en) – staatlich (Deutschland)).
-  Quellen: [Wikipedia · BBC News](https://www.bbc.com/news/live/cm78p221e313t) [Deutsche Welle (en)](https://www.dw.com/en/nvidia-ceo-huang-admits-affair-amid-rumors-of-china-spy-ties/a-79894747?maca=en-rss-en-all-1573-xml-mrss)
+- Trump says FBI investigating Nvidia boss's affair with alleged Chinese spy – bestätigt von 2 unabhängigen Quellgruppen (Wikipedia · BBC News – gehört BBC; Deutsche Welle (en) – staatlich (Deutschland)).
+  Quellen: [Wikipedia · BBC News](https://www.bbc.com/news/live/cm78p221e313t) [Deutsche Welle (en)](https://www.dw.com/en/why-nvidia-ceo-s-affair-with-alleged-chinese-spy-matters/a-79898338?maca=en-rss-en-all-1573-xml-mrss)
+- Republican congressman to force impeachment vote on Defence Secretary Hegseth – bestätigt von 2 unabhängigen Quellgruppen (BBC World – gehört BBC; NPR – gehört NPR).
+  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/cwr5y58jjp8ro?at_medium=RSS&at_campaign=rss) [NPR](https://www.npr.org/2026/11/09/nx-s1-6034483/thomas-massie-impeachment-pete-hegseth)
 
 ## 3. Deutschland von außen
 
-- Nur im Ausland gefunden (2 Betreiber: Großbritannien, Pakistan): Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat – in den ausgewerteten deutschen Medien keine passende Meldung.
-  Quellen: [BBC Europe (Großbritannien)](https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss) [Dawn (Pakistan)](https://www.dawn.com/news/2043132/hitlers-retreat-sparks-debate-over-germanys-past-and-present)
-- Ausland (Indien, Katar): „Chancellor Merz to nominate Aigner as Germany’s first woman president“ – Deutschland (Tagesschau): „Kanzler Merz will Aigner als Bundespräsidentin vorschlagen“. Beides ist nur nebeneinandergestellt, nicht bewertet. Hinweis: Al Jazeera ist staatsnah getragen.
-  Quellen: [Al Jazeera (Katar)](https://www.aljazeera.com/news/2026/11/8/chancellor-merz-to-nominate-aigner-as-germanys-first-woman-president?traffic_source=rss) [Times of India (Indien)](https://timesofindia.indiatimes.com/world/europe/chancellor-merz-backs-ilse-aigner-as-germanys-first-female-president/articleshow/135669055.cms) [Tagesschau](https://www.tagesschau.de/inland/innenpolitik/aigner-bundespraesidentin-merz-100.html)
-- Ausland (Indien): G7 Ministers meet on efforts to end Ukraine conflict, halt new Iran war
+- Ausland (Spanien): Las secadoras Bosch de bajo consumo tienen hasta 150 euros de reembolso antes de Black Friday Quellen: El País – gehört PRISA.
+  Quellen: [El País (Spanien)](https://elpais.com/escaparate/ofertas-y-descuentos/secadoras-eficientes-bosch.html)
+- Ausland (Schweiz): LIVE-TICKER - Krieg in der Ukraine: Merz fordert Beteiligung aller EU-Staaten an Ukraine-Hilfe Quellen: NZZ – gehört NZZ-Mediengruppe.
+  Quellen: [NZZ (Schweiz)](https://www.nzz.ch/international/krieg-in-der-ukraine-die-neusten-entwicklungen-im-liveticker-ld.10021245)
+- Ausland (Spanien): Un lector da su apoyo a los acampados: “Si nos movemos los de abajo, caen los de arriba” Quellen: El País – gehört PRISA.
+  Quellen: [El País (Spanien)](https://elpais.com/opinion/2026-11-10/un-lector-da-su-apoyo-a-los-acampados-si-nos-movemos-los-de-abajo-caen-los-de-arriba.html)
+- Ausland (Österreich): Durchsuchung bei "Hells Angels": Großeinsatz in Berlin Quellen: Der Standard – gehört Oscar Bronner.
+  Quellen: [Der Standard (Österreich)](https://www.derstandard.at/story/3000000348339/durchsuchung-bei-hells-angels-grosseinsatz-in-berlin?ref=rss)
+- Ausland (Österreich): „Vodafone baut in Deutschland rund 2300 Stellen ab“ – Deutschland (Tagesschau): „Mobilfunkunternehmen Vodafone plant Abbau von 2.300 Stellen“. Beides ist nur nebeneinandergestellt, nicht bewertet. Quellen: Der Standard – gehört Oscar Bronner.
+  Quellen: [Der Standard (Österreich)](https://www.derstandard.at/story/3000000348215/vodafone-baut-in-deutschland-rund-2300-stellen-ab?ref=rss) [Tagesschau](https://www.tagesschau.de/wirtschaft/unternehmen/vodafone-stellenabbau-102.html)
+- Ausland (Indien): G7 Ministers meet on efforts to end Ukraine conflict, halt new Iran war Quellen: The Hindu – gehört Kasturi & Sons Limited und The Hindu Group.
   Quellen: [The Hindu (Indien)](https://www.thehindu.com/news/international/g7-ministers-meeting-in-paris-russia-ukraine-conflict-us-israel-strikes-on-iran/article71681281.ece)
-- Ausland (Katar): How Israel’s separation wall compares with the Berlin Wall Hinweis: Al Jazeera ist staatsnah getragen.
-  Quellen: [Al Jazeera (Katar)](https://www.aljazeera.com/news/2026/11/9/how-israels-separation-wall-compares-with-the-berlin-wall?traffic_source=rss)
-- Ausland (Spain): Alemania y Reino Unido dicen que su proyecto para lanzar misiles a 2 . 000 km va por buen camino
-  Quellen: [libertaddigital.com (Spain)](https://www.libertaddigital.com/defensa/2026-11-09/alemania-y-reino-unido-dicen-que-su-proyecto-para-lanzar-misiles-a-2-000-km-va-por-buen-camino-7485875/)
-- Ausland (France): Pouvoir dachat . Faire ses courses en Allemagne : avez - vous déjà franchi le pas ?
-  Quellen: [dna.fr (France)](https://www.dna.fr/economie/2026/11/09/faire-ses-courses-en-allemagne-avez-vous-deja-franchi-le-pas)
-- Ausland (China): Sindhudesh Global Conference in Germany forms International Anti - Colonial Alliance , appoints Mehran Marri to lead initiative
-  Quellen: [beijingbulletin.com (China)](http://www.beijingbulletin.com/news/279420881/sindhudesh-global-conference-in-germany-forms-international-anti-colonial-alliance-appoints-mehran-marri-to-lead-initiative)
-- Ausland (Schweiz): Moritz von Uslar: vom Stadtintellektuellen zum Försterlandwirt
-  Quellen: [NZZ (Schweiz)](https://www.nzz.ch/feuilleton/moritz-von-uslar-vom-stadtintellektuellen-zum-foersterlandwirt-ld.10056100)
 
 ## 4. Belegte Verbindungen (Wikidata)
 
@@ -95,15 +99,22 @@ Der Schießerei-Verdächtige in Krakau ist im Krankenhaus gestorben. Vor Senegal
 
 ## 5. Offene Fragen (nicht belegt, nur Fragen)
 
-- OFFENE FRAGE (unbelegt): Warum berichten 2 ausländische Betreiber über „Germans wrestle with what to do with Hitler's destroyed Eagle's Nest retreat“, während in den ausgewerteten deutschen Medien keine passende Meldung auftaucht? Eine Erklärung ist nicht belegt.
-  Quellen: [BBC Europe](https://www.bbc.co.uk/news/articles/cm74pk1g51nko?at_medium=RSS&at_campaign=rss) [Dawn](https://www.dawn.com/news/2043132/hitlers-retreat-sparks-debate-over-germanys-past-and-present)
-- OFFENE FRAGE (unbelegt): Wird „G7-Außenminister sprechen über Ukraine und Iran“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
-  Quellen: [Tagesschau](https://www.tagesschau.de/ausland/europa/g7-paris-100.html)
-- OFFENE FRAGE (unbelegt): Wird „Christoph Mestmacher, ARD Berlin, zur offiziellen Nominierung von Ilse Aigner als Bundespräsidentin“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
-  Quellen: [Tagesschau](https://www.tagesschau.de/video/video-1680774.html)
+- OFFENE FRAGE (unbelegt): Wird „tagesschau in 100 Sekunden“ (bisher nur Tagesschau) von einer zweiten unabhängigen Quelle bestätigt?
+  Quellen: [Tagesschau](https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1681142.html)
+- OFFENE FRAGE (unbelegt): Wird „Qantas to outsource 850 local jobs with most roles moving to India“ (bisher nur BBC World) von einer zweiten unabhängigen Quelle bestätigt?
+  Quellen: [BBC World](https://www.bbc.co.uk/news/articles/cry838v4qzvyo?at_medium=RSS&at_campaign=rss)
 
 ## 6. Clip-Team (nur Belegtes)
 
-- Kein belegtes Clip-Material und keine Messwerte heute.
+- Im Hype (Top 10 von 13 entdeckten Creatorn): 1. MontanaBlack (twitch, 1 Aufrufe/Stunde, Erlaubnis offen) · 2. Trymacs (twitch, Erlaubnis offen) · 3. Papaplatte (twitch, 59 Aufrufe/Stunde, Erlaubnis offen) · 4. Knossi (twitch, Erlaubnis offen) · 5. HandOfBlood (twitch, Erlaubnis offen) · 6. Reved (twitch, Erlaubnis offen) · 7. Gronkh (twitch, Erlaubnis offen) · 8. EliasN97 (twitch, 65 Aufrufe/Stunde, Erlaubnis offen) · 9. Stegi (twitch, Erlaubnis offen) · 10. Rewinside (twitch, 37 Aufrufe/Stunde, Erlaubnis offen)
+  Quellen: [MontanaBlack](https://www.twitch.tv/montanablack88) [Trymacs](https://www.twitch.tv/trymacs) [Papaplatte](https://www.twitch.tv/papaplatte) [Knossi](https://www.twitch.tv/knossi) [HandOfBlood](https://www.twitch.tv/handofblood)
+- Im Hype, Erlaubnis offen: MontanaBlack – Bekannter deutschsprachiger Creator (Grundliste).
+  Quellen: [Quelle](https://www.twitch.tv/montanablack88)
+- Im Hype, Erlaubnis offen: Trymacs – Bekannter deutschsprachiger Creator (Grundliste).
+  Quellen: [Quelle](https://www.twitch.tv/trymacs)
+- Im Hype, Erlaubnis offen: Papaplatte – Bekannter deutschsprachiger Creator (Grundliste).
+  Quellen: [Quelle](https://www.twitch.tv/papaplatte)
+
+_Hinweise: Sprachmodell-Übersicht verworfen: neue Zahlen ['12']_
 
 _Nur aus den gesammelten Daten; Quellen in Klammern. Unbelegtes steht nur als „offene Frage“._
