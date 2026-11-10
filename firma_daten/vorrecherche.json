@@ -1,18 +1,16 @@
 {
- "erzeugt": "2026-11-09T19:17:44Z",
+ "erzeugt": "2026-11-10T10:40:22Z",
  "hinweise": [
-  "groesste-laender (10, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
   "groesste-laender (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
   "groesste-laender (5, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
-  "kleinste-laender (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
-  "meiste-einwohner (10, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
-  "meiste-einwohner (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut"
+  "meiste-einwohner (10, de): 2× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
+  "meiste-einwohner (10, de+en): 2× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut"
  ],
  "vorgaben": 36,
- "neu": 30,
+ "neu": 2,
  "behalten": 0,
- "aufgeschoben": 6,
- "aktuell": 0,
+ "aufgeschoben": 4,
+ "aktuell": 30,
  "entfernt": 0,
  "eintraege": [
   {
@@ -101,6 +99,19 @@
     "widersprüchlich": 1
    },
    "bytes": 21334
+  },
+  {
+   "schluessel": "307755411bf42060c7aa",
+   "thema": "groesste-laender",
+   "plaetze": 10,
+   "sprachen": [
+    "de"
+   ],
+   "stand": "2026-11-10T10:27:18Z",
+   "status": {
+    "bestätigt": 10
+   },
+   "bytes": 25433
   },
   {
    "schluessel": "3f1a8738772ddbadffc4",
@@ -383,6 +394,21 @@
    "bytes": 7999
   },
   {
+   "schluessel": "c13fc50d38a8aaa1ec61",
+   "thema": "kleinste-laender",
+   "plaetze": 10,
+   "sprachen": [
+    "de",
+    "en"
+   ],
+   "stand": "2026-11-10T10:34:08Z",
+   "status": {
+    "bestätigt": 9,
+    "korrigiert": 1
+   },
+   "bytes": 22747
+  },
+  {
    "schluessel": "ece5942c32a955baca04",
    "thema": "hoechste-wasserfaelle",
    "plaetze": 10,
@@ -439,5 +465,5 @@
    "bytes": 10109
   }
  ],
- "bytes": 443047
+ "bytes": 491227
 }
