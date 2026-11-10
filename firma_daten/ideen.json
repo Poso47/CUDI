@@ -1,10 +1,482 @@
 {
- "erzeugt": "2026-11-09T13:59:17Z",
+ "erzeugt": "2026-11-10T13:34:18Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 44,
- "neu": 18,
+ "anzahl": 52,
+ "neu": 17,
  "ideen": [
+  {
+   "id": "idee-d61e0e0a",
+   "bereich": "ranking",
+   "titel": "Die größten Auslegerbrücken der Welt",
+   "thema": "Eine Liste der größten Auslegerbrücken nach Messwerten.",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) und eignet sich direkt für ein Ranking.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184660 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Liste der größten Auslegerbrücken nach Messwerten."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z",
+   "recherche": [
+    {
+     "text": "Sie soll den Woluo-Fluss überspannen und wird mit 1680 m Hauptspannweite zu den größten Hängebrücken der Welt gehören.",
+     "status": "einzeln",
+     "datum": "2026-10-26",
+     "quellen": [
+      {
+       "quelle": "ingenieur.de",
+       "url": "https://www.ingenieur.de/283-m-hoch-200-t-tragkraft-so-entsteht-chinas-naechste-mega-bruecke-732e10d9-eeab-40bb-bb2c-9b516a058c24/",
+       "datum": "2026-10-26"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-41fb9eec",
+   "bereich": "fakten",
+   "titel": "Was ist das Rentenalter?",
+   "thema": "Allgemeine Fakten zum Konzept des Rentenalters.",
+   "begruendung": "Der Trend 'rentenalter' ist Platz 1 der Google-Trends (DE) mit über 200 Suchen und eignet sich für ein Faktenvideo.",
+   "quelle": {
+    "name": "rentenalter",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Allgemeine Fakten zum Konzept des Rentenalters.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z",
+   "recherche": [
+    {
+     "text": "Bei einer hypothetischen Rente von 1500 Euro wären das monatlich 180 Euro.",
+     "status": "einzeln",
+     "datum": "2026-11-10",
+     "quellen": [
+      {
+       "quelle": "ruhrnachrichten.de",
+       "url": "https://www.ruhrnachrichten.de/service/rente-mit-63-altersgrenze-jahrgaenge-abzuege-versicherungsjahre-berechnung-eintrittsalter-w917039-2001316745/",
+       "datum": "2026-11-10"
+      }
+     ]
+    },
+    {
+     "text": "Nimmt man für jeden Monat 0,3 Prozent Abzug, werden 12 Prozent der Altersrente abgezogen.",
+     "status": "einzeln",
+     "datum": "2026-11-10",
+     "quellen": [
+      {
+       "quelle": "ruhrnachrichten.de",
+       "url": "https://www.ruhrnachrichten.de/service/rente-mit-63-altersgrenze-jahrgaenge-abzuege-versicherungsjahre-berechnung-eintrittsalter-w917039-2001316745/",
+       "datum": "2026-11-10"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-27b996b1",
+   "bereich": "fakten",
+   "titel": "Was ist ein Nachruf?",
+   "thema": "Wissenswertes über die Bedeutung und Form eines Nachrufs.",
+   "begruendung": "Der Trend 'nachruf' ist Platz 2 der Google-Trends (DE) mit über 200 Suchen und eignet sich für ein Faktenvideo.",
+   "quelle": {
+    "name": "nachruf",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über die Bedeutung und Form eines Nachrufs.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
+  {
+   "id": "idee-5e022c57",
+   "bereich": "fakten",
+   "titel": "Fakten zum Chiphersteller Nvidia",
+   "thema": "Allgemeine Fakten über das Unternehmen Nvidia.",
+   "begruendung": "Der Trend 'Nvidia' ist Platz 12 der meistgelesenen Wikipedia-Seiten (de) und eignet sich für ein Faktenvideo.",
+   "quelle": {
+    "name": "Nvidia",
+    "typ": "trend",
+    "score": 91.1,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Allgemeine Fakten über das Unternehmen Nvidia.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
+  {
+   "id": "idee-9f747ac9",
+   "bereich": "fakten",
+   "titel": "Was ist Pflegegeld?",
+   "thema": "Allgemeine Fakten zum Pflegegeld.",
+   "begruendung": "Der Trend 'pflegegeld' ist Platz 3 der Google-Trends (DE) mit über 200 Suchen und eignet sich für ein Faktenvideo.",
+   "quelle": {
+    "name": "pflegegeld",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Allgemeine Fakten zum Pflegegeld.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
+  {
+   "id": "idee-343bf309",
+   "bereich": "erklaer",
+   "titel": "Wie das Rentenalter beeinflusst wird",
+   "thema": "Eine Erklärung, welche Faktoren das Rentenalter bestimmen.",
+   "begruendung": "Der Trend 'rentenalter' ist Platz 1 der Google-Trends (DE) und die Meldung deutet auf Änderungen hin, was eine Erklärung sinnvoll macht.",
+   "quelle": {
+    "name": "rentenalter",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung, welche Faktoren das Rentenalter bestimmen."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
+  {
+   "id": "idee-f6013dc8",
+   "bereich": "erklaer",
+   "titel": "Wie ein Nachruf verfasst wird",
+   "thema": "Eine Anleitung zur Erstellung eines Nachrufs.",
+   "begruendung": "Der Trend 'nachruf' ist Platz 2 der Google-Trends (DE) und die Meldung 'Nachruf Hans Metje' zeigt die Relevanz des Themas.",
+   "quelle": {
+    "name": "nachruf",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Anleitung zur Erstellung eines Nachrufs."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
+  {
+   "id": "idee-1cf72aa4",
+   "bereich": "erklaer",
+   "titel": "Pflegegeld: Diese Pflicht muss erledigt sein",
+   "thema": "Eine Erklärung der jährlichen Pflichten beim Pflegegeld.",
+   "begruendung": "Der Trend 'pflegegeld' ist Platz 3 der Google-Trends (DE) und die Meldung 'Pflegegeld: Diese Pflicht muss bis Jahresende erledigt sein' bietet einen konkreten Erklärungsbedarf.",
+   "quelle": {
+    "name": "pflegegeld",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der jährlichen Pflichten beim Pflegegeld."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
+  {
+   "id": "idee-8d33b9cd",
+   "bereich": "erklaer",
+   "titel": "Was ist die .xxx Domain?",
+   "thema": "Eine Erklärung der .xxx Top-Level-Domain und ihrer Nutzung.",
+   "begruendung": "Der Trend '.xxx' ist Platz 4 der meistgelesenen Wikipedia-Seiten (en) und eignet sich für ein Erklärvideo.",
+   "quelle": {
+    "name": ".xxx",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der .xxx Top-Level-Domain und ihrer Nutzung."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
+  {
+   "id": "idee-ae84c7b6",
+   "bereich": "erklaer",
+   "titel": "Wie die Polizei bei Diebstahl ermittelt",
+   "thema": "Eine Erklärung der Ermittlungsprozesse der Polizei bei Diebstahl.",
+   "begruendung": "Der Trend 'diebstahl' ist Platz 5 der Google-Trends (DE) und die Meldung 'POL Schwaben Nord: Polizei ermittelt nach Diebstahl' zeigt die Relevanz des Themas.",
+   "quelle": {
+    "name": "diebstahl",
+    "typ": "trend",
+    "score": 73.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der Ermittlungsprozesse der Polizei bei Diebstahl."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
+  {
+   "id": "idee-ea2fd3d6",
+   "bereich": "reportage",
+   "titel": "Griechenlands Beschäftigte müssen länger arbeiten",
+   "thema": "Eine Reportage über die Anhebung des Rentenalters in Griechenland.",
+   "begruendung": "Der Trend 'rentenalter' ist Platz 1 der Google-Trends (DE) und die Meldung 'Rentenalter: Griechenlands Beschäftigte müssen bald länger arbeiten' (Handelsblatt) ist eine bestätigte Nachricht für eine Reportage.",
+   "quelle": {
+    "name": "rentenalter",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Anhebung des Rentenalters in Griechenland.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-017eb319",
+   "bereich": "reportage",
+   "titel": "Nvidia-Chef in möglicher Spionageaffäre",
+   "thema": "Eine sachliche Reportage über die Verwicklung des Nvidia-Chefs in eine mögliche Spionageaffäre.",
+   "begruendung": "Die Meldung 'Chef des Chipherstellers Nvidia in mögliche Spionageaffäre verwickelt' ist von 2 Quellen (Tagesschau) bestätigt und eignet sich für eine Reportage.",
+   "quelle": {
+    "name": "Chef des Chipherstellers Nvidia in mögliche Spionageaffäre verwickelt",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über die Verwicklung des Nvidia-Chefs in eine mögliche Spionageaffäre.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-28ac5bab",
+   "bereich": "reportage",
+   "titel": "Ilse Aigner als Bundespräsidentin nominiert",
+   "thema": "Eine Reportage über die Nominierung von Ilse Aigner für das Amt der Bundespräsidentin.",
+   "begruendung": "Die Meldung 'Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin' ist von 2 Quellen (Tagesschau) bestätigt und eignet sich für eine Reportage.",
+   "quelle": {
+    "name": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Nominierung von Ilse Aigner für das Amt der Bundespräsidentin.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-c956ae44",
+   "bereich": "reportage",
+   "titel": "Darmstadt hält an Kohfeldt fest",
+   "thema": "Eine Reportage über die Entscheidung des SV Darmstadt 98, am Trainer festzuhalten.",
+   "begruendung": "Der Trend 'sv darmstadt 98' ist Platz 4 der Google-Trends (DE) und die Meldung 'Nach Absturz auf Rang 17: Darmstadt hält an Kohfeldt fest' (Kicker) ist eine bestätigte Nachricht für eine Reportage.",
+   "quelle": {
+    "name": "sv darmstadt 98",
+    "typ": "trend",
+    "score": 80.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Entscheidung des SV Darmstadt 98, am Trainer festzuhalten.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-85c55500",
+   "bereich": "reportage",
+   "titel": "Frankreich wirft Iran Kühlschrank-Hacking vor",
+   "thema": "Eine Reportage über Frankreichs Vorwürfe gegen Iran wegen Supermarkt-Kühlschrank-Hacking.",
+   "begruendung": "Die Meldung 'France accuses Iran of supermarket fridge hacking' ist von 3 Quellen (BBC World) bestätigt und eignet sich für eine Reportage.",
+   "quelle": {
+    "name": "France accuses Iran of supermarket fridge hacking",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über Frankreichs Vorwürfe gegen Iran wegen Supermarkt-Kühlschrank-Hacking.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-13fca753",
+   "bereich": "satire",
+   "titel": "Klare Worte von Aigner: Eine neue Ära der Politik?",
+   "thema": "Satirischer Kommentar zu Ilse Aigners Aussage über ihre Sprache als Bundespräsidentin.",
+   "begruendung": "Die Meldung 'Aigner soll Bundespräsidentin werden: \"Meine Sprache wird klar sein und verständlich\"' ist von 2 Quellen (Tagesschau) bestätigt und bietet Anlass für Satire auf politische Phrasen.",
+   "quelle": {
+    "name": "Aigner soll Bundespräsidentin werden: \"Meine Sprache wird klar sein und verständlich\"",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Satirischer Kommentar zu Ilse Aigners Aussage über ihre Sprache als Bundespräsidentin.",
+    "sprache": "de",
+    "meldung": "Aigner soll Bundespräsidentin werden: \"Meine Sprache wird klar sein und verständlich\""
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
+  {
+   "id": "idee-1ae91145",
+   "bereich": "satire",
+   "titel": "Kühlschrank-Hacking: Die neue Cyber-Bedrohung?",
+   "thema": "Satirische Auseinandersetzung mit dem Vorwurf des Supermarkt-Kühlschrank-Hackings.",
+   "begruendung": "Die Meldung 'France accuses Iran of supermarket fridge hacking' ist von 3 Quellen (BBC World) bestätigt und bietet Anlass für Satire auf die Absurdität des spezifischen Ziels der Cyberattacke.",
+   "quelle": {
+    "name": "France accuses Iran of supermarket fridge hacking",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Satirische Auseinandersetzung mit dem Vorwurf des Supermarkt-Kühlschrank-Hackings.",
+    "sprache": "de",
+    "meldung": "France accuses Iran of supermarket fridge hacking"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-10T13:33:26Z"
+  },
   {
    "id": "idee-4fb701b3",
    "bereich": "fakten",
@@ -712,118 +1184,6 @@
    "erstellt": "2026-11-08T21:47:40Z"
   },
   {
-   "id": "idee-e57ea7db",
-   "bereich": "fakten",
-   "titel": "Leonard Cohen: Wissenswertes",
-   "thema": "Fakten zum Leben und Werk des Künstlers Leonard Cohen.",
-   "begruendung": "Der Trend \"Leonard Cohen\" ist Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06 mit 35.698 Aufrufen.",
-   "quelle": {
-    "name": "Leonard Cohen",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten zum Leben und Werk des Künstlers Leonard Cohen.",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-08T21:47:40Z"
-  },
-  {
-   "id": "idee-d618f55a",
-   "bereich": "fakten",
-   "titel": "Reinhold Messner: Die Fakten",
-   "thema": "Wissenswerte Fakten über den Bergsteiger Reinhold Messner.",
-   "begruendung": "Der Trend \"Reinhold Messner\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06 mit 30.213 Aufrufen.",
-   "quelle": {
-    "name": "Reinhold Messner",
-    "typ": "trend",
-    "score": 76.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswerte Fakten über den Bergsteiger Reinhold Messner.",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-08T21:47:40Z"
-  },
-  {
-   "id": "idee-787c92a2",
-   "bereich": "fakten",
-   "titel": "Was ist die .xyz-Domain?",
-   "thema": "Fakten zur Top-Level-Domain .xyz.",
-   "begruendung": "Der Trend \".xyz\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06 mit 209.858 Aufrufen.",
-   "quelle": {
-    "name": ".xyz",
-    "typ": "trend",
-    "score": 76.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten zur Top-Level-Domain .xyz.",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-08T21:47:40Z"
-  },
-  {
-   "id": "idee-71eaee25",
-   "bereich": "fakten",
-   "titel": "Die .xxx-Domain erklärt",
-   "thema": "Fakten zur Top-Level-Domain .xxx.",
-   "begruendung": "Der Trend \".xxx\" ist Platz 8 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06 mit 199.678 Aufrufen.",
-   "quelle": {
-    "name": ".xxx",
-    "typ": "trend",
-    "score": 74.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten zur Top-Level-Domain .xxx.",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-08T21:47:40Z"
-  },
-  {
    "id": "idee-e958850a",
    "bereich": "erklaer",
    "titel": "Die Rolle des Bundespräsidenten",
@@ -891,55 +1251,6 @@
    "auftrag": {
     "art": "erklaer",
     "thema": "Ein Erklärvideo zum Prozess der Wahl einer Bundespräsidentin in Deutschland."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-08T21:47:40Z"
-  },
-  {
-   "id": "idee-c4a281d8",
-   "bereich": "erklaer",
-   "titel": "Regierungsbildung in Israel erklärt",
-   "thema": "Ein Erklärvideo zum Prozess der Regierungsbildung in Israel.",
-   "begruendung": "Die Meldung \"Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung\" ist von 3 Quellen bestätigt.",
-   "quelle": {
-    "name": "Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle",
-     "welt.de"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo zum Prozess der Regierungsbildung in Israel."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-08T21:47:40Z"
-  },
-  {
-   "id": "idee-e0f3b211",
-   "bereich": "erklaer",
-   "titel": "Südafrikas Wahlsystem erklärt",
-   "thema": "Ein Erklärvideo zum politischen System und den Wahlen in Südafrika.",
-   "begruendung": "Die Meldung \"South Africa elections: ANC marks its worst-ever performance\" ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "South Africa elections: ANC marks its worst-ever performance",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "bbc.com"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo zum politischen System und den Wahlen in Südafrika."
    },
    "app_auftrag": false,
    "erstellt": "2026-11-08T21:47:40Z"
@@ -1076,78 +1387,6 @@
    "app_auftrag": true,
    "erstellt": "2026-11-08T21:47:40Z",
    "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-b4810808",
-   "bereich": "erklaer",
-   "titel": "Bundespräsident: So funktioniert das Amt",
-   "thema": "Eine ruhige Erklärung, wie das Amt des Bundespräsidenten in Deutschland funktioniert und welche Befugnisse es hat.",
-   "begruendung": "Der Trend \"bundespräsident deutschland\" ist Platz 1 der Google-Trends (DE) mit über 1.000 Suchen.",
-   "quelle": {
-    "name": "bundespräsident deutschland",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google",
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine ruhige Erklärung, wie das Amt des Bundespräsidenten in Deutschland funktioniert und welche Befugnisse es hat."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-08T21:37:15Z"
-  },
-  {
-   "id": "idee-a5a47537",
-   "bereich": "erklaer",
-   "titel": "US-Wahlen 2026: Das Wahlsystem erklärt",
-   "thema": "Eine ruhige Erklärung, wie die Wahlen in den Vereinigten Staaten funktionieren.",
-   "begruendung": "Der Trend \"2026 United States elections\" ist Platz 5 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-06 mit 219.097 Aufrufen.",
-   "quelle": {
-    "name": "2026 United States elections",
-    "typ": "trend",
-    "score": 95.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine ruhige Erklärung, wie die Wahlen in den Vereinigten Staaten funktionieren."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-08T21:37:15Z"
-  },
-  {
-   "id": "idee-6f89b318",
-   "bereich": "erklaer",
-   "titel": "Israel: Regierungsbildung erklärt",
-   "thema": "Eine ruhige Erklärung, wie die Regierungsbildung in Israel nach Wahlen abläuft.",
-   "begruendung": "Die News \"Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung\" ist von 3 Quellen (Tagesschau) bestätigt.",
-   "quelle": {
-    "name": "Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle",
-     "welt.de"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine ruhige Erklärung, wie die Regierungsbildung in Israel nach Wahlen abläuft."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-08T21:37:15Z"
   }
  ]
 }
