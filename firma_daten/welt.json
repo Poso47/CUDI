@@ -1,18 +1,94 @@
 {
- "erzeugt": "2026-11-11T06:50:48Z",
- "anzahl": 11,
- "nur_ausland": 0,
+ "erzeugt": "2026-11-11T19:47:08Z",
+ "anzahl": 20,
+ "nur_ausland": 1,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "KOMMENTAR - Die Waffenexportregeln müssen gelockert werden. Denn keinen Spielraum zu haben, ist keine Strategie",
-   "kurz": "Die Änderung des Kriegsmaterialgesetzes wäre ein erster wichtiger Schritt. Aber er wird nicht reichen, um das Vertrauen Europas zurückzugewinnen. Der Bundesrat…",
-   "link": "https://www.nzz.ch/meinung/die-waffenexportregeln-muessen-gelockert-werden-denn-keinen-spielraum-zu-haben-ist-keine-strategie-ld.10051978",
+   "titel": "Germany reportedly bans Chinese drones at military bases over security concerns",
+   "kurz": "Western military forces increasingly worried Chinese-made technology ⁠could send ‌sensitive information to Beijing Germany has banned commercially available…",
+   "link": "https://www.theguardian.com/world/2026/nov/11/germany-bans-chinese-drones-military-bases-spying-security",
+   "sprache": "en",
+   "zeit": "2026-11-11T22:58:15+05:30",
+   "ausland_quellen": 4,
+   "laender": [
+    "Großbritannien",
+    "Indien",
+    "Südafrika"
+   ],
+   "laender_einig": [
+    "Großbritannien",
+    "Indien",
+    "Südafrika"
+   ],
+   "bestaetigt_laender": true,
+   "beteiligte_laender": [
+    "Hongkong/China"
+   ],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): Germany reportedly bans Chinese drones at military bases over security concerns",
+    "Times of India (Indien): Germany vows action after report finds widespread sexual misconduct in military",
+    "The Hindu (Indien): German military to stop using Chinese-made drones, citing security concerns",
+    "Daily Maverick (Südafrika): German military bans commercially available Chinese drones, Spiegel reports"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": true,
+   "unabhaengig_n": 4,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Germany reportedly bans Chinese drones at military bases over security concerns",
+     "link": "https://www.theguardian.com/world/2026/nov/11/germany-bans-chinese-drones-military-bases-spying-security",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Times of India",
+     "land": "Indien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Germany vows action after report finds widespread sexual misconduct in military",
+     "link": "https://timesofindia.indiatimes.com/world/europe/unacceptable-germany-vows-action-after-report-finds-widespread-sexual-misconduct-in-military/articleshow/135740875.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "The Hindu",
+     "land": "Indien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "German military to stop using Chinese-made drones, citing security concerns",
+     "link": "https://www.thehindu.com/news/international/german-military-to-stop-using-chinese-made-drones-citing-security-concerns/article71691040.ece",
+     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Daily Maverick",
+     "land": "Südafrika",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "German military bans commercially available Chinese drones, Spiegel reports",
+     "link": "https://www.dailymaverick.co.za/article/2026-11-10-german-military-bans-commercially-available-chinese-drones-spiegel-reports/",
+     "eigentuemer": "gehört Daily Maverick",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "«Die Geduld ist am Ende» – Hausärzte wollen endlich bessergestellt werden. Nun erhalten sie Schützenhilfe vom Bundesrat",
+   "kurz": "Dank dem Tarifsystem Tardoc sollten Haus- und Kinderärzte besser verdienen. Doch das Ziel ist noch nicht erreicht. Das zeigen die mehreren hundert…",
+   "link": "https://www.nzz.ch/schweiz/die-geduld-ist-am-ende-hausaerzte-wollen-endlich-bessergestellt-werden-nun-erhalten-sie-schuetzenhilfe-vom-bundesrat-ld.10060835",
    "sprache": "de",
-   "zeit": "2026-11-11T04:35:00Z",
+   "zeit": "2026-11-11T18:59:02Z",
    "ausland_quellen": 1,
    "laender": [
     "Schweiz"
@@ -23,7 +99,7 @@
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): KOMMENTAR - Die Waffenexportregeln müssen gelockert werden. Denn keinen Spielraum zu haben, ist keine Strategie"
+    "NZZ (Schweiz): «Die Geduld ist am Ende» – Hausärzte wollen endlich bessergestellt werden. Nun erhalten sie Schützenhilfe vom Bundesrat"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -37,9 +113,387 @@
      "land": "Schweiz",
      "art": "privat",
      "beteiligt": false,
-     "titel": "KOMMENTAR - Die Waffenexportregeln müssen gelockert werden. Denn keinen Spielraum zu haben, ist keine Strategie",
-     "link": "https://www.nzz.ch/meinung/die-waffenexportregeln-muessen-gelockert-werden-denn-keinen-spielraum-zu-haben-ist-keine-strategie-ld.10051978",
+     "titel": "«Die Geduld ist am Ende» – Hausärzte wollen endlich bessergestellt werden. Nun erhalten sie Schützenhilfe vom Bundesrat",
+     "link": "https://www.nzz.ch/schweiz/die-geduld-ist-am-ende-hausaerzte-wollen-endlich-bessergestellt-werden-nun-erhalten-sie-schuetzenhilfe-vom-bundesrat-ld.10060835",
      "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Robert Sánchez sufrió un accidente con una Ferrari en un circuito de Alemania",
+   "kurz": "El arquero español, compañero de Nico Paz en Como, chocó a 113 km/h, destrozó el auto valuado en 350.000 euros y salió ileso",
+   "link": "https://www.lanacion.com.ar/deportes/futbol/robert-sanchez-sufrio-un-accidente-con-una-ferrari-en-un-circuito-de-alemania-nid11112026/",
+   "sprache": "es",
+   "zeit": "2026-11-11T18:58:44Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Spanien"
+   ],
+   "zusammenfassung": [
+    "La Nación (Argentinien): Robert Sánchez sufrió un accidente con una Ferrari en un circuito de Alemania"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Robert Sánchez sufrió un accidente con una Ferrari en un circuito de Alemania",
+     "link": "https://www.lanacion.com.ar/deportes/futbol/robert-sanchez-sufrio-un-accidente-con-una-ferrari-en-un-circuito-de-alemania-nid11112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "KOMMENTAR - Deutschland folgt dem französischen Schuldenkurs – und riskiert damit langfristig die Stabilität der Euro-Zone",
+   "kurz": "Die Bundesrepublik nähert sich in vielen Bereichen immer stärker Frankreich an. So weisen beide Länder seit dem Jahr 2019 eine enorme Neuverschuldung auf. Auch…",
+   "link": "https://www.nzz.ch/meinung/deutschland-folgt-dem-franzoesischen-schuldenkurs-und-riskiert-damit-langfristig-die-stabilitaet-der-euro-zone-ld.10060552",
+   "sprache": "de",
+   "zeit": "2026-11-11T18:42:36Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "NZZ (Schweiz): KOMMENTAR - Deutschland folgt dem französischen Schuldenkurs – und riskiert damit langfristig die Stabilität der Euro-Zone"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "KOMMENTAR - Deutschland folgt dem französischen Schuldenkurs – und riskiert damit langfristig die Stabilität der Euro-Zone",
+     "link": "https://www.nzz.ch/meinung/deutschland-folgt-dem-franzoesischen-schuldenkurs-und-riskiert-damit-langfristig-die-stabilitaet-der-euro-zone-ld.10060552",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Sachverständigenrat: Deutschland steuert auf eine Schuldenquote von 100 Prozent zu",
+   "kurz": "Die Wirtschaftsweisen fordern die Bundesregierung auf, Subventionen und Sozialausgaben zu kürzen. Die Verteidigungsausgaben müssen künftig aus dem regulären…",
+   "link": "https://www.nzz.ch/wirtschaft/sachverstaendigenrat-deutschland-steuert-auf-schuldenquote-von-100-prozent-zu-ld.10060577",
+   "sprache": "de",
+   "zeit": "2026-11-11T18:25:39Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Sachverständigenrat: Deutschland steuert auf eine Schuldenquote von 100 Prozent zu"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Sachverständigenrat: Deutschland steuert auf eine Schuldenquote von 100 Prozent zu",
+     "link": "https://www.nzz.ch/wirtschaft/sachverstaendigenrat-deutschland-steuert-auf-schuldenquote-von-100-prozent-zu-ld.10060577",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Merz threatens to cut EU funds for member states that don't support Ukraine",
+   "kurz": "After Bulgaria, Hungary, Slovakia and the Czech Republic asked to be exempted from Ukraine's next funding scheme, Germany's chancellor responded firmly…",
+   "link": "https://www.lemonde.fr/en/international/article/2026/11/11/merz-threatens-to-cut-eu-funds-for-member-states-that-don-t-support-ukraine_6778019_4.html",
+   "sprache": "en",
+   "zeit": "2026-11-11T17:42:35+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [
+    "Frankreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): Merz threatens to cut EU funds for member states that don't support Ukraine"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Merz threatens to cut EU funds for member states that don't support Ukraine",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/11/merz-threatens-to-cut-eu-funds-for-member-states-that-don-t-support-ukraine_6778019_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Die Grünen wollen die Solarpflicht auf alle Gebäude im Land ausweiten, der Bundesrat ist dagegen und verweist auf die Kantone",
+   "kurz": "Bei der Energiewende, so schreibt der Bundesrat, wolle man auf «Anreize» statt auf starre Vorschriften setzen – doch eigentlich gibt es die bereits heute.",
+   "link": "https://www.nzz.ch/schweiz/die-gruenen-wollen-die-solarpflicht-auf-alle-gebaeude-im-land-ausweiten-der-bundesrat-ist-dagegen-und-verweist-auf-die-kantone-ld.10060881",
+   "sprache": "de",
+   "zeit": "2026-11-11T16:30:03Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Die Grünen wollen die Solarpflicht auf alle Gebäude im Land ausweiten, der Bundesrat ist dagegen und verweist auf die Kantone"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Die Grünen wollen die Solarpflicht auf alle Gebäude im Land ausweiten, der Bundesrat ist dagegen und verweist auf die Kantone",
+     "link": "https://www.nzz.ch/schweiz/die-gruenen-wollen-die-solarpflicht-auf-alle-gebaeude-im-land-ausweiten-der-bundesrat-ist-dagegen-und-verweist-auf-die-kantone-ld.10060881",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Alemania crecerá este año un 1,3%, más del doble de lo previsto, pero los ‘sabios’ avisan del riesgo presupuestario",
+   "kurz": "Proponen desmantelar la excepción que excluye la defensa del cómputo del déficit y profundizar en los ajustes sobre pensiones y ayudas",
+   "link": "https://elpais.com/economia/2026-11-11/alemania-crecera-este-ano-un-13-mas-del-doble-de-lo-previsto-pero-los-sabios-avisan-de-los-riesgos-financieros.html",
+   "sprache": "es",
+   "zeit": "2026-11-11T14:50:21Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Alemania crecerá este año un 1,3%, más del doble de lo previsto, pero los ‘sabios’ avisan del riesgo presupuestario"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Alemania crecerá este año un 1,3%, más del doble de lo previsto, pero los ‘sabios’ avisan del riesgo presupuestario",
+     "link": "https://elpais.com/economia/2026-11-11/alemania-crecera-este-ano-un-13-mas-del-doble-de-lo-previsto-pero-los-sabios-avisan-de-los-riesgos-financieros.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Rauswurf der umstrittenen Abgeordneten Emde soll linke Berliner Koalition sichern",
+   "kurz": "Vanessa Emde aus Neukölln steht in der Linken wegen ihrer Aussagen zu Israel unter Druck. Nun soll sie aus der Fraktion im Abgeordnetenhaus ausgeschlossen…",
+   "link": "https://www.derstandard.at/story/3000000348648/rauswurf-der-umstrittenen-abgeordneten-emde-soll-linke-berliner-koalition-sichern?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-11T13:01:46Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Israel"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Rauswurf der umstrittenen Abgeordneten Emde soll linke Berliner Koalition sichern"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Rauswurf der umstrittenen Abgeordneten Emde soll linke Berliner Koalition sichern",
+     "link": "https://www.derstandard.at/story/3000000348648/rauswurf-der-umstrittenen-abgeordneten-emde-soll-linke-berliner-koalition-sichern?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutschland: Rechtsextremes Weltbild verbreitet wie seit Jahren nicht",
+   "kurz": "Die Zustimmung zur Demokratie ist laut einer Studie erstmals seit 2022 unter 90 Prozent gesunken. Antisemitische Einstellungen wurden bei Wählern von AfD und…",
+   "link": "https://www.derstandard.at/story/3000000348742/deutschland-rechtsextremes-weltbild-verbreitet-wie-seit-jahren-nicht?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-11T12:17:07Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Deutschland: Rechtsextremes Weltbild verbreitet wie seit Jahren nicht"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Deutschland: Rechtsextremes Weltbild verbreitet wie seit Jahren nicht",
+     "link": "https://www.derstandard.at/story/3000000348742/deutschland-rechtsextremes-weltbild-verbreitet-wie-seit-jahren-nicht?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Verdächtiger im Fall der getöteten 13-Jährigen in Berlin gestorben",
+   "kurz": "Am Sonntag wurde der Verdächtige in einem Haus in Brandenburg gefasst, in dem sich die Leiche der 13-Jährigen befand",
+   "link": "https://www.derstandard.at/story/3000000348716/get246tete-lisa-in-berlin-verd228chtiger-ebenfalls-gestorben?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-11T11:15:27Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Verdächtiger im Fall der getöteten 13-Jährigen in Berlin gestorben"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Verdächtiger im Fall der getöteten 13-Jährigen in Berlin gestorben",
+     "link": "https://www.derstandard.at/story/3000000348716/get246tete-lisa-in-berlin-verd228chtiger-ebenfalls-gestorben?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Studie offenbart erschreckendes Ausmaß sexueller Übergriffe bei deutscher Bundeswehr",
+   "kurz": "Verteidigungsminister Pistorius hat das Dunkelfeld sexueller Übergriffe erstmals ausgeleuchtet. Nun steht er unter Druck, wirksame Maßnahmen gegen ein…",
+   "link": "https://www.derstandard.at/story/3000000348646/studie-offenbart-erschreckendes-ausmass-sexueller-uebergriffe-bei-deutscher-bundeswehr?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-11T10:24:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Studie offenbart erschreckendes Ausmaß sexueller Übergriffe bei deutscher Bundeswehr"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Studie offenbart erschreckendes Ausmaß sexueller Übergriffe bei deutscher Bundeswehr",
+     "link": "https://www.derstandard.at/story/3000000348646/studie-offenbart-erschreckendes-ausmass-sexueller-uebergriffe-bei-deutscher-bundeswehr?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -82,83 +536,7 @@
    ]
   },
   {
-   "titel": "Felix Nmecha, figura de Borussia Dortmund y de la selección de Alemania, desata un debate por un festejo religioso",
-   "kurz": "El volante es representante deportivo de la corriente evangelista “Ballers in God”; la posición del club y la intervención de Jürgen Klopp",
-   "link": "https://www.lanacion.com.ar/deportes/futbol/felix-nmecha-figura-de-borussia-dortmund-y-de-la-seleccion-de-alemania-desata-un-debate-por-un-nid10112026/",
-   "sprache": "es",
-   "zeit": "2026-11-10T23:34:51Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [
-    "Argentinien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "La Nación (Argentinien): Felix Nmecha, figura de Borussia Dortmund y de la selección de Alemania, desata un debate por un festejo religioso"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Felix Nmecha, figura de Borussia Dortmund y de la selección de Alemania, desata un debate por un festejo religioso",
-     "link": "https://www.lanacion.com.ar/deportes/futbol/felix-nmecha-figura-de-borussia-dortmund-y-de-la-seleccion-de-alemania-desata-un-debate-por-un-nid10112026/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "German military bans commercially available Chinese drones, Spiegel reports",
-   "kurz": "BERLIN, Nov 10 (Reuters) - Germany's military has banned commercially available Chinese-made drones from its barracks and training grounds, effective…",
-   "link": "https://www.dailymaverick.co.za/article/2026-11-10-german-military-bans-commercially-available-chinese-drones-spiegel-reports/",
-   "sprache": "en",
-   "zeit": "2026-11-10T21:39:59Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Südafrika"
-   ],
-   "laender_einig": [
-    "Südafrika"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Hongkong/China"
-   ],
-   "zusammenfassung": [
-    "Daily Maverick (Südafrika): German military bans commercially available Chinese drones, Spiegel reports"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Daily Maverick",
-     "land": "Südafrika",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "German military bans commercially available Chinese drones, Spiegel reports",
-     "link": "https://www.dailymaverick.co.za/article/2026-11-10-german-military-bans-commercially-available-chinese-drones-spiegel-reports/",
-     "eigentuemer": "gehört Daily Maverick",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Kristallnacht' 88th anniversary: Merz says Germany faces historic test over antisemitism",
+   "titel": "Kristallnacht's 88th anniversary: Merz says Germany faces historic test over anti-Semitism",
    "kurz": "It has been 88 years since \"Kristallnacht\", the \"Night of Broken Glass\" in Europe, a violent pogrom against the Jewish population across Nazi Germany and…",
    "link": "https://www.france24.com/en/video/20261110-kristallnacht-88th-anniversary-merz-says-germany-faces-historic-test-over-antisemitism",
    "sprache": "en",
@@ -173,7 +551,7 @@
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "France 24 (Frankreich): Kristallnacht' 88th anniversary: Merz says Germany faces historic test over antisemitism"
+    "France 24 (Frankreich): Kristallnacht's 88th anniversary: Merz says Germany faces historic test over anti-Semitism"
    ],
    "staatsnah": [
     "France 24"
@@ -189,7 +567,7 @@
      "land": "Frankreich",
      "art": "staatsnah",
      "beteiligt": false,
-     "titel": "Kristallnacht' 88th anniversary: Merz says Germany faces historic test over antisemitism",
+     "titel": "Kristallnacht's 88th anniversary: Merz says Germany faces historic test over anti-Semitism",
      "link": "https://www.france24.com/en/video/20261110-kristallnacht-88th-anniversary-merz-says-germany-faces-historic-test-over-antisemitism",
      "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
@@ -275,80 +653,6 @@
    ]
   },
   {
-   "titel": "Teure Essen, viele Boni: Ehemalige deutsche TV-Intendantin auf der Anklagebank",
-   "kurz": "Patricia Schlesinger, die Ex-Chefin des Rundfunks Berlin-Brandenburg (RBB), muss sich wegen Untreue-Vorwürfen in 26 Fällen vor dem Strafgericht verantworten",
-   "link": "https://www.derstandard.at/story/3000000348391/teure-essen-viele-boni-ehemalige-deutsche-tv-intendantin-auf-der-anklagebank?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-10T12:17:46Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Teure Essen, viele Boni: Ehemalige deutsche TV-Intendantin auf der Anklagebank"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Teure Essen, viele Boni: Ehemalige deutsche TV-Intendantin auf der Anklagebank",
-     "link": "https://www.derstandard.at/story/3000000348391/teure-essen-viele-boni-ehemalige-deutsche-tv-intendantin-auf-der-anklagebank?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Umstrittene Jubelgeste von BVB- und DFB-Kicker Nmecha entfacht Debatte in Deutschland",
-   "kurz": "Die Fan- und Förderabteilung von Borussia Dortmund hat in einer Stellungnahme eine klare Abgrenzung von evangelikalen Netzwerken gefordert. Nmecha von…",
-   "link": "https://www.derstandard.at/story/3000000348427/umstrittene-jubelgeste-von-bdfb-kicker-nmecha-entflammt-debatte-in-deutschland?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-10T10:42:22Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Umstrittene Jubelgeste von BVB- und DFB-Kicker Nmecha entfacht Debatte in Deutschland"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Umstrittene Jubelgeste von BVB- und DFB-Kicker Nmecha entfacht Debatte in Deutschland",
-     "link": "https://www.derstandard.at/story/3000000348427/umstrittene-jubelgeste-von-bdfb-kicker-nmecha-entflammt-debatte-in-deutschland?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits",
    "kurz": "Eine aktuelle Ifo-Studie zeigt: Die Beschäftigung der 20- bis 24-Jährigen ging in Deutschland in den am stärksten von KI betroffenen Berufen zurück",
    "link": "https://www.derstandard.at/story/3000000348293/berufseinsteiger-spueren-ki-folgen-auf-dem-jobmarkt-bereits?ref=rss",
@@ -381,6 +685,80 @@
      "titel": "Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits",
      "link": "https://www.derstandard.at/story/3000000348293/berufseinsteiger-spueren-ki-folgen-auf-dem-jobmarkt-bereits?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "French-German defense cooperation reaches dead end under Emmanuel Macron",
+   "kurz": "At a French-German parliamentary assembly on Monday, Paris and Berlin took stock of a strained defense relationship that led to the abandonment of the FCAS…",
+   "link": "https://www.lemonde.fr/en/international/article/2026/11/11/french-german-defense-cooperation-reaches-dead-end-under-emmanuel-macron_6778022_4.html",
+   "sprache": "en",
+   "zeit": "2026-11-11T20:00:07+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): French-German defense cooperation reaches dead end under Emmanuel Macron"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "French-German defense cooperation reaches dead end under Emmanuel Macron",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/11/french-german-defense-cooperation-reaches-dead-end-under-emmanuel-macron_6778022_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "German knives, English socks: 13 gifts beloved globally that Americans are missing out on",
+   "kurz": "From Guyanese rum to soft Australian bedsheets, you don’t have to buy a plane ticket to enjoy Guardian staff’s international favorites – perfect for holidays…",
+   "link": "https://www.theguardian.com/thefilter-us/2026/nov/11/best-international-gifts",
+   "sprache": "en",
+   "zeit": "2026-11-11T15:15:52Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Großbritannien"
+   ],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): German knives, English socks: 13 gifts beloved globally that Americans are missing out on"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "German knives, English socks: 13 gifts beloved globally that Americans are missing out on",
+     "link": "https://www.theguardian.com/thefilter-us/2026/nov/11/best-international-gifts",
+     "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
     }
    ]
@@ -423,24 +801,7 @@
    ]
   }
  ],
- "verbindungen": [
-  {
-   "name": "Borussia Dortmund",
-   "wikidata": "https://www.wikidata.org/wiki/Q41420",
-   "beschreibung": "German professional sports club based in Dortmund",
-   "verbindungen": [
-    {
-     "eigenschaft": "Eigentümer",
-     "wert": "Reinhard Rauball",
-     "link": "https://www.wikidata.org/wiki/Q881201",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "Felix Nmecha, figura de Borussia Dortmund y de la selección de Alemania, desata un debate por un festejo religioso"
-   ]
-  }
- ],
+ "verbindungen": [],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -657,6 +1018,18 @@
      "beendet": null
     }
    ]
+  },
+  "Abgeordneten Emde": {
+   "keine_treffer": true
+  },
+  "Berliner Koalition": {
+   "keine_treffer": true
+  },
+  "Rechtsextremes Weltbild": {
+   "keine_treffer": true
+  },
+  "Emmanuel Macron": {
+   "keine_treffer": true
   }
  }
 }
