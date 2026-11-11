@@ -1,16 +1,14 @@
 {
- "erzeugt": "2026-11-10T10:40:22Z",
+ "erzeugt": "2026-11-11T10:00:34Z",
  "hinweise": [
-  "groesste-laender (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
-  "groesste-laender (5, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
-  "meiste-einwohner (10, de): 2× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
-  "meiste-einwohner (10, de+en): 2× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut"
+  "meiste-einwohner (10, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
+  "meiste-einwohner (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut"
  ],
  "vorgaben": 36,
  "neu": 2,
  "behalten": 0,
- "aufgeschoben": 4,
- "aktuell": 30,
+ "aufgeschoben": 2,
+ "aktuell": 32,
  "entfernt": 0,
  "eintraege": [
   {
@@ -112,6 +110,34 @@
     "bestätigt": 10
    },
    "bytes": 25433
+  },
+  {
+   "schluessel": "392211971085dbde1dbe",
+   "thema": "groesste-laender",
+   "plaetze": 5,
+   "sprachen": [
+    "de",
+    "en"
+   ],
+   "stand": "2026-11-11T09:54:44Z",
+   "status": {
+    "bestätigt": 5
+   },
+   "bytes": 14965
+  },
+  {
+   "schluessel": "3cd8d028dd6a0bea5e06",
+   "thema": "groesste-laender",
+   "plaetze": 10,
+   "sprachen": [
+    "de",
+    "en"
+   ],
+   "stand": "2026-11-11T09:52:21Z",
+   "status": {
+    "bestätigt": 10
+   },
+   "bytes": 25468
   },
   {
    "schluessel": "3f1a8738772ddbadffc4",
@@ -465,5 +491,5 @@
    "bytes": 10109
   }
  ],
- "bytes": 491227
+ "bytes": 531660
 }
