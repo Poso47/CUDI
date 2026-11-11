@@ -1,12 +1,123 @@
 {
- "erzeugt": "2026-11-10T19:53:56Z",
- "anzahl": 12,
+ "erzeugt": "2026-11-11T06:50:48Z",
+ "anzahl": 11,
  "nur_ausland": 0,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "KOMMENTAR - Die Waffenexportregeln müssen gelockert werden. Denn keinen Spielraum zu haben, ist keine Strategie",
+   "kurz": "Die Änderung des Kriegsmaterialgesetzes wäre ein erster wichtiger Schritt. Aber er wird nicht reichen, um das Vertrauen Europas zurückzugewinnen. Der Bundesrat…",
+   "link": "https://www.nzz.ch/meinung/die-waffenexportregeln-muessen-gelockert-werden-denn-keinen-spielraum-zu-haben-ist-keine-strategie-ld.10051978",
+   "sprache": "de",
+   "zeit": "2026-11-11T04:35:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): KOMMENTAR - Die Waffenexportregeln müssen gelockert werden. Denn keinen Spielraum zu haben, ist keine Strategie"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "KOMMENTAR - Die Waffenexportregeln müssen gelockert werden. Denn keinen Spielraum zu haben, ist keine Strategie",
+     "link": "https://www.nzz.ch/meinung/die-waffenexportregeln-muessen-gelockert-werden-denn-keinen-spielraum-zu-haben-ist-keine-strategie-ld.10051978",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutschland beschließt verpflichtende Videoüberwachung für große Schlachthöfe",
+   "kurz": "Immer wieder werden Tiere, noch bevor sie getötet werden, in Betrieben gequält",
+   "link": "https://www.derstandard.at/story/3000000348567/deutschland-beschliesst-verpflichtende-videoueberwachung-fuer-grosse-schlachthoefe?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-11T04:00:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Deutschland beschließt verpflichtende Videoüberwachung für große Schlachthöfe"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Deutschland beschließt verpflichtende Videoüberwachung für große Schlachthöfe",
+     "link": "https://www.derstandard.at/story/3000000348567/deutschland-beschliesst-verpflichtende-videoueberwachung-fuer-grosse-schlachthoefe?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Felix Nmecha, figura de Borussia Dortmund y de la selección de Alemania, desata un debate por un festejo religioso",
+   "kurz": "El volante es representante deportivo de la corriente evangelista “Ballers in God”; la posición del club y la intervención de Jürgen Klopp",
+   "link": "https://www.lanacion.com.ar/deportes/futbol/felix-nmecha-figura-de-borussia-dortmund-y-de-la-seleccion-de-alemania-desata-un-debate-por-un-nid10112026/",
+   "sprache": "es",
+   "zeit": "2026-11-10T23:34:51Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "La Nación (Argentinien): Felix Nmecha, figura de Borussia Dortmund y de la selección de Alemania, desata un debate por un festejo religioso"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Felix Nmecha, figura de Borussia Dortmund y de la selección de Alemania, desata un debate por un festejo religioso",
+     "link": "https://www.lanacion.com.ar/deportes/futbol/felix-nmecha-figura-de-borussia-dortmund-y-de-la-seleccion-de-alemania-desata-un-debate-por-un-nid10112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "German military bans commercially available Chinese drones, Spiegel reports",
    "kurz": "BERLIN, Nov 10 (Reuters) - Germany's military has banned commercially available Chinese-made drones from its barracks and training grounds, effective…",
@@ -42,45 +153,6 @@
      "titel": "German military bans commercially available Chinese drones, Spiegel reports",
      "link": "https://www.dailymaverick.co.za/article/2026-11-10-german-military-bans-commercially-available-chinese-drones-spiegel-reports/",
      "eigentuemer": "gehört Daily Maverick",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Myanmar summons German envoy over controversial video",
-   "kurz": "Mathias Licharz calls for the 'unconditional' release of ousted politicians, including former leader Aung San Suu Kyi.",
-   "link": "https://www.aljazeera.com/news/2026/11/10/myanmar-summons-german-diplomat-following-controversial-facebook-video?traffic_source=rss",
-   "sprache": "en",
-   "zeit": "2026-11-10T18:03:06Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Katar"
-   ],
-   "laender_einig": [
-    "Katar"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Al Jazeera (Katar): Myanmar summons German envoy over controversial video"
-   ],
-   "staatsnah": [
-    "Al Jazeera"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Myanmar summons German envoy over controversial video",
-     "link": "https://www.aljazeera.com/news/2026/11/10/myanmar-summons-german-diplomat-following-controversial-facebook-video?traffic_source=rss",
-     "eigentuemer": "staatlich (Katar)",
      "zaehlt_nicht": ""
     }
    ]
@@ -277,45 +349,6 @@
    ]
   },
   {
-   "titel": "After fire destroys Hitler's 'Eagle's Nest' in the Bavarian Alps, debate erupts over whether to rebuild",
-   "kurz": "The arson attack that damaged the house built in the 1930s in the Berchtesgaden Alps, near the Austrian border, has sparked a debate over how Germany should…",
-   "link": "https://www.lemonde.fr/en/international/article/2026/11/10/after-fire-destroys-hitler-s-eagle-s-nest-in-the-bavarian-alps-debate-erupts-over-whether-to-rebuild_6776795_4.html",
-   "sprache": "en",
-   "zeit": "2026-11-10T10:00:05+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Österreich"
-   ],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): After fire destroys Hitler's 'Eagle's Nest' in the Bavarian Alps, debate erupts over whether to rebuild"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "After fire destroys Hitler's 'Eagle's Nest' in the Bavarian Alps, debate erupts over whether to rebuild",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/10/after-fire-destroys-hitler-s-eagle-s-nest-in-the-bavarian-alps-debate-erupts-over-whether-to-rebuild_6776795_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits",
    "kurz": "Eine aktuelle Ifo-Studie zeigt: Die Beschäftigung der 20- bis 24-Jährigen ging in Deutschland in den am stärksten von KI betroffenen Berufen zurück",
    "link": "https://www.derstandard.at/story/3000000348293/berufseinsteiger-spueren-ki-folgen-auf-dem-jobmarkt-bereits?ref=rss",
@@ -348,43 +381,6 @@
      "titel": "Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits",
      "link": "https://www.derstandard.at/story/3000000348293/berufseinsteiger-spueren-ki-folgen-auf-dem-jobmarkt-bereits?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Las secadoras Bosch de bajo consumo tienen hasta 150 euros de reembolso antes de Black Friday",
-   "kurz": "La temporada de lluvias ya ha comenzado y secar la ropa no es tarea sencilla. Fichamos los tres modelos de la firma alemana con mejor relación calidad-precio",
-   "link": "https://elpais.com/escaparate/ofertas-y-descuentos/secadoras-eficientes-bosch.html",
-   "sprache": "es",
-   "zeit": "2026-11-10T05:15:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Las secadoras Bosch de bajo consumo tienen hasta 150 euros de reembolso antes de Black Friday"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Las secadoras Bosch de bajo consumo tienen hasta 150 euros de reembolso antes de Black Friday",
-     "link": "https://elpais.com/escaparate/ofertas-y-descuentos/secadoras-eficientes-bosch.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -425,46 +421,26 @@
      "zaehlt_nicht": ""
     }
    ]
-  },
+  }
+ ],
+ "verbindungen": [
   {
-   "titel": "France may back Pablo Hernandez de Cos over Klaas Knot for ECB president",
-   "kurz": "President Emmanuel Macron and German Chancellor Friedrich Merz discussed who will succeed Christine Lagarde as president of the European Central Bank over the…",
-   "link": "https://www.lemonde.fr/en/economy/article/2026/11/10/france-may-back-pablo-hernandez-de-cos-over-klaas-knot-for-ecb-president_6776761_19.html",
-   "sprache": "en",
-   "zeit": "2026-11-10T09:39:36+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich"
-   ],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): France may back Pablo Hernandez de Cos over Klaas Knot for ECB president"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
+   "name": "Borussia Dortmund",
+   "wikidata": "https://www.wikidata.org/wiki/Q41420",
+   "beschreibung": "German professional sports club based in Dortmund",
+   "verbindungen": [
     {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "France may back Pablo Hernandez de Cos over Klaas Knot for ECB president",
-     "link": "https://www.lemonde.fr/en/economy/article/2026/11/10/france-may-back-pablo-hernandez-de-cos-over-klaas-knot-for-ecb-president_6776761_19.html",
-     "eigentuemer": "gehört Groupe Le Monde",
-     "zaehlt_nicht": ""
+     "eigenschaft": "Eigentümer",
+     "wert": "Reinhard Rauball",
+     "link": "https://www.wikidata.org/wiki/Q881201",
+     "beendet": null
     }
+   ],
+   "themen": [
+    "Felix Nmecha, figura de Borussia Dortmund y de la selección de Alemania, desata un debate por un festejo religioso"
    ]
   }
  ],
- "verbindungen": [],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -662,6 +638,25 @@
    "wikidata": "https://www.wikidata.org/wiki/Q7411906",
    "beschreibung": "alpine section in Bavaria, Germany, as well as Vorarlberg and Tyrol, Austria",
    "verbindungen": []
+  },
+  "Felix Nmecha": {
+   "name": "Felix Nmecha",
+   "wikidata": "https://www.wikidata.org/wiki/Q60889488",
+   "beschreibung": "German association football player",
+   "verbindungen": []
+  },
+  "Borussia Dortmund": {
+   "name": "Borussia Dortmund",
+   "wikidata": "https://www.wikidata.org/wiki/Q41420",
+   "beschreibung": "German professional sports club based in Dortmund",
+   "verbindungen": [
+    {
+     "eigenschaft": "Eigentümer",
+     "wert": "Reinhard Rauball",
+     "link": "https://www.wikidata.org/wiki/Q881201",
+     "beendet": null
+    }
+   ]
   }
  }
 }
