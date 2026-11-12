@@ -83,8 +83,20 @@ gesetzt). Willst du erst prüfen: `hochladen` weglassen und das Video aus dem Ar
 - Alle Arten gehen in einem Zug: Ranking, **Fakten** (`{"art":"fakten","thema":"Haie","plaetze":5,"sprache":"de"}`),
   Story, Reportage, Satire und Clip (die Erlaubnisprüfung des Creators läuft im Lauf; YouTube sperrt Cloud-IPs oft,
   dann steht der Grund im Kommentar). Format-Wahl und Hochladen gehen wie in der App-Seite.
-- Story-Zwischenschritte: „skelett“ und „video“ werden zu „direkt Video“. „Bearbeiten“ und „Veröffentlichen“ nach
-  Freigabe gibt es nur in der App mit Claude.
+- **Erklärvideo** (`{"art":"erklaer","thema":"Goldener Schnitt","sprache":"de"}`): Das Sprachmodell schreibt das
+  Szenen-Skript aus dem passenden Wikipedia-Artikel; jede Szene trägt einen wörtlichen Beleg-Satz, Zahlen/Namen/Zitate/
+  Wortwahl werden dagegen geprüft (`erklaer/schreiben.py`), ungeprüfte Szenen gehen einmal zur Korrektur, sonst raus.
+  Bleiben weniger als 4 Szenen, endet der Auftrag ehrlich. Ohne Sprachmodell ebenso.
+- Story-Zwischenschritte: „skelett“ und „video“ werden zu „direkt Video“ (kein Editor im Issue).
+- **Bearbeiten und Veröffentlichen später** (neues Issue mit Verweis auf das frühere Ergebnis, `bezug` = Nummer des
+  früheren Issues): `{"art":"ranking","schritt":"bearbeiten","bezug":{"issue":12},"aenderungen":{<Feld „neu“ wie in
+  bearbeitungen/<id>>}}` (Ranking/Story; rendert nur neu, ohne neue Recherche) und `{"art":"ranking","schritt":
+  "hochladen","bezug":{"issue":12},"hochladen":{"ziel":"youtube","sichtbarkeit":"privat"}}` (alle Arten; lädt das Video
+  aus dem Artefakt hoch). Der Lauf holt das Artefakt `cudi-notbetrieb-<Nr>-<Lauf>` (14 Tage Aufbewahrung; optional
+  `bezug.lauf`); ist es weg, steht das ehrlich im Kommentar. Fehlen Zugangsdaten, nennt der Kommentar die fehlenden
+  Namen (`CUDI_YT_*`, `CUDI_TIKTOK_*`, `CUDI_IG_*`; nie Werte).
+- **Modellausfall**: Fakten- und Erklärvideo-Aufträge, die wegen eines nicht erreichbaren Sprachmodells scheitern,
+  laufen genau einmal nach 10 Minuten erneut (`notbetrieb.run_with_retry`, `WARTEN`); danach klare Meldung im Issue.
 - Der Ergebniskommentar nennt je Video Titel-Varianten, YouTube-/TikTok-Text, Upload-Ergebnis, Hinweise,
   Endkontrolle und den Prüfbericht (Kurzform) samt Artefakt-Link.
 - Das Sprachmodell ersetzt Claude nur beim Schreiben (Thema deuten, Fakten, Erzähltext, Story-Lektorat). Die

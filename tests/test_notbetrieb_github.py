@@ -63,7 +63,7 @@ def test_json_order_story_and_limits():
     assert clip["art"] == "clip" and clip["bestaetigt_erlaubnis"] is True                 # Clips gehen jetzt auch im Notbetrieb
     direct = auftrag.build_json_order({"art": "story", "stimmung": "creepy", "schritt": "skelett"}, 9, PRESETS)
     assert direct["schritt"] == ""                                                         # Skelett-Schritt = direkt Video
-    with pytest.raises(ValueError, match="Zwischenschritte"):
+    with pytest.raises(ValueError, match="Verweis"):
         auftrag.build_json_order({"art": "story", "stimmung": "creepy", "schritt": "hochladen",
                                   "hochladen": {"ziel": "youtube", "sichtbarkeit": "privat"}}, 9, PRESETS)
     assert auftrag.build_json_order({"art": "ranking", "vorlage": "groesste-seen", "id": "../x"}, 1, PRESETS)["id"] == "gh0001"
