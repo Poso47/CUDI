@@ -153,3 +153,22 @@ def test_ohne_sprachmodell_ehrlicher_abbruch(tmp_path, monkeypatch):
     order = job.parse_order({"id": "test-t4", **{"art": "schaubild", "thema": "Wie entsteht ein Ei?"}}, set())
     with pytest.raises(schaubild.SchaubildError, match="Erfunden wird nichts"):
         schaubild.run(order, tmp_path)
+
+
+def test_tiefen_effekt_bewegt_das_motiv(tmp_path, monkeypatch):
+    """Tiefen-Effekt: Motiv vorn, Rand hinten; das Bild ändert sich über die Zeit; flache Stile und CUDI_TIEFE=0 bleiben ohne."""
+    from PIL import ImageDraw
+
+    bild = tmp_path / "m.jpg"
+    im = Image.new("RGB", (576, 1024), (20, 60, 80))
+    ImageDraw.Draw(im).ellipse((160, 330, 420, 690), fill=(240, 170, 40))
+    im.save(bild)
+    stile = schaubild.stile()
+    sc = R.make_scene(_job(stile["schaubild"], "9:16", str(bild)))
+    n = sc.tiefe.shape[0]
+    assert sc.tiefe[n // 2, n // 2] > 0.6 and sc.tiefe[4, 4] < 0.15
+    a, b = np.asarray(sc._picture(0.5).convert("L"), dtype=np.int16), np.asarray(sc._picture(1.6).convert("L"), dtype=np.int16)
+    assert np.abs(a - b).mean() > 0.5
+    assert R.make_scene(_job(stile["comic"], "9:16", str(bild))).tiefe is None
+    monkeypatch.setenv("CUDI_TIEFE", "0")
+    assert R.make_scene(_job(stile["schaubild"], "9:16", str(bild))).tiefe is None
