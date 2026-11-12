@@ -175,6 +175,8 @@ def summary_line(workflow: str, inputs: dict[str, str]) -> str:
         what = (order.get("thema") or order.get("vorlage") or order.get("wunsch") or order.get("quelle")
                 or order.get("twitch_kanal") or order.get("meldung") or order.get("stimmung") or "")
         up = order.get("hochladen")
+        if order.get("schritt"):
+            what = f"{order['schritt']} (früheres Ergebnis {order['bezug']['id']})"
         return (f"Notbetrieb · {order['art']} **{what}**"
                 + (f" · Hochladen: {up['ziel']} ({up['sichtbarkeit']})" if up else ""))
     if workflow == "video.yml":

@@ -47,6 +47,12 @@ class WritingNeeded(Exception):
         self.path = path
 
 
+class ModelUnavailable(RuntimeError):
+    """Kein Sprachmodell erreichbar oder keine brauchbare Antwort: vorübergehend – später erneut versuchen (der Notbetrieb
+    wiederholt den Lauf einmal nach 10 Minuten). Erfunden wird deshalb nichts."""
+    wiederholbar = True
+
+
 def enabled() -> bool:
     return os.environ.get(ENV) == "1" and bool(os.environ.get(DIR_ENV))
 

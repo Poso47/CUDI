@@ -350,8 +350,8 @@ def research_facts(spec: VideoSpec, langs: list[str]) -> Research:
     aspects = data["aspekte"]
     kept, rejected = _check_all(_facts_of(handoff.request("fakten", INSTRUCTIONS, data)), sources, langs, budget, aspects)
     if not kept and not rejected:
-        raise ValueError("Es kamen keine Fakten zurück (Sprachmodell nicht erreichbar oder Antwort unbrauchbar). "
-                         "Erfunden wird nichts – bitte später erneut versuchen.")
+        raise handoff.ModelUnavailable("Es kamen keine Fakten zurück (Sprachmodell nicht erreichbar oder Antwort unbrauchbar). "
+                                       "Erfunden wird nichts – bitte später erneut versuchen.")
     for task, extra in (("fakten_korrektur", ""), ("fakten_korrektur2", INSTRUCTIONS_FIX2)):
         if len(kept) >= spec.count or not rejected:
             break

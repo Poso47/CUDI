@@ -6,9 +6,12 @@ description: Notbetrieb (Claude-Limit erreicht) pflegen oder testen – alle Vid
 # Notbetrieb
 
 - Weg: Issue (`cudi-auftrag` + JSON) -> `.github/scripts/auftrag.py` -> `notbetrieb.yml` -> `notbetrieb.py run/melden`.
-  Alle Arten laufen in einem Zug (`NOTBETRIEB_ARTEN`); Story-Skelett wird direkt Video; bearbeiten/hochladen nur in der App.
+  Alle Arten (inkl. `erklaer`) laufen in einem Zug (`NOTBETRIEB_ARTEN`); Story-Skelett wird direkt Video.
+  `schritt:"bearbeiten"`/`"hochladen"` gehen mit `bezug:{"issue":N}` (Artefakt `cudi-notbetrieb-N-*` holen: `restore_earlier`,
+  `job.earlier_folder`; `aenderungen` = Feld „neu“). Modellausfall (`handoff.ModelUnavailable`, `modell_ausfall`) -> einmal
+  nach 10 Min. (`run_with_retry`).
 - Texte: `llm.providers()` Kette CUDI_LLM_* -> CUDI_LLM2_* -> CUDI_LLM3_* (429/5xx: 1 Wiederholung), danach Regelweg.
-  Fakten (`art:"fakten"`, `job._fakten`, `planner.plan_facts`) brauchen ein Modell – sonst ehrlicher Abbruch.
+  Erklärvideo: `erklaer/schreiben.py` (Beleg je Szene). Fakten (`art:"fakten"`, `job._fakten`, `planner.plan_facts`) brauchen ein Modell – sonst ehrlicher Abbruch.
 - Lokaler Probelauf je Art: Skript mit `prepare_order` + `job.run_order(order, job.job_folder(id), via_claude=False)`,
   `CUDI_SCHREIBEN` und `CUDI_LLM*` leer, `CUDI_BILDPRUEFUNG=0`; Ranking/Story ~3–5 Min., Reportage/Satire brechen bei
   zu wenig Quellen ehrlich ab. Ergebnisse: `docs/notbetrieb-fehlerliste.md`.

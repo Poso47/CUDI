@@ -18,6 +18,7 @@ on:
 permissions:
   contents: read
   issues: write
+  actions: read            # Artefakt des früheren Laufs holen (Bearbeiten/Hochladen im Notbetrieb)
 
 jobs:
   render:
@@ -62,6 +63,10 @@ jobs:
           CUDI_TIKTOK_CLIENT_KEY: ${{ secrets.CUDI_TIKTOK_CLIENT_KEY }}
           CUDI_TIKTOK_CLIENT_SECRET: ${{ secrets.CUDI_TIKTOK_CLIENT_SECRET }}
           CUDI_TIKTOK_REFRESH_TOKEN: ${{ secrets.CUDI_TIKTOK_REFRESH_TOKEN }}
+          CUDI_TIKTOK_ACCESS_TOKEN: ${{ secrets.CUDI_TIKTOK_ACCESS_TOKEN }}
+          CUDI_IG_USER_ID: ${{ secrets.CUDI_IG_USER_ID }}
+          CUDI_IG_ACCESS_TOKEN: ${{ secrets.CUDI_IG_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -o pipefail
           python .github/scripts/notbetrieb.py run 2>&1 | tee cudi.log
@@ -76,6 +81,8 @@ jobs:
             !video_output/auftrag-*/**/*_app*.mp4
             video_output/auftrag-*/**/*.jpg
             video_output/auftrag-*/**/review.md
+            video_output/auftrag-*/ergebnis.json
+            video_output/auftrag-*/bearbeitung.json
           if-no-files-found: ignore
           retention-days: 14
       - name: Upload-Liste für den Lern-Analysten sichern

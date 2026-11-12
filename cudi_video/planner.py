@@ -186,6 +186,17 @@ FACTS_ONLY = (" WICHTIG: Der Auftrag ist ausdrücklich ein FAKTEN-Ranking. Antwo
               "(\"art\": \"fakten\" …), nie mit einem Zahlen-Ranking.")
 
 
+_SUPERLATIVE = re.compile(r"\b(verblüffendsten|erstaunlichsten|überraschendsten|faszinierendsten|spannendsten|krassesten|"
+                          r"unglaublichsten|interessantesten|beeindruckendsten|besten|(?:most|top)\s+(?:surprising|amazing|"
+                          r"astonishing|fascinating|interesting|incredible|impressive)|best)\s+", re.I)
+
+
+def neutral_title(text: str) -> str:
+    """Titel ohne Superlative („Die 3 verblüffendsten Fakten“ -> „Die 3 Fakten“): Der Wahrheits-Prüfer lehnt Wertungen
+    ab, die der Beleg nicht stützt – im Notbetrieb liest ein freies Modell gegen, das hier strenger urteilt."""
+    return re.sub(r"\s{2,}", " ", _SUPERLATIVE.sub("", text or "")).strip()
+
+
 def plan_facts(topic: str, count: int) -> dict:
     """Auftrag „fakten“: Fakten-Ranking zu einem freien Thema. Claude bzw. das freie Sprachmodell wählt die Fachartikel;
     ohne Antwort gilt das Thema selbst als Artikelsuche (facts.gather_sources prüft jeden Titel bei Wikipedia)."""

@@ -14,19 +14,23 @@ from __future__ import annotations
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
+import time
 import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-NOTBETRIEB_ARTEN = ("ranking", "fakten", "story", "reportage", "satire", "clip")
+NOTBETRIEB_ARTEN = ("ranking", "fakten", "erklaer", "story", "reportage", "satire", "clip")
+SCHRITTE = ("bearbeiten", "hochladen")      # brauchen den Verweis „bezug“ auf das frühere Ergebnis
+WARTEN = 600                                # Sekunden bis zum zweiten Versuch, wenn das Sprachmodell ausgefallen war
 MAX_COMMENT = 60_000
 MAX_REVIEW = 6_000            # Kurzform; der volle Prüfbericht liegt als review.md im Artefakt
 SECRET_ENV = ("CUDI_LLM_API_KEY", "CUDI_LLM2_API_KEY", "CUDI_LLM3_API_KEY", "CUDI_YT_CLIENT_SECRET", "CUDI_YT_REFRESH_TOKEN", "CUDI_TIKTOK_CLIENT_SECRET",
-              "CUDI_TIKTOK_REFRESH_TOKEN", "CUDI_PEXELS_API_KEY", "CUDI_PIXABAY_API_KEY", "CUDI_DEEPL_API_KEY",
+              "CUDI_TIKTOK_REFRESH_TOKEN", "CUDI_TIKTOK_ACCESS_TOKEN", "CUDI_IG_ACCESS_TOKEN", "CUDI_PEXELS_API_KEY", "CUDI_PIXABAY_API_KEY", "CUDI_DEEPL_API_KEY",
               "CUDI_REDDIT_CLIENT_SECRET", "CUDI_POLLINATIONS_TOKEN")
 
 
@@ -51,10 +55,11 @@ def fenced(text: str, lang: str = "text") -> str:
 
 
 def prepare_order(raw: dict, presets: set[str]) -> dict:
-    """Auftrag prüfen und für den Notbetrieb zurichten. Alle Arten laufen in einem Zug: ranking, fakten, story,
+    """Auftrag prüfen und für den Notbetrieb zurichten. Alle Arten laufen in einem Zug: ranking, fakten, erklaer, story,
     reportage, satire, clip (Erlaubnisprüfung läuft im Lauf). Story-Zwischenschritte „skelett“/„video“ werden zu
-    „direkt Video“ (es gibt keine Bearbeiten-Ansicht); „bearbeiten“/„hochladen“ gehen nur in der App. Hochladen
-    direkt (kein Freigabe-Knopf), außer der Auftrag setzt „freigabe“ ausdrücklich."""
+    „direkt Video“ (es gibt keine Bearbeiten-Ansicht). „bearbeiten“ (Ranking/Story, mit „aenderungen“) und „hochladen“
+    gehen mit „bezug“ = Verweis auf das frühere Notbetrieb-Ergebnis (Issue-Nummer, optional „lauf“). Hochladen direkt
+    (kein Freigabe-Knopf), außer der Auftrag setzt „freigabe“ ausdrücklich."""
     from cudi_video import job
 
     if isinstance(raw, dict) and raw.get("art") == "story" and str(raw.get("schritt") or "") in ("skelett", "video"):
@@ -62,12 +67,71 @@ def prepare_order(raw: dict, presets: set[str]) -> dict:
     order = job.parse_order(raw, presets)
     if order["art"] not in NOTBETRIEB_ARTEN:
         raise job.OrderError("Diese Art gibt es im Notbetrieb nicht: " + ", ".join(NOTBETRIEB_ARTEN) + " gehen.")
-    if order.get("schritt"):
-        raise job.OrderError("Im Notbetrieb läuft der Auftrag in einem Zug (ohne Zwischenschritte wie Bearbeiten/Hochladen).")
+    step = order.get("schritt")
+    if step:
+        if step not in SCHRITTE:
+            raise job.OrderError("Im Notbetrieb gibt es die Schritte „bearbeiten“ und „hochladen“ (mit Verweis auf das frühere Ergebnis).")
+        if not order.get("bezug"):
+            raise job.OrderError(f"„{step}“ braucht im Notbetrieb den Verweis auf das frühere Ergebnis: \"bezug\": {{\"issue\": <Nummer des früheren Auftrags>}}.")
+        if step == "bearbeiten" and order["art"] not in ("ranking", "story"):
+            raise job.OrderError("Bearbeiten gibt es nur für Ranking und Story.")
     wish = order.get("hochladen")
     if wish and "freigabe" not in wish:
         wish["freigabe"] = False
     return order
+
+
+# --------------------------------------------------------------------------- früheres Ergebnis holen
+
+def pick_artifact(listing: list[dict], issue: int, lauf: int | None = None) -> dict | None:
+    """Neuestes nicht abgelaufenes Artefakt „cudi-notbetrieb-<issue>-<lauf>“ aus der GitHub-Liste (reine Funktion)."""
+    prefix = f"cudi-notbetrieb-{issue}-"
+    found = [a for a in listing if str(a.get("name", "")).startswith(prefix) and not a.get("expired")
+             and (lauf is None or a["name"] == f"{prefix}{lauf}")]
+    return max(found, key=lambda a: a.get("created_at") or "", default=None)
+
+
+def restore_earlier(order: dict, repo: str, runner=None) -> Path:
+    """Artefakt des früheren Laufs holen und als Auftragsordner des Verweises ablegen (job.earlier_folder findet ihn dann).
+    Ehrliche Fehler (RuntimeError), wenn es abgelaufen ist oder fehlt."""
+    from cudi_video import config, job
+
+    run = runner or gh
+    bezug = order["bezug"]
+    issue = int(bezug["id"][2:])
+    listing: list[dict] = []
+    for page in range(1, 6):
+        resp = run("api", f"repos/{repo}/actions/artifacts?per_page=100&page={page}", check=False)
+        try:
+            batch = json.loads(resp.stdout or "{}").get("artifacts", [])
+        except ValueError:
+            batch = []
+        listing += batch
+        if len(batch) < 100:
+            break
+    art = pick_artifact(listing, issue, bezug.get("lauf"))
+    if not art:
+        raise RuntimeError(f"Das frühere Ergebnis (Auftrag #{issue}) ist nicht mehr da – Artefakte bleiben nur 14 Tage "
+                           "erhalten, oder der frühere Lauf hat kein Video gebracht. Bitte das Video neu erstellen.")
+    target = Path(tempfile.mkdtemp(prefix="frueher-"))
+    got = run("run", "download", str((art.get("workflow_run") or {}).get("id", "")), "-n", art["name"], "-D", str(target),
+              "--repo", repo, check=False)
+    candidates = sorted(target.rglob("ergebnis.json"))
+    if got.returncode != 0 or not candidates:
+        raise RuntimeError(f"Das frühere Ergebnis (Auftrag #{issue}) ließ sich nicht herunterladen: "
+                           f"{scrub((got.stderr or '')[-200:]) or 'Artefakt ohne ergebnis.json'}")
+    source = next((c.parent for c in candidates if _result_id(c) == bezug["id"]), candidates[0].parent)
+    dest = job.job_folder(bezug["id"])
+    dest.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(source, dest, dirs_exist_ok=True)
+    return dest
+
+
+def _result_id(path: Path) -> str:
+    try:
+        return str(json.loads(path.read_text("utf-8")).get("id", ""))
+    except (OSError, ValueError):
+        return ""
 
 
 # --------------------------------------------------------------------------- Kommentar
@@ -80,12 +144,20 @@ def comment_text(data: dict, run_url: str, artifact_url: str = "") -> str:
         error = scrub((data or {}).get("fehler") or "Der Lauf ist ohne Ergebnis beendet.")
         return "\n\n".join([
             "## ❌ Hat leider nicht geklappt", fenced(error[-2500:]),
-            "Bitte später noch einmal versuchen (Sprachmodell-Limit?) oder den Auftrag in der CUDI-App starten. "
+            ("Das Sprachmodell war auch beim zweiten Versuch (10 Minuten später) nicht erreichbar. Bitte später noch einmal "
+             "starten – ein Fakten- oder Erklärvideo wird nie ohne Sprachmodell erfunden. " if data and data.get("modell_ausfall") else "")
+            + "Bitte später noch einmal versuchen (Sprachmodell-Limit?) oder den Auftrag in der CUDI-App starten. "
             "Erfunden wird nichts: fehlen Quellen oder Belege, endet der Auftrag ehrlich.",
             f"Alle Details: {run_url}"])
     videos = data.get("videos") or []
     title = defuse(data.get("titel") or "Ergebnis")
-    parts = [f"## ✅ Fertig: {title}" if videos else f"## ✅ Skript und Prüfbericht fertig: {title}"]
+    step = data.get("art_schritt")
+    if step == "hochladen":
+        parts = [f"## ✅ Hochgeladen: {title}" if title != "Ergebnis" else "## ✅ Hochgeladen"]
+    elif step == "bearbeiten":
+        parts = [f"## ✅ Neu gerendert mit deinen Änderungen: {title}"]
+    else:
+        parts = [f"## ✅ Fertig: {title}" if videos else f"## ✅ Skript und Prüfbericht fertig: {title}"]
     for v in videos:
         key = v.get("key") or ""
         key = key[:2].upper() + key[2:]
@@ -125,6 +197,29 @@ def gh(*args: str, check: bool = True) -> subprocess.CompletedProcess:
     return subprocess.run(["gh", *args], capture_output=True, text=True, check=check)
 
 
+def run_with_retry(order: dict, run=None, sleep=time.sleep, wait: int | None = None) -> tuple[int, dict | None]:
+    """Auftrag ausführen. War das Sprachmodell nicht erreichbar (`modell_ausfall`), einmal nach 10 Minuten erneut – nie
+    endlos. Scheitert auch der zweite Versuch, steht der Grund klar im Ergebnis."""
+    from cudi_video import job
+
+    run = run or job.run_order
+    folder = job.job_folder(order["id"])
+    code, data = run(order, folder, via_claude=False)
+    if not (data and not data.get("ok") and data.get("modell_ausfall")):
+        return code, data
+    pause = WARTEN if wait is None else wait
+    print(f"Sprachmodell nicht erreichbar – zweiter Versuch in {pause // 60} Minuten (der letzte).", flush=True)
+    sleep(pause)
+    code, data = run(order, folder, via_claude=False)
+    if data and not data.get("ok") and data.get("modell_ausfall"):
+        data["fehler"] = (data.get("fehler") or "") + "\n(Zweiter Versuch nach 10 Minuten ebenfalls ohne Sprachmodell.)"
+        try:
+            (folder / "ergebnis.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), "utf-8")
+        except OSError:
+            pass
+    return code, data
+
+
 def cmd_run() -> int:
     from cudi_video import job
     from cudi_video.spec import list_presets
@@ -137,8 +232,19 @@ def cmd_run() -> int:
         (folder / "ergebnis.json").write_text(json.dumps({"ok": False, "fehler": f"Auftrag ungültig: {exc}"}), "utf-8")
         print(f"FEHLER: Auftrag ungültig: {exc}")
         return 2
-    print(f"Notbetrieb-Auftrag {order['id']} ({order['art']})", flush=True)
-    code, data = job.run_order(order, job.job_folder(order["id"]), via_claude=False)
+    print(f"Notbetrieb-Auftrag {order['id']} ({order['art']}{', ' + order['schritt'] if order.get('schritt') else ''})", flush=True)
+    if order.get("bezug"):
+        try:
+            restore_earlier(order, os.environ.get("GITHUB_REPOSITORY", "Poso47/CUDI"))
+        except RuntimeError as exc:
+            folder = job.job_folder(order["id"])
+            folder.mkdir(parents=True, exist_ok=True)
+            (folder / "ergebnis.json").write_text(json.dumps({"ok": False, "fehler": str(exc)}, ensure_ascii=False), "utf-8")
+            print(f"FEHLER: {exc}")
+            return 1
+    code, data = run_with_retry(order)
+    if order.get("bezug"):                                  # das geholte frühere Ergebnis nicht noch einmal ins neue Artefakt
+        shutil.rmtree(job.job_folder(order["bezug"]["id"]), ignore_errors=True)
     print("ERGEBNIS:", "ok" if data and data.get("ok") else scrub((data or {}).get("fehler", "kein Ergebnis"))[:300])
     records = job.upload_records(order, data) if data else []          # für den Lern-Analysten (firma_daten/uploads.json)
     if records:

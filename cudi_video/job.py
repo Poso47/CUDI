@@ -49,7 +49,7 @@ RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch 
 # Dazu für fertige Videos: „bearbeiten“ (Texte/Format/Design/Tempo/Maskottchen aus der App, ohne neue Recherche) und
 # „hochladen“ (fertiges Video nach Freigabe in der App hochladen, ohne Neu-Rendern).
 STEPS = ("", "skelett", "video", "bearbeiten", "hochladen")
-STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "fakten": ("hochladen",), "clip": ("hochladen",), "reportage": ("hochladen",), "satire": ("hochladen",)}
+STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "fakten": ("hochladen",), "erklaer": ("hochladen",), "clip": ("hochladen",), "reportage": ("hochladen",), "satire": ("hochladen",)}
 SKELETON_DIR = "cudi_skelette"         # dorthin legt die Sitzung das bearbeitete Skelett (ArtifactData out_dir)
 EDIT_DIR = "cudi_bearbeitungen"        # … die Änderungen eines fertigen Videos (Sammlung „bearbeitungen“)
 UPLOAD_DIR = "cudi_hochladen"          # … das Ergebnisdokument (Sammlung „results“) und die Video-Dateien zum Hochladen
@@ -64,6 +64,44 @@ class OrderError(ValueError):
 def _text(value, limit: int) -> str:
     text = re.sub(r"[\x00-\x1f\x7f]", " ", str(value or "")).strip()
     return re.sub(r"\s+", " ", text)[:limit]
+
+
+MAX_CHANGES = 24_000                   # Zeichen JSON der Änderungen im Notbetrieb-Issue
+
+
+def _bezug(raw) -> dict | None:
+    """Verweis auf das frühere Notbetrieb-Ergebnis (für „bearbeiten“/„hochladen“ per Issue): {"id": "gh0012", "lauf": 7}.
+    Angabe als Issue-Nummer ({"issue": 12}), Kennung ("gh0012") oder {"id": …}; „lauf“ (Nummer des Laufs) ist optional."""
+    if raw in (None, "", {}):
+        return None
+    issue = lauf = None
+    if isinstance(raw, dict):
+        issue, rid, lauf = raw.get("issue"), raw.get("id"), raw.get("lauf")
+    else:
+        rid = raw
+    if issue not in (None, ""):
+        if not re.fullmatch(r"\d{1,8}", str(issue).strip().lstrip("#")):
+            raise OrderError("Verweis: die Issue-Nummer des früheren Auftrags fehlt oder ist ungültig.")
+        rid = f"gh{int(str(issue).strip().lstrip('#')):04d}"
+    rid = str(rid or "").strip()
+    if not re.fullmatch(r"gh\d{4,8}", rid):
+        raise OrderError("Verweis: Kennung des früheren Notbetrieb-Ergebnisses (z. B. „gh0012“) fehlt oder ist ungültig.")
+    out = {"id": rid}
+    if lauf not in (None, ""):
+        if not re.fullmatch(r"\d{1,6}", str(lauf).strip()):
+            raise OrderError("Verweis: „lauf“ ist die Nummer des früheren Laufs.")
+        out["lauf"] = int(lauf)
+    return out
+
+
+def _changes(raw) -> dict:
+    if raw in (None, ""):
+        return {}
+    if not isinstance(raw, dict):
+        raise OrderError("Änderungen müssen ein JSON-Objekt sein (wie die Sammlung „bearbeitungen“: Feld „neu“).")
+    if len(json.dumps(raw, ensure_ascii=False)) > MAX_CHANGES:
+        raise OrderError("Die Änderungen sind zu lang für einen Auftrag.")
+    return raw
 
 
 def _flag(value, default: bool) -> bool:
@@ -186,6 +224,10 @@ def _format(value) -> str:
 
 def parse_order(raw: dict, presets: set[str]) -> dict:
     """Auftrag der App-Seite prüfen: nur bekannte Felder und erlaubte Werte."""
+    if isinstance(raw, dict) and raw.get("bezug") and raw.get("schritt") in ("bearbeiten", "hochladen"):
+        # Notbetrieb: Bearbeiten/Hochladen im Issue verweist auf ein früheres Ergebnis – die Angaben zur Art kommen von dort
+        raw = {**raw, **{k: v for k, v in (("thema", "früheres Ergebnis"), ("wunsch", "früheres Ergebnis"),
+                                           ("quelle", "https://example.com/bezug")) if not raw.get(k)}}
     order = _parse_order(raw, presets)
     step = str(raw.get("schritt") or "")
     if order["art"] != "story" and step:
@@ -194,6 +236,12 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
         order["schritt"] = step
     if order.get("schritt") == "hochladen" and not order.get("hochladen"):
         raise OrderError("Hochladen: Ziel („youtube“, „tiktok“, „instagram“, „beide“ oder „alle“) fehlt.")
+    if order.get("schritt") in ("bearbeiten", "hochladen"):          # Notbetrieb: Verweis auf das frühere Ergebnis im Issue
+        bezug = _bezug(raw.get("bezug"))
+        if bezug:
+            order["bezug"] = bezug
+        if order["schritt"] == "bearbeiten" and bezug:
+            order["aenderungen"] = _changes(raw.get("aenderungen"))
     prefs = parse_preferences(raw.get("vorlieben"))
     if prefs:
         order["vorlieben"] = prefs
@@ -244,6 +292,15 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
         return {"id": job_id, "art": "fakten", "thema": topic, "plaetze": count, "sprache": lang, "sprachen": [lang],
                 "streng": _flag(raw.get("streng"), False), "maskottchen": _flag(raw.get("maskottchen"), None),
                 "format": _format(raw.get("format")), "hochladen": _upload_wish(raw.get("hochladen"))}
+    if kind == "erklaer":                                     # Erklärvideo zu einem freien Thema (erklaer/schreiben.py)
+        topic = _text(raw.get("thema"), 120)
+        if len(topic) < 3:
+            raise OrderError("Erklärvideo: bitte das Thema nennen.")
+        lang = str(raw.get("sprache") or "de")
+        if lang not in ("de", "en"):
+            raise OrderError("Sprache: „de“ oder „en“.")
+        return {"id": job_id, "art": "erklaer", "thema": topic, "sprache": lang, "sprachen": [lang],
+                "maskottchen": False, "hochladen": _upload_wish(raw.get("hochladen"))}
     if kind == "story":
         wish = _text(raw.get("wunsch"), 300)
         mood = str(raw.get("stimmung") or "auto")
@@ -327,7 +384,7 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
         return {"id": job_id, "art": "satire", "thema": topic, "meldung": _link(report) if re.match(r"https?://", report, re.I) else report,
                 "sprache": lang, "links": [_link(u) for u in links if str(u or "").strip()],
                 "hochladen": _upload_wish(raw.get("hochladen"))}
-    raise OrderError("Unbekannte Art – „ranking“, „fakten“, „story“, „clip“, „reportage“ oder „satire“.")
+    raise OrderError("Unbekannte Art – „ranking“, „fakten“, „erklaer“, „story“, „clip“, „reportage“ oder „satire“.")
 
 
 def job_folder(job_id: str) -> Path:
@@ -485,14 +542,47 @@ def _fakten(order: dict, folder: Path, progress) -> dict:
     from .spec import VideoSpec
 
     if not handoff.active():
-        raise RuntimeError("Fakten brauchen ein Sprachmodell zum Formulieren (Claude oder CUDI_LLM_*) – gerade keines "
-                           "erreichbar. Erfunden wird nichts; bitte später erneut versuchen.")
+        raise handoff.ModelUnavailable("Fakten brauchen ein Sprachmodell zum Formulieren (Claude oder CUDI_LLM_*) – gerade keines "
+                                       "erreichbar. Erfunden wird nichts; bitte später erneut versuchen.")
     with zeiten.stufe("planen"):
-        spec = VideoSpec.from_dict(plan_facts(order["thema"], order["plaetze"]))
+        plan = plan_facts(order["thema"], order["plaetze"])
+        if not handoff.enabled():                            # Notbetrieb: keine Wertung im Titel (Gegenleser lehnt sie ab)
+            from .planner import neutral_title
+            plan["title"] = {k: neutral_title(v) for k, v in plan["title"].items()}
+        spec = VideoSpec.from_dict(plan)
         print(f"  Thema verstanden: {spec.title['de']}", flush=True)
     out = folder / "video"
     out.mkdir(parents=True, exist_ok=True)
     return run(spec, out=out, langs=order["sprachen"], render=True, strict=order["streng"], progress=progress)
+
+
+def _erklaer(order: dict, folder: Path, progress) -> dict:
+    """Erklärvideo: Wikipedia-Artikel -> Szenen-Skript vom Sprachmodell -> Prüfung je Szene (Beleg, Zahlen, Namen) -> Render.
+    Ohne Schreibhilfe oder zu wenig geprüfte Szenen ehrlicher Abbruch: es wird nichts erfunden."""
+    from .erklaer import render_erklaerung, schreiben
+
+    progress("Skript schreiben und prüfen", 0.03)
+    with zeiten.stufe("planen"):
+        script, report = schreiben.write_script(order["thema"], order["sprache"])
+    out = folder / "video" / "erklaerung"
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "skript.json").write_text(json.dumps(script, ensure_ascii=False, indent=1), "utf-8")
+    (out / "spec.json").write_text(json.dumps({"title": {order["sprache"]: script["titel"]}}, ensure_ascii=False), "utf-8")
+    tags = "#Erklärvideo #Wissen #shorts"
+    hook = script["szenen"][0]["text"]
+    (out / "beschreibung.txt").write_text(f"{script['titel']}\n{hook}\n\n{tags}", "utf-8")
+    (out / "caption.txt").write_text(f"{script['titel']} – {hook} #Erklärvideo #fyp #Wissen", "utf-8")
+    lines = ["# Prüfbericht Erklärvideo", "", f"Thema: {order['thema']}", f"Quelle: Wikipedia – {report['quelle']} ({report['url']})",
+             "", "Jede Szene trägt einen wörtlichen Beleg-Satz aus dem Artikel; Zahlen, Namen, Zitate und Wortwahl wurden dagegen geprüft.", ""]
+    lines += [f"- Szene {i}: „{p['text']}“\n  Beleg: „{p['beleg']}“" for i, p in enumerate(report["beleg"], start=1)]
+    if report["hinweise"]:
+        lines += ["", "Hinweise:"] + [f"- {h}" for h in report["hinweise"]]
+    (out / "review.md").write_text("\n".join(lines) + "\n", "utf-8")
+    rendered = render_erklaerung(script, out_dir=out, progress=lambda f: progress("Rendern", 0.1 + 0.85 * f))
+    return {"output_dir": str(out), "kind": "erklaer", "warnings": report["hinweise"],
+            "videos": {order["sprache"]: {"video": rendered["video"], "cover": rendered["cover"], "duration": rendered["duration"],
+                                          "qa": rendered.get("qa"), "description_file": "beschreibung.txt",
+                                          "caption_file": "caption.txt"}}}
 
 
 def app_file(job_id: str, folder_name: str, collection: str, marker: str, wait: int = 60) -> dict:
@@ -623,13 +713,32 @@ def _story(order: dict, folder: Path, progress) -> dict:
     return result
 
 
+def earlier_folder(order: dict) -> Path:
+    """Ordner des früheren Notbetrieb-Ergebnisses (notbetrieb.py holt ihn aus dem Artefakt des früheren Laufs)."""
+    bezug = order["bezug"]["id"]
+    old = job_folder(bezug)
+    if not (old / "ergebnis.json").exists():
+        raise RuntimeError(f"Das frühere Ergebnis ({bezug}) ist nicht mehr da – Artefakte bleiben nur 14 Tage erhalten. "
+                           "Bitte das Video neu erstellen.")
+    return old
+
+
 def _bearbeiten(order: dict, folder: Path, progress) -> dict:
     """Fertiges Video mit den Änderungen aus der App neu rendern – gespeicherte Recherche, keine neue Suche.
     Geänderte Texte laufen durch dieselben Prüfungen wie Claude-Texte (bearbeiten.check_text)."""
     from . import bearbeiten
 
     progress("Änderungen übernehmen", 0.02)
-    doc = app_file(order["id"], EDIT_DIR, "bearbeitungen", "basis")
+    if order.get("bezug"):                                  # Notbetrieb: Grundlage aus dem früheren Lauf, Änderungen aus dem Issue
+        old = earlier_folder(order)
+        try:
+            full = json.loads((old / bearbeiten.FILE).read_text("utf-8"))
+        except (OSError, ValueError):
+            raise RuntimeError("Zu diesem Video ist keine Bearbeitungsgrundlage gespeichert (nur Ranking und Story lassen sich "
+                               "bearbeiten) – bitte das Video neu erstellen.") from None
+        doc = {"basis": bearbeiten._shrink(full), "neu": order.get("aenderungen") or {}}
+    else:
+        doc = app_file(order["id"], EDIT_DIR, "bearbeitungen", "basis")
     basis, neu = doc.get("basis"), doc.get("neu") or {}
     if not isinstance(basis, dict) or basis.get("art") != order["art"]:
         raise ValueError("Die Bearbeitungsgrundlage fehlt oder gehört nicht zu diesem Video – bitte in der App erneut öffnen.")
@@ -668,6 +777,22 @@ def _asset_files(job_id: str, video: dict) -> list[Path]:
     return []
 
 
+def _earlier_document(order: dict) -> dict:
+    """Notbetrieb: Videos und Texte des früheren Ergebnisses (ergebnis.json samt Videodateien aus dem Artefakt)."""
+    old = earlier_folder(order)
+    data = json.loads((old / "ergebnis.json").read_text("utf-8"))
+    if not data.get("ok") or not data.get("videos"):
+        raise RuntimeError(f"Das frühere Ergebnis ({order['bezug']['id']}) enthält kein fertiges Video zum Hochladen.")
+    videos = []
+    for v in data["videos"]:
+        name = Path(v["video"]).name.replace("_app.mp4", ".mp4")
+        found = next(iter(sorted(old.rglob(name))), None)
+        videos.append({"key": v.get("key", ""), "youtube": v.get("youtube", ""), "tiktok": v.get("tiktok", ""),
+                       "pfad": str(found) if found else ""})
+    return {"id": order["id"], "art": data.get("art", ""), "titel": data.get("titel", ""), "videos": videos,
+            "hinweise": data.get("hinweise", [])}
+
+
 def _upload_step(order: dict, folder: Path) -> dict:
     """Schritt „hochladen“: fertiges Video nach Freigabe in der App hochladen – ohne Neu-Rendern. Das Dokument der
     Karte bleibt erhalten (Videos, Texte); dazu kommen Link bzw. Fehler als Hinweis. Fehler brechen nie ab."""
@@ -676,14 +801,15 @@ def _upload_step(order: dict, folder: Path) -> dict:
 
     wish = order["hochladen"]
     try:
-        old = app_file(order["id"], UPLOAD_DIR, "results", "videos", wait=45)
+        old = _earlier_document(order) if order.get("bezug") else app_file(order["id"], UPLOAD_DIR, "results", "videos", wait=45)
     except RuntimeError as exc:
         data = _summary(order, None, f"Hochladen: Das fertige Video ist nicht angekommen ({exc})")
         data["wiederholbar"] = True
         return data
     items, notes = [], []
     for video in old.get("videos", []):
-        files = _asset_files(order["id"], video)
+        local = Path(video["pfad"]) if video.get("pfad") else None
+        files = [local] if local and local.exists() else _asset_files(order["id"], video)
         if not files:
             notes.append(f"Hochladen ({video.get('key', '')}): Die Videodatei ist nicht angekommen.")
             continue
@@ -709,7 +835,10 @@ def _upload_step(order: dict, folder: Path) -> dict:
         doc["hochladen_offen"] = {"ziel": wish["ziel"], "sichtbarkeit": wish["sichtbarkeit"]}
     doc["fertig"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     data = _summary(order, None)
-    data.update(ok=True, dokument=doc, hochgeladen=entries)
+    data.update(ok=True, dokument=doc, hochgeladen=entries, art_schritt="hochladen")
+    if order.get("bezug") and not any(e.get("ok") for e in entries):    # Notbetrieb: ehrlich melden, was gefehlt hat
+        data.update(ok=False, wiederholbar=False, fehler="Hochladen hat nicht geklappt:\n" + "\n".join(
+            f"- {h}" for h in (notes + [upload_note(e) for e in entries]) or ["Es gab kein Video zum Hochladen."]))
     return data
 
 
@@ -837,10 +966,12 @@ def _run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=N
     for attempt in (1, 2):                                    # eine vorübergehende Störung heilt sich selbst
         try:
             run = (_bearbeiten if order.get("schritt") == "bearbeiten"
-                   else {"ranking": _ranking, "fakten": _fakten, "story": _story, "clip": _clip,
+                   else {"ranking": _ranking, "fakten": _fakten, "erklaer": _erklaer, "story": _story, "clip": _clip,
                                                    "reportage": _reportage, "satire": _satire}[order["art"]])
             result = run(order, folder, progress)
             data = _summary(order, result)
+            if order.get("schritt") == "bearbeiten":
+                data["art_schritt"] = "bearbeiten"
             from . import bearbeiten
 
             basis = bearbeiten.capture(order, result) if data["ok"] else None   # Grundlage für „Bearbeiten“ in der App
@@ -865,6 +996,8 @@ def _run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=N
                 continue
             data = _summary(order, None, f"{type(exc).__name__}: {exc}"[:1500])
             data["wiederholbar"] = _transient(exc)
+            if isinstance(exc, handoff.ModelUnavailable):
+                data["modell_ausfall"] = True                 # Notbetrieb: einmal später erneut (notbetrieb.py)
             break
     wish = order.get("hochladen")
     if data["ok"] and wish and data.get("videos") and not data.get("schritt"):
