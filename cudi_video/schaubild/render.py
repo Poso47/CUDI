@@ -38,6 +38,12 @@ def font(kind: str, size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype(str(path), size) if path else ImageFont.load_default(size)
 
 
+def tiefe_an() -> bool:
+    import os
+
+    return os.environ.get("CUDI_TIEFE", "1") != "0"
+
+
 def clamp(x: float, lo: float = 0.0, hi: float = 1.0) -> float:
     return max(lo, min(hi, x))
 
@@ -267,6 +273,44 @@ def code_visual(art: str, size: int, p: float, t: float, ink, ak, seed: int, wor
     return im
 
 
+# --------------------------------------------------------------------------- Tiefen-Effekt (räumliche Bewegung ohne KI-Video)
+
+FLACH = {"whiteboard", "comic", "papercut", "claymation", "retro", "stopmotion"}     # bleiben bewusst flach/ruckelnd
+
+
+def tiefenkarte(pic: Image.Image) -> np.ndarray:
+    """Geschätzte Nähe je Bildpunkt (0 = Hintergrund, 1 = vorn) – ohne Modell, aus dem Bild selbst: Die Illustrationen
+    zeigen EIN Motiv vor ruhigem Grund. Nah ist, was sich farblich vom Rand abhebt und was mittig liegt. Das ist eine
+    Schätzung für den Bewegungseffekt, keine Messung."""
+    small = np.asarray(pic.convert("RGB").resize((96, 96), Image.BILINEAR), dtype=np.float32)
+    rand = np.concatenate([small[:6].reshape(-1, 3), small[-6:].reshape(-1, 3), small[:, :6].reshape(-1, 3), small[:, -6:].reshape(-1, 3)])
+    dist = np.linalg.norm(small - np.median(rand, axis=0), axis=2)
+    dist = np.clip(dist / (np.percentile(dist, 92) + 1e-3), 0, 1)
+    yy, xx = np.mgrid[0:96, 0:96]
+    mitte = np.clip(1.15 - np.hypot((xx - 47.5) / 48, (yy - 47.5) / 48), 0, 1)
+    d = Image.fromarray(((dist * .7 + mitte * .3) * mitte ** .5 * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(4))
+    d = np.asarray(d.resize(pic.size, Image.BICUBIC), dtype=np.float32)
+    return d / (d.max() + 1e-3)
+
+
+def raeumlich(arr: np.ndarray, tiefe: np.ndarray, t: float, staerke: float, grid: tuple) -> np.ndarray:
+    """Bild so verschieben, als kreise die Kamera leicht um das Motiv: Nahes wandert stärker als der Hintergrund,
+    dazu ein ruhiges „Atmen“ und ein Lichtschein, der über das Motiv zieht."""
+    import cv2
+
+    xx, yy = grid
+    ax, ay = math.cos(t * .9) * staerke, math.sin(t * .7) * staerke * .6
+    atem = 1 + .012 * math.sin(t * 1.6)
+    c = arr.shape[0] / 2
+    off = tiefe - .35
+    mx = (c + (xx - c) / (1 + (atem - 1) * tiefe) + off * ax).astype(np.float32)
+    my = (c + (yy - c) / (1 + (atem - 1) * tiefe) + off * ay).astype(np.float32)
+    out = cv2.remap(arr, mx, my, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    pos = ((t * .22) % 1.6 - .3) * arr.shape[0] * 1.4                 # Lichtband wandert diagonal, nur auf dem Motiv
+    band = np.exp(-((xx + yy * .6 - pos) / (arr.shape[0] * .09)) ** 2) * tiefe * 34
+    return np.clip(out.astype(np.float32) + band[..., None], 0, 255).astype(np.uint8)
+
+
 # --------------------------------------------------------------------------- Untertitel
 
 class Captions:
@@ -349,6 +393,15 @@ class Scene:
                     self.pic = src.resize((int(self.size * 1.16),) * 2, Image.LANCZOS)
             except OSError:
                 self.pic = None
+        self.tiefe = None
+        if self.pic is not None and stil["id"] not in FLACH and tiefe_an():
+            try:
+                self.tiefe = tiefenkarte(self.pic)
+                self.arr = np.asarray(self.pic)
+                n = self.pic.size[0]
+                self.grid = np.meshgrid(np.arange(n, dtype=np.float32), np.arange(n, dtype=np.float32))
+            except Exception:                                 # Effekt ist optional – ohne ihn bleibt Zoom/Schwenk
+                self.tiefe = None
         if stil["effekt"] == "aufdecken":
             yy, xx = np.mgrid[0:self.size, 0:self.size]
             self.ramp = ((xx * .7 + yy * .3) / self.size).astype(np.float32)
@@ -425,7 +478,10 @@ class Scene:
         elif bew == "puls":
             z = 1.06 + .03 * math.sin(t * 2.2)
         s = max(size, int(size * z))
-        im = self.pic.resize((s, s), Image.BILINEAR)
+        quelle = self.pic
+        if self.tiefe is not None:
+            quelle = Image.fromarray(raeumlich(self.arr, self.tiefe, t + self.seed % 7, self.pic.size[0] * .045, self.grid))
+        im = quelle.resize((s, s), Image.BILINEAR)
         m = (s - size) / 2
         ox, oy = int(clamp(m + dx * s, 0, 2 * m)), int(clamp(m + dy * s, 0, 2 * m))
         im = im.crop((ox, oy, ox + size, oy + size)).convert("RGBA")
