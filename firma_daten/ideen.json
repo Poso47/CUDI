@@ -1,10 +1,631 @@
 {
- "erzeugt": "2026-11-11T12:47:50Z",
+ "erzeugt": "2026-11-12T13:53:44Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 60,
- "neu": 22,
+ "anzahl": 68,
+ "neu": 23,
  "ideen": [
+  {
+   "id": "idee-65cfbacd",
+   "bereich": "ranking",
+   "titel": "Größte Auslegerbrücken weltweit",
+   "thema": "Die weltweit größten Auslegerbrücken.",
+   "begruendung": "Der Trend \"Liste der größten Auslegerbrücken\" ist Platz 4 der meistgelesenen Wikipedia-Seiten (de) und ist explizit eine Liste von Dingen einer Art, sortierbar nach messbarer Zahl.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q185400 heißt '2001 Gambian presidential election', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Die weltweit größten Auslegerbrücken."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:52:31Z",
+   "recherche": []
+  },
+  {
+   "id": "idee-b0c3f1c8",
+   "bereich": "reportage",
+   "titel": "Ebola-Fälle: Regionen der DR Kongo",
+   "thema": "Regionen der DR Kongo nach Ebola-Fällen.",
+   "begruendung": "Die Nachricht \"The number of confirmed Ebola cases in the Democratic Republic of the Congo surpasses 11,000, with at least 5,387 deaths, affecting 8 of…\" bestätigt, dass 8 Regionen betroffen sind, was eine Rangliste nach Fallzahlen ermöglic",
+   "quelle": {
+    "name": "The number of confirmed Ebola cases in the Democratic Republic of the Congo surpasses 11,000, with at least 5,387 deaths, affecting 8 of…",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Wikipedia · Al Jazeera",
+     "Wikipedia · DW"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Regionen der DR Kongo nach Ebola-Fällen.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:52:31Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "recherche": [
+    {
+     "text": "Ebola und Unsicherheit verschärfen die Ernährungskrise im Osten der DR Kongo, so die FAO",
+     "status": "einzeln",
+     "datum": "2026-11-12",
+     "quellen": [
+      {
+       "quelle": "kongo-kinshasa.de",
+       "url": "https://kongo-kinshasa.de/12-11-2026",
+       "datum": "2026-11-12"
+      }
+     ]
+    },
+    {
+     "text": "Ebola in der DR Kongo: WHO warnt vor den Auswirkungen der Unsicherheit auf die Bekämpfungsmaßnahmen",
+     "status": "einzeln",
+     "datum": "2026-11-12",
+     "quellen": [
+      {
+       "quelle": "kongo-kinshasa.de",
+       "url": "https://kongo-kinshasa.de/12-11-2026",
+       "datum": "2026-11-12"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-0d5955e9",
+   "bereich": "ranking",
+   "titel": "Schneefall in der Sierra Nevada",
+   "thema": "Die Orte der Sierra Nevada mit den höchsten Schneefällen.",
+   "begruendung": "Der Trend \"winter storm watch\" erwähnt \"several inches of snow to the Sierra\", was eine Rangliste von Orten nach Schneemenge ermöglicht.",
+   "quelle": {
+    "name": "winter storm watch",
+    "typ": "trend",
+    "score": 80.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Thema nicht als Ranking darstellbar: The topic 'highest snowfalls' cannot be expressed using the allowed numeric properties. None o",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Die Orte der Sierra Nevada mit den höchsten Schneefällen."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-4660e7c3",
+   "bereich": "fakten",
+   "titel": "Australiens frühere Namen",
+   "thema": "Wissenswertes über die historischen Bezeichnungen Australiens.",
+   "begruendung": "Der Trend \"australien\" ist Platz 1 der Google-Trends (DE) und fragt nach dem Namen Australiens zu Beginn des 19. Jahrhunderts.",
+   "quelle": {
+    "name": "australien",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über die historischen Bezeichnungen Australiens.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-2eff17e3",
+   "bereich": "fakten",
+   "titel": "Das Epos Ramayana",
+   "thema": "Wissens-Fakten zum indischen Epos Ramayana.",
+   "begruendung": "Der Trend \"Ramayana: Part 1\" ist Platz 1 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 90.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten zum indischen Epos Ramayana.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-8c44735a",
+   "bereich": "fakten",
+   "titel": "Der Kriminalroman „Alle Mörder sind schon da“",
+   "thema": "Wissenswertes zum bekannten Kriminalroman.",
+   "begruendung": "Der Trend \"Alle Mörder sind schon da\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (de).",
+   "quelle": {
+    "name": "Alle Mörder sind schon da",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes zum bekannten Kriminalroman.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-87ea4c50",
+   "bereich": "fakten",
+   "titel": "Siemens' operativer Rekordgewinn",
+   "thema": "Wissens-Fakten zu den finanziellen Erfolgen von Siemens.",
+   "begruendung": "Der Trend \"siemens aktie\" ist Platz 3 der Google-Trends (DE) und meldet einen operativen Rekordgewinn für Siemens.",
+   "quelle": {
+    "name": "siemens aktie",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten zu den finanziellen Erfolgen von Siemens.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-b2c1f2f5",
+   "bereich": "fakten",
+   "titel": "Künstliche Riffe und ihre Funktion",
+   "thema": "Wissenswertes über den Bau und Zweck künstlicher Riffe.",
+   "begruendung": "Die Nachricht \"Famed ship SS United States deliberately sunk off Florida coast to become a reef\" bestätigt die Schaffung eines künstlichen Riffs.",
+   "quelle": {
+    "name": "Famed ship SS United States deliberately sunk off Florida coast to become a reef",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Wikipedia · Reuters"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über den Bau und Zweck künstlicher Riffe.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-e6e776df",
+   "bereich": "story",
+   "titel": "Zweifel am eigenen Potenzial",
+   "thema": "Eine Geschichte über Selbstzweifel und den Weg zur Anerkennung.",
+   "begruendung": "Der Trend \"dustin hoffman\" ist Platz 1 der Google-Trends (US) und beinhaltet die Meldung, dass Dustin Hoffman dachte, er würde ein Niemand sein.",
+   "quelle": {
+    "name": "dustin hoffman",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über Selbstzweifel und den Weg zur Anerkennung.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-5b337969",
+   "bereich": "story",
+   "titel": "Der Nervenkitzel verbotener Modifikationen",
+   "thema": "Eine Geschichte über den Reiz, Regeln zu umgehen und Dinge zu tun, die nicht erlaubt sind.",
+   "begruendung": "Der Trend \"e roller\" ist Platz 5 der Google-Trends (DE) und berichtet über TikTok-Videos, die den Trend zu frisierten E-Rollern befeuern.",
+   "quelle": {
+    "name": "e roller",
+    "typ": "trend",
+    "score": 73.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über den Reiz, Regeln zu umgehen und Dinge zu tun, die nicht erlaubt sind.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-34e2d594",
+   "bereich": "story",
+   "titel": "Die Last der öffentlichen Meinung",
+   "thema": "Eine Geschichte über die Angst vor der Reaktion des Publikums.",
+   "begruendung": "Der Trend \"james acaster\" ist Platz 5 der Google-Trends (US) und beinhaltet die Meldung, dass James Acaster Angst hatte, die öffentliche Reaktion auf seinen Traitors-Exit zu sehen.",
+   "quelle": {
+    "name": "james acaster",
+    "typ": "trend",
+    "score": 73.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über die Angst vor der Reaktion des Publikums.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-9ea5587d",
+   "bereich": "story",
+   "titel": "Die Spannung eines ungelösten Falls",
+   "thema": "Eine Geschichte, die die Stimmung eines Kriminalfalls einfängt.",
+   "begruendung": "Der Trend \"Alle Mörder sind schon da\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (de).",
+   "quelle": {
+    "name": "Alle Mörder sind schon da",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte, die die Stimmung eines Kriminalfalls einfängt.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-f0a42972",
+   "bereich": "erklaer",
+   "titel": "Die Namensgeschichte Australiens",
+   "thema": "Wie Australien zu seinem heutigen Namen kam.",
+   "begruendung": "Der Trend \"australien\" ist Platz 1 der Google-Trends (DE) und fragt nach dem Namen Australiens zu Beginn des 19. Jahrhunderts.",
+   "quelle": {
+    "name": "australien",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Wie Australien zu seinem heutigen Namen kam."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-5b183acc",
+   "bereich": "erklaer",
+   "titel": "Rockerclubs und Razzien",
+   "thema": "Die Hintergründe von Razzien gegen Rockerclubs.",
+   "begruendung": "Der Trend \"baden-württemberg\" ist Platz 2 der Google-Trends (DE) und meldet eine Großrazzia gegen Gremium MC.",
+   "quelle": {
+    "name": "baden-württemberg",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Die Hintergründe von Razzien gegen Rockerclubs."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-eff4ca02",
+   "bereich": "erklaer",
+   "titel": "Masernausbrüche und Impfschutz",
+   "thema": "Wie Masernausbrüche entstehen und warum Impfungen wichtig sind.",
+   "begruendung": "Der Trend \"measles outbreak pennsylvania\" ist Platz 3 der Google-Trends (US) und thematisiert einen Masernausbruch und die Meinungsänderung zu Impfungen.",
+   "quelle": {
+    "name": "measles outbreak pennsylvania",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Wie Masernausbrüche entstehen und warum Impfungen wichtig sind."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-3269a890",
+   "bereich": "erklaer",
+   "titel": "Die Entstehung künstlicher Riffe",
+   "thema": "Wie aus versenkten Schiffen neue Lebensräume im Meer entstehen.",
+   "begruendung": "Die Nachricht \"Famed ship SS United States deliberately sunk off Florida coast to become a reef\" bestätigt die Schaffung eines künstlichen Riffs.",
+   "quelle": {
+    "name": "Famed ship SS United States deliberately sunk off Florida coast to become a reef",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Wikipedia · Reuters"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Wie aus versenkten Schiffen neue Lebensräume im Meer entstehen."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-3f204c73",
+   "bereich": "erklaer",
+   "titel": "Wie E-Scooter manipuliert werden",
+   "thema": "Die Technik hinter frisierten E-Rollern und ihre Auswirkungen.",
+   "begruendung": "Der Trend \"e roller\" ist Platz 5 der Google-Trends (DE) und berichtet über TikTok-Videos, die den Trend zu frisierten E-Rollern befeuern.",
+   "quelle": {
+    "name": "e roller",
+    "typ": "trend",
+    "score": 73.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Die Technik hinter frisierten E-Rollern und ihre Auswirkungen."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-e05152d9",
+   "bereich": "reportage",
+   "titel": "US-Gesandte in Moskau für Ukraine-Gespräche",
+   "thema": "Aktuelle Entwicklungen bei den Ukraine-Gesprächen.",
+   "begruendung": "Die Nachricht \"US envoys arrive in Moscow for Ukraine talks with Vladimir Putin\" ist von 3 Quellen bestätigt.",
+   "quelle": {
+    "name": "US envoys arrive in Moscow for Ukraine talks with Vladimir Putin",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "Wikipedia · AP"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Aktuelle Entwicklungen bei den Ukraine-Gesprächen.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-f785bd50",
+   "bereich": "reportage",
+   "titel": "Historischer Senator in Mississippi",
+   "thema": "Scott Coloms Wahl zum ersten schwarzen Senator Mississippis seit dem 19. Jahrhundert.",
+   "begruendung": "Die Nachricht \"Democrat Scott Colom makes history as Mississippi's first black senator since 19th Century\" ist von 3 Quellen bestätigt.",
+   "quelle": {
+    "name": "Democrat Scott Colom makes history as Mississippi's first black senator since 19th Century",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Scott Coloms Wahl zum ersten schwarzen Senator Mississippis seit dem 19. Jahrhundert.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-b778d9b9",
+   "bereich": "reportage",
+   "titel": "Teenager in Australien nach sechs Tagen gerettet",
+   "thema": "Die Rettung eines vermissten Teenagers im australischen Busch.",
+   "begruendung": "Die Nachricht \"Australian teen missing in bush for six days rescued alive\" ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Australian teen missing in bush for six days rescued alive",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Die Rettung eines vermissten Teenagers im australischen Busch.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-b175cb1e",
+   "bereich": "reportage",
+   "titel": "Rücktritt des Vizepräsidenten in Indonesien",
+   "thema": "Die Gründe für den Rücktritt des indonesischen Vizepräsidenten.",
+   "begruendung": "Die Nachricht \"Indonesia's vice-president resigns amid signs ruling alliance is fraying\" ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Indonesia's vice-president resigns amid signs ruling alliance is fraying",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Wikipedia · Reuters"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Die Gründe für den Rücktritt des indonesischen Vizepräsidenten.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-199de719",
+   "bereich": "satire",
+   "titel": "Die glorreiche Wiedergeburt der SS United States",
+   "thema": "Satirischer Blick auf die Umnutzung eines berühmten Schiffes.",
+   "begruendung": "Die bestätigte Nachricht \"Famed ship SS United States deliberately sunk off Florida coast to become a reef\" beschreibt eine absurde Maßnahme mit einem historischen Schiff.",
+   "quelle": {
+    "name": "Famed ship SS United States deliberately sunk off Florida coast to become a reef",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Wikipedia · Reuters"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Satirischer Blick auf die Umnutzung eines berühmten Schiffes.",
+    "sprache": "de",
+    "meldung": "Famed ship SS United States deliberately sunk off Florida coast to become a reef"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
+  {
+   "id": "idee-a701fab7",
+   "bereich": "satire",
+   "titel": "Der Papst im Peru-Wandbild-Universum",
+   "thema": "Satire über unerwartete Kunst und kulturelle Mischungen.",
+   "begruendung": "Die bestätigte Nachricht \"Wandbild in Neu-Delhi, Papst Leo in Peru, Herbstwetter in Moskau\" erwähnt ein Wandbild mit Papst Leo in Peru, was eine absurde Kombination darstellt.",
+   "quelle": {
+    "name": "Wandbild in Neu-Delhi, Papst Leo in Peru, Herbstwetter in Moskau",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Satire über unerwartete Kunst und kulturelle Mischungen.",
+    "sprache": "de",
+    "meldung": "Wandbild in Neu-Delhi, Papst Leo in Peru, Herbstwetter in Moskau"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-12T13:53:05Z"
+  },
   {
    "id": "idee-7f957e69",
    "bereich": "ranking",
@@ -1104,90 +1725,6 @@
    "erstellt": "2026-11-09T13:59:17Z"
   },
   {
-   "id": "idee-1a457dfb",
-   "bereich": "fakten",
-   "titel": "Mikroplastik im Kaugummi",
-   "thema": "Fakten über die Freisetzung von Mikroplastik beim Kaugummikauen",
-   "begruendung": "Der Trend 'TIL chewing gum can release tiny plastic particles directly into your saliva. Researchers discovered that as gum is chewed, microscopic particles gradually break away from its structure and mix with your saliva.' ist auf Reddit r",
-   "quelle": {
-    "name": "TIL chewing gum can release tiny plastic particles directly into your saliva. Researchers discovered that as gum is chewed, microscopic particles gradually break away from its structure and mix with your saliva.",
-    "typ": "trend",
-    "score": 60.3,
-    "quellen": [
-     "reddit"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten über die Freisetzung von Mikroplastik beim Kaugummikauen",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-a6fbcdeb",
-   "bereich": "fakten",
-   "titel": "Kinder ohne Handys",
-   "thema": "Fakten über das Aufwachsen von Kindern ohne Smartphones",
-   "begruendung": "Der Trend 'Kids without phones' ist auf Reddit r/interestingasfuck mit 21.904 Punkten auf Platz 2.",
-   "quelle": {
-    "name": "Kids without phones",
-    "typ": "trend",
-    "score": 68.9,
-    "quellen": [
-     "reddit"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten über das Aufwachsen von Kindern ohne Smartphones",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-0dc85936",
-   "bereich": "fakten",
-   "titel": "Looksmaxxing: Was steckt dahinter?",
-   "thema": "Fakten über den Trend Looksmaxxing und seine psychologischen Aspekte",
-   "begruendung": "Der Trend 'Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distres",
-   "quelle": {
-    "name": "Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distress, and harmful appearance-modification practices.",
-    "typ": "trend",
-    "score": 62.5,
-    "quellen": [
-     "reddit"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten über den Trend Looksmaxxing und seine psychologischen Aspekte",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
    "id": "idee-8da633a8",
    "bereich": "story",
    "titel": "Die geheime Regel der Navy-Becher",
@@ -1264,308 +1801,6 @@
    },
    "app_auftrag": true,
    "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-fa836beb",
-   "bereich": "erklaer",
-   "titel": "Was ist Looksmaxxing?",
-   "thema": "Erklärung des Phänomens Looksmaxxing und seiner potenziellen Risiken",
-   "begruendung": "Der Trend 'Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distres",
-   "quelle": {
-    "name": "Looksmaxxing is increasingly becoming a subject of clinical concern. A new study examines its growing prevalence among adolescent boys and young men, highlighting potential links to body dysmorphic disorder, psychological distress, and harmful appearance-modification practices.",
-    "typ": "trend",
-    "score": 62.5,
-    "quellen": [
-     "reddit"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Erklärung des Phänomens Looksmaxxing und seiner potenziellen Risiken"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-29b1f6e0",
-   "bereich": "erklaer",
-   "titel": "Wie Mikroplastik in den Mund gelangt",
-   "thema": "Erklärung, wie Kaugummi Mikroplastik freisetzen kann",
-   "begruendung": "Der Trend 'TIL chewing gum can release tiny plastic particles directly into your saliva. Researchers discovered that as gum is chewed, microscopic particles gradually break away from its structure and mix with your saliva.' ist auf Reddit r",
-   "quelle": {
-    "name": "TIL chewing gum can release tiny plastic particles directly into your saliva. Researchers discovered that as gum is chewed, microscopic particles gradually break away from its structure and mix with your saliva.",
-    "typ": "trend",
-    "score": 60.3,
-    "quellen": [
-     "reddit"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Erklärung, wie Kaugummi Mikroplastik freisetzen kann"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-1524f12d",
-   "bereich": "erklaer",
-   "titel": "Palmöl und Regenwald-Zerstörung",
-   "thema": "Erklärung der Auswirkungen von Palmölplantagen auf den indonesischen Regenwald",
-   "begruendung": "Der Trend 'Millions of acres of Indonesia rainforest were burned up to give way for palm plantation expansion.This is sickening' ist auf Reddit r/interestingasfuck mit 12.774 Punkten auf Platz 3.",
-   "quelle": {
-    "name": "Millions of acres of Indonesia rainforest were burned up to give way for palm plantation expansion.This is sickening",
-    "typ": "trend",
-    "score": 67.8,
-    "quellen": [
-     "reddit"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Erklärung der Auswirkungen von Palmölplantagen auf den indonesischen Regenwald"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-6e996f53",
-   "bereich": "erklaer",
-   "titel": "Fantasy Sports einfach erklärt",
-   "thema": "Erklärung des Konzepts und der Funktionsweise von Fantasy Sports",
-   "begruendung": "Der Trend 'fantasy' ist auf Platz 2 der Google-Trends (DE) mit über 100 Suchen; Meldung: „NFL Fantasy 2026 Start 'Em, Sit 'Em: Quarterbacks for Week 9“ (NFL.com).",
-   "quelle": {
-    "name": "fantasy",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Erklärung des Konzepts und der Funktionsweise von Fantasy Sports"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-b6ebb039",
-   "bereich": "erklaer",
-   "titel": "Der Luftqualitätsindex (AQI)",
-   "thema": "Erklärung, was der Air Quality Index (AQI) aussagt",
-   "begruendung": "Der Trend 'delhi aqi' ist auf Platz 3 der Google-Trends (US) mit über 200 Suchen; Meldung: „India: Delhi chokes on most polluted Diwali eve in 10 years“ (DW.com).",
-   "quelle": {
-    "name": "delhi aqi",
-    "typ": "trend",
-    "score": 91.8,
-    "quellen": [
-     "google",
-     "reddit"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Erklärung, was der Air Quality Index (AQI) aussagt"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-9ce3cbd1",
-   "bereich": "reportage",
-   "titel": "Gedenken an die Reichspogromnacht",
-   "thema": "Berichterstattung über das Gedenken an den Jahrestag der Reichspogromnacht",
-   "begruendung": "Der Trend 'reichspogromnacht' ist Platz 1 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Verbrechen an deutschen Juden: Gedenken an den 88. Jahrestag der Reichspogromnacht - Video“ (WELT).",
-   "quelle": {
-    "name": "reichspogromnacht",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Berichterstattung über das Gedenken an den Jahrestag der Reichspogromnacht",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-fa4127a9",
-   "bereich": "reportage",
-   "titel": "G7-Ministertreffen zur Ukraine",
-   "thema": "Bericht über das Treffen der G7-Minister und Europas Rolle bei den Ukraine-Friedensgesprächen",
-   "begruendung": "Die Nachricht 'G7 ministers meet as Europe seeks greater say in Ukraine peace talks' ist von 2 Quellen bestätigt (Deutsche Welle (en)).",
-   "quelle": {
-    "name": "G7 ministers meet as Europe seeks greater say in Ukraine peace talks",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Bericht über das Treffen der G7-Minister und Europas Rolle bei den Ukraine-Friedensgesprächen",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-620a3147",
-   "bereich": "reportage",
-   "titel": "Ex-Präsident Paraguays angeklagt",
-   "thema": "Bericht über die Anklage gegen Paraguays ehemaligen Präsidenten nach Bankenkollaps",
-   "begruendung": "Die Nachricht 'Paraguay's former president charged after bank collapse' ist von 2 Quellen bestätigt (BBC World).",
-   "quelle": {
-    "name": "Paraguay's former president charged after bank collapse",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Bericht über die Anklage gegen Paraguays ehemaligen Präsidenten nach Bankenkollaps",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-ed74aef8",
-   "bereich": "reportage",
-   "titel": "Nvidia CEO bestätigt Gerüchte",
-   "thema": "Bericht über die Bestätigung eines CEOs und Gerüchte",
-   "begruendung": "Die Nachricht 'Nvidia CEO Huang admits affair amid rumors of China spy ties' ist von 2 Quellen bestätigt (Deutsche Welle (en)).",
-   "quelle": {
-    "name": "Nvidia CEO Huang admits affair amid rumors of China spy ties",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Bericht über die Bestätigung eines CEOs und Gerüchte",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-a6c5f7bb",
-   "bereich": "reportage",
-   "titel": "Regierungsbildung in Israel",
-   "thema": "Bericht über die Beauftragung zur Regierungsbildung in Israel",
-   "begruendung": "Die Nachricht 'Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung' ist von 2 Quellen bestätigt (Tagesschau).",
-   "quelle": {
-    "name": "Israels Präsident Herzog erteilt Eisenkot Auftrag zur Regierungsbildung",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Bericht über die Beauftragung zur Regierungsbildung in Israel",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-ad64a89c",
-   "bereich": "fakten",
-   "titel": "bundespräsident deutschland: die wichtigsten Fakten",
-   "thema": "Fakten über bundespräsident deutschland",
-   "begruendung": "Platz 1 der Google-Trends (DE) mit über 1.000 Suchen; Meldung: „Nach dem Aigner-Coup: Kann Söder jetzt noch Kanzler werden?“ (BILD) · Platz 25 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06: 11.694 Aufrufe",
-   "quelle": {
-    "name": "bundespräsident deutschland",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google",
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten über bundespräsident deutschland",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-08T21:57:43Z"
-  },
-  {
-   "id": "idee-972942e0",
-   "bereich": "fakten",
-   "titel": "seahawks game today: die wichtigsten Fakten",
-   "thema": "Fakten über seahawks game today",
-   "begruendung": "Platz 1 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „Sources: Seahawks' Sam Darnold in jeopardy of missing Week 10 game vs. Raiders“ (ESPN)",
-   "quelle": {
-    "name": "seahawks game today",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten über seahawks game today",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-08T21:57:43Z"
   },
   {
    "id": "idee-b9eb1790",
