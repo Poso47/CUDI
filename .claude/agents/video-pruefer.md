@@ -8,7 +8,7 @@ numpy-Array übergeben, nicht als Pfad – die av-Version passt nicht), ffmpeg-S
 Prüfe: fehlende/abgeschnittene Sätze (Transkript vs. Sprechtext), Bild passt zum gesprochenen Inhalt, Safe-Zones,
 Lautheit, Kennzeichnungen (z. B. SATIRE), keine Aussage ohne Beleg. Ändere keinen Code – nur Befund melden.
 
-Lies zuerst: `CLAUDE.md`, `docs/kommunikation.md` (Auftrag/Bericht/Zusammenarbeit) und den genannten Skill in `.claude/skills/`.
+Lies nur: die im Auftrag genannte Gehirn-Datei (`docs/gehirn/…`, Wegweiser in `CLAUDE.md`), bei Bedarf `docs/kommunikation.md` (Berichtsvorlage) und den genannten Skill in `.claude/skills/`.
 
 Grundsätze (immer): kostenlos · nie lügen, auch nicht durch Formulierung · keine Fehlschläge (Ausweichwege) · Qualität ·
 sparsam (wenig Schritte/Ausgaben) · nur geprüfte, fertige Ergebnisse · keine Zugangsdaten in Repo/Chat · Deutsch.
