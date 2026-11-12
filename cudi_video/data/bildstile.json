@@ -1,0 +1,971 @@
+{
+ "hinweis": "Bildstile der Videoart schaubild. modus bild = KI-Illustration (Pollinations) im Look, modus code = ganz vom Renderer gezeichnet. Bewegung ist immer Zoom/Schwenk/Parallaxe/Ruckeln – keine animierten Figuren.",
+ "stile": [
+  {
+   "id": "schaubild",
+   "name": "Schaubild",
+   "beschreibung": "Glänzende 3D-Illustration je Station, Etiketten mit Linie, Riesenzahl – Wechsel Petrol/Creme.",
+   "modus": "bild",
+   "prompt": "glossy translucent 3D illustration, single centered subject, studio light, plain dark teal background, highly detailed, no text",
+   "bg": [
+    [
+     13,
+     43,
+     54
+    ],
+    [
+     242,
+     236,
+     222
+    ]
+   ],
+   "ink": [
+    [
+     250,
+     246,
+     236
+    ],
+    [
+     20,
+     40,
+     48
+    ]
+   ],
+   "akzent": [
+    232,
+    160,
+    32
+   ],
+   "schrift": [
+    "sans",
+    "archivo"
+   ],
+   "rahmen": "kreis",
+   "bewegung": "zoom",
+   "effekt": "partikel",
+   "etikett": "pille",
+   "musik": "pad",
+   "schritt": 0
+  },
+  {
+   "id": "cartoon2d",
+   "name": "2D-Cartoon",
+   "beschreibung": "Farbenfrohe Cartoon-Bilder mit klaren Konturen und sympathischen Figuren.",
+   "modus": "bild",
+   "prompt": "high quality 2D cartoon illustration, friendly characters, expressive faces, bold clean outlines, colorful background, modern flat shading, no text",
+   "bg": [
+    [
+     255,
+     214,
+     102
+    ],
+    [
+     120,
+     200,
+     235
+    ]
+   ],
+   "ink": [
+    [
+     24,
+     24,
+     28
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    230,
+    57,
+    70
+   ],
+   "schrift": [
+    "pop",
+    "pop"
+   ],
+   "rahmen": "karte",
+   "bewegung": "schwenk",
+   "effekt": "none",
+   "etikett": "kasten",
+   "musik": "pluck",
+   "schritt": 0
+  },
+  {
+   "id": "film3d",
+   "name": "3D-Animationsfilm",
+   "beschreibung": "Stilisierte 3D-Figuren mit weichem Licht und Tiefenschärfe wie im Animationsfilm.",
+   "modus": "bild",
+   "prompt": "stylized 3D animated film still, soft cinematic lighting, realistic materials, emotional character, detailed environment, depth of field, no text",
+   "bg": [
+    [
+     22,
+     26,
+     44
+    ],
+    [
+     236,
+     226,
+     214
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    255,
+    170,
+    80
+   ],
+   "schrift": [
+    "serif",
+    "pop"
+   ],
+   "rahmen": "frei",
+   "bewegung": "parallax",
+   "effekt": "nebel",
+   "etikett": "pille",
+   "musik": "warm",
+   "schritt": 0
+  },
+  {
+   "id": "motiongraphics",
+   "name": "Motion Graphics",
+   "beschreibung": "Animierte Formen, Linien und Zahlen – ganz ohne Bilder, exakt zur Stimme.",
+   "modus": "code",
+   "prompt": "",
+   "bg": [
+    [
+     20,
+     24,
+     58
+    ],
+    [
+     240,
+     243,
+     255
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     20,
+     24,
+     58
+    ]
+   ],
+   "akzent": [
+    108,
+    99,
+    255
+   ],
+   "schrift": [
+    "pop",
+    "pop"
+   ],
+   "rahmen": "frei",
+   "bewegung": "zoom",
+   "effekt": "verlauf",
+   "etikett": "pille",
+   "musik": "pulse",
+   "schritt": 0
+  },
+  {
+   "id": "anime",
+   "name": "Anime",
+   "beschreibung": "Anime-inspirierte Bilder mit dramatischem Licht und detaillierten Hintergründen.",
+   "modus": "bild",
+   "prompt": "anime style illustration, expressive character, detailed background, dramatic lighting, dynamic perspective, cinematic, no text",
+   "bg": [
+    [
+     28,
+     22,
+     52
+    ],
+    [
+     250,
+     236,
+     240
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    255,
+    92,
+    138
+   ],
+   "schrift": [
+    "anton",
+    "popb"
+   ],
+   "rahmen": "karte",
+   "bewegung": "schwenk",
+   "effekt": "none",
+   "etikett": "kasten",
+   "musik": "beat",
+   "schritt": 0
+  },
+  {
+   "id": "whiteboard",
+   "name": "Whiteboard",
+   "beschreibung": "Schwarze Zeichnung mit Farbakzent, die sich Strich für Strich aufdeckt.",
+   "modus": "bild",
+   "prompt": "whiteboard marker drawing, black outlines on pure white background, one red color accent, simple explanatory sketch, hand drawn, no text",
+   "bg": [
+    [
+     252,
+     252,
+     250
+    ],
+    [
+     252,
+     252,
+     250
+    ]
+   ],
+   "ink": [
+    [
+     24,
+     24,
+     28
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    214,
+    40,
+    40
+   ],
+   "schrift": [
+    "hand",
+    "hand"
+   ],
+   "rahmen": "frei",
+   "bewegung": "none",
+   "effekt": "aufdecken",
+   "etikett": "kasten",
+   "musik": "pluck",
+   "schritt": 0
+  },
+  {
+   "id": "isometrisch",
+   "name": "Isometrisch",
+   "beschreibung": "Kleine isometrische 3D-Welten in fester 45-Grad-Ansicht.",
+   "modus": "bild",
+   "prompt": "isometric 3D illustration, 45 degree view, tiny detailed world with buildings people and objects, clean geometry, harmonious pastel colors, plain background, no text",
+   "bg": [
+    [
+     224,
+     240,
+     236
+    ],
+    [
+     40,
+     52,
+     84
+    ]
+   ],
+   "ink": [
+    [
+     24,
+     24,
+     28
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ],
+   "akzent": [
+    255,
+    138,
+    76
+   ],
+   "schrift": [
+    "pop",
+    "sans"
+   ],
+   "rahmen": "frei",
+   "bewegung": "zoom",
+   "effekt": "raster",
+   "etikett": "pille",
+   "musik": "pluck",
+   "schritt": 0
+  },
+  {
+   "id": "papercut",
+   "name": "Paper-Cut",
+   "beschreibung": "Papierschichten mit weichen Schatten, bewegt wie Stop-Motion aus Papier.",
+   "modus": "bild",
+   "prompt": "paper cut art, layered paper cutout illustration, visible paper texture, soft shadows between layers, handcrafted, no text",
+   "bg": [
+    [
+     244,
+     226,
+     198
+    ],
+    [
+     72,
+     108,
+     112
+    ]
+   ],
+   "ink": [
+    [
+     24,
+     24,
+     28
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ],
+   "akzent": [
+    196,
+    78,
+    58
+   ],
+   "schrift": [
+    "serif",
+    "popb"
+   ],
+   "rahmen": "karte",
+   "bewegung": "ruckeln",
+   "effekt": "papier",
+   "etikett": "kasten",
+   "musik": "warm",
+   "schritt": 12
+  },
+  {
+   "id": "claymation",
+   "name": "Claymation",
+   "beschreibung": "Knetfiguren in Miniaturkulisse, warme Beleuchtung, ruckelnde Einzelbilder.",
+   "modus": "bild",
+   "prompt": "claymation style, handmade plasticine clay figure, visible fingerprints and material texture, miniature set, warm lighting, stop motion look, no text",
+   "bg": [
+    [
+     236,
+     200,
+     160
+    ],
+    [
+     92,
+     64,
+     52
+    ]
+   ],
+   "ink": [
+    [
+     24,
+     24,
+     28
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ],
+   "akzent": [
+    226,
+    104,
+    52
+   ],
+   "schrift": [
+    "pop",
+    "popb"
+   ],
+   "rahmen": "frei",
+   "bewegung": "ruckeln",
+   "effekt": "korn",
+   "etikett": "pille",
+   "musik": "pluck",
+   "schritt": 12
+  },
+  {
+   "id": "cyberpunk",
+   "name": "Cyberpunk",
+   "beschreibung": "Neonfarben, Hologramme und dunkle futuristische Kulissen.",
+   "modus": "bild",
+   "prompt": "cyberpunk illustration, neon colors, holographic displays, dark futuristic architecture, glowing elements, high contrast lighting, no text",
+   "bg": [
+    [
+     10,
+     8,
+     24
+    ],
+    [
+     18,
+     10,
+     40
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ],
+   "akzent": [
+    0,
+    240,
+    255
+   ],
+   "schrift": [
+    "anton",
+    "sans"
+   ],
+   "rahmen": "karte",
+   "bewegung": "schwenk",
+   "effekt": "neon",
+   "etikett": "neon",
+   "musik": "beat",
+   "schritt": 0
+  },
+  {
+   "id": "linien",
+   "name": "Linienanimation",
+   "beschreibung": "Feine Linien bauen sich zur Stimme auf – reduziert, zwei Farben.",
+   "modus": "code",
+   "prompt": "",
+   "bg": [
+    [
+     250,
+     248,
+     243
+    ],
+    [
+     26,
+     30,
+     40
+    ]
+   ],
+   "ink": [
+    [
+     24,
+     24,
+     28
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ],
+   "akzent": [
+    214,
+    90,
+    60
+   ],
+   "schrift": [
+    "garamond",
+    "sans"
+   ],
+   "rahmen": "frei",
+   "bewegung": "none",
+   "effekt": "none",
+   "etikett": "pille",
+   "musik": "pad",
+   "schritt": 0
+  },
+  {
+   "id": "doku",
+   "name": "Doku-Stil",
+   "beschreibung": "Dunkel, dramatisch beleuchtet, mit Nebel – geheimnisvoll und hochwertig.",
+   "modus": "bild",
+   "prompt": "cinematic documentary still, dark background, dramatic lighting, atmospheric fog, realistic composition, mysterious, high detail, no text",
+   "bg": [
+    [
+     10,
+     12,
+     16
+    ],
+    [
+     18,
+     20,
+     26
+    ]
+   ],
+   "ink": [
+    [
+     236,
+     232,
+     220
+    ],
+    [
+     236,
+     232,
+     220
+    ]
+   ],
+   "akzent": [
+    196,
+    160,
+    96
+   ],
+   "schrift": [
+    "serif",
+    "garamond"
+   ],
+   "rahmen": "frei",
+   "bewegung": "zoom",
+   "effekt": "nebel",
+   "etikett": "pille",
+   "musik": "drone",
+   "schritt": 0
+  },
+  {
+   "id": "wissenschaft3d",
+   "name": "Wissenschaft 3D",
+   "beschreibung": "Sachliche 3D-Darstellung von Vorgängen in Nahaufnahme.",
+   "modus": "bild",
+   "prompt": "scientific 3D visualization, accurate detailed model, close-up macro view, clean neutral lighting, educational, dark blue background, no text",
+   "bg": [
+    [
+     8,
+     24,
+     44
+    ],
+    [
+     232,
+     240,
+     246
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     8,
+     24,
+     44
+    ]
+   ],
+   "akzent": [
+    72,
+    196,
+    220
+   ],
+   "schrift": [
+    "sans",
+    "sans"
+   ],
+   "rahmen": "kreis",
+   "bewegung": "zoom",
+   "effekt": "partikel",
+   "etikett": "pille",
+   "musik": "pad",
+   "schritt": 0
+  },
+  {
+   "id": "retro",
+   "name": "Retro-Zeichentrick",
+   "beschreibung": "Handgezeichnet, leicht körnig, Vintage-Farben wie alte Trickfilme.",
+   "modus": "bild",
+   "prompt": "vintage 1930s rubber hose cartoon style, hand drawn character, grainy texture, muted vintage color palette, classic cartoon, no text",
+   "bg": [
+    [
+     232,
+     214,
+     170
+    ],
+    [
+     60,
+     80,
+     92
+    ]
+   ],
+   "ink": [
+    [
+     24,
+     24,
+     28
+    ],
+    [
+     240,
+     228,
+     196
+    ]
+   ],
+   "akzent": [
+    190,
+    60,
+    44
+   ],
+   "schrift": [
+    "serif",
+    "serif"
+   ],
+   "rahmen": "kreis",
+   "bewegung": "ruckeln",
+   "effekt": "korn",
+   "etikett": "kasten",
+   "musik": "pluck",
+   "schritt": 12
+  },
+  {
+   "id": "comic",
+   "name": "Comic",
+   "beschreibung": "Panels, Sprechblasen-Etiketten, kräftige Outlines und Rasterpunkte.",
+   "modus": "bild",
+   "prompt": "comic book panel illustration, bold black outlines, halftone shading, dynamic perspective, vivid colors, no text, no speech bubbles",
+   "bg": [
+    [
+     255,
+     211,
+     31
+    ],
+    [
+     72,
+     160,
+     230
+    ]
+   ],
+   "ink": [
+    [
+     24,
+     24,
+     28
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    214,
+    40,
+    40
+   ],
+   "schrift": [
+    "anton",
+    "pop"
+   ],
+   "rahmen": "panel",
+   "bewegung": "puls",
+   "effekt": "halftone",
+   "etikett": "sprechblase",
+   "musik": "beat",
+   "schritt": 0
+  },
+  {
+   "id": "liquid",
+   "name": "Liquid Motion",
+   "beschreibung": "Fließende Farbverläufe und weiche, organische Formen.",
+   "modus": "bild",
+   "prompt": "abstract liquid shapes, flowing gradient colors, organic morphing forms, soft smooth render, single centered object, no text",
+   "bg": [
+    [
+     44,
+     20,
+     88
+    ],
+    [
+     250,
+     236,
+     244
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    255,
+    112,
+    166
+   ],
+   "schrift": [
+    "pop",
+    "sans"
+   ],
+   "rahmen": "kreis",
+   "bewegung": "puls",
+   "effekt": "liquid",
+   "etikett": "pille",
+   "musik": "pad",
+   "schritt": 0
+  },
+  {
+   "id": "lowpoly",
+   "name": "Low-Poly",
+   "beschreibung": "Polygonale Figuren und Landschaften mit klaren Lichtflächen.",
+   "modus": "bild",
+   "prompt": "low poly 3D illustration, geometric polygonal shapes, flat shaded facets, stylized shadows, consistent geometric design, plain background, no text",
+   "bg": [
+    [
+     38,
+     50,
+     72
+    ],
+    [
+     228,
+     236,
+     230
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    255,
+    184,
+    72
+   ],
+   "schrift": [
+    "pop",
+    "sans"
+   ],
+   "rahmen": "frei",
+   "bewegung": "parallax",
+   "effekt": "none",
+   "etikett": "kasten",
+   "musik": "pulse",
+   "schritt": 0
+  },
+  {
+   "id": "typografie",
+   "name": "Typografie",
+   "beschreibung": "Wörter und Zahlen spielen die Hauptrolle, synchron zur Stimme.",
+   "modus": "code",
+   "prompt": "",
+   "bg": [
+    [
+     16,
+     16,
+     16
+    ],
+    [
+     255,
+     226,
+     52
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    255,
+    72,
+    72
+   ],
+   "schrift": [
+    "anton",
+    "anton"
+   ],
+   "rahmen": "frei",
+   "bewegung": "none",
+   "effekt": "none",
+   "etikett": "kasten",
+   "musik": "beat",
+   "schritt": 0
+  },
+  {
+   "id": "surreal",
+   "name": "Surreal",
+   "beschreibung": "Traumartige Bilder mit unmöglichen Perspektiven und Metaphern.",
+   "modus": "bild",
+   "prompt": "surreal dreamlike illustration, impossible perspective, unusual transformation, strong visual metaphor, cinematic lighting, no text",
+   "bg": [
+    [
+     30,
+     20,
+     50
+    ],
+    [
+     238,
+     222,
+     200
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    240,
+    150,
+    60
+   ],
+   "schrift": [
+    "serif",
+    "garamond"
+   ],
+   "rahmen": "karte",
+   "bewegung": "parallax",
+   "effekt": "nebel",
+   "etikett": "pille",
+   "musik": "drone",
+   "schritt": 0
+  },
+  {
+   "id": "parallax25d",
+   "name": "2.5D-Parallax",
+   "beschreibung": "Illustration in Ebenen mit Tiefenwirkung durch sanfte Kamerabewegung.",
+   "modus": "bild",
+   "prompt": "layered 2.5D illustration with clear foreground midground and background, depth, soft atmospheric perspective, cinematic, no text",
+   "bg": [
+    [
+     24,
+     40,
+     64
+    ],
+    [
+     238,
+     232,
+     216
+    ]
+   ],
+   "ink": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     24,
+     24,
+     28
+    ]
+   ],
+   "akzent": [
+    250,
+    176,
+    72
+   ],
+   "schrift": [
+    "pop",
+    "sans"
+   ],
+   "rahmen": "karte",
+   "bewegung": "parallax",
+   "effekt": "partikel",
+   "etikett": "pille",
+   "musik": "warm",
+   "schritt": 0
+  },
+  {
+   "id": "stopmotion",
+   "name": "Stop-Motion",
+   "beschreibung": "Handgemachte Miniaturwelt mit echten Materialien, sichtbare Einzelbilder.",
+   "modus": "bild",
+   "prompt": "stop motion miniature diorama, handmade craft materials felt cardboard and wood, real textures, warm lighting, charming details, no text",
+   "bg": [
+    [
+     222,
+     190,
+     150
+    ],
+    [
+     70,
+     84,
+     70
+    ]
+   ],
+   "ink": [
+    [
+     24,
+     24,
+     28
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ],
+   "akzent": [
+    212,
+    96,
+    60
+   ],
+   "schrift": [
+    "pop",
+    "popb"
+   ],
+   "rahmen": "polaroid",
+   "bewegung": "ruckeln",
+   "effekt": "korn",
+   "etikett": "kasten",
+   "musik": "warm",
+   "schritt": 12
+  }
+ ]
+}

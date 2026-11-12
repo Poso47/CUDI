@@ -445,17 +445,17 @@ def render_satire(script: dict, out_dir: Path | None = None, progress=None, musi
     silent = work / "video_only.mp4"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat), "-c", "copy",
                     str(silent)], check=True)
+    cover = out_dir / f"{script['id']}_cover.jpg"
+    cover_texts = make_cover(cover, script["titel"], lang)
+    stamped = work / "mit_cover.mp4"
+    if cover_mod.stamp_first_frame(silent, cover, stamped):    # Cover als erstes Frame – VOR dem Ton (der Stempel gibt nur Bild aus)
+        silent = stamped
     audio_file = work / "audio.wav"
     build_audio(jobs, audio_file, music_style=MUSIC_STYLE if (musik and audio.enabled()) else None, seed_key=script["id"])
     final = out_dir / f"{script['id']}.mp4"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(silent), "-i", str(audio_file), "-af",
                     "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", str(video.SAMPLE_RATE), "-c:v", "copy", "-c:a", "aac",
                     "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(final)], check=True)
-    cover = out_dir / f"{script['id']}_cover.jpg"
-    cover_texts = make_cover(cover, script["titel"], lang)
-    stamped = work / "mit_cover.mp4"
-    if cover_mod.stamp_first_frame(final, cover, stamped):     # Cover als erstes Frame (Vorschaubild); Ton bleibt unberührt
-        stamped.replace(final)
     from .. import qa
 
     return {"video": final.name, "cover": cover.name, "duration": round(sum(j["duration"] for j in jobs), 1),

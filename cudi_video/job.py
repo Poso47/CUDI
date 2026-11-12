@@ -49,7 +49,7 @@ RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch 
 # Dazu für fertige Videos: „bearbeiten“ (Texte/Format/Design/Tempo/Maskottchen aus der App, ohne neue Recherche) und
 # „hochladen“ (fertiges Video nach Freigabe in der App hochladen, ohne Neu-Rendern).
 STEPS = ("", "skelett", "video", "bearbeiten", "hochladen")
-STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "fakten": ("hochladen",), "clip": ("hochladen",), "reportage": ("hochladen",), "satire": ("hochladen",)}
+STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "fakten": ("hochladen",), "clip": ("hochladen",), "reportage": ("hochladen",), "satire": ("hochladen",), "schaubild": ("hochladen",)}
 SKELETON_DIR = "cudi_skelette"         # dorthin legt die Sitzung das bearbeitete Skelett (ArtifactData out_dir)
 EDIT_DIR = "cudi_bearbeitungen"        # … die Änderungen eines fertigen Videos (Sammlung „bearbeitungen“)
 UPLOAD_DIR = "cudi_hochladen"          # … das Ergebnisdokument (Sammlung „results“) und die Video-Dateien zum Hochladen
@@ -327,7 +327,29 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
         return {"id": job_id, "art": "satire", "thema": topic, "meldung": _link(report) if re.match(r"https?://", report, re.I) else report,
                 "sprache": lang, "links": [_link(u) for u in links if str(u or "").strip()],
                 "hochladen": _upload_wish(raw.get("hochladen"))}
-    raise OrderError("Unbekannte Art – „ranking“, „fakten“, „story“, „clip“, „reportage“ oder „satire“.")
+    if kind == "schaubild":                                   # Erklärvideo in Stationen mit wählbarem Bildstil (schaubild/)
+        from . import schaubild
+        topic = _text(raw.get("thema"), 160)
+        if len(topic) < 3:
+            raise OrderError("Schaubild: bitte das Thema nennen.")
+        lang = str(raw.get("sprache") or "de")
+        if lang not in ("de", "en"):
+            raise OrderError("Sprache: „de“ oder „en“.")
+        try:
+            count = int(raw.get("stationen", 6))
+        except (TypeError, ValueError):
+            raise OrderError("Stationen: bitte eine Zahl von 3 bis 9.") from None
+        if not 3 <= count <= 9:
+            raise OrderError("Stationen: bitte eine Zahl von 3 bis 9.")
+        style = str(raw.get("stil") or "schaubild")
+        if style != "auto" and style not in schaubild.stile():
+            raise OrderError("Stil: unbekannt – bitte einen Bildstil aus der Liste oder „auto“.")
+        fmt = str(raw.get("seitenformat") or "9:16")
+        if fmt not in schaubild.FORMATE:
+            raise OrderError("Seitenformat: „9:16“ oder „16:9“.")
+        return {"id": job_id, "art": "schaubild", "thema": topic, "sprache": lang, "stationen": count, "stil": style,
+                "seitenformat": fmt, "hochladen": _upload_wish(raw.get("hochladen"))}
+    raise OrderError("Unbekannte Art – „ranking“, „fakten“, „story“, „clip“, „reportage“, „satire“ oder „schaubild“.")
 
 
 def job_folder(job_id: str) -> Path:
@@ -766,6 +788,13 @@ def _satire(order: dict, folder: Path, progress) -> dict:
     return satire.run(order, folder, progress)
 
 
+def _schaubild(order: dict, folder: Path, progress) -> dict:
+    """Erklärvideo in Stationen mit wählbarem Bildstil (schaubild/__init__.py): nur wörtlich Belegtes, Bilder gekennzeichnet."""
+    from . import schaubild
+
+    return schaubild.run(order, folder, progress)
+
+
 def _transient(exc: Exception) -> bool:
     """Vorübergehende Störung (Netz, Dienst, Prozess) – nicht: falsche Eingaben oder eine gelöschte Story."""
     if hasattr(exc, "wiederholbar"):
@@ -838,7 +867,7 @@ def _run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=N
         try:
             run = (_bearbeiten if order.get("schritt") == "bearbeiten"
                    else {"ranking": _ranking, "fakten": _fakten, "story": _story, "clip": _clip,
-                                                   "reportage": _reportage, "satire": _satire}[order["art"]])
+                                                   "reportage": _reportage, "satire": _satire, "schaubild": _schaubild}[order["art"]])
             result = run(order, folder, progress)
             data = _summary(order, result)
             from . import bearbeiten

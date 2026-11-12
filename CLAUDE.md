@@ -36,6 +36,7 @@ sparsam · keine Zugangsdaten ausgeben oder ins Repo · Fokus deutschsprachig ·
 
 - Erst prüfen, ob ein Skill passt – dann macht die Hauptsitzung es selbst. Agenten nur für große, abgegrenzte Pakete:
   mechanisch → **haiku**, Neuentwicklung → **sonnet**. Höchstens **2 gleichzeitig**, jeder im eigenen Worktree.
+- **Neue Funktionen und neue Videoarten baut die Hauptsitzung selbst** (Wunsch des Nutzers) – Agenten nur für Pflege, Prüfung und wiederkehrende Arbeit.
 - Kleine Änderungen (ein Fehler, eine Datei, Doku) nie an einen Agenten geben – der Start kostet mehr als die Arbeit.
 - Keine Wiederholungen: nichts erneut lesen, was schon im Gespräch oder im Gehirn steht; keine Probeläufe ohne neue Frage.
 - Tests gezielt: nur betroffene Testdateien, die ganze Suite (`python -m pytest tests -q`) einmal vor dem Merge.
