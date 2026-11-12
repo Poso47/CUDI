@@ -10,7 +10,7 @@ description: Neuen Firma-Mitarbeiter (GitHub-Workflow, kein Claude-Verbrauch) ba
 3. Eintragen: `common.WORKERS` (Name, Takt in Stunden), `firma/__main__.py` (names), `firma/export.py` (kompakter Auszug für die App).
 4. Workflow `.github/workflows/firma-<name>.yml` nach Vorlage `firma-news.yml`: `concurrency: {group: firma-daten, cancel-in-progress: false}`, `permissions: contents: write`, pip nur was gebraucht wird (Ranking-Vorprüfung braucht `pillow`), Speichern mit **`bash scripts/firma_commit.sh "<Anzeigename>"`** (immer mit `bash`, Datei ist nicht ausführbar gewesen).
 5. Tests ohne Netz (monkeypatch) in `tests/test_firma.py`; Testdaten-Kandidaten brauchen alle Pflichtfelder (z. B. `warum`).
-6. CLAUDE.md-Abschnitt „Firma-Mitarbeiter“ um eine Zeile ergänzen.
+6. `docs/gehirn/firma.md` um eine Zeile ergänzen (nicht CLAUDE.md).
 
 ## Starten/prüfen
 - Manuell: `actions_run_trigger run_workflow` (ref main). **Höchstens 2 Läufe gleichzeitig** in der Gruppe firma-daten – weitere wartende Läufe bricht GitHub ab („cancelled“).
