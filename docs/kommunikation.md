@@ -114,7 +114,7 @@ mit. Dadurch werden die Aufträge kürzer, der Agent sucht weniger und es wird w
   paar Schritte, und ein billigeres Modell (haiku oder sonnet) schafft sie zusammen mit dem Skill. Kleine Einzelfälle
   mit Skill erledigt die Hauptsitzung selbst.
 - **Aufbau einer Agenten-Datei:** Kopf mit `name`, `description` und `model`. Danach Rolle, „Lies zuerst …“ mit
-  CLAUDE.md, kommunikation.md und dem passenden Skill, die Grundsätze und die Berichtsvorlage.
+  der passenden Gehirn-Datei (`docs/gehirn/`) und dem passenden Skill, die Grundsätze und die Berichtsvorlage.
 - **Pflege:** Neues aus SKILL-Abschnitten kommt in den Skill, nicht in den Agenten. So bleibt der Agent klein, und
   der Skill wächst mit.
 - **Bestand:** `firma-techniker` (haiku), `app-gestalter` (sonnet), `video-pruefer` (haiku).

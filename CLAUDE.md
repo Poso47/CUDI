@@ -1,203 +1,54 @@
-# CLAUDE.md – Arbeitswissen für dieses Repository
+# CLAUDE.md – Regeln und Wegweiser (kurz halten!)
 
-Antworte auf Deutsch. Arbeite ziel- und lösungsorientiert, vorausschauend und **sparsam**: so wenig
-Werkzeugaufrufe, Ausgaben und Tests wie nötig, aber gründlich genug, dass nichts kaputtgeht. Führe
-eine einzige Gesamt-To-do-Liste und erweitere sie nur, wenn echte Unterpunkte entstehen.
+Antworte auf Deutsch. Arbeite ziel- und lösungsorientiert und **sparsam**. Diese Datei wird in jeder Sitzung und von
+jedem Agenten geladen – deshalb stehen hier nur Regeln und der Wegweiser. Details stehen im **Gehirn** (`docs/gehirn/`).
 
-## Was das Projekt ist
+## Gehirn: erst nachschlagen, nicht neu suchen
 
-Neben dem älteren Desktop-Assistenten (README.md, `main.py`, `ui/`) enthält das Repo **CUDI Video**
-(`cudi_video/`, Doku: README_VIDEO.md): kostenlose Hochformat-Videos (1080×1920, ≤ 179 s, DE + EN)
-für TikTok/YouTube Shorts.
+CUDI Video (`cudi_video/`): kostenlose Hochformat-Videos (1080×1920, DE + EN) für TikTok/Shorts. Repo `Poso47/CUDI`.
 
-- **Ranking-Faktenvideos**: Wikidata (neuester Wert je Objekt vor dem LIMIT) → Abgleich mit Weltbank,
-  CIA Factbook, OSM, Wikipedia in 8 Sprachen, Webseiten aus den Einzelnachweisen (`ExternalSourcesChecker`,
-  `n_extern`, Warnung „nur von Wikipedia/Wikidata bestätigt“) (`cudi_video/verify/`) → Skript nur aus geprüften Zahlen →
-  Infografik-Render + edge-tts. Grundsatz: **nichts erfinden**, widersprochene Werte fliegen raus.
-- **Reddit-Storys** (`cudi_video/story/`): Suche per Stimmung/Beschreibung/Link (Arctic-Shift-Archiv),
-  Lektorat (heikle Stellen umschreiben statt weglassen), Skelett, Bilder/Clips, Stimme je Stimmung.
-- Rankings mit echten Videoclips (`media.py`: Pexels/Pixabay mit Schlüssel, NASA, Commons; je Platz bis 3
-  Ausschnitte, `render/clipreel.py`), Fotos sonst Commons → Openverse/NASA (Namensabgleich, nur kommerziell nutzbar).
-- Fakten-Rankings (`facts.py`, `spec.kind == "facts"`): Claude plant `art: fakten` (Artikeltitel), schreibt Fakten mit
-  wörtlichem Beleg; Prüfung je Fakt (Beleg in Quelle, Zahlen auch in zweiter Quelle, keine erfundenen Wörter –
-  deutsche Alltagswörter per `textcheck.everyday_word`), abgelehnte Fakten einmal zur Korrektur (`fakten_korrektur`).
-- Themen-Wissensstruktur (`themen.py`, `spec.focus`): Planer liefert Themenkern/Aspekte/nicht gemeint; alle Schreib-
-  aufgaben erzählen Aufhänger → Kernaussage → Erklärung → Bedeutung für dich; Fakten brauchen Aspekt, Mindestlänge, `belege`.
-- Formate (`render/formats.py`: karte, vollbild, kreis, magazin, polaroid, zahl, manuskript – eigener Bildaufbau, Übergang,
-  Intro, Abschluss) je Video; Farben (`theme.STYLES`) nach Thema (`palette_options`: Titelwörter/Icon); `pick_style`
-  fest je Video-ID, `apply_style` in `make_scene` (jeder Render-Prozess); Auftrag `format`.
-- **Manuskript/Erklärvideo**: Format `manuskript` (Buchlook, eigenes Design, Schriften EB Garamond/Amiri/Inter in
-  `video_assets/fonts`, Bausteine `render/manuskript.py`, Linien-Grafiken `render/linien.py`; bringt immer Design
-  „manuskript“ mit, keine Maskottchen). Videoart `cudi_video/erklaer/` (Szenen-Skript JSON, `python -m cudi_video erklaer
-  <skript.json>`, Beispiel `examples/erklaer_goldener_schnitt.json`, Szenentyp `erklaer` im Format).
-- Spannungsbogen (`retention.py`): Hook mit Neugierlücke, Zwischen-Aufhänger aus geprüften Werten, Kommentarfrage
-  je Thema; Regeln für Claude-Texte (`NARRATION_RULES`) und Storys je Stimmung (`story_rules`). Zahl im Wunsch = Anzahl.
-- **Regie & Psychologie** (`regie.py`, nach dem Erzählen/vor `wahrheit`+Vertonung in `pipeline.run` und `story/editor.build_skeleton`): Basis-Checkliste (`firma/wissen.BASIS`) + gelernte Regeln mit Quelle (`firma_daten/wissen.json`, Wissens-Sammler `firma/wissen.py`, wöchentlich, Gemini, `firma-wissen.yml`) → Score je Kriterium vorher/nachher; EINE Schreibaufgabe `regie` (3 Hook-Kandidaten ohne Spoiler, natürlichere Abschnitte, Schluss); jede Änderung durch `pruefe_aenderung` + `wahrheit.Pruefer` (neuer Befund oder sinkender Score → alter Text bleibt); ohne Modell nur Bewertung; Ergebnis `regie.json`/`ergebnis.json["regie"]`/Prüfbericht „Regie & Psychologie“. `tts.naturalize`: Atempausen + leichte Tempo-/Tonhöhen-Variation je Video (aus: `CUDI_NATUERLICH=0`).
-- Bildprüfung (`bildcheck.py`, CLIP ViT-B-32 CPU, Cache `video_output/_models`, 3 Bilder je Kandidat, ≥ 2/3 mit p ≥ 0.5; Ausfall → Tag-Abgleich;
-  Ranking-Clips nur sortiert via `media.rank_by_image`; Tests setzen `CUDI_BILDPRUEFUNG=0`). Bildpassung (`facts.find_visuals`, `media.motif_matches`): Fakt-Feld `motiv` + `suche`-Liste; Treffer nur, wenn alle Kernwörter des
-  Motivs in Beschreibung/Tags stehen (Clip → Foto → Commons → „Stimmungsbild“, im Prüfbericht vermerkt). Aha-Regel
-  (`themen.AHA_RULES`, Fakt-Feld `aha_<sprache>`, geprüft in `facts.checked_aha`): Outro „Heute gelernt: …“ (Platz 1; Rankings: Spitzenwert).
-- Verpackung (`render/cover.py`, `metadata.py`): Cover 1080×1920 (Titelwort, Spitzenwert, bestes Bild, Look des Formats, Safe-Zone) auch als erstes Frame (0,2 s; `CUDI_COVER_FRAME=0` aus); 3 Titelvarianten ≤ 60 Zeichen je Sprache (Aufgabe `titel` über `handoff`, geprüft: Zahl/Clickbait/Länge, sonst Regel-Varianten, beste per `title_score`) im Ergebnis (`titel_varianten`, Kopier-Knöpfe); 3–5 Hashtags je Plattform (#shorts YouTube, #fyp TikTok); Längenziel `LENGTH_GOALS` nur als Hinweis im Prüfbericht.
-- **Experimente/Lernen** (`experimente.py`, `firma/lernen.py`, Doku `docs/lernen-einrichten.md`): je Video eine Variante je Stellschraube
-  (Format, Design, Bewegung, Musik, Maskottchen; Hook/Länge vorbereitet, `KNOBS[..]["aktiv"]`), Bandit (Thompson, ≥ 20 % Erkundung) aus
-  `firma_daten/lernen.json`; feste Wünsche im Auftrag gehen vor; ohne Daten = alte md5-Wahl. `varianten` in `ergebnis.json`/Ergebnis-Dokument;
-  App-Bewertungen senden `vorlieben.varianten_gut/_schlecht` (zählen doppelt, Env `CUDI_VORLIEBEN_VARIANTEN`). Lern-Analyst (täglich, Workflow
-  `firma-lernen.yml`) liest YouTube (`youtube.readonly` oder `CUDI_YT_API_KEY`) und TikTok (`video.list`; `youtube-login --lesen`, `tiktok-login --lesen`),
-  Zuordnung über `firma_daten/uploads.json` (nur Notbetrieb-Job „liste“ schreibt; Claude-Läufe committen nie).
-- **Satire** (`satire/`, Auftrag `art: "satire"` mit `thema`/`meldung`, `sprache`): echter bestätigter Kern (≥ 2 Betreiber, Beleg, `wahrheit.Pruefer`) → erkennbare Überspitzung → Pointe; „SATIRE“ in jedem Bild/Cover/Titel/Beschreibung, keine erfundenen Zitate/Zahlen/Namen, kein Spott gegen Gruppen, heikel → abgelehnt („nur als Reportage“); eigener Look in `satire/render.py` (kein Eingriff in `render/*`), Ideen-Bereich „satire“.
-- **Reportage** (`reportage/`, Auftrag `art: "reportage"` mit `thema`, `links`, `sprache`; Tab „Reportage“ der App): sachlich, nur Aussagen mit wörtlichem Beleg
-  aus ≥ 2 unabhängigen Betreibern (news.json, Wikipedia, Links), Aufgabe `reportage` (`handoff`) + Regelweg, Zahlen/Namen/Clickbait/Drama/Spekulation geprüft,
-  Buchlook ohne Musik/Maskottchen, Quellen + Stand am Ende; zu wenig Quellen = ehrlicher Abbruch. Ideen mit `bereich: reportage` tragen einen Auftrag.
-  Weitere Formate als Plan: `docs/content-formate.md`.
-- **Recherche-Agent** (`cudi_video/recherche/`, Doku `docs/recherche.md`, Skill `recherche`): `suche` (Claude-Websuche nur im App-Lauf → Brave `CUDI_BRAVE_API_KEY` optional → DuckDuckGo-HTML → GDELT → Fachquellen Eurostat/Weltbank/Europe PMC; deutsch zuerst, Region DE), `lese(url)` (robots, Limits, Datum aus Meta/JSON-LD/Text, Betreiber/Eigentümer/Seitentyp), `recherchiere(frage, bereich)` (Aussagen mit wörtlichem Zitat+Datum, „bestätigt“ ≥ 2 unabhängige Gruppen, Widersprüche/ältere Stände ausgewiesen, Protokoll `schritte`, Prüfbericht-Abschnitt „Recherche“). Wikipedia nur in `fakten`/`geschichte`, nur mit Zweitquelle und ohne Manipulationszeichen (`recherche/wikipedia.py`), sonst Suchhinweis. Eingebaut in Reportage, Satire (Nachsuche), Wissens-Sammler, Ideen (`themenrecherche`), `verify.RechercheChecker` (freie Themen); Firma-Rolle „Rechercheur“ (`firma/recherche.py`, täglich, `recherche.json`, Export `recherche`). Aus: `CUDI_RECHERCHE=0`.
-- Lange Videos bis 10 Min. (App-Fassung in Stücken ≤ 19 MB), Maskottchen „CUDI“ (`mascot.py`, lippensynchron
-  zur Sprachspur, abschaltbar: Auftrag `maskottchen`, `CUDI_MASCOT`), Story-Bilder „cartoon“ (gleiche Hauptfigur
-  `figur`, gleicher Seed).
+| Thema | Datei im Gehirn | Skill |
+|---|---|---|
+| Videoarten (Ranking, Fakten, Story, Reportage, Satire, Erklär, Regie, Recherche) | `docs/gehirn/videoarten.md` | `neue-videoart`, `recherche` |
+| CUDI-App (Artefakt), Cloud-Auftrag, Tabs, 3D-Büro | `docs/gehirn/app.md` | `app-artefakt`, `cloud-probelauf` |
+| Notbetrieb ohne Claude (GitHub-Issue) | `docs/gehirn/notbetrieb.md` | `notbetrieb` |
+| Upload, Betonung, Endkontrolle, Wahrheit, Musik | `docs/gehirn/qualitaet.md` | – |
+| Clips (Erlaubnis, Scout, Twitch) | `docs/gehirn/clip.md` | `clip-engine` |
+| Firma-Mitarbeiter auf GitHub, Briefing, Eigentümer | `docs/gehirn/firma.md` | `firma-mitarbeiter` |
+| Tempo, Kosten, Ausweichwege | `docs/gehirn/betrieb.md` | `tempo`, `ausweg-finden` |
+| Auftrags- und Berichtsvorlage | `docs/kommunikation.md` | `pruefen-und-mergen` |
 
-## Bedienung
+**Pflicht für alle (Hauptsitzung, Agenten, künftige Sitzungen):**
+1. Nur die EINE Gehirn-Datei lesen, die zur Aufgabe passt, und dort gezielt suchen (grep) statt alles zu lesen. Nie das
+   ganze Repo durchgehen, wenn der Wegweiser die Stelle nennt.
+2. Nach erledigter Arbeit das Gelernte in die passende Gehirn-Datei oder den Skill schreiben (1–3 Zeilen: was, wo,
+   Stolperfalle) – nicht in diese Datei. Neue Themen bekommen eine neue Zeile in der Tabelle.
+3. Auftrags-Prompts nennen die Gehirn-Datei, die Code-Dateien und die Abnahme – der Agent liest nichts darüber hinaus.
 
-- CLI: `python -m cudi_video make <vorlage|thema>`, `python -m cudi_video story "<wunsch>"`,
-  `python -m cudi_video web` (Web-App), `python -m cudi_video check` (Selbsttest).
-- **CUDI-App in Claude** (Artefakt https://claude.ai/artifact/DYdRsKcD3BCN3SYxj6Y5Jt, Quelltext
-  `docs/cudi-app-artefakt.html`): Der Nutzer bedient alles vom Handy, ohne Weiterleitung.
-  - Start: Die Seite ruft über den eingebauten Connector „Claude Code Remote“ `fire_trigger` für die
-    geplante Aufgabe „CUDI-Auftrag“ auf (`trig_01BniK2S5eVdSFKd18JZqBio`, Umgebung „Standard“, Modell
-    **Haiku**, ohne hinterlegtes Repo: jeder Lauf klont `Poso47/CUDI` (Zweig `main`!) in seinen
-    Arbeitsordner – nur Dateien dort lassen sich gemeinsam per `file_paths` hochladen). Die Auftragsdaten
-    (JSON, `'` als `\u0027`) gehen als `text` mit und kommen als eigene Nachricht `<routine-fire-payload>`
-    kurz nach der Anweisung an. Antwort `session_id: "cse_…"` = `session_…`. Läufe stehen nicht in der
-    Sitzungsliste des Nutzers (sein Wunsch: keine neuen „Bereiche“); während das Skript im Hintergrund
-    rendert, meldet `get_session` „WORKING“.
-  - Fehlt die Aufgabe oder ist sie aus, startet die Seite ersatzweise `create_session` (Prompt `#jobPrompt`,
-    Repo-Zweig `main`, Haiku, Rechte `auto`, Tag `cudi-auftrag`) und archiviert die Sitzung nach dem Ergebnis.
-  - Aufgabe ändern (`update_trigger`, v. a. Modell/Anweisung) nur mit ausdrücklichem OK des Nutzers – die
-    Rechteprüfung blockt es sonst. Nachrichten an andere Sitzungen (`send_message`) gelten dort nur als
-    Daten, nicht als Auftrag → kein Auftragsweg (eine „Werkstatt“-Sitzung hat Folgeaufträge abgelehnt).
-  - Der Lauf führt `CUDI_SCHREIBEN=1 bash scripts/cudi_auftrag.sh '<json>'` aus (`cudi_video/job.py`):
-    rendern, App-Fassung ≤ 19 MB, `ergebnis.json`. Englische Story für deutsches Video →
-    `UEBERSETZEN:` → Claude übersetzt → `--weiter <id>`. **`SCHREIBEN:`** (`handoff.py`): Claude deutet freie
-    Themen außerhalb der Vorlagen (`planner.plan_with_claude`, IDs werden gegen Wikidata geprüft) und erzählt
-    Rankings als kleine Geschichte (`narrate.py`: Anfang, geprüfter Wert, keine Zahl/kein Hauptwort ohne Beleg,
-    sonst Textbaustein; abgelehnte Plätze gehen einmal zur Korrektur zurück). Freie Themen (`confirmed_only`):
-    nur unabhängig bestätigte Werte, sonst ehrliche Top N; Claude nennt bekannte Spitzenreiter (`seed_items`,
-    Kennung gegen Wikidata geprüft, Objektart samt Unterklassen geprüft), weil die Ausweichroute bei riesigen Klassen
-    (Brücken) nicht alle findet; lässt Haiku sie leer, fragt der Code einmal gezielt nur nach den Namen. Storys: `editor.claude_edit` (Lektorat, Titel,
-    Einstieg/`hook`, Bildideen; je Szene geprüft auf neue Zahlen/Namen/Länge, sonst Regel-Fassung).
-    Quellen erscheinen nur im Prüfbericht, nicht im Video/Beschreibungstext. Dann Upload per Artifact-Werkzeug
-    (`asset: true`), `auftrag --dokument`, `ArtifactData set` in `results/<id>`.
-  - **Bewertungen**: 👍/👎 wählen, Notiz optional, „Bestätigen“ → `bewertungen/<id>` (bleiben nach dem Löschen); 👍 behält
-    das Video, 👎 löscht es samt Auftrag (`removeJob`); beim Start gehen die
-    letzten je 8 als `vorlieben` {gut, schlecht} mit dem Auftrag, `job.parse_preferences` → Umgebung `CUDI_VORLIEBEN` →
-    `handoff.request` hängt sie an jede Schreibaufgabe (Prüfregeln haben Vorrang).
-  - Ablage der Seite: `jobs/<id>` (von der Seite), `results/<id>` (von der Sitzung), Videos als Assets
-    (1 GB). Die Seite zeigt Fortschritt (`get_session`), Video, „Video speichern“ (downloads),
-    Kopier-Knöpfe, Abbrechen/Löschen (archiviert laufende Sitzung); Ersatz-Sitzungen werden nach dem
-    Ergebnis archiviert; Ergebnisse ohne Auftrag räumt die Seite nach 2 Min. weg.
-  - **Story-Skelett in der App** (Häkchen „Skelett vorher ansehen“, Standard): Auftrag `"schritt":"skelett"`
-    liefert das Skelett als Ergebnis (`results/<id>` mit `schritt`/`skelett`); die Karte zeigt einen Editor
-    (Stimmung, Titel, Szenentexte, Bildideen, ＋/✕), Arbeitsstand in `skelette/<id>`. „Video erstellen“ startet
-    dieselbe Kennung mit `"schritt":"video"`: Die Sitzung holt `skelette/<id>` per `ArtifactData get` mit
-    `out_dir "cudi_skelette"` als Datei (nie abschreiben), `job.app_skeleton` liest sie, `validate_skeleton` prüft.
-  - **Bearbeiten/Freigabe** (`cudi_video/bearbeiten.py`, README_VIDEO.md): fertige Ranking-/Story-Karte → „Bearbeiten“ → `schritt:"bearbeiten"` (Datei `bearbeitungen/<id>` per `out_dir "cudi_bearbeitungen"`, rendert nur neu, Texte per `check_text` geprüft); `hochladen` bereitet nur vor (`freigabe` Standard true), „Veröffentlichen“ = `schritt:"hochladen"` (`cudi_hochladen`, kein Rendern). Geplante Aufgabe braucht dafür eine Zusatzzeile in Schritt 1 (nur mit OK des Nutzers ändern).
-  - **Aufbau (Überarbeitung, hell/dunkel per prefers-color-scheme, EB Garamond + Figtree)**: feste untere Tab-Leiste **Start · Videos · Firma · Briefing · Kommunikation**.
-    Start = Kacheln Ranking, Fakten (Ranking mit freiem Thema, „Streng“ an), Story, Reportage, Satire (`art:"satire"`, `thema` oder `meldung` + `links`, `sprache`; Auswahl
-    bestätigter Meldungen aus dem Export), Erklärvideo, Clip; je Formular ≤ 3 Pflichtfelder, Rest unter „Mehr Optionen“; Unterseiten (`#ranking` …) mit Zurück-Knopf, „Volle App und Notbetrieb“
-    (`#app`) vom Start aus. Clip-Formular fest: `url` ODER `twitch_kanal` (+`zeitraum`), `clip_stil` (vollbild Standard|zuschnitt), `bestaetigt_erlaubnis` nur bei „unklar“, `hochladen` youtube/tiktok/instagram/alle; Karte zeigt Erlaubnis-Pille (erlaubt/gesperrt/unklar) aus dem Prüfbericht. Nur `erklaer` bleibt hinter `CFG.felder` ausgeblendet, bis `job.py` die Art kennt (Ansehen: `?felder=erklaer`).
-    **Briefing**: `briefing` aus `firma/stand` (Karten `top` mit Quellen-Chips, `abschnitte` aufklappbar), fehlt es: ehrlich „Briefing noch nicht im Export“ + Link zum Issue-Label `briefing`.
-    **Kommunikation**: Sammlung `kommunikation/<id>` (`wunsch`, `prompt`, `agent`, `status` geplant/läuft/fertig/blockiert, `bericht`, `zeit`), die Seite liest nur, geschrieben wird von der Hauptsitzung.
-    Firma/3D-Büro: zusätzliche Stationen Welt-Blick, Morgen-Briefing, Clip-Scout, Messung nur bei vorhandenen Daten (`status.*`, `welt`, `briefing`, `clipteam`). Laufende Aufträge zeigen einen Fortschrittsbalken (Schätzung nach Laufzeit).
-  - **Firma-Tab** (Leitstand, rein im Browser aus `jobs`/`results`/`bewertungen`, kein Claude-Aufruf): Aufträge als „Mitarbeiter“
-    (Rolle nach Art: Rechercheur & Autor, Faktenprüfer = freies Thema, Story-Autor, Clipper); „Projektleiter“: hängt (> 40 Min. ohne
-    Ergebnis oder `ohne`), halbe Arbeit (Ergebnis ohne Video/mit Fehler), „Neu starten“ = `restartJob` (gleiche Logik wie die Karte),
-    bei freien Mitarbeitern 3 Vorschläge (Bewertung, neue Vorlage, Fakten-Idee) über `startJob`; Banner in jedem Tab.
-    **3D-Büro** (Standardansicht, Umschalter „3D / Liste“, Liste = Ersatz/Barrierefreiheit): three.js r128 von cdnjs, lazy geladen; je Auftrag eine Figur am Tisch (Farbe nach Rolle), Projektleiter in der Mitte; Zustände arbeitet (Tippen, Balken aus Laufzeit)/fertig/Fehler-hängt/frei; Ziehen dreht, Antippen öffnet Karte mit `restartJob`/`removeJob`/Videos-Tab/`startJob`; max. 30 fps, nur bei sichtbarem Tab; ohne WebGL/three.js automatisch Liste; Demo `?demo=1`/`?demo=frei`.
-  - Ansehen ohne Cloud: Seite mit `?demo=1` (Aufträge laufen) bzw. `?demo=frei` öffnen – Beispieldaten nur dann.
-  - Seite ändern: Datei bearbeiten und mit dem Artifact-Werkzeug unter derselben URL veröffentlichen
-    (äußerer HTML-Rahmen fehlt absichtlich – Claude setzt ihn).
-- **Notbetrieb** (Claude-Limit erreicht; Doku `docs/notbetrieb-einrichten.md`): Alle Arten (ranking, `fakten`, story, reportage, satire, clip) laufen im Notbetrieb in einem Zug (`notbetrieb.prepare_order`, Story-Skelett → direkt Video; `fakten` = `job._fakten`/`planner.plan_facts`, ohne Modell ehrlicher Abbruch); Modell-Kette `llm.providers()` CUDI_LLM_* → CUDI_LLM2_* → CUDI_LLM3_* (429/5xx: 1 Wiederholung), dann Regelweg. Standardweg = **GitHub-Issue** (Hugging Face verlangt für Docker-Spaces PRO/402): Banner „Notbetrieb öffnen“ der App-Seite öffnet `issues/new` mit Marker `cudi-auftrag` und App-Auftrag als JSON-Block (`nbIssueLink`, URL ≤ 6000 Zeichen, alle Arten im ganzen Lauf); `auftrag.yml`/`auftrag.py` (`extract_json`, `build_json_order` → `job.parse_order`, Kennung `gh<Nr>`) startet `notbetrieb.yml` → `.github/scripts/notbetrieb.py` (`run`: `job.run_order(via_claude=False)`, Hochladen direkt, `freigabe:false`; `melden`: Kommentar mit Texten/`upload_note`/Prüfbericht-Kurzform + Artefakt-Link, Erfolg schließt das Issue). Secrets `CUDI_LLM_*` (+ optional Pexels/Pixabay/YT/TikTok). Repo öffentlich → Issues/Artefakt-Links sichtbar. `handoff.request` fragt ohne `CUDI_SCHREIBEN` ein freies LLM (`CUDI_LLM_*`, Gemini; `handoff.active()`/`llm_mode()`, Fehler → None → Textbausteine). Optional/alt: Web-App-Space (`cloud-app.yml` nur manuell, überspringt ohne `HF_TOKEN`/bei 402; `POST /api/auftrag`); steht `config/notbetrieb.url`, öffnet der Banner diese Adresse statt GitHub (`?demo=limit` zeigt den GitHub-Weg).
-- Upload (`cudi_video/upload/`: `youtube.py` resumable videos.insert, `tiktok.py` Inbox/Direct Post, `cli.py`): `hochladen … --probe`, `youtube-login`;
-  Zugang nur über Umgebungsvariablen (`CUDI_YT_*`, `CUDI_TIKTOK_*`, nie ausgeben: `upload.redact`), Auftragsfeld `hochladen` (Standard aus), Doku `docs/upload-einrichten.md`.
-- Betonung (`tts.py`, Tabelle `SPEECH_PROFILES` + `MOOD_STYLE`): Abschnitte werden in Teile mit eigenem Tempo/Tonhöhe/Lautstärke und
-  Spannungspausen zusammengesetzt (`assemble_parts`, Wortzeiten wandern mit; Grundtempo `+0%`). Profil nach Videoart
-  (`speech_profile(spec.kind)`): ranking (Pausen vor Platz/Zahl), fakten (Frage, Pause vor dem Aha, ruhiger Erklärteil), erklaer (ruhig,
-  gleichmäßig), Story je Stimmung (`plan_story_parts`: Pause vor Wendung/Pointe). `CUDI_SPEECH_PROFILE=ranking|fakten|erklaer|aus` überschreibt.
-- Endkontrolle (`qa.py`, nach dem Render in `render_video`/Erklär-Render, für Story/Clip in `job._summary`): blackdetect, freezedetect (nur Ranking/Fakten), ebur128 (−14 LUFS ±1, TP ≤ −1), Dauer, 1080×1920, Sync, Safe-Zones über Layout-Konstanten; Lautheit wird einmal per zweistufigem `loudnorm` korrigiert, Befunde nur als Hinweise (`ergebnis.json` Feld `qa`, `review.md` „Endkontrolle“, nie Abbruch).
-- **Wahrheit** (`wahrheit.py`, Nutzerwunsch: nie lügen, auch nicht durch Formulierung): `Pruefer` prüft Sprechtext/Hook/Untertitel/Titel/Cover/Beschreibung gegen die Daten (Regelkatalog `REGELN`, optional Gegenlesen `wahrheit_pruefung`), korrigiert automatisch (ergänzen/ersetzen/streichen); Endabnahme `pipeline.render_checked` (Wahrheit UND qa, eine Reparaturrunde, sonst `abnahme.ok=false` → `job._summary` liefert nicht aus, `ok:false` „Nicht ausgeliefert, weil …"); Abschnitt „Wahrheits-Prüfung" in review.md.
-- Musik für Ranking/Fakten/Erklär (`render/audio.py`: Stil je Videoart/Format/Thema aus `story/music.py`, selbst erzeugt, Ducking unter der Stimme, Akzent-Ton je Platz-Enthüllung; Datei in `assets/music` hat Vorrang; abschaltbar `CUDI_MUSIK=0`).
-- **Clip-Engine** (`cudi_video/clip/`, CLI `python -m cudi_video clip <datei|url>`, Doku README_VIDEO.md): Podcast-/Streamer-Clips
-  1080×1920 (faster-whisper → Höhepunkt/Hook nach Regeln, optional Claude-Auswahl `clip_hook` über `handoff` → Pausenschnitt →
-  Sprecher-Zuschnitt mit YuNet/Haar → ASS-Untertitel). App-Auftrag `art: "clip"` (`job._clip`): Pflichtfeld `bestaetigt_erlaubnis`,
-  nur http(s)-Links, Texte/Prüfbericht in `clip/texte.py`; YouTube sperrt Cloud-IPs oft (`ClipError.wiederholbar`, Hinweis „später/PC“).
-  **Clip-Kern** (Skill `clip-engine`): `clip/erlaubnis.py` `pruefe(url)` (Sperrliste `clip_creators.json` vor Scout-Ergebnis `clip_erlaubnis.json`; erlaubt → läuft, gesperrt → Abbruch,
-  unklar → nur mit `bestaetigt_erlaubnis` + Vermerk), Auswahl mit Bildschnitten/Titeltreffern/offenem Ende + Gewichte `clip_kalibrierung.json`, Inhaltsurteil `clip_urteil` (`urteil.py`),
-  Auftragsfeld `clip_stil` `vollbild` (Standard, `vollbild.py`) | `zuschnitt`, Twitch-Ranking `twitch_kanal` (`twitch.py`), Upload-Ziel `instagram`/`alle` (`upload/instagram.py`, `CUDI_IG_*`).
-- Weitere Wege: GitHub Actions „CUDI Video“/„CUDI Story“, Issue mit `cudi-auftrag` („CUDI Auftrag“),
-  Hugging Face Space („CUDI Cloud-App“, optional, braucht Secret HF_TOKEN).
-- **Firma-Mitarbeiter (GitHub)** (`cudi_video/firma/`, Workflows `.github/workflows/firma-*.yml`, cron + manuell, kein Claude-Verbrauch;
-  Ergebnisse als JSON in `firma_daten/` (nicht `data/`, das ist gitignored), Bot-Commit `[skip ci]` über `scripts/firma_commit.sh`
-  nur bei Änderung, alle Läufe nacheinander via `concurrency: firma-daten`): **Trend-Scout** (`trends.py`, alle 3 h: YouTube mostPopular
-  DE/US mit `CUDI_YT_API_KEY` oder OAuth `CUDI_YT_*` – sonst nur Hinweis, Google-Trends-RSS, Wikipedia-Top, Reddit RSS/Arctic Shift →
-  `trends.json`), **News-Reporter** (`news.py`, alle 3 h: Tagesschau/DW/BBC/NPR-RSS, GDELT, Wikipedia Current events → `news.json`; „bestätigt“
-  erst bei ≥ 2 unabhängigen Betreibern, nur Titel/Kurzzeile/Link), **Ideen-Entwickler** (`ideen.py`, täglich: Gemini über `CUDI_LLM_*`, nur
-  Themen mit Beleg in Trends/News, Ranking vorgeprüft per Vorlage/`planner.plan`/Wikidata-Probe, Ausgabe im App-Auftragsformat; ohne Secrets
-  regelbasiert → `ideen.json`), **Putzmann** (`putzen.py`, täglich: Artefakte > 7 T., Läufe > 30 T. löschen, erledigte `cudi-auftrag`-Issues > 14 T.
-  sperren, `firma_daten/` ausdünnen → `putzen.json`; Probelauf `CUDI_PUTZEN_TROCKEN=1`). `status.json` = letzter Lauf/Dauer/Ergebnis/nächste Planung je Mitarbeiter
-  (Grundlage fürs 3D-Büro). Jede Quelle einzeln abgesichert (Ausfall = Hinweis). Lokal: `python -m cudi_video.firma <trends|news|ideen|putzen>`,
-  Ausgabeordner per `CUDI_FIRMA_DATEN` umlenkbar; Tests `tests/test_firma.py`.
-  **Sprachfokus Deutsch** (Nutzerwunsch): Standard-Sprache aller Aufträge/Ideen `de`; Englisch erst auf ausdrücklichen Wunsch. Clip-Entdeckung nur deutschsprachige Creator (Grundliste `cudi_video/data/creator_de.json`, Wikipedia/YouTube-Trends DE, deutsche Kampagnen/Aufrufe); Englisch freischalten: `clip_creators.json` `"sprachen": ["de","en"]` oder `CUDI_CLIP_SPRACHEN=de,en`.
-  **Clip-Scout** (`clipscout.py`, alle 6 h) + **Messung** (`messung.py`, täglich), Doku `docs/clip-team.md`: **Entdeckung** `entdecke()` → `clip_entdeckt.json` (alle im Hype beobachten: Kampagnen, Aufruf-Suche, YouTube-Trends, Reddit r/LivestreamFail, Wikipedia-Top-Personen mit Wikidata-Beruf; ≤ 50 neue/Lauf, 14 Tage ausdünnen); `clip_creators.json` nur noch Ergänzung + Sperrliste (Sperre gewinnt) → `clip_radar.json` (YouTube-Feeds, Twitch, Aufrufe/h, Vorschläge für erlaubt und geduldet), `clip_erlaubnis.json` in 4 Stufen: erlaubt (wörtliches Zitat+Link+Datum) · geduldet (≥ 2 Duldungsarten oder Kampagne, kein Verbot; läuft nur mit `bestaetigt_erlaubnis`, Credit „Original: <Creator> – <Link>“ Pflicht, nie als Erlaubnis bezeichnen) · unklar (nur Briefing) · gesperrt (Sperrliste oder Verbot in Beschreibung), `messung.json` (yt-dlp ohne Konto, Zeitreihe; Lern-Analyst nutzt sie ohne API); Briefing „6. Clip-Team“, Export `clipteam`.
-  **Vorrecherche** (`firma/vorrecherche.py`, nachts, `firma-vorrecherche.yml`; Kern `cudi_video/vorrecherche.py`; Skill `tempo`): holt Wikidata-Abfrage + Quellen-Abgleich (Stufen planen/pruefen, sonst 135–440 s) für alle Vorlagen (Plätze 10/5, de und de+en) und Top-Ranking-Ideen vorab → `firma_daten/vorrecherche/*.json.gz` (je Eintrag `stand`, ≤ 4 MB gesamt). `pipeline.research_stage` nutzt Einträge ≤ 7 Tage (Höhen/Flächen/Längen ≤ 30 Tage, `CUDI_VORRECHERCHE_ALTER`), sonst live; Prüfbericht „Vorrecherche vom <Datum>“; `streng` und `CUDI_VORRECHERCHE=0` umgehen den Cache; gedrosselter/lückenhafter Abgleich wird nie gespeichert.
-  **Welt-Blick** (`welt.py`, alle 6 h, `firma-welt.yml`): ausländische RSS (auch ferne Länder: Indien, Philippinen, Kenia, Nigeria, Südafrika, PNG, Argentinien, Brasilien; `land`, `art: staatsnah`; kein RT/Sputnik) + GDELT „Germany“ (ein Abruf) → `welt.json`: Themen mit Deutschland-Bezug, Abgleich mit `news.json` (`deutsch_quellen`, `nur_ausland`), Kernregel `laender_einig` (≥ 3 verschiedene Länder, direkt beteiligte Länder per Namenstabelle `beteiligt` zählen nicht), Zusammenfassung ≤ 5 Zeilen nur aus Titeln; belegte Verbindungen nur aus Wikidata mit Link (max. 5 Abfragen/Lauf, Cache). **Morgen-Briefing** (`briefing.py`, täglich 5:13 UTC, `firma-briefing.yml`): `briefing.json`/`.md` aus allen Mitarbeiter-Daten, nur belegte Punkte mit Links, Unbelegtes nur als „OFFENE FRAGE“, Übersicht optional per LLM (geprüft mit `textcheck`, sonst Regeln), Archiv `briefing_archiv.json` (30 T., Hinweis auf frühere ähnliche Meldung ohne Wertung); Workflow legt GitHub-Issue „CUDI-Briefing <Datum>“ (Label `briefing`) an und schließt das Vortags-Issue; Putzmann sperrt alte Briefing-Issues.
-  **Eigentümer/Unabhängigkeit** (`cudi_video/eigentuemer.py`, Tabelle `cudi_video/data/medien_eigentuemer.json` mit Beleglinks + Wikidata P856→P127/P749/P8324, Cache `firma_daten/eigentuemer_cache.json`, ≤ 10 neue Abfragen/Lauf): Zwei Quellen sind nur unabhängig, wenn Domain, Eigentümer/Geldgeber (transitiv), Nachrichtenagentur (AFP/dpa/Reuters/AP …) und Staat verschieden sind; „bestätigt“ (news.py `unabhaengig_n`, `abhaengig`) und `laender_einig` (welt.py) zählen Gruppen, nicht Betreiber; Briefing zeigt „gehört X“ und „zählt nicht: gleicher Eigentümer X“; unbekannter Eigentümer wird vermerkt, nie geraten (Reportage/Satire können `unabhaengig(a, b)` importieren).
-  **Onkel-Büro** (Firma-Tab, 3D): alle Figuren sind freundliche Onkels (Bärte, Takke/Kufi/Kappe, Weste in Rollenfarbe, Teeglas am Tisch; Teppich-Canvas,
-  Arkade, Laternen, Pflanzen); je GitHub-Mitarbeiter eine Station (Trend-Wand, News-Pult, Ideen-Tafel, Bücherregal, Lern-Diagramm, Waage; Putz-Onkel läuft mit
-  Besen), Chips + Liste als Touch-/Ersatzansicht; Karte zeigt Top-3-Trends/bestätigte News/Ideen mit „Starten“ (`startJob`)/Wissensregeln/Putzbericht.
-  Datenweg ohne Claude-Verbrauch: `firma_commit.sh` ruft `python -m cudi_video.firma export` → `docs/firma/firma.json` (`firma/export.py`, nur bei Änderung);
-  die Seite liest erst die Datenbank `firma/stand`, dann Pages-Fetch `poso47.github.io/CUDI/firma/firma.json`. **Artefakt-CSP sperrt `fetch` zu
-  fremden Hosts** (nur Dateien neben der Seite) → Pages-Weg läuft in Claude vermutlich nicht; verlässlich ist `firma/stand`: bei jedem Auftrags-Lauf
-  `ArtifactData set` (collection `firma`, doc_id `stand`, file_path `docs/firma/firma.json` – siehe Zusatzzeile in der Aufgabe, nur mit OK des Nutzers).
-  Demo: `?demo=1`.
-- **Tempo** (Skill `tempo`, `cudi_video/zeiten.py`): Zeit je Stufe in `ergebnis.json["zeiten"]`/Prüfbericht „Zeiten“; Bündel-Schreibrunde `handoff.request_many` (Erzählen + Titel), parallele Quellen/Plätze/TTS, Cover nur auf dem Intro, Ton-loudnorm vorab, kleine Paketliste `requirements-basis.txt`; Messen immer mit frischem Cache (`CUDI_VIDEO_CACHE`), Umgebungs-Vorschlag `docs/umgebung-setup.sh`.
-- Kosten: alles kostenlose Dienste; App-Aufträge zählen nur zum Claude-Nutzungslimit des Nutzers.
-- **Keine Fehlschläge** (Wunsch des Nutzers) – kostenlose Ausweichwege, siehe README „Probleme?“:
-  edge-tts 6 Versuche → Piper offline (`tts.PIPER_VOICES`, Modelle in `video_output/_piper`, `piper-tts`
-  wird bei Bedarf installiert); Story: Reddit-JSON (Cloud: 403) → Arctic Shift → Reddit-RSS (gedrosselt);
-  Beschreibung ohne Treffer → beliebte Story der Stimmung; `job.run_order` wiederholt Störungen einmal
-  (`RETRY_PAUSE`); App startet Fehler/ohne Ergebnis einmal automatisch neu (`versuch: 2`) und prüft
-  vor jedem Start den Speicherbedarf (`needMB`: 20 MB je möglichem Video + 10 MB; Skelett-Schritt 0).
+## Grundsätze des Nutzers
 
-## Kommunikation (Wunsch des Nutzers: immer als klarer Prompt)
+Kostenlos · nie lügen, auch nicht durch Formulierung (nichts erfinden) · keine Fehlschläge (Ausweichwege) · Qualität ·
+sparsam · keine Zugangsdaten ausgeben oder ins Repo · Fokus deutschsprachig · Clips nie bei „gesperrt“ ·
+`update_trigger`/`delete_trigger` nur mit ausdrücklichem OK.
 
-- Jeden Nutzerwunsch zuerst in einen **Auftrags-Prompt** übersetzen und dem Nutzer kurz zeigen („So habe ich dich
-  verstanden“). Vorlage mit ZIEL, WARUM, GRUNDSÄTZE, KONTEXT, AUFGABE, NICHT TUN, ABNAHME und BERICHT steht in
-  `docs/kommunikation.md`. Agenten bekommen immer den vollständigen Prompt und liefern einen Bericht nach der
-  Vorlage (ERGEBNIS, GEÄNDERT, GEPRÜFT, OFFEN, NÄCHSTER SCHRITT). Ergänzungen heißen „Ergänzung vom Projektleiter“.
-- **Lernen:** Erledigte Arbeit wird als Skill gespeichert (`.claude/skills/`, z. B. `firma-mitarbeiter`, `pruefen-und-mergen`,
-  `app-artefakt`, `cloud-probelauf`, `ausweg-finden`). Agenten-Berichte enden mit SKILL. Gibt es einen passenden Skill, macht die
-  Hauptsitzung die Arbeit selbst statt einen Agenten zu starten.
-- **Gilt für alle:** Diese Regeln gelten für die Hauptsitzung, jeden Agenten und alle künftigen Sitzungen. Jeder Auftrags-Prompt
-  trägt sie unter GRUNDSÄTZE.
-- **Feste Agenten:** Kommt Arbeit immer wieder und nimmt ein fester Agent mit Skill langfristig Arbeit ab oder spart Kosten, wird
-  einer in `.claude/agents/` angelegt (z. B. `firma-techniker`, `app-gestalter`, `video-pruefer`). Sonst macht die Hauptsitzung die Arbeit mit
-  dem Skill selbst.
-- **Lösungsorientiert:** Scheitert ein Weg, wird nicht aufgegeben. Erst Ursache lesen, dann reparieren, dann einen anderen kostenlosen
-  Weg suchen, dann kleiner schneiden, erst dann fragen (Skill `ausweg-finden`). Die Regeln bleiben dabei bestehen.
-- **Agenten untereinander:** Sie dürfen sich direkt schreiben, helfen und voneinander lernen (ANFRAGE, ANTWORT und HINWEIS nach
-  Vorlage, höchstens 3 Nachrichten je Anliegen). Sie ändern nie die Dateien eines anderen, und Rechte reichen sie nicht weiter. Regeln dazu:
-  `docs/kommunikation.md` → „Zusammenarbeit der Agenten“.
-- Agenten arbeiten immer in einem eigenen Worktree (`isolation: "worktree"`), nie im Hauptordner.
+## Sparsam arbeiten (gleiche Qualität, weniger Verbrauch)
 
-## Sparsam mit dem Nutzungslimit (Wunsch des Nutzers: gleiche Qualität, weniger Verbrauch)
+- Erst prüfen, ob ein Skill passt – dann macht die Hauptsitzung es selbst. Agenten nur für große, abgegrenzte Pakete:
+  mechanisch → **haiku**, Neuentwicklung → **sonnet**. Höchstens **2 gleichzeitig**, jeder im eigenen Worktree.
+- Kleine Änderungen (ein Fehler, eine Datei, Doku) nie an einen Agenten geben – der Start kostet mehr als die Arbeit.
+- Keine Wiederholungen: nichts erneut lesen, was schon im Gespräch oder im Gehirn steht; keine Probeläufe ohne neue Frage.
+- Tests gezielt: nur betroffene Testdateien, die ganze Suite (`python -m pytest tests -q`) einmal vor dem Merge.
+- Berichte ≤ 15 Zeilen, keine Diffs/langen Ausgaben; Bilderbogen ≤ 1600 px und nur einer.
+- Keine wiederholten Läufe gegen gesperrte Dienste (429 o. Ä.) – einmal Ausweichweg, sonst später.
+- Meldungen an den Nutzer: kurz, nur Ergebnis und was er tun muss.
 
-- Rollen: Hauptsitzung = Projektleiter (plant, prüft Ergebnisse selbst, merged nur mit OK). Arbeit an Agenten geben:
-  einfache/mechanische Aufgaben (Doku, Merges, Tests anpassen, kleine Fixes) → Modell **haiku**; Neuentwicklung mit Design-/
-  Logikanteil → **sonnet**; opus nur in der Hauptsitzung für Abnahme und Entscheidungen.
-- Höchstens **2 Agenten gleichzeitig** (4 parallel hatten das 5-Stunden-Limit gesprengt); weitere Aufgaben in eine Warteschlange.
-- Agenten-Aufträge präzise (Dateien, Abnahmekriterien, Pfade) – spart Suchschritte; Bericht höchstens ~15 Zeilen, keine langen
-  Ausgaben/Diffs zurückgeben; Bilderbögen klein (≤ 1600 px breit) und nur so viele, wie für die Abnahme nötig.
-- Tests gezielt: während der Arbeit nur betroffene Testdateien, die ganze Suite einmal vor Commit/Merge.
-- Abnahme in der Hauptsitzung: Bericht + ein Bilderbogen/Hörprobe; Code nur stichprobenartig (Diff-Statistik, Sicherheitsstellen).
-- Keine wiederholten Läufe gegen gesperrte Dienste (Wikipedia 429 o. Ä.) – einmal Ausweichweg, sonst später.
+## Kommunikation
+
+- Nutzerwunsch → kurzer Auftrags-Prompt („So habe ich dich verstanden“), Vorlage in `docs/kommunikation.md`
+  (ZIEL, WARUM, GRUNDSÄTZE, KONTEXT, AUFGABE, NICHT TUN, ABNAHME, BERICHT; Bericht endet mit SKILL).
+- Agenten dürfen sich direkt schreiben (ANFRAGE/ANTWORT/HINWEIS, ≤ 3 Nachrichten je Anliegen), ändern nie fremde Dateien.
+- Lösungsorientiert: Ursache lesen → reparieren → anderer kostenloser Weg → kleiner schneiden → erst dann fragen.
+- Feste Agenten (`.claude/agents/`: `firma-techniker`, `app-gestalter`, `video-pruefer`) für wiederkehrende Arbeit.
 
 ## Entwickeln
 
