@@ -10,3 +10,4 @@ description: CUDI-App (Artefakt DYdRsKcD3BCN3SYxj6Y5Jt, Quelltext docs/cudi-app-
 3. Veröffentlichen: Artifact-Werkzeug mit `url` https://claude.ai/artifact/DYdRsKcD3BCN3SYxj6Y5Jt (vorher `read`, damit keine neuere Fassung überschrieben wird); Fähigkeiten nicht weglassen (Connector „Claude Code Remote“, db, assets).
 4. Externe `fetch` zu fremden Hosts sperrt die Artefakt-CSP → Daten nur über die Datenbank oder Assets.
 5. Keine Umgebungs-/Zugangsdaten in die Seite.
+6. Firma-Tab: neue Mitarbeiter gehören in `STATIONS`/`STATIONS_EXTRA` mit `dept`, `task`, `sched` (UTC, wie im Workflow) und je einem `STATION_BUILD`-/`STATION_CARD`-Eintrag; Abteilungen in `DEPTS`, Layout `officeLayout`. Prüfen mit `?demo=1`/`?demo=frei` in Ansicht 3D, Liste und Tagesplan (`localStorage cudiFirmaAnsicht` = 3d|liste|plan), 390 px, hell/dunkel; Tippflächen ≥ 44 px, kein Quer-Scrollen.

@@ -3346,7 +3346,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const slots = [], hits = [], d = firma.data;
     const lay = officeLayout(m), staff = m.staff.slice(0, lay.total);
     const hx = lay.W / 2 + 1.8, hz = lay.D / 2 + 1.8;
-    office.extent = Math.max(lay.W, lay.D) * 0.55;
+    office.extent = Math.max(lay.W, lay.D) * 0.6;
     office.home = { x: 0, z: 0, e: office.extent };
     office.lamps.forEach((l, i) => { l.position.set([-0.5, 0.5, 0][i] * hx * 1.6, 3.4, [-0.4, -0.1, 0.55][i] * hz * 1.6); });
     box(world, hx * 2 + 0.6, 0.3, hz * 2 + 0.6, 0x5b3f2b, 0, -0.15, 0);
