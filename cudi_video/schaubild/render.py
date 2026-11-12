@@ -25,6 +25,7 @@ from ..render.manuskript import align_tokens
 from . import sfx
 
 LEAD, TAIL = 0.45, 0.55
+WECHSEL = 0.55                            # Sekunden Überblendung zwischen zwei Bildern einer Station
 FONTS = {"anton": "Anton-Regular.ttf", "archivo": "ArchivoBlack-Regular.ttf", "serif": "PlayfairDisplay-Black.ttf",
          "pop": "Poppins-ExtraBold.ttf", "popb": "Poppins-Bold.ttf", "sans": "Inter-SemiBold.ttf", "hand": "Caveat-Bold.ttf",
          "garamond": "EBGaramond-Medium.ttf"}
@@ -38,10 +39,17 @@ def font(kind: str, size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype(str(path), size) if path else ImageFont.load_default(size)
 
 
+def vorschau() -> bool:
+    """Schnelle Vorschau (`CUDI_VORSCHAU=1`): 10 Bilder je Sekunde, ohne Tiefen-Effekt – zum Prüfen von Text, Bildern und Takt."""
+    import os
+
+    return os.environ.get("CUDI_VORSCHAU", "0") == "1"
+
+
 def tiefe_an() -> bool:
     import os
 
-    return os.environ.get("CUDI_TIEFE", "1") != "0"
+    return os.environ.get("CUDI_TIEFE", "1") != "0" and not vorschau()
 
 
 def clamp(x: float, lo: float = 0.0, hi: float = 1.0) -> float:
@@ -306,9 +314,12 @@ def raeumlich(arr: np.ndarray, tiefe: np.ndarray, t: float, staerke: float, grid
     mx = (c + (xx - c) / (1 + (atem - 1) * tiefe) + off * ax).astype(np.float32)
     my = (c + (yy - c) / (1 + (atem - 1) * tiefe) + off * ay).astype(np.float32)
     out = cv2.remap(arr, mx, my, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-    pos = ((t * .22) % 1.6 - .3) * arr.shape[0] * 1.4                 # Lichtband wandert diagonal, nur auf dem Motiv
-    band = np.exp(-((xx + yy * .6 - pos) / (arr.shape[0] * .09)) ** 2) * tiefe * 34
-    return np.clip(out.astype(np.float32) + band[..., None], 0, 255).astype(np.uint8)
+    n = arr.shape[0]
+    k = 4                                                     # Lichtband klein rechnen und hochziehen – spart Rechenzeit
+    pos = ((t * .22) % 1.6 - .3) * n * 1.4                    # wandert diagonal, nur auf dem Motiv
+    band = np.exp(-((xx[::k, ::k] + yy[::k, ::k] * .6 - pos) / (n * .09)) ** 2) * tiefe[::k, ::k] * 34
+    hell = cv2.resize(band.astype(np.uint8), (n, n), interpolation=cv2.INTER_LINEAR)
+    return cv2.add(out, cv2.merge([hell, hell, hell]))
 
 
 # --------------------------------------------------------------------------- Untertitel
@@ -381,33 +392,40 @@ class Scene:
         self.over = frame_overlay(stil, self.size, self.dark)
         self.shadow = shadow(self.size)
         self.seed = _h(f"{job['id']}-{self.idx}")
-        self.pic = None
-        if job.get("bild"):
+        self.pics: list[dict] = []                            # Bildfolge: je Satz ein Bild, Wechsel zum Satzbeginn
+        folge = job.get("bildfolge") or ([{"datei": job["bild"], "logo": bool(job.get("ki"))}] if job.get("bild") else [])
+        n = int(self.size * 1.16)
+        for eintrag in folge:
             try:
-                with Image.open(job["bild"]) as src:
+                with Image.open(eintrag["datei"]) as src:
                     src = src.convert("RGB")
                     w, h = src.size
-                    cut = int(h * 0.94) if job.get("ki") else h                 # Logo-Streifen des Bilddienstes abschneiden
+                    cut = int(h * 0.94) if eintrag.get("logo") else h          # Logo-Streifen des Bilddienstes abschneiden
                     side = min(w, cut)
                     src = src.crop(((w - side) // 2, (cut - side) // 2, (w - side) // 2 + side, (cut - side) // 2 + side))
-                    self.pic = src.resize((int(self.size * 1.16),) * 2, Image.LANCZOS)
+                    pic = src.resize((n, n), Image.LANCZOS)
             except OSError:
-                self.pic = None
-        self.tiefe = None
-        if self.pic is not None and stil["id"] not in FLACH and tiefe_an():
-            try:
-                self.tiefe = tiefenkarte(self.pic)
-                self.arr = np.asarray(self.pic)
-                n = self.pic.size[0]
-                self.grid = np.meshgrid(np.arange(n, dtype=np.float32), np.arange(n, dtype=np.float32))
-            except Exception:                                 # Effekt ist optional – ohne ihn bleibt Zoom/Schwenk
-                self.tiefe = None
+                continue
+            tiefe = None
+            if stil["id"] not in FLACH and tiefe_an():
+                try:
+                    tiefe = tiefenkarte(pic)
+                except Exception:                             # Effekt ist optional – ohne ihn bleibt Zoom/Schwenk
+                    tiefe = None
+            self.pics.append({"pic": pic, "tiefe": tiefe, "arr": np.asarray(pic), "start": 0.0})
+        self.pic = self.pics[0]["pic"] if self.pics else None
+        self.tiefe = self.pics[0]["tiefe"] if self.pics else None
+        self.grid = np.meshgrid(np.arange(n, dtype=np.float32), np.arange(n, dtype=np.float32)) if self.tiefe is not None else None
         if stil["effekt"] == "aufdecken":
             yy, xx = np.mgrid[0:self.size, 0:self.size]
             self.ramp = ((xx * .7 + yy * .3) / self.size).astype(np.float32)
         self.caps = Captions(job["text"], job["words"], job["lead"], stil, g, self.ink)
         starts = align_tokens(job["text"], job["words"])
         tokens = [t.lower().strip(".,!?:;„“\"") for t in job["text"].split()]
+        satz = [0.0] + [starts[i + 1] for i, tok in enumerate(job["text"].split()[:-1]) if tok[-1:] in ".!?"]
+        for i, eintrag in enumerate(self.pics):               # Bild i beginnt mit „seinem“ Satz (bei weniger Bildern: gleichmäßig verteilt)
+            k = min(len(satz) - 1, i * len(satz) // max(1, len(self.pics)))
+            eintrag["start"] = 0.0 if i == 0 else job["lead"] + satz[k] - 0.12
 
         def when(word: str, default: float) -> float:
             w = word.lower().split()[0] if word.strip() else ""
@@ -478,9 +496,17 @@ class Scene:
         elif bew == "puls":
             z = 1.06 + .03 * math.sin(t * 2.2)
         s = max(size, int(size * z))
-        quelle = self.pic
-        if self.tiefe is not None:
-            quelle = Image.fromarray(raeumlich(self.arr, self.tiefe, t + self.seed % 7, self.pic.size[0] * .045, self.grid))
+        k = max(i for i, e in enumerate(self.pics) if e["start"] <= t or i == 0)
+
+        def bild(e: dict) -> Image.Image:
+            if e["tiefe"] is None:
+                return e["pic"]
+            return Image.fromarray(raeumlich(e["arr"], e["tiefe"], t + self.seed % 7, e["pic"].size[0] * .045, self.grid))
+
+        quelle = bild(self.pics[k])
+        misch = clamp((t - self.pics[k]["start"]) / WECHSEL) if k else 1.0
+        if misch < 1:                                         # weicher Übergang vom vorigen Bild der Folge
+            quelle = Image.blend(bild(self.pics[k - 1]), quelle, ease(misch))
         im = quelle.resize((s, s), Image.BILINEAR)
         m = (s - size) / 2
         ox, oy = int(clamp(m + dx * s, 0, 2 * m)), int(clamp(m + dy * s, 0, 2 * m))
@@ -629,10 +655,11 @@ def build_audio(jobs: list[dict], path: Path, music_style: str | None, seed_key:
 def build_jobs(script: dict, voiced: list, work: Path) -> list[dict]:
     jobs, n = [], sum(1 for s in script["szenen"] if s["typ"] == "station")
     for i, (sz, (wav, words, dur)) in enumerate(zip(script["szenen"], voiced)):
-        frames = int(round((LEAD + dur + TAIL) * config.FPS))
+        fps = 10 if vorschau() else config.FPS
+        frames = int(round((LEAD + dur + TAIL) * fps))
         jobs.append({"index": i, "id": script["id"], "typ": sz["typ"], "lang": script["sprache"], "format": script["seitenformat"],
                      "stil": script["stil"], "text": sz["text"], "words": words, "lead": LEAD, "voice_dur": dur, "frames": frames,
-                     "duration": frames / config.FPS, "fps": config.FPS, "voice_path": str(wav), "bild": sz.get("bild_datei"),
+                     "duration": frames / fps, "fps": fps, "voice_path": str(wav), "bild": sz.get("bild_datei"), "bildfolge": sz.get("bildfolge") or [],
                      "ki": bool(sz.get("ki")), "zahl": sz.get("zahl") or "", "einheit": sz.get("einheit") or "",
                      "kopf": sz.get("kopf") or "", "wort": sz.get("name") or script["titel"].split()[0],
                      "etiketten": sz.get("etiketten") or [], "station": sz.get("station") or 0, "n": n,
@@ -653,7 +680,10 @@ def render_schaubild(script: dict, out_dir: Path, progress=None, musik: bool = T
     voiced = tts.voice_texts([s["text"] for s in script["szenen"]], work / "audio", voice_name(lang), "+0%", "+0Hz")
     jobs = build_jobs(script, voiced, work)
     done = 0
-    with ProcessPoolExecutor(max_workers=config.RENDER_WORKERS) as pool:
+    import multiprocessing
+
+    # „spawn“: frische Prozesse – OpenCV verträgt kein „fork“, nachdem es im Elternprozess schon gerechnet hat (hängt sonst)
+    with ProcessPoolExecutor(max_workers=config.RENDER_WORKERS, mp_context=multiprocessing.get_context("spawn")) as pool:
         for _ in pool.map(render_part, jobs):
             done += 1
             if progress:

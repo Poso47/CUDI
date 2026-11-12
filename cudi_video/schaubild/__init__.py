@@ -15,10 +15,19 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+import logging
+
 from .. import handoff, net, textcheck
 
+log = logging.getLogger(__name__)
 TASK = "schaubild"
 MIN_STATIONEN, MAX_WORDS, TEXT_LIMIT = 3, 60, 9000
+MAX_BILDER = 3                            # Bilder je Station (eines je Satz)
+# Bildmodelle mit Pollinations-Konto, günstigste zuerst. NICHT kostenlos: Jedes Bild kostet Guthaben („Pollen“, geprüft 11/2026:
+# flux ≈ 0,002 $, zimage ≈ 0,004 $, klein ≈ 0,005 $, flux.1.1-pro ≈ 0,03 $ je Bild). Ein Konto hat nur ein kleines Gratis-Guthaben
+# („Quest Pollen“); ist es leer (HTTP 402), geht es ohne Kosten mit dem alten, schwächeren Weg weiter.
+MODELLE = ("flux", "zimage", "klein")
+_guthaben_leer = [False]
 MIN_KANTEN = 3.0                          # mittlere Kantenstärke (0–255), darunter gilt ein Bild als leer/unscharf
 FORMATE = ("9:16", "16:9")
 KATALOG = Path(__file__).resolve().parent.parent / "data" / "bildstile.json"
@@ -28,7 +37,10 @@ Antworte mit EINEM JSON-Objekt:
 {"titel": "≤ 60 Zeichen", "hook": "eine Frage, die neugierig macht", "versprechen": "ein Satz: was man gleich versteht",
  "stationen": [{"name": "1–2 Wörter", "text": "2–3 gesprochene Sätze", "zahl": "eine Zahl aus dem Beleg, z. B. 20", "einheit": "z. B. Stunden",
                 "beleg": "WÖRTLICHES Zitat aus der Quelle (ein bis zwei Sätze, unverändert)", "quelle": "id der Quelle",
-                "etiketten": ["1–2 Wörter", "…"], "bild": "englische Bildbeschreibung EINES Motivs, ohne Text im Bild"}],
+                "etiketten": ["1–2 Wörter", "…"],
+                "bilder": ["englische Bildbeschreibung zu Satz 1", "… zu Satz 2", "… zu Satz 3"]}],
+ "bild_hook": "englische Bildbeschreibung für den Einstieg (Alltagsszene zum Thema)",
+ "bild_schluss": "englische Bildbeschreibung für den Schluss (Alltagsszene)",
  "schluss": "ein Satz mit Bezug zum Alltag"}
 Regeln:
 - Genau {n} Stationen in der natürlichen Reihenfolge des Vorgangs (Anfang → Ende). Jede Station erklärt EINEN Schritt.
@@ -36,7 +48,12 @@ Regeln:
   dann lieber „zahl“ leer lassen. Keine neuen Namen, keine Wertungen, keine Übertreibung, nichts vermuten.
 - Sprache des Textes: {lang}. Einfach und bildhaft: wenn möglich ein Vergleich oder ein Bezug zum Alltag („wie …“).
 - Höchstens 3 Etiketten je Station; jedes Etikett ist ein Begriff, der im Text der Station vorkommt.
-- Hook, Versprechen und Schluss enthalten keine Zahlen, die nicht in einem Beleg stehen."""
+- Hook, Versprechen und Schluss enthalten keine Zahlen, die nicht in einem Beleg stehen.
+- BILDER ERKLÄREN MIT: „bilder“ hat je Satz des Textes GENAU EINE Beschreibung (gleiche Reihenfolge, 1–3 Stück). Jedes Bild zeigt
+  sichtbar genau das, was dieser Satz sagt – den Vorgang, den Ort, das Teil (z. B. Schnittbild/Querschnitt, Nahaufnahme, „vorher“ und im
+  nächsten Bild „nachher“). Nenne das Hauptmotiv in jedem Bild gleich (gleiche Farben/Form), damit die Bilder wie eine Folge wirken.
+  Konkret statt allgemein: nicht „an egg“, sondern „cutaway of a hen's oviduct, an orange yolk sliding through a spiral tube, clear
+  egg white wrapping around it“. Nur darstellen, was der Beleg stützt; keine Schrift, keine Zahlen, keine Menschen im Bild."""
 
 FALLBACK = {"de": {"hook": "Wie funktioniert das eigentlich: {t}?", "schluss": "Jetzt weißt du, wie das funktioniert: {t}.",
                    "quelle": "Quelle", "bilder": "Bilder: Illustrationen (KI-generiert bzw. gezeichnet), keine echten Aufnahmen.",
@@ -125,8 +142,10 @@ def pruefe_station(st: dict, quellen: list[dict], lang: str) -> tuple[dict | Non
         if 2 <= len(e) <= 22 and len(e.split()) <= 2 and _norm(e) in low and e not in etiketten:
             etiketten.append(e)
     bild = re.sub(r"[^\x20-\x7e]", "", str(st.get("bild") or ""))[:220].strip()
+    folge = [re.sub(r"[^\x20-\x7e]", "", str(b))[:260].strip() for b in (st.get("bilder") or []) if str(b).strip()][:MAX_BILDER]
+    folge = [b for b in folge if len(b) >= 8] or [bild or name]
     return {"name": name or text.split()[0], "text": text, "zahl": zahl, "einheit": einheit, "beleg": beleg,
-            "quelle": quelle["name"], "quelle_url": quelle["url"], "etiketten": etiketten[:3], "bild": bild or name}, ""
+            "quelle": quelle["name"], "quelle_url": quelle["url"], "etiketten": etiketten[:3], "bild": folge[0], "bilder": folge}, ""
 
 
 def pruefe_satz(text: str, erlaubt: set[str], quellen_text: str, lang: str) -> bool:
@@ -167,8 +186,38 @@ def bild_brauchbar(path: str) -> bool:
         return False
 
 
+def ki_bild(prompt: str, seed: int):
+    """KI-Illustration (1024×1024). Mit Konto (`CUDI_POLLINATIONS_TOKEN`) über die kostenlosen, deutlich besseren Modelle
+    (`MODELLE`, nacheinander versucht), sonst der alte Weg ohne Konto (klein, weich)."""
+    from urllib.parse import quote, urlencode
+
+    from .. import config
+    from ..story import visuals
+
+    if config.POLLINATIONS_TOKEN and not _guthaben_leer[0]:
+        headers = {"Authorization": f"Bearer {config.POLLINATIONS_TOKEN}"}
+        for modell in MODELLE:
+            url = (f"https://gen.pollinations.ai/image/{quote(prompt[:900])}?"
+                   + urlencode({"model": modell, "width": 1024, "height": 1024, "seed": seed, "nologo": "true"}))
+            try:
+                path = net.cached_file(url, ".jpg") or net.download(url, suffix=".jpg", retries=2, max_wait=20, timeout=150,
+                                                                    headers=headers, retry_on=(429, 500, 502, 503, 504))
+                if bild_brauchbar(str(path)):
+                    return visuals.Visual("image", str(path), f"KI-Illustration ({modell.split('/')[-1]})", prompt), False
+            except Exception as exc:                          # nächstes Modell bzw. alter Weg
+                if "402" in str(exc):                         # Guthaben leer: nicht weiter anfragen
+                    _guthaben_leer[0] = True
+                    break
+                log.warning("Bildmodell %s nicht verfügbar: %s", modell, str(exc)[:120])
+    vis = visuals.ai_image(prompt, seed=seed)
+    if vis is not None and not bild_brauchbar(vis.path):
+        vis = visuals.ai_image(prompt, seed=seed + 1000)
+        vis = vis if vis is not None and bild_brauchbar(vis.path) else None
+    return vis, True                                          # True = Bild trägt unten das Logo des Dienstes (wird abgeschnitten)
+
+
 def bilder(skript: dict, work: Path, notes: list[str]) -> None:
-    """Je Szene ein Bild: KI-Illustration (nacheinander) → freies Foto → vom Renderer gezeichnete Grafik."""
+    """Je Satz einer Station ein Bild (Bildfolge): KI-Illustration → freies Foto → vom Renderer gezeichnete Grafik."""
     stil = skript["stil"]
     if stil["modus"] == "code":
         return
@@ -176,31 +225,45 @@ def bilder(skript: dict, work: Path, notes: list[str]) -> None:
 
     stationen = [s for s in skript["szenen"] if s["typ"] == "station"]
     used: set = set()
-    fehlt = 0
-    for i, sz in enumerate(stationen):
-        prompt = f"{sz['bild']}, {stil['prompt']}"
-        vis = visuals.ai_image(prompt, seed=1000 + i)
-        if vis is not None and not bild_brauchbar(vis.path):   # einmal mit anderem Startwert, sonst Ausweichweg
-            vis = visuals.ai_image(prompt, seed=2000 + i)
-            vis = vis if vis is not None and bild_brauchbar(vis.path) else None
+    fehlt, nr = 0, 0
+
+    def hole(prompt: str) -> dict | None:
+        nonlocal nr
+        nr += 1
+        voll = f"{prompt}, {stil['prompt']}"
+        vis, logo = ki_bild(voll, 1000 + nr)
         if vis is not None:
-            sz.update(bild_datei=vis.path, ki=True, bild_quelle="KI-Illustration (Pollinations)", bild_prompt=prompt)
-            continue
+            return {"datei": vis.path, "ki": True, "logo": logo, "quelle": vis.credit, "prompt": voll}
         try:
-            foto = visuals.commons_photo(sz["bild"], used)
+            foto = visuals.commons_photo(prompt, used)
         except Exception:                                     # Bild ist optional
             foto = None
-        if foto is not None:
-            sz.update(bild_datei=foto.path, ki=False, bild_quelle=f"Foto: {foto.credit}", bild_prompt="")
+        return {"datei": foto.path, "ki": False, "logo": False, "quelle": f"Foto: {foto.credit}", "prompt": ""} if foto else None
+
+    from concurrent.futures import ThreadPoolExecutor
+    from .. import config
+
+    alle = [(sz, p) for sz in stationen for p in (sz.get("bilder") or [sz["bild"]])]
+    gleichzeitig = 4 if config.POLLINATIONS_TOKEN else 1      # ohne Konto drosselt der Dienst: nur nacheinander
+    with ThreadPoolExecutor(max_workers=gleichzeitig) as pool:
+        geholt = list(pool.map(lambda sp: hole(sp[1]), alle))
+    for sz in stationen:
+        folge = [b for (s2, _), b in zip(alle, geholt) if s2 is sz and b]
+        if folge:
+            sz.update(bildfolge=folge, bild_datei=folge[0]["datei"], ki=folge[0]["ki"], bild_quelle=folge[0]["quelle"],
+                      bild_prompt=" | ".join(b["prompt"] for b in folge))
         else:
             fehlt += 1
+    if _guthaben_leer[0]:
+        notes.append("Bild-Guthaben bei Pollinations ist aufgebraucht – die übrigen Bilder kommen vom kostenlosen, schwächeren Modell.")
     if fehlt:
         notes.append(f"{fehlt} Station(en) ohne Bild – dort zeichnet der Renderer eine schlichte Grafik.")
-    erste = next((s for s in stationen if s.get("bild_datei")), None)
-    if erste:                                                 # Einstieg und Schluss zeigen ein vorhandenes Bild erneut
-        letzte = next((s for s in reversed(stationen) if s.get("bild_datei")), erste)
-        for sz, src in ((skript["szenen"][0], erste), (skript["szenen"][-1], letzte)):
-            sz.update({k: src[k] for k in ("bild_datei", "ki", "bild_quelle", "bild_prompt")})
+    for sz, key, ersatz in ((skript["szenen"][0], "bild_hook", stationen[:1]), (skript["szenen"][-1], "bild_schluss", stationen[-1:])):
+        eigenes = hole(sz[key]) if sz.get(key) else None
+        folge = [eigenes] if eigenes else (ersatz[0].get("bildfolge") or [])[-1:] if ersatz else []
+        if folge:
+            sz.update(bildfolge=folge, bild_datei=folge[0]["datei"], ki=folge[0]["ki"], bild_quelle=folge[0]["quelle"],
+                      bild_prompt=folge[0]["prompt"])
 
 
 def texte(skript: dict, quellen: list[dict], lang: str) -> tuple[str, str]:
@@ -292,6 +355,8 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     if not pruefe_satz(schluss, erlaubt, qtext, lang):
         schluss = fb["schluss"].format(t=titel)
     skript = baue_skript("schaubild", titel, hook, versprechen, stationen, schluss, lang, stil, order.get("seitenformat") or "9:16")
+    for sz, key in ((skript["szenen"][0], "bild_hook"), (skript["szenen"][-1], "bild_schluss")):
+        sz[key] = re.sub(r"[^\x20-\x7e]", "", str(answer.get(key) or ""))[:260].strip()
     progress("Bilder", 0.3)
     bilder(skript, out / "work", notes)
     yt, tt = texte(skript, quellen, lang)

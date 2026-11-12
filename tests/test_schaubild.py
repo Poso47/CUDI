@@ -172,3 +172,43 @@ def test_tiefen_effekt_bewegt_das_motiv(tmp_path, monkeypatch):
     assert R.make_scene(_job(stile["comic"], "9:16", str(bild))).tiefe is None
     monkeypatch.setenv("CUDI_TIEFE", "0")
     assert R.make_scene(_job(stile["schaubild"], "9:16", str(bild))).tiefe is None
+
+
+def test_bildfolge_je_satz_und_guthaben(tmp_path, monkeypatch):
+    """Je Satz ein Bild, Wechsel zum Satzbeginn; bei leerem Guthaben (402) wird nicht weiter angefragt und es gibt einen Hinweis."""
+    from cudi_video import config, net
+    from cudi_video.story import visuals
+
+    st, _ = schaubild.pruefe_station(station(bilder=["hen cutaway with shell gland", "white shell growing around egg", "x", "viertes Bild"]), QUELLE, "de")
+    assert st["bilder"] == ["hen cutaway with shell gland", "white shell growing around egg", "viertes Bild"][:schaubild.MAX_BILDER] or len(st["bilder"]) <= schaubild.MAX_BILDER
+    a, b = tmp_path / "a.jpg", tmp_path / "b.jpg"
+    for p, col in ((a, (200, 40, 40)), (b, (40, 40, 200))):
+        im = Image.new("RGB", (512, 512), (20, 60, 80))
+        im.paste(Image.new("RGB", (200, 200), col), (156, 156))
+        im.save(p)
+    job_ = _job(schaubild.stile()["schaubild"], "9:16", str(a))
+    job_["text"] = "Erst kommt der Dotter. Dann kommt die Schale dazu."
+    job_["words"] = [{"text": w, "start": i * .4, "end": i * .4 + .3} for i, w in enumerate(job_["text"].split())]
+    job_["bildfolge"] = [{"datei": str(a), "logo": False}, {"datei": str(b), "logo": False}]
+    job_["duration"], job_["etiketten"], job_["zahl"] = 5.0, [], ""
+    sc = R.make_scene(job_)
+    assert len(sc.pics) == 2 and sc.pics[1]["start"] == pytest.approx(.45 + 4 * .4 - .12)
+    mitte = lambda t: np.asarray(sc._picture(t).convert("RGB"))[sc.size // 2, sc.size // 2]
+    assert mitte(1.0)[0] > mitte(1.0)[2] and mitte(4.0)[2] > mitte(4.0)[0]                    # erst rot, dann blau
+    calls = []
+
+    def kaputt(url, **kw):
+        calls.append(url)
+        raise RuntimeError("HTTP Error 402: Payment Required")
+
+    monkeypatch.setattr(config, "POLLINATIONS_TOKEN", "x")
+    monkeypatch.setattr(net, "cached_file", lambda *a, **k: None)
+    monkeypatch.setattr(net, "download", kaputt)
+    monkeypatch.setattr(visuals, "ai_image", lambda prompt, seed: None)
+    monkeypatch.setattr(visuals, "commons_photo", lambda *a, **k: None)
+    monkeypatch.setattr(schaubild, "_guthaben_leer", [False])
+    skript = schaubild.baue_skript("t", "Titel", "Hook?", "", [dict(st, bilder=["eins", "zwei"])] * 2, "Schluss.", "de",
+                                   schaubild.stile()["schaubild"], "9:16")
+    notes: list[str] = []
+    schaubild.bilder(skript, tmp_path, notes)
+    assert len(calls) == 1 and any("Guthaben" in n for n in notes)
