@@ -383,6 +383,7 @@
     <div class="tiles">
       <button type="button" class="tile" data-go="ranking"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b>Ranking</b><span class="sub">Top-Liste mit geprüften Fakten</span></span></button>
       <button type="button" class="tile" data-go="fakten"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6zM9 12l2 2 4-4"/></svg></span><span><b>Fakten</b><span class="sub">Frei gewähltes Thema, jede Zahl geprüft</span></span></button>
+      <button type="button" class="tile" data-go="schaubild"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M4 4l3 3M20 20l-3-3"/></svg></span><span><b>Schaubild</b><span class="sub">Erklärt in Stationen, 21 Bildstile</span></span></button>
       <button type="button" class="tile" data-go="story"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg></span><span><b>Story</b><span class="sub">Reddit-Story in deiner Stimmung</span></span></button>
       <button type="button" class="tile" data-go="reportage"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12v14H6a2 2 0 0 1-2-2zM16 8h4v9a2 2 0 0 1-2 2M7 9h6M7 13h6"/></svg></span><span><b>Reportage</b><span class="sub">Sachlich, mit mindestens zwei Quellen</span></span></button>
       <button type="button" class="tile" data-go="satire"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 3 4 3 4-3 4-3M9 9h.01M15 9h.01"/></svg></span><span><b>Satire</b><span class="sub">Echte Meldung, erkennbar überspitzt</span></span></button>
@@ -495,6 +496,41 @@
       </div>
     </form>
   </section>
+
+  <section class="card" id="schaubild" role="tabpanel" aria-labelledby="tab-start" hidden>
+    <button type="button" class="back" data-go="start" aria-label="Zurück zum Start"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Start</button>
+    <h2>Schaubild-Video</h2>
+    <p class="lead">Erklärt ein Thema in Stationen: je Station ein Bild im gewählten Stil, eine belegte Zahl und Etiketten. Jede Aussage braucht einen wörtlichen Beleg, sonst fliegt sie raus. Die Bilder sind Illustrationen und so gekennzeichnet; sie bewegen sich durch Zoom und Kamerafahrt, Figuren laufen nicht.</p>
+    <form id="schaubildForm" novalidate>
+      <div style="display:grid;gap:12px">
+        <div>
+          <label for="sbTopic">Thema oder Frage</label>
+          <input id="sbTopic" type="text" maxlength="160" placeholder="z. B. Wie entsteht ein Ei im Huhn?" autocomplete="off" aria-describedby="schaubildMsg">
+        </div>
+        <div>
+          <label for="sbStil">Bildstil</label>
+          <select id="sbStil"><option value="schaubild" selected>Schaubild – glänzende 3D-Illustration (Standard)</option><option value="auto">Automatisch – passend zum Thema</option><option value="cartoon2d">2D-Cartoon – Farbenfrohe Cartoon-Bilder mit klaren Konturen und sympathischen Figuren.</option><option value="film3d">3D-Animationsfilm – Stilisierte 3D-Figuren mit weichem Licht und Tiefenschärfe wie im Animationsfilm.</option><option value="motiongraphics">Motion Graphics – Animierte Formen, Linien und Zahlen – ganz ohne Bilder, exakt zur Stimme.</option><option value="anime">Anime – Anime-inspirierte Bilder mit dramatischem Licht und detaillierten Hintergründen.</option><option value="whiteboard">Whiteboard – Schwarze Zeichnung mit Farbakzent, die sich Strich für Strich aufdeckt.</option><option value="isometrisch">Isometrisch – Kleine isometrische 3D-Welten in fester 45-Grad-Ansicht.</option><option value="papercut">Paper-Cut – Papierschichten mit weichen Schatten, bewegt wie Stop-Motion aus Papier.</option><option value="claymation">Claymation – Knetfiguren in Miniaturkulisse, warme Beleuchtung, ruckelnde Einzelbilder.</option><option value="cyberpunk">Cyberpunk – Neonfarben, Hologramme und dunkle futuristische Kulissen.</option><option value="linien">Linienanimation – Feine Linien bauen sich zur Stimme auf – reduziert, zwei Farben.</option><option value="doku">Doku-Stil – Dunkel, dramatisch beleuchtet, mit Nebel – geheimnisvoll und hochwertig.</option><option value="wissenschaft3d">Wissenschaft 3D – Sachliche 3D-Darstellung von Vorgängen in Nahaufnahme.</option><option value="retro">Retro-Zeichentrick – Handgezeichnet, leicht körnig, Vintage-Farben wie alte Trickfilme.</option><option value="comic">Comic – Panels, Sprechblasen-Etiketten, kräftige Outlines und Rasterpunkte.</option><option value="liquid">Liquid Motion – Fließende Farbverläufe und weiche, organische Formen.</option><option value="lowpoly">Low-Poly – Polygonale Figuren und Landschaften mit klaren Lichtflächen.</option><option value="typografie">Typografie – Wörter und Zahlen spielen die Hauptrolle, synchron zur Stimme.</option><option value="surreal">Surreal – Traumartige Bilder mit unmöglichen Perspektiven und Metaphern.</option><option value="parallax25d">2.5D-Parallax – Illustration in Ebenen mit Tiefenwirkung durch sanfte Kamerabewegung.</option><option value="stopmotion">Stop-Motion – Handgemachte Miniaturwelt mit echten Materialien, sichtbare Einzelbilder.</option></select>
+        </div>
+        <div>
+          <label for="sbFormat">Format</label>
+          <select id="sbFormat"><option value="9:16" selected>Hochformat 9:16 – TikTok und Shorts</option><option value="16:9">Querformat 16:9 – YouTube</option></select>
+        </div>
+        <details class="mehr"><summary>Mehr Optionen</summary><div class="inner">
+          <div>
+            <label for="sbCount">Stationen (3 bis 9)</label>
+            <input id="sbCount" type="number" min="3" max="9" value="6" inputmode="numeric">
+          </div>
+          <div>
+            <label for="sbLang">Sprache</label>
+            <select id="sbLang"><option value="de" selected>Deutsch</option><option value="en">Englisch</option></select>
+          </div>
+        </div></details>
+        <button class="go" id="schaubildGo" type="submit">Schaubild-Video erstellen</button>
+        <p class="note" id="schaubildMsg" hidden role="status"></p>
+      </div>
+    </form>
+  </section>
+
 
   <!-- Story -->
   <section class="card" id="story" role="tabpanel" aria-labelledby="tab-start" hidden>
@@ -852,7 +888,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   /* ---------- Bereiche: untere Tab-Leiste + Unterseiten des Starts (mit #name in der Adresse) ---------- */
   const NAVTABS = ["start", "videos", "firma", "briefing", "kommunikation"];
-  const SUBPAGES = ["ranking", "fakten", "story", "reportage", "satire", "erklaer", "clips", "app"];
+  const SUBPAGES = ["ranking", "fakten", "schaubild", "story", "reportage", "satire", "erklaer", "clips", "app"];
   const TABS = NAVTABS.concat(SUBPAGES);
   let currentTab = "start";
   function showTab(name) {
@@ -920,6 +956,13 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
                streng: $("strict").checked, nur_skript: $("onlyScript").checked, laenge: long ? "lang" : "",
                maskottchen: $("mascotRank").checked, format: $("format").value },
     };
+  }
+  function schaubildOrder() {
+    const topic = $("sbTopic").value.trim().replace(/\s+/g, " ").slice(0, 160);
+    if (topic.length < 3) return { error: "Bitte ein Thema nennen (mindestens 3 Zeichen), z. B. „Wie entsteht ein Ei im Huhn?“." };
+    const raw = $("sbCount").value.trim(), count = Number(raw);
+    if (!raw || !Number.isInteger(count) || count < 3 || count > 9) return { error: "Stationen: bitte eine ganze Zahl von 3 bis 9." };
+    return { label: "Schaubild: " + topic, order: { art: "schaubild", thema: topic, stationen: count, sprache: $("sbLang").value, stil: $("sbStil").value, seitenformat: $("sbFormat").value } };
   }
   function faktenOrder() {
     const topic = $("factTopic").value.trim().replace(/\s+/g, " ").slice(0, 120);
@@ -1053,7 +1096,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (o.art === "clip") return 30;                                    // ein Short bis 3 Minuten, App-Fassung ≤ 19 MB
     const per = o.laenge === "lang" ? 160 : 20;                         // lange Videos bis ~150 MB
     const videos = o.art === "ranking" ? Math.max(1, (o.sprachen || []).length)
-      : o.art === "fakten" ? 1
+      : (o.art === "fakten" || o.art === "schaubild") ? 1
       : (o.laenge === "teile" ? 6 : 2);
     return videos * per + 10;
   }
@@ -1127,6 +1170,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     }
   }
 
+  $("schaubildForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(schaubildOrder(), "schaubildMsg", $("schaubildGo")); });
   $("faktenForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(faktenOrder(), "faktenMsg", $("faktenGo")); });
   $("rankingForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(rankingOrder(), "rankingMsg", $("rankingGo")); });
   $("reportForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(reportageOrder(), "reportMsg", $("reportGo")); });
@@ -1229,7 +1273,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   // Die letzten Bewertungen als „Vorlieben“ für den nächsten Auftrag (Claude lernt daraus; die Varianten steuern die Experimente)
   function preferences() {
     const all = [...ratings.values()].sort((a, b) => String(b.zeit || "").localeCompare(String(a.zeit || "")));
-    const line = (r) => [{ story: "Story", clip: "Clip", fakten: "Fakten", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[r.art] || "Ranking", r.titel || r.thema].filter(Boolean).join(": ") + (r.notiz ? " – " + r.notiz : "");
+    const line = (r) => [{ story: "Story", clip: "Clip", fakten: "Fakten", schaubild: "Schaubild", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[r.art] || "Ranking", r.titel || r.thema].filter(Boolean).join(": ") + (r.notiz ? " – " + r.notiz : "");
     const gut = all.filter((r) => r.wert === 1).slice(0, 8).map(line);
     const schlecht = all.filter((r) => r.wert === -1).slice(0, 8).map(line);
     const vg = all.filter((r) => r.wert === 1 && r.varianten).slice(0, 8).map((r) => r.varianten);
@@ -1969,7 +2013,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const p = document.createElement("span"); p.className = "pill " + LABEL[state][1]; p.textContent = LABEL[state][0];
     top.append(title, p);
     const meta = document.createElement("div"); meta.className = "meta";
-    meta.textContent = [{ story: "Story", ranking: "Ranking", fakten: "Fakten", clip: "Clip", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[job.art] || "", when(job.gestartet || (res && res.fertig))]
+    meta.textContent = [{ story: "Story", ranking: "Ranking", fakten: "Fakten", schaubild: "Schaubild", clip: "Clip", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[job.art] || "", when(job.gestartet || (res && res.fertig))]
       .filter(Boolean).join(" · ");
     li.append(top, meta);
     const perm = (job.art === "clip" || (job.auftrag && job.auftrag.art === "clip")) ? permissionOf(res) : "";
@@ -2191,12 +2235,13 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   }
   function h(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
-  const ROLES = { ranking: ["Rechercheur & Autor", "book"], fakten: ["Faktenprüfer", "shield"], story: ["Story-Autor", "pen"], clip: ["Clipper", "film"], reportage: ["Reporter", "pen"], satire: ["Satiriker", "pen"] };
+  const ROLES = { ranking: ["Rechercheur & Autor", "book"], fakten: ["Faktenprüfer", "shield"], schaubild: ["Schaubild-Zeichner", "pen"], story: ["Story-Autor", "pen"], clip: ["Clipper", "film"], reportage: ["Reporter", "pen"], satire: ["Satiriker", "pen"] };
   function roleOf(job) {
     const o = (job && job.auftrag) || {};
     const art = (job && job.art) || o.art || "";
     if (art === "story") return ROLES.story;
     if (art === "fakten") return ROLES.fakten;
+    if (art === "schaubild") return ROLES.schaubild;
     if (art === "clip") return ROLES.clip;
     if (art === "reportage") return ROLES.reportage;
     if (art === "satire") return ROLES.satire;
@@ -2785,7 +2830,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   function stationFacts(def) {
     return factsList([["Rolle", def.role], ["Abteilung", deptOf(def.dept).name], ["Aufgabe", def.task], ["Letzter Lauf", lastRunText(def)], ["Nächster Lauf", nextRunText(def)]]);
   }
-  const ART_TASK = { ranking: "Baut ein Ranking-Video aus geprüften Zahlen.", fakten: "Schreibt ein Fakten-Video; jeder Fakt wird einzeln belegt.",
+  const ART_TASK = { ranking: "Baut ein Ranking-Video aus geprüften Zahlen.", fakten: "Schreibt ein Fakten-Video; jeder Fakt wird einzeln belegt.", schaubild: "Erklärt ein Thema in Stationen mit Bildern im gewählten Stil.",
                      story: "Macht aus einer Story ein Video mit Stimme und Bildern.", clip: "Schneidet einen Clip fürs Hochformat.",
                      reportage: "Schreibt eine sachliche Reportage nur aus belegten Aussagen.", satire: "Macht aus einem bestätigten Kern eine erkennbare Satire.",
                      erklaer: "Baut ein Erklärvideo aus einem Szenen-Skript." };
@@ -3910,6 +3955,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   const NB_FIELDS = {
     ranking: ["thema", "vorlage", "plaetze", "sprachen", "laenge", "streng", "nur_skript", "maskottchen", "format", "hochladen"],
     fakten: ["thema", "plaetze", "sprache", "streng", "hochladen"],
+    schaubild: ["thema", "stationen", "sprache", "stil", "seitenformat", "hochladen"],
     story: ["wunsch", "stimmung", "sprache", "laenge", "bilder", "entschaerfen", "maskottchen", "hochladen"],
     reportage: ["thema", "sprache", "links", "hochladen"],
     satire: ["thema", "meldung", "links", "sprache", "hochladen"],

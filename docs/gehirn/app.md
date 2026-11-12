@@ -59,3 +59,4 @@ Teil des Projekt-Gehirns (Übersicht: CLAUDE.md). Nur lesen, wenn die Aufgabe di
   - Ansehen ohne Cloud: Seite mit `?demo=1` (Aufträge laufen) bzw. `?demo=frei` öffnen – Beispieldaten nur dann.
   - Seite ändern: Datei bearbeiten und mit dem Artifact-Werkzeug unter derselben URL veröffentlichen
     (äußerer HTML-Rahmen fehlt absichtlich – Claude setzt ihn).
+- **Schaubild in der App**: Kachel + Unterseite `#schaubild` (`schaubildOrder`: thema, stationen, sprache, stil, seitenformat); Stil-Liste im `<select id="sbStil">` stammt aus `cudi_video/data/bildstile.json` – bei neuem Stil dort und hier eine Option ergänzen.
