@@ -16,6 +16,7 @@ CUDI Video (`cudi_video/`): kostenlose Hochformat-Videos (1080×1920, DE + EN) f
 | Clips (Erlaubnis, Scout, Twitch) | `docs/gehirn/clip.md` | `clip-engine` |
 | Firma-Mitarbeiter auf GitHub, Briefing, Eigentümer | `docs/gehirn/firma.md` | `firma-mitarbeiter` |
 | Tempo, Kosten, Ausweichwege | `docs/gehirn/betrieb.md` | `tempo`, `ausweg-finden` |
+| Gelerntes aus Beispielvideos (Schaubild-Stil, 7 Content-Gesetze) | `docs/gehirn/vorbilder.md` | – |
 | Auftrags- und Berichtsvorlage | `docs/kommunikation.md` | `pruefen-und-mergen` |
 
 **Pflicht für alle (Hauptsitzung, Agenten, künftige Sitzungen):**
@@ -35,6 +36,7 @@ sparsam · keine Zugangsdaten ausgeben oder ins Repo · Fokus deutschsprachig ·
 
 - Erst prüfen, ob ein Skill passt – dann macht die Hauptsitzung es selbst. Agenten nur für große, abgegrenzte Pakete:
   mechanisch → **haiku**, Neuentwicklung → **sonnet**. Höchstens **2 gleichzeitig**, jeder im eigenen Worktree.
+- **Neue Funktionen und neue Videoarten baut die Hauptsitzung selbst** (Wunsch des Nutzers) – Agenten nur für Pflege, Prüfung und wiederkehrende Arbeit.
 - Kleine Änderungen (ein Fehler, eine Datei, Doku) nie an einen Agenten geben – der Start kostet mehr als die Arbeit.
 - Keine Wiederholungen: nichts erneut lesen, was schon im Gespräch oder im Gehirn steht; keine Probeläufe ohne neue Frage.
 - Tests gezielt: nur betroffene Testdateien, die ganze Suite (`python -m pytest tests -q`) einmal vor dem Merge.

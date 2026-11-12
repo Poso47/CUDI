@@ -289,3 +289,4 @@ def test_other_errors_are_not_retried(tmp_path, monkeypatch):
     waits = []
     code, data = nb.run_with_retry(order, run=lambda *a, **k: (1, {"ok": False, "fehler": "Quellen fehlen"}), sleep=waits.append)
     assert waits == [] and code == 1
+

@@ -213,7 +213,7 @@
   .ofcard ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
   .ofcard li { display: grid; gap: 6px; justify-items: start; font-size: 14px; }
   .ofcard .acts { display: flex; gap: 8px; flex-wrap: wrap; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .chips button { min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink); color: var(--paper);
                   font: 700 13px var(--body); display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
   .chips button i { width: 10px; height: 10px; border-radius: 3px; flex: none; }
@@ -225,6 +225,60 @@
   .stdet summary { min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; }
   .stdet .stbody { display: grid; gap: 8px; padding-top: 8px; }
   .ofcard .x { min-width: 44px; min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--paper); font: 700 18px var(--body); cursor: pointer; }
+
+
+  /* Firma: Ordnung – Kopfzeile, Abteilungen, Tagesplan */
+  .fhead { border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: var(--ink); display: grid; gap: 10px; }
+  .fhead.ok { border-color: var(--ok); } .fhead.warn { border-color: var(--warn); } .fhead.bad { border-color: var(--bad); }
+  .ampel { display: flex; align-items: center; gap: 10px; font: 800 20px/1.2 var(--body); margin: 0; }
+  .ampel i { width: 18px; height: 18px; border-radius: 50%; flex: none; background: var(--muted); }
+  .ok .ampel i { background: var(--ok); } .warn .ampel i { background: var(--warn); } .bad .ampel i { background: var(--bad); border-radius: 4px; transform: rotate(45deg); }
+  .fhead p { margin: 0; } .fhead .fnext { color: var(--muted); font-size: 14px; }
+  .fprobs { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .fprobs li { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: nowrap; border-top: 1px solid var(--line); padding-top: 6px; min-height: 44px; }
+  .fprobs .who { display: grid; gap: 0; min-width: 0; flex: 1 1 0; } .fprobs .meta { font-size: 12px; color: var(--muted); } .fprobs .btn { flex: none; padding: 0 12px; } .fprobs .who b { overflow-wrap: anywhere; font-size: 14px; }
+  .fprobs .btn, .fhead .btn { min-height: 44px; }
+  .deptbar button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .deptbar button { padding: 0 10px; font-size: 13px; }
+  .depts { display: grid; gap: 10px; }
+  details.dept { border: 1px solid var(--line); border-radius: 14px; background: var(--ink); border-left-width: 6px; }
+  details.dept > summary { min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px; cursor: pointer; font: 800 15px var(--body); list-style: none; }
+  details.dept > summary::-webkit-details-marker { display: none; }
+  details.dept > summary .sub { display: block; font: 400 12px var(--body); color: var(--muted); }
+  details.dept > .inner { display: grid; gap: 10px; padding: 0 10px 12px; }
+  details.dept .desc { margin: 0; color: var(--muted); font-size: 13px; }
+  .onkel { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+  .onkel > summary { min-height: 56px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; list-style: none; }
+  .onkel > summary::-webkit-details-marker { display: none; }
+  .onkel > summary .sub { display: block; font: 400 12px var(--body); color: var(--muted); }
+  .onkel > .stbody { padding: 0 12px 12px; display: grid; gap: 8px; }
+  dl.facts { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; font-size: 13px; }
+  dl.facts dt { color: var(--muted); } dl.facts dd { margin: 0; overflow-wrap: anywhere; }
+  .dayplan { border: 1px solid var(--line); border-radius: 14px; background: var(--ink); overflow: hidden; display: grid; }
+  .plan { position: relative; display: grid; }
+  .plan .row { display: grid; grid-template-columns: 104px 1fr; align-items: center; min-height: 44px; border-top: 1px solid var(--line); }
+  .plan .row.dh { background: color-mix(in srgb, var(--dc, var(--accent)) 16%, var(--ink)); min-height: 44px; border-left: 6px solid var(--dc, var(--accent)); grid-template-columns: 1fr; }
+  .plan .row.dh button { width: 100%; min-height: 44px; text-align: left; padding: 0 8px; border: 0; background: none; color: var(--paper); font: 800 13px var(--body); cursor: pointer; }
+  .plan .row.ax { border-top: 0; min-height: 32px; font-size: 11px; color: var(--muted); }
+  .plan .lab { padding: 0 8px; font: 700 12px/1.2 var(--body); overflow-wrap: anywhere; }
+  .plan .track { position: relative; height: 44px; margin: 0 14px; background: repeating-linear-gradient(to right, transparent 0, transparent calc(25% - 1px), var(--line) calc(25% - 1px), var(--line) 25%); }
+  .plan .ax .track { height: 32px; background: none; }
+  .plan .ax .track span { position: absolute; top: 8px; transform: translateX(-50%); }
+  .plan .mk { position: absolute; top: 0; width: 30px; height: 44px; margin-left: -15px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
+  .plan .mk b { width: 16px; height: 16px; border-radius: 50%; display: grid; place-items: center; font: 800 10px/1 var(--body); color: var(--on-accent); border: 2px solid var(--muted); background: transparent; }
+  .plan .mk[data-s="ok"] b { background: var(--ok); border-color: var(--ok); }
+  .plan .mk[data-s="bad"] b { background: var(--bad); border-color: var(--bad); border-radius: 3px; transform: rotate(45deg); }
+  .plan .mk[data-s="bad"] b span { transform: rotate(-45deg); }
+  .plan .mk[data-s="work"] b { background: var(--accent); border-color: var(--accent); }
+  .plan .mk[data-s="past"] b { width: 8px; height: 8px; background: var(--muted); border-color: var(--muted); opacity: .6; }
+  .plan .mk[data-s="miss"] b { border-color: var(--warn); color: var(--warn); }
+  .plan .mk[data-s="plan"] b { border-color: var(--muted); }
+  .plan .mk[data-n="1"] b { width: 22px; height: 22px; border: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 25%, transparent); }
+  .plan .mk:focus-visible, .ofbar button:focus-visible, .chips button:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+  .plan .now { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--bad); pointer-events: none; left: calc(104px + 14px + (100% - 104px - 28px) * var(--p)); }
+  .plan .now::before { content: "jetzt"; position: absolute; top: 2px; left: 4px; font: 800 10px var(--body); color: var(--bad); }
+  .planinfo { margin: 0; padding: 10px 12px; border-top: 1px solid var(--line); font-size: 13px; min-height: 44px; }
+  .planlegend { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 8px 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
 
   /* ---------- Überarbeitung: Start, Tab-Leiste, Briefing, Kommunikation ---------- */
   .boss h3, .staffh, .result h3, .review h4, .skel .lang, .stat b, .ofcard h3, .ofcard h4, ol.steps li::before { font-family: var(--body); }
@@ -329,6 +383,7 @@
     <div class="tiles">
       <button type="button" class="tile" data-go="ranking"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b>Ranking</b><span class="sub">Top-Liste mit geprüften Fakten</span></span></button>
       <button type="button" class="tile" data-go="fakten"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6zM9 12l2 2 4-4"/></svg></span><span><b>Fakten</b><span class="sub">Frei gewähltes Thema, jede Zahl geprüft</span></span></button>
+      <button type="button" class="tile" data-go="schaubild"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M4 4l3 3M20 20l-3-3"/></svg></span><span><b>Schaubild</b><span class="sub">Erklärt in Stationen, 21 Bildstile</span></span></button>
       <button type="button" class="tile" data-go="story"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg></span><span><b>Story</b><span class="sub">Reddit-Story in deiner Stimmung</span></span></button>
       <button type="button" class="tile" data-go="reportage"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12v14H6a2 2 0 0 1-2-2zM16 8h4v9a2 2 0 0 1-2 2M7 9h6M7 13h6"/></svg></span><span><b>Reportage</b><span class="sub">Sachlich, mit mindestens zwei Quellen</span></span></button>
       <button type="button" class="tile" data-go="satire"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 3 4 3 4-3 4-3M9 9h.01M15 9h.01"/></svg></span><span><b>Satire</b><span class="sub">Echte Meldung, erkennbar überspitzt</span></span></button>
@@ -441,6 +496,41 @@
       </div>
     </form>
   </section>
+
+  <section class="card" id="schaubild" role="tabpanel" aria-labelledby="tab-start" hidden>
+    <button type="button" class="back" data-go="start" aria-label="Zurück zum Start"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Start</button>
+    <h2>Schaubild-Video</h2>
+    <p class="lead">Erklärt ein Thema in Stationen: je Station ein Bild im gewählten Stil, eine belegte Zahl und Etiketten. Jede Aussage braucht einen wörtlichen Beleg, sonst fliegt sie raus. Die Bilder sind Illustrationen und so gekennzeichnet; sie bewegen sich durch Zoom und Kamerafahrt, Figuren laufen nicht.</p>
+    <form id="schaubildForm" novalidate>
+      <div style="display:grid;gap:12px">
+        <div>
+          <label for="sbTopic">Thema oder Frage</label>
+          <input id="sbTopic" type="text" maxlength="160" placeholder="z. B. Wie entsteht ein Ei im Huhn?" autocomplete="off" aria-describedby="schaubildMsg">
+        </div>
+        <div>
+          <label for="sbStil">Bildstil</label>
+          <select id="sbStil"><option value="schaubild" selected>Schaubild – glänzende 3D-Illustration (Standard)</option><option value="auto">Automatisch – passend zum Thema</option><option value="cartoon2d">2D-Cartoon – Farbenfrohe Cartoon-Bilder mit klaren Konturen und sympathischen Figuren.</option><option value="film3d">3D-Animationsfilm – Stilisierte 3D-Figuren mit weichem Licht und Tiefenschärfe wie im Animationsfilm.</option><option value="motiongraphics">Motion Graphics – Animierte Formen, Linien und Zahlen – ganz ohne Bilder, exakt zur Stimme.</option><option value="anime">Anime – Anime-inspirierte Bilder mit dramatischem Licht und detaillierten Hintergründen.</option><option value="whiteboard">Whiteboard – Schwarze Zeichnung mit Farbakzent, die sich Strich für Strich aufdeckt.</option><option value="isometrisch">Isometrisch – Kleine isometrische 3D-Welten in fester 45-Grad-Ansicht.</option><option value="papercut">Paper-Cut – Papierschichten mit weichen Schatten, bewegt wie Stop-Motion aus Papier.</option><option value="claymation">Claymation – Knetfiguren in Miniaturkulisse, warme Beleuchtung, ruckelnde Einzelbilder.</option><option value="cyberpunk">Cyberpunk – Neonfarben, Hologramme und dunkle futuristische Kulissen.</option><option value="linien">Linienanimation – Feine Linien bauen sich zur Stimme auf – reduziert, zwei Farben.</option><option value="doku">Doku-Stil – Dunkel, dramatisch beleuchtet, mit Nebel – geheimnisvoll und hochwertig.</option><option value="wissenschaft3d">Wissenschaft 3D – Sachliche 3D-Darstellung von Vorgängen in Nahaufnahme.</option><option value="retro">Retro-Zeichentrick – Handgezeichnet, leicht körnig, Vintage-Farben wie alte Trickfilme.</option><option value="comic">Comic – Panels, Sprechblasen-Etiketten, kräftige Outlines und Rasterpunkte.</option><option value="liquid">Liquid Motion – Fließende Farbverläufe und weiche, organische Formen.</option><option value="lowpoly">Low-Poly – Polygonale Figuren und Landschaften mit klaren Lichtflächen.</option><option value="typografie">Typografie – Wörter und Zahlen spielen die Hauptrolle, synchron zur Stimme.</option><option value="surreal">Surreal – Traumartige Bilder mit unmöglichen Perspektiven und Metaphern.</option><option value="parallax25d">2.5D-Parallax – Illustration in Ebenen mit Tiefenwirkung durch sanfte Kamerabewegung.</option><option value="stopmotion">Stop-Motion – Handgemachte Miniaturwelt mit echten Materialien, sichtbare Einzelbilder.</option></select>
+        </div>
+        <div>
+          <label for="sbFormat">Format</label>
+          <select id="sbFormat"><option value="9:16" selected>Hochformat 9:16 – TikTok und Shorts</option><option value="16:9">Querformat 16:9 – YouTube</option></select>
+        </div>
+        <details class="mehr"><summary>Mehr Optionen</summary><div class="inner">
+          <div>
+            <label for="sbCount">Stationen (3 bis 9)</label>
+            <input id="sbCount" type="number" min="3" max="9" value="6" inputmode="numeric">
+          </div>
+          <div>
+            <label for="sbLang">Sprache</label>
+            <select id="sbLang"><option value="de" selected>Deutsch</option><option value="en">Englisch</option></select>
+          </div>
+        </div></details>
+        <button class="go" id="schaubildGo" type="submit">Schaubild-Video erstellen</button>
+        <p class="note" id="schaubildMsg" hidden role="status"></p>
+      </div>
+    </form>
+  </section>
+
 
   <!-- Story -->
   <section class="card" id="story" role="tabpanel" aria-labelledby="tab-start" hidden>
@@ -661,24 +751,25 @@
   <!-- Firma -->
   <section class="card" id="firma" role="tabpanel" aria-labelledby="tab-firma" hidden>
     <h2>Firma</h2>
-    <p class="lead">Jeder Auftrag ist ein Mitarbeiter, dazu arbeiten die GitHub-Onkels an ihren Stationen. Der Projektleiter wacht darüber – gerechnet wird nur hier im Browser, ohne zusätzliche Claude-Aufrufe.</p>
+    <div class="fhead" id="firmaHead" aria-live="polite"></div>
     <p class="note" id="firmaMsg" hidden role="status"></p>
     <div class="ofbar" id="officeBar" role="group" aria-label="Ansicht der Firma"></div>
     <div class="office" id="office" hidden>
       <div class="stage"><canvas id="officeCv" tabindex="0" role="img"
-        aria-label="3D-Büro mit Onkels: jeder Auftrag ist ein Mitarbeiter am Schreibtisch, der Projektleiter steht in der Mitte, die GitHub-Mitarbeiter arbeiten an Stationen ringsum. Dieselben Angaben stehen in der Listenansicht."></canvas></div>
-      <div class="chips" id="stationChips" role="group" aria-label="Stationen der GitHub-Mitarbeiter"></div>
-      <p class="meta" id="stationNote"></p>
-      <div class="ofcard" id="officeCard" hidden aria-live="polite"></div>
-      <p class="meta">Ziehen dreht das Büro, zwei Finger zoomen, eine Figur antippen öffnet ihre Karte.</p>
+        aria-label="3D-Büro mit Onkels in sechs Abteilungen: Leitung, Recherche und Nachrichten, Planung, Produktion, Clip-Team, Auswertung und Pflege. Jede Abteilung hat ein Schild. Dieselben Angaben stehen in der Listenansicht und im Tagesplan."></canvas></div>
+    </div>
+    <div class="chips deptbar" id="deptChips" role="group" aria-label="Abteilungen: antippen zeigt nur diese Abteilung"></div>
+    <div class="chips" id="stationChips" role="group" aria-label="Mitarbeiter der gewählten Abteilung"></div>
+    <div class="office" id="officeHelp" hidden>
+      <p class="meta">Ziehen dreht das Büro, zwei Finger zoomen. Ein Abteilungsschild oder die Knöpfe oben zoomen auf die Abteilung, eine Figur öffnet ihre Karte.</p>
       <div class="legend" aria-hidden="true"><span><i style="background:#2fd6f0"></i>Rechercheur &amp; Autor</span><span><i style="background:#a78bfa"></i>Faktenprüfer</span><span><i style="background:#f472b6"></i>Story-Autor</span><span><i style="background:#fb923c"></i>Clipper</span><span><i style="background:#d9b25c"></i>Stationen: Trend, News, Ideen, Wissen, Lernen, Wahrheit, Putzen, Welt, Briefing, Clip-Scout, Messung (je nach Daten)</span></div>
     </div>
-    <div class="boss" id="boss"></div>
+    <div class="ofcard" id="officeCard" hidden aria-live="polite"></div>
+    <div class="dayplan" id="dayPlan" hidden></div>
     <div class="stats" id="stats"></div>
-    <h3 class="staffh" id="staffTitle">Mitarbeiter</h3>
-    <ul class="staff" id="staff"></ul>
-    <h3 class="staffh" id="stationTitle">Stationen (GitHub-Mitarbeiter)</h3>
-    <ul class="staff" id="stationList"></ul>
+    <div class="boss" id="boss"></div>
+    <div class="depts" id="deptList"></div>
+    <p class="meta" id="stationNote"></p>
   </section>
 
   <!-- Briefing -->
@@ -797,7 +888,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
 
   /* ---------- Bereiche: untere Tab-Leiste + Unterseiten des Starts (mit #name in der Adresse) ---------- */
   const NAVTABS = ["start", "videos", "firma", "briefing", "kommunikation"];
-  const SUBPAGES = ["ranking", "fakten", "story", "reportage", "satire", "erklaer", "clips", "app"];
+  const SUBPAGES = ["ranking", "fakten", "schaubild", "story", "reportage", "satire", "erklaer", "clips", "app"];
   const TABS = NAVTABS.concat(SUBPAGES);
   let currentTab = "start";
   function showTab(name) {
@@ -865,6 +956,13 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
                streng: $("strict").checked, nur_skript: $("onlyScript").checked, laenge: long ? "lang" : "",
                maskottchen: $("mascotRank").checked, format: $("format").value },
     };
+  }
+  function schaubildOrder() {
+    const topic = $("sbTopic").value.trim().replace(/\s+/g, " ").slice(0, 160);
+    if (topic.length < 3) return { error: "Bitte ein Thema nennen (mindestens 3 Zeichen), z. B. „Wie entsteht ein Ei im Huhn?“." };
+    const raw = $("sbCount").value.trim(), count = Number(raw);
+    if (!raw || !Number.isInteger(count) || count < 3 || count > 9) return { error: "Stationen: bitte eine ganze Zahl von 3 bis 9." };
+    return { label: "Schaubild: " + topic, order: { art: "schaubild", thema: topic, stationen: count, sprache: $("sbLang").value, stil: $("sbStil").value, seitenformat: $("sbFormat").value } };
   }
   function faktenOrder() {
     const topic = $("factTopic").value.trim().replace(/\s+/g, " ").slice(0, 120);
@@ -998,7 +1096,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (o.art === "clip") return 30;                                    // ein Short bis 3 Minuten, App-Fassung ≤ 19 MB
     const per = o.laenge === "lang" ? 160 : 20;                         // lange Videos bis ~150 MB
     const videos = o.art === "ranking" ? Math.max(1, (o.sprachen || []).length)
-      : o.art === "fakten" ? 1
+      : (o.art === "fakten" || o.art === "schaubild") ? 1
       : (o.laenge === "teile" ? 6 : 2);
     return videos * per + 10;
   }
@@ -1072,6 +1170,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     }
   }
 
+  $("schaubildForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(schaubildOrder(), "schaubildMsg", $("schaubildGo")); });
   $("faktenForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(faktenOrder(), "faktenMsg", $("faktenGo")); });
   $("rankingForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(rankingOrder(), "rankingMsg", $("rankingGo")); });
   $("reportForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(reportageOrder(), "reportMsg", $("reportGo")); });
@@ -1174,7 +1273,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   // Die letzten Bewertungen als „Vorlieben“ für den nächsten Auftrag (Claude lernt daraus; die Varianten steuern die Experimente)
   function preferences() {
     const all = [...ratings.values()].sort((a, b) => String(b.zeit || "").localeCompare(String(a.zeit || "")));
-    const line = (r) => [{ story: "Story", clip: "Clip", fakten: "Fakten", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[r.art] || "Ranking", r.titel || r.thema].filter(Boolean).join(": ") + (r.notiz ? " – " + r.notiz : "");
+    const line = (r) => [{ story: "Story", clip: "Clip", fakten: "Fakten", schaubild: "Schaubild", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[r.art] || "Ranking", r.titel || r.thema].filter(Boolean).join(": ") + (r.notiz ? " – " + r.notiz : "");
     const gut = all.filter((r) => r.wert === 1).slice(0, 8).map(line);
     const schlecht = all.filter((r) => r.wert === -1).slice(0, 8).map(line);
     const vg = all.filter((r) => r.wert === 1 && r.varianten).slice(0, 8).map((r) => r.varianten);
@@ -1914,7 +2013,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const p = document.createElement("span"); p.className = "pill " + LABEL[state][1]; p.textContent = LABEL[state][0];
     top.append(title, p);
     const meta = document.createElement("div"); meta.className = "meta";
-    meta.textContent = [{ story: "Story", ranking: "Ranking", fakten: "Fakten", clip: "Clip", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[job.art] || "", when(job.gestartet || (res && res.fertig))]
+    meta.textContent = [{ story: "Story", ranking: "Ranking", fakten: "Fakten", schaubild: "Schaubild", clip: "Clip", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[job.art] || "", when(job.gestartet || (res && res.fertig))]
       .filter(Boolean).join(" · ");
     li.append(top, meta);
     const perm = (job.art === "clip" || (job.auftrag && job.auftrag.art === "clip")) ? permissionOf(res) : "";
@@ -2136,12 +2235,13 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   }
   function h(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
-  const ROLES = { ranking: ["Rechercheur & Autor", "book"], fakten: ["Faktenprüfer", "shield"], story: ["Story-Autor", "pen"], clip: ["Clipper", "film"], reportage: ["Reporter", "pen"], satire: ["Satiriker", "pen"] };
+  const ROLES = { ranking: ["Rechercheur & Autor", "book"], fakten: ["Faktenprüfer", "shield"], schaubild: ["Schaubild-Zeichner", "pen"], story: ["Story-Autor", "pen"], clip: ["Clipper", "film"], reportage: ["Reporter", "pen"], satire: ["Satiriker", "pen"] };
   function roleOf(job) {
     const o = (job && job.auftrag) || {};
     const art = (job && job.art) || o.art || "";
     if (art === "story") return ROLES.story;
     if (art === "fakten") return ROLES.fakten;
+    if (art === "schaubild") return ROLES.schaubild;
     if (art === "clip") return ROLES.clip;
     if (art === "reportage") return ROLES.reportage;
     if (art === "satire") return ROLES.satire;
@@ -2265,23 +2365,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const m = firmaModel();
     updateBanner(m);
     if ($("firma").hidden) return;
-    // Projektleiter
+    // Projektleiter: Probleme stehen in der Kopfzeile; hier nur Vorschläge, wenn alle frei sind, und Benachrichtigungen
     const boss = $("boss"); boss.textContent = "";
-    const problems = m.hung.length + m.half.length;
-    boss.className = "boss" + (problems ? " alarm" : "");
-    const head = h("h3"); head.append(icon(problems ? "alert" : "user"), document.createTextNode("Projektleiter"));
-    boss.append(head);
-    if (problems) {
-      const ul = h("ul");
-      [...m.hung, ...m.half.filter((e) => !e.hung)].forEach((e) => {
-        const li = h("li"); li.append(h("b", "", (e.hung ? "Hängt: " : "Halbe Arbeit: ") + e.name), h("span", "meta", e.reason));
-        if (e.job.auftrag) li.append(restartBtn(e));
-        ul.append(li);
-      });
-      boss.append(ul);
-    } else boss.append(h("p", "hint", jobs.size ? "Alles im Plan – keine hängenden Aufträge, keine halbe Arbeit." : "Noch keine Mitarbeiter. Starte ein Video oder nimm einen Vorschlag."));
+    boss.className = "boss";
     if (!m.working) {
-      boss.append(h("p", "", "Alle Mitarbeiter sind frei."), h("p", "hint", "Drei Vorschläge – ein Tipp startet das Video."));
+      const head = h("h3"); head.append(icon("user"), document.createTextNode("Projektleiter"));
+      boss.append(head, h("p", "", "Alle Mitarbeiter in der Produktion sind frei."), h("p", "hint", "Drei Vorschläge – ein Tipp startet das Video."));
       const ul = h("ul");
       suggestions().forEach((sg) => {
         const li = h("li"); li.append(h("b", "", sg.title), h("span", "meta", sg.why));
@@ -2298,26 +2387,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         boss.append(nb);
       }
     } catch (e) { /* kein Notification-Objekt */ }
+    boss.hidden = !boss.childNodes.length;
     // Statistik
     const st = $("stats"); st.textContent = "";
     const tile = (v, l) => { const d = h("div", "stat"); d.append(h("b", "", v), h("span", "", l)); st.append(d); };
     tile(String(m.stat.today), "Videos heute"); tile(String(m.stat.week), "Videos diese Woche");
     tile(m.stat.up == null ? "–" : m.stat.up + " %", "Anteil Daumen hoch"); tile(m.stat.avg == null ? "–" : m.stat.avg + " s", "Ø Dauer");
-    // Mitarbeiter
-    const ul = $("staff"); ul.textContent = "";
-    $("staffTitle").textContent = "Mitarbeiter (" + m.staff.length + ")";
-    if (!m.staff.length) ul.append(h("li", "meta", "Noch niemand angestellt."));
-    m.staff.slice(0, 30).forEach((e) => {
-      const li = h("li"), top = h("div", "top"), who = h("div", "who");
-      const av = h("span", "avatar" + (e.state === "arbeitet" ? " arbeitet" : "")); av.append(icon(e.role[1]));
-      const nm = h("div"); nm.append(h("b", "", e.name), h("div", "meta", e.role[0] + (e.job.gestartet ? " · " + when(e.job.gestartet) : "")));
-      who.append(av, nm);
-      top.append(who, h("span", "pill " + e.pill, e.state));
-      li.append(top);
-      if (e.reason) li.append(h("p", "hint", e.reason));
-      if ((e.hung || e.half) && e.job.auftrag) { const a = h("div", "actions"); a.append(restartBtn(e)); li.append(a); }
-      ul.append(li);
-    });
   }
   /* ---------- Firma: 3D-Büro (nur Ergänzung; gleiche Daten wie die Liste, Liste bleibt Ersatz) ---------- */
   const OFFICE_KEY = "cudiFirmaAnsicht";
@@ -2342,9 +2417,9 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     fetch(FIRMA_PAGES, { cache: "no-store", signal: ac ? ac.signal : undefined }).then((r) => (r.ok ? r.json() : null))
       .then((j) => { clearTimeout(to); setFirma(j, "pages"); settle(); }).catch(() => { clearTimeout(to); settle(); });
   }
-  try { office.pref = localStorage.getItem(OFFICE_KEY) === "liste" ? "liste" : "3d"; } catch (e) { /* Standard 3D */ }
+  try { const pv = localStorage.getItem(OFFICE_KEY); office.pref = pv === "liste" || pv === "plan" ? pv : "3d"; } catch (e) { /* Standard 3D */ }
   const reduceMotion = () => { try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } };
-  const officeMode = () => (office.failed ? "liste" : office.pref);
+  const officeMode = () => (office.failed && office.pref === "3d" ? "liste" : office.pref);
 
   function loadThree() {
     return new Promise((resolve, reject) => {
@@ -2364,18 +2439,20 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     applyOfficeView();
   }
   function applyOfficeView() {
-    const list = officeMode() === "liste";
-    $("office").hidden = list;
-    ["boss", "staffTitle", "staff", "stationTitle", "stationList"].forEach((id) => { $(id).hidden = !list; });
+    const mode = officeMode();
+    $("office").hidden = mode !== "3d"; $("officeHelp").hidden = mode !== "3d";
+    $("dayPlan").hidden = mode !== "plan";
+    $("deptList").hidden = mode !== "liste";
+    $("stats").hidden = mode !== "liste";
     const bar = $("officeBar"); bar.textContent = "";
-    [["3d", "3D"], ["liste", "Liste"]].forEach((p) => {
-      const b = h("button", "", p[1]); b.type = "button"; b.setAttribute("aria-pressed", String(officeMode() === p[0]));
+    [["3d", "3D"], ["liste", "Liste"], ["plan", "Tagesplan"]].forEach((p) => {
+      const b = h("button", "", p[1]); b.type = "button"; b.setAttribute("aria-pressed", String(mode === p[0]));
       if (p[0] === "3d" && office.failed) { b.disabled = true; b.title = "3D ist auf diesem Gerät nicht verfügbar."; }
       b.addEventListener("click", () => {
         if (p[0] === "3d" && office.failed) return;
         office.pref = p[0];
         try { localStorage.setItem(OFFICE_KEY, p[0]); } catch (e) { /* egal */ }
-        applyOfficeView(); updateOffice();
+        applyOfficeView(); updateOffice(); refreshOrdnung();
       });
       bar.append(b);
     });
@@ -2420,12 +2497,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     office.dirty = true;
   }
   function placeCamera() {
-    const c = office.cam, cam = office.camera, T = office.T;
-    const half = (office.extent || 8) * 1.04;
+    const c = office.cam, cam = office.camera, T = office.T, v = office.view || { x: 0, z: 0, e: office.extent || 8 };
+    const half = v.e * 1.04;
     const tv = Math.tan(T.MathUtils.degToRad(cam.fov / 2));
     const dist = Math.max(half / tv, half / (tv * cam.aspect)) * 1.02 * c.zoom;
-    cam.position.set(Math.sin(c.th) * Math.sin(c.ph) * dist, Math.cos(c.ph) * dist + 0.8, Math.cos(c.th) * Math.sin(c.ph) * dist);
-    cam.lookAt(0, 0.8, 0);
+    cam.position.set(v.x + Math.sin(c.th) * Math.sin(c.ph) * dist, Math.cos(c.ph) * dist + 0.8, v.z + Math.cos(c.th) * Math.sin(c.ph) * dist);
+    cam.lookAt(v.x, 0.8, v.z);
   }
 
   /* --- Eingabe: Ziehen dreht (Maus: auch kippen; Touch: waagerecht, senkrecht scrollt die Seite), Zwei Finger/Rad zoomen, Tippen wählt --- */
@@ -2471,8 +2548,11 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const cv = $("officeCv"), rc = cv.getBoundingClientRect(), T = office.T;
     const v = new T.Vector2(((cx - rc.left) / rc.width) * 2 - 1, -((cy - rc.top) / rc.height) * 2 + 1);
     office.ray.setFromCamera(v, office.camera);
-    const hits = office.ray.intersectObjects(office.slots.map((s) => s.hit), false);
-    if (hits.length) { office.sel = hits[0].object.userData.key; office.dirty = true; showOfficeCard(); }
+    const hits = office.ray.intersectObjects(office.hits || [], false);
+    if (!hits.length) return;
+    const key = hits[0].object.userData.key;
+    if (String(key).indexOf("z:") === 0) { setDept(key.slice(2)); return; }
+    office.sel = key; office.dirty = true; ui.dept = ui.dept; refreshOrdnung(); showOfficeCard();
   }
 
   /* --- Szene --- */
@@ -2597,45 +2677,73 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       sph(pl, 0x2f8f5b, 0.55, 0.5, 0.55, 0, 0.95, 0); sph(pl, 0x3fb06f, 0.38, 0.4, 0.38, 0.12, 1.35, 0.05); sph(pl, 0x2a7a4d, 0.3, 0.3, 0.3, -0.2, 1.5, -0.1);
     }
   }
-  function arcade(world, half) {                                    // niedrige Arkade mit Bögen und Laternen rundum
-    const T = office.T, step = 3.0, per = Math.max(4, Math.round((half * 2) / step)), w = (half * 2) / per;
+  function arcade(world, hx, hz) {                                  // niedrige Arkade mit Bögen und Laternen rundum
+    const T = office.T, step = 3.0;
     const archGeo = geo("arch", () => new T.TorusGeometry(1, 0.1, 6, 16, Math.PI));
     const SAND = 0xcdb48a, TILE = 0x2a5a6a;
     for (let s = 0; s < 4; s++) {
+      const sp = s % 2 ? hz : hx, ds = s % 2 ? hx : hz, per = Math.max(4, Math.round((sp * 2) / step)), w = (sp * 2) / per;
       const sg = new T.Group(); sg.rotation.y = s * Math.PI / 2; world.add(sg);
-      box(sg, half * 2 + 0.4, 0.9, 0.12, TILE, 0, 0.45, -half - 0.12);                          // Wandfliesen
-      box(sg, half * 2 + 0.4, 0.08, 0.16, GOLD, 0, 0.92, -half - 0.1);
+      box(sg, sp * 2 + 0.4, 0.9, 0.12, TILE, 0, 0.45, -ds - 0.12);                          // Wandfliesen
+      box(sg, sp * 2 + 0.4, 0.08, 0.16, GOLD, 0, 0.92, -ds - 0.1);
       for (let k = 0; k < per; k++) {
-        const u = -half + k * w, uc = u + w / 2;
-        box(sg, 0.34, 2.3, 0.34, SAND, u, 1.15, -half); box(sg, 0.5, 0.2, 0.5, 0xb89c6e, u, 0.1, -half); box(sg, 0.46, 0.16, 0.46, 0xb89c6e, u, 2.3, -half);
-        const arc = new T.Mesh(archGeo, mat(SAND)); arc.scale.set((w - 0.34) / 2, 0.75 * (w - 0.34) / 2, 1); arc.position.set(uc, 2.35, -half); sg.add(arc);
+        const u = -sp + k * w, uc = u + w / 2;
+        box(sg, 0.34, 2.3, 0.34, SAND, u, 1.15, -ds); box(sg, 0.5, 0.2, 0.5, 0xb89c6e, u, 0.1, -ds); box(sg, 0.46, 0.16, 0.46, 0xb89c6e, u, 2.3, -ds);
+        const arc = new T.Mesh(archGeo, mat(SAND)); arc.scale.set((w - 0.34) / 2, 0.75 * (w - 0.34) / 2, 1); arc.position.set(uc, 2.35, -ds); sg.add(arc);
         if (k % 2 === 0) {                                                                  // Laterne
-          const ly = 2.05, lz = -half + 0.5;
+          const ly = 2.05, lz = -ds + 0.5;
           cyl(sg, 0x7a5a2a, 0.17, 0.05, 0.17, uc, ly + 0.25, lz); cyl(sg, 0xffc266, 0.13, 0.38, 0.13, uc, ly, lz); cyl(sg, 0x7a5a2a, 0.17, 0.05, 0.17, uc, ly - 0.22, lz);
-          const sp = new T.Sprite(new T.SpriteMaterial({ map: office.glowTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, opacity: 0.8 }));
-          sp.scale.set(1.5, 1.5, 1); sp.position.set(uc, ly, lz); sp.userData.own = true; sg.add(sp);
+          const spr = new T.Sprite(new T.SpriteMaterial({ map: office.glowTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, opacity: 0.8 }));
+          spr.scale.set(1.5, 1.5, 1); spr.position.set(uc, ly, lz); spr.userData.own = true; sg.add(spr);
         }
       }
-      box(sg, 0.34, 2.3, 0.34, SAND, half, 1.15, -half);
+      box(sg, 0.34, 2.3, 0.34, SAND, sp, 1.15, -ds);
     }
   }
 
   /* --- Stationen der GitHub-Mitarbeiter --- */
-  const STATIONS = [
-    { key: "trends",   name: "Trend-Onkel",      role: "Trend-Scout",              color: 0x2fd6f0, look: 1, tea: [-2.6, 0.3] },
-    { key: "news",     name: "News-Onkel",       role: "News-Reporter",            color: 0xf5b23d, look: 3, tea: [1.5, 0.2] },
-    { key: "ideen",    name: "Ideen-Onkel",      role: "Ideen-Entwickler",         color: 0xf472b6, look: 0, tea: [-2.4, 0.4] },
-    { key: "wissen",   name: "Wissens-Onkel",    role: "Wissens- & Marketing-Onkel", color: 0xa78bfa, look: 5, tea: [-2.0, 0.5] },
-    { key: "lernen",   name: "Lern-Analyst",     role: "Lern-Analyst",             color: 0x4ade80, look: 2, tea: [1.8, 0.4] },
-    { key: "wahrheit", name: "Wahrheits-Prüfer", role: "Wahrheits-Prüfer",         color: 0xfb923c, look: 4, tea: [-1.7, 0.5] },
-    { key: "putzen",   name: "Putz-Onkel",       role: "Putzmann",                 color: 0x9aa3b8, look: 1, walker: true },
+  /* Abteilungen: fester Platz im Büro, gleiche Gruppierung in Liste und Tagesplan */
+  const DEPTS = [
+    { key: "leitung",    name: "Leitung",                 short: "Leitung",    color: 0xf5b23d, desc: "Der Projektleiter wacht über alle Abteilungen und meldet, wo du eingreifen musst." },
+    { key: "recherche",  name: "Recherche & Nachrichten", short: "Recherche",  color: 0x2fd6f0, desc: "Sammelt, was gerade passiert, und prüft es gegen mehrere unabhängige Quellen." },
+    { key: "planung",    name: "Planung",                 short: "Planung",    color: 0xf472b6, desc: "Macht aus den Funden Ideen, das Morgen-Briefing und die Regeln für gute Videos." },
+    { key: "produktion", name: "Produktion",              short: "Produktion", color: 0x4ade80, desc: "Jeder Video-Auftrag ist ein Onkel am Schreibtisch; freie Plätze sind sichtbar." },
+    { key: "clip",       name: "Clip-Team",               short: "Clip-Team",  color: 0xfb923c, desc: "Beobachtet erlaubte Creator und misst, wie eigene Posts laufen." },
+    { key: "pflege",     name: "Auswertung & Pflege",     short: "Pflege",     color: 0xa78bfa, desc: "Lernt aus Bewertungen, prüft die Wahrheit und räumt auf." },
+  ];
+  const deptOf = (key) => DEPTS.find((x) => x.key === key) || DEPTS[0];
+  const hexCss = (n) => "#" + n.toString(16).padStart(6, "0");
+  const EVERY3 = [0, 3, 6, 9, 12, 15, 18, 21], EVERY6 = [0, 6, 12, 18];
+  const STATIONS = [                                                // sched = Plan in UTC (Workflows); ohne sched: läuft mit jedem Video
+    { key: "trends",   name: "Trend-Onkel",      role: "Trend-Scout",              color: 0x2fd6f0, look: 1, tea: [-2.6, 0.3], dept: "recherche", sched: { m: 7, h: EVERY3 },
+      task: "Sucht, was gerade im Netz gefragt ist (YouTube, Google, Wikipedia, Reddit)." },
+    { key: "news",     name: "News-Onkel",       role: "News-Reporter",            color: 0xf5b23d, look: 3, tea: [1.5, 0.2], dept: "recherche", sched: { m: 37, h: EVERY3 },
+      task: "Sammelt Nachrichten; „bestätigt“ gilt erst, wenn mindestens zwei unabhängige Quellen es bringen." },
+    { key: "ideen",    name: "Ideen-Onkel",      role: "Ideen-Entwickler",         color: 0xf472b6, look: 0, tea: [-2.4, 0.4], dept: "planung", sched: { m: 23, h: [5] },
+      task: "Macht aus Trends und bestätigten Meldungen fertige Video-Ideen zum Starten." },
+    { key: "wissen",   name: "Wissens-Onkel",    role: "Wissens- & Marketing-Onkel", color: 0xa78bfa, look: 5, tea: [-2.0, 0.5], dept: "planung", sched: { m: 41, h: [4], dow: 1 },
+      task: "Liest wöchentlich Quellen und lernt Regeln für gute Hooks und Aufbau." },
+    { key: "lernen",   name: "Lern-Analyst",     role: "Lern-Analyst",             color: 0x4ade80, look: 2, tea: [1.8, 0.4], dept: "pflege", sched: { m: 41, h: [6] },
+      task: "Liest die Zahlen der veröffentlichten Videos und merkt sich, was ankommt." },
+    { key: "wahrheit", name: "Wahrheits-Prüfer", role: "Wahrheits-Prüfer",         color: 0xfb923c, look: 4, tea: [-1.7, 0.5], dept: "pflege", sched: null,
+      task: "Prüft jedes Video gegen die Daten: nichts behaupten, was nicht belegt ist." },
+    { key: "putzen",   name: "Putz-Onkel",       role: "Putzmann",                 color: 0x9aa3b8, look: 1, walker: true, dept: "pflege", sched: { m: 41, h: [3] },
+      task: "Löscht alte Artefakte und Läufe und hält das Archiv schlank." },
   ];
   const STATIONS_BASE = STATIONS.slice();
   const STATIONS_EXTRA = [                                          // erscheinen nur, wenn der Export Daten dazu hat
-    { key: "welt",      name: "Welt-Onkel",      role: "Welt-Blick",       color: 0x38bdf8, look: 2, tea: [1.7, 0.4] },
-    { key: "briefing",  name: "Briefing-Onkel",  role: "Morgen-Briefing",  color: 0xfacc15, look: 3, tea: [-1.8, 0.5] },
-    { key: "clipscout", name: "Clip-Scout-Onkel", role: "Clip-Scout",      color: 0xfb7185, look: 0, tea: [1.6, 0.5] },
-    { key: "messung",   name: "Mess-Onkel",      role: "Messung",          color: 0x34d399, look: 5, tea: [-1.6, 0.4] },
+    { key: "welt",      name: "Welt-Onkel",      role: "Welt-Blick",       color: 0x38bdf8, look: 2, tea: [1.7, 0.4], dept: "recherche", sched: { m: 23, h: EVERY6 },
+      task: "Prüft, was ausländische Medien über Deutschland berichten." },
+    { key: "recherche", name: "Recherche-Onkel", role: "Rechercheur",      color: 0x22d3ee, look: 4, tea: [-1.8, 0.5], dept: "recherche", sched: { m: 17, h: [6] },
+      task: "Recherchiert die wichtigsten bestätigten Meldungen nach: Seiten lesen, Datum und Eigentümer prüfen." },
+    { key: "vorrecherche", name: "Vorrecherche-Onkel", role: "Vorrecherche", color: 0x60a5fa, look: 5, tea: [1.7, 0.4], dept: "recherche", sched: { m: 41, h: [2] },
+      task: "Erledigt nachts die langsamen Abfragen der Rankings vorab, damit Videos schneller fertig werden." },
+    { key: "briefing",  name: "Briefing-Onkel",  role: "Morgen-Briefing",  color: 0xfacc15, look: 3, tea: [-1.8, 0.5], dept: "planung", sched: { m: 13, h: [5] },
+      task: "Schreibt jeden Morgen die belegten Top-Meldungen mit Links zusammen." },
+    { key: "clipscout", name: "Clip-Scout-Onkel", role: "Clip-Scout",      color: 0xfb7185, look: 0, tea: [1.6, 0.5], dept: "clip", sched: { m: 23, h: EVERY6 },
+      task: "Beobachtet erlaubte Creator und meldet Clips, die gerade stark laufen." },
+    { key: "messung",   name: "Mess-Onkel",      role: "Messung",          color: 0x34d399, look: 5, tea: [-1.6, 0.4], dept: "clip", sched: { m: 41, h: [4] },
+      task: "Misst Aufrufe der eigenen Posts als Zeitreihe." },
   ];
   function stationHasData(def, d) {
     if (!d) return false;
@@ -2667,6 +2775,292 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (!isNaN(age) && age < 15) return { kind: "work", text: "arbeitet" };
     if (!isNaN(due) && Date.now() > due + 3 * 3600e3) return { kind: "wait", text: "überfällig" };
     return { kind: "done", text: isNaN(age) ? "fertig" : agoText(age) };
+  }
+  /* ---------- Ordnung: Zeiten, Probleme, einheitliche Karten, Tagesplan ---------- */
+  const ui = { dept: "", open: new Map(), pick: "" };
+  const DOW = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+  const pad2 = (n) => String(n).padStart(2, "0");
+  const clock = (ms) => { const d = new Date(ms); return pad2(d.getHours()) + ":" + pad2(d.getMinutes()); };
+  const day0Of = (ms) => { const d = new Date(ms); d.setHours(0, 0, 0, 0); return d.getTime(); };
+  function dayWord(ms, now) {
+    const diff = Math.round((day0Of(ms) - day0Of(now)) / 864e5), d = new Date(ms);
+    return diff === 0 ? "heute" : diff === 1 ? "morgen" : diff === -1 ? "gestern" : DOW[d.getDay()] + " " + pad2(d.getDate()) + "." + pad2(d.getMonth() + 1) + ".";
+  }
+  const whenText = (ms, now) => dayWord(ms, now) + " " + clock(ms) + " Uhr";
+  function stationStatus(def) { const d = firma.data; return (d && d.status && d.status[def.key]) || null; }
+  function schedInstants(def, from, to) {                           // UTC-Plan der Workflows -> Zeitpunkte im Fenster [from, to)
+    const s = def.sched; if (!s) return [];
+    const d0 = new Date(from), base = Date.UTC(d0.getUTCFullYear(), d0.getUTCMonth(), d0.getUTCDate()) - 864e5, out = [];
+    for (let k = 0; k < Math.ceil((to - from) / 864e5) + 3; k++) {
+      const day = base + k * 864e5;
+      if (s.dow != null && new Date(day).getUTCDay() !== s.dow) continue;
+      s.h.forEach((hh) => { const t = day + (hh * 60 + s.m) * 60000; if (t >= from && t < to) out.push(t); });
+    }
+    return out.sort((a, b) => a - b);
+  }
+  function nextRunMs(def, now) {
+    const r = schedInstants(def, now, now + 8 * 864e5)[0];
+    if (r) return r;
+    const st = stationStatus(def), due = st ? Date.parse(st.naechste_planung) : NaN;
+    return due > now ? due : 0;
+  }
+  function nextUp(now) {
+    let best = null;
+    STATIONS.forEach((def) => { if (!def.sched) return; const t = nextRunMs(def, now); if (t && (!best || t < best.t)) best = { def: def, t: t }; });
+    return best;
+  }
+  function factsList(rows) {
+    const dl = h("dl", "facts");
+    rows.forEach((r) => { if (r[1] == null || r[1] === "") return; dl.append(h("dt", "", r[0])); const dd = h("dd"); if (r[1] instanceof Node) dd.append(r[1]); else dd.textContent = r[1]; dl.append(dd); });
+    return dl;
+  }
+  function lastRunText(def) {
+    const st = stationStatus(def), now = Date.now();
+    if (!st) {
+      if (def.key === "lernen") { const rs = ratingStats(); if (rs.n) return "liest die Bewertungen in der App (" + rs.n + ")"; }
+      return def.key === "wahrheit" ? "läuft mit jedem Video" : firma.data ? "noch kein Lauf" : "noch keine Daten";
+    }
+    const t = Date.parse(st.letzter_lauf);
+    return (isNaN(t) ? "Zeit unbekannt" : whenText(t, now)) + " · " + (st.ergebnis === "fehler" ? "Fehler" : "ok") + (st.zusammenfassung ? " – " + st.zusammenfassung : "");
+  }
+  function nextRunText(def) {
+    if (!def.sched) return def.key === "wahrheit" ? "bei jedem Video" : "";
+    const t = nextRunMs(def, Date.now()); return t ? whenText(t, Date.now()) + " (Plan)" : "nicht geplant";
+  }
+  function stationFacts(def) {
+    return factsList([["Rolle", def.role], ["Abteilung", deptOf(def.dept).name], ["Aufgabe", def.task], ["Letzter Lauf", lastRunText(def)], ["Nächster Lauf", nextRunText(def)]]);
+  }
+  const ART_TASK = { ranking: "Baut ein Ranking-Video aus geprüften Zahlen.", fakten: "Schreibt ein Fakten-Video; jeder Fakt wird einzeln belegt.", schaubild: "Erklärt ein Thema in Stationen mit Bildern im gewählten Stil.",
+                     story: "Macht aus einer Story ein Video mit Stimme und Bildern.", clip: "Schneidet einen Clip fürs Hochformat.",
+                     reportage: "Schreibt eine sachliche Reportage nur aus belegten Aussagen.", satire: "Macht aus einem bestätigten Kern eine erkennbare Satire.",
+                     erklaer: "Baut ein Erklärvideo aus einem Szenen-Skript." };
+  function jobFacts(e) {
+    const o = (e.job && e.job.auftrag) || {}, art = o.art || (e.job && e.job.art) || "", res = e.res;
+    const vids = res ? (res.videos || []).filter((v) => v && v.video_url).length : 0;
+    let last = e.job && e.job.gestartet ? "gestartet " + when(e.job.gestartet) : "";
+    last += (last ? " · " : "") + (res ? (res.fehler ? "Fehler: " + String(res.fehler).slice(0, 90) : vids ? "fertig, " + vids + (vids === 1 ? " Video" : " Videos") : e.state) : e.state);
+    return factsList([["Rolle", e.role[0]], ["Abteilung", "Produktion"], ["Aufgabe", ART_TASK[art] || "Erstellt ein Video."], ["Letzter Lauf", last], ["Nächster Lauf", "kein weiterer Lauf (Einzelauftrag)"]]);
+  }
+  /* Probleme -> Ampel: Fehler (rot) > braucht dich (gelb) > alles läuft (grün) */
+  function firmaProblems(m) {
+    const P = [];
+    m.staff.forEach((e) => {
+      if (e.hung) P.push({ sev: 1, kind: "hängt", name: e.name, dept: "produktion", e: e });
+      else if (e.half) P.push({ sev: e.res && (e.res.fehler || !e.res.ok) ? 2 : 1, kind: e.res && (e.res.fehler || !e.res.ok) ? "Fehler" : "halbe Arbeit", name: e.name, dept: "produktion", e: e });
+    });
+    STATIONS.forEach((def) => {
+      const k = stationInfo(def).kind;
+      if (k === "bad") P.push({ sev: 2, kind: "Fehler", name: def.name, dept: def.dept, def: def });
+      else if (k === "wait") P.push({ sev: 1, kind: "überfällig", name: def.name, dept: def.dept, def: def });
+    });
+    return P.sort((a, b) => b.sev - a.sev);
+  }
+  const KIND_RANK = { bad: 4, wait: 3, work: 2, done: 1, free: 0 };
+  const DEPT_PILL = { bad: ["Fehler", "bad"], wait: ["braucht dich", "warn"], work: ["arbeitet", "run"], done: ["läuft", "ok"], free: ["frei", ""] };
+  function deptSummary(dp, m) {
+    let items = [];
+    if (dp.key === "produktion") items = m.staff.map((e) => ({ kind: slotInfo(e).kind, e: e }));
+    else if (dp.key !== "leitung") items = STATIONS.filter((s) => s.dept === dp.key).map((def) => ({ kind: stationInfo(def).kind, def: def }));
+    let worst = "free";
+    items.forEach((it) => { if (KIND_RANK[it.kind] > KIND_RANK[worst]) worst = it.kind; });
+    if (dp.key === "leitung") { const P = firmaProblems(m); worst = P.some((p) => p.sev === 2) ? "bad" : P.length ? "wait" : "done"; }
+    return { dp: dp, items: items, worst: worst, working: items.filter((i) => i.kind === "work").length };
+  }
+  function selectItem(key, dept) {                                   // „Ansehen“: Karte öffnen und dorthin blättern
+    ui.dept = dept || ui.dept; office.sel = key; office.dirty = true;
+    refreshOrdnung(); showOfficeCard();
+    try { $("officeCard").scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (e) { /* egal */ }
+  }
+  function actionsUrl(def) { return def.key === "wahrheit" ? "" : "https://github.com/Poso47/CUDI/actions/workflows/firma-" + def.key + ".yml"; }
+  function renderHead(m) {
+    const box = $("firmaHead"); box.textContent = "";
+    const P = firmaProblems(m), now = Date.now(), n2 = P.filter((p) => p.sev === 2).length, n1 = P.length - n2;
+    let cls, text;
+    if (!firma.data && !jobs.size) { cls = "idle"; text = "Noch keine Daten"; }
+    else if (n2) { cls = "bad"; text = n2 + " Fehler" + (n1 ? " · " + n1 + (n1 === 1 ? " braucht dich" : " brauchen dich") : ""); }
+    else if (n1) { cls = "warn"; text = n1 === 1 ? "1 braucht dich" : n1 + " brauchen dich"; }
+    else { cls = "ok"; text = "Alles läuft"; }
+    box.className = "fhead " + cls;
+    const am = h("p", "ampel"); am.append(h("i")); am.lastChild.setAttribute("aria-hidden", "true"); am.append(document.createTextNode(text)); box.append(am);
+    const nx = nextUp(now), bits = [];
+    if (nx) bits.push("Als nächstes: " + nx.def.name + " um " + (dayWord(nx.t, now) === "heute" ? "" : dayWord(nx.t, now) + " ") + clock(nx.t));
+    if (m.working) bits.push(m.working + (m.working === 1 ? " Video in Arbeit" : " Videos in Arbeit"));
+    if (!firma.data) bits.push("Stationsdaten fehlen noch");
+    if (bits.length) box.append(h("p", "fnext", bits.join(" · ")));
+    if (P.length) {
+      const ul = h("ul", "fprobs");
+      P.slice(0, 2).forEach((p) => {
+        const li = h("li"), who = h("div", "who");
+        who.append(h("b", "", p.name), h("span", "meta", p.kind + " · " + deptOf(p.dept).name));
+        li.append(who);
+        if (p.e && p.e.job && p.e.job.auftrag) li.append(restartBtn(p.e));
+        else li.append(ofBtn("Ansehen", null, true, () => selectItem(p.e ? "s:" + p.e.id : "st:" + p.def.key, p.dept)));
+        ul.append(li);
+      });
+      box.append(ul);
+      if (P.length > 2) box.append(h("p", "meta", "… und " + (P.length - 2) + " weitere – siehe Abteilungen oder Tagesplan."));
+    }
+  }
+  function setDept(key) {
+    ui.dept = ui.dept === key ? "" : key;
+    office.dirty = true; focusDept(); refreshOrdnung();
+  }
+  function renderDeptChips(m) {
+    const box = $("deptChips"); box.textContent = "";
+    const mk = (key, label, color, n, kind, full) => {
+      const b = h("button", "", ""); b.type = "button"; b.setAttribute("aria-pressed", String(ui.dept === key)); if (kind) b.dataset.k = kind;
+      const dot = h("i"); dot.style.background = color; b.append(dot, document.createTextNode(label));
+      b.setAttribute("aria-label", full);
+      b.addEventListener("click", () => { if (!key) { ui.dept = ""; office.dirty = true; focusDept(); refreshOrdnung(); } else setDept(key); });
+      box.append(b);
+    };
+    mk("", "Alle", "var(--muted)", null, "", "Alle Abteilungen zeigen");
+    DEPTS.forEach((dp) => {
+      const sm = deptSummary(dp, m), n = dp.key === "leitung" ? null : sm.items.length;
+      mk(dp.key, dp.short, hexCss(dp.color), n, sm.worst === "free" ? "" : sm.worst, dp.name + (n != null ? ", " + n + " Mitarbeiter" : "") + ", " + DEPT_PILL[sm.worst][0]);
+    });
+  }
+  function jobBody(e) {                                              // Karte eines Video-Auftrags (Liste und 3D)
+    const box = h("div", "stbody");
+    box.append(jobFacts(e));
+    const st = h("p"); st.append(h("span", "pill " + e.pill, e.state)); box.append(st);
+    if (e.reason) box.append(h("p", "hint", e.reason));
+    const acts = h("div", "acts");
+    if ((e.hung || e.half || e.state === "Fehler") && e.job.auftrag) acts.append(restartBtn(e));
+    if (e.res && (e.res.videos || []).some((v) => v && v.video_url)) {
+      acts.append(ofBtn("Video ansehen", "play", false, () => {
+        goTab("videos");
+        setTimeout(() => { const c = cards.get(e.id); if (c && c.el && c.el.scrollIntoView) c.el.scrollIntoView({ block: "start", behavior: "smooth" }); }, 60);
+      }));
+    }
+    acts.append(ofBtn(e.state === "arbeitet" ? "Abbrechen" : "Löschen", "alert", false, () => {
+      acts.textContent = "";
+      acts.append(h("span", "meta", e.state === "arbeitet" ? "Auftrag wirklich abbrechen?" : "Video und Auftrag wirklich löschen?"));
+      acts.append(ofBtn("Ja", "", true, async (b) => { b.disabled = true; try { await removeJob(e.id); office.sel = ""; } finally { render(); } }),
+                  ofBtn("Nein", "", false, () => refreshOrdnung()));
+    }));
+    box.append(acts);
+    return box;
+  }
+  function onkelDetails(summaryMain, sub, pill, bodyFn, key) {       // aufklappbarer Onkel in der Liste
+    const det = h("details", "onkel"), sum = h("summary"), left = h("span");
+    left.append(h("b", "", summaryMain), h("span", "sub", sub));
+    sum.append(left, pill); det.append(sum);
+    det.open = ui.open.get("o:" + key) === true;
+    if (det.open) det.append(bodyFn());
+    det.addEventListener("toggle", () => { ui.open.set("o:" + key, det.open); if (det.open && !det.querySelector(".stbody")) det.append(bodyFn()); });
+    return det;
+  }
+  function renderDeptList(m) {
+    const root = $("deptList"); root.textContent = "";
+    DEPTS.filter((dp) => !ui.dept || ui.dept === dp.key).forEach((dp) => {
+      const sm = deptSummary(dp, m), det = h("details", "dept"), sum = h("summary"), left = h("span");
+      det.style.borderLeftColor = hexCss(dp.color);
+      const pl = DEPT_PILL[sm.worst], n = dp.key === "leitung" ? "" : sm.items.length + (sm.items.length === 1 ? " Mitarbeiter" : " Mitarbeiter") + (sm.working ? " · " + sm.working + " arbeiten" : "");
+      left.append(h("b", "", dp.name), h("span", "sub", n || "Projektleiter"));
+      sum.append(left, h("span", "pill " + pl[1], pl[0])); det.append(sum);
+      const dflt = !!ui.dept || sm.worst === "bad" || sm.worst === "wait" || dp.key === "produktion";
+      det.open = ui.open.has(dp.key) ? ui.open.get(dp.key) : dflt;
+      det.addEventListener("toggle", () => ui.open.set(dp.key, det.open));
+      const inner = h("div", "inner"); inner.append(h("p", "desc", dp.desc));
+      if (dp.key === "leitung") {
+        const P = firmaProblems(m);
+        inner.append(factsList([["Rolle", "Projektleiter"], ["Abteilung", dp.name], ["Aufgabe", "Wacht über alle Aufträge: hängt nach 40 Min. ohne Ergebnis, halbe Arbeit, Fehler."],
+                                ["Stand", P.length ? P.length + (P.length === 1 ? " Punkt braucht dich – siehe oben." : " Punkte brauchen dich – siehe oben.") : "Alles im Plan."]]));
+      } else if (dp.key === "produktion") {
+        if (!m.staff.length) inner.append(h("p", "hint", "Alle Plätze sind frei. Starte ein Video oder nimm einen Vorschlag oben."));
+        m.staff.slice(0, 30).forEach((e) => {
+          const k = slotInfo(e);
+          inner.append(onkelDetails(e.name, e.role[0] + (e.job.gestartet ? " · " + when(e.job.gestartet) : ""), h("span", "pill " + e.pill, e.state), () => jobBody(e), "j" + e.id));
+        });
+      } else {
+        STATIONS.filter((s) => s.dept === dp.key).forEach((def) => {
+          const info = stationInfo(def), nx = nextRunMs(def, Date.now());
+          const sub = "zuletzt " + (stationStatus(def) ? when(stationStatus(def).letzter_lauf) : "–") + (nx ? " · nächster " + whenText(nx, Date.now()).replace(" Uhr", "") : "");
+          inner.append(onkelDetails(def.name, sub, h("span", "pill " + STATE_PILL[info.kind], STATE_TEXT[info.kind]), () => stationBody(def), "s" + def.key));
+        });
+      }
+      det.append(inner); root.append(det);
+    });
+  }
+  /* --- Tagesplan: 0–24 Uhr in Ortszeit, Läufe aus dem UTC-Plan, Zustände nur aus status.* --- */
+  function planMarks(def, now, d0, d1) {
+    const st = stationStatus(def), last = st ? Date.parse(st.letzter_lauf) : NaN, bad = !!st && st.ergebnis === "fehler";
+    const slots = schedInstants(def, d0, d1), marks = [], nx = nextRunMs(def, now);
+    let used = false;
+    slots.forEach((t, i) => {
+      let s, label;
+      const nextSlot = slots[i + 1] || Infinity;
+      if (t > now) { s = "plan"; label = "geplant"; }
+      else if (!isNaN(last) && last >= t - 10 * 60000 && last < Math.min(nextSlot, t + 3 * 3600e3) && !used) { used = true; s = bad ? "bad" : "ok"; label = bad ? "fehlgeschlagen" : "erledigt"; if (now - last < 15 * 60000) { s = bad ? "bad" : "work"; label = bad ? "fehlgeschlagen" : "läuft gerade oder eben fertig"; } }
+      else if (now - t < 90 * 60000) { s = "plan"; label = "jetzt fällig, Meldung steht noch aus"; }
+      else if (!isNaN(last) && last > t) { s = "past"; label = "früher, Ergebnis nicht einzeln gespeichert"; }
+      else { s = "miss"; label = "kein Lauf gemeldet"; }
+      marks.push({ t: t, s: s, label: label, real: s === "ok" || s === "bad" || s === "work" ? last : t, next: t === nx && t > now });
+    });
+    if (!isNaN(last) && last >= d0 && last < d1 && !used) marks.push({ t: last, s: bad ? "bad" : "ok", label: (bad ? "fehlgeschlagen" : "erledigt") + " (außerhalb des Plans)", real: last, next: false });
+    return marks;
+  }
+  function renderPlan(m) {
+    const root = $("dayPlan"); root.textContent = "";
+    const now = Date.now(), d0 = day0Of(now), d1 = (() => { const d = new Date(now); d.setHours(24, 0, 0, 0); return d.getTime(); })(), span = d1 - d0;
+    const pct = (t) => (Math.min(span, Math.max(0, t - d0)) / span * 100).toFixed(2) + "%";
+    const info = h("p", "planinfo"); info.setAttribute("role", "status");
+    info.textContent = ui.pick || "Heute, " + DOW[new Date(now).getDay()] + " " + pad2(new Date(now).getDate()) + "." + pad2(new Date(now).getMonth() + 1) + ". – Ortszeit deines Geräts. Tippe einen Punkt für Einzelheiten.";
+    const plan = h("div", "plan");
+    plan.style.setProperty("--p", ((now - d0) / span).toFixed(4));
+    const ax = h("div", "row ax"); ax.append(h("div", "lab", "Uhr")); const axt = h("div", "track");
+    [0, 6, 12, 18, 24].forEach((hh) => { const sp = h("span", "", String(hh)); sp.style.left = (hh / 24 * 100) + "%"; axt.append(sp); });
+    ax.append(axt); plan.append(ax);
+    const mk = (track, mark, who) => {
+      const b = h("button", "mk"); b.type = "button"; b.dataset.s = mark.s; if (mark.next) b.dataset.n = "1";
+      b.style.left = pct(mark.t);
+      const dot = h("b"), glyph = mark.s === "ok" ? "✓" : mark.s === "bad" ? "!" : mark.s === "miss" ? "?" : "";
+      if (glyph) dot.append(h("span", "", glyph)); b.append(dot);
+      const text = who + " · " + clock(mark.real) + " · " + (mark.next ? "als nächstes (geplant)" : mark.label);
+      b.setAttribute("aria-label", text); b.title = text;
+      b.addEventListener("click", () => { ui.pick = text; info.textContent = text; });
+      track.append(b);
+    };
+    DEPTS.filter((dp) => !ui.dept || ui.dept === dp.key).forEach((dp) => {
+      const hd = h("div", "row dh"); hd.style.setProperty("--dc", hexCss(dp.color));
+      const hb = h("button", "", dp.name + (ui.dept === dp.key ? " · alle zeigen" : "")); hb.type = "button"; hb.addEventListener("click", () => setDept(dp.key));
+      hd.append(hb); plan.append(hd);
+      if (dp.key === "leitung") { const r = h("div", "row"); r.style.gridTemplateColumns = "1fr"; const p = h("p", "meta", "Projektleiter: wacht dauerhaft, kein fester Lauf."); p.style.cssText = "margin:0;padding:0 12px;font-size:12px"; r.append(p); plan.append(r); return; }
+      if (dp.key === "produktion") {
+        const today = m.staff.filter((e) => e.job.gestartet && Date.parse(e.job.gestartet) >= d0);
+        if (!today.length) { const r = h("div", "row"); r.style.gridTemplateColumns = "1fr"; r.append(h("p", "meta", "Heute noch kein Auftrag gestartet.")); r.firstChild.style.cssText = "margin:0;padding:0 12px"; plan.append(r); }
+        today.slice(0, 8).forEach((e) => {
+          const k = slotInfo(e).kind, r = h("div", "row"), tr = h("div", "track");
+          r.append(h("div", "lab", e.name.slice(0, 40)), tr);
+          const t = Date.parse(e.job.gestartet);
+          mk(tr, { t: t, real: t, s: k === "bad" ? "bad" : k === "done" ? "ok" : k === "work" ? "work" : "plan", label: "gestartet, " + e.state, next: false }, e.name);
+          plan.append(r);
+        });
+        return;
+      }
+      STATIONS.filter((s) => s.dept === dp.key).forEach((def) => {
+        const r = h("div", "row"), tr = h("div", "track");
+        r.append(h("div", "lab", def.name), tr);
+        const mks = planMarks(def, now, d0, d1);
+        if (!mks.length) { const p = h("p", "meta"); p.textContent = def.key === "wahrheit" ? "bei jedem Video" : def.sched ? "heute kein Lauf geplant" : "kein fester Plan"; p.style.cssText = "margin:0;padding:0 4px;font-size:12px"; tr.style.cssText = "background:none;display:flex;align-items:center"; tr.append(p); }
+        mks.forEach((mm) => mk(tr, mm, def.name));
+        plan.append(r);
+      });
+    });
+    const nowEl = h("div", "now"); nowEl.setAttribute("aria-hidden", "true"); plan.append(nowEl);
+    root.append(plan, info);
+    const lg = h("div", "planlegend");
+    [["✓ erledigt", "ok"], ["! fehlgeschlagen", "bad"], ["? kein Lauf gemeldet", "miss"], ["○ geplant", "plan"], ["· früher heute", "past"], ["◎ als nächstes", "next"]].forEach((x) => lg.append(h("span", "", x[0])));
+    lg.append(h("span", "", "Zeiten nach dem Plan der Workflows (UTC), umgerechnet auf deine Ortszeit."));
+    root.append(lg);
+  }
+  function refreshOrdnung() {
+    const m = firmaModel();
+    try { renderHead(m); renderDeptChips(m); renderStations(); } catch (e) { /* Zusatz */ }
+    try { if (officeMode() === "liste") renderDeptList(m); if (officeMode() === "plan") renderPlan(m); } catch (e) { /* Zusatz */ }
+    applyOfficeView();
+    try { if (office.sel) showOfficeCard(); } catch (e) { /* egal */ }
   }
   function hsh(s) { let x = 7; for (let i = 0; i < s.length; i++) x = (x * 31 + s.charCodeAt(i)) >>> 0; return x; }
   function wrapText(c, text, x, y, maxW, lh, maxLines) {
@@ -2737,6 +3131,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     });
   }
   function firstLine(t) { return String(t && typeof t === "object" ? t.text || "" : t || "").split(" · ")[0].replace(/\s+/g, " "); }
+  function drawInfo(c, w, hh, title, lines, bg, fg) {
+    c.fillStyle = bg; c.fillRect(0, 0, w, hh);
+    c.fillStyle = fg; c.textBaseline = "top"; c.textAlign = "left"; c.font = "800 22px system-ui, sans-serif"; c.fillText(title, 12, 8);
+    c.font = "700 17px system-ui, sans-serif";
+    lines.forEach((t, i) => c.fillText(String(t).slice(0, 26), 12, 44 + i * 24));
+  }
   function drawBrief(c, w, hh, d) {
     c.fillStyle = "#fbf3d0"; c.fillRect(0, 0, w, hh);
     c.fillStyle = "#2a2118"; c.textBaseline = "top"; c.textAlign = "left"; c.font = "800 22px Georgia, serif"; c.fillText("MORGEN-BRIEFING", 12, 8);
@@ -2841,6 +3241,22 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       const p = placeOnkel(g, def, -1.4, 0.1); box(p.arms[1], 0.03, 0.9, 0.03, 0xc9c2b0, 0, -0.95, 0.05);
       return { person: p, screen: m, arm: [-0.2, -1.5] };
     },
+    recherche(g, d, def) {                                          // Pult mit Lupe und Aktenmappen
+      box(g, 1.2, 0.9, 0.7, 0x6b4a32, 0.2, 0.45, 0.2); box(g, 1.1, 0.08, 0.8, 0x8a6a4a, 0.2, 1.0, 0.18).rotation.x = 0.45;
+      const r = d && d.recherche;
+      const m = canvasMat(256, 192, (c, w, hh) => drawInfo(c, w, hh, "RECHERCHE", r ? [(r.anzahl || 0) + " Themen", (r.seiten_gelesen || 0) + " Seiten gelesen", (r.bestaetigt || 0) + " bestätigt"] : ["noch keine Daten"], "#e8f7fb", "#10343c"));
+      plane(g, m, 1.0, 0.75, 0.2, 1.05, 0.2).rotation.x = -Math.PI / 2 + 0.45;
+      cyl(g, 0x3a2f24, 0.05, 0.5, 0.05, 1.0, 1.3, -0.4); sph(g, 0xcfe8ee, 0.2, 0.2, 0.06, 1.0, 1.7, -0.4);
+      return { person: placeOnkel(g, def, 0.2, -0.65), screen: m, arm: [-1.0, -1.0] };
+    },
+    vorrecherche(g, d, def) {                                       // Aktenschrank mit Schubladen
+      box(g, 1.6, 2.1, 0.7, 0x56606e, 0.6, 1.05, -0.45);
+      for (let k = 0; k < 4; k++) { box(g, 1.4, 0.4, 0.04, 0x6d7888, 0.6, 0.35 + k * 0.5, -0.08); box(g, 0.3, 0.06, 0.06, GOLD, 0.6, 0.38 + k * 0.5, -0.04); }
+      const v = d && d.vorrecherche;
+      const m = canvasMat(256, 128, (c, w, hh) => drawInfo(c, w, hh, "VORRECHERCHE", v ? [(v.eintraege || 0) + " Einträge", (v.aktuell || 0) + " aktuell"] : ["noch keine Daten"], "#e8f0fb", "#10243c"));
+      plane(g, m, 1.3, 0.65, 0.6, 2.4, -0.1);
+      return { person: placeOnkel(g, def, -1.2, 0.1), screen: m, arm: [-0.2, -0.9] };
+    },
     wahrheit(g, d, def) {                                           // Waage
       const T = office.T;
       cyl(g, 0x3a2f24, 0.5, 0.12, 0.5, -0.2, 0.06, -0.2); box(g, 0.14, 1.75, 0.14, 0x8a6a4a, -0.2, 1.0, -0.2); sph(g, GOLD, 0.14, 0.14, 0.14, -0.2, 1.95, -0.2);
@@ -2852,8 +3268,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     },
   };
   const TINT = { work: 0xffffff, done: 0xffffff, wait: 0xd8c070, bad: 0xff9a9a, free: 0x8a8a8a };
-  function makeSprite(w, hh) {
-    const T = office.T, cvs = document.createElement("canvas"); cvs.width = 256; cvs.height = 128;
+  function makeSprite(w, hh, cw, ch) {
+    const T = office.T, cvs = document.createElement("canvas"); cvs.width = cw || 256; cvs.height = ch || 128;
     const tex = new T.CanvasTexture(cvs); tex.minFilter = T.LinearFilter;
     const sp = new T.Sprite(new T.SpriteMaterial({ map: tex, transparent: true, depthTest: false }));
     sp.scale.set(w, hh, 1); sp.renderOrder = 10;
@@ -2921,44 +3337,108 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     return { key: "st:" + def.key, kind: "station", def: def, info: info, g: g, person: built.person, label: label, screen: built.screen, beam: built.beam,
              arm: a, ring: ring, hit: hit, ph: hsh(def.key) % 7, walker: !!def.walker };
   }
+  /* --- Büro-Aufbau: sechs Abteilungen mit festem Platz (Teppichfläche, Schild, Gänge dazwischen) --- */
+  const CELL_W = 4.4, CELL_D = 3.4, DESK_W = 4.6, DESK_D = 3.7, ZPAD = 0.35, SIGN_D = 1.7, ZGAP = 1.0, SC = 0.82;
+  function mixHex(a, b, t) {
+    const r = (sh) => Math.round(((a >> sh) & 255) * t + ((b >> sh) & 255) * (1 - t));
+    return (r(16) << 16) | (r(8) << 8) | r(0);
+  }
+  function officeLayout(m) {
+    const fixed = (key) => STATIONS.filter((s) => s.dept === key && !s.walker);
+    const mkZone = (key, cols, rows, x0, z0, cw, cd, items) => {
+      const w = cols * cw + 2 * ZPAD, d = rows * cd + SIGN_D + 2 * ZPAD;
+      return { dept: key, cols: cols, rows: rows, cw: cw, cd: cd, x0: x0, z0: z0, w: w, d: d, items: items,
+               cell: (i) => ({ x: x0 + ZPAD + (i % cols + 0.5) * cw, z: z0 + ZPAD + (Math.floor(i / cols) + 0.5) * cd }) };
+    };
+    const colW = 3 * CELL_W + 2 * ZPAD, xL = -(colW + ZGAP / 2), xR = ZGAP / 2;
+    const rec = fixed("recherche"), pla = fixed("planung"), cli = fixed("clip"), pfl = fixed("pflege");
+    const zr = mkZone("recherche", 3, Math.max(1, Math.ceil(rec.length / 3)), xL, 0, CELL_W, CELL_D, rec);
+    const zp = mkZone("planung", 3, 1, xL, zr.d + ZGAP, CELL_W, CELL_D, pla);
+    const zc = mkZone("clip", 3, 1, xR, 0, CELL_W, CELL_D, cli);
+    const zf = mkZone("pflege", 3, 1, xR, zc.d + ZGAP, CELL_W, CELL_D, pfl);
+    const band = Math.max(zp.z0 + zp.d, zf.z0 + zf.d) + ZGAP;
+    const zl = mkZone("leitung", 3, 1, -colW / 2, band, CELL_W, CELL_D, []);
+    const total = Math.min(10, Math.ceil(Math.max(5, m.staff.length) / 5) * 5);
+    const zo = mkZone("produktion", 5, total / 5, -(5 * DESK_W + 2 * ZPAD) / 2, zl.z0 + zl.d + ZGAP, DESK_W, DESK_D, []);
+    const zones = [zr, zp, zc, zf, zl, zo];
+    const minX = Math.min(...zones.map((z) => z.x0)), maxX = Math.max(...zones.map((z) => z.x0 + z.w));
+    const minZ = 0, maxZ = zo.z0 + zo.d;
+    const ox = -(minX + maxX) / 2, oz = -(minZ + maxZ) / 2;
+    zones.forEach((z) => { z.x0 += ox; z.z0 += oz; const c0 = z.cell; z.cell = (i) => { const q = c0(i); return { x: q.x + ox, z: q.z + oz }; }; z.cx = z.x0 + z.w / 2; z.cz = z.z0 + z.d / 2; });
+    return { zones: zones, W: maxX - minX, D: maxZ - minZ, total: total, pfl: zf };
+  }
+  function drawSign(L, dp, sm) {
+    const c = L.ctx, W = L.cvs.width, H = L.cvs.height, col = hexCss(dp.color);
+    const kc = { bad: "#f87171", wait: "#f5b23d", work: "#2fd6f0", done: "#4ade80", free: "#9aa3b8" }[sm.worst];
+    c.clearRect(0, 0, W, H);
+    c.fillStyle = "rgba(12,14,22,.92)"; c.strokeStyle = col; c.lineWidth = 7;
+    c.beginPath(); c.roundRect ? c.roundRect(5, 5, W - 10, H - 10, 26) : c.rect(5, 5, W - 10, H - 10); c.fill(); c.stroke();
+    c.fillStyle = col; c.fillRect(22, 22, 14, H - 44);
+    c.textBaseline = "middle"; c.textAlign = "left"; c.fillStyle = "#f3f0e8"; c.font = "800 44px system-ui, sans-serif";
+    let t = dp.short; while (t.length > 3 && c.measureText(t).width > W - 120) t = t.slice(0, -1);
+    c.fillText(t, 52, H * 0.42);
+    c.fillStyle = "#b9c0d0"; c.font = "600 30px system-ui, sans-serif";
+    c.fillText(dp.key === "leitung" ? "wacht über alles" : sm.items.length + (sm.items.length === 1 ? " Onkel" : " Onkels"), 52, H * 0.78);
+    c.fillStyle = kc; c.beginPath(); c.arc(W - 52, H / 2, 26, 0, 7); c.fill();
+    c.fillStyle = "#04141a"; c.font = "900 36px system-ui, sans-serif"; c.textAlign = "center";
+    c.fillText(sm.worst === "bad" ? "!" : sm.worst === "wait" ? "?" : sm.worst === "free" ? "–" : "✓", W - 52, H / 2 + 2);
+    L.tex.needsUpdate = true;
+  }
   function buildOffice(m) {
     const T = office.T;
     disposeWorld();
     const world = new T.Group(); office.world = world; office.scene.add(world);
-    const slots = [], d = firma.data;
-    const staff = m.staff.slice(0, 10);
-    const n = Math.max(4, staff.length);
-    const R = n <= 6 ? 3.7 : 4.5, Rs = R + 3.3 + Math.max(0, STATIONS.filter((s) => !s.walker).length - 7) * 0.45, half = Rs + 2.2;
-    office.extent = half * 0.97;
-    office.lamps.forEach((l, i) => { l.position.set([-0.5, 0.5, 0][i] * half, 3.4, [-0.4, -0.1, 0.55][i] * half); });
-    // Boden, Teppich mit Ornamenten, Arkade, Pflanzen
-    box(world, half * 2 + 0.6, 0.3, half * 2 + 0.6, 0x5b3f2b, 0, -0.15, 0);
-    box(world, half * 2 + 1.2, 0.12, half * 2 + 1.2, 0x2b1d14, 0, -0.34, 0);
-    const rs = (R + 1.7) * 2;
-    box(world, rs + 0.35, 0.02, rs + 0.35, 0xe8ddc0, 0, 0.012, 0);                    // Fransen
-    const rug = new T.Mesh(new T.PlaneGeometry(rs, rs), new T.MeshLambertMaterial({ map: rugTexture() }));
-    rug.rotation.x = -Math.PI / 2; rug.position.y = 0.03; rug.userData.own = true; world.add(rug);
-    arcade(world, half);
-    [[-1, -1, 1], [1, -1, 0], [-1, 1, 0], [1, 1, 1]].forEach((p) => plant(world, p[0] * (half - 1.0), p[1] * (half - 1.0), !!p[2]));
-    // Projektleiter (Chef mit weißem Bart) in der Mitte
-    const bossProblems = m.hung.length + m.half.length;
-    const bossG = new T.Group(); world.add(bossG);
+    const slots = [], hits = [], d = firma.data;
+    const lay = officeLayout(m), staff = m.staff.slice(0, lay.total);
+    const hx = lay.W / 2 + 1.8, hz = lay.D / 2 + 1.8;
+    office.extent = Math.max(lay.W, lay.D) * 0.6;
+    office.home = { x: 0, z: 0, e: office.extent };
+    office.lamps.forEach((l, i) => { l.position.set([-0.5, 0.5, 0][i] * hx * 1.6, 3.4, [-0.4, -0.1, 0.55][i] * hz * 1.6); });
+    box(world, hx * 2 + 0.6, 0.3, hz * 2 + 0.6, 0x5b3f2b, 0, -0.15, 0);
+    box(world, hx * 2 + 1.2, 0.12, hz * 2 + 1.2, 0x2b1d14, 0, -0.34, 0);
+    arcade(world, hx, hz);
+    [[-1, -1, 1], [1, -1, 0], [-1, 1, 0], [1, 1, 1]].forEach((p) => plant(world, p[0] * (hx - 1.0), p[1] * (hz - 1.0), !!p[2]));
+    const zoneOf = {};
+    office.zones = [];
+    lay.zones.forEach((z) => {
+      zoneOf[z.dept] = z;
+      const dp = deptOf(z.dept), sm = deptSummary(dp, m), c1 = mixHex(dp.color, 0x5b3f2b, 0.3), c2 = mixHex(dp.color, 0x5b3f2b, 0.55);
+      let pn;
+      if (z.dept === "leitung") {                                                         // Teppich mit Ornamenten
+        pn = new T.Mesh(new T.PlaneGeometry(z.w, z.d), new T.MeshLambertMaterial({ map: rugTexture() }));
+        pn.rotation.x = -Math.PI / 2; pn.position.set(z.cx, 0.05, z.cz); pn.userData.own = true; world.add(pn);
+      } else {
+        pn = new T.Mesh(office.unit, mat(c1)); pn.scale.set(z.w, 0.05, z.d); pn.position.set(z.cx, 0.03, z.cz); world.add(pn);
+      }
+      pn.userData.key = "z:" + z.dept; hits.push(pn);
+      [[z.cx, z.z0, z.w, 0.14], [z.cx, z.z0 + z.d, z.w, 0.14]].forEach((q) => box(world, q[2], 0.07, q[3], dp.color, q[0], 0.06, q[1]));
+      [[z.x0, z.cz], [z.x0 + z.w, z.cz]].forEach((q) => box(world, 0.14, 0.07, z.d, dp.color, q[0], 0.06, q[1]));
+      const sw = 6.2, L = makeSprite(sw, sw * 128 / 384, 384, 128);
+      L.sp.position.set(z.x0 + sw / 2 + 0.3, 1.1, z.z0 + z.d - SIGN_D / 2 - 0.1); world.add(L.sp);
+      drawSign(L, dp, sm);
+      const sh = box(world, sw, 1.6, 1.6, mat(0x000000), L.sp.position.x, 0.8, L.sp.position.z); sh.visible = false; sh.userData.key = "z:" + z.dept; hits.push(sh);
+      office.zones.push({ dept: z.dept, cx: z.cx, cz: z.cz, w: z.w, d: z.d, panel: pn, m1: z.dept === "leitung" ? null : mat(c1), m2: z.dept === "leitung" ? null : mat(c2), sign: L });
+      slots.push({ key: "z:" + z.dept, kind: "zone", dept: z.dept, hit: sh });
+    });
+    // Leitung: Projektleiter (Chef mit weißem Bart) in der Mitte
+    const lz = zoneOf.leitung, bossProblems = firmaProblems(m).length;
+    const bossG = new T.Group(); bossG.position.set(lz.cx, 0.06, lz.cz - 0.5); world.add(bossG);
     const bp = makePerson(0xf5b23d, true, LOOKS[5]); bp.g.rotation.y = 0.78; bossG.add(bp.g);
     box(bossG, 1.5, 0.08, 0.8, 0x6b4a32, 0, 0.75, 0.9).rotation.y = 0.78;
     box(bossG, 0.1, 0.75, 0.1, 0x3a2f24, 0.5, 0.37, 1.2); box(bossG, 0.1, 0.75, 0.1, 0x3a2f24, -0.5, 0.37, 1.2);
     teaGlass(bossG, 0.1, 0.79, 0.9);
     const bl = makeSprite(3.4, 1.7); bl.sp.position.set(0, 3.5, 0); bossG.add(bl.sp);
     drawLabel(bl, "Projektleiter", bossProblems ? "bad" : "boss", 0, bossProblems ? bossProblems + (bossProblems === 1 ? " Problem" : " Probleme") : "alles im Plan");
-    const bhit = box(bossG, 2.4, 3.4, 2.4, mat(0x000000), 0, 1.7, 0.4); bhit.visible = false; bhit.userData.key = "boss";
+    const bhit = box(bossG, 2.4, 3.4, 2.4, mat(0x000000), 0, 1.7, 0.4); bhit.visible = false; bhit.userData.key = "boss"; hits.push(bhit);
     slots.push({ key: "boss", kind: "boss", g: bossG, person: bp, label: bl, bad: !!bossProblems, hit: bhit });
-    // Schreibtische im Kreis
-    for (let i = 0; i < n; i++) {
-      const e = staff[i] || null, a = (i / n) * Math.PI * 2 + 0.4;
-      const x = Math.sin(a) * R, z = Math.cos(a) * R;
-      const g = new T.Group(); g.position.set(x, 0, z); g.rotation.y = Math.atan2(-x, -z); world.add(g);
+    // Produktion: Schreibtische in Reihen, freie Plätze sichtbar
+    const pz = zoneOf.produktion;
+    for (let i = 0; i < lay.total; i++) {
+      const e = staff[i] || null, q = pz.cell(i);
+      const g = new T.Group(); g.position.set(q.x, 0.06, q.z + 0.5); world.add(g);
       const info = e ? slotInfo(e) : { kind: "free", text: "frei" };
       box(g, 2.2, 0.08, 1.1, 0x8a6a4a, 0, 0.78, 0.05);
-      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach((q) => box(g, 0.08, 0.76, 0.08, 0x3a2f24, q[0] * 1.0, 0.38, 0.05 + q[1] * 0.45));
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach((qq) => box(g, 0.08, 0.76, 0.08, 0x3a2f24, qq[0] * 1.0, 0.38, 0.05 + qq[1] * 0.45));
       teaGlass(g, 0.85, 0.82, 0.2);
       const screenMat = new T.MeshBasicMaterial({ color: 0x1a2030 });
       const scr = box(g, 1.0, 0.62, 0.05, screenMat, 0, 1.25, 0.32); scr.userData.own = true;
@@ -2977,31 +3457,43 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       }
       drawLabel(label, e ? e.name : "frei", info.kind, e && info.kind === "work" ? progressOf(e) : 0, info.text);
       const key = e ? "s:" + e.id : "f:" + i;
-      const hit = box(g, 2.6, 3.0, 3.0, mat(0x000000), 0, 1.5, -0.4); hit.visible = false; hit.userData.key = key;
+      const hit = box(g, 2.6, 3.0, 3.0, mat(0x000000), 0, 1.5, -0.4); hit.visible = false; hit.userData.key = key; hits.push(hit);
       const ring = new T.Mesh(new T.RingGeometry(1.7, 1.95, 32), new T.MeshBasicMaterial({ color: 0x2fd6f0, side: T.DoubleSide }));
       ring.rotation.x = -Math.PI / 2; ring.position.set(0, 0.06, -0.3); ring.visible = false; ring.userData.own = true; g.add(ring);
       slots.push({ key: key, kind: e ? "staff" : "free", e: e, g: g, person: person, label: label, info: info, screen: screenMat, ring: ring, hit: hit, ph: i * 1.7, pct: -1 });
     }
-    // Stationen der GitHub-Mitarbeiter auf dem äußeren Ring
-    const fixed = STATIONS.filter((s) => !s.walker);
-    fixed.forEach((def, j) => {
-      const a = (j / fixed.length) * Math.PI * 2 + 0.25, x = Math.sin(a) * Rs, z = Math.cos(a) * Rs;
-      const g = new T.Group(); g.position.set(x, 0, z); g.rotation.y = Math.atan2(-x, -z); world.add(g);
+    // Stationen der GitHub-Mitarbeiter in ihren Abteilungen
+    lay.zones.forEach((z) => z.items.forEach((def, j) => {
+      const q = z.cell(j);
+      const g = new T.Group(); g.position.set(q.x, 0.06, q.z + 0.35); g.scale.setScalar(SC); world.add(g);
       const built = STATION_BUILD[def.key](g, d, def);
       sideTable(g, def.tea[0], def.tea[1]);
-      slots.push(stationSlot(world, def, g, built));
-    });
-    // Putz-Onkel läuft mit dem Besen auf dem Teppich umher
-    const pdef = STATIONS.find((s) => s.walker), wr = Math.max(2.2, R - 1.7);
-    const wg = new T.Group(); world.add(wg);
-    const wp = makePerson(pdef.color, true, LOOKS[pdef.look]); wg.add(wp.g);
-    box(wp.arms[1], 0.05, 1.6, 0.05, 0x8a6a4a, 0, -0.8, 0.12); box(wp.arms[1], 0.34, 0.22, 0.12, 0xcaa24a, 0, -1.65, 0.12);
-    const ws = stationSlot(world, pdef, wg, { person: wp, arm: [0.15, -0.5] }, { small: true });
-    ws.label.sp.position.y = 3.5; ws.wr = wr; wg.position.set(wr, 0, 0);
-    slots.push(ws);
-    office.slots = slots;
+      const sl = stationSlot(world, def, g, built); hits.push(sl.hit);
+      slots.push(sl);
+    }));
+    // Putz-Onkel läuft mit dem Besen am Schild der Abteilung Auswertung & Pflege entlang
+    const pdef = STATIONS.find((s) => s.walker);
+    if (pdef) {
+      const wg = new T.Group(); world.add(wg);
+      const wp = makePerson(pdef.color, true, LOOKS[pdef.look]); wg.add(wp.g);
+      box(wp.arms[1], 0.05, 1.6, 0.05, 0x8a6a4a, 0, -0.8, 0.12); box(wp.arms[1], 0.34, 0.22, 0.12, 0xcaa24a, 0, -1.65, 0.12);
+      const ws = stationSlot(world, pdef, wg, { person: wp, arm: [0.15, -0.5] }, { small: true });
+      ws.label.sp.position.y = 3.5; ws.wx = lay.pfl.cx + 1.2; ws.wspan = lay.pfl.w / 2 - 2.6; ws.wz = lay.pfl.z0 + lay.pfl.d - 0.55;
+      wg.position.set(ws.wx, 0.06, ws.wz); hits.push(ws.hit);
+      slots.push(ws);
+    }
+    office.slots = slots; office.hits = hits;
     const ring0 = office.slots.find((s) => s.key === office.sel); if (ring0 && ring0.ring) ring0.ring.visible = true;
+    office.view = office.view || Object.assign({}, office.home);
+    focusDept();
     office.dirty = true;
+  }
+  function focusDept() {                                             // Abteilung antippen: Kamera fährt hin, Teppich leuchtet
+    if (!office.ready || !office.zones) return;
+    const z = ui.dept ? office.zones.find((q) => q.dept === ui.dept) : null;
+    office.viewT = z ? { x: z.cx, z: z.cz, e: Math.max(z.w, z.d * 1.3) * 0.5 + 0.6 } : Object.assign({}, office.home);
+    office.zones.forEach((q) => { if (q.m1) q.panel.material = ui.dept === q.dept ? q.m2 : q.m1; });
+    office.dirty = true; officeLoop();
   }
 
   /* --- Takt: nur wenn Tab sichtbar, höchstens 30 fps, ruhende Szene wird nicht neu gezeichnet --- */
@@ -3028,8 +3520,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         if (s.walker) {                                                  // Putz-Onkel läuft mit dem Besen im Kreis
           if (anim && k !== "free") {
             const ang = t * (k === "bad" ? 0.7 : 0.42) + s.ph;
-            s.g.position.set(Math.cos(ang) * s.wr, 0, Math.sin(ang) * s.wr);
-            p.g.rotation.y = Math.atan2(-Math.sin(ang), Math.cos(ang));
+            s.g.position.set(s.wx + Math.sin(ang) * s.wspan, 0.06, s.wz);
+            p.g.rotation.y = Math.cos(ang) >= 0 ? Math.PI / 2 : -Math.PI / 2;
             p.legs[0].rotation.x = Math.sin(t * 5) * 0.5; p.legs[1].rotation.x = -Math.sin(t * 5) * 0.5;
             p.arms[0].rotation.x = 0.15 + Math.sin(t * 5) * 0.2; p.body.position.y = Math.abs(Math.sin(t * 5)) * 0.03; moving = true;
           }
@@ -3053,6 +3545,12 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         if (anim) { s.person.g.rotation.z = Math.sin(t * 28 + s.ph) * 0.05; s.label.sp.position.y = 3.0 + Math.abs(Math.sin(t * 6)) * 0.15; moving = true; }
       } else if (k === "done") s.screen.color.setHex(0x1f8f55);
       else s.screen.color.setHex(0x8a6a1f);
+    }
+    if (office.viewT && office.view) {                                 // sanfte Kamerafahrt zur Abteilung
+      const v = office.view, tg = office.viewT, k = anim ? 0.22 : 1;
+      let far = 0;
+      ["x", "z", "e"].forEach((a) => { const df = tg[a] - v[a]; far = Math.max(far, Math.abs(df)); v[a] += Math.abs(df) < 0.02 ? df : df * k; });
+      if (far > 0.02) moving = true;
     }
     if (moving || office.dirty) { placeCamera(); office.r.render(office.scene, office.camera); office.dirty = false; }
   }
@@ -3139,6 +3637,17 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
         li.append(h("span", "meta", (x.laender_einig && x.laender_einig.length >= 3 ? "Einig: " + x.laender_einig.join(", ") : (x.laender || []).join(", "))));
       }));
     },
+    recherche(box, d) {
+      const r = (d && d.recherche) || {}, t = (r.themen || []).slice(0, 3);
+      box.append(h("h4", "", "Nachrecherchiert"));
+      box.append(h("p", "meta", (r.anzahl || 0) + " Themen · " + (r.seiten_gelesen || 0) + " Seiten gelesen · " + (r.bestaetigt || 0) + " bestätigte Aussagen"));
+      if (t.length) box.append(stList(t, (li, x) => { li.append(h("b", "", String(x.thema || "").slice(0, 110))); if (x.stand) li.append(h("span", "meta", "Stand " + x.stand)); }));
+    },
+    vorrecherche(box, d) {
+      const v = (d && d.vorrecherche) || {};
+      box.append(h("h4", "", "Vorrecherche auf Vorrat"));
+      box.append(h("p", "meta", (v.eintraege || 0) + " Einträge · " + (v.aktuell || 0) + " aktuell · " + (v.neu || 0) + " neu im letzten Lauf · " + (v.aufgeschoben || 0) + " aufgeschoben"));
+    },
     briefing(box, d) {
       const b = (d && d.briefing) || {};
       box.append(h("h4", "", "Morgen-Briefing " + (b.datum || "")));
@@ -3171,79 +3680,61 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     },
   };
   function stationBody(def) {
-    const box = h("div", "stbody"), d = firma.data, st = d && d.status && d.status[def.key], info = stationInfo(def);
+    const box = h("div", "stbody"), d = firma.data, st = stationStatus(def), info = stationInfo(def);
     const sp = h("p"); sp.append(h("span", "pill " + STATE_PILL[info.kind], STATE_TEXT[info.kind])); box.append(sp);
+    box.append(stationFacts(def));
     if (st) {
-      box.append(h("p", "meta", "Letzter Lauf: " + when(st.letzter_lauf) + (st.dauer_s ? " · " + Math.round(st.dauer_s) + " s" : "") + " · nächste Planung: " + when(st.naechste_planung)));
-      if (st.zusammenfassung) box.append(h("p", "hint", st.zusammenfassung));
+      if (st.dauer_s) box.append(h("p", "meta", "Dauer des letzten Laufs: " + Math.round(st.dauer_s) + " s"));
       (st.hinweise || []).slice(0, 3).forEach((x) => box.append(h("p", "meta", "Hinweis: " + x)));
-    } else if (def.key !== "lernen") box.append(h("p", "hint", d ? "Dieser Mitarbeiter hat noch nicht gearbeitet." : "Noch keine Daten von GitHub. Sobald ein Firma-Lauf fertig ist, erscheinen sie hier."));
+    } else if (def.key !== "lernen" && def.key !== "wahrheit") box.append(h("p", "hint", d ? "Dieser Mitarbeiter hat noch nicht gearbeitet." : "Noch keine Daten von GitHub. Sobald ein Firma-Lauf fertig ist, erscheinen sie hier."));
     if (STATION_CARD[def.key]) STATION_CARD[def.key](box, d, st);
+    const url = (info.kind === "bad" || info.kind === "wait") ? actionsUrl(def) : "";
+    if (url) { const a = h("a", "stlink", "Lauf auf GitHub ansehen"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer"; box.append(a); }
     return box;
   }
-  function stationCard(card) {
-    const def = STATIONS.find((x) => "st:" + x.key === office.sel);
-    if (!def) { card.hidden = true; return; }
-    card.hidden = false;
+  function cardHead(card, ic, name, sub) {
     const top = h("div", "top"), title = h("h3");
     const close = h("button", "x", "×"); close.type = "button"; close.setAttribute("aria-label", "Karte schließen");
     close.addEventListener("click", () => { office.sel = ""; office.dirty = true; card.hidden = true; });
-    title.append(icon("user"), document.createTextNode(def.name)); top.append(title, close); card.append(top);
-    card.append(h("p", "meta", def.role), stationBody(def));
+    title.append(icon(ic), document.createTextNode(name)); top.append(title, close); card.append(top);
+    if (sub) card.append(h("p", "meta", sub));
   }
   function showOfficeCard() {
-    const card = $("officeCard"), s = office.slots.find((x) => x.key === office.sel);
+    const card = $("officeCard"), sel = String(office.sel || "");
     card.textContent = "";
-    if (String(office.sel).indexOf("st:") === 0) { stationCard(card); return; }
-    if (!s) { card.hidden = true; return; }
+    if (!sel || sel.indexOf("z:") === 0) { card.hidden = true; return; }
     card.hidden = false;
-    const m = firmaModel(), top = h("div", "top"), title = h("h3");
-    const close = h("button", "x", "×"); close.type = "button"; close.setAttribute("aria-label", "Karte schließen");
-    close.addEventListener("click", () => { office.sel = ""; office.dirty = true; card.hidden = true; });
-    if (s.kind === "boss") {
-      title.append(icon("user"), document.createTextNode("Projektleiter")); top.append(title, close); card.append(top);
-      const problems = m.hung.length + m.half.length;
-      if (problems) {
+    if (sel.indexOf("st:") === 0) {
+      const def = STATIONS.find((x) => "st:" + x.key === sel);
+      if (!def) { card.hidden = true; return; }
+      cardHead(card, "user", def.name, deptOf(def.dept).name); card.append(stationBody(def)); return;
+    }
+    const m = firmaModel();
+    if (sel === "boss") {
+      cardHead(card, "user", "Projektleiter", "Leitung");
+      const P = firmaProblems(m);
+      if (P.length) {
         const ul = h("ul");
-        [...m.hung, ...m.half.filter((e) => !e.hung)].forEach((e) => {
-          const li = h("li"); li.append(h("b", "", (e.hung ? "Hängt: " : "Halbe Arbeit: ") + e.name), h("span", "meta", e.reason));
-          if (e.job.auftrag) li.append(restartBtn(e));
+        P.forEach((p) => {
+          const li = h("li"); li.append(h("b", "", p.kind + ": " + p.name), h("span", "meta", deptOf(p.dept).name));
+          if (p.e && p.e.job && p.e.job.auftrag) li.append(restartBtn(p.e));
+          else li.append(ofBtn("Ansehen", null, true, () => selectItem(p.e ? "s:" + p.e.id : "st:" + p.def.key, p.dept)));
           ul.append(li);
         });
         card.append(ul);
-      } else card.append(h("p", "hint", jobs.size ? "Alles im Plan – keine hängenden Aufträge, keine halbe Arbeit." : "Noch keine Mitarbeiter. Starte ein Video oder nimm einen Vorschlag."));
-      card.append(h("p", "meta", m.working + (m.working === 1 ? " Mitarbeiter arbeitet" : " Mitarbeiter arbeiten") + " · " + m.staff.length + " insgesamt"));
-      if (!m.working) { card.append(h("p", "hint", "Alle Mitarbeiter sind frei. Drei Vorschläge – ein Tipp startet das Video."), suggestionList()); }
+      } else card.append(h("p", "hint", jobs.size || firma.data ? "Alles im Plan – keine hängenden Aufträge, keine Fehler." : "Noch keine Mitarbeiter. Starte ein Video oder nimm einen Vorschlag."));
+      card.append(h("p", "meta", m.working + (m.working === 1 ? " Mitarbeiter arbeitet" : " Mitarbeiter arbeiten") + " · " + m.staff.length + " Aufträge insgesamt"));
+      if (!m.working) { card.append(h("p", "hint", "Alle Plätze in der Produktion sind frei. Drei Vorschläge – ein Tipp startet das Video."), suggestionList()); }
       return;
     }
-    if (s.kind === "free") {
-      title.append(icon("user"), document.createTextNode("Freier Platz")); top.append(title, close); card.append(top);
+    if (sel.indexOf("f:") === 0) {
+      cardHead(card, "user", "Freier Platz", "Produktion");
       card.append(h("p", "hint", "Hier arbeitet gerade niemand. Drei Vorschläge – ein Tipp startet das Video."), suggestionList());
       return;
     }
-    const e = firmaModel().staff.find((x) => x.id === s.e.id) || s.e, o = (e.job && e.job.auftrag) || {};
-    title.append(icon(e.role[1]), document.createTextNode(e.name)); top.append(title, close); card.append(top);
-    card.append(h("p", "meta", e.role[0] + (e.job.gestartet ? " · gestartet " + when(e.job.gestartet) : "")));
-    const desc = [o.art, o.thema || o.vorlage || o.wunsch || o.stimmung, o.format].filter(Boolean).join(" · ");
-    if (desc) card.append(h("p", "meta", "Auftrag: " + desc));
-    const st = h("p"); st.append(h("span", "pill " + e.pill, e.state)); card.append(st);
-    if (e.reason) card.append(h("p", "hint", e.reason));
-    const acts = h("div", "acts");
-    if ((e.hung || e.half || e.state === "Fehler") && e.job.auftrag) acts.append(restartBtn(e));
-    if (e.res && (e.res.videos || []).some((v) => v && v.video_url)) {
-      acts.append(ofBtn("Video ansehen", "play", false, () => {
-        goTab("videos");
-        setTimeout(() => { const c = cards.get(e.id); if (c && c.el && c.el.scrollIntoView) c.el.scrollIntoView({ block: "start", behavior: "smooth" }); }, 60);
-      }));
-    }
-    const del = ofBtn(e.state === "arbeitet" ? "Abbrechen" : "Löschen", "alert", false, () => {
-      acts.textContent = "";
-      acts.append(h("span", "meta", e.state === "arbeitet" ? "Auftrag wirklich abbrechen?" : "Video und Auftrag wirklich löschen?"));
-      acts.append(ofBtn("Ja", "", true, async (b) => { b.disabled = true; try { await removeJob(e.id); office.sel = ""; } finally { render(); } }),
-                  ofBtn("Nein", "", false, () => showOfficeCard()));
-    });
-    acts.append(del);
-    card.append(acts);
+    const e = m.staff.find((x) => "s:" + x.id === sel);
+    if (!e) { card.hidden = true; return; }
+    cardHead(card, e.role[1], e.name, "Produktion"); card.append(jobBody(e));
   }
 
   function updateOffice() {
@@ -3257,37 +3748,33 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (sig !== office.sig) { office.sig = sig; buildOffice(m); if (office.sel) { if (office.slots.some((s) => s.key === office.sel)) showOfficeCard(); else { office.sel = ""; $("officeCard").hidden = true; } } }
     officeLoop();
   }
-  function renderStations() {                       // Chips (Touch-Ziele) und Liste der Stationen; Liste = Ersatz ohne 3D
+  function renderStations() {                       // Chips (Touch-Ziele) für die gewählte Abteilung; Hinweis zum Datenstand
     const chips = $("stationChips"); chips.textContent = "";
-    STATIONS.forEach((def) => {
-      const info = stationInfo(def), b = h("button", "", def.name); b.type = "button"; b.dataset.k = info.kind;
-      const dot = h("i"); dot.style.background = "#" + def.color.toString(16).padStart(6, "0"); b.prepend(dot);
-      b.setAttribute("aria-label", def.name + ", " + STATE_TEXT[info.kind]);
-      b.addEventListener("click", () => { office.sel = "st:" + def.key; office.dirty = true; showOfficeCard(); const c = $("officeCard"); try { c.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (e) { /* egal */ } });
+    const add = (label, color, kind, key) => {
+      const b = h("button", "", label); b.type = "button"; if (kind) b.dataset.k = kind; b.setAttribute("aria-pressed", String(office.sel === key));
+      const dot = h("i"); dot.style.background = color; b.prepend(dot);
+      b.setAttribute("aria-label", label + (kind ? ", " + (STATE_TEXT[kind] || kind) : ""));
+      b.addEventListener("click", () => selectItem(key));
       chips.append(b);
-    });
+    };
+    if (ui.dept === "produktion") firmaModel().staff.slice(0, 10).forEach((e) => add(e.name.slice(0, 24), hexCss(ROLE_COLOR[e.role[0]] || 0x2fd6f0), slotInfo(e).kind, "s:" + e.id));
+    else if (ui.dept && ui.dept !== "leitung") STATIONS.filter((s) => s.dept === ui.dept).forEach((def) => add(def.name, hexCss(def.color), stationInfo(def).kind, "st:" + def.key));
+    else if (ui.dept === "leitung") add("Projektleiter", hexCss(0xf5b23d), "", "boss");
+    chips.hidden = !chips.childNodes.length;
     const d = firma.data;
     $("stationNote").textContent = d ? "Stationen: Stand " + when(d.erzeugt) + " · Quelle " + (firma.src === "db" ? "Datenbank" : firma.src === "pages" ? "GitHub Pages" : "Beispiel")
                                      : "Stationen: noch keine Daten von GitHub – sie erscheinen nach dem nächsten Firma-Lauf.";
-    const ul = $("stationList"); ul.textContent = "";
-    STATIONS.forEach((def) => {
-      const info = stationInfo(def), li = h("li"), det = h("details", "stdet"), sum = h("summary");
-      sum.append(h("b", "", def.name), h("span", "pill " + STATE_PILL[info.kind], STATE_TEXT[info.kind]));
-      det.append(sum);
-      det.addEventListener("toggle", () => { if (det.open && !det.querySelector(".stbody")) det.append(stationBody(def)); });
-      li.append(det); ul.append(li);
-    });
   }
   const renderFirmaBase = renderFirma;
   renderFirma = function () {
     try { syncStations(); } catch (e) { /* Stationen sind Zusatz */ }
     renderFirmaBase();
     try { if (!$("briefing").hidden) renderBriefing(); renderSatirePick(); } catch (e) { /* Zusatz */ }
-    try { if (!$("firma").hidden) renderStations(); } catch (e) { /* Stationen sind Zusatz */ }
+    try { if (!$("firma").hidden) refreshOrdnung(); } catch (e) { /* Zusatz */ }
     try { updateOffice(); } catch (e) { officeFail(); }
   };
 
-  setInterval(() => { if (jobs.size) renderFirma(); }, 60000);     // „hängt“ nach 40 Min. auch ohne neue Daten
+  setInterval(() => { if (jobs.size || !$("firma").hidden) renderFirma(); }, 60000);     // „hängt“ nach 40 Min. auch ohne neue Daten
   setInterval(() => { if (firma.src !== "db" && firma.src !== "demo") loadFirmaPages(true); }, 600000);
 
   /* ---------- Briefing (liest `briefing` aus dem Export firma/stand) ---------- */
@@ -3468,14 +3955,31 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   const NB_FIELDS = {
     ranking: ["thema", "vorlage", "plaetze", "sprachen", "laenge", "streng", "nur_skript", "maskottchen", "format", "hochladen"],
     fakten: ["thema", "plaetze", "sprache", "streng", "hochladen"],
+    schaubild: ["thema", "stationen", "sprache", "stil", "seitenformat", "hochladen"],
     story: ["wunsch", "stimmung", "sprache", "laenge", "bilder", "entschaerfen", "maskottchen", "hochladen"],
     reportage: ["thema", "sprache", "links", "hochladen"],
     satire: ["thema", "meldung", "links", "sprache", "hochladen"],
     clip: ["url", "quelle", "start", "ende", "sprache", "clip_stil", "bestaetigt_erlaubnis", "twitch_kanal", "zeitraum", "hochladen"],
+    erklaer: ["thema", "sprache", "hochladen"],
   };
+  function nbIssueNr(o) {                                  // Nummer des früheren Notbetrieb-Issues: bezug.issue oder Kennung gh0012
+    if (o.bezug && +o.bezug.issue > 0) return +o.bezug.issue;
+    const m = /^gh0*(\d+)$/.exec(String(o.bezug_id || ""));
+    return m ? +m[1] : 0;
+  }
   function nbIssueOrder(o, withPrefs) {
-    // alle Videoarten im ganzen Lauf; Bearbeiten und Veröffentlichen gehen im Notbetrieb nicht; Story-Schritt „video“ wird dort direkt zum Video
-    if (!o || !NB_FIELDS[o.art] || o.schritt === "bearbeiten" || o.schritt === "hochladen") return null;
+    // alle Videoarten im ganzen Lauf; Bearbeiten/Veröffentlichen nur mit Bezug auf ein früheres Notbetrieb-Issue (Artefakte bleiben 14 Tage)
+    if (!o || !NB_FIELDS[o.art]) return null;
+    if (o.schritt === "bearbeiten") {
+      const nr = nbIssueNr(o);
+      if (!nr || (o.art !== "ranking" && o.art !== "story") || !o.aenderungen || typeof o.aenderungen !== "object") return null;
+      return { art: o.art, schritt: "bearbeiten", bezug: { issue: nr }, aenderungen: o.aenderungen };
+    }
+    if (o.schritt === "hochladen") {
+      const nr = nbIssueNr(o);
+      if (!nr || !o.hochladen || typeof o.hochladen !== "object") return null;
+      return { art: o.art, schritt: "hochladen", bezug: { issue: nr }, hochladen: { ziel: o.hochladen.ziel, sichtbarkeit: o.hochladen.sichtbarkeit } };
+    }
     const out = { art: o.art };
     NB_FIELDS[o.art].forEach((k) => { if (o[k] !== undefined && o[k] !== null && o[k] !== "") out[k] = o[k]; });
     if (o.art === "ranking" && out.thema) delete out.vorlage;
@@ -3486,7 +3990,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const first = nbIssueOrder(order, true);
     if (!first) return "";
     const build = (ord) => {
-      const what = ord.thema || ord.vorlage || ord.wunsch || (ord.stimmung && ord.stimmung !== "auto" ? ord.stimmung : "") || ord.art;
+      const what = ord.schritt ? ord.schritt + " (Issue #" + ord.bezug.issue + ")" : ord.thema || ord.vorlage || ord.wunsch || (ord.stimmung && ord.stimmung !== "auto" ? ord.stimmung : "") || ord.art;
       const title = ("CUDI-Auftrag (Notbetrieb): " + what).slice(0, 80);
       const body = "cudi-auftrag\n\nNotbetrieb-Auftrag aus der CUDI-App – nur \u201eSubmit new issue\u201c tippen.\n\n```json\n" +
         JSON.stringify(ord) + "\n```\n";

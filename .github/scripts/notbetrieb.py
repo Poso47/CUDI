@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-NOTBETRIEB_ARTEN = ("ranking", "fakten", "erklaer", "story", "reportage", "satire", "clip")
+NOTBETRIEB_ARTEN = ("ranking", "fakten", "erklaer", "story", "reportage", "satire", "clip", "schaubild")
 SCHRITTE = ("bearbeiten", "hochladen")      # brauchen den Verweis „bezug“ auf das frühere Ergebnis
 WARTEN = 600                                # Sekunden bis zum zweiten Versuch, wenn das Sprachmodell ausgefallen war
 MAX_COMMENT = 60_000
