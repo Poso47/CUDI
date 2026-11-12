@@ -16,6 +16,7 @@ CUDI Video (`cudi_video/`): kostenlose Hochformat-Videos (1080×1920, DE + EN) f
 | Clips (Erlaubnis, Scout, Twitch) | `docs/gehirn/clip.md` | `clip-engine` |
 | Firma-Mitarbeiter auf GitHub, Briefing, Eigentümer | `docs/gehirn/firma.md` | `firma-mitarbeiter` |
 | Tempo, Kosten, Ausweichwege | `docs/gehirn/betrieb.md` | `tempo`, `ausweg-finden` |
+| Gelerntes aus Beispielvideos (Schaubild-Stil, 7 Content-Gesetze) | `docs/gehirn/vorbilder.md` | – |
 | Auftrags- und Berichtsvorlage | `docs/kommunikation.md` | `pruefen-und-mergen` |
 
 **Pflicht für alle (Hauptsitzung, Agenten, künftige Sitzungen):**
