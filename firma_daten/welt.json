@@ -1,12 +1,67 @@
 {
- "erzeugt": "2026-11-12T07:28:07Z",
- "anzahl": 14,
- "nur_ausland": 1,
+ "erzeugt": "2026-11-12T20:11:14Z",
+ "anzahl": 9,
+ "nur_ausland": 2,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
+   "kurz": "\"Above all, what is needed is for Europe to have a clear and united vision of what it wants for Ukraine and for itself,' Emmanuel Macron said at a meeting of…",
+   "link": "https://www.lemonde.fr/en/international/article/2026/11/12/macron-and-merz-downplay-push-to-name-europe-envoy-in-ukraine-russia-talks_6778842_4.html",
+   "sprache": "en",
+   "zeit": "2026-11-12T15:17:16+01:00",
+   "ausland_quellen": 2,
+   "laender": [
+    "Frankreich",
+    "Türkei"
+   ],
+   "laender_einig": [
+    "Frankreich",
+    "Türkei"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
+    "Anadolu (Türkei): Germany’s Merz sees ‘positive signals’ in Ukraine peace talks"
+   ],
+   "staatsnah": [
+    "Anadolu"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": true,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/12/macron-and-merz-downplay-push-to-name-europe-envoy-in-ukraine-russia-talks_6778842_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Anadolu",
+     "land": "Türkei",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Germany’s Merz sees ‘positive signals’ in Ukraine peace talks",
+     "link": "https://www.aa.com.tr/en/world/germany-s-merz-sees-positive-signals-in-ukraine-peace-talks/4122418",
+     "eigentuemer": "staatlich (Türkei)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "Germany reportedly bans Chinese drones at military bases over security concerns",
    "kurz": "Western military forces increasingly worried Chinese-made technology ⁠could send ‌sensitive information to Beijing Germany has banned commercially available…",
@@ -60,11 +115,11 @@
    ]
   },
   {
-   "titel": "Strabag im 3. Quartal wegen Aufträgen in Deutschland stark gewachsen",
-   "kurz": "Die Strabag rechnet mit noch besseren Ergebnissen. Grund sind volle Auftragsbücher in Deutschland – insbesondere Energie- und Bahnanlagen sowie…",
-   "link": "https://www.derstandard.at/story/3000000348835/-strabag-im-3-quartal-stark-gewachsen-gewinnaussicht-angehoben?ref=rss",
+   "titel": "Hauptstadt Berlin, Wartungsort Köln-Bonn: Deutsche Regierungsmaschinen fliegen noch bis 2036 leer durchs Land",
+   "kurz": "Ein Bericht des \"Spiegel\" lenkt ein fahles Licht auf die Flugbereitschaft der Deutschen Bundeswehr: Der Umzug in die nicht mehr allzu neue Hauptstadt verläuft…",
+   "link": "https://www.derstandard.at/story/3000000349026/hauptstadt-berlin-wartungsort-koeln-bonn-deutsche-regierungsmaschinen-fliegen-noch-bis-2036-leer-durchs-land?ref=rss",
    "sprache": "de",
-   "zeit": "2026-11-12T06:26:13Z",
+   "zeit": "2026-11-12T17:03:32Z",
    "ausland_quellen": 1,
    "laender": [
     "Österreich"
@@ -75,7 +130,7 @@
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "Der Standard (Österreich): Strabag im 3. Quartal wegen Aufträgen in Deutschland stark gewachsen"
+    "Der Standard (Österreich): Hauptstadt Berlin, Wartungsort Köln-Bonn: Deutsche Regierungsmaschinen fliegen noch bis 2036 leer durchs Land"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -89,30 +144,147 @@
      "land": "Österreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Strabag im 3. Quartal wegen Aufträgen in Deutschland stark gewachsen",
-     "link": "https://www.derstandard.at/story/3000000348835/-strabag-im-3-quartal-stark-gewachsen-gewinnaussicht-angehoben?ref=rss",
+     "titel": "Hauptstadt Berlin, Wartungsort Köln-Bonn: Deutsche Regierungsmaschinen fliegen noch bis 2036 leer durchs Land",
+     "link": "https://www.derstandard.at/story/3000000349026/hauptstadt-berlin-wartungsort-koeln-bonn-deutsche-regierungsmaschinen-fliegen-noch-bis-2036-leer-durchs-land?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Anselm Kiefer o la vida pública del artista",
-   "kurz": "El pintor alemán protagoniza en La Pedrera una muestra de monumentalidad abrumadora que insiste en los motivos habituales de su obra, como la épica de las…",
-   "link": "https://elpais.com/babelia/2026-11-12/anselm-kiefer-o-la-vida-publica-del-artista.html",
-   "sprache": "es",
-   "zeit": "2026-11-12T04:30:00Z",
+   "titel": "Mercedes-Benz stoppt alle weiteren Investitionen in deutsche Standorte",
+   "kurz": "Zudem kündigte der Vorstand an, Werkschließungen in Deutschland zu prüfen. Hintergrund sind Verhandlungen über niedrigere Personalkosten mit dem Betriebsrat",
+   "link": "https://www.derstandard.at/story/3000000349022/mercedes-benz-pr252ft-werksschlie223ungen-in-deutschland-arbeit-zu-teuer?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-12T16:20:12Z",
    "ausland_quellen": 1,
    "laender": [
-    "Spanien"
+    "Österreich"
    ],
    "laender_einig": [
-    "Spanien"
+    "Österreich"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "El País (Spanien): Anselm Kiefer o la vida pública del artista"
+    "Der Standard (Österreich): Mercedes-Benz stoppt alle weiteren Investitionen in deutsche Standorte"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Mercedes-Benz stoppt alle weiteren Investitionen in deutsche Standorte",
+     "link": "https://www.derstandard.at/story/3000000349022/mercedes-benz-pr252ft-werksschlie223ungen-in-deutschland-arbeit-zu-teuer?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine",
+   "kurz": "Die USA wollen die Europäer mit Putin an einen Tisch bringen. Merz ist bereit, aber die EU-Partner sind uneins beim Kurs zu Russland und wer sie vertreten soll",
+   "link": "https://www.derstandard.at/story/3000000348678/europaeer-schimpfen-gern-ueber-putin-und-trump-sind-aber-selbst-auf-ukrainegespraeche-nicht-vorbereitet-und-zerstritten?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-12T15:51:54Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland",
+    "USA",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine",
+     "link": "https://www.derstandard.at/story/3000000348678/europaeer-schimpfen-gern-ueber-putin-und-trump-sind-aber-selbst-auf-ukrainegespraeche-nicht-vorbereitet-und-zerstritten?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Pen Berlin kritisiert Ermittlungen gegen Houellebecq",
+   "kurz": "Die Autorenvereinigung bewertet das juristische Vorgehen als einen Angriff auf die Meinungsfreiheit",
+   "link": "https://www.derstandard.at/story/3000000349000/pen-berlin-kritisiert-ermittlungen-gegen-houellebecq?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-12T15:02:06Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Pen Berlin kritisiert Ermittlungen gegen Houellebecq"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Pen Berlin kritisiert Ermittlungen gegen Houellebecq",
+     "link": "https://www.derstandard.at/story/3000000349000/pen-berlin-kritisiert-ermittlungen-gegen-houellebecq?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "España ya es el segundo país de la UE con más trabajadores nacidos en el extranjero",
+   "kurz": "La economía española es la cuarta receptora de mano de obra migrante de los miembros de la OCDE, solo por detrás de Estados Unidos, Alemania y Reino Unido",
+   "link": "https://elpais.com/economia/2026-11-12/espana-ya-es-el-segundo-pais-de-la-ue-con-mas-trabajadores-nacidos-en-el-extranjero.html",
+   "sprache": "es",
+   "zeit": "2026-11-12T13:21:21Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Großbritannien",
+    "Spanien",
+    "USA"
+   ],
+   "zusammenfassung": [
+    "El País (Spanien): España ya es el segundo país de la UE con más trabajadores nacidos en el extranjero"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -125,372 +297,32 @@
      "quelle": "El País",
      "land": "Spanien",
      "art": "privat",
-     "beteiligt": false,
-     "titel": "Anselm Kiefer o la vida pública del artista",
-     "link": "https://elpais.com/babelia/2026-11-12/anselm-kiefer-o-la-vida-publica-del-artista.html",
+     "beteiligt": true,
+     "titel": "España ya es el segundo país de la UE con más trabajadores nacidos en el extranjero",
+     "link": "https://elpais.com/economia/2026-11-12/espana-ya-es-el-segundo-pais-de-la-ue-con-mas-trabajadores-nacidos-en-el-extranjero.html",
      "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "DER ANDERE BLICK - Gen-Z-Porteste: Die Krawalldemonstranten setzen viel mehr als die innere Sicherheit aufs Spiel",
-   "kurz": "Am 20. November finden die nächsten Jugendproteste in Deutschland statt. Es ist absehbar, dass sich unter die Demonstranten auch Gewalttäter mischen. Der…",
-   "link": "https://www.nzz.ch/der-andere-blick/gen-z-porteste-die-krawalldemonstranten-setzen-viel-mehr-als-die-innere-sicherheit-aufs-spiel-ld.10060672",
-   "sprache": "de",
-   "zeit": "2026-11-12T04:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): DER ANDERE BLICK - Gen-Z-Porteste: Die Krawalldemonstranten setzen viel mehr als die innere Sicherheit aufs Spiel"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "DER ANDERE BLICK - Gen-Z-Porteste: Die Krawalldemonstranten setzen viel mehr als die innere Sicherheit aufs Spiel",
-     "link": "https://www.nzz.ch/der-andere-blick/gen-z-porteste-die-krawalldemonstranten-setzen-viel-mehr-als-die-innere-sicherheit-aufs-spiel-ld.10060672",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Tiene 16 años, puede sumar 50 números de cinco cifras en 25 segundos y, gracias a su intelecto, ya obtuvo nueve Récords Guinness",
-   "kurz": "Aaryan Nitin Shukla comenzó a practicar cálculos mentales a los seis años; a los 12 ganó la Copa Mundial de Cálculo Mental en Alemania y hoy se lo considera…",
-   "link": "https://www.lanacion.com.ar/lifestyle/tiene-16-anos-puede-sumar-50-numeros-de-cinco-cifras-en-25-segundos-y-gracias-a-su-intelecto-ya-nid11112026/",
+   "titel": "Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE",
+   "kurz": "París y Berlín negocian un acuerdo que les permita obtener buenos puestos en el consejo del banco central. El neerlandés Klaas Knot también opta a la…",
+   "link": "https://elpais.com/economia/2026-11-12/francia-se-inclina-por-apoyar-al-espanol-hernandez-de-cos-para-la-presidencia-del-bce.html",
    "sprache": "es",
-   "zeit": "2026-11-12T01:20:37Z",
+   "zeit": "2026-11-12T09:56:27Z",
    "ausland_quellen": 1,
    "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [
-    "Argentinien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "La Nación (Argentinien): Tiene 16 años, puede sumar 50 números de cinco cifras en 25 segundos y, gracias a su intelecto, ya obtuvo nueve Récords Guinness"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Tiene 16 años, puede sumar 50 números de cinco cifras en 25 segundos y, gracias a su intelecto, ya obtuvo nueve Récords Guinness",
-     "link": "https://www.lanacion.com.ar/lifestyle/tiene-16-anos-puede-sumar-50-numeros-de-cinco-cifras-en-25-segundos-y-gracias-a-su-intelecto-ya-nid11112026/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Merz threatens to cut EU funds for member states that don't support Ukraine",
-   "kurz": "After Bulgaria, Hungary, Slovakia and the Czech Republic asked to be exempted from Ukraine's next funding scheme, Germany's chancellor responded firmly…",
-   "link": "https://www.lemonde.fr/en/international/article/2026/11/11/merz-threatens-to-cut-eu-funds-for-member-states-that-don-t-support-ukraine_6778019_4.html",
-   "sprache": "en",
-   "zeit": "2026-11-11T17:42:35+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): Merz threatens to cut EU funds for member states that don't support Ukraine"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Merz threatens to cut EU funds for member states that don't support Ukraine",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/11/merz-threatens-to-cut-eu-funds-for-member-states-that-don-t-support-ukraine_6778019_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Verdächtiger im Fall der getöteten 13-Jährigen in Berlin gestorben",
-   "kurz": "Am Sonntag wurde der Verdächtige in einem Haus in Brandenburg gefasst, in dem sich die Leiche der 13-Jährigen befand",
-   "link": "https://www.derstandard.at/story/3000000348716/get246tete-lisa-in-berlin-verd228chtiger-ebenfalls-gestorben?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-11T11:15:27Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Verdächtiger im Fall der getöteten 13-Jährigen in Berlin gestorben"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Verdächtiger im Fall der getöteten 13-Jährigen in Berlin gestorben",
-     "link": "https://www.derstandard.at/story/3000000348716/get246tete-lisa-in-berlin-verd228chtiger-ebenfalls-gestorben?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Deutschland beschließt verpflichtende Videoüberwachung für große Schlachthöfe",
-   "kurz": "Immer wieder werden Tiere, noch bevor sie getötet werden, in Betrieben gequält",
-   "link": "https://www.derstandard.at/story/3000000348567/deutschland-beschliesst-verpflichtende-videoueberwachung-fuer-grosse-schlachthoefe?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-11T04:00:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Deutschland beschließt verpflichtende Videoüberwachung für große Schlachthöfe"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Deutschland beschließt verpflichtende Videoüberwachung für große Schlachthöfe",
-     "link": "https://www.derstandard.at/story/3000000348567/deutschland-beschliesst-verpflichtende-videoueberwachung-fuer-grosse-schlachthoefe?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Kristallnacht's 88th anniversary: Merz says Germany faces historic test over anti-Semitism",
-   "kurz": "It has been 88 years since \"Kristallnacht\", the \"Night of Broken Glass\" in Europe, a violent pogrom against the Jewish population across Nazi Germany and…",
-   "link": "https://www.france24.com/en/video/20261110-kristallnacht-88th-anniversary-merz-says-germany-faces-historic-test-over-antisemitism",
-   "sprache": "en",
-   "zeit": "2026-11-10T16:47:50Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "France 24 (Frankreich): Kristallnacht's 88th anniversary: Merz says Germany faces historic test over anti-Semitism"
-   ],
-   "staatsnah": [
-    "France 24"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "France 24",
-     "land": "Frankreich",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Kristallnacht's 88th anniversary: Merz says Germany faces historic test over anti-Semitism",
-     "link": "https://www.france24.com/en/video/20261110-kristallnacht-88th-anniversary-merz-says-germany-faces-historic-test-over-antisemitism",
-     "eigentuemer": "staatlich (Frankreich)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Merz accused of ‘blackmail’ by Slovak PM after demand for Ukraine aid in EU budget",
-   "kurz": "German chancellor has signalled he will block budget with no aid deal, complaining that burden is ‘carried mostly by only a few member states’ Friedrich Merz…",
-   "link": "https://www.theguardian.com/world/2026/nov/10/friedrich-merz-accused-blackmail-ukraine-aid-eu-budget",
-   "sprache": "en",
-   "zeit": "2026-11-10T16:44:27Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): Merz accused of ‘blackmail’ by Slovak PM after demand for Ukraine aid in EU budget"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Merz accused of ‘blackmail’ by Slovak PM after demand for Ukraine aid in EU budget",
-     "link": "https://www.theguardian.com/world/2026/nov/10/friedrich-merz-accused-blackmail-ukraine-aid-eu-budget",
-     "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "French wartime resistance heroine Solange Alexandre dies aged 104",
-   "kurz": "With 30 men under her orders, she organised sabotage operations, sheltered Allied airmen and joined the fight against the occupying German forces.",
-   "link": "https://www.bbc.co.uk/news/articles/cjdx3x7wg941o?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-10T13:23:54Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich"
-   ],
-   "zusammenfassung": [
-    "BBC Europe (Großbritannien): French wartime resistance heroine Solange Alexandre dies aged 104"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "French wartime resistance heroine Solange Alexandre dies aged 104",
-     "link": "https://www.bbc.co.uk/news/articles/cjdx3x7wg941o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits",
-   "kurz": "Eine aktuelle Ifo-Studie zeigt: Die Beschäftigung der 20- bis 24-Jährigen ging in Deutschland in den am stärksten von KI betroffenen Berufen zurück",
-   "link": "https://www.derstandard.at/story/3000000348293/berufseinsteiger-spueren-ki-folgen-auf-dem-jobmarkt-bereits?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-10T09:46:20Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Berufseinsteiger spüren KI-Folgen auf dem Jobmarkt bereits",
-     "link": "https://www.derstandard.at/story/3000000348293/berufseinsteiger-spueren-ki-folgen-auf-dem-jobmarkt-bereits?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "The dashed hopes for French-German cooperation under Macron, from tanks to fighter jets",
-   "kurz": "At a French-German parliamentary assembly on Monday, Paris and Berlin took stock of a strained defense relationship that led to the abandonment of the FCAS…",
-   "link": "https://www.lemonde.fr/en/international/article/2026/11/11/french-german-defense-cooperation-reaches-dead-end-under-emmanuel-macron_6778022_4.html",
-   "sprache": "en",
-   "zeit": "2026-11-11T20:00:03+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
+    "Spanien"
    ],
    "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Frankreich"
+    "Frankreich",
+    "Spanien"
    ],
    "zusammenfassung": [
-    "Le Monde (en) (Frankreich): The dashed hopes for French-German cooperation under Macron, from tanks to fighter jets"
+    "El País (Spanien): Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -500,13 +332,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
      "beteiligt": true,
-     "titel": "The dashed hopes for French-German cooperation under Macron, from tanks to fighter jets",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/11/french-german-defense-cooperation-reaches-dead-end-under-emmanuel-macron_6778022_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
+     "titel": "Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE",
+     "link": "https://elpais.com/economia/2026-11-12/francia-se-inclina-por-apoyar-al-espanol-hernandez-de-cos-para-la-presidencia-del-bce.html",
+     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -549,48 +381,7 @@
    ]
   }
  ],
- "verbindungen": [
-  {
-   "name": "Anselm Kiefer",
-   "wikidata": "https://www.wikidata.org/wiki/Q170344",
-   "beschreibung": "German painter and sculptor (born 1945)",
-   "verbindungen": [
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "American Academy of Arts and Letters",
-     "link": "https://www.wikidata.org/wiki/Q463281",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Royal Academy of Arts",
-     "link": "https://www.wikidata.org/wiki/Q270920",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "American Academy of Arts and Sciences",
-     "link": "https://www.wikidata.org/wiki/Q463303",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Accademia di San Luca",
-     "link": "https://www.wikidata.org/wiki/Q338523",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Accademia delle Arti del Disegno",
-     "link": "https://www.wikidata.org/wiki/Q1760178",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "Anselm Kiefer o la vida pública del artista"
-   ]
-  }
- ],
+ "verbindungen": [],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -858,6 +649,12 @@
    ]
   },
   "Récords Guinness": {
+   "keine_treffer": true
+  },
+  "Wartungsort Köln": {
+   "keine_treffer": true
+  },
+  "Deutsche Regierungsmaschinen": {
    "keine_treffer": true
   }
  }
