@@ -22,7 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-NOTBETRIEB_ARTEN = ("ranking", "fakten", "story", "reportage", "satire", "clip")
+NOTBETRIEB_ARTEN = ("ranking", "fakten", "story", "reportage", "satire", "clip", "schaubild")
 MAX_COMMENT = 60_000
 MAX_REVIEW = 6_000            # Kurzform; der volle Prüfbericht liegt als review.md im Artefakt
 SECRET_ENV = ("CUDI_LLM_API_KEY", "CUDI_LLM2_API_KEY", "CUDI_LLM3_API_KEY", "CUDI_YT_CLIENT_SECRET", "CUDI_YT_REFRESH_TOKEN", "CUDI_TIKTOK_CLIENT_SECRET",
