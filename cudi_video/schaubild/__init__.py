@@ -73,6 +73,11 @@ OBERSTE REGEL – ALLES ZEIGEN, WAS GESAGT WIRD, GENAU DANN, WENN ES GESAGT WIRD
   bekommt eine Uhr. Zeige das Ganze (z. B. das Tier, das Gerät) als Umriss mit den Teilen darin und zoome dann mit der Kamera an die Stelle.
 - Rechne mit 2–4 Schritten und 1–3 Beschriftungen je Satz. Lieber mehr Einzelheiten als ein leeres Bild.
 Format: {"elemente": [...], "schritte": [...]}. Koordinaten 0–100 (0/0 = links oben, Mitte = 50/50), „groesse“ in Prozent der Bildbreite.
+FIGUREN (fertig gezeichnete, lebendige Illustrationen – atmen, blinzeln, bewegen sich): Gibt es für das Thema eine passende Figur,
+benutze sie statt sie aus Formen zu bauen: {"id": "huhn", "art": "figur", "figur": "huhn", "x": 50, "y": 52, "groesse": 85,
+"durchsichtig": true (Körper halb durchsichtig, um Organe im Inneren zu zeigen), "blick": "links"|"rechts"}. Aktionen: picke, flattere,
+bewege, wachse, erscheine, verschwinde. Teile IN der Figur setzt du über Ankerpunkte: "x": "huhn.eierstock", "y": "huhn.eierstock",
+Schlauch-Punkte ebenso (z. B. ["huhn.eierstock", "huhn.eileiter", "huhn.kloake"]). Verfügbare Figuren und Anker: {figuren}
 Elemente (höchstens 18, Reihenfolge = Zeichenreihenfolge, später = weiter vorn), jedes mit „id“, „art“ und:
 - form: „form“ kreis|ei|tropfen|herz|quadrat|sechseck ODER eigener „pfad“ (SVG-Pfad für einen einfachen Umriss, z. B. Tier, Organ,
   Blatt, Haus), „farbe“, „x“, „y“, „groesse“, optional „streckung“ (Höhe/Breite), „deckkraft“ 0–1 (durchscheinend), „sichtbar“: false
@@ -274,7 +279,8 @@ def nachbessern(stationen: list[dict], lang: str, notes: list[str]) -> None:
     offen = [(st, m) for st, m in offen if m]
     if not offen:
         return
-    answer = handoff.request("schaubild_korrektur", KORREKTUR + SZENEN_ANLEITUNG, {"sprache": lang, "stationen": [
+    figuren_text = "; ".join(f"{n} (Anker: {', '.join(i['anker'])})" for n, i in zeichnen.figuren().items()) or "keine"
+    answer = handoff.request("schaubild_korrektur", KORREKTUR + SZENEN_ANLEITUNG.replace("{figuren}", figuren_text), {"sprache": lang, "stationen": [
         {"name": st["name"], "text": st["text"], "szene": st.get("szene"), "maengel": m} for st, m in offen]})
     neu = {str(x.get("name")): x for x in (answer or {}).get("stationen", []) if isinstance(x, dict)} if isinstance(answer, dict) else {}
     for st, m in offen:
@@ -476,7 +482,8 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     eigen = stil["modus"] == "szene"
     progress("Skript schreiben", 0.15)
     anleitung = INSTRUCTIONS.replace("{n}", str(order["stationen"])).replace("{lang}", "Deutsch" if lang == "de" else "English")
-    answer = handoff.request(TASK, anleitung + (SZENEN_ANLEITUNG if eigen else ""),
+    figuren_text = "; ".join(f"{n} (Anker: {', '.join(i['anker'])})" for n, i in zeichnen.figuren().items()) or "keine"
+    answer = handoff.request(TASK, anleitung + (SZENEN_ANLEITUNG.replace("{figuren}", figuren_text) if eigen else ""),
                              {"thema": thema, "sprache": lang, "stationen": order["stationen"],
                               "quellen": [{"id": q["id"], "name": q["name"], "text": q["text"]} for q in quellen]})
     if not isinstance(answer, dict):

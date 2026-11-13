@@ -21,19 +21,48 @@ from __future__ import annotations
 import functools
 import math
 import re
+from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
 MAX_ELEMENTE, MAX_SCHRITTE = 20, 30
-ARTEN = ("form", "schlauch", "huelle", "schale", "kristalle", "partikel", "traube", "pfeil", "uhr", "beschriftung")
-AKTIONEN = ("erscheine", "verschwinde", "bewege", "wachse", "faerbe", "fuelle", "drehe", "pulsiere", "zoom")
+ARTEN = ("figur", "form", "schlauch", "huelle", "schale", "kristalle", "partikel", "traube", "pfeil", "uhr", "beschriftung")
+AKTIONEN = ("erscheine", "verschwinde", "bewege", "wachse", "faerbe", "fuelle", "drehe", "pulsiere", "zoom", "picke", "flattere")
 KAMERA = "kamera"                         # Ziel der Aktion „zoom“: die Kamera fährt an eine Stelle heran
 FORMEN = ("kreis", "ei", "tropfen", "herz", "quadrat", "sechseck")
 FARBEN = {"dotter": (255, 176, 32), "eiklar": (236, 244, 248), "schale": (214, 150, 96), "kalk": (246, 244, 236), "rot": (226, 68, 62),
           "blau": (64, 140, 230), "gruen": (70, 180, 110), "gelb": (250, 210, 60), "orange": (245, 140, 50), "weiss": (250, 250, 248),
           "grau": (150, 158, 170), "braun": (150, 96, 60), "rosa": (240, 150, 170), "lila": (150, 110, 220), "tuerkis": (60, 190, 200),
           "gold": (232, 176, 72), "haut": (236, 190, 160), "schwarz": (30, 32, 38)}
+
+
+FIGUREN = Path(__file__).resolve().parent.parent / "data" / "figuren"
+ANKER = re.compile(r"^([a-z0-9_]{1,20})\.([a-z_]{2,20})$")
+
+
+@functools.lru_cache(maxsize=16)
+def figur_info(name: str) -> dict | None:
+    """Gezeichnete Figur (Ebenen-PNGs + figur.json aus data/figuren/<name>/) oder None."""
+    pfad = FIGUREN / re.sub(r"[^a-z0-9_]", "", name) / "figur.json"
+    if not pfad.exists():
+        return None
+    import json
+
+    info = json.loads(pfad.read_text("utf-8"))
+    info["ordner"] = pfad.parent
+    return info
+
+
+def figuren() -> dict[str, dict]:
+    """Alle verfügbaren Figuren mit ihren Ankerpunkten (für die Schreibanleitung)."""
+    return {d.parent.name: figur_info(d.parent.name) for d in sorted(FIGUREN.glob("*/figur.json"))}
+
+
+@functools.lru_cache(maxsize=64)
+def _ebene(name: str, ebene: str, px: int) -> Image.Image:
+    with Image.open(figur_info(name)["ordner"] / f"{ebene}.png") as im:
+        return im.convert("RGBA").resize((px, px), Image.LANCZOS)
 
 
 def clamp(x: float, lo: float = 0.0, hi: float = 1.0) -> float:
@@ -202,6 +231,21 @@ def abdeckung(szene: dict | None, saetze: int) -> list[int]:
     return [n for n in range(1, saetze + 1) if n not in da]
 
 
+def _koord(v, standard: float):
+    """Zahl 0–100 oder Anker „figur.teil“ (wird in der Bühne aufgelöst)."""
+    if isinstance(v, str) and ANKER.match(v.strip().lower()):
+        return v.strip().lower()
+    return _zahl(v, standard, -20, 120)
+
+
+def _punkt(p):
+    if isinstance(p, str) and ANKER.match(p.strip().lower()):
+        return p.strip().lower()
+    if isinstance(p, (list, tuple)) and len(p) == 2:
+        return (_koord(p[0], 50), _koord(p[1], 50))
+    return None
+
+
 def pruefe_szene(roh) -> dict | None:
     """Szenen-Beschreibung säubern: nur bekannte Arten/Aktionen, Werte im Rahmen, Verweise müssen existieren."""
     if not isinstance(roh, dict):
@@ -213,7 +257,9 @@ def pruefe_szene(roh) -> dict | None:
         eid = re.sub(r"[^a-z0-9_]", "", str(e.get("id") or f"e{len(elemente)}").lower())[:20] or f"e{len(elemente)}"
         if eid in ids:
             continue
-        neu = {"id": eid, "art": e["art"], "x": _zahl(e.get("x"), 50, -20, 120), "y": _zahl(e.get("y"), 50, -20, 120),
+        if e["art"] == "figur" and not figur_info(str(e.get("figur") or "")):
+            continue
+        neu = {"id": eid, "art": e["art"], "x": _koord(e.get("x"), 50), "y": _koord(e.get("y"), 50),
                "groesse": _zahl(e.get("groesse"), 18, 1, 100), "farbe": farbe(e.get("farbe")),
                "alpha": 0.0 if e.get("sichtbar") is False else _zahl(e.get("deckkraft"), 1, 0, 1),
                "f": _zahl(e.get("fuellung"), 1 if e["art"] in ("schlauch", "pfeil", "traube") else 0, 0, 1), "rot": _zahl(e.get("drehung"), 0, -360, 360)}
@@ -222,8 +268,8 @@ def pruefe_szene(roh) -> dict | None:
             neu["pfad"] = str(e.get("pfad") or "")[:1500]
             neu["streckung"] = _zahl(e.get("streckung"), 1, .3, 3)
         if e["art"] in ("schlauch", "pfeil"):
-            pts = [(_zahl(p[0], 50, -10, 110), _zahl(p[1], 50, -10, 110)) for p in (e.get("punkte") or [])
-                   if isinstance(p, (list, tuple)) and len(p) == 2][:16]
+            pts = [_punkt(p) for p in (e.get("punkte") or [])][:16]
+            pts = [p for p in pts if p is not None]
             if len(pts) < 2:
                 continue
             neu["punkte"], neu["breite"] = pts, _zahl(e.get("breite"), 9 if e["art"] == "schlauch" else 1.6, .5, 60)
@@ -236,6 +282,10 @@ def pruefe_szene(roh) -> dict | None:
                 continue
         if e.get("bei"):
             neu["bei"] = str(e["bei"])[:30]
+        if e["art"] == "figur":
+            neu["figur"] = str(e["figur"])
+            neu["durchsichtig"] = bool(e.get("durchsichtig"))
+            neu["blick"] = -1 if e.get("blick") == "links" else 1
         if e["art"] == "traube":
             neu["anzahl"] = int(_zahl(e.get("anzahl"), 9, 2, 24))
         for ref in ("um", "von", "nach"):
@@ -254,9 +304,24 @@ def pruefe_szene(roh) -> dict | None:
                 e[ref] = str(v)
             else:
                 e.pop(ref)
+    figs = {e["id"]: figur_info(e["figur"]) for e in elemente if e["art"] == "figur"}
+
+    def gueltig(v, standard):
+        if isinstance(v, str):
+            m = ANKER.match(v)
+            return v if m and m.group(1) in figs and m.group(2) in figs[m.group(1)]["anker"] else standard
+        return v
+
     for e in elemente:
+        e["x"], e["y"] = gueltig(e["x"], 50.0), gueltig(e["y"], 50.0)
+        if "punkte" in e:
+            e["punkte"] = [gueltig(p, None) if isinstance(p, str) else (gueltig(p[0], 50.0), gueltig(p[1], 50.0)) for p in e["punkte"]]
+            e["punkte"] = [p for p in e["punkte"] if p is not None]
+            if len(e["punkte"]) < 2:
+                e["art"] = "_weg"
         if e["art"] == "beschriftung" and e["an"] not in ids:
             e["an"] = ""
+    elemente = [e for e in elemente if e["art"] != "_weg"]
     elemente = [e for e in elemente if not (e["art"] in ("huelle", "schale", "kristalle") and not isinstance(e.get("um"), str))
                 and not (e["art"] == "beschriftung" and not e["an"])
                 and not (e["art"] == "partikel" and ("von" not in e or "nach" not in e))]
@@ -278,6 +343,8 @@ def pruefe_szene(roh) -> dict | None:
             neu["auf"] = _zahl(s.get("auf"), 1.8, 1, 3.5)
             if str(s.get("zu")) in ids:
                 neu["zu"] = str(s["zu"])
+            elif isinstance(s.get("punkt"), str) and gueltig(s["punkt"].strip().lower(), None):
+                neu["punkt"] = (s["punkt"].strip().lower(),) * 2
             elif isinstance(s.get("punkt"), (list, tuple)) and len(s["punkt"]) == 2:
                 neu["punkt"] = (_zahl(s["punkt"][0], 50, 0, 100), _zahl(s["punkt"][1], 50, 0, 100))
             else:
@@ -289,6 +356,8 @@ def pruefe_szene(roh) -> dict | None:
                 neu["zu"] = str(s["zu"])
             elif isinstance(s.get("nach"), (list, tuple)) and len(s["nach"]) == 2:
                 neu["punkt"] = (_zahl(s["nach"][0], 50, -20, 120), _zahl(s["nach"][1], 50, -20, 120))
+            elif isinstance(s.get("punkt"), str) and gueltig(s["punkt"].strip().lower(), None):
+                neu["punkt"] = (s["punkt"].strip().lower(),) * 2
             elif isinstance(s.get("punkt"), (list, tuple)) and len(s["punkt"]) == 2:
                 neu["punkt"] = (_zahl(s["punkt"][0], 50, -20, 120), _zahl(s["punkt"][1], 50, -20, 120))
             else:
@@ -336,6 +405,7 @@ class Buehne:
 
     def __init__(self, szene: dict, size: int, satz_zeiten: list[float], ink: tuple, akzent: tuple, seed: int = 0, wort_zeit=None):
         self.size, self.ink, self.ak, self.seed = size, tuple(ink), tuple(akzent), seed
+        szene = self._anker_aufloesen(szene)
         self.el = {e["id"]: e for e in szene["elemente"]}
         self.order = [e["id"] for e in szene["elemente"]]
         zeiten = satz_zeiten or [0.0]
@@ -358,6 +428,74 @@ class Buehne:
                     laengen.append(laengen[-1] + math.hypot(b[0] - a[0], b[1] - a[1]))
                 self.kurven[e["id"]] = (pts, laengen)
         self.rng = np.random.default_rng(seed + 5).random((64, 3))
+
+    @staticmethod
+    def _anker_aufloesen(szene: dict) -> dict:
+        """„huhn.bauch“ -> Bildkoordinaten (aus Lage und Größe der Figur). Kopie, das Original bleibt unverändert."""
+        import copy
+
+        szene = copy.deepcopy(szene)
+        figs = {e["id"]: e for e in szene["elemente"] if e["art"] == "figur"}
+
+        def los(v, achse):
+            if not isinstance(v, str):
+                return v
+            fid, teil = v.split(".")
+            f, info = figs[fid], figur_info(figs[fid]["figur"])
+            a = info["anker"][teil][achse] / info["groesse"] - .5
+            if achse == 0:
+                a *= f.get("blick", 1)
+            return f["x" if achse == 0 else "y"] + a * f["groesse"]
+
+        for e in szene["elemente"]:
+            if e["art"] == "figur":
+                continue
+            e["x"], e["y"] = los(e["x"], 0), los(e["y"], 1)
+            if "punkte" in e:
+                e["punkte"] = [(los(p, 0), los(p, 1)) if isinstance(p, str) else (los(p[0], 0), los(p[1], 1)) for p in e["punkte"]]
+            for ref in ("von", "nach"):
+                if isinstance(e.get(ref), tuple):
+                    e[ref] = (los(e[ref][0], 0), los(e[ref][1], 1))
+        for s in szene["schritte"]:
+            if isinstance(s.get("punkt"), tuple):
+                s["punkt"] = (los(s["punkt"][0], 0), los(s["punkt"][1], 1))
+        return szene
+
+    def _figur(self, e: dict, z: dict, t: float) -> Image.Image:
+        """Figur aus ihren Ebenen zusammensetzen – mit Eigenleben: atmen, blinzeln, Kopf nicken, Schwanz wippen;
+        dazu die Aktionen „picke“ (Kopf runter) und „flattere“ (Flügel schlagen)."""
+        info = figur_info(e["figur"])
+        px = max(16, int(z["g"] * self.size / 100 / 8) * 8)
+        f = px / info["groesse"]
+        bild = Image.new("RGBA", (px, px), (0, 0, 0, 0))
+        dreh = info.get("drehpunkte", {})
+        phase = self.seed % 5
+        atem = 1 + .014 * math.sin(t * 2.4 + phase)
+        winkel = {"kopf": 2.2 * math.sin(t * 1.3 + phase) - 22 * z.get("picke", 0.0),
+                  "schwanz": 1.8 * math.sin(t * 1.7 + phase + 1),
+                  "fluegel": -16 * abs(math.sin(t * 14)) * z.get("flattere", 0.0)}
+        blinzeln = (t + phase * .7) % 3.4 < .14
+        deck = z["alpha"]
+        for ebene in info["ebenen"]:
+            if ebene in info.get("versteckt", []) and not (ebene == "lid" and blinzeln):
+                continue
+            lage = _ebene(e["figur"], ebene, px)
+            haupt = "kopf" if ebene in info.get("mit_kopf", []) else ebene
+            w = winkel.get(haupt, 0.0)
+            if abs(w) > .05:
+                cx, cy = (v * f for v in dreh.get(haupt, (info["groesse"] / 2,) * 2))
+                lage = lage.rotate(w, resample=Image.BICUBIC, center=(cx, cy))
+            if ebene in ("koerper", "fluegel") and abs(atem - 1) > .001:
+                h = int(px * atem)
+                lage = lage.resize((px, h), Image.BILINEAR).crop((0, h - px, px, h))
+            a = deck * (.55 if e.get("durchsichtig") and ebene in ("koerper", "fluegel") else 1.0)
+            if a < .995:
+                lage = lage.copy()
+                lage.putalpha(lage.getchannel("A").point(lambda q: int(q * a)))
+            bild.alpha_composite(lage)
+        if e.get("blick", 1) < 0:
+            bild = bild.transpose(Image.FLIP_LEFT_RIGHT)
+        return bild
 
     def _auf_kurve(self, kid: str, f: float) -> tuple[float, float]:
         pts, laengen = self.kurven[kid]
@@ -402,6 +540,8 @@ class Buehne:
                 z["f"] += (s["auf"] - z["f"]) * p
             elif a == "drehe":
                 z["rot"] += s["um"] * p
+            elif a in ("picke", "flattere"):                  # kurze Bewegung: hin und zurück
+                z[a] = math.sin(math.pi * clamp((t - s["t"]) / s["dauer"])) if t - s["t"] < s["dauer"] else 0.0
             elif a == "pulsiere":
                 z["puls"] = math.sin((t - s["t"]) * 4.2) * .06 * min(1.0, (t - s["t"]) * 2)
         return st
@@ -428,6 +568,9 @@ class Buehne:
             if z["alpha"] <= .01:
                 continue
             art, g = e["art"], z["g"] * (1 + z["puls"])
+            if art == "figur":
+                sicher(self._figur(e, {**z, "g": g}, t), z["x"], z["y"])
+                continue
             if art == "form":
                 px = max(8, int(g * k))
                 sp = glanzform(e["form"], e["pfad"], px, z["farbe"], z["alpha"], z["rot"])

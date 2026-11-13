@@ -5,46 +5,37 @@ Jede Szene zeigt alles, was der Text der Station sagt, und startet jeden Schritt
 KOERPER = "M 12 58 C 8 40 26 30 46 34 C 56 34 62 28 66 18 C 70 8 84 8 86 20 C 87 28 82 34 80 40 C 80 58 70 74 50 76 C 30 78 16 72 12 58 Z"
 
 
-def henne(deckkraft: float = 0.85) -> list[dict]:
-    """Henne von der Seite als durchscheinender Umriss – innen ist Platz für Eierstock und Eileiter."""
-    return [
-        {"id": "schwanz", "art": "form", "pfad": "M 0 30 C 4 10 14 2 24 0 C 20 12 22 22 26 34 Z", "farbe": "schale", "x": 10, "y": 40, "groesse": 20},
-        {"id": "bein1", "art": "schlauch", "punkte": [[40, 76], [39, 90], [33, 92]], "breite": 2.2, "farbe": "orange"},
-        {"id": "bein2", "art": "schlauch", "punkte": [[55, 75], [55, 90], [61, 92]], "breite": 2.2, "farbe": "orange"},
-        {"id": "henne", "art": "form", "pfad": KOERPER, "farbe": "haut", "x": 47, "y": 45, "groesse": 80, "deckkraft": deckkraft},
-        {"id": "kamm1", "art": "form", "form": "kreis", "farbe": "rot", "x": 73, "y": 9, "groesse": 8},
-        {"id": "kamm2", "art": "form", "form": "kreis", "farbe": "rot", "x": 79, "y": 8, "groesse": 7},
-        {"id": "schnabel", "art": "form", "pfad": "M 0 0 L 10 4 L 0 8 Z", "farbe": "orange", "x": 90, "y": 22, "groesse": 7},
-        {"id": "auge", "art": "form", "form": "kreis", "farbe": "schwarz", "x": 79, "y": 19, "groesse": 2.6},
-    ]
+def henne(durchsichtig: bool = False, groesse: float = 86) -> list[dict]:
+    """Die gezeichnete Henne (data/figuren/huhn) – lebendig: atmet, blinzelt, nickt."""
+    return [{"id": "henne", "art": "figur", "figur": "huhn", "x": 48, "y": 54, "groesse": groesse, "durchsichtig": durchsichtig}]
 
 
-INNEN_ROHR = [[44, 52], [34, 58], [46, 65], [30, 70], [18, 62]]
+INNEN_ROHR = ["henne.eierstock", "henne.eileiter", "henne.kloake"]
 ROHR = [[22, 12], [72, 22], [78, 40], [28, 50], [24, 68], [70, 80], [80, 92]]
 
 SZENEN = {
-"hook": {"elemente": henne() + [
+"hook": {"elemente": henne(durchsichtig=True) + [
             {"id": "rohr", "art": "schlauch", "punkte": INNEN_ROHR, "breite": 5, "farbe": "gold", "fuellung": 0},
-            {"id": "ei", "art": "form", "form": "ei", "farbe": "schale", "x": 14, "y": 86, "groesse": 14, "sichtbar": False},
+            {"id": "ei", "art": "form", "form": "ei", "farbe": "schale", "x": 16, "y": 88, "groesse": 12, "sichtbar": False},
             {"id": "b1", "art": "beschriftung", "text": "Ei", "an": "ei", "bei": "Ei", "seite": "rechts"},
             {"id": "b2", "art": "beschriftung", "text": "Eileiter", "an": "rohr", "bei": "Eileiter", "seite": "unten"}],
          "schritte": [{"bei": "Ei", "dauer": .6, "ziel": "ei", "aktion": "erscheine"},
-                      {"bei": "Inneren", "dauer": 1.4, "ziel": "kamera", "aktion": "zoom", "auf": 1.5, "punkt": [40, 55]},
-                      {"bei": "Inneren", "dauer": 1.0, "ziel": "henne", "aktion": "pulsiere"},
+                      {"bei": "gefragt", "dauer": .8, "ziel": "henne", "aktion": "picke"},
+                      {"bei": "Inneren", "dauer": 1.4, "ziel": "kamera", "aktion": "zoom", "auf": 1.5, "punkt": "henne.bauch"},
                       {"bei": "Reise", "dauer": .5, "ziel": "ei", "aktion": "verschwinde"},
                       {"bei": "Schlauch", "dauer": 2.4, "ziel": "rohr", "aktion": "fuelle", "auf": 1},
-                      {"bei": "Eileiter", "dauer": 1.2, "ziel": "kamera", "aktion": "zoom", "auf": 2.1, "punkt": [34, 62]}]},
-"eierstock": {"ohne_bild": ["Reise", "Überraschung", "Regel"], "elemente": henne() + [
-            {"id": "stock", "art": "traube", "farbe": "dotter", "x": 42, "y": 44, "groesse": 20, "anzahl": 12},
-            {"id": "klein", "art": "traube", "farbe": "grau", "x": 56, "y": 42, "groesse": 8, "anzahl": 5, "sichtbar": False},
+                      {"bei": "Eileiter", "dauer": 1.2, "ziel": "kamera", "aktion": "zoom", "auf": 2.0, "punkt": "henne.eileiter"}]},
+"eierstock": {"ohne_bild": ["Reise", "Überraschung", "Regel"], "elemente": henne(durchsichtig=True) + [
+            {"id": "stock", "art": "traube", "farbe": "dotter", "x": "henne.eierstock", "y": "henne.eierstock", "groesse": 14, "anzahl": 12},
+            {"id": "klein", "art": "traube", "farbe": "grau", "x": "henne.lunge", "y": "henne.lunge", "groesse": 6, "anzahl": 5, "sichtbar": False},
             {"id": "b1", "art": "beschriftung", "text": "Legehenne", "an": "henne", "bei": "Legehenne", "seite": "oben"},
             {"id": "b2", "art": "beschriftung", "text": "Eierstock", "an": "stock", "bei": "Eierstock", "seite": "links"},
             {"id": "b3", "art": "beschriftung", "text": "nicht voll ausgebildet", "an": "klein", "bei": "nicht", "seite": "rechts"}],
-         "schritte": [{"bei": "Legehenne", "dauer": 1.0, "ziel": "henne", "aktion": "pulsiere"},
-                      {"bei": "einen", "dauer": 1.4, "ziel": "kamera", "aktion": "zoom", "auf": 2.2, "zu": "stock"},
+         "schritte": [{"bei": "Legehenne", "dauer": 1.0, "ziel": "henne", "aktion": "flattere"},
+                      {"bei": "einen", "dauer": 1.4, "ziel": "kamera", "aktion": "zoom", "auf": 2.0, "zu": "stock"},
                       {"bei": "funktionierenden", "dauer": 1.0, "ziel": "stock", "aktion": "pulsiere"},
                       {"bei": "andere", "dauer": .7, "ziel": "klein", "aktion": "erscheine"},
-                      {"bei": "andere", "dauer": 1.0, "ziel": "kamera", "aktion": "zoom", "auf": 2.4, "punkt": [50, 43]},
+                      {"bei": "andere", "dauer": 1.0, "ziel": "kamera", "aktion": "zoom", "auf": 2.2, "punkt": "henne.eierstock"},
                       {"bei": "nicht", "dauer": 1.2, "ziel": "klein", "aktion": "wachse", "auf": 5}]},
 "dotter": {"elemente": [
             {"id": "stock", "art": "traube", "farbe": "dotter", "x": 24, "y": 20, "groesse": 30, "anzahl": 11},
