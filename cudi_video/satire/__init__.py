@@ -25,7 +25,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .. import handoff, textcheck, videoarten
+from .. import animation, handoff, textcheck, videoarten
 from ..metadata import CLICKBAIT
 from ..reportage import DRAMA, pruefe_satz, seite_quelle
 
@@ -484,7 +484,7 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
                           "Satire steht nur auf einem echten, bestätigten Kern – bitte eine bestätigte Meldung nennen"
                           + (f" ({'; '.join(notes)})" if notes else "") + ".")
     progress("Fakten prüfen", 0.2)
-    answer = handoff.request(TASK, INSTRUCTIONS.format(regeln=SATIRE_REGELN), {
+    answer = handoff.request(TASK, INSTRUCTIONS.format(regeln=SATIRE_REGELN) + animation.storyboard_liste_zusatz(), {
         "thema": thema, "sprache": lang, "stand": datetime.now(timezone.utc).date().isoformat(),
         "quellen": [{"id": q["id"], "name": q["name"], "titel": q["titel"], "text": q["text"][:TEXT_LIMIT]} for q in quellen]})
     if not answer and info.get("sprache") in ("de", "en") and info["sprache"] != lang:
@@ -533,11 +533,12 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     (out / "review.md").write_text(pruefbericht(thema, quellen, fakten, over, pointe, rejected, notes, modus, ab), "utf-8")
     if not ab["ok"]:
         raise SatireError("Endabnahme nicht bestanden: " + "; ".join(ab["gruende"]))
-    from .. import animation                               # Studio: eigene Animation zu Kern und Überspitzung
-    progress("Animation planen", 0.25)
+    progress("Animation planen", 0.25)                     # Studio: eigene Animation zu Kern und Überspitzung
     teile = [(i, sz) for i, sz in enumerate(skript["szenen"]) if sz["typ"] in ("fakt", "satire")]
+    sb = {str(x.get("text") or "").strip(): x for x in ((answer or {}).get("storyboards") or []) if isinstance(x, dict)} \
+        if isinstance(answer, dict) else {}
     szenen, abgleich = animation.szenen_schreiben([{"key": str(i), "text": sz["text"]} for i, sz in teile], titel, lang, notes,
-                                                  "animation_satire")
+                                                  "animation_satire", {str(i): sb[sz["text"]] for i, sz in teile if sz["text"] in sb})
     for i, sz in teile:
         if str(i) in szenen:
             sz["animation"] = szenen[str(i)]

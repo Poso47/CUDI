@@ -175,12 +175,33 @@ def _ohne_bild(roh, text: str) -> list[str]:
     return [str(w)[:30] for w in (roh or [])[:8] if schaubild._wort(str(w)) in schaubild._woerter(text)]
 
 
-def storyboard(eintraege: list[dict], thema: str, lang: str, aufgabe: str) -> dict[str, dict]:
-    """Abteilung 1+2: Drehbuch je Abschnitt + Figurenwahl. -> {key: {"drehbuch", "ohne_bild", "figuren", "figur_wuensche"}}."""
+def storyboard_liste_zusatz() -> str:
+    """Wie `storyboard_zusatz`, aber als eigene Liste neben der Antwort (für Antworten, deren Sätze reine Texte sind)."""
+    if not (aktiv() and studio_aktiv()):
+        return ""
+    regeln = STORYBOARD[STORYBOARD.index("REGELN:"):].replace("{figuren}", _figuren_text())
+    return (" ZUSÄTZLICH – STORYBOARD-ABTEILUNG (für die eigene Animation, ändert nichts am Text): Füge der Antwort das Feld "
+            "\"storyboards\": [{\"text\": \"exakt einer deiner Sprechsätze\", \"drehbuch\": [{\"wort\": \"…\", \"zeigt\": \"…\"}], "
+            "\"ohne_bild\": [\"…\"], \"figuren\": [\"…\"], \"figur_wuensche\": [\"…\"]}] hinzu – je Sprechsatz einen Eintrag. "
+            + regeln + _gelernt())
+
+
+def storyboard_zusatz() -> str:
+    """Storyboard gleich in der Schreibaufgabe des Textes (spart eine Schreibrunde): Zusatz für deren Anleitung.
+    Leer, wenn Studio/Animation aus sind."""
+    if not (aktiv() and studio_aktiv()):
+        return ""
+    regeln = STORYBOARD[STORYBOARD.index("REGELN:"):].replace("{figuren}", _figuren_text())
+    return (" ZUSÄTZLICH – STORYBOARD-ABTEILUNG (für die eigene Animation, ändert nichts am Text): Gib JEDER Szene/jedem "
+            "Abschnitt zusätzlich die Felder \"drehbuch\": [{\"wort\": \"…\", \"zeigt\": \"…\"}], \"ohne_bild\": [\"…\"], "
+            "\"figuren\": [\"…\"] und \"figur_wuensche\": [\"…\"] mit – bezogen auf genau den Sprechertext dieser Szene. "
+            + regeln + _gelernt())
+
+
+def plan_aus(eintraege: list[dict], roh: dict) -> dict[str, dict]:
+    """Storyboards (roh: key -> Antwort mit drehbuch/ohne_bild/figuren/figur_wuensche) säubern und gegen die Figuren prüfen."""
     from .schaubild import zeichnen
 
-    answer = handoff.request(aufgabe, storyboard_anleitung(thema, lang), {"thema": thema, "sprache": lang, "eintraege": eintraege})
-    roh = {str(x.get("key")): x for x in (answer or {}).get("storyboards", []) if isinstance(x, dict)} if isinstance(answer, dict) else {}
     vorhanden = set(zeichnen.figuren())
     plan = {}
     for e in eintraege:
@@ -191,6 +212,13 @@ def storyboard(eintraege: list[dict], thema: str, lang: str, aufgabe: str) -> di
                                "figuren": [f for f in gewuenscht if f in vorhanden],
                                "figur_wuensche": wuensche + [f for f in gewuenscht if f not in vorhanden]}
     return plan
+
+
+def storyboard(eintraege: list[dict], thema: str, lang: str, aufgabe: str) -> dict[str, dict]:
+    """Abteilung 1+2: Drehbuch je Abschnitt + Figurenwahl. -> {key: {"drehbuch", "ohne_bild", "figuren", "figur_wuensche"}}."""
+    answer = handoff.request(aufgabe, storyboard_anleitung(thema, lang), {"thema": thema, "sprache": lang, "eintraege": eintraege})
+    roh = {str(x.get("key")): x for x in (answer or {}).get("storyboards", []) if isinstance(x, dict)} if isinstance(answer, dict) else {}
+    return plan_aus(eintraege, roh)
 
 
 def _sauber(eintraege: list[dict]) -> list[dict]:
@@ -213,7 +241,8 @@ def buendeln(auftraege: list[tuple[list[dict], str, str, str]]) -> None:
     handoff.request_many(teile)
 
 
-def szenen_schreiben(eintraege: list[dict], thema: str, lang: str, notes: list[str], aufgabe: str) -> tuple[dict, list[dict]]:
+def szenen_schreiben(eintraege: list[dict], thema: str, lang: str, notes: list[str], aufgabe: str,
+                     vorab: dict | None = None) -> tuple[dict, list[dict]]:
     """Szenen für Abschnitte [{"key", "text"}] -> ({key: szene}, Abgleich je Abschnitt). Ohne Sprachmodell: leer (das Video
     nutzt dann die bisherige Grafik). `aufgabe` = eindeutiger Name der Schreibaufgabe im Auftrag (z. B. „animation_fakten_de“)."""
     from . import schaubild
@@ -222,7 +251,13 @@ def szenen_schreiben(eintraege: list[dict], thema: str, lang: str, notes: list[s
     eintraege = _sauber(eintraege)
     if not (aktiv() and eintraege and handoff.active()):
         return {}, []
-    plan = storyboard(eintraege, thema, lang, aufgabe + "_storyboard") if studio_aktiv() else {}
+    plan = {}
+    if studio_aktiv() and vorab:                               # Storyboard kam schon mit dem Text (eine Runde gespart)
+        plan = plan_aus(eintraege, {str(k): v for k, v in vorab.items() if isinstance(v, dict)})
+        if sum(1 for p in plan.values() if p["drehbuch"]) * 2 < len(eintraege):
+            plan = {}                                          # zu dünn: eigene Storyboard-Runde
+    if studio_aktiv() and not plan:
+        plan = storyboard(eintraege, thema, lang, aufgabe + "_storyboard")
     if plan:                                                   # Abteilung 3: Szenenbau nach Drehbuch
         daten = [dict(e, **{k: plan[e["key"]][k] for k in ("drehbuch", "ohne_bild", "figuren")}) for e in eintraege]
         answer = handoff.request(aufgabe, anleitung(thema, lang, SZENENBAU), {"thema": thema, "sprache": lang, "eintraege": daten})
@@ -272,10 +307,15 @@ def bericht(abgleich: list[dict]) -> str:
     return "\n".join(zeilen) + "\n"
 
 
-def an_skript(skript: dict, out: Path, art: str, notes: list[str]) -> None:
-    """Erklär-Skript (erklaer/reportage): je Szene eine eigene Animation (`szene["animation"]`) + Abgleich speichern."""
+def an_skript(skript: dict, out: Path, art: str, notes: list[str], vorab: list | dict | None = None) -> None:
+    """Erklär-Skript (erklaer/reportage): je Szene eine eigene Animation (`szene["animation"]`) + Abgleich speichern.
+    `vorab`: Storyboards je Szene (gleiche Reihenfolge), wenn sie schon mit dem Text geschrieben wurden."""
     eintraege = [{"key": str(i + 1), "text": sz["text"]} for i, sz in enumerate(skript.get("szenen") or [])]
-    szenen, abgleich = szenen_schreiben(eintraege, skript.get("titel", ""), skript.get("sprache", "de"), notes, f"animation_{art}")
+    if isinstance(vorab, dict):                                # Storyboards nach Sprechtext (z. B. Reportage-Sätze)
+        plan = {e["key"]: vorab[e["text"]] for e in eintraege if isinstance(vorab.get(e["text"]), dict)}
+    else:
+        plan = {str(i + 1): x for i, x in enumerate(vorab or []) if isinstance(x, dict)}
+    szenen, abgleich = szenen_schreiben(eintraege, skript.get("titel", ""), skript.get("sprache", "de"), notes, f"animation_{art}", plan)
     for i, sz in enumerate(skript.get("szenen") or []):
         if str(i + 1) in szenen:
             sz["animation"] = szenen[str(i + 1)]

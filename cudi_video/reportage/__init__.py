@@ -364,7 +364,8 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
         raise ReportageError("Reportage nicht möglich: Für dieses Thema liegen weniger als zwei unabhängige Quellen vor"
                              + (f" ({'; '.join(notes)})" if notes else "") + ". Bitte Links zu weiteren Quellen angeben.")
     progress("Aussagen prüfen", 0.2)
-    answer = handoff.request(TASK, INSTRUCTIONS.format(regeln=REPORTAGE_REGELN), {
+    from .. import animation
+    answer = handoff.request(TASK, INSTRUCTIONS.format(regeln=REPORTAGE_REGELN) + animation.storyboard_zusatz(), {   # Storyboard gleich mit
         "thema": thema, "sprache": lang, "stand": datetime.now(timezone.utc).date().isoformat(),
         "quellen": [{"id": q["id"], "name": q["name"], "titel": q["titel"], "text": q["text"][:TEXT_LIMIT]}
                     for q in quellen]})
@@ -390,10 +391,10 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     (out / "review.md").write_text(pruefbericht(thema, quellen, saetze, rejected, notes, modus, ab), "utf-8")
     if not ab["ok"]:
         raise ReportageError("Endabnahme nicht bestanden: " + "; ".join(ab["gruende"]))
-    from .. import animation
-
     progress("Animation planen", 0.28)
-    animation.an_skript(skript, out, "reportage", notes)                       # jede Szene: eigene Animation, 1:1 zum Text
+    vorab = {str(x.get("text") or "").strip(): x for x in ((answer or {}).get("saetze") or []) if isinstance(x, dict)} \
+        if isinstance(answer, dict) else {}
+    animation.an_skript(skript, out, "reportage", notes, vorab)                      # jede Szene: eigene Animation, 1:1 zum Text
     progress("Video rendern", 0.3)
     result = render_erklaerung(skript, out, progress=lambda f: progress("Video rendern", 0.3 + 0.65 * f), musik=False)
     files = {"video": result["video"], "cover": result["cover"], "duration": result["duration"], "qa": result.get("qa"),

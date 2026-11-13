@@ -153,3 +153,19 @@ def test_app_lauf_lernt_ueber_lernstand(monkeypatch, tmp_path):
     (ablage / "lernstand.json").write_text(json.dumps({"data": daten}), "utf-8")
     assert any("eileiter" in r for r in animation.gelernte_regeln())
     assert animation.lernstand_aktualisieren(tmp_path / "leer") is None
+
+
+def test_storyboard_mit_dem_text_spart_eine_runde(monkeypatch):
+    """Kommt das Drehbuch schon mit dem Text (Erklär/Reportage), entfällt die eigene Storyboard-Runde."""
+    aufrufe = []
+    monkeypatch.setattr(handoff, "active", lambda: True)
+    monkeypatch.setattr(handoff, "request", lambda task, *a: aufrufe.append(task) or {"szenen": [{"key": "1", "szene": SZENE}]})
+    assert "STORYBOARD-ABTEILUNG" in animation.storyboard_zusatz()
+    vorab = {"1": {"drehbuch": [{"wort": "wandert", "zeigt": "Dotter gleitet"}], "figuren": ["huhn"]}}
+    szenen, abgleich = animation.szenen_schreiben([{"key": "1", "text": TEXT}], "Ei", "de", [], "animation_erklaer", vorab)
+    assert aufrufe == ["animation_erklaer"] and abgleich[0]["drehbuch"][0]["wort"] == "wandert"
+    aufrufe.clear()                                                    # zu dünn -> eigene Storyboard-Runde
+    animation.szenen_schreiben([{"key": "1", "text": TEXT}], "Ei", "de", [], "animation_erklaer", {"1": {}})
+    assert aufrufe[0] == "animation_erklaer_storyboard"
+    monkeypatch.setenv("CUDI_STUDIO", "0")
+    assert animation.storyboard_zusatz() == ""

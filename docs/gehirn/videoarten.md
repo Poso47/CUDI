@@ -73,5 +73,6 @@ einmal `nachbessern`) → **Lehrer** (`firma/bildlehrer.py`, Workflow `firma-bil
 `bildregeln.json` mit Regeln + `figur_wuensche`; `anleitung()` hängt Regeln an). `CUDI_STUDIO=0` = eine Aufgabe, `CUDI_ANIMATION=0` aus.
 Einbau: Fakten `pipeline.run` → `animation_<lang>.json` → `ItemScene` (Karte statt Foto); Erklär `job._erklaer` / Reportage →
 `sz["animation"]` → `ErklaerScene`; Satire → Fakt-/Satire-Szene unter dem Text. Lücken je Lauf `abgleich.json` + Prüfbericht.
+Storyboard gleich mit dem Text (`storyboard_zusatz` in Erklär/Reportage, `storyboard_liste_zusatz` in Satire, `vorab` an `szenen_schreiben`) spart eine Schreibrunde; zu dünn → eigene Storyboard-Runde.
 Sammeln: nur Notbetrieb-Läufe (`sammle_abgleich` → Artefakt → Job `liste` → `firma abgleich`); App-Läufe committen nie.
 Büro: Abteilung „Animationsstudio“ mit 6 Onkels (Export-Feld `studio`). Neue Figur: Agent `figuren-zeichner`.
