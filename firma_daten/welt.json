@@ -1,67 +1,12 @@
 {
- "erzeugt": "2026-11-12T20:11:14Z",
- "anzahl": 9,
+ "erzeugt": "2026-11-13T06:59:20Z",
+ "anzahl": 15,
  "nur_ausland": 2,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
-  {
-   "titel": "Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
-   "kurz": "\"Above all, what is needed is for Europe to have a clear and united vision of what it wants for Ukraine and for itself,' Emmanuel Macron said at a meeting of…",
-   "link": "https://www.lemonde.fr/en/international/article/2026/11/12/macron-and-merz-downplay-push-to-name-europe-envoy-in-ukraine-russia-talks_6778842_4.html",
-   "sprache": "en",
-   "zeit": "2026-11-12T15:17:16+01:00",
-   "ausland_quellen": 2,
-   "laender": [
-    "Frankreich",
-    "Türkei"
-   ],
-   "laender_einig": [
-    "Frankreich",
-    "Türkei"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
-    "Anadolu (Türkei): Germany’s Merz sees ‘positive signals’ in Ukraine peace talks"
-   ],
-   "staatsnah": [
-    "Anadolu"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": true,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/12/macron-and-merz-downplay-push-to-name-europe-envoy-in-ukraine-russia-talks_6778842_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Anadolu",
-     "land": "Türkei",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Germany’s Merz sees ‘positive signals’ in Ukraine peace talks",
-     "link": "https://www.aa.com.tr/en/world/germany-s-merz-sees-positive-signals-in-ukraine-peace-talks/4122418",
-     "eigentuemer": "staatlich (Türkei)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
   {
    "titel": "Germany reportedly bans Chinese drones at military bases over security concerns",
    "kurz": "Western military forces increasingly worried Chinese-made technology ⁠could send ‌sensitive information to Beijing Germany has banned commercially available…",
@@ -115,22 +60,77 @@
    ]
   },
   {
-   "titel": "Hauptstadt Berlin, Wartungsort Köln-Bonn: Deutsche Regierungsmaschinen fliegen noch bis 2036 leer durchs Land",
-   "kurz": "Ein Bericht des \"Spiegel\" lenkt ein fahles Licht auf die Flugbereitschaft der Deutschen Bundeswehr: Der Umzug in die nicht mehr allzu neue Hauptstadt verläuft…",
-   "link": "https://www.derstandard.at/story/3000000349026/hauptstadt-berlin-wartungsort-koeln-bonn-deutsche-regierungsmaschinen-fliegen-noch-bis-2036-leer-durchs-land?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-12T17:03:32Z",
-   "ausland_quellen": 1,
+   "titel": "Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
+   "kurz": "'Above all, what is needed is for Europe to have a clear and united vision of what it wants for Ukraine and for itself,' the French president said at a meeting…",
+   "link": "https://www.lemonde.fr/en/international/article/2026/11/12/macron-and-merz-downplay-push-to-name-europe-envoy-in-ukraine-russia-talks_6778842_4.html",
+   "sprache": "en",
+   "zeit": "2026-11-12T15:17:16+01:00",
+   "ausland_quellen": 2,
    "laender": [
-    "Österreich"
+    "Frankreich",
+    "Türkei"
    ],
    "laender_einig": [
-    "Österreich"
+    "Türkei"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich",
+    "Russland",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
+    "Anadolu (Türkei): Germany’s Merz sees ‘positive signals’ in Ukraine peace talks"
+   ],
+   "staatsnah": [
+    "Anadolu"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": true,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/12/macron-and-merz-downplay-push-to-name-europe-envoy-in-ukraine-russia-talks_6778842_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Anadolu",
+     "land": "Türkei",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Germany’s Merz sees ‘positive signals’ in Ukraine peace talks",
+     "link": "https://www.aa.com.tr/en/world/germany-s-merz-sees-positive-signals-in-ukraine-peace-talks/4122418",
+     "eigentuemer": "staatlich (Türkei)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "More than 60% of Germany’s female soldiers report harassment or abuse",
+   "kurz": "Defence minister says extent of sexual misconduct found by study is ‘unacceptable’, as military tries to attract more recruits Germany’s defence minister has…",
+   "link": "https://www.theguardian.com/world/2026/nov/13/more-than-60-of-germanys-female-soldiers-report-harassment-or-abuse",
+   "sprache": "en",
+   "zeit": "2026-11-13T05:00:09Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "Der Standard (Österreich): Hauptstadt Berlin, Wartungsort Köln-Bonn: Deutsche Regierungsmaschinen fliegen noch bis 2036 leer durchs Land"
+    "Guardian Germany (Großbritannien): More than 60% of Germany’s female soldiers report harassment or abuse"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -140,20 +140,205 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Der Standard",
-     "land": "Österreich",
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Hauptstadt Berlin, Wartungsort Köln-Bonn: Deutsche Regierungsmaschinen fliegen noch bis 2036 leer durchs Land",
-     "link": "https://www.derstandard.at/story/3000000349026/hauptstadt-berlin-wartungsort-koeln-bonn-deutsche-regierungsmaschinen-fliegen-noch-bis-2036-leer-durchs-land?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
+     "titel": "More than 60% of Germany’s female soldiers report harassment or abuse",
+     "link": "https://www.theguardian.com/world/2026/nov/13/more-than-60-of-germanys-female-soldiers-report-harassment-or-abuse",
+     "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Mercedes-Benz stoppt alle weiteren Investitionen in deutsche Standorte",
-   "kurz": "Zudem kündigte der Vorstand an, Werkschließungen in Deutschland zu prüfen. Hintergrund sind Verhandlungen über niedrigere Personalkosten mit dem Betriebsrat",
+   "titel": "‘The time is ripe’: ex-helicopter engineer poised to be Germany’s first female president",
+   "kurz": "Backed by MPs from across the political divide, Bavarian Ilse Aigner offers an approachability and warmth the chancellor lacks Germany has had 12 presidents…",
+   "link": "https://www.theguardian.com/world/2026/nov/13/germany-expected-to-elect-ilse-aigner-first-female-president",
+   "sprache": "en",
+   "zeit": "2026-11-13T05:00:09Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): ‘The time is ripe’: ex-helicopter engineer poised to be Germany’s first female president"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "‘The time is ripe’: ex-helicopter engineer poised to be Germany’s first female president",
+     "link": "https://www.theguardian.com/world/2026/nov/13/germany-expected-to-elect-ilse-aigner-first-female-president",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Un estudio revela que tres de cada cuatro mujeres del Ejército alemán ha sufrido acoso sexual",
+   "kurz": "El ministro de Defensa, Boris Pistorius, ha anunciado un plan de 34 medidas para combatir las conductas sexuales inapropiadas: “Teníamos claro que el análisis…",
+   "link": "https://elpais.com/sociedad/2026-11-13/un-estudio-revela-que-tres-de-cada-cuatro-mujeres-del-ejercito-aleman-ha-sufrido-acoso-sexual.html",
+   "sprache": "es",
+   "zeit": "2026-11-13T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Un estudio revela que tres de cada cuatro mujeres del Ejército alemán ha sufrido acoso sexual"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Un estudio revela que tres de cada cuatro mujeres del Ejército alemán ha sufrido acoso sexual",
+     "link": "https://elpais.com/sociedad/2026-11-13/un-estudio-revela-que-tres-de-cada-cuatro-mujeres-del-ejercito-aleman-ha-sufrido-acoso-sexual.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Alemania se enfrenta a Serbia y a la organización de futbolistas ultras de los ‘Peloteros de Dios’",
+   "kurz": "Jürgen Klopp y el Dortmund piden a Nmecha que deje de celebrar sus goles reivindicando al grupo homófobo",
+   "link": "https://elpais.com/deportes/futbol/2026-11-13/alemania-se-enfrenta-a-serbia-y-a-la-organizacion-de-futbolistas-ultras-de-los-peloteros-de-dios.html",
+   "sprache": "es",
+   "zeit": "2026-11-13T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Alemania se enfrenta a Serbia y a la organización de futbolistas ultras de los ‘Peloteros de Dios’"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Alemania se enfrenta a Serbia y a la organización de futbolistas ultras de los ‘Peloteros de Dios’",
+     "link": "https://elpais.com/deportes/futbol/2026-11-13/alemania-se-enfrenta-a-serbia-y-a-la-organizacion-de-futbolistas-ultras-de-los-peloteros-de-dios.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Jürgen Klopp ya tiene a su columna vertebral, pero se juega todo en la Liga de Naciones de Europa",
+   "kurz": "El seleccionador de Alemania sabe que no puede fallar ante Serbia y Países Bajos",
+   "link": "https://www.lanacion.com.ar/deportes/futbol/jurgen-klopp-ya-tiene-a-su-columna-vertebral-pero-se-juega-todo-en-la-liga-de-naciones-de-europa-nid13112026/",
+   "sprache": "es",
+   "zeit": "2026-11-13T03:14:46Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "La Nación (Argentinien): Jürgen Klopp ya tiene a su columna vertebral, pero se juega todo en la Liga de Naciones de Europa"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Jürgen Klopp ya tiene a su columna vertebral, pero se juega todo en la Liga de Naciones de Europa",
+     "link": "https://www.lanacion.com.ar/deportes/futbol/jurgen-klopp-ya-tiene-a-su-columna-vertebral-pero-se-juega-todo-en-la-liga-de-naciones-de-europa-nid13112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Vive en Alemania pero se hizo una casita en su Mérida natal",
+   "kurz": "En una zona de lotes chicos, multiplicaron los metros sin resignar luz ni confort. Una mezcla de minimalismo, materiales típicos y texturas cálidas para…",
+   "link": "https://www.lanacion.com.ar/revista-living/vive-en-alemania-pero-se-hizo-una-casita-en-su-merida-natal-nid13112026/",
+   "sprache": "es",
+   "zeit": "2026-11-13T03:05:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "La Nación (Argentinien): Vive en Alemania pero se hizo una casita en su Mérida natal"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Vive en Alemania pero se hizo una casita en su Mérida natal",
+     "link": "https://www.lanacion.com.ar/revista-living/vive-en-alemania-pero-se-hizo-una-casita-en-su-merida-natal-nid13112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nach Investitionsstopp: Mercedes-Chef verteidigt Sparkurs und beklagt hohe Kosten",
+   "kurz": "Der Konzernvorstand hat zudem die Prüfung von Werkschließungen in Deutschland angekündigt. Hintergrund sind Verhandlungen über niedrigere Personalkosten mit…",
    "link": "https://www.derstandard.at/story/3000000349022/mercedes-benz-pr252ft-werksschlie223ungen-in-deutschland-arbeit-zu-teuer?ref=rss",
    "sprache": "de",
    "zeit": "2026-11-12T16:20:12Z",
@@ -167,10 +352,16 @@
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "Der Standard (Österreich): Mercedes-Benz stoppt alle weiteren Investitionen in deutsche Standorte"
+    "Der Standard (Österreich): Nach Investitionsstopp: Mercedes-Chef verteidigt Sparkurs und beklagt hohe Kosten"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Mercedes stoppt Investitionen in Deutschland - und prüft Schließungen",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/mercedes-stopp-investitionen-100.html"
+    }
+   ],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -181,7 +372,7 @@
      "land": "Österreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Mercedes-Benz stoppt alle weiteren Investitionen in deutsche Standorte",
+     "titel": "Nach Investitionsstopp: Mercedes-Chef verteidigt Sparkurs und beklagt hohe Kosten",
      "link": "https://www.derstandard.at/story/3000000349022/mercedes-benz-pr252ft-werksschlie223ungen-in-deutschland-arbeit-zu-teuer?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
@@ -211,7 +402,13 @@
     "Der Standard (Österreich): Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Krieg gegen die Ukraine: Putin beharrt auf Gebietsansprüchen",
+     "link": "https://www.tagesschau.de/ausland/europa/ukraine-russland-putin-witkoff-kushner-100.html"
+    }
+   ],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -262,6 +459,43 @@
      "titel": "Pen Berlin kritisiert Ermittlungen gegen Houellebecq",
      "link": "https://www.derstandard.at/story/3000000349000/pen-berlin-kritisiert-ermittlungen-gegen-houellebecq?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "“Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado",
+   "kurz": "Estuvieron cinco décadas juntos y fueron una de las parejas más emblemáticas del teatro argentino; cómo ensamblaron sus vidas para poder compartir su alegría",
+   "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
+   "sprache": "es",
+   "zeit": "2026-11-13T01:23:39Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Argentinien"
+   ],
+   "zusammenfassung": [
+    "La Nación (Argentinien): “Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "“Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado",
+     "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
+     "eigentuemer": "Eigentümer unbekannt",
      "zaehlt_nicht": ""
     }
    ]
@@ -381,7 +615,48 @@
    ]
   }
  ],
- "verbindungen": [],
+ "verbindungen": [
+  {
+   "name": "Jürgen Klopp",
+   "wikidata": "https://www.wikidata.org/wiki/Q83106",
+   "beschreibung": "German association football manager",
+   "verbindungen": [
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "1. FSV Mainz 05",
+     "link": "https://www.wikidata.org/wiki/Q105254",
+     "beendet": "2008"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Borussia Dortmund",
+     "link": "https://www.wikidata.org/wiki/Q41420",
+     "beendet": "2015"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "FC Liverpool",
+     "link": "https://www.wikidata.org/wiki/Q1130849",
+     "beendet": "2024"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Red Bull GmbH",
+     "link": "https://www.wikidata.org/wiki/Q698639",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Deutscher Fußball-Bund",
+     "link": "https://www.wikidata.org/wiki/Q154191",
+     "beendet": null
+    }
+   ],
+   "themen": [
+    "Jürgen Klopp ya tiene a su columna vertebral, pero se juega todo en la Liga de Naciones de Europa"
+   ]
+  }
+ ],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -655,6 +930,46 @@
    "keine_treffer": true
   },
   "Deutsche Regierungsmaschinen": {
+   "keine_treffer": true
+  },
+  "Jürgen Klopp": {
+   "name": "Jürgen Klopp",
+   "wikidata": "https://www.wikidata.org/wiki/Q83106",
+   "beschreibung": "German association football manager",
+   "verbindungen": [
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "1. FSV Mainz 05",
+     "link": "https://www.wikidata.org/wiki/Q105254",
+     "beendet": "2008"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Borussia Dortmund",
+     "link": "https://www.wikidata.org/wiki/Q41420",
+     "beendet": "2015"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "FC Liverpool",
+     "link": "https://www.wikidata.org/wiki/Q1130849",
+     "beendet": "2024"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Red Bull GmbH",
+     "link": "https://www.wikidata.org/wiki/Q698639",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Deutscher Fußball-Bund",
+     "link": "https://www.wikidata.org/wiki/Q154191",
+     "beendet": null
+    }
+   ]
+  },
+  "Arturo Puig": {
    "keine_treffer": true
   }
  }
