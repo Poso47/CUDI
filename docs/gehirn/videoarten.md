@@ -57,3 +57,21 @@ für TikTok/YouTube Shorts.
   **Animation im Detail** (Nutzerwunsch: „alles zeigen, was gesagt wird, genau wie es gesagt wird“): Schritte und Beschriftungen starten mit `bei` = Wort aus dem Text (Zeit aus den Wortzeiten der Stimme, `render.Scene.wort_zeit`; Ausweich `ab`/`nach`); `beschriftung` (Pille + Linie am Teil, nur Wörter aus dem geprüften Text – `beschriftungen_pruefen`; wird NACH der Kamera in Bildschirmgröße gezeichnet, ohne Überlappung); Kamera-`zoom` (Ziel `kamera`); `schlauch` mit `durchsichtig` (davor Gezeichnetes scheint durch); `abdeckung` meldet Sätze ohne eigenen Schritt im Prüfbericht. Hat die Szene Beschriftungen, entfallen die Rand-Etiketten. Vorlage mit Henne-Umriss: `examples/schaubild_szenen_ei.py`.
   **1:1-Abgleich Bild ↔ Text** (Nutzerwunsch: „Video zeigt 1:1, was erklärt wird“): Anleitung verlangt je Station zuerst ein `drehbuch` (Wort → was zu sehen ist) und `ohne_bild` für Unzeigbares; `abgleich(station)` prüft, dass jedes Hauptwort (`hauptwoerter`, Satzanfang-Wörter `SATZANFANG` ausgenommen) eine Beschriftung/einen Schritt hat, jedes Drehbuch-Wort vorkommt und jeder Satz einen Schritt hat; `nachbessern` gibt Stationen mit Lücken EINMAL zur Korrektur (`schaubild_korrektur`) und übernimmt nur eine Szene mit weniger Lücken; Rest steht im Prüfbericht („Abgleich Bild ↔ Text“). Durchsichtige Röhren = Schnittbild (kräftige Wand, blasses Inneres).
   **Gezeichnete Figuren** (Nutzerwunsch: „richtiges animiertes Huhn, nicht aus geometrischen Teilen“): `cudi_video/data/figuren/<name>/` = Ebenen-PNGs (1024 px) + `figur.json` (Ebenen-Reihenfolge, `drehpunkte`, `anker` in viewBox-Koordinaten, `versteckt`/`mit_kopf` fürs Blinzeln). Element `{"art": "figur", "figur": "huhn", "durchsichtig": true}`; Eigenleben (atmen, blinzeln, nicken, wippen) automatisch, Aktionen `picke`/`flattere`; Koordinaten und Schlauch-Punkte dürfen Anker sein (`"huhn.eierstock"`, aufgelöst in `Buehne._anker_aufloesen`). Neue Figur: SVG-Erzeuger nach Vorbild `scripts/figuren/huhn_svg.py` schreiben (Ebenen getrennt), mit `node scripts/figuren/svg_zu_png.js <svg-ordner> <png-ordner> 1024` rendern (vorinstallierter Chromium), Ordner anlegen – die Anleitung listet Figuren und Anker automatisch. Bisher nur das Huhn; Themen ohne Figur bleiben bei Formen.
+
+## Abgrenzung der Videoarten (Nutzerwunsch: klar trennen)
+Eine Quelle: `cudi_video/videoarten.py` (`ABGRENZUNG` je Art). **Satire nur über Politiker, Regierungen, Parteien, Behörden und Mächtige
+aus Wirtschaft/Gesellschaft** – sonst nichts: `erklaer_frage` („Wie/Warum/Was ist …“) lehnt sofort ab, nach der Faktenprüfung muss
+`satire_ziel` eine Macht-Rolle im bestätigten Kern oder in den Quellentiteln finden, sonst ehrlicher Abbruch mit Verweis auf
+Erklärvideo/Fakten/Reportage. Ideen-Entwickler macht unpolitische Satire-Ideen zur Reportage; die App bietet nur politische Meldungen
+als Satire-Vorschlag an und prüft vor dem Start im Browser (spart einen Lauf, `MACHT_RE` = Kurzfassung der Python-Liste).
+
+## Animationsstudio (alle erklärenden Videoarten: Fakten, Erklär, Reportage, Satire, Schaubild)
+`cudi_video/animation.py`, Abteilungen `ABTEILUNGEN`: **Storyboard** (Schreibaufgabe `<aufgabe>_storyboard`: Drehbuch Wort→zeigt,
+`figuren`, `figur_wuensche`) → **Figuren** (Code: Wünsche gegen `data/figuren/`) → **Szenenbau** (Aufgabe `<aufgabe>`, setzt das
+Drehbuch Zeile für Zeile um) → **Animation** (`Bild` → `zeichnen.Buehne`, Takt der Stimme) → **Abnahme** (`schaubild.abgleich` +
+einmal `nachbessern`) → **Lehrer** (`firma/bildlehrer.py`, Workflow `firma-bildlehrer.yml` mittwochs: `firma_daten/abgleich.json` →
+`bildregeln.json` mit Regeln + `figur_wuensche`; `anleitung()` hängt Regeln an). `CUDI_STUDIO=0` = eine Aufgabe, `CUDI_ANIMATION=0` aus.
+Einbau: Fakten `pipeline.run` → `animation_<lang>.json` → `ItemScene` (Karte statt Foto); Erklär `job._erklaer` / Reportage →
+`sz["animation"]` → `ErklaerScene`; Satire → Fakt-/Satire-Szene unter dem Text. Lücken je Lauf `abgleich.json` + Prüfbericht.
+Sammeln: nur Notbetrieb-Läufe (`sammle_abgleich` → Artefakt → Job `liste` → `firma abgleich`); App-Läufe committen nie.
+Büro: Abteilung „Animationsstudio“ mit 6 Onkels (Export-Feld `studio`). Neue Figur: Agent `figuren-zeichner`.

@@ -246,6 +246,17 @@ class Scene:
     def content(self, f: Image.Image, t: float, fade: float) -> None:
         raise NotImplementedError
 
+    def anim_unter(self, f: Image.Image, t: float, y: float, fade: float) -> None:
+        """Eigene Animation (Studio) unter dem Text – zeigt, was gerade gesagt wird."""
+        if not self.job.get("animation"):
+            return
+        if not hasattr(self, "_anim"):
+            from ..animation import Bild
+            self._anim = Bild(self.job["animation"], self.job["text"], self.job["words"], self.job["lead"], INK, RED, self.job["index"])
+        size = int(min(560, 1660 - y))
+        if size >= 280:
+            paste(f, self._anim.bild(t, size), ((W - size) / 2, y), opacity=fade)
+
     def frame(self, t: float) -> Image.Image:
         f = self.base(t).copy()
         self.content(f, t, 1.0 if t < self.dur - 0.18 else self.fade(t))
@@ -293,6 +304,7 @@ class FaktScene(Scene):
         self.text.draw(f, t, 590, fade)
         if self.src is not None:
             paste(f, self.src, ((W - self.src.width) / 2, 590 + self.text.height + 70), opacity=clamp((t - 0.8) / 0.5) * fade)
+        self.anim_unter(f, t, 590 + self.text.height + (140 if self.src is not None else 60), fade)
 
 
 class SatireScene(Scene):
@@ -315,6 +327,7 @@ class SatireScene(Scene):
         top = 640
         paste(f, card, ((W - card.width) / 2 - 7, top + (ch - card.height) / 2), opacity=clamp(t / 0.15) * fade)
         self.text.draw(f, t, top + 58, fade)
+        self.anim_unter(f, t, top + ch + 40, fade)
         for img, pos, speed in ((self.star1, (W - 190, 1480), 25), (self.star2, (90, 1560), -35)):
             paste(f, img.rotate(t * speed, resample=Image.BICUBIC), pos, opacity=ease_out(t / 0.5) * fade)
 
@@ -433,7 +446,7 @@ def render_satire(script: dict, out_dir: Path | None = None, progress=None, musi
         frames = int(round((LEAD + dur + TAIL) * config.FPS))
         jobs.append({"index": i, "typ": sz["typ"], "lang": lang, "text": sz["text"], "words": words, "lead": LEAD,
                      "voice_dur": dur, "frames": frames, "duration": frames / config.FPS, "fps": config.FPS,
-                     "voice_path": str(wav), "quellen": sz.get("quellen") or [], "out": str(work / f"part_{i:02d}.mp4")})
+                     "voice_path": str(wav), "quellen": sz.get("quellen") or [], "animation": sz.get("animation"), "out": str(work / f"part_{i:02d}.mp4")})
     done = 0
     with ProcessPoolExecutor(max_workers=config.RENDER_WORKERS) as pool:
         for _ in pool.map(render_part, jobs):

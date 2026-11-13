@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 
 import logging
@@ -65,6 +66,8 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
 
     # Look je Video: Farben passend zum Thema, Format (Bildaufbau) und Bewegung je Video verschieden
     style = style_for(spec)
+    anim_file = work.parent / f"animation_{lang}.json"                  # eigene Animation je Fakt (pipeline/animation.py)
+    anim = json.loads(anim_file.read_text("utf-8")) if anim_file.exists() else {}
     jobs = []
     for i, seg in enumerate(script.segments):
         lead, tail = LEAD[seg.kind], TAIL[seg.kind]
@@ -96,6 +99,7 @@ def build_jobs(spec: VideoSpec, research: Research, script: Script, work: Path) 
                           if c.get("path") and Path(c["path"]).exists()],
                 "icon": icon_for(spec.icon, spec.source.property),
                 "n_sources": len(confirmed_sources(it)),
+                "szene": anim.get(str(it.rank)),
             }
         elif seg.kind == "outro":
             job["outro"] = {"rows": rows, "sources_line": sources_line}

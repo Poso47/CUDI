@@ -600,6 +600,10 @@ def _erklaer(order: dict, folder: Path, progress) -> dict:
     if report["hinweise"]:
         lines += ["", "Hinweise:"] + [f"- {h}" for h in report["hinweise"]]
     (out / "review.md").write_text("\n".join(lines) + "\n", "utf-8")
+    from . import animation
+
+    progress("Animation planen", 0.08)
+    animation.an_skript(script, out, "erklaer", report["hinweise"])            # jede Szene: eigene Animation, 1:1 zum Text
     rendered = render_erklaerung(script, out_dir=out, progress=lambda f: progress("Rendern", 0.1 + 0.85 * f))
     return {"output_dir": str(out), "kind": "erklaer", "warnings": report["hinweise"],
             "videos": {order["sprache"]: {"video": rendered["video"], "cover": rendered["cover"], "duration": rendered["duration"],

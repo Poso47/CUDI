@@ -55,7 +55,7 @@ class JobRequest(BaseModel):
     preset: str | None = None
     yaml_spec: str | None = None
     topic: str | None = None
-    langs: list[str] = ["de", "en"]
+    langs: list[str] = ["de"]
     count: int = 10
     only_script: bool = False
     strict: bool = False

@@ -25,7 +25,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .. import handoff, textcheck
+from .. import handoff, textcheck, videoarten
 from ..metadata import CLICKBAIT
 from ..reportage import DRAMA, pruefe_satz, seite_quelle
 
@@ -43,8 +43,9 @@ SATIRE_REGELN = (
     "gekennzeichnet (Bild, Cover, Titel, Beschreibung). Der Fakt-Teil ist nüchtern und belegt; der satirische Teil ist erkennbar "
     "übertrieben (Signalwörter wie „angeblich“, „man stelle sich vor“, „in einer Parallelwelt“), enthält keine neuen Zahlen oder "
     "Namen und behauptet nichts als wahr. Keine erfundenen Zitate echter Personen, keine Privatpersonen, kein Leid und keine "
-    "Opfer, kein Spott gegen Gruppen (Herkunft, Religion, Behinderung, Geschlecht …); Spott gilt Mächtigen, Institutionen und "
-    "Absurditäten.")
+    "Opfer, kein Spott gegen Gruppen (Herkunft, Religion, Behinderung, Geschlecht …). Ziel der Satire sind AUSSCHLIESSLICH "
+    "Politiker, Regierungen, Parteien, Behörden und Mächtige aus Wirtschaft und Gesellschaft (Elite) und ihr Handeln – keine "
+    "Erklär-, Wissens- oder Alltagsthemen, nie normale Menschen.")
 
 INSTRUCTIONS = (
     "Schreibe eine kurze Satire (Hochformat-Video, verschmitzt gesprochen) zu der ECHTEN, bestätigten Meldung in den Quellen. "
@@ -460,6 +461,8 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
         thema = meldung
     out = folder / "satire"
     out.mkdir(parents=True, exist_ok=True)
+    if videoarten.erklaer_frage(thema or meldung):
+        raise SatireError("Satire nicht möglich: " + videoarten.satire_ablehnung(lang))
     if heikel(thema, meldung):
         raise SatireError("Satire nicht möglich: Das Thema berührt Leid, Gewalt oder Unglück. Dazu gibt es nur eine sachliche "
                           "Reportage (Auftrag „Reportage“).")
@@ -504,6 +507,10 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
         raise SatireError("Satire nicht möglich: Aus den Quellen ergibt sich kein Fakt, den zwei unabhängige Quellen wörtlich "
                           "bestätigen. Es wird nichts ergänzt.")
     fact_text = " ".join(f["text"] for f in fakten)
+    ziel = videoarten.satire_ziel(fact_text, *(q["titel"] for q in quellen))
+    if not ziel:                                           # Satire nur über Politik und Mächtige (Abgrenzung der Videoarten)
+        raise SatireError("Satire nicht möglich: " + videoarten.satire_ablehnung(lang))
+    notes.append(f"Satire-Ziel (Politik/Macht) im bestätigten Kern: „{ziel}“.")
     over, pointe, rej = pruefe_satire_antwort(answer, fact_text, lang) if answer else ([], "", [])
     rejected += rej
     if len(over) < 2 or not pointe:
@@ -526,6 +533,18 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     (out / "review.md").write_text(pruefbericht(thema, quellen, fakten, over, pointe, rejected, notes, modus, ab), "utf-8")
     if not ab["ok"]:
         raise SatireError("Endabnahme nicht bestanden: " + "; ".join(ab["gruende"]))
+    from .. import animation                               # Studio: eigene Animation zu Kern und Überspitzung
+    progress("Animation planen", 0.25)
+    teile = [(i, sz) for i, sz in enumerate(skript["szenen"]) if sz["typ"] in ("fakt", "satire")]
+    szenen, abgleich = animation.szenen_schreiben([{"key": str(i), "text": sz["text"]} for i, sz in teile], titel, lang, notes,
+                                                  "animation_satire")
+    for i, sz in teile:
+        if str(i) in szenen:
+            sz["animation"] = szenen[str(i)]
+    animation.speichern(out, "satire", abgleich)
+    if abgleich:
+        with open(out / "review.md", "a", encoding="utf-8") as fh:
+            fh.write(animation.bericht(abgleich))
     progress("Video rendern", 0.3)
     result = render_satire(skript, out, progress=lambda f: progress("Video rendern", 0.3 + 0.65 * f))
     files = {"video": result["video"], "cover": result["cover"], "duration": result["duration"], "qa": result.get("qa"),

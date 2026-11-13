@@ -45,7 +45,7 @@ def test_schluessel_ignoriert_id_und_titel_aber_nicht_anzahl_und_sprachen():
     a, b = make_spec(id="eins", count=3), make_spec(id="zwei", count=3, title={"de": "Anders", "en": "Other"})
     assert vr.schluessel(a) == vr.schluessel(b)
     assert vr.schluessel(a) != vr.schluessel(make_spec(count=4))
-    assert vr.schluessel(a) != vr.schluessel(make_spec(count=3, langs=["de"]))
+    assert vr.schluessel(a) != vr.schluessel(make_spec(count=3, langs=["de", "en"]))
     assert vr.schluessel(a) != vr.schluessel(make_spec(count=3, source={"type": "wikidata", "class": "Q8502", "property": "P2044"}))
 
 

@@ -365,6 +365,14 @@ class ItemScene(Scene):
             self.full = False
             self.card_size = self.media_size()
         keep_out = (self.BADGE_POS[0] + self.BADGE, self.BADGE_POS[1] + self.BADGE)
+        self.anim = None
+        if it.get("szene"):                                   # eigene Animation statt Foto/Clip (Fakten-Videos)
+            from ..animation import Bild
+
+            self.anim = Bild(it["szene"], job["text"], job["words"], job["lead"], (250, 246, 236), self.c1, it["rank"])
+            self.photo, it = None, {**it, "clips": [], "credit_short": None, "image_path": None}
+            self.full = False
+            self.card_size = self.media_size()
         self.graphic = None if self.photo else GraphicCard(self.card_size, it.get("icon", "globe"),
                                                            self.c1, self.c2, flag, keep_out)
         self.card_mask = self.media_mask()
@@ -427,6 +435,14 @@ class ItemScene(Scene):
         return chip(text if text == full else text.rstrip() + "…", fnt, fg=(230, 230, 240), bg=(0, 0, 0, 150))
 
     def _card(self, t):
+        if self.anim is not None:
+            cw, ch = self.card_size
+            n = max(cw, ch)
+            karte = Image.new("RGBA", (cw, ch), (16, 28, 40, 255))
+            bild = self.anim.bild(t, n)
+            karte.alpha_composite(bild, (int((cw - n) / 2), int((ch - n) / 2)))
+            karte.putalpha(self.card_mask)
+            return karte
         if self.reel is not None:
             img = self.reel.frame_at(t)
             if img is not None:

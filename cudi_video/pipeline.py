@@ -237,6 +237,19 @@ def run(
             pruefer.korrigiere_meta(s, metas[s.lang])       # Titel/Beschreibung/Cover vollständig prüfen (Bericht auch ohne Render)
             _save(out / f"script_{s.lang}.json", s.to_dict())
         _save(out / "spec.json", spec.to_dict())            # Titel kann bei falscher Anzahl berichtigt sein
+        if spec.kind == "facts" and use_llm is not False:   # Fakten-Videos: eigene Animation je Fakt, 1:1 zum Sprechtext
+            from . import animation
+
+            items = {s.lang: [{"key": str(seg.rank), "text": seg.text} for seg in s.segments if seg.kind == "item"] for s in scripts}
+            animation.buendeln([(items[s.lang], s.title, s.lang, f"animation_fakten_{s.lang}") for s in scripts])
+            for s in scripts:
+                notes_anim: list[str] = []
+                szenen, abgleich = animation.szenen_schreiben(
+                    items[s.lang], s.title, s.lang, notes_anim, f"animation_fakten_{s.lang}")
+                if szenen:
+                    _save(out / f"animation_{s.lang}.json", szenen)
+                animation.speichern(out, "fakten", abgleich)
+                research.warnings = list(research.warnings) + notes_anim
     truth_review = lambda: wahrheit.review_section(pruefer, gruende)      # noqa: E731
     gruende: dict[str, list[str]] = {}
     (out / "review.md").write_text(wahrheit.in_review(build_review(spec, research, scripts),

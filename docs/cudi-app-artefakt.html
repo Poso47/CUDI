@@ -428,7 +428,7 @@
             <span class="label">Sprachen</span>
             <div class="checks">
               <label class="check" for="langDe"><input type="checkbox" id="langDe" checked> Deutsch</label>
-              <label class="check" for="langEn"><input type="checkbox" id="langEn" checked> Englisch</label>
+              <label class="check" for="langEn"><input type="checkbox" id="langEn"> Englisch (nur auf Wunsch)</label>
             </div>
           </div>
           <div>
@@ -626,12 +626,12 @@
   <section class="card" id="satire" role="tabpanel" aria-labelledby="tab-start" hidden>
     <button type="button" class="back" data-go="start" aria-label="Zurück zum Start"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Start</button>
     <h2>Satire</h2>
-    <p class="lead">Nur bestätigte Meldungen, wird als SATIRE gekennzeichnet. Der Kern bleibt wahr, die Überspitzung ist erkennbar; ohne erfundene Zitate, Zahlen oder Namen und ohne Spott gegen Gruppen. Heikles lehnt CUDI ab („nur als Reportage“).</p>
+    <p class="lead">Nur über Politiker, Regierungen, Parteien, Behörden und Mächtige aus Wirtschaft und Gesellschaft – Erklär- und Wissensthemen gehören ins Erklärvideo bzw. „Fakten“. Nur bestätigte Meldungen, wird als SATIRE gekennzeichnet. Der Kern bleibt wahr, die Überspitzung ist erkennbar; ohne erfundene Zitate, Zahlen oder Namen und ohne Spott gegen Gruppen. Heikles lehnt CUDI ab („nur als Reportage“).</p>
     <form id="satireForm" novalidate>
       <div style="display:grid;gap:12px">
         <div>
           <label for="satireTopic">Thema oder Meldung (Titel oder Link)</label>
-          <input id="satireTopic" type="text" maxlength="400" placeholder="z. B. Bahn meldet Rekord bei Verspätungen" autocomplete="off">
+          <input id="satireTopic" type="text" maxlength="400" placeholder="z. B. Minister verspricht schnelleres Internet" autocomplete="off">
         </div>
         <div id="satirePick" hidden>
           <span class="label">Oder eine bestätigte Meldung von heute</span>
@@ -1175,7 +1175,18 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   $("rankingForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(rankingOrder(), "rankingMsg", $("rankingGo")); });
   $("reportForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(reportageOrder(), "reportMsg", $("reportGo")); });
   $("clipForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(clipOrder(), "clipMsg", $("clipGo")); });
-  $("satireForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(satireOrder(), "satireMsg", $("satireGo")); });
+  $("satireForm").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const t = $("satireTopic").value.trim(), msg = $("satireMsg");
+    // Vorprüfung im Browser spart einen Lauf: Satire nur über Politik/Mächtige, Erklärfragen gehören ins Erklärvideo
+    const why = /^(wie|warum|wieso|weshalb|was ist|was sind|wozu|how|why|what is|what are)\b/i.test(t)
+      ? "Das ist eine Erklärfrage – dafür gibt es das Erklärvideo oder „Fakten“. Satire gibt es nur über Politiker und Mächtige."
+      : (t && !/^https?:\/\//i.test(t) && !MACHT_RE.test(t))
+        ? "Satire nur über Politiker, Regierungen, Parteien, Behörden oder Mächtige aus Wirtschaft und Gesellschaft – bitte nenne, wer gemeint ist (z. B. „Minister …“, „Regierung …“, „Konzernchef …“)."
+        : "";
+    if (why) { msg.hidden = false; msg.textContent = why; return; }
+    startJob(satireOrder(), "satireMsg", $("satireGo"));
+  });
   $("erklaerForm").addEventListener("submit", (ev) => { ev.preventDefault(); startJob(erklaerOrder(), "erklaerMsg", $("erklaerGo")); });
   $("satireTopic").addEventListener("input", () => { if (satirePick && satirePick.titel !== $("satireTopic").value.trim().replace(/\s+/g, " ")) satirePick = null; });
   $("erklaerForm").hidden = !FELDER.erklaer; $("erklaerInfo").hidden = FELDER.erklaer;
@@ -2709,6 +2720,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     { key: "planung",    name: "Planung",                 short: "Planung",    color: 0xf472b6, desc: "Macht aus den Funden Ideen, das Morgen-Briefing und die Regeln für gute Videos." },
     { key: "produktion", name: "Produktion",              short: "Produktion", color: 0x4ade80, desc: "Jeder Video-Auftrag ist ein Onkel am Schreibtisch; freie Plätze sind sichtbar." },
     { key: "clip",       name: "Clip-Team",               short: "Clip-Team",  color: 0xfb923c, desc: "Beobachtet erlaubte Creator und misst, wie eigene Posts laufen." },
+    { key: "studio",     name: "Animationsstudio",        short: "Studio",     color: 0xe879f9, desc: "Zeichnet jedes erklärende Video selbst: Storyboard, Figuren, Szenenbau, Animation, Abnahme – und lernt aus jedem Lauf." },
     { key: "pflege",     name: "Auswertung & Pflege",     short: "Pflege",     color: 0xa78bfa, desc: "Lernt aus Bewertungen, prüft die Wahrheit und räumt auf." },
   ];
   const deptOf = (key) => DEPTS.find((x) => x.key === key) || DEPTS[0];
@@ -2729,7 +2741,20 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       task: "Prüft jedes Video gegen die Daten: nichts behaupten, was nicht belegt ist." },
     { key: "putzen",   name: "Putz-Onkel",       role: "Putzmann",                 color: 0x9aa3b8, look: 1, walker: true, dept: "pflege", sched: { m: 41, h: [3] },
       task: "Löscht alte Artefakte und Läufe und hält das Archiv schlank." },
+    { key: "storyboard", name: "Storyboard-Onkel", role: "Storyboard",           color: 0xe879f9, look: 0, tea: [-2.0, 0.5], dept: "studio", sched: null, studio: "✎",
+      task: "Zerlegt jeden Sprechtext Wort für Wort in ein Drehbuch: was ist wann zu sehen." },
+    { key: "figuren",    name: "Figuren-Onkel",    role: "Figuren",              color: 0xf0abfc, look: 3, tea: [1.7, 0.4], dept: "studio", sched: null, studio: "🐔",
+      task: "Wählt fertig gezeichnete Figuren und sammelt Wünsche nach neuen Figuren." },
+    { key: "szenenbau",  name: "Szenenbau-Onkel",  role: "Szenenbau",            color: 0xc084fc, look: 5, tea: [-1.8, 0.4], dept: "studio", sched: null, studio: "▦",
+      task: "Baut aus Drehbuch und Text die Szene: Elemente, Bewegungen, Beschriftungen." },
+    { key: "animation",  name: "Animations-Onkel", role: "Animation",            color: 0xa78bfa, look: 2, tea: [1.6, 0.5], dept: "studio", sched: null, studio: "▶",
+      task: "Zeichnet und bewegt jede Szene Bild für Bild im Takt der Stimme." },
+    { key: "abnahme",    name: "Abnahme-Onkel",    role: "Abnahme",              color: 0x818cf8, look: 4, tea: [-1.7, 0.5], dept: "studio", sched: null, studio: "✓",
+      task: "Prüft Bild gegen Text 1:1 und schickt Lücken einmal zurück an den Szenenbau." },
+    { key: "bildlehrer", name: "Lehrer-Onkel",     role: "Studio-Lehrer",        color: 0xf472b6, look: 1, tea: [1.8, 0.4], dept: "studio", sched: { m: 17, h: [5], dow: 3 }, studio: "★",
+      task: "Sammelt die Lücken aller Läufe und macht daraus neue Regeln für das Studio (wöchentlich)." },
   ];
+  const STUDIO_LIVE = ["storyboard", "figuren", "szenenbau", "animation", "abnahme"];
   const STATIONS_BASE = STATIONS.slice();
   const STATIONS_EXTRA = [                                          // erscheinen nur, wenn der Export Daten dazu hat
     { key: "welt",      name: "Welt-Onkel",      role: "Welt-Blick",       color: 0x38bdf8, look: 2, tea: [1.7, 0.4], dept: "recherche", sched: { m: 23, h: EVERY6 },
@@ -2824,7 +2849,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     return (isNaN(t) ? "Zeit unbekannt" : whenText(t, now)) + " · " + (st.ergebnis === "fehler" ? "Fehler" : "ok") + (st.zusammenfassung ? " – " + st.zusammenfassung : "");
   }
   function nextRunText(def) {
-    if (!def.sched) return def.key === "wahrheit" ? "bei jedem Video" : "";
+    if (!def.sched) return def.key === "wahrheit" || STUDIO_LIVE.includes(def.key) ? "bei jedem Video" : "";
     const t = nextRunMs(def, Date.now()); return t ? whenText(t, Date.now()) + " (Plan)" : "nicht geplant";
   }
   function stationFacts(def) {
@@ -3257,6 +3282,17 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       plane(g, m, 1.3, 0.65, 0.6, 2.4, -0.1);
       return { person: placeOnkel(g, def, -1.2, 0.1), screen: m, arm: [-0.2, -0.9] };
     },
+    studio(g, d, def) {                                             // Zeichentisch mit Bildtafel (alle Studio-Abteilungen)
+      box(g, 2.2, 0.08, 1.0, 0x6b4a32, 0, 0.82, -0.2); [-1, 1].forEach((sx) => box(g, 0.08, 0.8, 0.08, 0x4a3324, sx * 1.0, 0.4, -0.2));
+      const m = canvasMat(320, 240, (c, w, hh) => {
+        c.fillStyle = "#151024"; c.fillRect(0, 0, w, hh); c.strokeStyle = hexCss(def.color); c.lineWidth = 8; c.strokeRect(6, 6, w - 12, hh - 12);
+        c.fillStyle = hexCss(def.color); c.font = "900 110px system-ui, sans-serif"; c.textAlign = "center"; c.textBaseline = "middle";
+        c.fillText(def.studio || "✎", w / 2, hh * 0.44); c.fillStyle = "#f3f0e8"; c.font = "700 30px system-ui, sans-serif"; c.fillText(def.role, w / 2, hh * 0.84);
+      });
+      plane(g, m, 1.5, 1.12, 0, 1.75, -0.6);
+      box(g, 0.06, 1.3, 0.06, 0x3a2f24, -0.6, 1.2, -0.66); box(g, 0.06, 1.3, 0.06, 0x3a2f24, 0.6, 1.2, -0.66);
+      return { person: placeOnkel(g, def, 1.4, 0.1), screen: m, arm: [-0.2, -0.3] };
+    },
     wahrheit(g, d, def) {                                           // Waage
       const T = office.T;
       cyl(g, 0x3a2f24, 0.5, 0.12, 0.5, -0.2, 0.06, -0.2); box(g, 0.14, 1.75, 0.14, 0x8a6a4a, -0.2, 1.0, -0.2); sph(g, GOLD, 0.14, 0.14, 0.14, -0.2, 1.95, -0.2);
@@ -3351,16 +3387,17 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
                cell: (i) => ({ x: x0 + ZPAD + (i % cols + 0.5) * cw, z: z0 + ZPAD + (Math.floor(i / cols) + 0.5) * cd }) };
     };
     const colW = 3 * CELL_W + 2 * ZPAD, xL = -(colW + ZGAP / 2), xR = ZGAP / 2;
-    const rec = fixed("recherche"), pla = fixed("planung"), cli = fixed("clip"), pfl = fixed("pflege");
+    const rec = fixed("recherche"), pla = fixed("planung"), cli = fixed("clip"), pfl = fixed("pflege"), stu = fixed("studio");
     const zr = mkZone("recherche", 3, Math.max(1, Math.ceil(rec.length / 3)), xL, 0, CELL_W, CELL_D, rec);
     const zp = mkZone("planung", 3, 1, xL, zr.d + ZGAP, CELL_W, CELL_D, pla);
     const zc = mkZone("clip", 3, 1, xR, 0, CELL_W, CELL_D, cli);
     const zf = mkZone("pflege", 3, 1, xR, zc.d + ZGAP, CELL_W, CELL_D, pfl);
-    const band = Math.max(zp.z0 + zp.d, zf.z0 + zf.d) + ZGAP;
+    const zs = mkZone("studio", 3, Math.max(1, Math.ceil(stu.length / 3)), xR, zf.z0 + zf.d + ZGAP, CELL_W, CELL_D, stu);
+    const band = Math.max(zp.z0 + zp.d, zs.z0 + zs.d) + ZGAP;
     const zl = mkZone("leitung", 3, 1, -colW / 2, band, CELL_W, CELL_D, []);
     const total = Math.min(10, Math.ceil(Math.max(5, m.staff.length) / 5) * 5);
     const zo = mkZone("produktion", 5, total / 5, -(5 * DESK_W + 2 * ZPAD) / 2, zl.z0 + zl.d + ZGAP, DESK_W, DESK_D, []);
-    const zones = [zr, zp, zc, zf, zl, zo];
+    const zones = [zr, zp, zc, zf, zs, zl, zo];
     const minX = Math.min(...zones.map((z) => z.x0)), maxX = Math.max(...zones.map((z) => z.x0 + z.w));
     const minZ = 0, maxZ = zo.z0 + zo.d;
     const ox = -(minX + maxX) / 2, oz = -(minZ + maxZ) / 2;
@@ -3466,7 +3503,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     lay.zones.forEach((z) => z.items.forEach((def, j) => {
       const q = z.cell(j);
       const g = new T.Group(); g.position.set(q.x, 0.06, q.z + 0.35); g.scale.setScalar(SC); world.add(g);
-      const built = STATION_BUILD[def.key](g, d, def);
+      const built = (STATION_BUILD[def.key] || STATION_BUILD.studio)(g, d, def);
       sideTable(g, def.tea[0], def.tea[1]);
       const sl = stationSlot(world, def, g, built); hits.push(sl.hit);
       slots.push(sl);
@@ -3672,6 +3709,16 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       box.append(h("h4", "", "Messung eigener Posts"));
       box.append(h("p", "", (m.posts || 0) + " Posts · " + (m.aufrufe || 0) + " Aufrufe insgesamt"));
     },
+    studio(box, d, st, def) {
+      const s = (d && d.studio) || {};
+      box.append(h("h4", "", "Animationsstudio"));
+      box.append(h("p", "hint", def.task));
+      box.append(h("p", "meta", "Ablauf: Storyboard → Figuren → Szenenbau → Animation → Abnahme → Lehrer"));
+      if (s.abschnitte) box.append(h("p", "meta", s.abschnitte + " Abschnitte ausgewertet · " + Math.round((s.quote || 0) * 100) + " % ohne Lücke"));
+      if (def.key === "figuren" && (s.figur_wuensche || []).length) box.append(h("p", "", "Gewünschte Figuren: " + s.figur_wuensche.map((x) => x.figur + " (" + x.faelle + ")").join(", ")));
+      if ((def.key === "bildlehrer" || def.key === "abnahme") && (s.regeln || []).length) box.append(stList(s.regeln.slice(0, 3), (li, x) => li.append(h("b", "", x.regel))));
+      if (!s.abschnitte) box.append(h("p", "hint", "Noch keine ausgewerteten Läufe – der Lehrer lernt, sobald Videos mit eigener Animation fertig sind."));
+    },
     wahrheit(box, d) {
       box.append(h("h4", "", "Wahrheits-Prüfung"));
       box.append(h("p", "hint", "Prüft jedes Video gegen die Daten: nichts behaupten, was nicht belegt ist."));
@@ -3686,8 +3733,9 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (st) {
       if (st.dauer_s) box.append(h("p", "meta", "Dauer des letzten Laufs: " + Math.round(st.dauer_s) + " s"));
       (st.hinweise || []).slice(0, 3).forEach((x) => box.append(h("p", "meta", "Hinweis: " + x)));
-    } else if (def.key !== "lernen" && def.key !== "wahrheit") box.append(h("p", "hint", d ? "Dieser Mitarbeiter hat noch nicht gearbeitet." : "Noch keine Daten von GitHub. Sobald ein Firma-Lauf fertig ist, erscheinen sie hier."));
+    } else if (def.key !== "lernen" && def.key !== "wahrheit" && !STUDIO_LIVE.includes(def.key)) box.append(h("p", "hint", d ? "Dieser Mitarbeiter hat noch nicht gearbeitet." : "Noch keine Daten von GitHub. Sobald ein Firma-Lauf fertig ist, erscheinen sie hier."));
     if (STATION_CARD[def.key]) STATION_CARD[def.key](box, d, st);
+    else if (def.dept === "studio") STATION_CARD.studio(box, d, st, def);
     const url = (info.kind === "bad" || info.kind === "wait") ? actionsUrl(def) : "";
     if (url) { const a = h("a", "stlink", "Lauf auf GitHub ansehen"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer"; box.append(a); }
     return box;
@@ -3872,8 +3920,10 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   }
 
   /* ---------- Satire: bestätigte Meldungen von heute als Auswahl ---------- */
+  // gleiche Abgrenzung wie cudi_video/videoarten.py (Kurzfassung): Satire nur über Politik und Mächtige
+  const MACHT_RE = /(politik|minister|kanzler|präsident|regierung|kabinett|abgeordnet|parlament|bundestag|landtag|partei|fraktion|\b(cdu|csu|spd|fdp|afd|bsw)\b|koalition|bürgermeister|behörde|ministerium|eu-kommission|nato|konzern|vorstand|milliardär|lobby|könig|prinz|monarch|oligarch|diktator|government|president|chancellor|senator|congress|parliament|lawmaker|white house|kremlin|ceo|billionaire|royal|mayor|governor)/i;
   function renderSatirePick() {
-    const all = (firma.data && firma.data.news && firma.data.news.meldungen) || [], ok = all.filter((m) => m.status === "bestätigt" && m.titel).slice(0, 3);
+    const all = (firma.data && firma.data.news && firma.data.news.meldungen) || [], ok = all.filter((m) => m.status === "bestätigt" && m.titel && MACHT_RE.test(m.titel)).slice(0, 3);
     $("satirePick").hidden = !ok.length;
     const box = $("satireChips"); box.textContent = "";
     ok.forEach((m) => {
@@ -4119,7 +4169,9 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     firma.data = { version: 1, erzeugt: ago(3), status: {          // Beispieldaten aller Stationen, nur mit ?demo=
       trends: stat(5, true, "18 Themen aus 6 Quellen", 175), news: stat(70, true, "24 Meldungen, davon 9 bestätigt", 110, ["GDELT: keine Daten erhalten"]),
       ideen: stat(600, true, "4 neue Ideen (regeln)", 800), wissen: stat(24 * 60 * 9, true, "11 Quellen gelesen, 2 neue Regeln, 14 gesamt", -2880),
-      wahrheit: stat(200, false, "Fehler: Prüfung nicht erreichbar", 60), putzen: stat(300, true, "7 entfernt", 1100) },
+      wahrheit: stat(200, false, "Fehler: Prüfung nicht erreichbar", 60), putzen: stat(300, true, "7 entfernt", 1100), bildlehrer: stat(4000, true, "5 Regeln aus 42 Abschnitten", 8000) },
+      studio: { abschnitte: 42, quote: 0.71, figur_wuensche: [{ figur: "kuh", faelle: 4 }, { figur: "herz", faelle: 3 }],
+                regeln: [{ regel: "„Eileiter“ wurde 4× gesagt, aber nicht gezeigt – als Röhre in der Figur zeigen, beim Wort einblenden." }] },
       trends: [{ thema: "Mondlandung", kategorie: "Ereignis", score: 94 }, { thema: "Nobelpreis Physik", kategorie: "Ereignis", score: 71 }, { thema: "Taylor Swift", kategorie: "Person", score: 55 }],
       news: { bestaetigt: 3, anzahl: 6, meldungen: [
         { titel: "Neue Raumsonde erreicht ihren Zielorbit", kurz: "", link: "https://example.com/a", quelle: "Beispiel-Dienst A", n_quellen: 3, status: "bestätigt" },

@@ -273,14 +273,14 @@ bisher, alle bisherigen guten Teile behalten) – so, dass jeder Mangel behoben 
 Antwort: {"stationen": [{"name": "…", "szene": {...}, "ohne_bild": ["…"]}]}"""
 
 
-def nachbessern(stationen: list[dict], lang: str, notes: list[str]) -> None:
+def nachbessern(stationen: list[dict], lang: str, notes: list[str], aufgabe: str = "schaubild_korrektur") -> None:
     """Stationen mit Lücken einmal zur Korrektur geben; eine neue Szene gilt nur, wenn sie weniger Lücken hat."""
     offen = [(st, abgleich(st, lang)) for st in stationen]
     offen = [(st, m) for st, m in offen if m]
     if not offen:
         return
     figuren_text = "; ".join(f"{n} (Anker: {', '.join(i['anker'])})" for n, i in zeichnen.figuren().items()) or "keine"
-    answer = handoff.request("schaubild_korrektur", KORREKTUR + SZENEN_ANLEITUNG.replace("{figuren}", figuren_text), {"sprache": lang, "stationen": [
+    answer = handoff.request(aufgabe, KORREKTUR + SZENEN_ANLEITUNG.replace("{figuren}", figuren_text), {"sprache": lang, "stationen": [
         {"name": st["name"], "text": st["text"], "szene": st.get("szene"), "maengel": m} for st, m in offen]})
     neu = {str(x.get("name")): x for x in (answer or {}).get("stationen", []) if isinstance(x, dict)} if isinstance(answer, dict) else {}
     for st, m in offen:
