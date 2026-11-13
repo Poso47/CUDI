@@ -1,6 +1,52 @@
 {
- "hinweis": "Bildstile der Videoart schaubild. modus bild = KI-Illustration (Pollinations) im Look, modus code = ganz vom Renderer gezeichnet. Bewegung ist immer Zoom/Schwenk/Parallaxe/Ruckeln – keine animierten Figuren.",
+ "hinweis": "Bildstile der Videoart schaubild. modus bild = KI-Illustration (Pollinations) im Look, modus code = ganz vom Renderer gezeichnet. Bewegung ist immer Zoom/Schwenk/Parallaxe/Ruckeln – keine animierten Figuren. modus szene = eigene Animation aus einer Szenen-Beschreibung (schaubild/zeichnen.py).",
  "stile": [
+  {
+   "id": "animation",
+   "name": "Eigene Animation",
+   "beschreibung": "Vom Programm selbst gezeichnet und bewegt: Formen wandern, wachsen und verändern sich genau zum gesprochenen Satz – ohne Bilder aus dem Netz.",
+   "modus": "szene",
+   "prompt": "",
+   "bg": [
+    [
+     13,
+     43,
+     54
+    ],
+    [
+     242,
+     236,
+     222
+    ]
+   ],
+   "ink": [
+    [
+     250,
+     246,
+     236
+    ],
+    [
+     20,
+     40,
+     48
+    ]
+   ],
+   "akzent": [
+    232,
+    160,
+    32
+   ],
+   "schrift": [
+    "sans",
+    "archivo"
+   ],
+   "rahmen": "frei",
+   "bewegung": "none",
+   "effekt": "partikel",
+   "etikett": "pille",
+   "musik": "pad",
+   "schritt": 0
+  },
   {
    "id": "schaubild",
    "name": "Schaubild",

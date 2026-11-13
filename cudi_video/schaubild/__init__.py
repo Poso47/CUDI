@@ -18,6 +18,7 @@ from pathlib import Path
 import logging
 
 from .. import handoff, net, textcheck
+from . import zeichnen
 
 log = logging.getLogger(__name__)
 TASK = "schaubild"
@@ -55,6 +56,32 @@ Regeln:
   Konkret statt allgemein: nicht „an egg“, sondern „cutaway of a hen's oviduct, an orange yolk sliding through a spiral tube, clear
   egg white wrapping around it“. Nur darstellen, was der Beleg stützt; keine Schrift, keine Zahlen, keine Menschen im Bild."""
 
+SZENEN_ANLEITUNG = """
+EIGENE ANIMATION statt Bilder: Lass „bilder“, „bild_hook“ und „bild_schluss“ weg. Gib stattdessen je Station eine „szene“ an
+(dazu „szene_hook“ und „szene_schluss“) – das Programm zeichnet und bewegt sie selbst. Die Szene MUSS zeigen, was der Text sagt:
+Was wandert, das bewegt sich; was entsteht, das wächst; was sich verändert, wechselt Farbe oder bekommt eine Schicht.
+Format: {"elemente": [...], "schritte": [...]}. Koordinaten 0–100 (0/0 = links oben, Mitte = 50/50), „groesse“ in Prozent der Bildbreite.
+Elemente (höchstens 12, Reihenfolge = Zeichenreihenfolge, später = weiter vorn), jedes mit „id“, „art“ und:
+- form: „form“ kreis|ei|tropfen|herz|quadrat|sechseck ODER eigener „pfad“ (SVG-Pfad für einen einfachen Umriss, z. B. Tier, Organ,
+  Blatt, Haus), „farbe“, „x“, „y“, „groesse“, optional „streckung“ (Höhe/Breite), „sichtbar“: false (erscheint erst später)
+- schlauch: „punkte“ [[x,y],…] (Röhre, Weg, Ader, Leitung), „breite“, „farbe“; „fuellung“: 0 = wird erst gezeichnet
+- huelle: „um“: id einer Form – durchsichtige Schicht darum, „groesse“ = Dicke, wächst mit „fuelle“
+- schale: „um“: id – feste Schicht, wächst mit „fuelle“ von unten nach oben
+- kristalle: „um“: id – Körnchen setzen sich mit „fuelle“ auf die Oberfläche
+- partikel: „von“/„nach“ (id oder [x,y]) – Strom kleiner Teilchen, Stärke über „fuelle“
+- traube: Haufen aus „anzahl“ Kugeln; pfeil: „punkte“ [[x,y],[x,y]]; uhr: Zeit vergeht mit „fuelle“
+Farben: dotter, eiklar, schale, kalk, rot, blau, gruen, gelb, orange, weiss, grau, braun, rosa, lila, tuerkis, gold, haut, schwarz oder #rrggbb.
+Schritte (höchstens 16): {"ab": Satznummer (1 = erster Satz), "nach": Sekunden nach Satzbeginn, "dauer": Sekunden, "ziel": id, "aktion": …}
+Aktionen: erscheine · verschwinde · bewege („entlang“: Schlauch-id mit „von“/„bis“ 0–1 ODER „zu“: id ODER „punkt“: [x,y]) ·
+wachse („auf“: groesse) · faerbe („farbe“) · fuelle („auf“: 0–1) · drehe („um“: Grad) · pulsiere.
+Regeln: Jeder Satz bekommt mindestens einen Schritt, der genau seinen Inhalt zeigt. Lass Platz am Rand (10–90). Keine Schrift in der Szene.
+Beispiel (Text: „Der Dotter wandert durch den Eileiter. Dort legt sich das Eiklar um ihn.“):
+{"elemente": [{"id": "rohr", "art": "schlauch", "punkte": [[20,15],[70,30],[30,55],[70,80]], "breite": 14, "farbe": "gold"},
+              {"id": "dotter", "art": "form", "form": "kreis", "farbe": "dotter", "x": 20, "y": 15, "groesse": 13},
+              {"id": "eiklar", "art": "huelle", "um": "dotter", "groesse": 30, "farbe": "eiklar"}],
+ "schritte": [{"ab": 1, "nach": 0.2, "dauer": 3, "ziel": "dotter", "aktion": "bewege", "entlang": "rohr", "von": 0, "bis": 0.6},
+              {"ab": 2, "nach": 0.2, "dauer": 2.5, "ziel": "eiklar", "aktion": "fuelle", "auf": 1}]}"""
+
 FALLBACK = {"de": {"hook": "Wie funktioniert das eigentlich: {t}?", "schluss": "Jetzt weißt du, wie das funktioniert: {t}.",
                    "quelle": "Quelle", "bilder": "Bilder: Illustrationen (KI-generiert bzw. gezeichnet), keine echten Aufnahmen.",
                    "stand": "Stand"},
@@ -80,6 +107,8 @@ def waehle_stil(wunsch: str, thema: str) -> dict:
     alle = stile()
     if wunsch in alle:
         return alle[wunsch]
+    if wunsch in ("", "animation"):
+        return alle["animation"]
     if wunsch == "auto":
         for sid, pattern in AUTO:
             if re.search(pattern, thema, re.I):
@@ -145,7 +174,8 @@ def pruefe_station(st: dict, quellen: list[dict], lang: str) -> tuple[dict | Non
     folge = [re.sub(r"[^\x20-\x7e]", "", str(b))[:260].strip() for b in (st.get("bilder") or []) if str(b).strip()][:MAX_BILDER]
     folge = [b for b in folge if len(b) >= 8] or [bild or name]
     return {"name": name or text.split()[0], "text": text, "zahl": zahl, "einheit": einheit, "beleg": beleg,
-            "quelle": quelle["name"], "quelle_url": quelle["url"], "etiketten": etiketten[:3], "bild": folge[0], "bilder": folge}, ""
+            "quelle": quelle["name"], "quelle_url": quelle["url"], "etiketten": etiketten[:3], "bild": folge[0], "bilder": folge,
+            "szene": zeichnen.pruefe_szene(st.get("szene"))}, ""
 
 
 def pruefe_satz(text: str, erlaubt: set[str], quellen_text: str, lang: str) -> bool:
@@ -280,9 +310,11 @@ def texte(skript: dict, quellen: list[dict], lang: str) -> tuple[str, str]:
 def pruefbericht(skript: dict, quellen: list[dict], rejected: list[tuple[str, str]], notes: list[str]) -> str:
     stil = skript["stil"]
     lines = [f"# Prüfbericht Schaubild: {skript['titel']}", "",
-             f"- Bildstil: {stil['name']} ({stil['id']}, {'KI-Illustration' if stil['modus'] == 'bild' else 'vom Renderer gezeichnet'}), "
+             f"- Bildstil: {stil['name']} ({stil['id']}, {'KI-Illustration' if stil['modus'] == 'bild' else 'vom Programm gezeichnet'}), "
              f"Seitenformat {skript['seitenformat']}",
-             "- Bewegung: Zoom/Schwenk/Parallaxe/Ruckeln – keine animierten Figuren. Alle Bilder sind als Illustration gekennzeichnet.",
+             ("- Eigene Animation: schematische Erklär-Zeichnung, vom Programm gezeichnet und bewegt – keine Abbildung der Wirklichkeit."
+              if stil["modus"] == "szene" else
+              "- Bewegung: Zoom/Schwenk/Parallaxe/Ruckeln – keine animierten Figuren. Alle Bilder sind als Illustration gekennzeichnet."),
              "", "## Stationen (Sprechtext → wörtlicher Beleg)"]
     for sz in skript["szenen"]:
         if sz["typ"] != "station":
@@ -317,9 +349,11 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
         cache.write_text(json.dumps(quellen, ensure_ascii=False), "utf-8")
     if not quellen:
         raise SchaubildError(f"Schaubild nicht möglich: Zu „{thema}“ fand sich kein Artikel als Quelle. Bitte das Thema genauer nennen.")
-    stil = waehle_stil(order.get("stil") or "schaubild", thema)
+    stil = waehle_stil(order.get("stil") or "animation", thema)
+    eigen = stil["modus"] == "szene"
     progress("Skript schreiben", 0.15)
-    answer = handoff.request(TASK, INSTRUCTIONS.replace("{n}", str(order["stationen"])).replace("{lang}", "Deutsch" if lang == "de" else "English"),
+    anleitung = INSTRUCTIONS.replace("{n}", str(order["stationen"])).replace("{lang}", "Deutsch" if lang == "de" else "English")
+    answer = handoff.request(TASK, anleitung + (SZENEN_ANLEITUNG if eigen else ""),
                              {"thema": thema, "sprache": lang, "stationen": order["stationen"],
                               "quellen": [{"id": q["id"], "name": q["name"], "text": q["text"]} for q in quellen]})
     if not isinstance(answer, dict):
@@ -357,8 +391,17 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     skript = baue_skript("schaubild", titel, hook, versprechen, stationen, schluss, lang, stil, order.get("seitenformat") or "9:16")
     for sz, key in ((skript["szenen"][0], "bild_hook"), (skript["szenen"][-1], "bild_schluss")):
         sz[key] = re.sub(r"[^\x20-\x7e]", "", str(answer.get(key) or ""))[:260].strip()
-    progress("Bilder", 0.3)
-    bilder(skript, out / "work", notes)
+    if eigen:                                                 # eigene Animation: nichts aus dem Netz, das Programm zeichnet selbst
+        skript["szenen"][0]["szene"] = zeichnen.pruefe_szene(answer.get("szene_hook"))
+        skript["szenen"][-1]["szene"] = zeichnen.pruefe_szene(answer.get("szene_schluss"))
+        ohne = sum(1 for sz in skript["szenen"] if sz["typ"] == "station" and not sz.get("szene"))
+        if ohne:
+            notes.append(f"{ohne} Station(en) ohne gültige Szenen-Beschreibung – dort zeigt das Video eine schlichte Grafik.")
+        for sz in skript["szenen"]:
+            sz["bild_quelle"] = "eigene Animation (vom Programm gezeichnet)" if sz.get("szene") else "schlichte Grafik"
+    else:
+        progress("Bilder", 0.3)
+        bilder(skript, out / "work", notes)
     yt, tt = texte(skript, quellen, lang)
     (out / "youtube.txt").write_text(yt, "utf-8")
     (out / "tiktok.txt").write_text(tt, "utf-8")
