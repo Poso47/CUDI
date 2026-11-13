@@ -285,3 +285,38 @@ def test_animation_details_wortgenau_beschriftung_kamera():
     job_["words"] = [{"text": w, "start": i * .4, "end": i * .4 + .3} for i, w in enumerate(text.split())]
     sc = R.make_scene(job_)
     assert sc.buehne.schritte[0]["t"] == pytest.approx(.45 + 2 * .4) and sc.frame(3.0).size == (1080, 1920)
+
+
+def test_abgleich_bild_text_und_nachbessern(monkeypatch):
+    """1:1-Abgleich: Gesagtes ohne Bild wird gefunden; die Korrektur gilt nur, wenn sie Lücken schließt."""
+    from cudi_video.schaubild import zeichnen as Z
+
+    text = "Der Dotter wandert durch den Eileiter. Dort legt sich das Eiklar um ihn."
+    assert schaubild.hauptwoerter(text) == ["dotter", "eileiter", "eiklar"]
+    voll = Z.beschriftungen_pruefen(Z.pruefe_szene({
+        "elemente": [{"id": "d", "art": "form", "form": "kreis", "x": 20, "y": 15, "groesse": 13},
+                     {"id": "k", "art": "huelle", "um": "d", "groesse": 30},
+                     {"id": "rohr", "art": "schlauch", "punkte": [[20, 15], [70, 80]], "breite": 14},
+                     {"id": "b1", "art": "beschriftung", "text": "Dotter", "an": "d"},
+                     {"id": "b2", "art": "beschriftung", "text": "Eileiter", "an": "rohr"},
+                     {"id": "b3", "art": "beschriftung", "text": "Eiklar", "an": "d"}],
+        "schritte": [{"bei": "wandert", "ziel": "d", "aktion": "bewege", "entlang": "rohr"},
+                     {"bei": "legt", "ziel": "k", "aktion": "fuelle", "auf": 1}]}), text)
+    st = {"name": "Eileiter", "text": text, "szene": voll}
+    assert schaubild.abgleich(st, "de") == []
+    duenn = Z.pruefe_szene({"elemente": [{"id": "d", "art": "form", "form": "kreis"}],
+                            "schritte": [{"ab": 1, "ziel": "d", "aktion": "pulsiere"}]})
+    maengel = schaubild.abgleich({**st, "szene": duenn, "drehbuch": [{"wort": "legt", "zeigt": "Eiklar legt sich um den Dotter"}]}, "de")
+    assert "Satz 2 hat keinen eigenen Schritt" in maengel and any("eileiter" in m for m in maengel) and any("legt" in m for m in maengel)
+    assert schaubild.abgleich({**st, "szene": duenn, "ohne_bild": ["Dotter", "Eileiter", "Eiklar"]}, "de") == ["Satz 2 hat keinen eigenen Schritt"]
+    stationen = [{**st, "szene": duenn}]
+    antworten = iter([{"stationen": [{"name": "Eileiter", "szene": {"elemente": [{"id": "x", "art": "form"}], "schritte": []}}]}])
+    monkeypatch.setattr(handoff, "request", lambda *a, **k: next(antworten))
+    notes: list[str] = []
+    schaubild.nachbessern(stationen, "de", notes)
+    assert stationen[0]["szene"] is duenn and notes and "1:1" in notes[0]               # schlechtere Korrektur wird verworfen
+    monkeypatch.setattr(handoff, "request", lambda *a, **k: {"stationen": [{"name": "Eileiter", "szene": {
+        "elemente": voll["elemente"], "schritte": voll["schritte"]}}]})
+    notes = []
+    schaubild.nachbessern(stationen, "de", notes)
+    assert schaubild.abgleich(stationen[0], "de") == [] and notes == []
