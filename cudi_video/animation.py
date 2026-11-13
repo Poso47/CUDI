@@ -75,13 +75,62 @@ def aktiv() -> bool:
     return os.environ.get("CUDI_ANIMATION", "1") != "0"
 
 
-def gelernte_regeln() -> list[str]:
-    """Regeln aus früheren Läufen (Bildlehrer), wichtigste zuerst."""
+LERNSTAND_ORDNER = "cudi_studio"      # dorthin legt der App-Lauf den Lernstand (ArtifactData get, Sammlung „studio“)
+MAX_LERN_ABSCHNITTE = 400
+
+
+def lernstand_datei() -> Path | None:
+    """Lernstand der App-Läufe (`cudi_studio/studio/lernstand.json`), falls die Sitzung ihn abgelegt hat."""
+    root = Path(__file__).resolve().parent.parent
+    for base in dict.fromkeys((Path.cwd().parent, root.parent, Path.cwd(), Path.home())):
+        datei = base / LERNSTAND_ORDNER / "studio" / "lernstand.json"
+        if datei.exists():
+            return datei
+    return None
+
+
+def _lies(datei: Path | None) -> dict:
     try:
-        daten = json.loads(REGELN_DATEI.read_text("utf-8"))
+        daten = json.loads(datei.read_text("utf-8")) if datei else {}
     except (OSError, ValueError):
-        return []
-    return [str(r.get("regel")) for r in (daten.get("regeln") or [])[:MAX_REGELN] if r.get("regel")]
+        return {}
+    daten = daten.get("data") if isinstance(daten.get("data"), dict) else daten
+    return daten if isinstance(daten, dict) else {}
+
+
+def gelernte_regeln() -> list[str]:
+    """Regeln aus früheren Läufen – vom Bildlehrer auf GitHub und aus den App-Läufen –, wichtigste zuerst."""
+    regeln: list[dict] = []
+    for daten in (_lies(REGELN_DATEI), _lies(lernstand_datei())):
+        regeln += [r for r in (daten.get("regeln") or []) if isinstance(r, dict) and r.get("regel")]
+    regeln.sort(key=lambda r: -int(r.get("faelle") or 0))
+    return list(dict.fromkeys(str(r["regel"]) for r in regeln))[:MAX_REGELN]
+
+
+def lernstand_aktualisieren(ordner: Path) -> Path | None:
+    """Nach einem App-Lauf: Lücken dieses Laufs an den Lernstand hängen und Regeln neu zählen -> `<ordner>/lernstand.json`
+    (die Sitzung legt sie per ArtifactData unter „studio/lernstand“ ab). Ohne neue Lücken: None."""
+    from .firma import bildlehrer
+
+    neu = []
+    for datei in sorted(ordner.rglob("abgleich.json")):
+        teil = _lies(datei)
+        neu += [{"art": teil.get("art", ""), "maengel": list(a.get("maengel") or [])[:6],      # klein halten (Ablage)
+                 "figur_wuensche": list(a.get("figur_wuensche") or [])[:4]}
+                for a in (teil.get("abschnitte") or []) if isinstance(a, dict)]
+    if not neu:
+        return None
+    alt = _lies(lernstand_datei())
+    abschnitte = ((alt.get("abschnitte") or []) + neu)[-MAX_LERN_ABSCHNITTE:]
+    woerter, arten, gesamt = bildlehrer.auswerten(abschnitte)
+    ohne = sum(1 for a in abschnitte if not a.get("maengel"))
+    from datetime import datetime, timezone
+    daten = {"stand": datetime.now(timezone.utc).isoformat(timespec="seconds"), "abschnitte_n": gesamt, "ohne_luecke": ohne,
+             "quote": round(ohne / gesamt, 3) if gesamt else None, "regeln": bildlehrer.regeln_aus(woerter, arten, gesamt, []),
+             "figur_wuensche": bildlehrer.figur_wuensche(abschnitte), "abschnitte": abschnitte}
+    ziel = ordner / "lernstand.json"
+    ziel.write_text(json.dumps(daten, ensure_ascii=False), "utf-8")
+    return ziel
 
 
 def studio_aktiv() -> bool:

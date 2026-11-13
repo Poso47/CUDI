@@ -346,6 +346,55 @@
   .klist .body button, .jobs .vid button, .jobs .actions button { min-height: 44px; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--paper); font: 700 13px var(--body); cursor: pointer; justify-self: start; }
   .klist .body button { width: fit-content; }
   @media (min-width: 560px) { .tiles { grid-template-columns: repeat(3, 1fr); } .tile:last-child:nth-child(odd) { grid-column: auto; } }
+
+  /* ---------- Bedienung: Gruppen, Finder, Animationen (bei „weniger Bewegung“ automatisch aus) ---------- */
+  .group { display: grid; gap: 8px; }
+  .vfilter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; } .vfilter button { min-width: 0; padding: 0 4px; font-size: 13px; }
+  .ghead { margin: 6px 0 0; font: 800 13px var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+  .gdesc { margin: -4px 0 2px; font-size: 13px; color: var(--muted); }
+  .finder { display: grid; gap: 8px; border: 1px solid var(--line); border-radius: 16px; padding: 12px; background: var(--ink); }
+  .finder label { margin: 0; } .finder label .hint { display: block; font-weight: 400; }
+  .finderrow { display: flex; gap: 8px; } .finderrow input { flex: 1; min-width: 0; } .finderrow .btn { flex: none; }
+  .finderout { margin: 0; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;
+               border-radius: 12px; padding: 10px 12px; background: color-mix(in srgb, var(--accent) 10%, transparent); font-size: 14px; }
+  .finderout b { color: var(--accent); }
+  .panel-in { animation: panelIn .3s cubic-bezier(.2, .8, .2, 1) both; }
+  .panel-back { animation: panelBack .3s cubic-bezier(.2, .8, .2, 1) both; }
+  @keyframes panelIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes panelBack { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+  #start:not([hidden]) .tile, #start:not([hidden]) .finder { animation: tileIn .42s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--i, 0) * 45ms + 60ms); }
+  @keyframes tileIn { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: none; } }
+  .tile { transition: transform .15s ease-out, border-color .15s ease-out, box-shadow .2s ease-out; }
+  .tile:hover { box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 18%, transparent); }
+  .tile:active { transform: scale(.96); }
+  .tile .tic { transition: transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+  .tile:hover .tic, .tile:focus-visible .tic { transform: rotate(-8deg) scale(1.1); }
+  .tabbar button { transition: color .2s, background-color .2s; }
+  .tabbar button[aria-selected="true"] svg { animation: tabPop .38s cubic-bezier(.3, 1.6, .5, 1); }
+  @keyframes tabPop { 40% { transform: translateY(-4px) scale(1.15); } }
+  .btn, .go, .back { transition: transform .12s ease-out, filter .12s, opacity .2s; }
+  .btn:active:not(:disabled), .go:active:not(:disabled) { transform: scale(.97); }
+  .go:disabled { position: relative; color: transparent !important; }
+  .go:disabled::after { content: ""; position: absolute; inset: 0; margin: auto; width: 22px; height: 22px; border-radius: 50%;
+                        border: 3px solid var(--on-accent); border-right-color: transparent; animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  details.mehr[open] > .inner, details.dept[open] > .inner, .onkel[open] > .stbody, .klist details[open] .body { animation: openIn .24s ease-out both; }
+  @keyframes openIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  details.mehr > summary::after { transition: transform .2s; } details.mehr[open] > summary::after { transform: rotate(180deg); }
+  .note:not([hidden]), .finderout:not([hidden]) { animation: noteIn .28s ease-out both; }
+  @keyframes noteIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  .jobs > li { animation: tileIn .35s ease-out both; }
+  .bar > i { background-image: linear-gradient(45deg, rgba(255,255,255,.22) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.22) 50%, rgba(255,255,255,.22) 75%, transparent 75%);
+             background-size: 18px 18px; animation: stripes 1s linear infinite; }
+  @keyframes stripes { to { background-position: 18px 0; } }
+  .toast { position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); z-index: 30;
+           max-width: min(92vw, 480px); padding: 12px 16px; border-radius: 14px; background: var(--paper); color: var(--ink);
+           font: 700 14px var(--body); box-shadow: 0 10px 30px rgba(0,0,0,.25); opacity: 0; pointer-events: none;
+           transition: opacity .25s, transform .3s cubic-bezier(.2, .8, .2, 1); display: flex; gap: 8px; align-items: center; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast .ok { width: 22px; height: 22px; border-radius: 50%; background: var(--ok); display: grid; place-items: center; color: #fff; flex: none; }
+  .toast.show .ok svg path { stroke-dasharray: 20; stroke-dashoffset: 20; animation: draw .4s .15s ease-out forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
 </style>
 <main>
   <header>
@@ -380,16 +429,44 @@
   <section class="card" id="start" role="tabpanel" aria-labelledby="tab-start">
     <h2 class="hello">Was willst du machen?</h2>
     <p class="lead">Videoart antippen, kurz ausfüllen, fertig. Gerechnet wird in deiner Claude-Cloud, meist in 10 bis 20 Minuten – die App darf solange zu sein.</p>
-    <div class="tiles">
-      <button type="button" class="tile" data-go="ranking"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b>Ranking</b><span class="sub">Top-Liste mit geprüften Fakten</span></span></button>
-      <button type="button" class="tile" data-go="fakten"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6zM9 12l2 2 4-4"/></svg></span><span><b>Fakten</b><span class="sub">Frei gewähltes Thema, jede Zahl geprüft</span></span></button>
-      <button type="button" class="tile" data-go="schaubild"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M4 4l3 3M20 20l-3-3"/></svg></span><span><b>Schaubild</b><span class="sub">Erklärt in Stationen, 21 Bildstile</span></span></button>
-      <button type="button" class="tile" data-go="story"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg></span><span><b>Story</b><span class="sub">Reddit-Story in deiner Stimmung</span></span></button>
-      <button type="button" class="tile" data-go="reportage"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12v14H6a2 2 0 0 1-2-2zM16 8h4v9a2 2 0 0 1-2 2M7 9h6M7 13h6"/></svg></span><span><b>Reportage</b><span class="sub">Sachlich, mit mindestens zwei Quellen</span></span></button>
-      <button type="button" class="tile" data-go="satire"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 3 4 3 4-3 4-3M9 9h.01M15 9h.01"/></svg></span><span><b>Satire</b><span class="sub">Echte Meldung, erkennbar überspitzt</span></span></button>
-      <button type="button" class="tile" data-go="erklaer"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0-4 10.5V16h8v-2.5A6 6 0 0 0 12 3zM9 20h6M10 18h4"/></svg></span><span><b>Erklärvideo</b><span class="sub">Ruhig erklärt im Buchlook</span></span></button>
-      <button type="button" class="tile" data-go="clips"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4l-3 5M14 4l-3 5M20 4l-3 5"/></svg></span><span><b>Clip</b><span class="sub">Highlight aus Podcast oder Stream</span></span></button>
+    <div class="finder">
+      <label for="finderInput">Worum soll es gehen? <span class="hint">CUDI schlägt die passende Videoart vor</span></label>
+      <div class="finderrow"><input id="finderInput" type="text" maxlength="200" placeholder="z. B. Wie entsteht ein Gewitter?" autocomplete="off">
+      <button type="button" class="btn primary" id="finderGo">Vorschlag</button></div>
+      <p class="finderout" id="finderOut" hidden role="status"></p>
     </div>
+    <section class="group" aria-label="Erklären &amp; Wissen">
+      <h3 class="ghead">Erklären &amp; Wissen</h3>
+      <p class="gdesc">Wie etwas funktioniert oder was man wissen sollte – sachlich, mit eigener Animation.</p>
+      <div class="tiles">
+      <button type="button" class="tile" style="--i:1" data-go="fakten"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6zM9 12l2 2 4-4"/></svg></span><span><b>Fakten</b><span class="sub">Frei gewähltes Thema, jede Zahl geprüft</span></span></button>
+      <button type="button" class="tile" style="--i:2" data-go="erklaer"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0-4 10.5V16h8v-2.5A6 6 0 0 0 12 3zM9 20h6M10 18h4"/></svg></span><span><b>Erklärvideo</b><span class="sub">Ruhig erklärt im Buchlook</span></span></button>
+      <button type="button" class="tile" style="--i:3" data-go="schaubild"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M4 4l3 3M20 20l-3-3"/></svg></span><span><b>Schaubild</b><span class="sub">Erklärt in Stationen, 21 Bildstile</span></span></button>
+      </div>
+    </section>
+    <section class="group" aria-label="Streams &amp; Podcasts">
+      <h3 class="ghead">Streams &amp; Podcasts</h3>
+      <p class="gdesc">Die besten Momente aus Streams und Podcasts – nur mit Erlaubnis.</p>
+      <div class="tiles">
+      <button type="button" class="tile" style="--i:4" data-go="clips"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4l-3 5M14 4l-3 5M20 4l-3 5"/></svg></span><span><b>Clip</b><span class="sub">Highlight aus Stream oder Podcast</span></span></button>
+      </div>
+    </section>
+    <section class="group" aria-label="Listen &amp; Geschichten">
+      <h3 class="ghead">Listen &amp; Geschichten</h3>
+      <p class="gdesc">Top-Listen mit messbaren Zahlen und erzählte Reddit-Storys.</p>
+      <div class="tiles">
+      <button type="button" class="tile" style="--i:5" data-go="ranking"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b>Ranking</b><span class="sub">Top-Liste mit geprüften Fakten</span></span></button>
+      <button type="button" class="tile" style="--i:6" data-go="story"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg></span><span><b>Story</b><span class="sub">Reddit-Story in deiner Stimmung</span></span></button>
+      </div>
+    </section>
+    <section class="group" aria-label="Aktuelles &amp; Politik">
+      <h3 class="ghead">Aktuelles &amp; Politik</h3>
+      <p class="gdesc">Nachrichten sachlich als Reportage – oder Politiker und Mächtige als gekennzeichnete Satire.</p>
+      <div class="tiles">
+      <button type="button" class="tile" style="--i:7" data-go="reportage"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12v14H6a2 2 0 0 1-2-2zM16 8h4v9a2 2 0 0 1-2 2M7 9h6M7 13h6"/></svg></span><span><b>Reportage</b><span class="sub">Sachlich, mit mindestens zwei Quellen</span></span></button>
+      <button type="button" class="tile" style="--i:8" data-go="satire"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 3 4 3 4-3 4-3M9 9h.01M15 9h.01"/></svg></span><span><b>Satire</b><span class="sub">Politik &amp; Mächtige, erkennbar überspitzt</span></span></button>
+      </div>
+    </section>
     <div class="homelinks">
       <button type="button" data-go="videos"><span>Meine Videos und Fortschritt</span><span class="pill run" id="runCount" hidden></span></button>
       <button type="button" data-go="app"><span>Volle App und Notbetrieb</span><span aria-hidden="true">›</span></button>
@@ -741,6 +818,12 @@
       <span class="meter" id="meter"></span>
     </div>
     <p class="note" id="videosMsg" hidden role="status"></p>
+    <div class="ofbar vfilter" id="vFilter" role="group" aria-label="Videos filtern">
+      <button type="button" data-f="" aria-pressed="true">Alle</button>
+      <button type="button" data-f="laeuft" aria-pressed="false">Laufen</button>
+      <button type="button" data-f="fertig" aria-pressed="false">Fertig</button>
+      <button type="button" data-f="problem" aria-pressed="false">Probleme</button>
+    </div>
     <ul class="jobs" id="jobList">
       <li id="jobSkel" aria-hidden="true"><div class="sk big"></div><div class="sk"></div></li>
       <li><span class="meta">Noch keine Aufträge. Starte auf dem Start-Bildschirm ein Video – es erscheint dann hier
@@ -836,6 +919,7 @@
 
   <footer>Alles bleibt in der App: Jeder Auftrag läuft als Lauf deiner geplanten Aufgabe „CUDI-Auftrag“ in der Claude-Cloud – ohne neue Einträge in deiner Sitzungsliste – und legt Video und Texte hier ab.</footer>
 </main>
+<div class="toast" id="toast" role="status" aria-live="polite"><span class="ok"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><span id="toastText"></span></div>
 <nav class="tabbar" role="tablist" aria-label="Bereiche">
   <button role="tab" id="tab-start" aria-controls="start" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z"/></svg><span>Start</span></button>
   <button role="tab" id="tab-videos" aria-controls="videos" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg><span>Videos</span></button>
@@ -893,13 +977,18 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   let currentTab = "start";
   function showTab(name) {
     if (!TABS.includes(name)) name = "start";
+    const back = SUBPAGES.includes(currentTab) && name === "start";
+    const changed = name !== currentTab;
     currentTab = name;
     TABS.forEach((t) => { $(t).hidden = t !== name; });
+    if (changed) {                                                    // sanfter Wechsel (bei „weniger Bewegung“ per CSS aus)
+      const el = $(name); el.classList.remove("panel-in", "panel-back"); void el.offsetWidth; el.classList.add(back ? "panel-back" : "panel-in");
+    }
     const nav = NAVTABS.includes(name) ? name : "start";
     NAVTABS.forEach((t) => $("tab-" + t).setAttribute("aria-selected", String(t === nav)));
     if (name === "videos") updateMeter();
     try { renderFirma(); } catch (e) { /* Banner folgt beim nächsten Update */ }
-    try { renderBriefing(); renderKom(); } catch (e) { /* Zusatzbereiche */ }
+    try { if (name === "briefing") renderBriefing(); if (name === "kommunikation") renderKom(); } catch (e) { /* Zusatzbereiche */ }
   }
   function goTab(name) {
     showTab(name);
@@ -922,7 +1011,54 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     el.textContent = text;
     el.className = "note " + (kind || "");
     el.hidden = !text;
+    if (kind === "ok" && text) toast(text);
   }
+  let toastTimer = 0;
+  function toast(text) {                                              // kurze Bestätigung über der Tab-Leiste
+    const t = $("toast"); if (!t) return;
+    $("toastText").textContent = String(text).slice(0, 140);
+    t.classList.remove("show"); void t.offsetWidth; t.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 3200);
+  }
+
+  /* ---------- Finder: „Worum soll es gehen?“ -> passende Videoart (gleiche Abgrenzung wie cudi_video/videoarten.py) ---------- */
+  const FINDER = [
+    { go: "clips", name: "Clip", why: "Ein Link zu Stream oder Video – daraus schneidet CUDI die besten Momente.",
+      re: /(twitch\.tv|youtube\.com|youtu\.be|kick\.com|\bstream|podcast|\bclip)/i },
+    { go: "satire", name: "Satire", why: "Es geht um Politik oder Mächtige – das darf überspitzt werden (gekennzeichnet).",
+      re: /(satire|politik|minister|kanzler|präsident|regierung|partei|bundestag|parlament|konzernchef|milliardär|\b(cdu|csu|spd|fdp|afd|bsw)\b)/i },
+    { go: "reportage", name: "Reportage", why: "Eine aktuelle Nachricht – sachlich mit mindestens zwei Quellen.",
+      re: /(nachricht|news|heute|gestern|aktuell|meldung|unglück|wahl\b|krieg|streik|erdbeben)/i },
+    { go: "ranking", name: "Ranking", why: "Eine Top-Liste nach messbarer Zahl.",
+      re: /(top\s*\d+|\d+\s+(größten|höchsten|längsten|tiefsten|kleinsten|schnellsten)|größte|höchste|längste|tiefste|kleinste|schnellste|meisten|ranking)/i },
+    { go: "story", name: "Story", why: "Eine erzählte Geschichte in einer Stimmung (Reddit).",
+      re: /(reddit|geschichte|story|gruselig|lustig|peinlich|traurig|erlebnis|nachbar|aita)/i },
+    { go: "schaubild", name: "Schaubild", why: "Ein Vorgang Schritt für Schritt – eigene Animation in Stationen.",
+      re: /(wie entsteht|wie wird|ablauf|schritt für schritt|kreislauf|prozess)/i },
+    { go: "erklaer", name: "Erklärvideo", why: "Eine Wie-/Warum-Frage – ruhig erklärt mit eigener Animation.",
+      re: /^\s*(wie|warum|wieso|weshalb|was ist|was sind|wozu)\b/i },
+  ];
+  function finderSuggest() {
+    const t = $("finderInput").value.trim(), out = $("finderOut");
+    if (!t) { out.hidden = true; return; }
+    let hit = FINDER.find((f) => f.re.test(t));
+    if (hit && hit.go === "erklaer" && !FELDER.erklaer) hit = FINDER.find((f) => f.go === "schaubild");   // Erklärvideo noch aus: Schaubild erklärt
+    hit = hit ||
+                { go: "fakten", name: "Fakten", why: "Ein Wissensthema – geprüfte Fakten mit Aha-Effekt und eigener Animation." };
+    out.textContent = "";
+    const txt = document.createElement("span"); txt.append("Passt am besten: ");
+    const b = document.createElement("b"); b.textContent = hit.name; txt.append(b, " – " + hit.why);
+    const go = document.createElement("button"); go.type = "button"; go.className = "btn primary"; go.textContent = hit.name + " öffnen";
+    go.addEventListener("click", () => {
+      goTab(hit.go);
+      const field = { fakten: "factTopic", ranking: "topic", schaubild: "sbTopic", satire: "satireTopic", erklaer: "erklaerTopic", reportage: "reportTopic",
+                      clips: /^https?:\/\//i.test(t) ? "clipUrl" : "" }[hit.go];
+      if (field && $(field)) { $(field).value = t; try { $(field).focus(); } catch (e) { /* egal */ } }
+    });
+    out.append(txt, go); out.hidden = false;
+  }
+  $("finderGo").addEventListener("click", finderSuggest);
+  $("finderInput").addEventListener("keydown", (ev) => { if (ev.key === "Enter") { ev.preventDefault(); finderSuggest(); } });
   function pill(text, kind) { const p = $("cloudState"); p.textContent = text; p.className = "pill " + (kind || ""); }
   function esc(t) { return String(t == null ? "" : t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]); }
 
@@ -2200,7 +2336,16 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       const tb = (jobs.get(b) || {}).gestartet || (results.get(b) || {}).fertig || "";
       return tb.localeCompare(ta);
     });
-    const ids = all.slice(0, shown);
+    try {                                                               // Zähler an den Filter-Knöpfen
+      const n = { "": all.length, laeuft: 0, fertig: 0, problem: 0 };
+      all.forEach((i) => { n[vGroup(i)]++; });
+      $("vFilter").querySelectorAll("button").forEach((b) => { b.textContent = b.dataset.label + (n[b.dataset.f] ? " " + n[b.dataset.f] : ""); });
+    } catch (e) { /* Zusatz */ }
+    const ids = all.filter((i) => !vFilter || vGroup(i) === vFilter).slice(0, shown);
+    if (!ids.length && vFilter) {
+      cards.clear(); ul.innerHTML = '<li><span class="meta">Hier ist gerade nichts. Tippe auf „Alle“, um alle Videos zu sehen.</span></li>';
+      return;
+    }
     if (!ids.length) {
       if (cards.size) { cards.clear(); }
       ul.innerHTML = '<li><span class="meta">Noch keine Aufträge. Starte auf dem Start-Bildschirm ein Video – es erscheint dann hier mit Fortschritt, Vorschau, „Video speichern“ und den Texten für YouTube und TikTok.</span></li>';
@@ -2225,6 +2370,19 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (all.length > shown) { moreBtn.textContent = "Ältere Videos anzeigen (" + (all.length - shown) + ")"; ul.appendChild(moreLi); }
     else moreLi.remove();
   }
+  let vFilter = "";
+  function vGroup(id) {                                                 // laeuft | fertig | problem (für den Filter)
+    const st = stateOf(id);
+    return st === "fertig" || st === "skelett" ? "fertig" : st === "laeuft" || st === "wartet" || st === "notbetrieb" ? "laeuft" : "problem";
+  }
+  $("vFilter").querySelectorAll("button").forEach((b) => {
+    b.dataset.label = b.textContent;
+    b.addEventListener("click", () => {
+      vFilter = b.dataset.f;
+      $("vFilter").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      cards.clear(); $("jobList").textContent = ""; render();
+    });
+  });
   setInterval(() => { if (!$("videos").hidden) render(); }, 60000);       // „läuft seit … Min.“
   setInterval(() => cleanupOrphans(), 60000);                               // spät eintreffende Ergebnisse
 

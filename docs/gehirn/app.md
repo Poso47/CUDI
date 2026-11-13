@@ -60,3 +60,12 @@ Teil des Projekt-Gehirns (Übersicht: CLAUDE.md). Nur lesen, wenn die Aufgabe di
   - Seite ändern: Datei bearbeiten und mit dem Artifact-Werkzeug unter derselben URL veröffentlichen
     (äußerer HTML-Rahmen fehlt absichtlich – Claude setzt ihn).
 - **Schaubild in der App**: Kachel + Unterseite `#schaubild` (`schaubildOrder`: thema, stationen, sprache, stil, seitenformat); Stil-Liste im `<select id="sbStil">` stammt aus `cudi_video/data/bildstile.json` – bei neuem Stil dort und hier eine Option ergänzen.
+
+**Bedienung (Überarbeitung Nov. 2026):** Start = Finder „Worum soll es gehen?“ (`FINDER`-Regeln wie `videoarten.py` → schlägt Videoart vor,
+„öffnen“ übernimmt das Thema ins Formular; Erklärvideo noch aus → Schaubild) + Kacheln in Gruppen: Erklären & Wissen (Fakten, Erklärvideo,
+Schaubild) · Streams & Podcasts (Clip) · Listen & Geschichten (Ranking, Story) · Aktuelles & Politik (Reportage, Satire). Videos-Tab: Filter
+Alle/Laufen/Fertig/Probleme mit Zählern (`vGroup`). Animationen nur per CSS (Seitenwechsel `panel-in`/`panel-back`, Kacheln gestaffelt,
+Tipp-Federung, Lade-Kreisel auf `.go:disabled`, aufklappen, Streifen im Fortschritt, Toast mit Häkchen bei `note(..,"ok")`); bei
+„weniger Bewegung“ alles aus. Englisch-Häkchen standardmäßig aus.
+**Lernen aus App-Läufen:** Aufgabe holt vor dem Start `studio/lernstand` (out_dir `cudi_studio`), `auftrag --dokument` schreibt
+`STUDIO: <lernstand.json>` (`animation.lernstand_aktualisieren`), Schritt 5 legt ihn wieder in `studio/lernstand` ab.
