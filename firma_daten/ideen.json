@@ -1,10 +1,526 @@
 {
- "erzeugt": "2026-11-12T13:53:44Z",
+ "erzeugt": "2026-11-13T13:13:14Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 68,
- "neu": 23,
+ "anzahl": 74,
+ "neu": 18,
  "ideen": [
+  {
+   "id": "idee-793a35bc",
+   "bereich": "ranking",
+   "titel": "Top-Brücken: Ausleger-Giganten",
+   "thema": "Die größten Auslegerbrücken, sortiert nach ihrer Größe",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' war auf Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-12 mit 33.404 Aufrufen.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q46300 heißt 'Crespadoro', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Die größten Auslegerbrücken, sortiert nach ihrer Größe"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:26Z",
+   "recherche": [
+    {
+     "text": "700 Tonnen, 153 Meter Ausleger: Der Kraneinsatz seit März",
+     "status": "einzeln",
+     "datum": "2026-11-09",
+     "quellen": [
+      {
+       "quelle": "solidbau.at",
+       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
+       "datum": "2026-11-09"
+      }
+     ]
+    },
+    {
+     "text": "vorherige Phase (Juli 2026): 700-t-Raupenkran mit 153 m Ausleger, Grobbleche bis rund 95 t",
+     "status": "einzeln",
+     "datum": "2026-11-09",
+     "quellen": [
+      {
+       "quelle": "solidbau.at",
+       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
+       "datum": "2026-11-09"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-ab9729b4",
+   "bereich": "ranking",
+   "titel": "Auslegerbrücken: Die Längsten",
+   "thema": "Die größten Auslegerbrücken im Überblick",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' war auf Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-12 mit 33.404 Aufrufen.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184600 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Die größten Auslegerbrücken im Überblick"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z",
+   "recherche": [
+    {
+     "text": "700 Tonnen, 153 Meter Ausleger: Der Kraneinsatz seit März",
+     "status": "einzeln",
+     "datum": "2026-11-09",
+     "quellen": [
+      {
+       "quelle": "solidbau.at",
+       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
+       "datum": "2026-11-09"
+      }
+     ]
+    },
+    {
+     "text": "vorherige Phase (Juli 2026): 700-t-Raupenkran mit 153 m Ausleger, Grobbleche bis rund 95 t",
+     "status": "einzeln",
+     "datum": "2026-11-09",
+     "quellen": [
+      {
+       "quelle": "solidbau.at",
+       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
+       "datum": "2026-11-09"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-630c5773",
+   "bereich": "fakten",
+   "titel": "Was ist .xxx?",
+   "thema": "Wissens-Fakten über die Top-Level-Domain .xxx",
+   "begruendung": "Der Trend '.xxx' war auf Platz 6 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-12 mit 257.723 Aufrufen.",
+   "quelle": {
+    "name": ".xxx",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über die Top-Level-Domain .xxx",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-dbc96052",
+   "bereich": "fakten",
+   "titel": "Fakten zu Ramayana: Part 1",
+   "thema": "Wissens-Fakten zum Thema Ramayana: Part 1",
+   "begruendung": "Der Trend 'Ramayana: Part 1' war auf Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-12 mit 735.438 Aufrufen.",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten zum Thema Ramayana: Part 1",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-92c8f6f4",
+   "bereich": "fakten",
+   "titel": "Alles über die SS United States",
+   "thema": "Wissens-Fakten über das Schiff SS United States",
+   "begruendung": "Der Trend 'SS United States' war auf Platz 7 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-12 mit 241.627 Aufrufen.",
+   "quelle": {
+    "name": "SS United States",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über das Schiff SS United States",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-9174f78c",
+   "bereich": "fakten",
+   "titel": "Die Fernsehreihe Wolfsland",
+   "thema": "Wissens-Fakten zur Fernsehreihe Wolfsland",
+   "begruendung": "Der Trend 'Wolfsland (Fernsehreihe)' war auf Platz 8 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-12 mit 23.353 Aufrufen.",
+   "quelle": {
+    "name": "Wolfsland (Fernsehreihe)",
+    "typ": "trend",
+    "score": 74.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten zur Fernsehreihe Wolfsland",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-a6cccb71",
+   "bereich": "reportage",
+   "titel": "Mein schlimmster Tag im Homeoffice",
+   "thema": "Eine Alltagsgeschichte über unerwartete IT-Probleme bei der Arbeit",
+   "begruendung": "Der Trend 'm365' war auf Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Firma aus dem Landkreis Deggendorf wird Opfer eines Onlineangriffs“ (Idowa.de).",
+   "quelle": {
+    "name": "m365",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Alltagsgeschichte über unerwartete IT-Probleme bei der Arbeit",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-b2bc4b52",
+   "bereich": "story",
+   "titel": "Als die Brücke zum Problem wurde",
+   "thema": "Eine Alltagsgeschichte über die Herausforderungen maroder Infrastruktur",
+   "begruendung": "Der Trend 'köhlbrandbrücke' war auf Platz 2 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Marode Köhlbrandbrücke: Hamburgs Hafen droht der Infarkt“ (taz.de).",
+   "quelle": {
+    "name": "köhlbrandbrücke",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Alltagsgeschichte über die Herausforderungen maroder Infrastruktur",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-ab54d8aa",
+   "bereich": "story",
+   "titel": "Der Tag, an dem das Netz zusammenbrach",
+   "thema": "Eine Alltagsgeschichte über die Auswirkungen eines Webhoster-Ausfalls",
+   "begruendung": "Der Trend 'heise online' war auf Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Angriff über MCP-Server: Webhoster Mittwald im Krisenmodus“ (heise online).",
+   "quelle": {
+    "name": "heise online",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Alltagsgeschichte über die Auswirkungen eines Webhoster-Ausfalls",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-8a2f9bb7",
+   "bereich": "story",
+   "titel": "Unerwarteter Regen in der Stadt",
+   "thema": "Eine Alltagsgeschichte über plötzliche Wetterumschwünge",
+   "begruendung": "Der Trend 'weather san diego' war auf Platz 4 der Google-Trends (US) mit über 500 Suchen; Meldung: „Light Rain Forecast Overnight in San Diego County“ (San Diego County News Center).",
+   "quelle": {
+    "name": "weather san diego",
+    "typ": "trend",
+    "score": 80.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Alltagsgeschichte über plötzliche Wetterumschwünge",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-56fa0205",
+   "bereich": "reportage",
+   "titel": "Wie Onlineangriffe Firmen treffen",
+   "thema": "Ein Erklärvideo darüber, wie Onlineangriffe auf Unternehmen funktionieren",
+   "begruendung": "Der Trend 'm365' war auf Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Firma aus dem Landkreis Deggendorf wird Opfer eines Onlineangriffs“ (Idowa.de).",
+   "quelle": {
+    "name": "m365",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Ein Erklärvideo darüber, wie Onlineangriffe auf Unternehmen funktionieren",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-92dfafb3",
+   "bereich": "erklaer",
+   "titel": "Was tun bei maroden Brücken?",
+   "thema": "Ein Erklärvideo über die Herausforderungen und Lösungen bei alternder Infrastruktur",
+   "begruendung": "Der Trend 'köhlbrandbrücke' war auf Platz 2 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Marode Köhlbrandbrücke: Hamburgs Hafen droht der Infarkt“ (taz.de).",
+   "quelle": {
+    "name": "köhlbrandbrücke",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo über die Herausforderungen und Lösungen bei alternder Infrastruktur"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-c6bd444a",
+   "bereich": "erklaer",
+   "titel": "Was passiert bei einem Webhoster-Angriff?",
+   "thema": "Ein Erklärvideo, wie ein Webhoster in den Krisenmodus gerät und was das bedeutet",
+   "begruendung": "Der Trend 'heise online' war auf Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Angriff über MCP-Server: Webhoster Mittwald im Krisenmodus“ (heise online).",
+   "quelle": {
+    "name": "heise online",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo, wie ein Webhoster in den Krisenmodus gerät und was das bedeutet"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-3d09035a",
+   "bereich": "erklaer",
+   "titel": "Die Rolle von Nvidia in der Tech-Welt",
+   "thema": "Ein Erklärvideo über die Funktionen und Bedeutung von Nvidia",
+   "begruendung": "Der Trend 'Nvidia' war auf Platz 3 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-12 mit 45.354 Aufrufen und Platz 5 der meistgelesenen Wikipedia-Seiten (en) mit 366.417 Aufrufen.",
+   "quelle": {
+    "name": "Nvidia",
+    "typ": "trend",
+    "score": 97.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo über die Funktionen und Bedeutung von Nvidia"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
+  {
+   "id": "idee-6c1a039b",
+   "bereich": "reportage",
+   "titel": "Microsoft-Störung: Was wir wissen",
+   "thema": "Eine sachliche Reportage über die weltweite Störung bei Microsoft-Diensten",
+   "begruendung": "Die Nachricht 'What we know about the global Microsoft outage' ist von 2 Quellen (BBC World) bestätigt und 'Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft' ist von 2 Quellen (Tagesschau) bestätig",
+   "quelle": {
+    "name": "What we know about the global Microsoft outage",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über die weltweite Störung bei Microsoft-Diensten",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-f7401fee",
+   "bereich": "reportage",
+   "titel": "Nvidia-Chef: Rücktritt und Schock",
+   "thema": "Eine sachliche Reportage über den Rücktritt des Nvidia-Chefs und die Reaktionen",
+   "begruendung": "Die Nachricht 'Rücktritt von Nvidia-Chef: „Richtiger Schock“ – KI-Experte Espenlaub, ARD' ist von 2 Quellen (Tagesschau) bestätigt.",
+   "quelle": {
+    "name": "Rücktritt von Nvidia-Chef: „Richtiger Schock“ – KI-Experte Espenlaub, ARD",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über den Rücktritt des Nvidia-Chefs und die Reaktionen",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-6aca4dd5",
+   "bereich": "reportage",
+   "titel": "Ukraine-Verhandlungen: Europa dabei?",
+   "thema": "Eine sachliche Reportage über die Einbeziehung Europas in die Ukraine-Verhandlungen",
+   "begruendung": "Die Nachricht 'Zelensky welcomes US bringing Europe into Russia-Ukraine peace talks' ist von 4 Quellen (BBC World) bestätigt und 'Nach Putin-Treffen: US-Vermittler wollen Europa in Ukraine-Verhandlungen einbeziehen' ist von 2 Quellen (Tages",
+   "quelle": {
+    "name": "Zelensky welcomes US bringing Europe into Russia-Ukraine peace talks",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "Wikipedia · Reuters"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über die Einbeziehung Europas in die Ukraine-Verhandlungen",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-6b4dd7d4",
+   "bereich": "satire",
+   "titel": "IT-Ausfall: Der digitale Weltuntergang",
+   "thema": "Satirische Betrachtung eines globalen Software-Konzern-Ausfalls",
+   "begruendung": "Die Nachricht 'Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft' ist von 2 Quellen (Tagesschau) bestätigt.",
+   "quelle": {
+    "name": "Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Satirische Betrachtung eines globalen Software-Konzern-Ausfalls",
+    "sprache": "de",
+    "meldung": "Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-13T13:12:39Z"
+  },
   {
    "id": "idee-65cfbacd",
    "bereich": "ranking",
@@ -1318,60 +1834,6 @@
    "erstellt": "2026-11-10T13:33:26Z"
   },
   {
-   "id": "idee-5e022c57",
-   "bereich": "fakten",
-   "titel": "Fakten zum Chiphersteller Nvidia",
-   "thema": "Allgemeine Fakten über das Unternehmen Nvidia.",
-   "begruendung": "Der Trend 'Nvidia' ist Platz 12 der meistgelesenen Wikipedia-Seiten (de) und eignet sich für ein Faktenvideo.",
-   "quelle": {
-    "name": "Nvidia",
-    "typ": "trend",
-    "score": 91.1,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Allgemeine Fakten über das Unternehmen Nvidia.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
-   "id": "idee-9f747ac9",
-   "bereich": "fakten",
-   "titel": "Was ist Pflegegeld?",
-   "thema": "Allgemeine Fakten zum Pflegegeld.",
-   "begruendung": "Der Trend 'pflegegeld' ist Platz 3 der Google-Trends (DE) mit über 200 Suchen und eignet sich für ein Faktenvideo.",
-   "quelle": {
-    "name": "pflegegeld",
-    "typ": "trend",
-    "score": 86.7,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Allgemeine Fakten zum Pflegegeld.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
    "id": "idee-343bf309",
    "bereich": "erklaer",
    "titel": "Wie das Rentenalter beeinflusst wird",
@@ -1416,204 +1878,6 @@
    },
    "app_auftrag": false,
    "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
-   "id": "idee-1cf72aa4",
-   "bereich": "erklaer",
-   "titel": "Pflegegeld: Diese Pflicht muss erledigt sein",
-   "thema": "Eine Erklärung der jährlichen Pflichten beim Pflegegeld.",
-   "begruendung": "Der Trend 'pflegegeld' ist Platz 3 der Google-Trends (DE) und die Meldung 'Pflegegeld: Diese Pflicht muss bis Jahresende erledigt sein' bietet einen konkreten Erklärungsbedarf.",
-   "quelle": {
-    "name": "pflegegeld",
-    "typ": "trend",
-    "score": 86.7,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der jährlichen Pflichten beim Pflegegeld."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
-   "id": "idee-8d33b9cd",
-   "bereich": "erklaer",
-   "titel": "Was ist die .xxx Domain?",
-   "thema": "Eine Erklärung der .xxx Top-Level-Domain und ihrer Nutzung.",
-   "begruendung": "Der Trend '.xxx' ist Platz 4 der meistgelesenen Wikipedia-Seiten (en) und eignet sich für ein Erklärvideo.",
-   "quelle": {
-    "name": ".xxx",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der .xxx Top-Level-Domain und ihrer Nutzung."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
-   "id": "idee-ae84c7b6",
-   "bereich": "erklaer",
-   "titel": "Wie die Polizei bei Diebstahl ermittelt",
-   "thema": "Eine Erklärung der Ermittlungsprozesse der Polizei bei Diebstahl.",
-   "begruendung": "Der Trend 'diebstahl' ist Platz 5 der Google-Trends (DE) und die Meldung 'POL Schwaben Nord: Polizei ermittelt nach Diebstahl' zeigt die Relevanz des Themas.",
-   "quelle": {
-    "name": "diebstahl",
-    "typ": "trend",
-    "score": 73.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der Ermittlungsprozesse der Polizei bei Diebstahl."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
-   "id": "idee-ea2fd3d6",
-   "bereich": "reportage",
-   "titel": "Griechenlands Beschäftigte müssen länger arbeiten",
-   "thema": "Eine Reportage über die Anhebung des Rentenalters in Griechenland.",
-   "begruendung": "Der Trend 'rentenalter' ist Platz 1 der Google-Trends (DE) und die Meldung 'Rentenalter: Griechenlands Beschäftigte müssen bald länger arbeiten' (Handelsblatt) ist eine bestätigte Nachricht für eine Reportage.",
-   "quelle": {
-    "name": "rentenalter",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Anhebung des Rentenalters in Griechenland.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-017eb319",
-   "bereich": "reportage",
-   "titel": "Nvidia-Chef in möglicher Spionageaffäre",
-   "thema": "Eine sachliche Reportage über die Verwicklung des Nvidia-Chefs in eine mögliche Spionageaffäre.",
-   "begruendung": "Die Meldung 'Chef des Chipherstellers Nvidia in mögliche Spionageaffäre verwickelt' ist von 2 Quellen (Tagesschau) bestätigt und eignet sich für eine Reportage.",
-   "quelle": {
-    "name": "Chef des Chipherstellers Nvidia in mögliche Spionageaffäre verwickelt",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Reportage über die Verwicklung des Nvidia-Chefs in eine mögliche Spionageaffäre.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-28ac5bab",
-   "bereich": "reportage",
-   "titel": "Ilse Aigner als Bundespräsidentin nominiert",
-   "thema": "Eine Reportage über die Nominierung von Ilse Aigner für das Amt der Bundespräsidentin.",
-   "begruendung": "Die Meldung 'Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin' ist von 2 Quellen (Tagesschau) bestätigt und eignet sich für eine Reportage.",
-   "quelle": {
-    "name": "Union nominiert Ilse Aigner offiziell für das Amt der Bundespräsidentin",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Nominierung von Ilse Aigner für das Amt der Bundespräsidentin.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-c956ae44",
-   "bereich": "reportage",
-   "titel": "Darmstadt hält an Kohfeldt fest",
-   "thema": "Eine Reportage über die Entscheidung des SV Darmstadt 98, am Trainer festzuhalten.",
-   "begruendung": "Der Trend 'sv darmstadt 98' ist Platz 4 der Google-Trends (DE) und die Meldung 'Nach Absturz auf Rang 17: Darmstadt hält an Kohfeldt fest' (Kicker) ist eine bestätigte Nachricht für eine Reportage.",
-   "quelle": {
-    "name": "sv darmstadt 98",
-    "typ": "trend",
-    "score": 80.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Entscheidung des SV Darmstadt 98, am Trainer festzuhalten.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-85c55500",
-   "bereich": "reportage",
-   "titel": "Frankreich wirft Iran Kühlschrank-Hacking vor",
-   "thema": "Eine Reportage über Frankreichs Vorwürfe gegen Iran wegen Supermarkt-Kühlschrank-Hacking.",
-   "begruendung": "Die Meldung 'France accuses Iran of supermarket fridge hacking' ist von 3 Quellen (BBC World) bestätigt und eignet sich für eine Reportage.",
-   "quelle": {
-    "name": "France accuses Iran of supermarket fridge hacking",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über Frankreichs Vorwürfe gegen Iran wegen Supermarkt-Kühlschrank-Hacking.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
   },
   {
    "id": "idee-13fca753",
@@ -1667,62 +1931,6 @@
    },
    "app_auftrag": true,
    "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
-   "id": "idee-4fb701b3",
-   "bereich": "fakten",
-   "titel": "Das Marine-Kaffeebecher-Tabu",
-   "thema": "Fakten über eine ungewöhnliche Tradition in der Marine",
-   "begruendung": "Der Trend 'TIL that there is a serious taboo against cleaning coffee mugs in the Navy' ist auf Reddit r/todayilearned mit 8.210 Punkten auf Platz 5.",
-   "quelle": {
-    "name": "TIL that there is a serious taboo against cleaning coffee mugs in the Navy",
-    "typ": "trend",
-    "score": 65.7,
-    "quellen": [
-     "reddit"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten über eine ungewöhnliche Tradition in der Marine",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-0dd91050",
-   "bereich": "fakten",
-   "titel": "Whoopi Goldbergs echter Name",
-   "thema": "Fakten zur Namensänderung einer bekannten Persönlichkeit",
-   "begruendung": "Der Trend 'TIL that Whoopi Goldberg's real name is Caryn Johnson, and she adopted the last name \"Goldberg\" at her mother's suggestion because a Jewish-sounding name gave her a better chance of making it in Hollywood.' ist auf Reddit r/today",
-   "quelle": {
-    "name": "TIL that Whoopi Goldberg's real name is Caryn Johnson, and she adopted the last name \"Goldberg\" at her mother's suggestion because a Jewish-sounding name gave her a better chance of making it in Hollywood.",
-    "typ": "trend",
-    "score": 63.5,
-    "quellen": [
-     "reddit"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten zur Namensänderung einer bekannten Persönlichkeit",
-    "plaetze": 7,
-    "sprachen": [
-     "de",
-     "en"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-09T13:59:17Z"
   },
   {
    "id": "idee-8da633a8",
