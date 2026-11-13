@@ -59,6 +59,11 @@ Regeln:
 SZENEN_ANLEITUNG = """
 EIGENE ANIMATION statt Bilder: Lass „bilder“, „bild_hook“ und „bild_schluss“ weg. Gib stattdessen je Station eine „szene“ an
 (dazu „szene_hook“ und „szene_schluss“) – das Programm zeichnet und bewegt sie selbst.
+ERST PLANEN, DANN ZEICHNEN: Schreibe je Station zuerst ein „drehbuch“ – die Liste ALLER Dinge und Vorgänge des Textes in Sprechreihenfolge:
+  "drehbuch": [{"wort": "Wort aus dem Text", "zeigt": "was genau dann im Bild zu sehen ist oder passiert"}, …]
+Jeder Eintrag des Drehbuchs MUSS in der Szene vorkommen: als Schritt oder Beschriftung mit "bei": dieses Wort. Es wird nachgeprüft:
+jedes Hauptwort des Textes braucht eine Beschriftung oder einen Schritt, jeder Satz mindestens einen Schritt. Was sich wirklich nicht
+zeigen lässt (z. B. „Regel“, „Überraschung“), kommt in "ohne_bild": ["Wort", …] – so kurz wie möglich.
 OBERSTE REGEL – ALLES ZEIGEN, WAS GESAGT WIRD, GENAU DANN, WENN ES GESAGT WIRD:
 - Gehe den Text Wort für Wort durch. JEDES genannte Ding (Teil, Ort, Stoff) ist als Element zu sehen und bekommt eine „beschriftung“
   mit genau dem Wort aus dem Text. JEDER genannte Vorgang (wandert, bildet sich, wächst, beginnt, färbt sich, dauert …) ist ein Schritt.
@@ -189,7 +194,101 @@ def pruefe_station(st: dict, quellen: list[dict], lang: str) -> tuple[dict | Non
     folge = [b for b in folge if len(b) >= 8] or [bild or name]
     return {"name": name or text.split()[0], "text": text, "zahl": zahl, "einheit": einheit, "beleg": beleg,
             "quelle": quelle["name"], "quelle_url": quelle["url"], "etiketten": etiketten[:3], "bild": folge[0], "bilder": folge,
-            "szene": zeichnen.beschriftungen_pruefen(zeichnen.pruefe_szene(st.get("szene")), text + " " + name)}, ""
+            "szene": zeichnen.beschriftungen_pruefen(zeichnen.pruefe_szene(st.get("szene")), text + " " + name),
+            "drehbuch": [{"wort": str(d.get("wort"))[:30], "zeigt": re.sub(r"\s+", " ", str(d.get("zeigt") or ""))[:140]}
+                         for d in (st.get("drehbuch") or [])[:24] if isinstance(d, dict) and _wort(str(d.get("wort") or "")) in _woerter(text)],
+            "ohne_bild": [str(w)[:30] for w in (st.get("ohne_bild") or [])[:8] if _wort(str(w)) in _woerter(text)]}, ""
+
+
+SATZANFANG = {"der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer", "hier", "dort", "danach", "dann", "im", "in",
+              "am", "an", "auf", "wenn", "und", "oder", "aber", "es", "sie", "er", "so", "zuerst", "zuletzt", "erst", "nun", "jetzt", "dabei",
+              "damit", "dazu", "alles", "alle", "jede", "jeder", "jedes", "diese", "dieser", "dieses", "nach", "vor", "mit", "bei", "aus", "von",
+              "zum", "zur", "für", "ohne", "weil", "während", "sobald", "dadurch", "daher", "deshalb", "außerdem", "schließlich", "anschließend"}
+
+
+def _wort(w: str) -> str:
+    return re.sub(r"[^\wäöüß–-]", "", w.lower().split()[0]) if w.strip() else ""
+
+
+def _woerter(text: str) -> set[str]:
+    return {_wort(t) for t in text.split()} - {""}
+
+
+def _passt(a: str, b: str) -> bool:
+    """Gleiches Wort oder gleiche Wortfamilie (Eiklar/Eiklars, Schale/Schalen)."""
+    return bool(a and b) and (a == b or len(min(a, b, key=len)) > 3 and (a.startswith(b[:max(4, len(b) - 2)]) or b.startswith(a[:max(4, len(a) - 2)])))
+
+
+def hauptwoerter(text: str) -> list[str]:
+    """Hauptwörter eines deutschen Textes (großgeschrieben; am Satzanfang nur, wenn es kein übliches Anfangswort ist)."""
+    out, anfang = [], True
+    for tok in text.split():
+        roh = tok.strip("„“\"(),;:!?.–-")
+        if roh[:1].isupper() and len(roh) >= 3 and not (anfang and roh.lower() in SATZANFANG) and _wort(roh) not in out:
+            out.append(_wort(roh))
+        anfang = tok[-1:] in ".!?:"
+    return out
+
+
+def abgleich(st: dict, lang: str) -> list[str]:
+    """1:1-Prüfung Bild ↔ Text einer Station: Was wird gesagt, aber nicht gezeigt? Leere Liste = alles zu sehen."""
+    sz = st.get("szene")
+    if not sz:
+        return ["keine gültige Szene"]
+    gezeigt = [_wort(x.get("bei") or "") for x in sz["schritte"]] + \
+              [_wort(e.get("bei") or e["text"]) for e in sz["elemente"] if e["art"] == "beschriftung"]
+    schilder = {_wort(w) for e in sz["elemente"] if e["art"] == "beschriftung" for w in e["text"].split()}
+    gezeigt = [g for g in gezeigt if g]
+    maengel, nr, satz = [], 1, []
+    for tok in st["text"].split() + [None]:                    # jeder Satz braucht mindestens einen Schritt/eine Beschriftung
+        if tok is not None:
+            satz.append(_wort(tok))
+        if tok is None or tok[-1:] in ".!?":
+            if satz and not (any(_passt(g, w) for g in gezeigt for w in satz)
+                             or any(x.get("ab") == nr and not x.get("bei") for x in sz["schritte"])):
+                maengel.append(f"Satz {nr} hat keinen eigenen Schritt")
+            nr, satz = nr + 1, []
+    for d in st.get("drehbuch") or []:
+        if not any(_passt(g, _wort(d["wort"])) for g in gezeigt):
+            maengel.append(f"Drehbuch-Wort „{d['wort']}“ kommt in der Szene nicht vor")
+    if lang == "de":
+        frei = [_wort(w) for w in st.get("ohne_bild") or []]
+        zahlwoerter = {_wort(st.get("einheit") or "")}
+        for w in hauptwoerter(st["text"]):
+            if not (any(_passt(g, w) for g in gezeigt) or any(_passt(s2, w) for s2 in schilder) or any(_passt(f, w) for f in frei)
+                    or w in zahlwoerter):
+                maengel.append(f"„{w}“ wird gesagt, aber nicht gezeigt")
+    return maengel
+
+
+KORREKTUR = """Die Szenen dieser Stationen zeigen noch nicht alles, was der Text sagt. Unter „daten.stationen“ stehen je Station der Text,
+die bisherige Szene und die „maengel“. Gib für JEDE dieser Stationen eine vollständige, verbesserte „szene“ zurück (gleiches Format wie
+bisher, alle bisherigen guten Teile behalten) – so, dass jeder Mangel behoben ist: fehlende Dinge als Element mit „beschriftung“
+(Text = das Wort aus dem Text), fehlende Vorgänge als Schritt mit "bei": Wort. Was sich wirklich nicht zeigen lässt, nenne in „ohne_bild“.
+Antwort: {"stationen": [{"name": "…", "szene": {...}, "ohne_bild": ["…"]}]}"""
+
+
+def nachbessern(stationen: list[dict], lang: str, notes: list[str]) -> None:
+    """Stationen mit Lücken einmal zur Korrektur geben; eine neue Szene gilt nur, wenn sie weniger Lücken hat."""
+    offen = [(st, abgleich(st, lang)) for st in stationen]
+    offen = [(st, m) for st, m in offen if m]
+    if not offen:
+        return
+    answer = handoff.request("schaubild_korrektur", KORREKTUR + SZENEN_ANLEITUNG, {"sprache": lang, "stationen": [
+        {"name": st["name"], "text": st["text"], "szene": st.get("szene"), "maengel": m} for st, m in offen]})
+    neu = {str(x.get("name")): x for x in (answer or {}).get("stationen", []) if isinstance(x, dict)} if isinstance(answer, dict) else {}
+    for st, m in offen:
+        x = neu.get(st["name"])
+        if not x:
+            continue
+        versuch = {**st, "szene": zeichnen.beschriftungen_pruefen(zeichnen.pruefe_szene(x.get("szene")), st["text"] + " " + st["name"]),
+                   "ohne_bild": [str(w)[:30] for w in (x.get("ohne_bild") or st.get("ohne_bild") or [])[:8] if _wort(str(w)) in _woerter(st["text"])]}
+        if versuch["szene"] and len(abgleich(versuch, lang)) < len(m):
+            st.update(szene=versuch["szene"], ohne_bild=versuch["ohne_bild"])
+    rest = [(st["name"], abgleich(st, lang)) for st in stationen]
+    rest = [f"{name}: {'; '.join(m[:4])}" for name, m in rest if m]
+    if rest:
+        notes.append("Bild und Text passen noch nicht überall 1:1 – " + " | ".join(rest))
 
 
 def pruefe_satz(text: str, erlaubt: set[str], quellen_text: str, lang: str) -> bool:
@@ -336,6 +435,16 @@ def pruefbericht(skript: dict, quellen: list[dict], rejected: list[tuple[str, st
         lines += [f"{sz['station']}. **{sz['name']}** – {sz['text']}", f"   - Beleg ({sz['quelle']}): „{sz['beleg']}“",
                   f"   - Bild: {sz.get('bild_quelle') or 'vom Renderer gezeichnet'}"
                   + (f" · Zahl im Bild: {sz['zahl']} {sz['einheit']}".rstrip() if sz.get("zahl") else "")]
+    if stil["modus"] == "szene":
+        lines += ["", "## Abgleich Bild ↔ Text (was gesagt wird → was zu sehen ist)"]
+        for sz in skript["szenen"]:
+            if sz["typ"] != "station":
+                continue
+            m = abgleich(sz, skript["sprache"])
+            lines.append(f"**{sz['station']}. {sz['name']}** – " + ("alles Gesagte ist zu sehen" if not m else "Lücken: " + "; ".join(m)))
+            lines += [f"   - „{d['wort']}“ → {d['zeigt']}" for d in sz.get("drehbuch") or []]
+            if sz.get("ohne_bild"):
+                lines.append("   - bewusst ohne Bild: " + ", ".join(sz["ohne_bild"]))
     lines += ["", "## Quellen", *(f"- {q['name']} – {q['url']}" for q in quellen)]
     if rejected:
         lines += ["", "## Abgelehnt (nicht im Video)", *(f"- {t} – {why}" for t, why in rejected)]
@@ -408,14 +517,7 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     if eigen:                                                 # eigene Animation: nichts aus dem Netz, das Programm zeichnet selbst
         for sz, key in ((skript["szenen"][0], "szene_hook"), (skript["szenen"][-1], "szene_schluss")):
             sz["szene"] = zeichnen.beschriftungen_pruefen(zeichnen.pruefe_szene(answer.get(key)), sz["text"])
-        luecken = []
-        for sz in skript["szenen"]:
-            if sz["typ"] == "station" and sz.get("szene"):
-                fehlt = zeichnen.abdeckung(sz["szene"], len(re.findall(r"[.!?](?:\s|$)", sz["text"])) or 1)
-                if fehlt:
-                    luecken.append(f"{sz['name']} (Satz {', '.join(map(str, fehlt))})")
-        if luecken:
-            notes.append("Zu diesen Sätzen zeigt die Animation nichts Eigenes: " + "; ".join(luecken) + ".")
+        nachbessern([sz for sz in skript["szenen"] if sz["typ"] == "station"], lang, notes)
         ohne = sum(1 for sz in skript["szenen"] if sz["typ"] == "station" and not sz.get("szene"))
         if ohne:
             notes.append(f"{ohne} Station(en) ohne gültige Szenen-Beschreibung – dort zeigt das Video eine schlichte Grafik.")

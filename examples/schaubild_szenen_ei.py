@@ -5,7 +5,7 @@ Jede Szene zeigt alles, was der Text der Station sagt, und startet jeden Schritt
 KOERPER = "M 12 58 C 8 40 26 30 46 34 C 56 34 62 28 66 18 C 70 8 84 8 86 20 C 87 28 82 34 80 40 C 80 58 70 74 50 76 C 30 78 16 72 12 58 Z"
 
 
-def henne(deckkraft: float = 0.5) -> list[dict]:
+def henne(deckkraft: float = 0.85) -> list[dict]:
     """Henne von der Seite als durchscheinender Umriss – innen ist Platz für Eierstock und Eileiter."""
     return [
         {"id": "schwanz", "art": "form", "pfad": "M 0 30 C 4 10 14 2 24 0 C 20 12 22 22 26 34 Z", "farbe": "schale", "x": 10, "y": 40, "groesse": 20},
@@ -34,7 +34,7 @@ SZENEN = {
                       {"bei": "Reise", "dauer": .5, "ziel": "ei", "aktion": "verschwinde"},
                       {"bei": "Schlauch", "dauer": 2.4, "ziel": "rohr", "aktion": "fuelle", "auf": 1},
                       {"bei": "Eileiter", "dauer": 1.2, "ziel": "kamera", "aktion": "zoom", "auf": 2.1, "punkt": [34, 62]}]},
-"eierstock": {"elemente": henne() + [
+"eierstock": {"ohne_bild": ["Reise", "Überraschung", "Regel"], "elemente": henne() + [
             {"id": "stock", "art": "traube", "farbe": "dotter", "x": 42, "y": 44, "groesse": 20, "anzahl": 12},
             {"id": "klein", "art": "traube", "farbe": "grau", "x": 56, "y": 42, "groesse": 8, "anzahl": 5, "sichtbar": False},
             {"id": "b1", "art": "beschriftung", "text": "Legehenne", "an": "henne", "bei": "Legehenne", "seite": "oben"},
@@ -92,6 +92,8 @@ SZENEN = {
             {"id": "p2", "art": "partikel", "von": [58, 56], "nach": "d", "groesse": 9, "farbe": "eiklar", "fuellung": 0},
             {"id": "uhr", "art": "uhr", "x": 84, "y": 16, "groesse": 16, "farbe": "gold", "sichtbar": False},
             {"id": "b1", "art": "beschriftung", "text": "Magnum", "an": "lang", "bei": "Magnum", "seite": "oben"},
+            {"id": "b0", "art": "beschriftung", "text": "längste Abschnitt", "an": "lang", "bei": "Abschnitt", "seite": "unten"},
+            {"id": "b5", "art": "beschriftung", "text": "Großteil", "an": "d", "bei": "Großteil", "seite": "rechts"},
             {"id": "b2", "art": "beschriftung", "text": "Eiklar", "an": "d", "bei": "Eiklars", "seite": "oben"},
             {"id": "b3", "art": "beschriftung", "text": "Eiweiß", "an": "d", "bei": "Eiweiß", "seite": "unten"},
             {"id": "b4", "art": "beschriftung", "text": "2–3 Stunden", "an": "uhr", "bei": "2–3", "seite": "unten"}],
@@ -118,6 +120,7 @@ SZENEN = {
             {"id": "b1", "art": "beschriftung", "text": "Isthmus", "an": "eng", "bei": "Isthmus", "seite": "oben"},
             {"id": "b2", "art": "beschriftung", "text": "innere Eiklarschicht", "an": "d", "bei": "innere", "seite": "oben"},
             {"id": "b3", "art": "beschriftung", "text": "Verkalkung", "an": "d", "bei": "Verkalkung", "seite": "unten"},
+            {"id": "b5", "art": "beschriftung", "text": "Schale", "an": "d", "bei": "Schale", "seite": "rechts"},
             {"id": "b4", "art": "beschriftung", "text": "1–5 Stunden", "an": "uhr", "bei": "1–5", "seite": "unten"}],
          "schritte": [{"bei": "folgt", "dauer": 1.4, "ziel": "eng", "aktion": "fuelle", "auf": 1},
                       {"bei": "folgt", "dauer": 1.8, "ziel": "d", "aktion": "bewege", "punkt": [50, 50]},
@@ -137,7 +140,8 @@ SZENEN = {
             {"id": "uhr", "art": "uhr", "x": 86, "y": 84, "groesse": 17, "farbe": "gold", "sichtbar": False},
             {"id": "b1", "art": "beschriftung", "text": "Uterus", "an": "beutel", "bei": "Uterus", "seite": "oben"},
             {"id": "b2", "art": "beschriftung", "text": "Schale", "an": "d", "bei": "Schale", "seite": "links"},
-            {"id": "b3", "art": "beschriftung", "text": "Pigmente", "an": "d", "bei": "Pigmente", "seite": "rechts"}],
+            {"id": "b3", "art": "beschriftung", "text": "Pigmente", "an": "d", "bei": "Pigmente", "seite": "rechts"},
+            {"id": "b4", "art": "beschriftung", "text": "restliche Zeit", "an": "uhr", "bei": "restliche", "seite": "links"}],
          "schritte": [{"bei": "Uterus", "dauer": 1.0, "ziel": "beutel", "aktion": "pulsiere"},
                       {"bei": "Schale", "dauer": 2.2, "ziel": "sch", "aktion": "fuelle", "auf": 1},
                       {"bei": "Pigmente", "dauer": .5, "ziel": "pig", "aktion": "fuelle", "auf": 1},

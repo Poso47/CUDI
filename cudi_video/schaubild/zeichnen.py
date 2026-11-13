@@ -476,14 +476,17 @@ class Buehne:
                     ebene = Image.new("RGBA", (n, n), (0, 0, 0, 0))
                     d = ImageDraw.Draw(ebene)
                     w, c = e["breite"] * k, z["farbe"]
-                    for anteil, hell, versatz in ((1.0, .48, 0.0), (.84, .78, 0.0), (.56, 1.0, -.07), (.20, 1.38, -.20)):
-                        col = tuple(int(clamp(v * hell, 0, 255)) for v in c) + (255,)
-                        r, v = w * anteil / 2, w * versatz               # runde Röhre: dunkler Rand, helle Mitte, Glanzstreifen
+                    if e.get("durchsichtig"):                  # Schnittbild: kräftige Wand, blasses Inneres – der Inhalt bleibt gut zu sehen
+                        lagen = ((1.0, .50, 0.0, 255), (.80, 1.25, 0.0, 46), (.10, 1.6, -.30, 150))
+                    else:                                      # runde Röhre: dunkler Rand, helle Mitte, Glanzstreifen
+                        lagen = ((1.0, .48, 0.0, 255), (.84, .78, 0.0, 255), (.56, 1.0, -.07, 255), (.20, 1.38, -.20, 255))
+                    for anteil, hell, versatz, deckung in lagen:
+                        col = tuple(int(clamp(v * hell, 0, 255)) for v in c) + (deckung,)
+                        r, v = w * anteil / 2, w * versatz
                         for x, y in teil:                               # Kreise je Punkt = saubere, runde Bögen ohne Zacken
                             d.ellipse((x + v - r, y + v - r, x + v + r, y + v + r), fill=col)
-                    deck = z["alpha"] * (.4 if e.get("durchsichtig") else 1.0)       # durchsichtig: was davor gezeichnet ist, scheint durch
-                    if deck < .995:
-                        ebene.putalpha(ebene.getchannel("A").point(lambda q: int(q * deck)))
+                    if z["alpha"] < .995:
+                        ebene.putalpha(ebene.getchannel("A").point(lambda q: int(q * z["alpha"])))
                     im.alpha_composite(ebene)
             elif art == "pfeil":
                 pts, laengen = self.kurven[eid]
