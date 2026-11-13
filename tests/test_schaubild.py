@@ -255,3 +255,33 @@ def test_eigene_animation_im_video(tmp_path):
     assert np.abs(f1 - f2).mean() > 0.3
     st, _ = schaubild.pruefe_station(station(szene=SZENE), QUELLE, "de")
     assert st["szene"] and len(st["szene"]["elemente"]) == 4
+
+
+def test_animation_details_wortgenau_beschriftung_kamera():
+    """Details: Schritt startet beim genannten Wort, Beschriftung nur mit Wörtern aus dem Text, Kamera zoomt, Röhre durchsichtig."""
+    from cudi_video.schaubild import zeichnen as Z
+
+    roh = {"elemente": [{"id": "d", "art": "form", "form": "kreis", "farbe": "dotter", "x": 20, "y": 15, "groesse": 13},
+                        {"id": "rohr", "art": "schlauch", "punkte": [[20, 15], [70, 30], [30, 55], [70, 80]], "breite": 18, "durchsichtig": True},
+                        {"id": "b1", "art": "beschriftung", "text": "Dotter", "an": "d", "bei": "Dotter"},
+                        {"id": "b2", "art": "beschriftung", "text": "Erfundenes Organ", "an": "d"},
+                        {"id": "b3", "art": "beschriftung", "text": "Eileiter", "an": "gibtsnicht"}],
+           "schritte": [{"bei": "wandert", "dauer": 2, "ziel": "d", "aktion": "bewege", "entlang": "rohr"},
+                        {"bei": "Dort", "dauer": 1, "ziel": "kamera", "aktion": "zoom", "auf": 2, "zu": "d"},
+                        {"bei": "Dort", "dauer": 1, "ziel": "d", "aktion": "zoom"}, {"ab": 1, "ziel": "kamera", "aktion": "wachse"}]}
+    text = "Der Dotter wandert durch den Eileiter. Dort legt sich das Eiklar um ihn."
+    sz = Z.beschriftungen_pruefen(Z.pruefe_szene(roh), text)
+    assert [e["id"] for e in sz["elemente"]] == ["d", "rohr", "b1"] and len(sz["schritte"]) == 2      # Erfundenes und Verwaistes fliegt raus
+    assert sz["elemente"][1]["durchsichtig"] is True and Z.abdeckung(sz, 2) == []
+    assert Z.abdeckung(Z.pruefe_szene({"elemente": roh["elemente"][:1], "schritte": [{"ab": 1, "ziel": "d", "aktion": "pulsiere"}]}), 2) == [2]
+    zeiten = {"dotter": 0.5, "wandert": 1.0, "dort": 4.0}
+    b = Z.Buehne(sz, 300, [0.3, 4.0], (250, 250, 250), (230, 160, 30), 0, lambda w: zeiten.get(w.lower()))
+    assert b.zustand(0.9)["d"]["x"] == 20 and b.zustand(3.2)["d"]["x"] != 20                         # bewegt sich erst ab „wandert“
+    assert b.zustand(3.9)["kamera"]["f"] == 1 and b.zustand(5.2)["kamera"]["f"] == pytest.approx(2)  # Zoom erst ab „Dort“
+    ohne, mit = np.asarray(b.bild(0.4), dtype=np.int16), np.asarray(b.bild(0.95), dtype=np.int16)
+    assert np.abs(ohne - mit).mean() > 0.2                                                           # Beschriftung „Dotter“ ist erschienen
+    job_ = _job(schaubild.stile()["animation"], "9:16", "")
+    job_.update(text=text, szene=sz, duration=7.0, etiketten=["Dotter"])
+    job_["words"] = [{"text": w, "start": i * .4, "end": i * .4 + .3} for i, w in enumerate(text.split())]
+    sc = R.make_scene(job_)
+    assert sc.buehne.schritte[0]["t"] == pytest.approx(.45 + 2 * .4) and sc.frame(3.0).size == (1080, 1920)

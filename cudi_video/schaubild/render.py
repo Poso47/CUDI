@@ -428,7 +428,14 @@ class Scene:
             from .zeichnen import Buehne
 
             try:
-                self.buehne = Buehne(job["szene"], self.size, [job["lead"] + x for x in satz], self.ink, self.ak, self.seed)
+                def wort_zeit(wort: str):                     # Zeitpunkt, an dem ein Wort gesprochen wird (None: kommt nicht vor)
+                    w = wort.lower().split()[0].strip(".,!?:;") if wort.strip() else ""
+                    for tok, st_ in zip(tokens, starts):
+                        if w and (tok == w or len(w) > 3 and tok.startswith(w[:max(4, len(w) - 2)])):
+                            return job["lead"] + st_
+                    return None
+
+                self.buehne = Buehne(job["szene"], self.size, [job["lead"] + x for x in satz], self.ink, self.ak, self.seed, wort_zeit)
             except Exception:                                 # fehlerhafte Szene -> schlichte Grafik
                 self.buehne = None
         for i, eintrag in enumerate(self.pics):               # Bild i beginnt mit „seinem“ Satz (bei weniger Bildern: gleichmäßig verteilt)
@@ -672,7 +679,8 @@ def build_jobs(script: dict, voiced: list, work: Path) -> list[dict]:
                      "duration": frames / fps, "fps": fps, "voice_path": str(wav), "bild": sz.get("bild_datei"), "bildfolge": sz.get("bildfolge") or [], "szene": sz.get("szene"),
                      "ki": bool(sz.get("ki")), "zahl": sz.get("zahl") or "", "einheit": sz.get("einheit") or "",
                      "kopf": sz.get("kopf") or "", "wort": sz.get("name") or script["titel"].split()[0],
-                     "etiketten": sz.get("etiketten") or [], "station": sz.get("station") or 0, "n": n,
+                     "etiketten": [] if any(e["art"] == "beschriftung" for e in (sz.get("szene") or {}).get("elemente", [])) else (sz.get("etiketten") or []),
+                     "station": sz.get("station") or 0, "n": n,
                      "out": str(work / f"part_{i:02d}.mp4")})
     return jobs
 

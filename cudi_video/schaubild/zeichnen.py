@@ -25,9 +25,10 @@ import re
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
-MAX_ELEMENTE, MAX_SCHRITTE = 14, 18
-ARTEN = ("form", "schlauch", "huelle", "schale", "kristalle", "partikel", "traube", "pfeil", "uhr")
-AKTIONEN = ("erscheine", "verschwinde", "bewege", "wachse", "faerbe", "fuelle", "drehe", "pulsiere")
+MAX_ELEMENTE, MAX_SCHRITTE = 20, 30
+ARTEN = ("form", "schlauch", "huelle", "schale", "kristalle", "partikel", "traube", "pfeil", "uhr", "beschriftung")
+AKTIONEN = ("erscheine", "verschwinde", "bewege", "wachse", "faerbe", "fuelle", "drehe", "pulsiere", "zoom")
+KAMERA = "kamera"                         # Ziel der Aktion „zoom“: die Kamera fährt an eine Stelle heran
 FORMEN = ("kreis", "ei", "tropfen", "herz", "quadrat", "sechseck")
 FARBEN = {"dotter": (255, 176, 32), "eiklar": (236, 244, 248), "schale": (214, 150, 96), "kalk": (246, 244, 236), "rot": (226, 68, 62),
           "blau": (64, 140, 230), "gruen": (70, 180, 110), "gelb": (250, 210, 60), "orange": (245, 140, 50), "weiss": (250, 250, 248),
@@ -182,6 +183,25 @@ def glanzform(form: str, pfad: str, px: int, rgb: tuple, alpha: float = 1.0, rot
 
 # --------------------------------------------------------------------------- Prüfen
 
+def beschriftungen_pruefen(szene: dict | None, text: str) -> dict | None:
+    """Beschriftungen dürfen nur Wörter zeigen, die im gesprochenen (geprüften) Text vorkommen – sonst fliegen sie raus."""
+    if not szene:
+        return szene
+    low = re.sub(r"\s+", " ", text.lower())
+    szene["elemente"] = [e for e in szene["elemente"] if e["art"] != "beschriftung" or e["text"].lower() in low]
+    return szene
+
+
+def abdeckung(szene: dict | None, saetze: int) -> list[int]:
+    """Nummern der Sätze, zu denen die Szene nichts zeigt (kein Schritt, keine Beschriftung) – für den Prüfbericht."""
+    if not szene:
+        return list(range(1, saetze + 1))
+    if any(s.get("bei") for s in szene["schritte"]) or any(e.get("bei") for e in szene["elemente"]):
+        return []                                             # Wort-genaue Schritte lassen sich erst mit der Stimme zuordnen
+    da = {s["ab"] for s in szene["schritte"]}
+    return [n for n in range(1, saetze + 1) if n not in da]
+
+
 def pruefe_szene(roh) -> dict | None:
     """Szenen-Beschreibung säubern: nur bekannte Arten/Aktionen, Werte im Rahmen, Verweise müssen existieren."""
     if not isinstance(roh, dict):
@@ -206,7 +226,16 @@ def pruefe_szene(roh) -> dict | None:
                    if isinstance(p, (list, tuple)) and len(p) == 2][:16]
             if len(pts) < 2:
                 continue
-            neu["punkte"], neu["breite"] = pts, _zahl(e.get("breite"), 9 if e["art"] == "schlauch" else 1.6, .5, 30)
+            neu["punkte"], neu["breite"] = pts, _zahl(e.get("breite"), 9 if e["art"] == "schlauch" else 1.6, .5, 60)
+            neu["durchsichtig"] = bool(e.get("durchsichtig"))
+        if e["art"] == "beschriftung":
+            neu["text"] = re.sub(r"\s+", " ", str(e.get("text") or "")).strip()[:26]
+            neu["seite"] = e.get("seite") if e.get("seite") in ("links", "rechts", "oben", "unten") else ""
+            neu["an"] = str(e.get("an") or "")
+            if not neu["text"]:
+                continue
+        if e.get("bei"):
+            neu["bei"] = str(e["bei"])[:30]
         if e["art"] == "traube":
             neu["anzahl"] = int(_zahl(e.get("anzahl"), 9, 2, 24))
         for ref in ("um", "von", "nach"):
@@ -225,17 +254,35 @@ def pruefe_szene(roh) -> dict | None:
                 e[ref] = str(v)
             else:
                 e.pop(ref)
+    for e in elemente:
+        if e["art"] == "beschriftung" and e["an"] not in ids:
+            e["an"] = ""
     elemente = [e for e in elemente if not (e["art"] in ("huelle", "schale", "kristalle") and not isinstance(e.get("um"), str))
+                and not (e["art"] == "beschriftung" and not e["an"])
                 and not (e["art"] == "partikel" and ("von" not in e or "nach" not in e))]
     ids = {e["id"] for e in elemente}
     schritte = []
     for s in (roh.get("schritte") or [])[:MAX_SCHRITTE]:
-        if not isinstance(s, dict) or s.get("aktion") not in AKTIONEN or str(s.get("ziel")) not in ids:
+        if not isinstance(s, dict) or s.get("aktion") not in AKTIONEN:
+            continue
+        if (s["aktion"] == "zoom") != (str(s.get("ziel")) == KAMERA) or (s["aktion"] != "zoom" and str(s.get("ziel")) not in ids):
             continue
         neu = {"ziel": str(s["ziel"]), "aktion": s["aktion"], "ab": int(_zahl(s.get("ab"), 1, 1, 9)), "nach_s": _zahl(s.get("nach"), .2, 0, 12)
                if not isinstance(s.get("nach"), (list, tuple, str)) else .2, "dauer": _zahl(s.get("dauer"), 1.4, .15, 9)}
+        if s.get("bei"):
+            neu["bei"] = str(s["bei"])[:30]
+            if s.get("nach") is None or isinstance(s.get("nach"), (list, tuple, str)):
+                neu["nach_s"] = 0.0
         a = s["aktion"]
-        if a == "bewege":
+        if a == "zoom":
+            neu["auf"] = _zahl(s.get("auf"), 1.8, 1, 3.5)
+            if str(s.get("zu")) in ids:
+                neu["zu"] = str(s["zu"])
+            elif isinstance(s.get("punkt"), (list, tuple)) and len(s["punkt"]) == 2:
+                neu["punkt"] = (_zahl(s["punkt"][0], 50, 0, 100), _zahl(s["punkt"][1], 50, 0, 100))
+            else:
+                neu["punkt"] = (50.0, 50.0)
+        elif a == "bewege":
             if str(s.get("entlang")) in ids:
                 neu["entlang"], neu["von"], neu["bis"] = str(s["entlang"]), _zahl(s.get("von"), 0, 0, 1), _zahl(s.get("bis"), 1, 0, 1)
             elif str(s.get("zu")) in ids:
@@ -287,12 +334,21 @@ def _dicht(pts: list[tuple[float, float]], abstand: float = .7) -> list[tuple[fl
 class Buehne:
     """Zeichnet eine geprüfte Szene zum Zeitpunkt t (Sekunden seit Szenenbeginn) als RGBA-Bild der Kantenlänge `size`."""
 
-    def __init__(self, szene: dict, size: int, satz_zeiten: list[float], ink: tuple, akzent: tuple, seed: int = 0):
+    def __init__(self, szene: dict, size: int, satz_zeiten: list[float], ink: tuple, akzent: tuple, seed: int = 0, wort_zeit=None):
         self.size, self.ink, self.ak, self.seed = size, tuple(ink), tuple(akzent), seed
         self.el = {e["id"]: e for e in szene["elemente"]}
         self.order = [e["id"] for e in szene["elemente"]]
         zeiten = satz_zeiten or [0.0]
-        self.schritte = sorted(({**s, "t": zeiten[min(len(zeiten), s["ab"]) - 1] + s["nach_s"]} for s in szene["schritte"]), key=lambda s: s["t"])
+
+        def beginn(s: dict) -> float:                          # genau beim genannten Wort – sonst zum Satzbeginn
+            t = wort_zeit(s["bei"]) if (wort_zeit and s.get("bei")) else None
+            return (t if t is not None else zeiten[min(len(zeiten), s.get("ab", 1)) - 1]) + s.get("nach_s", 0.0)
+
+        self.schritte = sorted(({**s, "t": beginn(s)} for s in szene["schritte"]), key=lambda s: s["t"])
+        for e in szene["elemente"]:                            # Beschriftung erscheint, wenn ihr Wort fällt
+            if e["art"] == "beschriftung":
+                e["_t"] = beginn({"bei": e.get("bei") or e["text"], "ab": 1, "nach_s": 0.0}) if wort_zeit else zeiten[0]
+        self._pillen: dict = {}
         self.kurven = {}
         for e in szene["elemente"]:
             if e["art"] in ("schlauch", "pfeil"):
@@ -316,10 +372,17 @@ class Buehne:
     def zustand(self, t: float) -> dict:
         st = {k: {"x": e["x"], "y": e["y"], "g": e["groesse"], "farbe": e["farbe"], "alpha": e["alpha"], "f": e["f"], "rot": e["rot"], "puls": 0.0}
               for k, e in self.el.items()}
+        st[KAMERA] = {"x": 50.0, "y": 50.0, "f": 1.0}
         for s in self.schritte:
             if t < s["t"]:
                 continue
-            z, p, a = st[s["ziel"]], ease((t - s["t"]) / s["dauer"]), s["aktion"]
+            p, a = ease((t - s["t"]) / s["dauer"]), s["aktion"]
+            if a == "zoom":
+                k = st[KAMERA]
+                ziel = (st[s["zu"]]["x"], st[s["zu"]]["y"]) if "zu" in s else s["punkt"]
+                k["x"], k["y"], k["f"] = k["x"] + (ziel[0] - k["x"]) * p, k["y"] + (ziel[1] - k["y"]) * p, k["f"] + (s["auf"] - k["f"]) * p
+                continue
+            z = st[s["ziel"]]
             if a == "erscheine":
                 z["alpha"] = max(z["alpha"], p)
                 z["g"] *= .7 + .3 * p
@@ -418,8 +481,9 @@ class Buehne:
                         r, v = w * anteil / 2, w * versatz               # runde Röhre: dunkler Rand, helle Mitte, Glanzstreifen
                         for x, y in teil:                               # Kreise je Punkt = saubere, runde Bögen ohne Zacken
                             d.ellipse((x + v - r, y + v - r, x + v + r, y + v + r), fill=col)
-                    if z["alpha"] < .995:
-                        ebene.putalpha(ebene.getchannel("A").point(lambda q: int(q * z["alpha"])))
+                    deck = z["alpha"] * (.4 if e.get("durchsichtig") else 1.0)       # durchsichtig: was davor gezeichnet ist, scheint durch
+                    if deck < .995:
+                        ebene.putalpha(ebene.getchannel("A").point(lambda q: int(q * deck)))
                     im.alpha_composite(ebene)
             elif art == "pfeil":
                 pts, laengen = self.kurven[eid]
@@ -453,4 +517,64 @@ class Buehne:
                     d.pieslice((x - r * .86, y - r * .86, x + r * .86, y + r * .86), -90, -90 + 360 * clamp(z["f"]), fill=col + (int(150 * z["alpha"]),))
                 a = math.radians(-90 + 360 * z["f"])
                 d.line((x, y, x + math.cos(a) * r * .8, y + math.sin(a) * r * .8), fill=tuple(self.ink) + (int(255 * z["alpha"]),), width=max(2, int(r * .08)))
+        kam = st[KAMERA]
+        f, ox, oy = 1.0, 0.0, 0.0
+        if kam["f"] > 1.01:                                    # Kamera: Ausschnitt heranholen
+            f = kam["f"]
+            halb = n / f / 2
+            cx, cy = clamp(kam["x"] * k, halb, n - halb), clamp(kam["y"] * k, halb, n - halb)
+            ox, oy = cx - halb, cy - halb
+            im = im.crop((int(ox), int(oy), int(ox + 2 * halb), int(oy + 2 * halb))).resize((n, n), Image.BILINEAR)
+        belegt: list[tuple] = []                               # Beschriftungen zuletzt und in Bildschirmgröße: immer lesbar, nie vergrößert
+        for eid in self.order:
+            e = self.el[eid]
+            if e["art"] != "beschriftung":
+                continue
+            sichtbar = clamp((t - e["_t"]) / .3) * (st[eid]["alpha"] if st[eid]["alpha"] > 0 else 1.0)
+            ziel = st.get(e["an"])
+            if sichtbar <= .01 or not ziel or ziel["alpha"] <= .01 and self.el[e["an"]]["art"] == "form":
+                continue
+            self._beschrifte(im, e, ziel, self.el[e["an"]], sichtbar, f, ox, oy, belegt)
         return im
+
+    def _beschrifte(self, im: Image.Image, e: dict, ziel: dict, ziel_el: dict, sichtbar: float, f: float, ox: float, oy: float,
+                    belegt: list) -> None:
+        from PIL import ImageFont
+
+        from ..render import theme as T
+
+        n, k = self.size, self.size / 100
+        if e["id"] not in self._pillen:
+            pfad = T._font_index().get("inter-semibold.ttf")
+            fnt = ImageFont.truetype(str(pfad), max(12, int(n * .04))) if pfad else ImageFont.load_default(max(12, int(n * .04)))
+            w, h = int(fnt.getlength(e["text"])) + int(n * .058), int(n * .066)
+            pille = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+            d = ImageDraw.Draw(pille)
+            hell = sum(self.ink) > 380                         # helle Schrift = dunkler Grund -> helle Pille mit dunkler Schrift
+            d.rounded_rectangle((0, 0, w - 1, h - 1), radius=h // 2, fill=(250, 248, 240, 245) if hell else (16, 44, 56, 245))
+            d.ellipse((h * .28, h * .34, h * .28 + h * .32, h * .66), fill=self.ak + (255,))
+            d.text((h * .78, h / 2), e["text"], font=fnt, fill=(20, 36, 44) if hell else (250, 248, 240), anchor="lm")
+            self._pillen[e["id"]] = pille
+        pille = self._pillen[e["id"]]
+        radius = (ziel["g"] / 2 if ziel_el["art"] in ("form", "traube", "uhr") else ziel_el.get("breite", 8) / 2) + 2
+        zx, zy = self._auf_kurve(ziel_el["id"], .5) if ziel_el["art"] in ("schlauch", "pfeil") else (ziel["x"], ziel["y"])
+        seite = e["seite"] or ("rechts" if zx < 50 else "links")
+        dx, dy = {"rechts": (1, -.35), "links": (-1, -.35), "oben": (0, -1), "unten": (0, 1)}[seite]
+        ax, ay = ((zx + dx * radius) * k - ox) * f, ((zy + dy * radius) * k - oy) * f       # Punkt am Rand des Teils (nach der Kamera)
+        ax, ay = clamp(ax, 8, n - 8), clamp(ay, 8, n - 8)
+        px = ax + dx * n * .05 - (pille.width if dx < 0 else pille.width / 2 if dx == 0 else 0)
+        py = ay + dy * n * .05 - pille.height / 2
+        px, py = clamp(px, 4, n - pille.width - 4), clamp(py, 4, n - pille.height - 4)
+        for _ in range(8):                                     # nicht auf eine andere Beschriftung setzen
+            if not any(px < bx + bw and bx < px + pille.width and py < by + bh and by < py + pille.height for bx, by, bw, bh in belegt):
+                break
+            py = py + pille.height + 4 if py + 2 * pille.height + 8 < n else py - 3 * (pille.height + 4)
+        belegt.append((px, py, pille.width, pille.height))
+        d = ImageDraw.Draw(im)
+        ende = (clamp(ax, px, px + pille.width), py + pille.height / 2)
+        d.line((ax, ay, ende[0], ende[1]), fill=self.ak + (int(235 * sichtbar),), width=max(2, int(n * .004)))
+        d.ellipse((ax - n * .008, ay - n * .008, ax + n * .008, ay + n * .008), fill=self.ak + (int(255 * sichtbar),))
+        if sichtbar < .995:
+            pille = pille.copy()
+            pille.putalpha(pille.getchannel("A").point(lambda q: int(q * sichtbar)))
+        im.alpha_composite(pille, (int(px), int(py)))

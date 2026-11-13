@@ -58,29 +58,43 @@ Regeln:
 
 SZENEN_ANLEITUNG = """
 EIGENE ANIMATION statt Bilder: Lass „bilder“, „bild_hook“ und „bild_schluss“ weg. Gib stattdessen je Station eine „szene“ an
-(dazu „szene_hook“ und „szene_schluss“) – das Programm zeichnet und bewegt sie selbst. Die Szene MUSS zeigen, was der Text sagt:
-Was wandert, das bewegt sich; was entsteht, das wächst; was sich verändert, wechselt Farbe oder bekommt eine Schicht.
+(dazu „szene_hook“ und „szene_schluss“) – das Programm zeichnet und bewegt sie selbst.
+OBERSTE REGEL – ALLES ZEIGEN, WAS GESAGT WIRD, GENAU DANN, WENN ES GESAGT WIRD:
+- Gehe den Text Wort für Wort durch. JEDES genannte Ding (Teil, Ort, Stoff) ist als Element zu sehen und bekommt eine „beschriftung“
+  mit genau dem Wort aus dem Text. JEDER genannte Vorgang (wandert, bildet sich, wächst, beginnt, färbt sich, dauert …) ist ein Schritt.
+- Jeder Schritt und jede Beschriftung startet mit „bei“: dem Wort aus dem Text, bei dem es passiert (z. B. "bei": "wandert").
+  Nur wenn kein Wort passt: „ab“ = Satznummer und „nach“ = Sekunden.
+- Was wandert, bewegt sich; was entsteht, wächst oder erscheint; was sich verändert, wechselt Farbe oder bekommt eine Schicht; was dauert,
+  bekommt eine Uhr. Zeige das Ganze (z. B. das Tier, das Gerät) als Umriss mit den Teilen darin und zoome dann mit der Kamera an die Stelle.
+- Rechne mit 2–4 Schritten und 1–3 Beschriftungen je Satz. Lieber mehr Einzelheiten als ein leeres Bild.
 Format: {"elemente": [...], "schritte": [...]}. Koordinaten 0–100 (0/0 = links oben, Mitte = 50/50), „groesse“ in Prozent der Bildbreite.
-Elemente (höchstens 12, Reihenfolge = Zeichenreihenfolge, später = weiter vorn), jedes mit „id“, „art“ und:
+Elemente (höchstens 18, Reihenfolge = Zeichenreihenfolge, später = weiter vorn), jedes mit „id“, „art“ und:
 - form: „form“ kreis|ei|tropfen|herz|quadrat|sechseck ODER eigener „pfad“ (SVG-Pfad für einen einfachen Umriss, z. B. Tier, Organ,
-  Blatt, Haus), „farbe“, „x“, „y“, „groesse“, optional „streckung“ (Höhe/Breite), „sichtbar“: false (erscheint erst später)
-- schlauch: „punkte“ [[x,y],…] (Röhre, Weg, Ader, Leitung), „breite“, „farbe“; „fuellung“: 0 = wird erst gezeichnet
+  Blatt, Haus), „farbe“, „x“, „y“, „groesse“, optional „streckung“ (Höhe/Breite), „deckkraft“ 0–1 (durchscheinend), „sichtbar“: false
+- schlauch: „punkte“ [[x,y],…] (Röhre, Weg, Ader, Leitung, Faden), „breite“, „farbe“; „fuellung“: 0 = wird erst gezeichnet;
+  „durchsichtig“: true = was DAVOR in der Liste steht, ist im Schlauch zu sehen (so wandert etwas sichtbar durch eine Röhre)
 - huelle: „um“: id einer Form – durchsichtige Schicht darum, „groesse“ = Dicke, wächst mit „fuelle“
 - schale: „um“: id – feste Schicht, wächst mit „fuelle“ von unten nach oben
 - kristalle: „um“: id – Körnchen setzen sich mit „fuelle“ auf die Oberfläche
 - partikel: „von“/„nach“ (id oder [x,y]) – Strom kleiner Teilchen, Stärke über „fuelle“
-- traube: Haufen aus „anzahl“ Kugeln; pfeil: „punkte“ [[x,y],[x,y]]; uhr: Zeit vergeht mit „fuelle“
+- traube: Haufen aus „anzahl“ Kugeln; pfeil: „punkte“ [[x,y],[x,y]]; uhr: Zeit vergeht mit „fuelle“ (1 = ganze Runde)
+- beschriftung: „text“ (ein Wort/Begriff, der WÖRTLICH im Text der Station steht), „an“: id, „bei“: Wort, optional „seite“ links|rechts|oben|unten
 Farben: dotter, eiklar, schale, kalk, rot, blau, gruen, gelb, orange, weiss, grau, braun, rosa, lila, tuerkis, gold, haut, schwarz oder #rrggbb.
-Schritte (höchstens 16): {"ab": Satznummer (1 = erster Satz), "nach": Sekunden nach Satzbeginn, "dauer": Sekunden, "ziel": id, "aktion": …}
+Schritte (höchstens 28): {"bei": "Wort", "dauer": Sekunden, "ziel": id, "aktion": …} (statt „bei“ auch "ab": Satznummer, "nach": Sekunden)
 Aktionen: erscheine · verschwinde · bewege („entlang“: Schlauch-id mit „von“/„bis“ 0–1 ODER „zu“: id ODER „punkt“: [x,y]) ·
-wachse („auf“: groesse) · faerbe („farbe“) · fuelle („auf“: 0–1) · drehe („um“: Grad) · pulsiere.
-Regeln: Jeder Satz bekommt mindestens einen Schritt, der genau seinen Inhalt zeigt. Lass Platz am Rand (10–90). Keine Schrift in der Szene.
+wachse („auf“: groesse) · faerbe („farbe“) · fuelle („auf“: 0–1) · drehe („um“: Grad) · pulsiere ·
+zoom (ziel „kamera“, „auf“: 1–3, „zu“: id oder „punkt“: [x,y]; "auf": 1 fährt wieder zurück).
+Regeln: Lass Platz am Rand (10–90). Keine Schrift außer den Beschriftungen. Nichts zeigen, was der Text nicht sagt.
 Beispiel (Text: „Der Dotter wandert durch den Eileiter. Dort legt sich das Eiklar um ihn.“):
-{"elemente": [{"id": "rohr", "art": "schlauch", "punkte": [[20,15],[70,30],[30,55],[70,80]], "breite": 14, "farbe": "gold"},
-              {"id": "dotter", "art": "form", "form": "kreis", "farbe": "dotter", "x": 20, "y": 15, "groesse": 13},
-              {"id": "eiklar", "art": "huelle", "um": "dotter", "groesse": 30, "farbe": "eiklar"}],
- "schritte": [{"ab": 1, "nach": 0.2, "dauer": 3, "ziel": "dotter", "aktion": "bewege", "entlang": "rohr", "von": 0, "bis": 0.6},
-              {"ab": 2, "nach": 0.2, "dauer": 2.5, "ziel": "eiklar", "aktion": "fuelle", "auf": 1}]}"""
+{"elemente": [{"id": "dotter", "art": "form", "form": "kreis", "farbe": "dotter", "x": 20, "y": 15, "groesse": 13},
+              {"id": "eiklar", "art": "huelle", "um": "dotter", "groesse": 30, "farbe": "eiklar"},
+              {"id": "rohr", "art": "schlauch", "punkte": [[20,15],[70,30],[30,55],[70,80]], "breite": 18, "farbe": "gold", "durchsichtig": true},
+              {"id": "b1", "art": "beschriftung", "text": "Dotter", "an": "dotter", "bei": "Dotter"},
+              {"id": "b2", "art": "beschriftung", "text": "Eileiter", "an": "rohr", "bei": "Eileiter"},
+              {"id": "b3", "art": "beschriftung", "text": "Eiklar", "an": "dotter", "bei": "Eiklar", "seite": "unten"}],
+ "schritte": [{"bei": "wandert", "dauer": 3, "ziel": "dotter", "aktion": "bewege", "entlang": "rohr", "von": 0, "bis": 0.6},
+              {"bei": "Dort", "dauer": 1.2, "ziel": "kamera", "aktion": "zoom", "auf": 1.8, "zu": "dotter"},
+              {"bei": "legt", "dauer": 2.5, "ziel": "eiklar", "aktion": "fuelle", "auf": 1}]}"""
 
 FALLBACK = {"de": {"hook": "Wie funktioniert das eigentlich: {t}?", "schluss": "Jetzt weißt du, wie das funktioniert: {t}.",
                    "quelle": "Quelle", "bilder": "Bilder: Illustrationen (KI-generiert bzw. gezeichnet), keine echten Aufnahmen.",
@@ -175,7 +189,7 @@ def pruefe_station(st: dict, quellen: list[dict], lang: str) -> tuple[dict | Non
     folge = [b for b in folge if len(b) >= 8] or [bild or name]
     return {"name": name or text.split()[0], "text": text, "zahl": zahl, "einheit": einheit, "beleg": beleg,
             "quelle": quelle["name"], "quelle_url": quelle["url"], "etiketten": etiketten[:3], "bild": folge[0], "bilder": folge,
-            "szene": zeichnen.pruefe_szene(st.get("szene"))}, ""
+            "szene": zeichnen.beschriftungen_pruefen(zeichnen.pruefe_szene(st.get("szene")), text + " " + name)}, ""
 
 
 def pruefe_satz(text: str, erlaubt: set[str], quellen_text: str, lang: str) -> bool:
@@ -392,8 +406,16 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     for sz, key in ((skript["szenen"][0], "bild_hook"), (skript["szenen"][-1], "bild_schluss")):
         sz[key] = re.sub(r"[^\x20-\x7e]", "", str(answer.get(key) or ""))[:260].strip()
     if eigen:                                                 # eigene Animation: nichts aus dem Netz, das Programm zeichnet selbst
-        skript["szenen"][0]["szene"] = zeichnen.pruefe_szene(answer.get("szene_hook"))
-        skript["szenen"][-1]["szene"] = zeichnen.pruefe_szene(answer.get("szene_schluss"))
+        for sz, key in ((skript["szenen"][0], "szene_hook"), (skript["szenen"][-1], "szene_schluss")):
+            sz["szene"] = zeichnen.beschriftungen_pruefen(zeichnen.pruefe_szene(answer.get(key)), sz["text"])
+        luecken = []
+        for sz in skript["szenen"]:
+            if sz["typ"] == "station" and sz.get("szene"):
+                fehlt = zeichnen.abdeckung(sz["szene"], len(re.findall(r"[.!?](?:\s|$)", sz["text"])) or 1)
+                if fehlt:
+                    luecken.append(f"{sz['name']} (Satz {', '.join(map(str, fehlt))})")
+        if luecken:
+            notes.append("Zu diesen Sätzen zeigt die Animation nichts Eigenes: " + "; ".join(luecken) + ".")
         ohne = sum(1 for sz in skript["szenen"] if sz["typ"] == "station" and not sz.get("szene"))
         if ohne:
             notes.append(f"{ohne} Station(en) ohne gültige Szenen-Beschreibung – dort zeigt das Video eine schlichte Grafik.")
