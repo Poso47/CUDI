@@ -148,7 +148,8 @@ def write_script(topic: str, lang: str = "de", article=None) -> tuple[dict, dict
     data = {"thema": topic, "sprache": lang, "visuals": VISUALS, "posen": POSES,
             "quelle": {"titel": title, "text": source}}
     notes: list[str] = []
-    answer = handoff.request("erklaer", INSTRUCTIONS, data)
+    from .. import animation
+    answer = handoff.request("erklaer", INSTRUCTIONS + animation.storyboard_zusatz(), data)   # Storyboard gleich mit (eine Runde weniger)
     if isinstance(answer, dict) and answer.get("fehler"):
         raise ValueError("Das Thema lässt sich mit dem Artikel nicht erklären: " + str(answer["fehler"])[:300])
     scenes = _scenes_of(answer)
@@ -175,7 +176,7 @@ def write_script(topic: str, lang: str = "de", article=None) -> tuple[dict, dict
         raise ValueError(f"Nur {len(kept)} Szenen bestanden die Prüfung (mindestens {MIN_SCENES} nötig). "
                          "Erfunden wird nichts – bitte das Thema enger fassen oder später erneut versuchen.")
     kept = kept[:MAX_SCENES]
-    out_scenes, proof = [], []
+    out_scenes, proof, storyboards = [], [], []
     for scene in kept:
         visual, note = clean_visual(scene, source, lang)
         if note:
@@ -184,6 +185,7 @@ def write_script(topic: str, lang: str = "de", article=None) -> tuple[dict, dict
         out_scenes.append({"kapitel": str(scene.get("kapitel") or "")[:40], "text": re.sub(r"\s+", " ", str(scene["text"])).strip(),
                            "betont": words, "visual": visual})
         proof.append({"text": out_scenes[-1]["text"], "beleg": re.sub(r"\s+", " ", str(scene["beleg"])).strip()})
+        storyboards.append({k: scene.get(k) for k in ("drehbuch", "ohne_bild", "figuren", "figur_wuensche") if scene.get(k)})
     script_id = "erklaer-" + re.sub(r"[^a-z0-9]+", "-", topic.lower())[:30].strip("-")
     try:
         script = validate_script({"id": script_id, "titel": str(answer.get("titel") or title)[:80], "sprache": lang,
@@ -194,4 +196,4 @@ def write_script(topic: str, lang: str = "de", article=None) -> tuple[dict, dict
     if not ok_title or textcheck.invented_people(script["titel"], source):
         script["titel"] = title
         notes.append("Titel enthielt Unbelegtes und wurde durch den Artikeltitel ersetzt.")
-    return script, {"quelle": title, "url": url, "beleg": proof, "hinweise": notes}
+    return script, {"quelle": title, "url": url, "beleg": proof, "hinweise": notes, "storyboard": storyboards}
