@@ -1,34 +1,34 @@
 {
- "erzeugt": "2026-11-13T06:59:20Z",
- "anzahl": 15,
- "nur_ausland": 2,
+ "erzeugt": "2026-11-13T19:55:29Z",
+ "anzahl": 23,
+ "nur_ausland": 1,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "Germany reportedly bans Chinese drones at military bases over security concerns",
-   "kurz": "Western military forces increasingly worried Chinese-made technology ⁠could send ‌sensitive information to Beijing Germany has banned commercially available…",
-   "link": "https://www.theguardian.com/world/2026/nov/11/germany-bans-chinese-drones-military-bases-spying-security",
-   "sprache": "en",
-   "zeit": "2026-11-11T22:58:15+05:30",
+   "titel": "DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
+   "kurz": "Der Internationale Sportgerichtshof hat den Ausschluss Russlands von Eishockey-Weltmeisterschaften aufgehoben. Doch zahlreiche Länder wehren sich gegen die…",
+   "link": "https://www.nzz.ch/sport/streit-um-russlands-wm-teilnahme-russischer-eishockeyverband-droht-gastgeber-deutschland-ld.10063174",
+   "sprache": "de",
+   "zeit": "2026-11-13T14:59:26Z",
    "ausland_quellen": 2,
    "laender": [
-    "Großbritannien",
-    "Indien"
+    "Schweiz",
+    "Österreich"
    ],
    "laender_einig": [
-    "Großbritannien",
-    "Indien"
+    "Schweiz",
+    "Österreich"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Hongkong/China"
+    "Russland"
    ],
    "zusammenfassung": [
-    "Guardian Germany (Großbritannien): Germany reportedly bans Chinese drones at military bases over security concerns",
-    "The Hindu (Indien): German military to stop using Chinese-made drones, citing security concerns"
+    "NZZ (Schweiz): DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
+    "Der Standard (Österreich): Eishockey: Russland droht WM-Gastgeber Deutschland"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -38,36 +38,297 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
+     "quelle": "NZZ",
+     "land": "Schweiz",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Germany reportedly bans Chinese drones at military bases over security concerns",
-     "link": "https://www.theguardian.com/world/2026/nov/11/germany-bans-chinese-drones-military-bases-spying-security",
-     "eigentuemer": "gehört Guardian Media Group",
+     "titel": "DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
+     "link": "https://www.nzz.ch/sport/streit-um-russlands-wm-teilnahme-russischer-eishockeyverband-droht-gastgeber-deutschland-ld.10063174",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "The Hindu",
-     "land": "Indien",
+     "quelle": "Der Standard",
+     "land": "Österreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "German military to stop using Chinese-made drones, citing security concerns",
-     "link": "https://www.thehindu.com/news/international/german-military-to-stop-using-chinese-made-drones-citing-security-concerns/article71691040.ece",
-     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "titel": "Eishockey: Russland droht WM-Gastgeber Deutschland",
+     "link": "https://www.derstandard.at/story/3000000349089/eishockey-russland-droht-wm-gastgeber-deutschland?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
-   "kurz": "'Above all, what is needed is for Europe to have a clear and united vision of what it wants for Ukraine and for itself,' the French president said at a meeting…",
-   "link": "https://www.lemonde.fr/en/international/article/2026/11/12/macron-and-merz-downplay-push-to-name-europe-envoy-in-ukraine-russia-talks_6778842_4.html",
-   "sprache": "en",
-   "zeit": "2026-11-12T15:17:16+01:00",
-   "ausland_quellen": 2,
+   "titel": "Europa descarta nombrar un solo representante y designa un grupo negociador para las conversaciones de paz sobre Ucrania",
+   "kurz": "Washington presiona para que el Viejo Continente participe en las negociaciones, pero Moscú aún se resiste. Las instituciones comunitarias, Francia, Alemania…",
+   "link": "https://elpais.com/internacional/2026-11-13/el-enviado-de-trump-asegura-que-putin-acepta-que-europa-se-sume-a-las-negociaciones-de-paz-sobre-ucrania.html",
+   "sprache": "es",
+   "zeit": "2026-11-13T19:51:16Z",
+   "ausland_quellen": 1,
    "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
     "Frankreich",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "El País (Spanien): Europa descarta nombrar un solo representante y designa un grupo negociador para las conversaciones de paz sobre Ucrania"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Europa descarta nombrar un solo representante y designa un grupo negociador para las conversaciones de paz sobre Ucrania",
+     "link": "https://elpais.com/internacional/2026-11-13/el-enviado-de-trump-asegura-que-putin-acepta-que-europa-se-sume-a-las-negociaciones-de-paz-sobre-ucrania.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Temporal en el oeste bonaerense: granizo, lluvias intensas y alerta naranja",
+   "kurz": "Una fuerte tormenta sorprendió a los habitantes de Germania, cerca de Lincoln, donde se registró una intensa caída de granizo; el SMN advirtió por…",
+   "link": "https://www.lanacion.com.ar/sociedad/temporal-en-el-oeste-bonaerense-granizo-lluvias-intensas-y-alerta-naranja-nid13112026/",
+   "sprache": "es",
+   "zeit": "2026-11-13T18:49:07Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "La Nación (Argentinien): Temporal en el oeste bonaerense: granizo, lluvias intensas y alerta naranja"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Temporal en el oeste bonaerense: granizo, lluvias intensas y alerta naranja",
+     "link": "https://www.lanacion.com.ar/sociedad/temporal-en-el-oeste-bonaerense-granizo-lluvias-intensas-y-alerta-naranja-nid13112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Die SVP und der Ticket-Poker: Aussenseiter im Bundesratsrennen hoffen auf einen Dreiervorschlag",
+   "kurz": "Thomas Aeschi gilt bei der SVP-Leitung als Favorit für die Nachfolge von Bundesrat Guy Parmelin. Die Wahlchancen des Zugers hängen auch von der Grösse des…",
+   "link": "https://www.nzz.ch/schweiz/die-svp-und-der-ticket-poker-aussenseiter-im-bundesratsrennen-hoffen-auf-einen-dreiervorschlag-ld.10063203",
+   "sprache": "de",
+   "zeit": "2026-11-13T17:19:54Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Die SVP und der Ticket-Poker: Aussenseiter im Bundesratsrennen hoffen auf einen Dreiervorschlag"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Die SVP und der Ticket-Poker: Aussenseiter im Bundesratsrennen hoffen auf einen Dreiervorschlag",
+     "link": "https://www.nzz.ch/schweiz/die-svp-und-der-ticket-poker-aussenseiter-im-bundesratsrennen-hoffen-auf-einen-dreiervorschlag-ld.10063203",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Former Hamas bodyguard convicted of Birmingham knife crime also wanted in Germany",
+   "kurz": "Mohammed Alfatih rearrested over alleged plot to target Israelis in Europe while detained for attack on bailiff A former Hamas bodyguard convicted of knife…",
+   "link": "https://www.theguardian.com/uk-news/2026/nov/13/former-hamas-bodyguard-convicted-of-birmingham-knife-also-wanted-in-germany",
+   "sprache": "en",
+   "zeit": "2026-11-13T17:14:56Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): Former Hamas bodyguard convicted of Birmingham knife crime also wanted in Germany"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Former Hamas bodyguard convicted of Birmingham knife crime also wanted in Germany",
+     "link": "https://www.theguardian.com/uk-news/2026/nov/13/former-hamas-bodyguard-convicted-of-birmingham-knife-also-wanted-in-germany",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Kann sich Mercedes Deutschland noch leisten? Darum eskaliert jetzt der Konflikt bei dem Autohersteller",
+   "kurz": "Das Management des Stuttgarter Konzerns ringt mit der Gewerkschaft erbittert um Privilegien wie die 35-Stunden-Woche. Der Streit wird zum Testfall für die…",
+   "link": "https://www.nzz.ch/wirtschaft/kann-sich-mercedes-deutschland-noch-leisten-darum-eskaliert-jetzt-der-konflikt-bei-dem-autohersteller-ld.10058665",
+   "sprache": "de",
+   "zeit": "2026-11-13T16:31:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Kann sich Mercedes Deutschland noch leisten? Darum eskaliert jetzt der Konflikt bei dem Autohersteller"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Kann sich Mercedes Deutschland noch leisten? Darum eskaliert jetzt der Konflikt bei dem Autohersteller",
+     "link": "https://www.nzz.ch/wirtschaft/kann-sich-mercedes-deutschland-noch-leisten-darum-eskaliert-jetzt-der-konflikt-bei-dem-autohersteller-ld.10058665",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
+   "kurz": "German reforms mean foreign and domestic intelligence services will have greater powers to combat espionage, terrorism and sabotage.",
+   "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
+   "sprache": "en",
+   "zeit": "2026-11-13T15:42:52Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "BBC Europe (Großbritannien): German spies handed new powers to tackle 'hybrid threats' from abroad"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
+     "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "El Parlamento alemán da el último paso para aprobar el mayor presupuesto de la historia del país",
+   "kurz": "Las cuentas públicas, que se aprobarán definitivamente a finales de mes, dan prioridad a las políticas de Trabajo y de Defensa",
+   "link": "https://elpais.com/economia/2026-11-13/el-parlamento-aleman-da-el-ultimo-paso-para-aprobar-el-mayor-presupuesto-de-la-historia-del-pais.html",
+   "sprache": "es",
+   "zeit": "2026-11-13T15:24:41Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): El Parlamento alemán da el último paso para aprobar el mayor presupuesto de la historia del país"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "El Parlamento alemán da el último paso para aprobar el mayor presupuesto de la historia del país",
+     "link": "https://elpais.com/economia/2026-11-13/el-parlamento-aleman-da-el-ultimo-paso-para-aprobar-el-mayor-presupuesto-de-la-historia-del-pais.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Germany releases extra $221M for Ukraine winter aid",
+   "kurz": "Berlin frees additional funds to help Ukraine keep power, heat and water running amid intensifying Russian strikes",
+   "link": "https://www.aa.com.tr/en/europe/germany-releases-extra-221m-for-ukraine-winter-aid/4123972",
+   "sprache": "en",
+   "zeit": "2026-11-13T14:05:57+03:00",
+   "ausland_quellen": 1,
+   "laender": [
     "Türkei"
    ],
    "laender_einig": [
@@ -75,41 +336,182 @@
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Frankreich",
     "Russland",
     "Ukraine"
    ],
    "zusammenfassung": [
-    "Le Monde (en) (Frankreich): Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
-    "Anadolu (Türkei): Germany’s Merz sees ‘positive signals’ in Ukraine peace talks"
+    "Anadolu (Türkei): Germany releases extra $221M for Ukraine winter aid"
    ],
    "staatsnah": [
     "Anadolu"
    ],
    "deutsch_quellen": [],
-   "nur_ausland": true,
-   "unabhaengig_n": 2,
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Macron and Merz downplay push to name Europe envoy in Ukraine-Russia talks",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/12/macron-and-merz-downplay-push-to-name-europe-envoy-in-ukraine-russia-talks_6778842_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
-     "zaehlt_nicht": ""
-    },
     {
      "quelle": "Anadolu",
      "land": "Türkei",
      "art": "staatsnah",
      "beteiligt": false,
-     "titel": "Germany’s Merz sees ‘positive signals’ in Ukraine peace talks",
-     "link": "https://www.aa.com.tr/en/world/germany-s-merz-sees-positive-signals-in-ukraine-peace-talks/4122418",
+     "titel": "Germany releases extra $221M for Ukraine winter aid",
+     "link": "https://www.aa.com.tr/en/europe/germany-releases-extra-221m-for-ukraine-winter-aid/4123972",
      "eigentuemer": "staatlich (Türkei)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Issa Remmo besucht Veranstaltung im Europaparlament und sorgt für Aufregung",
+   "kurz": "Auf Einladung eines konservativen EVP-Politikers war ein Mitglied der Berliner Großfamilie Remmo in Brüssel zu Gast. Die EVP distanziert sich",
+   "link": "https://www.derstandard.at/story/3000000349171/issa-remmo-besucht-veranstaltung-im-europaparlament-und-sorgt-fuer-aufregung?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-13T13:50:58Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Issa Remmo besucht Veranstaltung im Europaparlament und sorgt für Aufregung"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Issa Remmo besucht Veranstaltung im Europaparlament und sorgt für Aufregung",
+     "link": "https://www.derstandard.at/story/3000000349171/issa-remmo-besucht-veranstaltung-im-europaparlament-und-sorgt-fuer-aufregung?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russia demands Finland leave NATO in Abu Dhabi talks: Report",
+   "kurz": "German daily Bild reports Russia’s proposal to end war in Ukraine carries far-reaching demands from Europe, including ban on NATO military bases in Baltic…",
+   "link": "https://www.aa.com.tr/en/world/russia-demands-finland-leave-nato-in-abu-dhabi-talks-report/4123836",
+   "sprache": "en",
+   "zeit": "2026-11-13T12:27:19+03:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Türkei"
+   ],
+   "laender_einig": [
+    "Türkei"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Anadolu (Türkei): Russia demands Finland leave NATO in Abu Dhabi talks: Report"
+   ],
+   "staatsnah": [
+    "Anadolu"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Anadolu",
+     "land": "Türkei",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Russia demands Finland leave NATO in Abu Dhabi talks: Report",
+     "link": "https://www.aa.com.tr/en/world/russia-demands-finland-leave-nato-in-abu-dhabi-talks-report/4123836",
+     "eigentuemer": "staatlich (Türkei)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Merz scheitert mit seinem Wunsch nach Senkung der Stromsteuer an der SPD",
+   "kurz": "Die deutsche Koalition hat sich auf den Haushalt für 2027 geeinigt. Aber Kanzler Friedrich Merz kann sich mit Entlastungen nicht durchsetzen",
+   "link": "https://www.derstandard.at/story/3000000349074/merz-scheitert-mit-seinem-wunsch-nach-senkung-der-stromsteuer-an-der-spd?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-13T11:21:45Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Merz scheitert mit seinem Wunsch nach Senkung der Stromsteuer an der SPD"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Merz scheitert mit seinem Wunsch nach Senkung der Stromsteuer an der SPD",
+     "link": "https://www.derstandard.at/story/3000000349074/merz-scheitert-mit-seinem-wunsch-nach-senkung-der-stromsteuer-an-der-spd?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden",
+   "kurz": "Angreifer haben eine manipulierte Update-Datei auf einem Server des Unternehmens platziert",
+   "link": "https://www.derstandard.at/story/3000000349069/cyberangriff-auf-drohnenhersteller-bundeswehr-laesst-flotte-von-quantum-systems-am-boden?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-13T11:19:51Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden",
+     "link": "https://www.derstandard.at/story/3000000349069/cyberangriff-auf-drohnenhersteller-bundeswehr-laesst-flotte-von-quantum-systems-am-boden?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -263,123 +665,6 @@
    ]
   },
   {
-   "titel": "Jürgen Klopp ya tiene a su columna vertebral, pero se juega todo en la Liga de Naciones de Europa",
-   "kurz": "El seleccionador de Alemania sabe que no puede fallar ante Serbia y Países Bajos",
-   "link": "https://www.lanacion.com.ar/deportes/futbol/jurgen-klopp-ya-tiene-a-su-columna-vertebral-pero-se-juega-todo-en-la-liga-de-naciones-de-europa-nid13112026/",
-   "sprache": "es",
-   "zeit": "2026-11-13T03:14:46Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [
-    "Argentinien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "La Nación (Argentinien): Jürgen Klopp ya tiene a su columna vertebral, pero se juega todo en la Liga de Naciones de Europa"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Jürgen Klopp ya tiene a su columna vertebral, pero se juega todo en la Liga de Naciones de Europa",
-     "link": "https://www.lanacion.com.ar/deportes/futbol/jurgen-klopp-ya-tiene-a-su-columna-vertebral-pero-se-juega-todo-en-la-liga-de-naciones-de-europa-nid13112026/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Vive en Alemania pero se hizo una casita en su Mérida natal",
-   "kurz": "En una zona de lotes chicos, multiplicaron los metros sin resignar luz ni confort. Una mezcla de minimalismo, materiales típicos y texturas cálidas para…",
-   "link": "https://www.lanacion.com.ar/revista-living/vive-en-alemania-pero-se-hizo-una-casita-en-su-merida-natal-nid13112026/",
-   "sprache": "es",
-   "zeit": "2026-11-13T03:05:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [
-    "Argentinien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "La Nación (Argentinien): Vive en Alemania pero se hizo una casita en su Mérida natal"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Vive en Alemania pero se hizo una casita en su Mérida natal",
-     "link": "https://www.lanacion.com.ar/revista-living/vive-en-alemania-pero-se-hizo-una-casita-en-su-merida-natal-nid13112026/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Nach Investitionsstopp: Mercedes-Chef verteidigt Sparkurs und beklagt hohe Kosten",
-   "kurz": "Der Konzernvorstand hat zudem die Prüfung von Werkschließungen in Deutschland angekündigt. Hintergrund sind Verhandlungen über niedrigere Personalkosten mit…",
-   "link": "https://www.derstandard.at/story/3000000349022/mercedes-benz-pr252ft-werksschlie223ungen-in-deutschland-arbeit-zu-teuer?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-12T16:20:12Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Nach Investitionsstopp: Mercedes-Chef verteidigt Sparkurs und beklagt hohe Kosten"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Mercedes stoppt Investitionen in Deutschland - und prüft Schließungen",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/mercedes-stopp-investitionen-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Nach Investitionsstopp: Mercedes-Chef verteidigt Sparkurs und beklagt hohe Kosten",
-     "link": "https://www.derstandard.at/story/3000000349022/mercedes-benz-pr252ft-werksschlie223ungen-in-deutschland-arbeit-zu-teuer?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine",
    "kurz": "Die USA wollen die Europäer mit Putin an einen Tisch bringen. Merz ist bereit, aber die EU-Partner sind uneins beim Kurs zu Russland und wer sie vertreten soll",
    "link": "https://www.derstandard.at/story/3000000348678/europaeer-schimpfen-gern-ueber-putin-und-trump-sind-aber-selbst-auf-ukrainegespraeche-nicht-vorbereitet-und-zerstritten?ref=rss",
@@ -402,13 +687,7 @@
     "Der Standard (Österreich): Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Krieg gegen die Ukraine: Putin beharrt auf Gebietsansprüchen",
-     "link": "https://www.tagesschau.de/ausland/europa/ukraine-russland-putin-witkoff-kushner-100.html"
-    }
-   ],
+   "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -427,48 +706,11 @@
    ]
   },
   {
-   "titel": "Pen Berlin kritisiert Ermittlungen gegen Houellebecq",
-   "kurz": "Die Autorenvereinigung bewertet das juristische Vorgehen als einen Angriff auf die Meinungsfreiheit",
-   "link": "https://www.derstandard.at/story/3000000349000/pen-berlin-kritisiert-ermittlungen-gegen-houellebecq?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-12T15:02:06Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Pen Berlin kritisiert Ermittlungen gegen Houellebecq"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Pen Berlin kritisiert Ermittlungen gegen Houellebecq",
-     "link": "https://www.derstandard.at/story/3000000349000/pen-berlin-kritisiert-ermittlungen-gegen-houellebecq?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "“Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado",
    "kurz": "Estuvieron cinco décadas juntos y fueron una de las parejas más emblemáticas del teatro argentino; cómo ensamblaron sus vidas para poder compartir su alegría",
    "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
    "sprache": "es",
-   "zeit": "2026-11-13T01:23:39Z",
+   "zeit": "2026-11-13T17:58:28Z",
    "ausland_quellen": 1,
    "laender": [
     "Argentinien"
@@ -496,6 +738,122 @@
      "titel": "“Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado",
      "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
      "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutschland: Zustimmung zur Demokratie auf niedrigsten Niveau",
+   "kurz": "Zukunftsangst erzeugt Vertrauensverlust. Wie sieht es in Österreich aus?",
+   "link": "https://www.derstandard.at/story/3000000349027/deutschland-zustimmung-zur-demokratie-auf-niedrigsten-niveau?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-13T17:14:37Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Österreich"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Deutschland: Zustimmung zur Demokratie auf niedrigsten Niveau"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "Deutschland: Zustimmung zur Demokratie auf niedrigsten Niveau",
+     "link": "https://www.derstandard.at/story/3000000349027/deutschland-zustimmung-zur-demokratie-auf-niedrigsten-niveau?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Alemania y Francia ultiman un pacto sobre el BCE con Hernández de Cos como favorito para la presidencia",
+   "kurz": "Merz: “Necesitamos aún unos días. Queremos presentar la propuesta alemana la semana que viene”",
+   "link": "https://elpais.com/economia/2026-11-13/alemania-y-francia-ultiman-un-pacto-sobre-el-bce-con-hernandez-de-cos-como-favorito-para-la-presidencia.html",
+   "sprache": "es",
+   "zeit": "2026-11-13T14:47:56Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich",
+    "Spanien"
+   ],
+   "zusammenfassung": [
+    "El País (Spanien): Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE",
+     "link": "https://elpais.com/economia/2026-11-12/francia-se-inclina-por-apoyar-al-espanol-hernandez-de-cos-para-la-presidencia-del-bce.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ukraine live: France among five major powers to represent EU in talks",
+   "kurz": "EU leaders on Friday chose five major powers, including France, Britain, Germany, Italy and Poland, to represent European institutions at the next Ukraine…",
+   "link": "https://www.france24.com/en/europe/20261113-live-zelensky-and-kushner-confirm-that-europe-will-join-next-round-of-russia-ukraine-talks",
+   "sprache": "en",
+   "zeit": "2026-11-13T01:39:42Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich",
+    "Großbritannien",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "France 24 (Frankreich): Ukraine live: France among five major powers to represent EU in talks"
+   ],
+   "staatsnah": [
+    "France 24"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "France 24",
+     "land": "Frankreich",
+     "art": "staatsnah",
+     "beteiligt": true,
+     "titel": "Ukraine live: France among five major powers to represent EU in talks",
+     "link": "https://www.france24.com/en/europe/20261113-live-zelensky-and-kushner-confirm-that-europe-will-join-next-round-of-russia-ukraine-talks",
+     "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
     }
    ]
@@ -538,125 +896,9 @@
      "zaehlt_nicht": ""
     }
    ]
-  },
-  {
-   "titel": "Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE",
-   "kurz": "París y Berlín negocian un acuerdo que les permita obtener buenos puestos en el consejo del banco central. El neerlandés Klaas Knot también opta a la…",
-   "link": "https://elpais.com/economia/2026-11-12/francia-se-inclina-por-apoyar-al-espanol-hernandez-de-cos-para-la-presidencia-del-bce.html",
-   "sprache": "es",
-   "zeit": "2026-11-12T09:56:27Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Spanien"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE",
-     "link": "https://elpais.com/economia/2026-11-12/francia-se-inclina-por-apoyar-al-espanol-hernandez-de-cos-para-la-presidencia-del-bce.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "German knives, English socks: 13 gifts beloved globally that Americans are missing out on",
-   "kurz": "From Guyanese rum to soft Australian bedsheets, you don’t have to buy a plane ticket to enjoy Guardian staff’s international favorites – perfect for holidays…",
-   "link": "https://www.theguardian.com/thefilter-us/2026/nov/11/best-international-gifts",
-   "sprache": "en",
-   "zeit": "2026-11-11T15:15:52Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Großbritannien"
-   ],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): German knives, English socks: 13 gifts beloved globally that Americans are missing out on"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "German knives, English socks: 13 gifts beloved globally that Americans are missing out on",
-     "link": "https://www.theguardian.com/thefilter-us/2026/nov/11/best-international-gifts",
-     "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
   }
  ],
- "verbindungen": [
-  {
-   "name": "Jürgen Klopp",
-   "wikidata": "https://www.wikidata.org/wiki/Q83106",
-   "beschreibung": "German association football manager",
-   "verbindungen": [
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "1. FSV Mainz 05",
-     "link": "https://www.wikidata.org/wiki/Q105254",
-     "beendet": "2008"
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Borussia Dortmund",
-     "link": "https://www.wikidata.org/wiki/Q41420",
-     "beendet": "2015"
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "FC Liverpool",
-     "link": "https://www.wikidata.org/wiki/Q1130849",
-     "beendet": "2024"
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Red Bull GmbH",
-     "link": "https://www.wikidata.org/wiki/Q698639",
-     "beendet": "2026"
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Deutscher Fußball-Bund",
-     "link": "https://www.wikidata.org/wiki/Q154191",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "Jürgen Klopp ya tiene a su columna vertebral, pero se juega todo en la Liga de Naciones de Europa"
-   ]
-  }
- ],
+ "verbindungen": [],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -970,6 +1212,21 @@
    ]
   },
   "Arturo Puig": {
+   "keine_treffer": true
+  },
+  "Russischer Eishockeyverband": {
+   "keine_treffer": true
+  },
+  "Former Hamas": {
+   "keine_treffer": true
+  },
+  "Issa Remmo": {
+   "keine_treffer": true
+  },
+  "Abu Dhabi": {
+   "keine_treffer": true
+  },
+  "Quantum Systems": {
    "keine_treffer": true
   }
  }
