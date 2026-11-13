@@ -1,78 +1,47 @@
 {
- "erzeugt": "2026-11-12T20:21:40Z",
+ "erzeugt": "2026-11-13T02:04:39Z",
  "anzahl": 60,
- "bestaetigt": 18,
+ "bestaetigt": 15,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
   {
-   "titel": "US envoys head to meet Zelensky after talks with Putin in Moscow",
-   "kurz": "US envoy Steve Witkoff says President Putin has agreed to European negotiators joining the next round of Ukraine talks.",
-   "link": "https://www.bbc.co.uk/news/articles/cwrkgmymk55zo?at_medium=RSS&at_campaign=rss",
+   "titel": "Scandal-hit Nvidia CEO Jensen Huang quits, plunging AI chipmaking giant into turmoil",
+   "kurz": "US lawmakers now want to question him over whether one of his alleged relationships was with a Chinese spy.",
+   "link": "https://www.bbc.co.uk/news/articles/cmq5vd1wdgz6o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-12T18:28:59Z",
+   "zeit": "2026-11-12T23:34:05Z",
    "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
+   "n_quellen": 5,
+   "unabhaengig_n": 5,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "US envoys head to meet Zelensky after talks with Putin in Moscow",
-     "link": "https://www.bbc.co.uk/news/articles/cwrkgmymk55zo?at_medium=RSS&at_campaign=rss",
+     "titel": "Jensen Huang has resigned, what's next for Nvidia?",
+     "link": "https://www.bbc.co.uk/news/videos/cmdx1r99kp9wo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "NPR",
-     "titel": "U.S. envoys meet with Putin in the Kremlin after Ukraine talks in Abu Dhabi",
-     "link": "https://www.npr.org/2026/11/12/nx-s1-6038809/us-envoys-meet-putin-russia-ukraine-war-talks",
-     "eigentuemer": "gehört NPR",
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Jensen Huang: Spy row, second affair leaves Nvidia without its rockstar CEO",
+     "link": "https://www.dw.com/en/jensen-huang-spy-row-second-affair-leaves-nvidia-without-its-rockstar-ceo/a-79926972?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · AP",
-     "titel": "A third round of United States -mediated talks between Ukrainian and Russian delegations begins in Abu Dhabi , United Arab Emirates …",
-     "link": "https://apnews.com/article/russia-ukraine-war-putin-zelenskyy-uae-3d878a3e56d5df5bd198a6d20c824d18",
-     "eigentuemer": "gehört The Associated Press",
+     "quelle": "NPR",
+     "titel": "What's a Honey Trap? The spy tactic that helped topple Jensen Huang",
+     "link": "https://www.npr.org/2026/11/12/nx-s1-6039266/jensen-huang-china-honey-trap-nvidia-spies-sex-alice-huang",
+     "eigentuemer": "gehört NPR",
      "gruppe": 2,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "The rise and fall of Jensen Huang - how the tech superstar became mired in scandal",
-   "kurz": "Within days, Huang's status as a seemingly untouchable figure leading the global tech race has crumbled.",
-   "link": "https://www.bbc.co.uk/news/articles/cmze750zg0jeo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-12T17:11:48Z",
-   "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "The rise and fall of Jensen Huang - how the tech superstar became mired in scandal",
-     "link": "https://www.bbc.co.uk/news/articles/cmze750zg0jeo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "NPR",
-     "titel": "Nvidia CEO Jensen Huang steps down amid alleged spy scandal",
-     "link": "https://www.npr.org/2026/11/12/nx-s1-6037833/jensen-huang-nvidia-stepped-down",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 1,
      "zaehlt_nicht": ""
     },
     {
@@ -80,7 +49,62 @@
      "titel": "Jensen Huang resigns as chief executive officer (CEO) and president of Nvidia and leaves the company's board following reports of two…",
      "link": "https://www.afp.com/en/nvidia-ceo-jensen-huang-resigns",
      "eigentuemer": "gehört Agence France-Presse",
+     "gruppe": 3,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · Reuters",
+     "titel": "Huang is accused of having a third \"intimate relationship\" with a second Nvidia employee.",
+     "link": "https://www.reuters.com/technology/former-nvidia-ceo-huang-had-relationship-with-second-employee-sources-say-2026-11-12/",
+     "eigentuemer": "gehört Thomson Reuters",
+     "gruppe": 4,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Zelensky welcomes US bringing Europe into Russia-Ukraine peace talks",
+   "kurz": "The Ukrainian president says it makes sense for European leaders to be involved as Ukraine hopes to eventually join the EU.",
+   "link": "https://www.bbc.co.uk/news/articles/ckn80j9jv3jxo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-13T02:01:35Z",
+   "status": "bestätigt",
+   "n_quellen": 4,
+   "unabhaengig_n": 4,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Zelensky welcomes US bringing Europe into Russia-Ukraine peace talks",
+     "link": "https://www.bbc.co.uk/news/articles/ckn80j9jv3jxo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "What have the talks with Russia and the US in Abu Dhabi achieved for Ukraine?",
+     "link": "https://www.dw.com/en/what-have-the-talks-with-russia-and-the-us-in-abu-dhabi-achieved-for-ukraine/a-79930613?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "U.S. envoys meet with Putin in the Kremlin after Ukraine talks in Abu Dhabi",
+     "link": "https://www.npr.org/2026/11/12/nx-s1-6038809/us-envoys-meet-putin-russia-ukraine-war-talks",
+     "eigentuemer": "gehört NPR",
      "gruppe": 2,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AP",
+     "titel": "A third round of United States -mediated talks between Ukrainian and Russian delegations begins in Abu Dhabi , United Arab Emirates …",
+     "link": "https://apnews.com/article/russia-ukraine-war-putin-zelenskyy-uae-3d878a3e56d5df5bd198a6d20c824d18",
+     "eigentuemer": "gehört The Associated Press",
+     "gruppe": 3,
      "zaehlt_nicht": ""
     }
    ]
@@ -125,53 +149,12 @@
    ]
   },
   {
-   "titel": "At least 10 people, including five with gunshot wounds, are injured in Munshiganj Sadar , Bangladesh during a clash involving gunfire and…",
-   "kurz": "At least 10 people, including five with gunshot wounds, are injured in Munshiganj Sadar , Bangladesh during a clash involving gunfire and crude bomb explosions…",
-   "link": "https://www.tbsnews.net/bangladesh/10-injured-five-shot-rival-bnp-factions-clash-munshiganj-1600101",
-   "quelle": "Wikipedia · The Business Standard",
+   "titel": "Microsoft reports mass outages in US, impacting customer accessibility",
+   "kurz": "Software giant Microsoft has reported widespread outages of its Outlook and Teams services in the US. Nearly 130,000 users have reported disruptions.",
+   "link": "https://www.dw.com/en/microsoft-reports-mass-outages-in-us-impacting-customer-accessibility/a-79935611?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "",
-   "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [
-    "tbsnews.net"
-   ],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · The Business Standard",
-     "titel": "At least 10 people, including five with gunshot wounds, are injured in Munshiganj Sadar , Bangladesh during a clash involving gunfire and…",
-     "link": "https://www.tbsnews.net/bangladesh/10-injured-five-shot-rival-bnp-factions-clash-munshiganj-1600101",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · Al Jazeera",
-     "titel": "Eleven people are killed and at least 50 others are seriously injured in a multiple-vehicle collision involving 86 trucks and cars [ bg ]…",
-     "link": "https://www.aljazeera.com/news/2026/11/10/at-least-12-people-killed-in-motorway-crash-in-southeastern-bulgaria",
-     "eigentuemer": "staatlich (Katar)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AP",
-     "titel": "Five schoolgirls are killed and 21 others are injured when a school bus plunges into a pond in Kandal province , Cambodia .",
-     "link": "https://apnews.com/article/cambodia-traffic-accidents-school-bus-e0c3e6316356dcbe3c4ff9fbed68a62b",
-     "eigentuemer": "gehört The Associated Press",
-     "gruppe": 2,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Jensen Huang has resigned, what's next for Nvidia?",
-   "kurz": "The BBC's Samira Hussain reports from Wall Street on what the fall of the tech superstar means for the company and AI.",
-   "link": "https://www.bbc.co.uk/news/videos/cmdx1r99kp9wo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-12T19:33:37Z",
+   "zeit": "2026-11-12T21:19:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -179,18 +162,18 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC World",
-     "titel": "Jensen Huang has resigned, what's next for Nvidia?",
-     "link": "https://www.bbc.co.uk/news/videos/cmdx1r99kp9wo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Microsoft reports mass outages in US, impacting customer accessibility",
+     "link": "https://www.dw.com/en/microsoft-reports-mass-outages-in-us-impacting-customer-accessibility/a-79935611?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Jensen Huang: Spy row, second affair leaves Nvidia without its rockstar CEO",
-     "link": "https://www.dw.com/en/jensen-huang-spy-row-second-affair-leaves-nvidia-without-its-rockstar-ceo/a-79926972?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "Wikipedia · BBC News",
+     "titel": "A major outage impacts multiple Microsoft services including Microsoft 365 , Copilot and Teams .",
+     "link": "https://www.bbc.com/news/articles/c5gm3g9ldz8xo",
+     "eigentuemer": "gehört BBC",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -221,37 +204,6 @@
      "quelle": "Deutsche Welle",
      "titel": "Nvidia-Chef Jensen Huang tritt nach Affären zurück",
      "link": "https://www.dw.com/de/nvidia-chef-jensen-huang-tritt-nach-affären-zurück/a-79932950?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Erneut Bombendrohungen gegen hunderte Schulen in Italien",
-   "kurz": "In Italien sind erneut Bombendrohungen an Schulen gesendet worden. Es sollen etwa 1.600 Einrichtungen betroffen sein. Die Regierung will Gebäude künftig nur…",
-   "link": "https://www.tagesschau.de/ausland/europa/italien-schulen-bombendrohungen-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T15:25:28+01:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Erneut Bombendrohungen gegen hunderte Schulen in Italien",
-     "link": "https://www.tagesschau.de/ausland/europa/italien-schulen-bombendrohungen-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Italien, Schottland und Nordirland: Schulen nach Bombenalarm evakuiert",
-     "link": "https://www.dw.com/de/italien-schottland-und-nordirland-schulen-nach-bombenalarm-evakuiert/a-79919504?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
@@ -315,37 +267,6 @@
      "titel": "A 3-story apartment building collapses near a construction site in Brooklyn , New York City , United States , killing eight people and…",
      "link": "https://www.afp.com/en/eight-dead-new-york-building-collapse",
      "eigentuemer": "gehört Agence France-Presse",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Historischer Sieg in Mississippi: \"Hatte den Mut, an Mississippi zu glauben\"",
-   "kurz": "Seit 145 Jahren zieht erstmals ein schwarzer Demokrat für Mississippi in den US-Senat. Im Wahlkampf setzte Scott Colom auf die Mobilisierung von Nicht-Wählern…",
-   "link": "https://www.tagesschau.de/ausland/amerika/usa-mississippi-schwarzer-senator-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T11:47:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Historischer Sieg in Mississippi: \"Hatte den Mut, an Mississippi zu glauben\"",
-     "link": "https://www.tagesschau.de/ausland/amerika/usa-mississippi-schwarzer-senator-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Historischer Sieg der Demokraten bei US-Wahl in Mississippi",
-     "link": "https://www.dw.com/de/historischer-sieg-der-demokraten-bei-us-wahl-in-mississippi/a-79927646?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -538,12 +459,12 @@
    ]
   },
   {
-   "titel": "Kenya discharges last Ebola patient in major milestone towards virus-free status",
-   "kurz": "The country begins a 42-day countdown to being declared Ebola-free, provided no new cases are recorded.",
-   "link": "https://www.bbc.co.uk/news/articles/cwe9kzv0g0v7o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
+   "titel": "Fourteen people are killed and 30 more injured in a multiple-vehicle collision involving 18 cars and five trucks in the Emirate of Fujairah…",
+   "kurz": "Fourteen people are killed and 30 more injured in a multiple-vehicle collision involving 18 cars and five trucks in the Emirate of Fujairah , United Arab…",
+   "link": "https://www.aljazeera.com/news/2026/11/12/uae-says-14-killed-30-injured-in-fujairah-traffic-accident",
+   "quelle": "Wikipedia · Al Jazeera",
    "sprache": "en",
-   "zeit": "2026-11-11T12:53:11Z",
+   "zeit": "",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -551,18 +472,18 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC World",
-     "titel": "Kenya discharges last Ebola patient in major milestone towards virus-free status",
-     "link": "https://www.bbc.co.uk/news/articles/cwe9kzv0g0v7o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "Eleven people are killed and at least 50 others are seriously injured in a multiple-vehicle collision involving 86 trucks and cars [ bg ]…",
+     "link": "https://www.aljazeera.com/news/2026/11/10/at-least-12-people-killed-in-motorway-crash-in-southeastern-bulgaria",
+     "eigentuemer": "staatlich (Katar)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · DW",
-     "titel": "The Kenyan health ministry reports that the country has discharged its last Ebola patient from a hospital in Nairobi after eleven contact…",
-     "link": "https://www.dw.com/en/kenya-ebola-free-patient-leaves-hospital/a-79921240",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "Wikipedia · AP",
+     "titel": "Five schoolgirls are killed and 21 others are injured when a school bus plunges into a pond in Kandal province , Cambodia .",
+     "link": "https://apnews.com/article/cambodia-traffic-accidents-school-bus-e0c3e6316356dcbe3c4ff9fbed68a62b",
+     "eigentuemer": "gehört The Associated Press",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -600,6 +521,305 @@
    ]
   },
   {
+   "titel": "US-Unterhändler kündigen Europas Beteiligung bei Ukraine-Verhandlungen an",
+   "kurz": "Von Putin zu Selenskyj - die US-Unterhändler Kushner und Witkoff kommen mit Ankündigungen aus Moskau nach Dublin. Bei den Verhandlungen sollen künftig auch die…",
+   "link": "https://www.tagesschau.de/ausland/europa/epg-ukraine-usa-europa-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-13T02:28:11+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "US-Unterhändler kündigen Europas Beteiligung bei Ukraine-Verhandlungen an",
+     "link": "https://www.tagesschau.de/ausland/europa/epg-ukraine-usa-europa-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "EPG-Treffen in Dublin: Momentum für Friedensverhandlungen?",
+   "kurz": "Das Treffen in Dublin bringt neue Dynamik in die Friedensverhandlungen - am Abend kommen noch die US-Unterhändler Witkoff und Kushner aus Moskau angereist…",
+   "link": "https://www.tagesschau.de/ausland/europa/epg-dublin-momentum-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-13T02:22:12+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "EPG-Treffen in Dublin: Momentum für Friedensverhandlungen?",
+     "link": "https://www.tagesschau.de/ausland/europa/epg-dublin-momentum-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau in 100 Sekunden",
+   "kurz": "tagesschau in 100 Sekunden",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1682968.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-13T01:59:21+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau in 100 Sekunden",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1682968.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Australian footballers will not be charged after hotel incident, police say",
+   "kurz": "Four Sydney Swans players had been under investigation after an alleged sexual assault after a game in Melbourne.",
+   "link": "https://www.bbc.co.uk/news/articles/ckregjwr7njqo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-13T01:03:59Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Australian footballers will not be charged after hotel incident, police say",
+     "link": "https://www.bbc.co.uk/news/articles/ckregjwr7njqo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Neither war nor peace in Tigray - is Ethiopia's latest conflict really over?",
+   "kurz": "The army has taken control of most of Tigray's main towns - it is unclear if the TPLF is capable of fighting back.",
+   "link": "https://www.bbc.co.uk/news/articles/cm3egjgvp794o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-13T00:20:24Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Neither war nor peace in Tigray - is Ethiopia's latest conflict really over?",
+     "link": "https://www.bbc.co.uk/news/articles/cm3egjgvp794o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Auch Outlook betroffen: Microsoft-Dienste weltweit mit Störungen",
+   "kurz": "Ein großflächiger Ausfall von Microsoft-Diensten, darunter Outlook: Innerhalb der Anwendungspalette des Technologiekonzerns kommt es weltweit zu Störungen. Das…",
+   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/microsoft-outlook-ausfall-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-13T00:08:03+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Auch Outlook betroffen: Microsoft-Dienste weltweit mit Störungen",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/microsoft-outlook-ausfall-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "FIFA loses bid to block UEFA evidence gathering against Infantino",
+   "kurz": "A New York judge has dismissed soccer governing body FIFA's attempts to shield its president from investigation. Europe's UEFA is seeking evidence of…",
+   "link": "https://www.dw.com/en/fifa-loses-bid-to-block-uefa-evidence-gathering-against-infantino/a-79935807?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-13T00:02:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "FIFA loses bid to block UEFA evidence gathering against Infantino",
+     "link": "https://www.dw.com/en/fifa-loses-bid-to-block-uefa-evidence-gathering-against-infantino/a-79935807?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Military cemetery decorum: The tradition behind Hegseth's Veterans Day reprimand",
+   "kurz": "BBC's Bernd Debusmann breaks down why Defence Secretary Hegseth's group was reprimanded at Arlington National Cemetery and the history behind its strict rules…",
+   "link": "https://www.bbc.co.uk/news/videos/cv5y1309dg3go?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-12T23:42:52Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Military cemetery decorum: The tradition behind Hegseth's Veterans Day reprimand",
+     "link": "https://www.bbc.co.uk/news/videos/cv5y1309dg3go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Paul Ziemiak, Fraktion CDU/CSU, zu Unmut der Union über Kompromiss für den Haushalt 2027",
+   "kurz": "Paul Ziemiak, Fraktion CDU/CSU, zu Unmut der Union über Kompromiss für den Haushalt 2027",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1682940.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-12T23:07:49+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Paul Ziemiak, Fraktion CDU/CSU, zu Unmut der Union über Kompromiss für den Haushalt 2027",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1682940.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Die Meinung von Nicole Kohnert, WDR, zu den Haushaltsverhandlungen",
+   "kurz": "Die Meinung von Nicole Kohnert, WDR, zu den Haushaltsverhandlungen",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1682936.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-12T23:07:09+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Die Meinung von Nicole Kohnert, WDR, zu den Haushaltsverhandlungen",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1682936.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Massiver Klärungsbedarf bei finalen Haushaltsberatungen 2027",
+   "kurz": "Massiver Klärungsbedarf bei finalen Haushaltsberatungen 2027",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1682928.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-12T23:05:22+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Massiver Klärungsbedarf bei finalen Haushaltsberatungen 2027",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1682928.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Bayerischer Drohnenhersteller Quantum Systems meldet Cyberangriff",
+   "kurz": "Der bayerische Rüstungskonzern Quantum Systems ist nach eigenen Angaben Opfer eines Cyberangriffs geworden. Der Vorfall fand im Oktober statt. Laut einem…",
+   "link": "https://www.tagesschau.de/inland/quantum-systems-cyberangriff-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-12T22:09:07+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Bayerischer Drohnenhersteller Quantum Systems meldet Cyberangriff",
+     "link": "https://www.tagesschau.de/inland/quantum-systems-cyberangriff-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Search for British woman missing from Tui cruise in Atlantic called off",
+   "kurz": "The 72-year-old is believed to have gone overboard from the Tui ship on Monday as it headed towards the Caribbean.",
+   "link": "https://www.bbc.co.uk/news/articles/cmy0enrkwkklo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-12T21:27:21Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Search for British woman missing from Tui cruise in Atlantic called off",
+     "link": "https://www.bbc.co.uk/news/articles/cmy0enrkwkklo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "tagesschau 20:00 Uhr",
    "kurz": "Union und SPD ringen über den Bundeshaushalt 2027, Gipfel der Europäischen Politischen Gemeinschaft in Dublin, Nvidia-Chef Huang tritt nach Spionageaffäre…",
    "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1682890.html",
@@ -623,12 +843,12 @@
    ]
   },
   {
-   "titel": "Finale Verhandlungen um Bundeshaushalt 2027",
-   "kurz": "Finale Verhandlungen um Bundeshaushalt 2027",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1682874.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T20:29:39+01:00",
+   "titel": "Is Outlook down? Widespread outage hits Microsoft email and other apps",
+   "kurz": "A widespread outage has hit Microsoft platforms including Outlook, with many users encountering trouble using their email accounts.",
+   "link": "https://www.npr.org/2026/11/12/nx-s1-6039343/is-outlook-down-widespread-outage-hits-microsoft-email-and-other-apps",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-12T20:26:24-05:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -636,56 +856,10 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Finale Verhandlungen um Bundeshaushalt 2027",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1682874.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Welche Rolle spielt Europa bei den Verhandlungen um ein Ende des Ukraine-Krieges?",
-   "kurz": "Welche Rolle spielt Europa bei den Verhandlungen um ein Ende des Ukraine-Krieges?",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1682876.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T20:29:38+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Welche Rolle spielt Europa bei den Verhandlungen um ein Ende des Ukraine-Krieges?",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1682876.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Nvidia-Chef Huang tritt wegen brisanter Liebesaffäre zurück",
-   "kurz": "Nvidia-Chef Huang tritt wegen brisanter Liebesaffäre zurück",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1682878.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T20:29:20+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Nvidia-Chef Huang tritt nach Spionageaffäre zurück",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/nvidia-huang-ruecktritt-100.html",
-     "eigentuemer": "gehört ARD",
+     "quelle": "NPR",
+     "titel": "Is Outlook down? Widespread outage hits Microsoft email and other apps",
+     "link": "https://www.npr.org/2026/11/12/nx-s1-6039343/is-outlook-down-widespread-outage-hits-microsoft-email-and-other-apps",
+     "eigentuemer": "gehört NPR",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -693,7 +867,7 @@
   },
   {
    "titel": "Zeitenwende bei Polizei und Geheimdiensten - aber wie?",
-   "kurz": "Drohnen auf Flughäfen, Cyber-Angriffe im Internet - die Sicherheitslage ist angespannt. Wie wappnet sich die Polizei? Und wie wollen Geheimdienste Gefahren aus…",
+   "kurz": "Drohnen auf Flughäfen, Cyber-Angriffe im Internet - die Sicherheitslage ist angespannt. Wie wappnet sich Deutschlands Polizei? Und wie wollen Geheimdienste…",
    "link": "https://www.dw.com/de/zeitenwende-bei-polizei-und-geheimdiensten-aber-wie/a-79934681?maca=de-rss-de-all-1119-xml-mrss",
    "quelle": "Deutsche Welle",
    "sprache": "de",
@@ -715,12 +889,12 @@
    ]
   },
   {
-   "titel": "Im Stadtteil Brooklyn: Tote und Verletzte nach Gebäudeeinsturz in New York",
-   "kurz": "Nach dem Einsturz eines mehrstöckigen Gebäudes in New York ist die Zahl der Toten auf mindestens acht gestiegen. Mehrere weitere Menschen wurden unter den…",
-   "link": "https://www.tagesschau.de/ausland/amerika/new-york-gebaeude-einsturz-104.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T19:54:49+01:00",
+   "titel": "Russian warship hit by Ukrainian drone in Gulf of Finland",
+   "kurz": "The attack is thought to be the first time Ukrainian drones have attacked a Russian ship in an open stretch of the Baltic Sea.",
+   "link": "https://www.bbc.co.uk/news/articles/cmn0d33zz34zo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-12T20:09:16Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -728,10 +902,10 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Im Stadtteil Brooklyn: Tote und Verletzte nach Gebäudeeinsturz in New York",
-     "link": "https://www.tagesschau.de/ausland/amerika/new-york-gebaeude-einsturz-104.html",
-     "eigentuemer": "gehört ARD",
+     "quelle": "BBC World",
+     "titel": "Russian warship hit by Ukrainian drone in Gulf of Finland",
+     "link": "https://www.bbc.co.uk/news/articles/cmn0d33zz34zo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -854,7 +1028,7 @@
   },
   {
    "titel": "Hegseth awards medal to war memorial guard who reprimanded him and group",
-   "kurz": "Specialist Thomas Iglesias was given a Joint Service Commendation Medal for the execution of his duties after Wednesday's incident.",
+   "kurz": "Specialist Thomas Iglesias had shouted at Hegseth's group to be quiet after they could be heard talking and laughing at the Tomb of the Unknown Soldier.",
    "link": "https://www.bbc.co.uk/news/articles/cmvg2r3dq7xno?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
@@ -870,29 +1044,6 @@
      "titel": "Hegseth and advisers reprimanded by guard at Tomb of the Unknown Soldier",
      "link": "https://www.bbc.co.uk/news/videos/ck5y132yq1ymo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "tagesschau in 100 Sekunden",
-   "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1682778.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T18:42:08+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1682778.html",
-     "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -916,6 +1067,29 @@
      "titel": "Marktbericht: Nvidia-Aktie bricht ein - und auch der DAX sackt ab",
      "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-nvidia-106.html",
      "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Cindy Holscher wins in Kansas, holding governor's office for Democrats",
+   "kurz": "Holscher, a state senator, overcame a more well-known Republican who had Trump's endorsement in the state that has gone to the GOP in most other statewide…",
+   "link": "https://www.npr.org/2026/11/12/g-s1-151239/kansas-governor-midterms-holscher-masterson",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-12T18:36:19-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "Cindy Holscher wins in Kansas, holding governor's office for Democrats",
+     "link": "https://www.npr.org/2026/11/12/g-s1-151187/holscher-kansas-masterson-governor-midterms",
+     "eigentuemer": "gehört NPR",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -962,6 +1136,29 @@
      "titel": "Czechia braces for massive protest as anger over government's public media reform plans boils",
      "link": "https://www.dw.com/en/czechia-braces-for-massive-protest-as-anger-over-government-s-public-media-reform-plans-boils/a-79933533?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Rücktritt von Nvidia-Chef Huang: Vom Sympathieträger zum Sicherheitsrisiko",
+   "kurz": "Er war nicht nur Chef, sondern auch Gesicht von Nvidia: Jensen Huang formte den Chip-Riesen maßgeblich - als \"sympathischer Tech-Bro\" mit guten Kontakten zur…",
+   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/nvidia-huang-rolle-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-12T18:20:04+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Nvidia-Chef Huang tritt nach Spionageaffäre zurück",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/nvidia-huang-ruecktritt-100.html",
+     "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -1083,29 +1280,6 @@
    ]
   },
   {
-   "titel": "What have the talks with Russia and the US in Abu Dhabi achieved for Ukraine?",
-   "kurz": "The first trilateral talks between Ukraine, the US and Russia in nine months have ended with an agreement on exchanging prisoners. Does this mark a genuine…",
-   "link": "https://www.dw.com/en/what-have-the-talks-with-russia-and-the-us-in-abu-dhabi-achieved-for-ukraine/a-79930613?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-12T16:44:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "What have the talks with Russia and the US in Abu Dhabi achieved for Ukraine?",
-     "link": "https://www.dw.com/en/what-have-the-talks-with-russia-and-the-us-in-abu-dhabi-achieved-for-ukraine/a-79930613?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Hungary eases abortion restrictions in women's rights overhaul",
    "kurz": "The reforms mark a break the the conservative policies of former PM Viktor Orban. The controversial \"heartbeat regulation\" is to be scrapped and women are to…",
    "link": "https://www.dw.com/en/hungary-eases-abortion-restrictions-in-women-s-rights-overhaul/a-79931614?maca=en-rss-en-all-1573-xml-mrss",
@@ -1153,7 +1327,7 @@
   },
   {
    "titel": "Gen-Z-Proteste: Ist die ältere Generation wirklich besser dran als junge Leute?",
-   "kurz": "Mieten, Bildung, Klimawandel: Die junge Generation geht wegen düsterer Zukunftsaussichten auf die Straße. Die Babyboomer gelten ihnen oft als Bremser von…",
+   "kurz": "Mieten, Bildung, Klimawandel: Junge Deutsche geht wegen düsterer Zukunftsaussichten auf die Straße. Die Babyboomer gelten ihnen oft als Bremser von Lösungen…",
    "link": "https://www.dw.com/de/gen-z-proteste-ist-die-ältere-generation-wirklich-besser-dran-als-junge-leute/a-79874373?maca=de-rss-de-all-1119-xml-mrss",
    "quelle": "Deutsche Welle",
    "sprache": "de",
@@ -1214,6 +1388,29 @@
      "quelle": "Tagesschau",
      "titel": "Iran-Krieg: Eisenkot ruft Netanjahu zu Zurückhaltung auf",
      "link": "https://www.tagesschau.de/ausland/asien/eisenkot-netanjahu-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Erneut Bombendrohungen gegen hunderte Schulen in Italien",
+   "kurz": "In Italien sind erneut Bombendrohungen an Schulen gesendet worden. Es sollen etwa 1.600 Einrichtungen betroffen sein. Die Regierung will Gebäude künftig nur…",
+   "link": "https://www.tagesschau.de/ausland/europa/italien-schulen-bombendrohungen-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-12T15:25:28+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Erneut Bombendrohungen gegen hunderte Schulen in Italien",
+     "link": "https://www.tagesschau.de/ausland/europa/italien-schulen-bombendrohungen-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1353,213 +1550,6 @@
      "titel": "Iran: Exiled journalists still repressed by regime",
      "link": "https://www.dw.com/en/iran-exiled-journalists-still-repressed-by-regime/a-79929694?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Democrat Scott Colom makes history as Mississippi's first black senator since 19th Century",
-   "kurz": "In a state Trump won two years ago by 22 points, Colom's victory extends a string of Democratic wins in the Senate.",
-   "link": "https://www.bbc.co.uk/news/articles/cw7vppyr80eeo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-12T14:12:55Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Before Scott Colom, these two men were the last black US senators from Mississippi",
-     "link": "https://www.bbc.co.uk/news/articles/cmde1y19g19do?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Iran: Repressionen reichen bis ins Exil",
-   "kurz": "Beschlagnahmtes Vermögen, gesperrte Bankkonten und Drohungen gegenüber Familienangehörigen: Iranische Journalistinnen und Journalisten stehen unter Druck, auch…",
-   "link": "https://www.dw.com/de/iran-repressionen-reichen-bis-ins-exil/a-79930661?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-12T14:05:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Iran: Repressionen reichen bis ins Exil",
-     "link": "https://www.dw.com/de/iran-repressionen-reichen-bis-ins-exil/a-79930661?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Eight killed in Colombian air strike targeting Gulf Clan gang",
-   "kurz": "A suspected gang leader considered a \"priority target\" was among those killed, the Colombian president says.",
-   "link": "https://www.bbc.co.uk/news/articles/crgj3v3z10dno?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-12T13:58:49Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Eight killed in Colombian air strike targeting Gulf Clan gang",
-     "link": "https://www.bbc.co.uk/news/articles/crgj3v3z10dno?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Neuausrichtung der Bundeszentrale für politische Bildung sorgt für Streit",
-   "kurz": "Die Bundeszentrale für politische Bildung ist bekannt für den Wahl-O-Mat, Bildungsveranstaltungen und Info-Broschüren. Auf Weisung des Innenministeriums…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/bundeszentrale-fuer-politische-bildung-ausrichtung-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T13:52:24+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Neuausrichtung der Bundeszentrale für politische Bildung sorgt für Streit",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/bundeszentrale-fuer-politische-bildung-ausrichtung-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Angriff auf Krankenhaus mit sechs Toten galt laut Israel Hamas",
-   "kurz": "Bei einem Angriff Israels auf eine Klinik in Gaza sind nach Behördenangaben sechs Menschen gestorben. Laut Israel nutzte die Hamas die Gebäude als Kommando-…",
-   "link": "https://www.tagesschau.de/ausland/asien/gaza-israel-angriff-krankenhaus-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T13:50:17+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Angriff auf Krankenhaus mit sechs Toten galt laut Israel Hamas",
-     "link": "https://www.tagesschau.de/ausland/asien/gaza-israel-angriff-krankenhaus-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "'Punch in the gut': Homes sales fall to their lowest in 16 years",
-   "kurz": "Existing homes sales in October declined 8.8% from a year earlier, according to the National Association of Realtors.",
-   "link": "https://www.npr.org/2026/11/12/nx-s1-6038940/punch-in-the-gut-homes-sales-fall-to-their-lowest-in-16-years",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-12T13:44:00-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "'Punch in the gut': Homes sales fall to their lowest in 16 years",
-     "link": "https://www.npr.org/2026/11/12/nx-s1-6038940/punch-in-the-gut-homes-sales-fall-to-their-lowest-in-16-years",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Polen scheitert vor EuGH mit Klagen gegen EU-Klimapaket",
-   "kurz": "Die \"Fit for 55\" genannten Klimaregeln sollen Europa bis Mitte des Jahrhunderts klimaneutral machen. Polen war gegen das Gesetzespaket aus dem Jahr 2023 mit…",
-   "link": "https://www.tagesschau.de/ausland/europa/eugh-polen-klage-eu-klimapaket-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T13:39:40+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Polen scheitert vor EuGH mit Klagen gegen EU-Klimapaket",
-     "link": "https://www.tagesschau.de/ausland/europa/eugh-polen-klage-eu-klimapaket-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Serbien gegen Deutschland: Spiel im fast leeren \"Marakana\" von Belgrad",
-   "kurz": "Wegen rassistischer Vorfälle und einer UEFA-Strafe empfängt Serbien Deutschland in der Nations League zu einem \"Geisterspiel\". Nun muss sich zeigen, ob der…",
-   "link": "https://www.dw.com/de/serbien-gegen-deutschland-spiel-im-fast-leeren-marakana-von-belgrad/a-79928801?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-12T13:38:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Serbien gegen Deutschland: Spiel im fast leeren \"Marakana\" von Belgrad",
-     "link": "https://www.dw.com/de/serbien-gegen-deutschland-spiel-im-fast-leeren-marakana-von-belgrad/a-79928801?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Warum Filme aus Südkorea in Europa und den USA so gut ankommen",
-   "kurz": "Der südkoreanische Kinomarkt ist der fünftgrößte der Welt - und die Filme aus dem Land werden meist auch in Europa oder und den USA gefeiert. Jüngstes…",
-   "link": "https://www.tagesschau.de/kultur/suedkorea-kino-erfolge-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-12T13:37:02+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Warum Filme aus Südkorea in Europa und den USA so gut ankommen",
-     "link": "https://www.tagesschau.de/kultur/suedkorea-kino-erfolge-100.html",
-     "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
