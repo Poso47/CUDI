@@ -30,7 +30,7 @@ FONTS = {"anton": "Anton-Regular.ttf", "archivo": "ArchivoBlack-Regular.ttf", "s
          "pop": "Poppins-ExtraBold.ttf", "popb": "Poppins-Bold.ttf", "sans": "Inter-SemiBold.ttf", "hand": "Caveat-Bold.ttf",
          "garamond": "EBGaramond-Medium.ttf"}
 KI_LABEL = {"de": "KI-Illustration", "en": "AI illustration"}
-CODE_LABEL = {"de": "Grafik", "en": "Graphic"}
+CODE_LABEL = {"de": "Animation", "en": "Animation"}
 
 
 @functools.lru_cache(maxsize=128)
@@ -423,6 +423,14 @@ class Scene:
         starts = align_tokens(job["text"], job["words"])
         tokens = [t.lower().strip(".,!?:;„“\"") for t in job["text"].split()]
         satz = [0.0] + [starts[i + 1] for i, tok in enumerate(job["text"].split()[:-1]) if tok[-1:] in ".!?"]
+        self.buehne = None
+        if job.get("szene"):                                  # eigene Animation: Schritte laufen zum jeweiligen Satz
+            from .zeichnen import Buehne
+
+            try:
+                self.buehne = Buehne(job["szene"], self.size, [job["lead"] + x for x in satz], self.ink, self.ak, self.seed)
+            except Exception:                                 # fehlerhafte Szene -> schlichte Grafik
+                self.buehne = None
         for i, eintrag in enumerate(self.pics):               # Bild i beginnt mit „seinem“ Satz (bei weniger Bildern: gleichmäßig verteilt)
             k = min(len(satz) - 1, i * len(satz) // max(1, len(self.pics)))
             eintrag["start"] = 0.0 if i == 0 else job["lead"] + satz[k] - 0.12
@@ -478,6 +486,8 @@ class Scene:
         step = stil.get("schritt") or 0
         tq = math.floor(t * step) / step if step else t
         pq = clamp(tq / max(self.dur, .1))
+        if self.buehne is not None:
+            return self.buehne.bild(t)
         if self.pic is None:
             art = stil["id"] if stil["modus"] == "code" else "motiongraphics"
             return code_visual(art, size, clamp(t / min(self.dur, 3.2)), t, self.ink, self.ak, self.seed % 7,
@@ -659,7 +669,7 @@ def build_jobs(script: dict, voiced: list, work: Path) -> list[dict]:
         frames = int(round((LEAD + dur + TAIL) * fps))
         jobs.append({"index": i, "id": script["id"], "typ": sz["typ"], "lang": script["sprache"], "format": script["seitenformat"],
                      "stil": script["stil"], "text": sz["text"], "words": words, "lead": LEAD, "voice_dur": dur, "frames": frames,
-                     "duration": frames / fps, "fps": fps, "voice_path": str(wav), "bild": sz.get("bild_datei"), "bildfolge": sz.get("bildfolge") or [],
+                     "duration": frames / fps, "fps": fps, "voice_path": str(wav), "bild": sz.get("bild_datei"), "bildfolge": sz.get("bildfolge") or [], "szene": sz.get("szene"),
                      "ki": bool(sz.get("ki")), "zahl": sz.get("zahl") or "", "einheit": sz.get("einheit") or "",
                      "kopf": sz.get("kopf") or "", "wort": sz.get("name") or script["titel"].split()[0],
                      "etiketten": sz.get("etiketten") or [], "station": sz.get("station") or 0, "n": n,

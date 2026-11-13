@@ -398,7 +398,7 @@ def _parse_order(raw: dict, presets: set[str]) -> dict:
             raise OrderError("Stationen: bitte eine Zahl von 3 bis 9.") from None
         if not 3 <= count <= 9:
             raise OrderError("Stationen: bitte eine Zahl von 3 bis 9.")
-        style = str(raw.get("stil") or "schaubild")
+        style = str(raw.get("stil") or "animation")
         if style != "auto" and style not in schaubild.stile():
             raise OrderError("Stil: unbekannt – bitte einen Bildstil aus der Liste oder „auto“.")
         fmt = str(raw.get("seitenformat") or "9:16")

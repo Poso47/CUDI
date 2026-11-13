@@ -26,10 +26,10 @@ def station(**kw):
 
 def test_katalog_vollstaendig():
     stile = schaubild.stile()
-    assert len(stile) == 21 and "schaubild" in stile
+    assert len(stile) == 22 and "schaubild" in stile and list(stile)[0] == "animation"
     for s in stile.values():
-        assert s["modus"] in ("bild", "code") and len(s["bg"]) == 2 and len(s["ink"]) == 2 and s["schrift"][0] in R.FONTS
-        assert s["modus"] == "code" or "no text" in s["prompt"]
+        assert s["modus"] in ("bild", "code", "szene") and len(s["bg"]) == 2 and len(s["ink"]) == 2 and s["schrift"][0] in R.FONTS
+        assert s["modus"] != "bild" or "no text" in s["prompt"]
         assert not any(w in s["beschreibung"].lower() for w in ("flüssige bewegung", "läuft", "spricht"))   # nichts versprechen
     assert {k for k, s in stile.items() if s["modus"] == "code"} == {"motiongraphics", "linien", "typografie"}
 
@@ -37,6 +37,7 @@ def test_katalog_vollstaendig():
 def test_auftrag_parsen():
     order = job.parse_order({"id": "test-t1", **{"art": "schaubild", "thema": "Wie entsteht ein Ei?", "stil": "comic", "seitenformat": "16:9"}}, set())
     assert (order["art"], order["stil"], order["seitenformat"], order["stationen"]) == ("schaubild", "comic", "16:9", 6)
+    assert job.parse_order({"id": "test-t0", "art": "schaubild", "thema": "Wie entsteht ein Ei?"}, set())["stil"] == "animation"
     for bad in ({"stil": "gibtsnicht"}, {"seitenformat": "4:3"}, {"stationen": 12}, {"thema": "x"}):
         with pytest.raises(job.OrderError):
             job.parse_order({"id": "test-t2", **{"art": "schaubild", "thema": "Wie entsteht ein Ei?", **bad}}, set())
@@ -212,3 +213,45 @@ def test_bildfolge_je_satz_und_guthaben(tmp_path, monkeypatch):
     notes: list[str] = []
     schaubild.bilder(skript, tmp_path, notes)
     assert len(calls) == 1 and any("Guthaben" in n for n in notes)
+
+
+SZENE = {"elemente": [{"id": "rohr", "art": "schlauch", "punkte": [[20, 15], [70, 30], [30, 55], [70, 80]], "breite": 14, "farbe": "gold"},
+                      {"id": "dotter", "art": "form", "form": "kreis", "farbe": "dotter", "x": 20, "y": 15, "groesse": 13},
+                      {"id": "eiklar", "art": "huelle", "um": "dotter", "groesse": 30, "farbe": "eiklar"},
+                      {"id": "kaputt", "art": "raumschiff"}, {"id": "ohneziel", "art": "schale", "um": "gibtsnicht"},
+                      {"id": "umriss", "art": "form", "pfad": "M 10 10 L 90 10 C 90 60 60 90 50 90 Q 10 90 10 10 Z", "farbe": "#3366cc", "x": 80, "y": 80, "groesse": 20}],
+         "schritte": [{"ab": 1, "nach": 0.2, "dauer": 3, "ziel": "dotter", "aktion": "bewege", "entlang": "rohr", "von": 0, "bis": 1},
+                      {"ab": 2, "nach": 0.2, "dauer": 2, "ziel": "eiklar", "aktion": "fuelle", "auf": 1},
+                      {"ab": 1, "ziel": "dotter", "aktion": "explodiere"}, {"ab": 1, "ziel": "niemand", "aktion": "wachse", "auf": 30}]}
+
+
+def test_eigene_animation_szene():
+    """Szene wird gesäubert (Unbekanntes fliegt raus) und bewegt sich zum Satz: Dotter wandert, Eiklar wächst erst im zweiten Satz."""
+    from cudi_video.schaubild import zeichnen as Z
+
+    sz = Z.pruefe_szene(SZENE)
+    assert [e["id"] for e in sz["elemente"]] == ["rohr", "dotter", "eiklar", "umriss"] and len(sz["schritte"]) == 2
+    assert Z.pruefe_szene({"elemente": [{"art": "raumschiff"}]}) is None and Z.pruefe_szene("unsinn") is None
+    assert len(Z.svg_punkte("M 0 0 L 10 0 L 10 10 Z")[0]) == 3
+    b = Z.Buehne(sz, 300, [0.5, 4.0], (250, 250, 250), (230, 160, 30))
+    anfang, ende = b.zustand(0.6)["dotter"], b.zustand(3.9)["dotter"]
+    assert (round(anfang["x"]), round(anfang["y"])) == (20, 15) and (round(ende["x"]), round(ende["y"])) == (70, 80)   # am Ende des Schlauchs
+    assert b.zustand(3.0)["eiklar"]["f"] == 0 and b.zustand(6.5)["eiklar"]["f"] == pytest.approx(1)
+    a, c = np.asarray(b.bild(1.0), dtype=np.int16), np.asarray(b.bild(6.5), dtype=np.int16)
+    assert a.shape == (300, 300, 4) and a[..., 3].max() == 255 and np.abs(a - c).mean() > 1
+
+
+def test_eigene_animation_im_video(tmp_path):
+    """Station mit Szene: das Bild kommt von der Bühne (kein Bild aus dem Netz), Kennzeichnung „Animation“."""
+    from cudi_video.schaubild import zeichnen as Z
+
+    stil = schaubild.stile()["animation"]
+    job_ = _job(stil, "9:16", "")
+    job_.update(text="Der Dotter wandert durch den Eileiter. Dort legt sich das Eiklar um ihn.", szene=Z.pruefe_szene(SZENE), duration=6.0)
+    job_["words"] = [{"text": w, "start": i * .3, "end": i * .3 + .25} for i, w in enumerate(job_["text"].split())]
+    sc = R.make_scene(job_)
+    assert sc.buehne is not None and sc.pic is None
+    f1, f2 = np.asarray(sc.frame(1.0).convert("L"), dtype=np.int16), np.asarray(sc.frame(4.5).convert("L"), dtype=np.int16)
+    assert np.abs(f1 - f2).mean() > 0.3
+    st, _ = schaubild.pruefe_station(station(szene=SZENE), QUELLE, "de")
+    assert st["szene"] and len(st["szene"]["elemente"]) == 4
