@@ -320,3 +320,24 @@ def test_abgleich_bild_text_und_nachbessern(monkeypatch):
     notes = []
     schaubild.nachbessern(stationen, "de", notes)
     assert schaubild.abgleich(stationen[0], "de") == [] and notes == []
+
+
+def test_gezeichnete_figur_huhn():
+    """Gezeichnete Figur: Ebenen werden zusammengesetzt, Anker liegen in der Figur, Unbekanntes fliegt raus, „picke“ bewegt den Kopf."""
+    from cudi_video.schaubild import zeichnen as Z
+
+    assert "huhn" in Z.figuren() and "eierstock" in Z.figuren()["huhn"]["anker"]
+    sz = Z.pruefe_szene({"elemente": [{"id": "h", "art": "figur", "figur": "huhn", "x": 50, "y": 50, "groesse": 80, "durchsichtig": True},
+                                      {"id": "x", "art": "figur", "figur": "drache"},
+                                      {"id": "d", "art": "form", "form": "kreis", "x": "h.eierstock", "y": "h.eierstock", "groesse": 6},
+                                      {"id": "f", "art": "form", "form": "kreis", "x": "h.fluegelspitze", "y": "q.kopf", "groesse": 6}],
+                         "schritte": [{"ab": 1, "nach": 1.0, "dauer": 1.0, "ziel": "h", "aktion": "picke"},
+                                      {"ab": 1, "nach": 2.5, "dauer": 1.0, "ziel": "kamera", "aktion": "zoom", "auf": 2, "punkt": "h.kopf"}]})
+    assert [e["id"] for e in sz["elemente"]] == ["h", "d", "f"]
+    assert sz["elemente"][2]["x"] == 50 and sz["elemente"][2]["y"] == 50                       # ungültige Anker -> Mitte
+    b = Z.Buehne(sz, 400, [0.0], (250, 250, 250), (230, 160, 30))
+    d = b.el["d"]
+    assert 40 < d["x"] < 60 and 40 < d["y"] < 60                                               # Eierstock liegt im Huhn
+    ruhe, pick = np.asarray(b.bild(0.5), dtype=np.int16), np.asarray(b.bild(1.5), dtype=np.int16)
+    assert ruhe[..., 3].max() == 255 and np.abs(ruhe - pick).mean() > 0.5
+    assert b.zustand(3.6)["kamera"]["f"] == pytest.approx(2)
