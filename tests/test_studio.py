@@ -134,3 +134,22 @@ def test_buendeln_zwei_sprachen_in_einer_runde(monkeypatch, tmp_path):
         zweite = json.loads(w.path.read_text("utf-8"))
     assert set(zweite["daten"]) == {"animation_fakten_de", "animation_fakten_en"}
     assert zweite["daten"]["animation_fakten_de"]["daten"]["eintraege"][0]["drehbuch"][0]["wort"] == "wandert"
+
+
+def test_app_lauf_lernt_ueber_lernstand(monkeypatch, tmp_path):
+    """App-Lauf: Lücken -> lernstand.json (Sitzung legt sie in „studio/lernstand“ ab); der nächste Lauf liest die Regeln."""
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("cudi_video.config.LLM_BASE_URL", "")
+    monkeypatch.setattr(animation, "REGELN_DATEI", tmp_path / "fehlt.json")
+    lauf = tmp_path / "auftrag-x" / "fakten"
+    lauf.mkdir(parents=True)
+    (lauf / "abgleich.json").write_text(json.dumps({"art": "fakten", "abschnitte": [
+        {"key": str(i), "maengel": ["„Eileiter“ wird gesagt, aber nicht gezeigt"]} for i in range(3)]}), "utf-8")
+    ziel = animation.lernstand_aktualisieren(tmp_path / "auftrag-x")
+    daten = json.loads(ziel.read_text("utf-8"))
+    assert daten["abschnitte_n"] == 3 and daten["regeln"]
+    ablage = tmp_path / "cudi_studio" / "studio"
+    ablage.mkdir(parents=True)
+    (ablage / "lernstand.json").write_text(json.dumps({"data": daten}), "utf-8")
+    assert any("eileiter" in r for r in animation.gelernte_regeln())
+    assert animation.lernstand_aktualisieren(tmp_path / "leer") is None

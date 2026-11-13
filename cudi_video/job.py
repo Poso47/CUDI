@@ -1142,6 +1142,13 @@ def main(args) -> int:
         target = folder / "dokument.json"
         target.write_text(json.dumps(doc, ensure_ascii=False, indent=1), "utf-8")
         print(f"DOKUMENT: {target}")
+        try:                                                # Animationsstudio lernt auch aus App-Läufen
+            from . import animation
+            lern = animation.lernstand_aktualisieren(folder)
+            if lern:
+                print(f"STUDIO: {lern}")
+        except Exception as exc:                            # noqa: BLE001 – Lernen darf nie das Ergebnis aufhalten
+            logging.getLogger(__name__).warning("Lernstand nicht aktualisiert: %s", exc)
         return 0
     if args.weiter:
         folder = job_folder(args.weiter)
