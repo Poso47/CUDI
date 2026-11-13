@@ -1,4 +1,4 @@
-"""`python -m cudi_video.firma <trends|news|welt|briefing|ideen|putzen|lernen|wissen|clipscout|messung|recherche|vorrecherche>` – führt einen Mitarbeiter einmal aus."""
+"""`python -m cudi_video.firma <trends|news|welt|briefing|ideen|putzen|lernen|wissen|clipscout|messung|recherche|vorrecherche|bildlehrer>` – führt einen Mitarbeiter einmal aus."""
 
 from __future__ import annotations
 
@@ -16,12 +16,22 @@ def main(argv: list[str]) -> int:
         from . import export
         print("firma.json", "geschrieben" if export.write() else "unverändert")
         return 0
-    names = ("trends", "news", "ideen", "putzen", "lernen", "wissen", "welt", "briefing", "clipscout", "messung", "recherche", "vorrecherche")
+    names = ("trends", "news", "ideen", "putzen", "lernen", "wissen", "welt", "briefing", "clipscout", "messung", "recherche", "vorrecherche", "bildlehrer")
     if len(argv) == 2 and argv[0] == "uploads":              # Upload-Liste ergänzen (Notbetrieb-Workflow)
         from .lernen import main_merge
         return main_merge(argv[1:])
+    if len(argv) == 2 and argv[0] == "abgleich":             # Bild-Lücken eines Laufs sammeln (Notbetrieb-Workflow)
+        from . import bildlehrer
+        try:
+            neu = json.loads(open(argv[1], encoding="utf-8").read())
+        except (OSError, ValueError):
+            print("abgleich: keine Datei")
+            return 0
+        for teil in neu if isinstance(neu, list) else [neu]:
+            print("abgleich:", bildlehrer.zusammenfuehren(teil), "Abschnitte")
+        return 0
     if len(argv) != 1 or argv[0] not in names:
-        print(f"Aufruf: python -m cudi_video.firma <{'|'.join(names)}|export> | uploads <datei>")
+        print(f"Aufruf: python -m cudi_video.firma <{'|'.join(names)}|export> | uploads <datei> | abgleich <datei>")
         return 2
     import time
     started = time.monotonic()

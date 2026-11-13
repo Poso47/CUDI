@@ -64,6 +64,10 @@ def build() -> dict:
         "putzen": {"zeit": last.get("zeit", ""), "entfernt": last.get("entfernt", {}),
                    "hinweise": [_cut(x, 160) for x in last.get("hinweise", [])[:3]]},
     }
+    bild = common.read_json("bildregeln.json", {}) or {}              # Animationsstudio (Bildlehrer)
+    data["studio"] = {"abschnitte": bild.get("abschnitte", 0), "quote": bild.get("quote"),
+                      "regeln": [{"regel": _cut(r.get("regel"), 220), "faelle": r.get("faelle", 0)} for r in (bild.get("regeln") or [])[:5]],
+                      "figur_wuensche": (bild.get("figur_wuensche") or [])[:5]}
     welt = common.read_json("welt.json", {}) or {}
     if welt.get("themen"):
         data["welt"] = {"anzahl": welt.get("anzahl", 0), "nur_ausland": welt.get("nur_ausland", 0),

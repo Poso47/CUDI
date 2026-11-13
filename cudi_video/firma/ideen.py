@@ -13,6 +13,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 
 from . import common
+from .. import videoarten
 from .common import iso, now
 
 AREAS = ("ranking", "fakten", "story", "erklaer", "reportage", "satire")
@@ -35,8 +36,9 @@ SYSTEM = (
     "über Suchbegriffe, Klickzahlen, Trends, Aufrufe oder Beliebtheit; fakten = Wissens-Fakten zu einem Thema; story = "
     "erzählte Alltagsgeschichte/Reddit-Stimmung (Thema als Stimmungsbeschreibung), NIE zu Nachrichten oder echten "
     "Personen; reportage = sachliche Nachrichtenreportage zu einer bestätigten Meldung; erklaer = ruhiges Erklärvideo, wie etwas "
-    "funktioniert oder zusammenhängt; satire = kurze, klar gekennzeichnete Satire zu einer BESTÄTIGTEN, harmlosen Nachricht "
-    "(Spott nur gegen Mächtige, Institutionen oder Absurditäten; nie zu Leid, Gewalt, Unglück, Privatpersonen oder Gruppen). "
+    "funktioniert oder zusammenhängt; satire = kurze, klar gekennzeichnete Satire zu einer BESTÄTIGTEN Nachricht über "
+    "Politiker, Regierungen, Parteien, Behörden oder Mächtige aus Wirtschaft und Gesellschaft – sonst NIE Satire (keine Erklär- "
+    "oder Wissensthemen; nie zu Leid, Gewalt, Unglück, Privatpersonen oder Gruppen). "
     "Antworte NUR mit JSON: {\"ideen\": [{\"bereich\": \"ranking|fakten|story|erklaer|reportage|satire\", "
     "\"titel\": \"Videotitel, höchstens 60 Zeichen\", \"thema\": \"Thema in einem Satz\", \"begruendung\": \"…\", "
     "\"quelle_trend\": \"exakter Name aus den Listen\"}]}"
@@ -276,6 +278,8 @@ def finish(raw: list[dict], cand: dict[str, dict], presets: dict[str, dict], use
             continue                                      # Satire steht nur auf einer bestätigten Nachricht
         if area == "satire" and cand[src].get("heikel"):
             satire_hinweis = "Satire abgelehnt (heikles Thema) – nur als Reportage."
+        elif area == "satire" and not videoarten.satire_ziel(src, titel, thema):
+            area, satire_hinweis = "reportage", "Satire nur über Politik und Mächtige – hier als Reportage."
         if cand[src].get("heikel") or area == "reportage":
             area = "reportage"                            # Leid nie als Unterhaltung – nur sachliche Reportage
         ident = "idee-" + hashlib.sha1(f"{area}|{_norm(thema)}".encode()).hexdigest()[:8]

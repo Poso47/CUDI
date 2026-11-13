@@ -5,11 +5,11 @@ jedem Agenten geladen – deshalb stehen hier nur Regeln und der Wegweiser. Deta
 
 ## Gehirn: erst nachschlagen, nicht neu suchen
 
-CUDI Video (`cudi_video/`): kostenlose Hochformat-Videos (1080×1920, DE + EN) für TikTok/Shorts. Repo `Poso47/CUDI`.
+CUDI Video (`cudi_video/`): kostenlose Hochformat-Videos (1080×1920, Deutsch; Englisch nur auf Wunsch – Start mit deutschen Videos und Streamer-Clips) für TikTok/Shorts. Repo `Poso47/CUDI`.
 
 | Thema | Datei im Gehirn | Skill |
 |---|---|---|
-| Videoarten (Ranking, Fakten, Story, Reportage, Satire, Erklär, Regie, Recherche) | `docs/gehirn/videoarten.md` | `neue-videoart`, `recherche` |
+| Videoarten (Ranking, Fakten, Story, Reportage, Satire, Erklär, Regie, Recherche), Abgrenzung, Animationsstudio | `docs/gehirn/videoarten.md` | `neue-videoart`, `recherche` |
 | CUDI-App (Artefakt), Cloud-Auftrag, Tabs, 3D-Büro | `docs/gehirn/app.md` | `app-artefakt`, `cloud-probelauf` |
 | Notbetrieb ohne Claude (GitHub-Issue) | `docs/gehirn/notbetrieb.md` | `notbetrieb` |
 | Upload, Betonung, Endkontrolle, Wahrheit, Musik | `docs/gehirn/qualitaet.md` | – |

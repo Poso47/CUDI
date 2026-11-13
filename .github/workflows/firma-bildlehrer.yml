@@ -1,0 +1,35 @@
+# Firma-Mitarbeiter „Bildlehrer“ (Lehrer des Animationsstudios, wöchentlich, kostenlos, kein Claude-Verbrauch):
+# liest firma_daten/abgleich.json (Bild-Lücken der Läufe) und schreibt firma_daten/bildregeln.json (Regeln + Figurwünsche).
+name: Firma · Bildlehrer
+
+on:
+  schedule:
+    - cron: "17 5 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  bildlehrer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python-Pakete
+        run: pip install requests pyyaml
+      - name: Bildlehrer arbeitet
+        env:
+          CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
+          CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+          CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+        run: python -m cudi_video.firma bildlehrer
+      - name: Ergebnis sichern
+        run: bash scripts/firma_commit.sh "Bildlehrer"

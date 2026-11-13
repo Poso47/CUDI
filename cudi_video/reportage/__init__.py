@@ -390,6 +390,10 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
     (out / "review.md").write_text(pruefbericht(thema, quellen, saetze, rejected, notes, modus, ab), "utf-8")
     if not ab["ok"]:
         raise ReportageError("Endabnahme nicht bestanden: " + "; ".join(ab["gruende"]))
+    from .. import animation
+
+    progress("Animation planen", 0.28)
+    animation.an_skript(skript, out, "reportage", notes)                       # jede Szene: eigene Animation, 1:1 zum Text
     progress("Video rendern", 0.3)
     result = render_erklaerung(skript, out, progress=lambda f: progress("Video rendern", 0.3 + 0.65 * f), musik=False)
     files = {"video": result["video"], "cover": result["cover"], "duration": result["duration"], "qa": result.get("qa"),

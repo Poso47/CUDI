@@ -702,6 +702,12 @@ class ErklaerScene(Scene):
         self.label = M.caps_layer(self.visual["label"], 22, 5.5, underline=True) if self.visual.get("label") else None
         self.quote = self._quote() if self.kind == "zitatkarte" else None
         self.build = max(2.0, 0.6 * (job["lead"] + job["voice_dur"]))
+        self.anim = None
+        if sz.get("animation"):                               # eigene Animation (animation.py) statt Linien-Grafik
+            from ..animation import Bild
+
+            self.anim = Bild(sz["animation"], sz["text"], job["words"], job["lead"], M.INK, (214, 162, 84),
+                             job.get("index", 0))
 
     def _quote(self):
         v = self.visual
@@ -732,6 +738,10 @@ class ErklaerScene(Scene):
                 paste(f, q["pill"], ((W - q["pill"].width) / 2, 1056), opacity=fade * progress(t, 1.3, 0.7))
             if q["by"] is not None:
                 paste(f, q["by"], ((W - q["by"].width) / 2, 1118), opacity=fade * progress(t, 1.6, 0.7))
+            return f
+        if self.anim is not None:
+            shift = max(0, min(170, top + self.sentence.height + 40 - (M.CY - 400)))
+            paste(f, self.anim.bild(t, ART), (W / 2 - ART / 2, M.CY - ART / 2 + shift), opacity=fade)
             return f
         if self.kind in DECOR:
             paste(f, decor_layer(), (0, 0), opacity=fade * clamp(t / 0.8))

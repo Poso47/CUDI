@@ -250,7 +250,21 @@ def cmd_run() -> int:
     if records:
         from cudi_video import config
         (config.OUTPUT_DIR / "uploads_neu.json").write_text(json.dumps(records, ensure_ascii=False), "utf-8")
+    sammle_abgleich()
     return code
+
+
+def sammle_abgleich() -> None:
+    """Bild-Lücken der Läufe (abgleich.json je Auftrag) für den Bildlehrer bündeln -> video_output/abgleich_neu.json."""
+    from cudi_video import config
+    teile = []
+    for datei in sorted(config.OUTPUT_DIR.glob("auftrag-*/abgleich.json")):
+        try:
+            teile.append(json.loads(datei.read_text("utf-8")))
+        except (OSError, ValueError):
+            continue
+    if teile:
+        (config.OUTPUT_DIR / "abgleich_neu.json").write_text(json.dumps(teile, ensure_ascii=False), "utf-8")
 
 
 def cmd_melden() -> int:

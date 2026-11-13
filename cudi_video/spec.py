@@ -44,7 +44,7 @@ class VideoSpec:
     title: dict[str, str]
     source: WikidataSource
     count: int = 10
-    langs: list[str] = field(default_factory=lambda: ["de", "en"])
+    langs: list[str] = field(default_factory=lambda: ["de"])
     value_label: dict[str, str] = field(default_factory=dict)  # "Höhe" / "Height"
     unit: str | None = None                    # Anzeige-Einheit erzwingen: m, km, km2, t, ...
     target_seconds: int = 170                  # Zielänge (YouTube Shorts: max. 180 s)

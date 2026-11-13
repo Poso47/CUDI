@@ -101,7 +101,7 @@ def build_order(fields: dict[str, str], known_presets: set[str]) -> tuple[str, d
             if preset not in known_presets:
                 raise ValueError(f"Die Vorlage „{fields.get('vorlage')}“ gibt es nicht. "
                                  f"Möglich: {', '.join(sorted(known_presets))}.")
-        langs = [l for l in ("de", "en") if l in re.split(r"[^a-z]+", _norm(fields.get("sprachen", "de en")))]
+        langs = [l for l in ("de", "en") if l in re.split(r"[^a-z]+", _norm(fields.get("sprachen", "de")))]
         if not langs:
             raise ValueError("Bitte mindestens eine Sprache angeben (de, en).")
         try:
