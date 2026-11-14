@@ -42,9 +42,17 @@ ANKER = re.compile(r"^([a-z0-9_]{1,20})\.([a-z_]{2,20})$")
 
 
 @functools.lru_cache(maxsize=16)
+def figur_name(name: str) -> str:
+    """Ordnername einer Figur: klein, Umlaute ausgeschrieben („Blüte“ -> „bluete“)."""
+    n = str(name or "").strip().lower()
+    for a, b in (("ä", "ae"), ("ö", "oe"), ("ü", "ue"), ("ß", "ss")):
+        n = n.replace(a, b)
+    return re.sub(r"[^a-z0-9_]", "", n)
+
+
 def figur_info(name: str) -> dict | None:
     """Gezeichnete Figur (Ebenen-PNGs + figur.json aus data/figuren/<name>/) oder None."""
-    pfad = FIGUREN / re.sub(r"[^a-z0-9_]", "", name) / "figur.json"
+    pfad = FIGUREN / figur_name(name) / "figur.json"
     if not pfad.exists():
         return None
     import json
@@ -212,12 +220,23 @@ def glanzform(form: str, pfad: str, px: int, rgb: tuple, alpha: float = 1.0, rot
 
 # --------------------------------------------------------------------------- Prüfen
 
+MAX_BESCHRIFTUNGEN = 6
+
+
 def beschriftungen_pruefen(szene: dict | None, text: str) -> dict | None:
     """Beschriftungen dürfen nur Wörter zeigen, die im gesprochenen (geprüften) Text vorkommen – sonst fliegen sie raus."""
     if not szene:
         return szene
     low = re.sub(r"\s+", " ", text.lower())
     szene["elemente"] = [e for e in szene["elemente"] if e["art"] != "beschriftung" or e["text"].lower() in low]
+    from . import _wort, hauptwoerter                          # Deutsch: Beschriftungen nur an Dingen (Hauptwörtern), nie an Füllwörtern
+    deutsch = re.search(r"\b(der|die|das|und|ist|wird|ein|eine)\b", low) is not None
+    if deutsch:
+        dinge = set(hauptwoerter(text))
+        szene["elemente"] = [e for e in szene["elemente"] if e["art"] != "beschriftung"
+                             or (e["text"][:1].isupper() and _wort(e["text"].split()[0]) in dinge)]
+    labels = [e for e in szene["elemente"] if e["art"] == "beschriftung"][MAX_BESCHRIFTUNGEN:]
+    szene["elemente"] = [e for e in szene["elemente"] if e not in labels]   # höchstens MAX_BESCHRIFTUNGEN je Szene
     return szene
 
 
@@ -316,7 +335,7 @@ def pruefe_szene(roh) -> dict | None:
         if e.get("bei"):
             neu["bei"] = str(e["bei"])[:30]
         if e["art"] == "figur":
-            neu["figur"] = str(e["figur"])
+            neu["figur"] = figur_name(e["figur"])
             neu["durchsichtig"] = bool(e.get("durchsichtig"))
             neu["blick"] = -1 if e.get("blick") == "links" else 1
         if e["art"] == "traube":
