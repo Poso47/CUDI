@@ -212,7 +212,8 @@ def pruefe_station(st: dict, quellen: list[dict], lang: str) -> tuple[dict | Non
 SATZANFANG = {"wie", "was", "warum", "wieso", "weshalb", "wer", "wo", "wann", "welche", "welcher", "welches", "woher", "wohin", "der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer", "hier", "dort", "danach", "dann", "im", "in",
               "am", "an", "auf", "wenn", "und", "oder", "aber", "es", "sie", "er", "so", "zuerst", "zuletzt", "erst", "nun", "jetzt", "dabei",
               "damit", "dazu", "alles", "alle", "jede", "jeder", "jedes", "diese", "dieser", "dieses", "nach", "vor", "mit", "bei", "aus", "von",
-              "zum", "zur", "für", "ohne", "weil", "während", "sobald", "dadurch", "daher", "deshalb", "außerdem", "schließlich", "anschließend"}
+              "zum", "zur", "für", "ohne", "weil", "während", "sobald", "dadurch", "daher", "deshalb", "außerdem", "schließlich", "anschließend",
+              "schon", "auch", "noch", "nur", "sogar", "bereits", "immer", "oft", "meist", "manchmal", "genau", "ganz", "viele", "einige"}
 
 
 def _wort(w: str) -> str:

@@ -259,6 +259,11 @@ def _glas_und_kaestchen(szene: dict, text: str) -> None:
     Beschriftung wandert ans Glas."""
     werte = [float(w.replace(",", ".")) for w in PROZENT.findall(text)]
     glaeser = [e for e in szene["elemente"] if ist_glas(e)]
+    if werte and not glaeser:                                  # Anteil genannt, aber nur ein flacher Kasten: der größte wird das Messglas
+        kaesten = sorted((e for e in szene["elemente"] if e["art"] == "form" and e.get("form") == "quadrat"), key=lambda e: -e["groesse"])
+        if kaesten:
+            kaesten[0]["streckung"] = 1.6
+            glaeser = [kaesten[0]]
     for e in glaeser:
         if werte and 0 <= werte[-1] <= 100:
             e["prozent"] = werte[-1] / 100
