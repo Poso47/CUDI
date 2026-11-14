@@ -742,14 +742,21 @@ class Buehne:
         dx, dy = {"rechts": (1, -.35), "links": (-1, -.35), "oben": (0, -1), "unten": (0, 1)}[seite]
         ax, ay = ((zx + dx * radius) * k - ox) * f, ((zy + dy * radius) * k - oy) * f       # Punkt am Rand des Teils (nach der Kamera)
         ax, ay = clamp(ax, 8, n - 8), clamp(ay, 8, n - 8)
-        px = ax + dx * n * .05 - (pille.width if dx < 0 else pille.width / 2 if dx == 0 else 0)
-        py = ay + dy * n * .05 - pille.height / 2
-        px, py = clamp(px, 4, n - pille.width - 4), clamp(py, 4, n - pille.height - 4)
-        for _ in range(8):                                     # nicht auf eine andere Beschriftung setzen
-            if not any(px < bx + bw and bx < px + pille.width and py < by + bh and by < py + pille.height for bx, by, bw, bh in belegt):
-                break
-            py = py + pille.height + 4 if py + 2 * pille.height + 8 < n else py - 3 * (pille.height + 4)
-        belegt.append((px, py, pille.width, pille.height))
+        pw, ph, rand = pille.width, pille.height, max(6, int(n * .012))
+
+        def stelle(sdx, sdy, stufe):                           # Kandidat: Seite + Stufe (versetzt nach oben/unten)
+            x = ax + sdx * n * .05 - (pw if sdx < 0 else pw / 2 if sdx == 0 else 0)
+            y = ay + sdy * n * .05 - ph / 2 + stufe * (ph + rand)
+            return clamp(x, 4, n - pw - 4), clamp(y, 4, n - ph - 4)
+
+        def frei(x, y):                                        # mit Abstand zu allen schon gesetzten Beschriftungen
+            return not any(x < bx + bw + rand and bx < x + pw + rand and y < by + bh + rand and by < y + ph + rand
+                           for bx, by, bw, bh in belegt)
+
+        seiten = [(dx, dy), (-dx if dx else 1, dy), (0, -1), (0, 1)]
+        kandidaten = [stelle(sx, sy, st) for st in (0, 1, -1, 2, -2, 3, -3) for sx, sy in seiten]
+        px, py = next((c for c in kandidaten if frei(*c)), kandidaten[0])       # Beschriftungen entzerrt: nie übereinander
+        belegt.append((px, py, pw, ph))
         d = ImageDraw.Draw(im)
         ende = (clamp(ax, px, px + pille.width), py + pille.height / 2)
         d.line((ax, ay, ende[0], ende[1]), fill=self.ak + (int(235 * sichtbar),), width=max(2, int(n * .004)))

@@ -75,4 +75,4 @@ Einbau: Fakten `pipeline.run` → `animation_<lang>.json` → `ItemScene` (Karte
 `sz["animation"]` → `ErklaerScene`; Satire → Fakt-/Satire-Szene unter dem Text. Lücken je Lauf `abgleich.json` + Prüfbericht.
 Storyboard gleich mit dem Text (`storyboard_zusatz` in Erklär/Reportage, `storyboard_liste_zusatz` in Satire, `vorab` an `szenen_schreiben`) spart eine Schreibrunde; zu dünn → eigene Storyboard-Runde.
 Sammeln: nur Notbetrieb-Läufe (`sammle_abgleich` → Artefakt → Job `liste` → `firma abgleich`); App-Läufe committen nie.
-Büro: Abteilung „Animationsstudio“ mit 6 Onkels (Export-Feld `studio`). Neue Figur: Agent `figuren-zeichner`.
+Büro: Abteilung „Animationsstudio“ mit 6 Onkels (Export-Feld `studio`). Figuren: huhn, biene, bluete (`scripts/figuren/*_svg.py` → PNG per `svg_zu_png.js`); neue Figur: Agent `figuren-zeichner`. Beschriftungen: Kandidaten-Suche mit Abstand (`_beschrifte`), nie übereinander.
