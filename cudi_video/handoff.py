@@ -113,17 +113,61 @@ def request(task: str, instructions: str, data: dict):
         return _llm_cached(task, instructions, data)
     path = task_file(task)
     if path.exists():
-        try:
-            answer = json.loads(path.read_text("utf-8")).get("antwort")
-        except (OSError, ValueError, AttributeError):
+        answer = _read_answer(path)
+        if answer is _BROKEN:                                 # Datei beim Beantworten zerstört: einmal neu stellen statt aufgeben
+            if _restore(path):
+                raise WritingNeeded(path)
             return None
         return answer if answer not in ("", [], {}) else None
     prefs = preferences()
     if prefs:
         instructions, data = instructions + PREFS_NOTE, {**data, "vorlieben": prefs}
-    path.write_text(json.dumps({"aufgabe": task, "anleitung": instructions, "daten": data, "antwort": None},
-                               ensure_ascii=False, indent=1), "utf-8")
+    text = json.dumps({"aufgabe": task, "anleitung": instructions, "daten": data, "antwort": None}, ensure_ascii=False, indent=1)
+    path.write_text(text, "utf-8")
+    try:
+        _backup(path).write_text(text, "utf-8")               # Sicherung der Aufgabe für eine zweite Runde
+    except OSError:
+        pass
     raise WritingNeeded(path)
+
+
+_BROKEN = object()
+RETRY_NOTE = (" ACHTUNG – ZWEITER VERSUCH: Deine letzte Antwort hat diese Datei unlesbar gemacht (kein gültiges JSON). Schreibe die "
+              "Datei als GANZES neu und gültig: Anführungszeichen in Texten mit \\\" schützen, keine Zeilenumbrüche in Zeichenketten, "
+              "kein Komma nach dem letzten Eintrag. Prüfe sie danach mit python3 -c \"import json,sys; json.load(open(sys.argv[1]))\" <datei>.")
+
+
+def _backup(path: Path) -> Path:
+    return path.with_name(path.name + ".aufgabe")
+
+
+def _read_answer(path: Path):
+    """Antwort aus der Aufgabendatei. Eine Antwort als JSON-Text (statt Objekt) wird gelesen; kaputte Datei -> _BROKEN."""
+    try:
+        answer = json.loads(path.read_text("utf-8")).get("antwort")
+    except (OSError, ValueError, AttributeError):
+        return _BROKEN
+    if isinstance(answer, str) and answer.strip()[:1] in "{[":
+        try:
+            answer = json.loads(answer)
+        except ValueError:
+            pass
+    return answer
+
+
+def _restore(path: Path) -> bool:
+    """Kaputte Aufgabendatei einmal aus der Sicherung neu stellen (mit Hinweis). False = schon versucht / keine Sicherung."""
+    backup, mark = _backup(path), path.with_name(path.name + ".wiederholt")
+    if mark.exists() or not backup.exists():
+        return False
+    try:
+        task = json.loads(backup.read_text("utf-8"))
+        task["anleitung"] = str(task.get("anleitung") or "") + RETRY_NOTE
+        path.write_text(json.dumps(task, ensure_ascii=False, indent=1), "utf-8")
+        mark.write_text("1", "utf-8")
+    except (OSError, ValueError):
+        return False
+    return True
 
 
 BUNDLE_NOTE = ("Dies ist ein BÜNDEL aus {n} voneinander unabhängigen Schreibaufgaben ({names}) in einer Datei – jede Runde kostet "
