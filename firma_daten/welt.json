@@ -1,138 +1,51 @@
 {
- "erzeugt": "2026-11-14T06:48:22Z",
- "anzahl": 20,
- "nur_ausland": 1,
+ "erzeugt": "2026-11-14T18:21:30Z",
+ "anzahl": 13,
+ "nur_ausland": 0,
  "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+  "GDELT: keine Daten erhalten"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
-   "kurz": "German reforms mean foreign and domestic intelligence services will have greater powers to combat espionage, terrorism and sabotage.",
-   "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-14T04:41:11Z",
-   "ausland_quellen": 2,
-   "laender": [
-    "Großbritannien",
-    "Katar"
-   ],
-   "laender_einig": [
-    "Großbritannien",
-    "Katar"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland"
-   ],
-   "zusammenfassung": [
-    "BBC Europe (Großbritannien): German spies handed new powers to tackle 'hybrid threats' from abroad",
-    "Al Jazeera (Katar): German spies granted sweeping new powers"
-   ],
-   "staatsnah": [
-    "Al Jazeera"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": true,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
-     "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "German spies granted sweeping new powers",
-     "link": "https://www.aljazeera.com/news/2026/11/14/german-spies-granted-sweeping-new-powers?traffic_source=rss",
-     "eigentuemer": "staatlich (Katar)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Rusia lucha por imponer su sueño de vetar la presencia militar de la OTAN en Europa del este",
-   "kurz": "Moscú exige que la Alianza repliegue su infraestructura defensiva a Alemania y que el Kremlin tenga la última palabra en las garantías ofrecidas a los países…",
-   "link": "https://elpais.com/internacional/2026-11-14/rusia-lucha-por-imponer-su-sueno-de-vetar-la-presencia-militar-de-la-otan-en-europa-del-este.html",
-   "sprache": "es",
-   "zeit": "2026-11-14T04:40:00Z",
+   "titel": "Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger",
+   "kurz": "Der 55-jährige Vize-Ministerpräsident von Bayern war am Mittwoch vergangener Woche tot in seinem Hotelzimmer in Berlin entdeckt worden",
+   "link": "https://www.derstandard.at/story/3000000349235/gro223e-anteilnahme-an-trauerfeier-f252r-hubert-aiwanger-in-m252nchen?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-14T12:42:04Z",
    "ausland_quellen": 1,
    "laender": [
-    "Spanien"
+    "Österreich"
    ],
    "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Rusia lucha por imponer su sueño de vetar la presencia militar de la OTAN en Europa del este"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Rusia lucha por imponer su sueño de vetar la presencia militar de la OTAN en Europa del este",
-     "link": "https://elpais.com/internacional/2026-11-14/rusia-lucha-por-imponer-su-sueno-de-vetar-la-presencia-militar-de-la-otan-en-europa-del-este.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "El patito con fusil que divide Alemania: la tienda de recuerdos de las Fuerzas Armadas se convierte en un éxito y una polémica",
-   "kurz": "El local oficial de la Bundeswehr alemana se queda sin existencias horas después de abrir y provoca acusaciones de trivializar la guerra para mejorar la imagen…",
-   "link": "https://elpais.com/internacional/2026-11-14/el-patito-con-fusil-que-divide-alemania-la-tienda-de-recuerdos-de-las-fuerzas-armadas-se-convierte-en-un-exito-y-una-polemica.html",
-   "sprache": "es",
-   "zeit": "2026-11-14T04:30:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
+    "Österreich"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "El País (Spanien): El patito con fusil que divide Alemania: la tienda de recuerdos de las Fuerzas Armadas se convierte en un éxito y una polémica"
+    "Der Standard (Österreich): Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Astrid Halder, BR, zum Trauerakt für Hubert Aiwanger",
+     "link": "https://www.tagesschau.de/video/video-1683664.html"
+    }
+   ],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "El País",
-     "land": "Spanien",
+     "quelle": "Der Standard",
+     "land": "Österreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "El patito con fusil que divide Alemania: la tienda de recuerdos de las Fuerzas Armadas se convierte en un éxito y una polémica",
-     "link": "https://elpais.com/internacional/2026-11-14/el-patito-con-fusil-que-divide-alemania-la-tienda-de-recuerdos-de-las-fuerzas-armadas-se-convierte-en-un-exito-y-una-polemica.html",
-     "eigentuemer": "gehört PRISA",
+     "titel": "Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger",
+     "link": "https://www.derstandard.at/story/3000000349235/gro223e-anteilnahme-an-trauerfeier-f252r-hubert-aiwanger-in-m252nchen?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -140,7 +53,7 @@
   {
    "titel": "DER ANDERE BLICK MIT DATEN - Ausländer sind Treiber der Altersarmut in Deutschland",
    "kurz": "Die Zahl der Ausländer im Rentenalter, die auf staatliche Hilfe angewiesen sind, hat einen Rekord erreicht. In Zukunft könnte das Problem sogar noch grösser…",
-   "link": "https://www.nzz.ch/der-andere-blick/altersarmut-immer-mehr-ukrainische-fluechtlinge-bekommen-sozialhilfe-ld.10063404",
+   "link": "https://www.nzz.ch/der-andere-blick/auslaender-sind-treiber-der-altersarmut-in-deutschland-ld.10063404",
    "sprache": "de",
    "zeit": "2026-11-14T04:30:00Z",
    "ausland_quellen": 1,
@@ -168,53 +81,8 @@
      "art": "privat",
      "beteiligt": false,
      "titel": "DER ANDERE BLICK MIT DATEN - Ausländer sind Treiber der Altersarmut in Deutschland",
-     "link": "https://www.nzz.ch/der-andere-blick/altersarmut-immer-mehr-ukrainische-fluechtlinge-bekommen-sozialhilfe-ld.10063404",
+     "link": "https://www.nzz.ch/der-andere-blick/auslaender-sind-treiber-der-altersarmut-in-deutschland-ld.10063404",
      "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Niederlande fertigen Griechenland mit 7:0 ab, auch Deutschland siegt in Nations League",
-   "kurz": "Die Klopp-Mannschaft setzte sich in Serbien durch. Tijjani Reijnders erzielte einen Hattrick für Oranje, das nun nach Berlin reist. Die Schweiz ist in Liga A…",
-   "link": "https://www.derstandard.at/story/3000000349204/niederlande-fertigen-griechenland-mit-70-ab-auch-deutschland-siegt-in-nations-league?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-13T22:01:49Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Schweiz"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Niederlande fertigen Griechenland mit 7:0 ab, auch Deutschland siegt in Nations League"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "DFB-Team sichert sich gegen Serbien sein Endspiel gegen Niederlande",
-     "link": "https://www.sportschau.de/fussball/nationalmannschaft/dfb-team-sichert-sich-sein-endspiel-gegen-niederlande,serbien-deutschland-spielbericht-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Niederlande fertigen Griechenland mit 7:0 ab, auch Deutschland siegt in Nations League",
-     "link": "https://www.derstandard.at/story/3000000349204/niederlande-fertigen-griechenland-mit-70-ab-auch-deutschland-siegt-in-nations-league?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -297,6 +165,43 @@
    ]
   },
   {
+   "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
+   "kurz": "German reforms mean foreign and domestic intelligence services will have greater powers to combat espionage, terrorism and sabotage.",
+   "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
+   "sprache": "en",
+   "zeit": "2026-11-13T15:42:52Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "BBC Europe (Großbritannien): German spies handed new powers to tackle 'hybrid threats' from abroad"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
+     "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "El Parlamento alemán da el último paso para aprobar el mayor presupuesto de la historia del país",
    "kurz": "Las cuentas públicas, que se aprobarán definitivamente a finales de mes, dan prioridad a las políticas de Trabajo y de Defensa",
    "link": "https://elpais.com/economia/2026-11-13/el-parlamento-aleman-da-el-ultimo-paso-para-aprobar-el-mayor-presupuesto-de-la-historia-del-pais.html",
@@ -334,164 +239,6 @@
    ]
   },
   {
-   "titel": "Germany releases extra $221M for Ukraine winter aid",
-   "kurz": "Berlin frees additional funds to help Ukraine keep power, heat and water running amid intensifying Russian strikes",
-   "link": "https://www.aa.com.tr/en/europe/germany-releases-extra-221m-for-ukraine-winter-aid/4123972",
-   "sprache": "en",
-   "zeit": "2026-11-13T14:05:57+03:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Türkei"
-   ],
-   "laender_einig": [
-    "Türkei"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Anadolu (Türkei): Germany releases extra $221M for Ukraine winter aid"
-   ],
-   "staatsnah": [
-    "Anadolu"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Anadolu",
-     "land": "Türkei",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Germany releases extra $221M for Ukraine winter aid",
-     "link": "https://www.aa.com.tr/en/europe/germany-releases-extra-221m-for-ukraine-winter-aid/4123972",
-     "eigentuemer": "staatlich (Türkei)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Issa Remmo besucht Veranstaltung im Europaparlament und sorgt für Aufregung",
-   "kurz": "Auf Einladung eines konservativen EVP-Politikers war ein Mitglied der Berliner Großfamilie Remmo in Brüssel zu Gast. Die EVP distanziert sich",
-   "link": "https://www.derstandard.at/story/3000000349171/issa-remmo-besucht-veranstaltung-im-europaparlament-und-sorgt-fuer-aufregung?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-13T13:50:58Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Issa Remmo besucht Veranstaltung im Europaparlament und sorgt für Aufregung"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Issa Remmo besucht Veranstaltung im Europaparlament und sorgt für Aufregung",
-     "link": "https://www.derstandard.at/story/3000000349171/issa-remmo-besucht-veranstaltung-im-europaparlament-und-sorgt-fuer-aufregung?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Russia demands Finland leave NATO in Abu Dhabi talks: Report",
-   "kurz": "German daily Bild reports Russia’s proposal to end war in Ukraine carries far-reaching demands from Europe, including ban on NATO military bases in Baltic…",
-   "link": "https://www.aa.com.tr/en/world/russia-demands-finland-leave-nato-in-abu-dhabi-talks-report/4123836",
-   "sprache": "en",
-   "zeit": "2026-11-13T12:27:19+03:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Türkei"
-   ],
-   "laender_einig": [
-    "Türkei"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Anadolu (Türkei): Russia demands Finland leave NATO in Abu Dhabi talks: Report"
-   ],
-   "staatsnah": [
-    "Anadolu"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Anadolu",
-     "land": "Türkei",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Russia demands Finland leave NATO in Abu Dhabi talks: Report",
-     "link": "https://www.aa.com.tr/en/world/russia-demands-finland-leave-nato-in-abu-dhabi-talks-report/4123836",
-     "eigentuemer": "staatlich (Türkei)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Merz scheitert mit seinem Wunsch nach Senkung der Stromsteuer an der SPD",
-   "kurz": "Die deutsche Koalition hat sich auf den Haushalt für 2027 geeinigt. Aber Kanzler Friedrich Merz kann sich mit Entlastungen nicht durchsetzen",
-   "link": "https://www.derstandard.at/story/3000000349074/merz-scheitert-mit-seinem-wunsch-nach-senkung-der-stromsteuer-an-der-spd?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-13T11:21:45Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Merz scheitert mit seinem Wunsch nach Senkung der Stromsteuer an der SPD"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Merz scheitert mit seinem Wunsch nach Senkung der Stromsteuer an der SPD",
-     "link": "https://www.derstandard.at/story/3000000349074/merz-scheitert-mit-seinem-wunsch-nach-senkung-der-stromsteuer-an-der-spd?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden",
    "kurz": "Angreifer haben eine manipulierte Update-Datei auf einem Server des Unternehmens platziert",
    "link": "https://www.derstandard.at/story/3000000349069/cyberangriff-auf-drohnenhersteller-bundeswehr-laesst-flotte-von-quantum-systems-am-boden?ref=rss",
@@ -510,13 +257,7 @@
     "Der Standard (Österreich): Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Cyberangriff auf Quantum Systems: Wie wurde der Drohnenhersteller zum Ziel?",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/quantum-systems-cyberangriff-102.html"
-    }
-   ],
+   "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -609,58 +350,11 @@
    ]
   },
   {
-   "titel": "Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine",
-   "kurz": "Die USA wollen die Europäer mit Putin an einen Tisch bringen. Merz ist bereit, aber die EU-Partner sind uneins beim Kurs zu Russland und wer sie vertreten soll",
-   "link": "https://www.derstandard.at/story/3000000348678/europaeer-schimpfen-gern-ueber-putin-und-trump-sind-aber-selbst-auf-ukrainegespraeche-nicht-vorbereitet-und-zerstritten?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-12T15:51:54Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "USA",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Ukraine und Russland greifen sich trotz Verhandlungen weiter an",
-     "link": "https://www.tagesschau.de/ausland/europa/ukraine-russland-krieg-angriffe-autobomben-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine",
-     "link": "https://www.derstandard.at/story/3000000348678/europaeer-schimpfen-gern-ueber-putin-und-trump-sind-aber-selbst-auf-ukrainegespraeche-nicht-vorbereitet-und-zerstritten?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "“Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado",
    "kurz": "Estuvieron cinco décadas juntos y fueron una de las parejas más emblemáticas del teatro argentino; cómo ensamblaron sus vidas para poder compartir su alegría",
    "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
    "sprache": "es",
-   "zeit": "2026-11-13T23:44:59Z",
+   "zeit": "2026-11-14T18:12:28Z",
    "ausland_quellen": 1,
    "laender": [
     "Argentinien"
@@ -734,7 +428,7 @@
    ]
   },
   {
-   "titel": "Deutschland: Zustimmung zur Demokratie auf niedrigsten Niveau",
+   "titel": "Deutschland: \"Zustimmung zur Demokratie auf dem niedrigsten Niveau\"",
    "kurz": "Zukunftsangst erzeugt Vertrauensverlust. Wie sieht es in Österreich aus?",
    "link": "https://www.derstandard.at/story/3000000349027/deutschland-zustimmung-zur-demokratie-auf-niedrigsten-niveau?ref=rss",
    "sprache": "de",
@@ -749,7 +443,7 @@
     "Österreich"
    ],
    "zusammenfassung": [
-    "Der Standard (Österreich): Deutschland: Zustimmung zur Demokratie auf niedrigsten Niveau"
+    "Der Standard (Österreich): Deutschland: \"Zustimmung zur Demokratie auf dem niedrigsten Niveau\""
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -763,7 +457,7 @@
      "land": "Österreich",
      "art": "privat",
      "beteiligt": true,
-     "titel": "Deutschland: Zustimmung zur Demokratie auf niedrigsten Niveau",
+     "titel": "Deutschland: \"Zustimmung zur Demokratie auf dem niedrigsten Niveau\"",
      "link": "https://www.derstandard.at/story/3000000349027/deutschland-zustimmung-zur-demokratie-auf-niedrigsten-niveau?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
@@ -812,7 +506,66 @@
    ]
   }
  ],
- "verbindungen": [],
+ "verbindungen": [
+  {
+   "name": "Hubert Aiwanger",
+   "wikidata": "https://www.wikidata.org/wiki/Q1633044",
+   "beschreibung": "German politician (1971–2026)",
+   "verbindungen": [
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bayerischen Landtags",
+     "link": "https://www.wikidata.org/wiki/Q17586301",
+     "beendet": "2013"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bayerischen Landtags",
+     "link": "https://www.wikidata.org/wiki/Q17586301",
+     "beendet": "2018"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bayerischen Landtags",
+     "link": "https://www.wikidata.org/wiki/Q17586301",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Bayerischer Staatsminister für Wirtschaft, Landesentwicklung und Energie",
+     "link": "https://www.wikidata.org/wiki/Q65350985",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bundesrates",
+     "link": "https://www.wikidata.org/wiki/Q15835370",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Gemeinderats",
+     "link": "https://www.wikidata.org/wiki/Q96208019",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Partei",
+     "wert": "Freie Wähler",
+     "link": "https://www.wikidata.org/wiki/Q327389",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Bundeswehr",
+     "link": "https://www.wikidata.org/wiki/Q56010",
+     "beendet": "1991"
+    }
+   ],
+   "themen": [
+    "Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger"
+   ]
+  }
+ ],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -1148,6 +901,67 @@
   },
   "Nations League": {
    "keine_treffer": true
+  },
+  "Große Anteilnahme": {
+   "keine_treffer": true
+  },
+  "Politiker Hubert": {
+   "keine_treffer": true
+  },
+  "Hubert Aiwanger": {
+   "name": "Hubert Aiwanger",
+   "wikidata": "https://www.wikidata.org/wiki/Q1633044",
+   "beschreibung": "German politician (1971–2026)",
+   "verbindungen": [
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bayerischen Landtags",
+     "link": "https://www.wikidata.org/wiki/Q17586301",
+     "beendet": "2013"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bayerischen Landtags",
+     "link": "https://www.wikidata.org/wiki/Q17586301",
+     "beendet": "2018"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bayerischen Landtags",
+     "link": "https://www.wikidata.org/wiki/Q17586301",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Bayerischer Staatsminister für Wirtschaft, Landesentwicklung und Energie",
+     "link": "https://www.wikidata.org/wiki/Q65350985",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Bundesrates",
+     "link": "https://www.wikidata.org/wiki/Q15835370",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Gemeinderats",
+     "link": "https://www.wikidata.org/wiki/Q96208019",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Partei",
+     "wert": "Freie Wähler",
+     "link": "https://www.wikidata.org/wiki/Q327389",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Bundeswehr",
+     "link": "https://www.wikidata.org/wiki/Q56010",
+     "beendet": "1991"
+    }
+   ]
   }
  }
 }
