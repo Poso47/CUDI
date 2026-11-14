@@ -129,6 +129,36 @@ function wabe() {                                        // Honigwabe (Vorlage �
   });
   g.scale.setScalar(.95); return g;
 }
+function honigglas() {                                   // Honigglas: Glas, Honig, Deckel mit Karostoff, Etikett
+  const g = new T.Group();
+  const honig = new T.Mesh(new T.CylinderGeometry(.3, .3, .62, 40), new T.MeshPhysicalMaterial({ color: rgb([176, 92, 6]), roughness: .08, clearcoat: 1 }));
+  honig.position.y = -.12; g.add(honig);
+  g.add(new T.Mesh(new T.CylinderGeometry(.33, .33, .9, 40, 1, true), new T.MeshPhysicalMaterial({ color: 0xffffff, roughness: .03,
+    transparent: true, opacity: .22, clearcoat: 1, side: T.DoubleSide, depthWrite: false })));
+  const deckel = new T.Mesh(new T.CylinderGeometry(.35, .35, .12, 40), mat([200, 160, 60], { roughness: .3, metalness: .6 }));
+  deckel.position.y = .5; g.add(deckel);
+  const c = document.createElement("canvas"); c.width = c.height = 64; const x = c.getContext("2d");
+  x.fillStyle = "#f4efe2"; x.fillRect(0, 0, 64, 64); x.fillStyle = "#c0392b";
+  for (let i = 0; i < 64; i += 16) for (let j = 0; j < 64; j += 16) if ((i + j) % 32 === 0) x.fillRect(i, j, 16, 16);
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding;
+  const stoff = new T.Mesh(new T.CylinderGeometry(.4, .43, .16, 40, 1, true), new T.MeshPhysicalMaterial({ map: tx, side: T.DoubleSide, roughness: .9 }));
+  stoff.position.y = .5; g.add(stoff);
+  const etikett = new T.Mesh(new T.CylinderGeometry(.335, .335, .26, 40, 1, true, -.9, 1.8), mat([250, 244, 226], { roughness: .8, side: T.DoubleSide }));
+  etikett.position.y = -.08; g.add(etikett);
+  g.scale.setScalar(.9); return g;
+}
+function brot() {                                        // Brotscheibe mit Kruste und Honigschicht
+  const g = new T.Group();
+  const form = new T.Shape(); form.moveTo(-.42, -.4); form.lineTo(.42, -.4); form.lineTo(.42, .18);
+  form.bezierCurveTo(.46, .5, .18, .52, 0, .42); form.bezierCurveTo(-.18, .52, -.46, .5, -.42, .18); form.lineTo(-.42, -.4);
+  const krume = new T.Mesh(new T.ExtrudeGeometry(form, { depth: .12, bevelEnabled: true, bevelSize: .035, bevelThickness: .03, bevelSegments: 3 }),
+    mat([150, 92, 40], { roughness: .9 })); krume.position.z = -.08; g.add(krume);
+  const innen = new T.Mesh(new T.ShapeGeometry(form), mat([236, 214, 168], { roughness: .95 }));
+  innen.scale.setScalar(.88); innen.position.set(0, -.01, .08); g.add(innen);
+  const honig = new T.Mesh(new T.ShapeGeometry(form), new T.MeshPhysicalMaterial({ color: rgb([196, 110, 10]), roughness: .05, clearcoat: 1,
+    transparent: true, opacity: .85 })); honig.scale.set(.7, .6, 1); honig.position.set(0, .02, .09); g.add(honig);
+  g.rotation.x = -.35; return g;
+}
 function glas(farbe) {                                   // Messglas mit Flüssigkeit – Mengen/Anteile (Füllstand = „fuelle“)
   const g = new T.Group();
   const huelle = new T.Mesh(new T.CylinderGeometry(.3, .28, 1, 40, 1, true), new T.MeshPhysicalMaterial({ color: 0xffffff, roughness: .05,
@@ -299,7 +329,9 @@ function baue(e) {                                       // ein Element -> Objek
     if (e.durchsichtig && f.teile.koerper) f.teile.koerper.traverse((m) => { if (m.material) { m.material = m.material.clone(); m.material.transparent = true; m.material.opacity = .55; } });
   } else if (e.art === "form" || e.art === "figur") {
     o.mat = mat(farbe, { transparent: true, opacity: e.deckkraft ?? 1 });
-    if (e.form === "sechseck") { o.obj.add(wabe()); }                              // Wabe statt flachem Sechseck
+    if (e.objekt === "honigglas") { o.obj.add(honigglas()); }                        // großer Kasten „Honig im Glas“
+    else if (e.objekt === "brot") { o.obj.add(brot()); }
+    else if (e.form === "sechseck") { o.obj.add(wabe()); }                              // Wabe statt flachem Sechseck
     else if (e.form === "quadrat" && e.prozent !== undefined) {               // nur mit genannter Prozentzahl                   // hohe Säule = Messglas mit Füllstand
       const gl = glas(farbe); gl.g.scale.set(.75, e.streckung || 1.6, .75); o.obj.add(gl.g); o.fluessig = gl.fl; o.mat = gl.fl.material;
     } else { const m = new T.Mesh(formGeo(e.form), o.mat); m.castShadow = true; m.scale.y = e.streckung || 1; o.obj.add(m); o.mesh = m; }
