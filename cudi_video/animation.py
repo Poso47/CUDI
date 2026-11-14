@@ -206,8 +206,9 @@ def plan_aus(eintraege: list[dict], roh: dict) -> dict[str, dict]:
     plan = {}
     for e in eintraege:
         x = roh.get(str(e["key"])) or {}
-        gewuenscht = [str(f).strip().lower()[:30] for f in (x.get("figuren") or [])[:4] if str(f).strip()]
-        wuensche = [str(f).strip()[:30] for f in (x.get("figur_wuensche") or [])[:4] if str(f).strip()]
+        gewuenscht = [zeichnen.figur_name(f)[:30] for f in (x.get("figuren") or [])[:4] if str(f).strip()]
+        wuensche = [str(f).strip()[:30] for f in (x.get("figur_wuensche") or [])[:4]
+                    if str(f).strip() and zeichnen.figur_name(f) not in vorhanden]          # vorhandene Figur ist kein Wunsch
         plan[str(e["key"])] = {"drehbuch": _drehbuch(x.get("drehbuch"), e["text"]), "ohne_bild": _ohne_bild(x.get("ohne_bild"), e["text"]),
                                "figuren": [f for f in gewuenscht if f in vorhanden],
                                "figur_wuensche": wuensche + [f for f in gewuenscht if f not in vorhanden]}

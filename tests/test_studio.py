@@ -222,3 +222,15 @@ def test_figur_bluete_und_beschriftungen_entzerrt():
     for i, (ax, ay, aw, ah) in enumerate(belegt):                      # keine zwei Beschriftungen überlappen
         for bx, by, bw, bh in belegt[i + 1:]:
             assert not (ax < bx + bw and bx < ax + aw and ay < by + bh and by < ay + ah)
+
+
+def test_beschriftungen_nur_an_dingen_und_figurnamen_mit_umlaut():
+    from cudi_video.schaubild import zeichnen as Z
+
+    text = "Schon beim Aufnehmen kommen spaltende Enzyme dazu. Die Biene speichert den Nektar."
+    sz = Z.beschriftungen_pruefen(Z.pruefe_szene({"elemente": [{"id": "b", "art": "figur", "figur": "Blüte"}]
+        + [{"id": f"l{i}", "art": "beschriftung", "text": w, "an": "b"} for i, w in enumerate(
+            ["schon", "Aufnehmen", "spaltende", "Enzyme", "Biene", "Nektar"])], "schritte": []}), text)
+    assert sz["elemente"][0]["figur"] == "bluete"
+    assert [e["text"] for e in sz["elemente"] if e["art"] == "beschriftung"] == ["Aufnehmen", "Enzyme", "Biene", "Nektar"]
+    assert Z.figur_name("Blüte") == "bluete" and Z.figur_info("Blüte")
