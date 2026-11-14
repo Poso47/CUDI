@@ -1,10 +1,524 @@
 {
- "erzeugt": "2026-11-13T13:13:14Z",
+ "erzeugt": "2026-11-14T12:17:16Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 74,
+ "anzahl": 77,
  "neu": 18,
  "ideen": [
+  {
+   "id": "idee-aa6ccdb8",
+   "bereich": "ranking",
+   "titel": "Die größten Auslegerbrücken",
+   "thema": "Eine Liste der größten Auslegerbrücken der Welt.",
+   "begruendung": "Der Trend \"Liste der größten Auslegerbrücken\" ist Platz 5 der meistgelesenen Wikipedia-Seiten (de).",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 81.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "vorlage",
+   "hinweis": "passende Vorlage „groesste-inseln“",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "vorlage": "groesste-inseln"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z",
+   "recherche": [
+    {
+     "text": "Dadurch lässt sich der innere Hebelarm des Tragwerks günstig vergrößern, wodurch der Überbau bei Hauptspannweiten von bis zu 157,5 Metern vergleichsweise schlank bleiben kann, verglichen mit einer rei",
+     "status": "einzeln",
+     "datum": "2026-11-09",
+     "quellen": [
+      {
+       "quelle": "solidbau.at",
+       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
+       "datum": "2026-11-09"
+      }
+     ]
+    },
+    {
+     "text": "700 Tonnen, 153 Meter Ausleger: Der Kraneinsatz seit März",
+     "status": "einzeln",
+     "datum": "2026-11-09",
+     "quellen": [
+      {
+       "quelle": "solidbau.at",
+       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
+       "datum": "2026-11-09"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-a42d3208",
+   "bereich": "fakten",
+   "titel": "Fakten zu Jensen Huang",
+   "thema": "Wissenswertes über Jensen Huang, eine Person mit hoher Wikipedia-Popularität.",
+   "begruendung": "Der Trend \"Jensen Huang\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (de) und Platz 1 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Jensen Huang",
+    "typ": "trend",
+    "score": 99.8,
+    "quellen": [
+     "reddit",
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über Jensen Huang, eine Person mit hoher Wikipedia-Popularität.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z",
+   "recherche": [
+    {
+     "text": "Wir schätzen das Vermögen von Jensen Huang auf rund 139,52 Milliarden Euro .",
+     "status": "einzeln",
+     "datum": "2026-11-14",
+     "quellen": [
+      {
+       "quelle": "vermoegenmagazin.de",
+       "url": "https://www.vermoegenmagazin.de/jensen-huang-vermoegen/",
+       "datum": "2026-11-14"
+      }
+     ]
+    },
+    {
+     "text": "Legt man das geschätzte Vermögen von Jensen Huang zugrunde und nimmt eine Rendite von 7 Prozent pro Jahr an, kommt Jensen Huang auf rund 309 Euro pro Sekunde , ohne dafür zu arbeiten.",
+     "status": "einzeln",
+     "datum": "2026-11-14",
+     "quellen": [
+      {
+       "quelle": "vermoegenmagazin.de",
+       "url": "https://www.vermoegenmagazin.de/jensen-huang-vermoegen/",
+       "datum": "2026-11-14"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-ec7b582f",
+   "bereich": "fakten",
+   "titel": "Wissenswertes über Nvidia",
+   "thema": "Fakten zu Nvidia, einem Unternehmen mit hoher Wikipedia-Popularität.",
+   "begruendung": "Der Trend \"Nvidia\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) und Platz 5 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Nvidia",
+    "typ": "trend",
+    "score": 96.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zu Nvidia, einem Unternehmen mit hoher Wikipedia-Popularität.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-0ae892ee",
+   "bereich": "fakten",
+   "titel": "Das Ramayana: Teil 1",
+   "thema": "Fakten zum Epos Ramayana, dessen erster Teil auf Wikipedia trendet.",
+   "begruendung": "Der Trend \"Ramayana: Part 1\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zum Epos Ramayana, dessen erster Teil auf Wikipedia trendet.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-9f2d5b68",
+   "bereich": "fakten",
+   "titel": "Was ist die .xxx Domain?",
+   "thema": "Fakten zur .xxx Domain, die auf Wikipedia trendet.",
+   "begruendung": "Der Trend \".xxx\" ist Platz 3 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": ".xxx",
+    "typ": "trend",
+    "score": 85.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zur .xxx Domain, die auf Wikipedia trendet.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-9b19b16b",
+   "bereich": "fakten",
+   "titel": "Piraterie: Fakten",
+   "thema": "Fakten zum Thema Piraterie, das auf Wikipedia trendet.",
+   "begruendung": "Der Trend \"Piracy\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Piracy",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zum Thema Piraterie, das auf Wikipedia trendet.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-524414e9",
+   "bereich": "erklaer",
+   "titel": "Nvidia: Was macht das Unternehmen?",
+   "thema": "Eine Erklärung der Geschäftsfelder und Technologien von Nvidia.",
+   "begruendung": "Der Trend \"Nvidia\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) und Platz 5 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Nvidia",
+    "typ": "trend",
+    "score": 96.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der Geschäftsfelder und Technologien von Nvidia."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-318d7059",
+   "bereich": "erklaer",
+   "titel": "Was ist die .xxx Domain?",
+   "thema": "Eine Erklärung zur Funktion und Bedeutung der .xxx Domain.",
+   "begruendung": "Der Trend \".xxx\" ist Platz 3 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": ".xxx",
+    "typ": "trend",
+    "score": 85.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung zur Funktion und Bedeutung der .xxx Domain."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-4b2c8e17",
+   "bereich": "erklaer",
+   "titel": "Völkerschau der Amazonen",
+   "thema": "Eine Erklärung zum historischen Phänomen der Völkerschau der „Amazonen von Dahomey“.",
+   "begruendung": "Der Trend \"Völkerschau der „Amazonen von Dahomey“ 1888–1903\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (de).",
+   "quelle": {
+    "name": "Völkerschau der „Amazonen von Dahomey“ 1888–1903",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung zum historischen Phänomen der Völkerschau der „Amazonen von Dahomey“."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-44f5d009",
+   "bereich": "erklaer",
+   "titel": "Piraterie: Das Konzept erklärt",
+   "thema": "Eine Erklärung des Konzepts der Piraterie.",
+   "begruendung": "Der Trend \"Piracy\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Piracy",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung des Konzepts der Piraterie."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-499785bc",
+   "bereich": "erklaer",
+   "titel": "Das Einheits-Sozialgeld erklärt",
+   "thema": "Eine Erklärung, wie das \"Единое пособие\" (Einheitliches Sozialgeld) funktioniert.",
+   "begruendung": "Der Trend \"пособие\" ist Platz 5 der Google-Trends (DE) mit einer Meldung über dessen Erhöhung.",
+   "quelle": {
+    "name": "пособие",
+    "typ": "trend",
+    "score": 73.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung, wie das \"Единое пособие\" (Einheitliches Sozialgeld) funktioniert."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-4d4f4434",
+   "bereich": "reportage",
+   "titel": "US-Flugstopp betrifft Reisende",
+   "thema": "Eine Reportage über die Auswirkungen des landesweiten Flugstopps auf Reisende in den USA.",
+   "begruendung": "Die Nachricht \"'We'll get home one day' - US travellers impacted by nationwide ground stop\" ist von 4 Quellen bestätigt.",
+   "quelle": {
+    "name": "'We'll get home one day' - US travellers impacted by nationwide ground stop",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Auswirkungen des landesweiten Flugstopps auf Reisende in den USA.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-1bcc0c1c",
+   "bereich": "reportage",
+   "titel": "Rettung nach Schiffskollision",
+   "thema": "Eine Reportage über die Rettung aller Passagiere nach einer Schiffskollision in New Orleans.",
+   "begruendung": "Die Nachricht \"'Miracle on Mississippi' - All passengers rescued after New Orleans cruise ship collision\" ist von 3 Quellen bestätigt.",
+   "quelle": {
+    "name": "'Miracle on Mississippi' - All passengers rescued after New Orleans cruise ship collision",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Wikipedia · BBC News",
+     "Deutsche Welle (en)",
+     "Wikipedia · Reuters"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Rettung aller Passagiere nach einer Schiffskollision in New Orleans.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-74f05ef4",
+   "bereich": "reportage",
+   "titel": "Trump kündigt Dreiertreffen an",
+   "thema": "Eine Reportage über Trumps Ankündigung eines Dreiertreffens mit Putin und Xi in China.",
+   "begruendung": "Die Nachricht \"Trump kündigt Dreiertreffen mit Putin und Xi in China an\" ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Trump kündigt Dreiertreffen mit Putin und Xi in China an",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über Trumps Ankündigung eines Dreiertreffens mit Putin und Xi in China.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-eb5f9a1e",
+   "bereich": "reportage",
+   "titel": "SpaceX Starship Test Rückschlag",
+   "thema": "Eine Reportage über den Rückschlag beim Double-Catch-Test der SpaceX Starship Rakete.",
+   "begruendung": "Die Nachricht \"Setback for SpaceX Starship rocket's double-catch test\" ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Setback for SpaceX Starship rocket's double-catch test",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über den Rückschlag beim Double-Catch-Test der SpaceX Starship Rakete.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-3a15842f",
+   "bereich": "reportage",
+   "titel": "US-Senatsausschuss lädt Huang vor",
+   "thema": "Eine Reportage über die Vorladung von Handelsminister Lutnick und Jensen Huang durch den US-Senatsausschuss im Fall Nvidia.",
+   "begruendung": "Die Nachricht \"Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor\" ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Vorladung von Handelsminister Lutnick und Jensen Huang durch den US-Senatsausschuss im Fall Nvid",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-4d6e31f0",
+   "bereich": "satire",
+   "titel": "Nvidia vor dem Ausschuss",
+   "thema": "Eine satirische Darstellung der Vorladung von Jensen Huang und Handelsminister Lutnick durch den US-Senatsausschuss.",
+   "begruendung": "Die Nachricht \"Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor\" ist von 2 Quellen bestätigt und betrifft mächtige Wirtschafts- und Regierungsfiguren.",
+   "quelle": {
+    "name": "Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Eine satirische Darstellung der Vorladung von Jensen Huang und Handelsminister Lutnick durch den US-Senatsausschuss.",
+    "sprache": "de",
+    "meldung": "Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
+  {
+   "id": "idee-fd24d1c9",
+   "bereich": "satire",
+   "titel": "Machtkampf im Senat",
+   "thema": "Eine satirische Skizzierung der Herausforderung der Führungsposition von Chuck Schumer im Senat.",
+   "begruendung": "Die Nachricht \"Democratic Senate leader Schumer set to face leadership challenge\" ist von 2 Quellen bestätigt und betrifft einen Politiker.",
+   "quelle": {
+    "name": "Democratic Senate leader Schumer set to face leadership challenge",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Eine satirische Skizzierung der Herausforderung der Führungsposition von Chuck Schumer im Senat.",
+    "sprache": "de",
+    "meldung": "Democratic Senate leader Schumer set to face leadership challenge"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-14T12:16:39Z"
+  },
   {
    "id": "idee-793a35bc",
    "bereich": "ranking",
@@ -1253,87 +1767,6 @@
    "erstellt": "2026-11-11T12:47:12Z"
   },
   {
-   "id": "idee-a8a39f38",
-   "bereich": "fakten",
-   "titel": "Fakten zum Singles Day",
-   "thema": "Interessante Fakten rund um den Singles Day.",
-   "begruendung": "Der Trend 'singles day 2026' ist Platz 2 der Google-Trends (DE) und wird von BILD im Kontext von Angeboten erwähnt.",
-   "quelle": {
-    "name": "singles day 2026",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Interessante Fakten rund um den Singles Day.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-b8d1dd0a",
-   "bereich": "fakten",
-   "titel": "Die SS Edmund Fitzgerald: Fakten",
-   "thema": "Wissenswerte Fakten über das Frachtschiff SS Edmund Fitzgerald.",
-   "begruendung": "Der Trend 'SS Edmund Fitzgerald' ist Platz 7 der meistgelesenen Wikipedia-Seiten (en) mit 163.598 Aufrufen.",
-   "quelle": {
-    "name": "SS Edmund Fitzgerald",
-    "typ": "trend",
-    "score": 76.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswerte Fakten über das Frachtschiff SS Edmund Fitzgerald.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-b446335f",
-   "bereich": "fakten",
-   "titel": "Nvidia: Das steckt dahinter",
-   "thema": "Wissenswertes über das Technologieunternehmen Nvidia.",
-   "begruendung": "Der Trend 'Nvidia' ist Platz 20 der meistgelesenen Wikipedia-Seiten (de) und Platz 14 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Nvidia",
-    "typ": "trend",
-    "score": 79.3,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über das Technologieunternehmen Nvidia.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
    "id": "idee-7481ec5c",
    "bereich": "story",
    "titel": "Wenn das Wetter plötzlich umschlägt",
@@ -1458,208 +1891,6 @@
    "erstellt": "2026-11-11T12:47:12Z"
   },
   {
-   "id": "idee-37d4d537",
-   "bereich": "erklaer",
-   "titel": "Die Rolle der FDA bei Medikamenten",
-   "thema": "Ein Erklärvideo über die Aufgaben und Prozesse der US Food and Drug Administration.",
-   "begruendung": "Die Meldung 'The United States Food and Drug Administration orders manufacturers of GLP-1 medicines such as semaglutide and tirzepatide , originally…' ist durch Wikipedia und BBC News bestätigt und bietet Anlass, die Funktion der FDA zu erk",
-   "quelle": {
-    "name": "The United States Food and Drug Administration orders manufacturers of GLP-1 medicines such as semaglutide and tirzepatide , originally…",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Wikipedia · BBC News",
-     "Wikipedia · Al Jazeera"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo über die Aufgaben und Prozesse der US Food and Drug Administration."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-c2ffac1b",
-   "bereich": "erklaer",
-   "titel": "Wie das UK Privy Council Gesetze prüft",
-   "thema": "Ein Erklärvideo zur Arbeitsweise und Entscheidungsfindung des UK Privy Council.",
-   "begruendung": "Die Meldung 'UK Privy Council overrules Trinidad and Tobago gay sex law' ist von Deutsche Welle (en) bestätigt und bietet Anlass, die Arbeitsweise dieses Gremiums zu erklären.",
-   "quelle": {
-    "name": "UK Privy Council overrules Trinidad and Tobago gay sex law",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "Wikipedia · CNN"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo zur Arbeitsweise und Entscheidungsfindung des UK Privy Council."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-942ba0f8",
-   "bereich": "erklaer",
-   "titel": "Nvidia: Technologie erklärt",
-   "thema": "Ein Erklärvideo über die Kerntechnologien und ihren Einfluss von Nvidia.",
-   "begruendung": "Der Trend 'Nvidia' ist auf Wikipedia (de/en) stark frequentiert, was auf ein breites Interesse an der Technologie hindeutet.",
-   "quelle": {
-    "name": "Nvidia",
-    "typ": "trend",
-    "score": 79.3,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo über die Kerntechnologien und ihren Einfluss von Nvidia."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-9ec409a7",
-   "bereich": "reportage",
-   "titel": "US-Repräsentantenhaus blockiert Impeachment",
-   "thema": "Eine sachliche Reportage über die Blockade eines Impeachment-Versuchs im US-Repräsentantenhaus.",
-   "begruendung": "Die Meldung 'US House blocks bid to impeach Defence Secretary Pete Hegseth, for now' ist von BBC World bestätigt und betrifft ein aktuelles politisches Ereignis.",
-   "quelle": {
-    "name": "US House blocks bid to impeach Defence Secretary Pete Hegseth, for now",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Reportage über die Blockade eines Impeachment-Versuchs im US-Repräsentantenhaus.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-e3474b11",
-   "bereich": "reportage",
-   "titel": "Generalstreik in Spanien",
-   "thema": "Eine Reportage über den Generalstreik in Spanien als Reaktion auf die Wohnkrise.",
-   "begruendung": "Die Meldung 'Spain: Housing crisis prompts general strike' ist von Deutsche Welle (en) bestätigt und betrifft ein aktuelles gesellschaftliches Ereignis.",
-   "quelle": {
-    "name": "Spain: Housing crisis prompts general strike",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über den Generalstreik in Spanien als Reaktion auf die Wohnkrise.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-b66ffcd4",
-   "bereich": "reportage",
-   "titel": "Gespräche in Abu Dhabi beendet",
-   "thema": "Ein Bericht über den Abschluss der Gespräche zwischen den USA, Russland und der Ukraine in Abu Dhabi.",
-   "begruendung": "Die Meldung 'US, Russia and Ukraine wrap up Abu Dhabi talks' ist von Deutsche Welle (en) bestätigt und betrifft ein aktuelles diplomatisches Ereignis.",
-   "quelle": {
-    "name": "US, Russia and Ukraine wrap up Abu Dhabi talks",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "Wikipedia · AP"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Bericht über den Abschluss der Gespräche zwischen den USA, Russland und der Ukraine in Abu Dhabi.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-1e172066",
-   "bereich": "reportage",
-   "titel": "FDA-Anordnung für GLP-1 Medikamente",
-   "thema": "Ein Bericht über die Anordnung der US Food and Drug Administration an Hersteller von GLP-1 Medikamenten.",
-   "begruendung": "Die Meldung 'The United States Food and Drug Administration orders manufacturers of GLP-1 medicines such as semaglutide and tirzepatide , originally…' ist durch Wikipedia und BBC News bestätigt und betrifft eine aktuelle behördliche Anordnu",
-   "quelle": {
-    "name": "The United States Food and Drug Administration orders manufacturers of GLP-1 medicines such as semaglutide and tirzepatide , originally…",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Wikipedia · BBC News",
-     "Wikipedia · Al Jazeera"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Bericht über die Anordnung der US Food and Drug Administration an Hersteller von GLP-1 Medikamenten.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-5be8be57",
-   "bereich": "reportage",
-   "titel": "UK Privy Council hebt Gesetz auf",
-   "thema": "Ein Bericht über die Entscheidung des UK Privy Council, ein Gesetz in Trinidad und Tobago aufzuheben.",
-   "begruendung": "Die Meldung 'UK Privy Council overrules Trinidad and Tobago gay sex law' ist von Deutsche Welle (en) bestätigt und betrifft eine aktuelle Rechtsentscheidung.",
-   "quelle": {
-    "name": "UK Privy Council overrules Trinidad and Tobago gay sex law",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "Wikipedia · CNN"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Bericht über die Entscheidung des UK Privy Council, ein Gesetz in Trinidad und Tobago aufzuheben.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
    "id": "idee-5153549d",
    "bereich": "satire",
    "titel": "Impeachment: Die Show muss weitergehen",
@@ -1752,132 +1983,6 @@
      ]
     }
    ]
-  },
-  {
-   "id": "idee-41fb9eec",
-   "bereich": "fakten",
-   "titel": "Was ist das Rentenalter?",
-   "thema": "Allgemeine Fakten zum Konzept des Rentenalters.",
-   "begruendung": "Der Trend 'rentenalter' ist Platz 1 der Google-Trends (DE) mit über 200 Suchen und eignet sich für ein Faktenvideo.",
-   "quelle": {
-    "name": "rentenalter",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Allgemeine Fakten zum Konzept des Rentenalters.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z",
-   "recherche": [
-    {
-     "text": "Bei einer hypothetischen Rente von 1500 Euro wären das monatlich 180 Euro.",
-     "status": "einzeln",
-     "datum": "2026-11-10",
-     "quellen": [
-      {
-       "quelle": "ruhrnachrichten.de",
-       "url": "https://www.ruhrnachrichten.de/service/rente-mit-63-altersgrenze-jahrgaenge-abzuege-versicherungsjahre-berechnung-eintrittsalter-w917039-2001316745/",
-       "datum": "2026-11-10"
-      }
-     ]
-    },
-    {
-     "text": "Nimmt man für jeden Monat 0,3 Prozent Abzug, werden 12 Prozent der Altersrente abgezogen.",
-     "status": "einzeln",
-     "datum": "2026-11-10",
-     "quellen": [
-      {
-       "quelle": "ruhrnachrichten.de",
-       "url": "https://www.ruhrnachrichten.de/service/rente-mit-63-altersgrenze-jahrgaenge-abzuege-versicherungsjahre-berechnung-eintrittsalter-w917039-2001316745/",
-       "datum": "2026-11-10"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-27b996b1",
-   "bereich": "fakten",
-   "titel": "Was ist ein Nachruf?",
-   "thema": "Wissenswertes über die Bedeutung und Form eines Nachrufs.",
-   "begruendung": "Der Trend 'nachruf' ist Platz 2 der Google-Trends (DE) mit über 200 Suchen und eignet sich für ein Faktenvideo.",
-   "quelle": {
-    "name": "nachruf",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über die Bedeutung und Form eines Nachrufs.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
-   "id": "idee-343bf309",
-   "bereich": "erklaer",
-   "titel": "Wie das Rentenalter beeinflusst wird",
-   "thema": "Eine Erklärung, welche Faktoren das Rentenalter bestimmen.",
-   "begruendung": "Der Trend 'rentenalter' ist Platz 1 der Google-Trends (DE) und die Meldung deutet auf Änderungen hin, was eine Erklärung sinnvoll macht.",
-   "quelle": {
-    "name": "rentenalter",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung, welche Faktoren das Rentenalter bestimmen."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
-   "id": "idee-f6013dc8",
-   "bereich": "erklaer",
-   "titel": "Wie ein Nachruf verfasst wird",
-   "thema": "Eine Anleitung zur Erstellung eines Nachrufs.",
-   "begruendung": "Der Trend 'nachruf' ist Platz 2 der Google-Trends (DE) und die Meldung 'Nachruf Hans Metje' zeigt die Relevanz des Themas.",
-   "quelle": {
-    "name": "nachruf",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Anleitung zur Erstellung eines Nachrufs."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-10T13:33:26Z"
   },
   {
    "id": "idee-13fca753",
