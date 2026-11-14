@@ -297,8 +297,13 @@ def _kaesten_zu_dingen(szene: dict, text: str) -> None:
     """Große, schlichte Kästen sind kein Bild: Sie werden zu einem echten Ding, wenn ihre Beschriftung (sonst der Sprechtext)
     es nennt – Honigglas oder Brotscheibe mit Honig. Ohne passendes Wort fallen sie weg, wenn noch etwas anderes zu sehen ist."""
     worte = set(re.findall(r"\w+", text.lower()))
-    kaesten = [e for e in szene["elemente"] if e["art"] == "form" and e.get("form") == "quadrat" and not ist_glas(e)
-               and "prozent" not in e and e["groesse"] > 20]
+    alle = [e for e in szene["elemente"] if e["art"] == "form" and e.get("form") == "quadrat" and not ist_glas(e) and "prozent" not in e]
+    for e in alle:                                             # auch kleine Kästen: nennt ihre Beschriftung ein Ding, wird es gezeigt
+        schild = " ".join(b["text"].lower() for b in szene["elemente"] if b["art"] == "beschriftung" and b.get("an") == e["id"])
+        ding = next((d for d, w in DINGE.items() if set(re.findall(r"\w+", schild)) & set(w)), None)
+        if ding and e["groesse"] <= 20:
+            e["objekt"], e["groesse"] = ding, max(e["groesse"], 18.0)
+    kaesten = [e for e in alle if e["groesse"] > 20]
     if not kaesten:
         return
     weg, ohne_schild = set(), []
