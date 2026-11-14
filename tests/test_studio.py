@@ -493,3 +493,25 @@ def test_3d_abnahme_meldet_flache_szenen(tmp_path, monkeypatch):
     assert "NICHT vollständig" in h[0] and "1 von 2" in h[0] and "Chromium" in h[0]
     html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
     assert "glieder" in html and 'gl.art === "arm"' in html
+
+
+def test_schreibaufgabe_kaputte_antwort_wird_einmal_neu_gestellt(tmp_path, monkeypatch):
+    import json as _json
+    import pytest
+    from cudi_video import handoff
+    monkeypatch.setenv(handoff.DIR_ENV, str(tmp_path))
+    monkeypatch.setattr(handoff, "enabled", lambda: True)
+    monkeypatch.setattr(handoff, "preferences", lambda: None)
+    with pytest.raises(handoff.WritingNeeded):
+        handoff.request("probe", "Schreibe.", {"a": 1})
+    datei = handoff.task_file("probe")
+    datei.write_text('{"aufgabe": "probe", "antwort": {"text": "er sagte "hallo""}}', "utf-8")     # ungültiges JSON
+    with pytest.raises(handoff.WritingNeeded):
+        handoff.request("probe", "Schreibe.", {"a": 1})
+    neu = _json.loads(datei.read_text("utf-8"))
+    assert "ZWEITER VERSUCH" in neu["anleitung"] and neu["daten"] == {"a": 1} and neu["antwort"] is None
+    datei.write_text("kaputt", "utf-8")
+    assert handoff.request("probe", "Schreibe.", {"a": 1}) is None                                 # nur EIN zweiter Versuch
+    neu["antwort"] = '{"szenen": [1]}'                                                              # Antwort als JSON-Text
+    datei.write_text(_json.dumps(neu), "utf-8")
+    assert handoff.request("probe", "Schreibe.", {"a": 1}) == {"szenen": [1]}
