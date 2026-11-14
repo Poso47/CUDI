@@ -390,3 +390,14 @@ def test_zitatkarte_ohne_quelle_weicht_der_animation():
     assert ohne.quote is None and ohne.anim is not None
     mit = formats.ErklaerScene(job({"typ": "zitatkarte", "zitat": "Ein Zitat", "quelle": "Buch, S. 3"}))
     assert mit.quote is not None                             # echtes Zitat mit Quelle bleibt
+
+
+def test_kleiner_kasten_mit_schild_wird_honigglas():
+    from cudi_video.schaubild import zeichnen as Z
+    sz = Z.beschriftungen_pruefen(Z.pruefe_szene({"elemente": [
+        {"id": "b", "art": "figur", "figur": "biene", "x": 60, "y": 40, "groesse": 40},
+        {"id": "k", "art": "form", "form": "quadrat", "x": 15, "y": 80, "groesse": 8},
+        {"id": "l", "art": "beschriftung", "text": "Glas Honig", "an": "k"}], "schritte": []}),
+        "Wie wird aus einer Blüte ein Glas Honig?")
+    k = next(e for e in sz["elemente"] if e["id"] == "k")
+    assert k["objekt"] == "honigglas"
