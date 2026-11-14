@@ -377,3 +377,16 @@ def test_flacher_kasten_mit_prozent_wird_glas_und_schon_keine_beschriftung():
     assert "schon" not in hauptwoerter("Schon bei der Aufnahme kommen Enzyme dazu.")
     html = (Path(Z.__file__).parent / "drei" / "szene3d.html").read_text("utf-8")
     assert "LatheGeometry(pts.reverse()" in html
+
+
+def test_zitatkarte_ohne_quelle_weicht_der_animation():
+    from cudi_video.render import formats
+    anim = {"elemente": [{"id": "b", "art": "figur", "figur": "biene", "x": 50, "y": 50, "groesse": 40, "alpha": 1.0, "f": 0,
+                          "farbe": (200, 160, 60), "rot": 0}], "schritte": []}
+    def job(visual):
+        return {"szene": {"text": "Imker nennen das Verdeckeln.", "visual": visual, "animation": anim},
+                "words": [], "lead": 0.2, "voice_dur": 2.0, "duration": 3.0, "index": 0}
+    ohne = formats.ErklaerScene(job({"typ": "zitatkarte", "zitat": "Imker nennen das Verdeckeln."}))
+    assert ohne.quote is None and ohne.anim is not None
+    mit = formats.ErklaerScene(job({"typ": "zitatkarte", "zitat": "Ein Zitat", "quelle": "Buch, S. 3"}))
+    assert mit.quote is not None                             # echtes Zitat mit Quelle bleibt
