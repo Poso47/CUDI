@@ -708,6 +708,9 @@ class ErklaerScene(Scene):
 
             self.anim = Bild(sz["animation"], sz["text"], job["words"], job["lead"], M.INK, (214, 162, 84),
                              job.get("index", 0), dauer=job.get("duration"))
+            v = self.visual
+            if self.quote is not None and not (v.get("quelle") or v.get("umschrift") or v.get("uebersetzung")):
+                self.quote = None                             # Zitat-Karte ohne echte Quelle wiederholt nur den Satz: Animation zeigen
 
     def _quote(self):
         v = self.visual

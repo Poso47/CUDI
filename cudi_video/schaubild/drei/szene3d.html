@@ -405,7 +405,8 @@ function zeichneBild(b) {                                // b = {t, st: {id: zus
     } else if (e.art === "form" || (e.art === "figur" && !o.teile)) {
       o.obj.position.set(wx(z.x), wy(z.y), o.z); o.obj.scale.setScalar(g); o.obj.rotation.z = -z.rot * Math.PI / 180;
       o.obj.rotation.y = .25 * Math.sin(t * .7); o.mat.color.copy(rgb(z.farbe));
-      if (o.fluessig) { o.obj.rotation.y = 0; o.fluessig.scale.y = Math.max(.02, Math.min(.98, e.prozent * Math.min(1, z.alpha * 1.5))); }   // steigt beim Erscheinen auf den genannten Wert
+      if (o.fluessig) { o.obj.rotation.y = 0; o.obj.visible = z.alpha > .02;   // ganzes Glas erst beim Erscheinen
+        o.fluessig.scale.y = Math.max(.02, Math.min(.98, e.prozent * Math.min(1, z.alpha * 1.5))); }   // steigt beim Erscheinen auf den genannten Wert
     } else if (e.art === "schlauch" || e.art === "pfeil") {
       o.mesh.geometry.setDrawRange(0, Math.floor(o.geo.index.count * Math.max(0, Math.min(1, e.art === "schlauch" && e.f === 0 ? z.f : 1)) / 6) * 6);
       o.mat.color.copy(rgb(z.farbe));
