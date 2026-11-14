@@ -1,6 +1,6 @@
 {
- "erzeugt": "2026-11-13T19:55:29Z",
- "anzahl": 23,
+ "erzeugt": "2026-11-14T06:48:22Z",
+ "anzahl": 20,
  "nur_ausland": 1,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
@@ -8,32 +8,157 @@
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
-   "kurz": "Der Internationale Sportgerichtshof hat den Ausschluss Russlands von Eishockey-Weltmeisterschaften aufgehoben. Doch zahlreiche Länder wehren sich gegen die…",
-   "link": "https://www.nzz.ch/sport/streit-um-russlands-wm-teilnahme-russischer-eishockeyverband-droht-gastgeber-deutschland-ld.10063174",
-   "sprache": "de",
-   "zeit": "2026-11-13T14:59:26Z",
+   "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
+   "kurz": "German reforms mean foreign and domestic intelligence services will have greater powers to combat espionage, terrorism and sabotage.",
+   "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
+   "sprache": "en",
+   "zeit": "2026-11-14T04:41:11Z",
    "ausland_quellen": 2,
    "laender": [
-    "Schweiz",
-    "Österreich"
+    "Großbritannien",
+    "Katar"
    ],
    "laender_einig": [
-    "Schweiz",
-    "Österreich"
+    "Großbritannien",
+    "Katar"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
     "Russland"
    ],
    "zusammenfassung": [
-    "NZZ (Schweiz): DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
-    "Der Standard (Österreich): Eishockey: Russland droht WM-Gastgeber Deutschland"
+    "BBC Europe (Großbritannien): German spies handed new powers to tackle 'hybrid threats' from abroad",
+    "Al Jazeera (Katar): German spies granted sweeping new powers"
    ],
-   "staatsnah": [],
+   "staatsnah": [
+    "Al Jazeera"
+   ],
    "deutsch_quellen": [],
    "nur_ausland": true,
    "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
+     "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Al Jazeera",
+     "land": "Katar",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "German spies granted sweeping new powers",
+     "link": "https://www.aljazeera.com/news/2026/11/14/german-spies-granted-sweeping-new-powers?traffic_source=rss",
+     "eigentuemer": "staatlich (Katar)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Rusia lucha por imponer su sueño de vetar la presencia militar de la OTAN en Europa del este",
+   "kurz": "Moscú exige que la Alianza repliegue su infraestructura defensiva a Alemania y que el Kremlin tenga la última palabra en las garantías ofrecidas a los países…",
+   "link": "https://elpais.com/internacional/2026-11-14/rusia-lucha-por-imponer-su-sueno-de-vetar-la-presencia-militar-de-la-otan-en-europa-del-este.html",
+   "sprache": "es",
+   "zeit": "2026-11-14T04:40:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland"
+   ],
+   "zusammenfassung": [
+    "El País (Spanien): Rusia lucha por imponer su sueño de vetar la presencia militar de la OTAN en Europa del este"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Rusia lucha por imponer su sueño de vetar la presencia militar de la OTAN en Europa del este",
+     "link": "https://elpais.com/internacional/2026-11-14/rusia-lucha-por-imponer-su-sueno-de-vetar-la-presencia-militar-de-la-otan-en-europa-del-este.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "El patito con fusil que divide Alemania: la tienda de recuerdos de las Fuerzas Armadas se convierte en un éxito y una polémica",
+   "kurz": "El local oficial de la Bundeswehr alemana se queda sin existencias horas después de abrir y provoca acusaciones de trivializar la guerra para mejorar la imagen…",
+   "link": "https://elpais.com/internacional/2026-11-14/el-patito-con-fusil-que-divide-alemania-la-tienda-de-recuerdos-de-las-fuerzas-armadas-se-convierte-en-un-exito-y-una-polemica.html",
+   "sprache": "es",
+   "zeit": "2026-11-14T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): El patito con fusil que divide Alemania: la tienda de recuerdos de las Fuerzas Armadas se convierte en un éxito y una polémica"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "El patito con fusil que divide Alemania: la tienda de recuerdos de las Fuerzas Armadas se convierte en un éxito y una polémica",
+     "link": "https://elpais.com/internacional/2026-11-14/el-patito-con-fusil-que-divide-alemania-la-tienda-de-recuerdos-de-las-fuerzas-armadas-se-convierte-en-un-exito-y-una-polemica.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "DER ANDERE BLICK MIT DATEN - Ausländer sind Treiber der Altersarmut in Deutschland",
+   "kurz": "Die Zahl der Ausländer im Rentenalter, die auf staatliche Hilfe angewiesen sind, hat einen Rekord erreicht. In Zukunft könnte das Problem sogar noch grösser…",
+   "link": "https://www.nzz.ch/der-andere-blick/altersarmut-immer-mehr-ukrainische-fluechtlinge-bekommen-sozialhilfe-ld.10063404",
+   "sprache": "de",
+   "zeit": "2026-11-14T04:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): DER ANDERE BLICK MIT DATEN - Ausländer sind Treiber der Altersarmut in Deutschland"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
@@ -42,18 +167,53 @@
      "land": "Schweiz",
      "art": "privat",
      "beteiligt": false,
-     "titel": "DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
-     "link": "https://www.nzz.ch/sport/streit-um-russlands-wm-teilnahme-russischer-eishockeyverband-droht-gastgeber-deutschland-ld.10063174",
+     "titel": "DER ANDERE BLICK MIT DATEN - Ausländer sind Treiber der Altersarmut in Deutschland",
+     "link": "https://www.nzz.ch/der-andere-blick/altersarmut-immer-mehr-ukrainische-fluechtlinge-bekommen-sozialhilfe-ld.10063404",
      "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
-    },
+    }
+   ]
+  },
+  {
+   "titel": "Niederlande fertigen Griechenland mit 7:0 ab, auch Deutschland siegt in Nations League",
+   "kurz": "Die Klopp-Mannschaft setzte sich in Serbien durch. Tijjani Reijnders erzielte einen Hattrick für Oranje, das nun nach Berlin reist. Die Schweiz ist in Liga A…",
+   "link": "https://www.derstandard.at/story/3000000349204/niederlande-fertigen-griechenland-mit-70-ab-auch-deutschland-siegt-in-nations-league?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-13T22:01:49Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Schweiz"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Niederlande fertigen Griechenland mit 7:0 ab, auch Deutschland siegt in Nations League"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "DFB-Team sichert sich gegen Serbien sein Endspiel gegen Niederlande",
+     "link": "https://www.sportschau.de/fussball/nationalmannschaft/dfb-team-sichert-sich-sein-endspiel-gegen-niederlande,serbien-deutschland-spielbericht-100.html"
+    }
+   ],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
     {
      "quelle": "Der Standard",
      "land": "Österreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Eishockey: Russland droht WM-Gastgeber Deutschland",
-     "link": "https://www.derstandard.at/story/3000000349089/eishockey-russland-droht-wm-gastgeber-deutschland?ref=rss",
+     "titel": "Niederlande fertigen Griechenland mit 7:0 ab, auch Deutschland siegt in Nations League",
+     "link": "https://www.derstandard.at/story/3000000349204/niederlande-fertigen-griechenland-mit-70-ab-auch-deutschland-siegt-in-nations-league?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
@@ -64,7 +224,7 @@
    "kurz": "Washington presiona para que el Viejo Continente participe en las negociaciones, pero Moscú aún se resiste. Las instituciones comunitarias, Francia, Alemania…",
    "link": "https://elpais.com/internacional/2026-11-13/el-enviado-de-trump-asegura-que-putin-acepta-que-europa-se-sume-a-las-negociaciones-de-paz-sobre-ucrania.html",
    "sprache": "es",
-   "zeit": "2026-11-13T19:51:16Z",
+   "zeit": "2026-11-13T20:18:52Z",
    "ausland_quellen": 1,
    "laender": [
     "Spanien"
@@ -95,80 +255,6 @@
      "titel": "Europa descarta nombrar un solo representante y designa un grupo negociador para las conversaciones de paz sobre Ucrania",
      "link": "https://elpais.com/internacional/2026-11-13/el-enviado-de-trump-asegura-que-putin-acepta-que-europa-se-sume-a-las-negociaciones-de-paz-sobre-ucrania.html",
      "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Temporal en el oeste bonaerense: granizo, lluvias intensas y alerta naranja",
-   "kurz": "Una fuerte tormenta sorprendió a los habitantes de Germania, cerca de Lincoln, donde se registró una intensa caída de granizo; el SMN advirtió por…",
-   "link": "https://www.lanacion.com.ar/sociedad/temporal-en-el-oeste-bonaerense-granizo-lluvias-intensas-y-alerta-naranja-nid13112026/",
-   "sprache": "es",
-   "zeit": "2026-11-13T18:49:07Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [
-    "Argentinien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "La Nación (Argentinien): Temporal en el oeste bonaerense: granizo, lluvias intensas y alerta naranja"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Temporal en el oeste bonaerense: granizo, lluvias intensas y alerta naranja",
-     "link": "https://www.lanacion.com.ar/sociedad/temporal-en-el-oeste-bonaerense-granizo-lluvias-intensas-y-alerta-naranja-nid13112026/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Die SVP und der Ticket-Poker: Aussenseiter im Bundesratsrennen hoffen auf einen Dreiervorschlag",
-   "kurz": "Thomas Aeschi gilt bei der SVP-Leitung als Favorit für die Nachfolge von Bundesrat Guy Parmelin. Die Wahlchancen des Zugers hängen auch von der Grösse des…",
-   "link": "https://www.nzz.ch/schweiz/die-svp-und-der-ticket-poker-aussenseiter-im-bundesratsrennen-hoffen-auf-einen-dreiervorschlag-ld.10063203",
-   "sprache": "de",
-   "zeit": "2026-11-13T17:19:54Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): Die SVP und der Ticket-Poker: Aussenseiter im Bundesratsrennen hoffen auf einen Dreiervorschlag"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Die SVP und der Ticket-Poker: Aussenseiter im Bundesratsrennen hoffen auf einen Dreiervorschlag",
-     "link": "https://www.nzz.ch/schweiz/die-svp-und-der-ticket-poker-aussenseiter-im-bundesratsrennen-hoffen-auf-einen-dreiervorschlag-ld.10063203",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     }
    ]
@@ -206,80 +292,6 @@
      "titel": "Former Hamas bodyguard convicted of Birmingham knife crime also wanted in Germany",
      "link": "https://www.theguardian.com/uk-news/2026/nov/13/former-hamas-bodyguard-convicted-of-birmingham-knife-also-wanted-in-germany",
      "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Kann sich Mercedes Deutschland noch leisten? Darum eskaliert jetzt der Konflikt bei dem Autohersteller",
-   "kurz": "Das Management des Stuttgarter Konzerns ringt mit der Gewerkschaft erbittert um Privilegien wie die 35-Stunden-Woche. Der Streit wird zum Testfall für die…",
-   "link": "https://www.nzz.ch/wirtschaft/kann-sich-mercedes-deutschland-noch-leisten-darum-eskaliert-jetzt-der-konflikt-bei-dem-autohersteller-ld.10058665",
-   "sprache": "de",
-   "zeit": "2026-11-13T16:31:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): Kann sich Mercedes Deutschland noch leisten? Darum eskaliert jetzt der Konflikt bei dem Autohersteller"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Kann sich Mercedes Deutschland noch leisten? Darum eskaliert jetzt der Konflikt bei dem Autohersteller",
-     "link": "https://www.nzz.ch/wirtschaft/kann-sich-mercedes-deutschland-noch-leisten-darum-eskaliert-jetzt-der-konflikt-bei-dem-autohersteller-ld.10058665",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
-   "kurz": "German reforms mean foreign and domestic intelligence services will have greater powers to combat espionage, terrorism and sabotage.",
-   "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-13T15:42:52Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "BBC Europe (Großbritannien): German spies handed new powers to tackle 'hybrid threats' from abroad"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
-     "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
      "zaehlt_nicht": ""
     }
    ]
@@ -498,7 +510,13 @@
     "Der Standard (Österreich): Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Cyberangriff auf Quantum Systems: Wie wurde der Drohnenhersteller zum Ziel?",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/quantum-systems-cyberangriff-102.html"
+    }
+   ],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -591,80 +609,6 @@
    ]
   },
   {
-   "titel": "Un estudio revela que tres de cada cuatro mujeres del Ejército alemán ha sufrido acoso sexual",
-   "kurz": "El ministro de Defensa, Boris Pistorius, ha anunciado un plan de 34 medidas para combatir las conductas sexuales inapropiadas: “Teníamos claro que el análisis…",
-   "link": "https://elpais.com/sociedad/2026-11-13/un-estudio-revela-que-tres-de-cada-cuatro-mujeres-del-ejercito-aleman-ha-sufrido-acoso-sexual.html",
-   "sprache": "es",
-   "zeit": "2026-11-13T04:30:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Un estudio revela que tres de cada cuatro mujeres del Ejército alemán ha sufrido acoso sexual"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Un estudio revela que tres de cada cuatro mujeres del Ejército alemán ha sufrido acoso sexual",
-     "link": "https://elpais.com/sociedad/2026-11-13/un-estudio-revela-que-tres-de-cada-cuatro-mujeres-del-ejercito-aleman-ha-sufrido-acoso-sexual.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Alemania se enfrenta a Serbia y a la organización de futbolistas ultras de los ‘Peloteros de Dios’",
-   "kurz": "Jürgen Klopp y el Dortmund piden a Nmecha que deje de celebrar sus goles reivindicando al grupo homófobo",
-   "link": "https://elpais.com/deportes/futbol/2026-11-13/alemania-se-enfrenta-a-serbia-y-a-la-organizacion-de-futbolistas-ultras-de-los-peloteros-de-dios.html",
-   "sprache": "es",
-   "zeit": "2026-11-13T04:30:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Alemania se enfrenta a Serbia y a la organización de futbolistas ultras de los ‘Peloteros de Dios’"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Alemania se enfrenta a Serbia y a la organización de futbolistas ultras de los ‘Peloteros de Dios’",
-     "link": "https://elpais.com/deportes/futbol/2026-11-13/alemania-se-enfrenta-a-serbia-y-a-la-organizacion-de-futbolistas-ultras-de-los-peloteros-de-dios.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine",
    "kurz": "Die USA wollen die Europäer mit Putin an einen Tisch bringen. Merz ist bereit, aber die EU-Partner sind uneins beim Kurs zu Russland und wer sie vertreten soll",
    "link": "https://www.derstandard.at/story/3000000348678/europaeer-schimpfen-gern-ueber-putin-und-trump-sind-aber-selbst-auf-ukrainegespraeche-nicht-vorbereitet-und-zerstritten?ref=rss",
@@ -687,7 +631,13 @@
     "Der Standard (Österreich): Es bewegt sich was bei globalen Verhandlungen zum Krieg in der Ukraine"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Ukraine und Russland greifen sich trotz Verhandlungen weiter an",
+     "link": "https://www.tagesschau.de/ausland/europa/ukraine-russland-krieg-angriffe-autobomben-100.html"
+    }
+   ],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -710,7 +660,7 @@
    "kurz": "Estuvieron cinco décadas juntos y fueron una de las parejas más emblemáticas del teatro argentino; cómo ensamblaron sus vidas para poder compartir su alegría",
    "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
    "sprache": "es",
-   "zeit": "2026-11-13T17:58:28Z",
+   "zeit": "2026-11-13T23:44:59Z",
    "ausland_quellen": 1,
    "laender": [
     "Argentinien"
@@ -738,6 +688,47 @@
      "titel": "“Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado",
      "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
      "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "France among five major powers to represent EU in Ukraine talks",
+   "kurz": "European Council President Antonio Costa on Friday said that Brussels will send diplomats from the bloc and five countries, including the UK, France, Germany…",
+   "link": "https://www.france24.com/en/europe/20261113-europe-to-send-diplomats-from-across-the-continent-to-ukraine-peace-talks",
+   "sprache": "en",
+   "zeit": "2026-11-13T21:38:52Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich",
+    "Großbritannien",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "France 24 (Frankreich): France among five major powers to represent EU in Ukraine talks"
+   ],
+   "staatsnah": [
+    "France 24"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "France 24",
+     "land": "Frankreich",
+     "art": "staatsnah",
+     "beteiligt": true,
+     "titel": "France among five major powers to represent EU in Ukraine talks",
+     "link": "https://www.france24.com/en/europe/20261113-europe-to-send-diplomats-from-across-the-continent-to-ukraine-peace-talks",
+     "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
     }
    ]
@@ -780,45 +771,7 @@
    ]
   },
   {
-   "titel": "Alemania y Francia ultiman un pacto sobre el BCE con Hernández de Cos como favorito para la presidencia",
-   "kurz": "Merz: “Necesitamos aún unos días. Queremos presentar la propuesta alemana la semana que viene”",
-   "link": "https://elpais.com/economia/2026-11-13/alemania-y-francia-ultiman-un-pacto-sobre-el-bce-con-hernandez-de-cos-como-favorito-para-la-presidencia.html",
-   "sprache": "es",
-   "zeit": "2026-11-13T14:47:56Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Spanien"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Francia se inclina por apoyar al español Hernández de Cos para la presidencia del BCE",
-     "link": "https://elpais.com/economia/2026-11-12/francia-se-inclina-por-apoyar-al-espanol-hernandez-de-cos-para-la-presidencia-del-bce.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Ukraine live: France among five major powers to represent EU in talks",
+   "titel": "Europe to send diplomats from across the continent to Ukraine peace talks",
    "kurz": "EU leaders on Friday chose five major powers, including France, Britain, Germany, Italy and Poland, to represent European institutions at the next Ukraine…",
    "link": "https://www.france24.com/en/europe/20261113-live-zelensky-and-kushner-confirm-that-europe-will-join-next-round-of-russia-ukraine-talks",
    "sprache": "en",
@@ -835,7 +788,7 @@
     "Ukraine"
    ],
    "zusammenfassung": [
-    "France 24 (Frankreich): Ukraine live: France among five major powers to represent EU in talks"
+    "France 24 (Frankreich): Europe to send diplomats from across the continent to Ukraine peace talks"
    ],
    "staatsnah": [
     "France 24"
@@ -851,48 +804,9 @@
      "land": "Frankreich",
      "art": "staatsnah",
      "beteiligt": true,
-     "titel": "Ukraine live: France among five major powers to represent EU in talks",
+     "titel": "Europe to send diplomats from across the continent to Ukraine peace talks",
      "link": "https://www.france24.com/en/europe/20261113-live-zelensky-and-kushner-confirm-that-europe-will-join-next-round-of-russia-ukraine-talks",
      "eigentuemer": "staatlich (Frankreich)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "España ya es el segundo país de la UE con más trabajadores nacidos en el extranjero",
-   "kurz": "La economía española es la cuarta receptora de mano de obra migrante de los miembros de la OCDE, solo por detrás de Estados Unidos, Alemania y Reino Unido",
-   "link": "https://elpais.com/economia/2026-11-12/espana-ya-es-el-segundo-pais-de-la-ue-con-mas-trabajadores-nacidos-en-el-extranjero.html",
-   "sprache": "es",
-   "zeit": "2026-11-12T13:21:21Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Großbritannien",
-    "Spanien",
-    "USA"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): España ya es el segundo país de la UE con más trabajadores nacidos en el extranjero"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "España ya es el segundo país de la UE con más trabajadores nacidos en el extranjero",
-     "link": "https://elpais.com/economia/2026-11-12/espana-ya-es-el-segundo-pais-de-la-ue-con-mas-trabajadores-nacidos-en-el-extranjero.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -1227,6 +1141,12 @@
    "keine_treffer": true
   },
   "Quantum Systems": {
+   "keine_treffer": true
+  },
+  "Fuerzas Armadas": {
+   "keine_treffer": true
+  },
+  "Nations League": {
    "keine_treffer": true
   }
  }
