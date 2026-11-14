@@ -237,9 +237,51 @@ def beschriftungen_pruefen(szene: dict | None, text: str) -> dict | None:
         dinge = set(hauptwoerter(text)) - LEERE_DINGE
         szene["elemente"] = [e for e in szene["elemente"] if e["art"] != "beschriftung"
                              or (e["text"][:1].isupper() and _wort(e["text"].split()[0]) in dinge)]
+    _glas_und_kaestchen(szene, text)
     labels = [e for e in szene["elemente"] if e["art"] == "beschriftung"][MAX_BESCHRIFTUNGEN:]
     szene["elemente"] = [e for e in szene["elemente"] if e not in labels]   # höchstens MAX_BESCHRIFTUNGEN je Szene
     return szene
+
+
+GLAS_STRECKUNG = 1.3
+PROZENT = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:prozent|%|percent)", re.I)
+
+
+def ist_glas(e: dict) -> bool:
+    return e["art"] == "form" and e.get("form") == "quadrat" and e.get("streckung", 1) >= GLAS_STRECKUNG
+
+
+def _glas_und_kaestchen(szene: dict, text: str) -> None:
+    """Mengen ehrlich zeigen: Ein hohes Kästchen wird nur dann ein Messglas, wenn der Sprechtext eine Prozentzahl nennt –
+    der Füllstand ist genau diese Zahl (die zuletzt genannte, z. B. „unter 20, meist bei 18 Prozent“ → 18 %). Ohne Zahl
+    bleibt es eine schlichte Säule. Kleine, leere Kästchen neben einem Glas sagen nichts aus: Sie fallen weg, ihre
+    Beschriftung wandert ans Glas."""
+    werte = [float(w.replace(",", ".")) for w in PROZENT.findall(text)]
+    glaeser = [e for e in szene["elemente"] if ist_glas(e)]
+    for e in glaeser:
+        if werte and 0 <= werte[-1] <= 100:
+            e["prozent"] = werte[-1] / 100
+        else:
+            e["streckung"] = GLAS_STRECKUNG - .1
+    if not any("prozent" in e for e in glaeser):
+        return
+    glas = next(e for e in glaeser if "prozent" in e)
+    weg = {e["id"] for e in szene["elemente"] if e["art"] == "form" and e.get("form") == "quadrat" and not ist_glas(e)
+           and e["groesse"] <= 20}
+    if not weg:
+        return
+    for e in szene["elemente"]:
+        if e["art"] == "beschriftung" and e.get("an") in weg:
+            e["an"] = glas["id"]
+    gesehen, neu = set(), []
+    for e in szene["elemente"]:
+        if e["id"] in weg or (e["art"] == "beschriftung" and (e["an"], e["text"]) in gesehen):
+            continue
+        if e["art"] == "beschriftung":
+            gesehen.add((e["an"], e["text"]))
+        neu.append(e)
+    szene["elemente"] = neu
+    szene["schritte"] = [x for x in szene["schritte"] if x["ziel"] not in weg and x.get("zu") not in weg]
 
 
 def abdeckung(szene: dict | None, saetze: int) -> list[int]:
@@ -404,6 +446,8 @@ def pruefe_szene(roh) -> dict | None:
             neu["auf"] = _zahl(s.get("auf"), 1.8, 1, 3.5)
             if str(s.get("zu")) in ids:
                 neu["zu"] = str(s["zu"])
+                g = next(e["groesse"] for e in elemente if e["id"] == neu["zu"])
+                neu["auf"] = max(1.0, min(neu["auf"], 80 / max(g, 1)))     # Ziel bleibt ganz im Bild
             elif isinstance(s.get("punkt"), str) and gueltig(s["punkt"].strip().lower(), None):
                 neu["punkt"] = (s["punkt"].strip().lower(),) * 2
             elif isinstance(s.get("punkt"), (list, tuple)) and len(s["punkt"]) == 2:
@@ -580,6 +624,8 @@ class Buehne:
                 k = st[KAMERA]
                 ziel = (st[s["zu"]]["x"], st[s["zu"]]["y"]) if "zu" in s else s["punkt"]
                 k["x"], k["y"], k["f"] = k["x"] + (ziel[0] - k["x"]) * p, k["y"] + (ziel[1] - k["y"]) * p, k["f"] + (s["auf"] - k["f"]) * p
+                rand = 50 / max(k["f"], 1)
+                k["x"], k["y"] = min(100 - rand, max(rand, k["x"])), min(100 - rand, max(rand, k["y"]))
                 continue
             z = st[s["ziel"]]
             if a == "erscheine":
