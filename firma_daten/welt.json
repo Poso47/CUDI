@@ -1,12 +1,49 @@
 {
- "erzeugt": "2026-11-14T18:21:30Z",
- "anzahl": 13,
+ "erzeugt": "2026-11-14T22:39:28Z",
+ "anzahl": 12,
  "nur_ausland": 0,
  "hinweise": [
-  "GDELT: keine Daten erhalten"
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "«Als Bundesrat ungeeignet»: Alt-Richter warnen vor SVP-Kandidat Thomas Aeschi",
+   "kurz": "Thomas Aeschi hat beste Chancen, von der SVP für den Bundesrat nominiert zu werden. Doch sein Verhältnis zur Justiz könnte ihm zum Verhängnis werden. Zudem…",
+   "link": "https://www.nzz.ch/schweiz/als-bundesrat-ungeeignet-alt-richter-warnen-vor-svp-kandidat-thomas-aeschi-ld.10060642",
+   "sprache": "de",
+   "zeit": "2026-11-14T21:37:55Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): «Als Bundesrat ungeeignet»: Alt-Richter warnen vor SVP-Kandidat Thomas Aeschi"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "«Als Bundesrat ungeeignet»: Alt-Richter warnen vor SVP-Kandidat Thomas Aeschi",
+     "link": "https://www.nzz.ch/schweiz/als-bundesrat-ungeeignet-alt-richter-warnen-vor-svp-kandidat-thomas-aeschi-ld.10060642",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger",
    "kurz": "Der 55-jährige Vize-Ministerpräsident von Bayern war am Mittwoch vergangener Woche tot in seinem Hotelzimmer in Berlin entdeckt worden",
@@ -29,8 +66,8 @@
    "deutsch_quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Astrid Halder, BR, zum Trauerakt für Hubert Aiwanger",
-     "link": "https://www.tagesschau.de/video/video-1683664.html"
+     "titel": "Trauerakt in München: Große Anteilnahme bei Abschied von Aiwanger",
+     "link": "https://www.tagesschau.de/inland/aiwanger-trauerfeier-100.html"
     }
    ],
    "nur_ausland": false,
@@ -46,83 +83,6 @@
      "titel": "Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger",
      "link": "https://www.derstandard.at/story/3000000349235/gro223e-anteilnahme-an-trauerfeier-f252r-hubert-aiwanger-in-m252nchen?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "DER ANDERE BLICK MIT DATEN - Ausländer sind Treiber der Altersarmut in Deutschland",
-   "kurz": "Die Zahl der Ausländer im Rentenalter, die auf staatliche Hilfe angewiesen sind, hat einen Rekord erreicht. In Zukunft könnte das Problem sogar noch grösser…",
-   "link": "https://www.nzz.ch/der-andere-blick/auslaender-sind-treiber-der-altersarmut-in-deutschland-ld.10063404",
-   "sprache": "de",
-   "zeit": "2026-11-14T04:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): DER ANDERE BLICK MIT DATEN - Ausländer sind Treiber der Altersarmut in Deutschland"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "DER ANDERE BLICK MIT DATEN - Ausländer sind Treiber der Altersarmut in Deutschland",
-     "link": "https://www.nzz.ch/der-andere-blick/auslaender-sind-treiber-der-altersarmut-in-deutschland-ld.10063404",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Europa descarta nombrar un solo representante y designa un grupo negociador para las conversaciones de paz sobre Ucrania",
-   "kurz": "Washington presiona para que el Viejo Continente participe en las negociaciones, pero Moscú aún se resiste. Las instituciones comunitarias, Francia, Alemania…",
-   "link": "https://elpais.com/internacional/2026-11-13/el-enviado-de-trump-asegura-que-putin-acepta-que-europa-se-sume-a-las-negociaciones-de-paz-sobre-ucrania.html",
-   "sprache": "es",
-   "zeit": "2026-11-13T20:18:52Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Europa descarta nombrar un solo representante y designa un grupo negociador para las conversaciones de paz sobre Ucrania"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Europa descarta nombrar un solo representante y designa un grupo negociador para las conversaciones de paz sobre Ucrania",
-     "link": "https://elpais.com/internacional/2026-11-13/el-enviado-de-trump-asegura-que-putin-acepta-que-europa-se-sume-a-las-negociaciones-de-paz-sobre-ucrania.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -354,7 +314,7 @@
    "kurz": "Estuvieron cinco décadas juntos y fueron una de las parejas más emblemáticas del teatro argentino; cómo ensamblaron sus vidas para poder compartir su alegría",
    "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
    "sprache": "es",
-   "zeit": "2026-11-14T18:12:28Z",
+   "zeit": "2026-11-14T18:26:31Z",
    "ausland_quellen": 1,
    "laender": [
     "Argentinien"
@@ -962,6 +922,15 @@
      "beendet": "1991"
     }
    ]
+  },
+  "Als Bundesrat": {
+   "keine_treffer": true
+  },
+  "Kandidat Thomas": {
+   "keine_treffer": true
+  },
+  "Thomas Aeschi": {
+   "keine_treffer": true
   }
  }
 }
