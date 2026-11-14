@@ -365,3 +365,15 @@ def test_satzanfang_adjektiv_ist_kein_hauptwort():
     from cudi_video.schaubild import hauptwoerter
     w = hauptwoerter("Bestimmte Arbeiterbienen sammeln Nektar. Bienen fliegen weit.")
     assert "bestimmte" not in w and {"arbeiterbienen", "nektar", "bienen"} <= set(w)
+
+
+def test_flacher_kasten_mit_prozent_wird_glas_und_schon_keine_beschriftung():
+    from cudi_video.schaubild import hauptwoerter, zeichnen as Z
+    sz = Z.beschriftungen_pruefen(Z.pruefe_szene({"elemente": [{"id": "k", "art": "form", "form": "quadrat", "x": 50, "y": 60,
+                                                                 "groesse": 40}], "schritte": []}),
+                                  "Am Ende liegt der Wassergehalt unter 20 %, meist bei 18 %.")
+    k = sz["elemente"][0]
+    assert Z.ist_glas(k) and abs(k["prozent"] - .18) < 1e-9
+    assert "schon" not in hauptwoerter("Schon bei der Aufnahme kommen Enzyme dazu.")
+    html = (Path(Z.__file__).parent / "drei" / "szene3d.html").read_text("utf-8")
+    assert "LatheGeometry(pts.reverse()" in html
