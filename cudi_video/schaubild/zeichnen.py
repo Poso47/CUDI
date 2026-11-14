@@ -222,7 +222,7 @@ def glanzform(form: str, pfad: str, px: int, rgb: tuple, alpha: float = 1.0, rot
 
 MAX_BESCHRIFTUNGEN = 6
 LEERE_DINGE = {"ende", "anfang", "antwort", "frage", "weise", "art", "fall", "grund", "beispiel", "teil", "ding", "sache", "mal",
-               "prozent"}                                     # Hauptwörter ohne zeigbares Ding: keine Beschriftung
+               "prozent", "schritt", "schritte", "schritten"}                                     # Hauptwörter ohne zeigbares Ding: keine Beschriftung
 
 
 def beschriftungen_pruefen(szene: dict | None, text: str) -> dict | None:

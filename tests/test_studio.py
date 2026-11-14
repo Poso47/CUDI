@@ -1,6 +1,7 @@
 """Animationsstudio: Abteilungen Storyboard → Figuren → Szenenbau → Abnahme, Lehrer, Einbau in die Videoarten."""
 
 import json
+from pathlib import Path
 
 from PIL import Image
 
@@ -292,3 +293,12 @@ def test_referenz_scout_bewertet_ohne_netz(monkeypatch, tmp_path):
     monkeypatch.setattr(referenzen, "QUELLEN", (lambda b, n: (_ for _ in ()).throw(RuntimeError("weg")), lambda b, n: liste[:1]))
     gefunden, hinweise = referenzen.kandidaten("honey bee")
     assert len(gefunden) == 1 and hinweise
+
+
+def test_leere_dinge_schritte_und_3d_bausteine():
+    from cudi_video.schaubild import zeichnen
+    assert {"schritt", "schritten"} <= zeichnen.LEERE_DINGE
+    html = (Path(zeichnen.__file__).parent / "drei" / "szene3d.html").read_text("utf-8")
+    for teil in ("function wabe()", "function glas(", "function blatttextur()", "function federn("):
+        assert teil in html
+    assert "sheen" not in html                       # r128: sheen braucht eine Farbe, Zahl bricht WebGL

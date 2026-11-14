@@ -77,7 +77,7 @@ def rendere(buehne, zeiten: list[float], size: int = GROESSE, zeitlimit: int = 9
                           capture_output=True, text=True, timeout=zeitlimit)
     if lauf.returncode != 0:
         shutil.rmtree(arbeit, ignore_errors=True)
-        raise RuntimeError((lauf.stderr or lauf.stdout or "3D-Renderer ohne Meldung").strip()[-300:])
+        raise RuntimeError((lauf.stderr or lauf.stdout or "3D-Renderer ohne Meldung").strip()[:400])
     lagen = json.loads((arbeit / "bilder" / "lage.json").read_text("utf-8"))
     pfade = [arbeit / "bilder" / f"b_{i:05d}.png" for i in range(len(zeiten))]
     return pfade, lagen, arbeit
