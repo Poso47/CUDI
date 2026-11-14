@@ -2,6 +2,8 @@
 
 import json
 
+from PIL import Image
+
 from cudi_video import animation, handoff
 
 TEXT = "Der Dotter wandert durch den Eileiter. Dort legt sich das Eiklar um ihn."
@@ -203,3 +205,20 @@ def test_figur_biene():
 
     info = Z.figuren()["biene"]
     assert {"honigblase", "ruessel", "stachel", "pollen", "fluegel"} <= set(info["anker"])
+
+
+def test_figur_bluete_und_beschriftungen_entzerrt():
+    from cudi_video.schaubild import zeichnen as Z
+
+    assert {"nektar", "pollen", "stempel", "bluetenblatt", "stiel"} <= set(Z.figuren()["bluete"]["anker"])
+    text = "Rüssel Nektar Pollen Beinen Blüte Biene"
+    sz = Z.beschriftungen_pruefen(Z.pruefe_szene({"elemente": [{"id": "b", "art": "form", "x": 50, "y": 50, "groesse": 20}]
+        + [{"id": f"l{i}", "art": "beschriftung", "text": w, "an": "b"} for i, w in enumerate(text.split())], "schritte": []}), text)
+    buehne = Z.Buehne(sz, 400, [0.0], (240, 236, 226), (214, 162, 84), 0, lambda w: None)
+    belegt = []
+    for e in sz["elemente"]:
+        if e["art"] == "beschriftung":
+            buehne._beschrifte(Image.new("RGBA", (400, 400)), e, {"x": 50, "y": 50, "g": 20, "alpha": 1}, sz["elemente"][0], 1, 1, 0, 0, belegt)
+    for i, (ax, ay, aw, ah) in enumerate(belegt):                      # keine zwei Beschriftungen überlappen
+        for bx, by, bw, bh in belegt[i + 1:]:
+            assert not (ax < bx + bw and bx < ax + aw and ay < by + bh and by < ay + ah)
