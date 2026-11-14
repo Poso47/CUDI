@@ -302,3 +302,47 @@ def test_leere_dinge_schritte_und_3d_bausteine():
     for teil in ("function wabe()", "function glas(", "function blatttextur()", "function federn("):
         assert teil in html
     assert "sheen" not in html                       # r128: sheen braucht eine Farbe, Zahl bricht WebGL
+
+
+def test_glas_fuellstand_aus_prozent_und_kaestchen_weg():
+    from cudi_video.schaubild import zeichnen as Z
+    roh = {"elemente": [{"id": "g", "art": "form", "form": "quadrat", "streckung": 1.8, "x": 40, "y": 60, "groesse": 20},
+                        {"id": "k1", "art": "form", "form": "quadrat", "x": 70, "y": 50, "groesse": 8},
+                        {"id": "k2", "art": "form", "form": "quadrat", "x": 70, "y": 70, "groesse": 8},
+                        {"id": "l", "art": "beschriftung", "text": "Wassergehalt", "an": "k2"}],
+           "schritte": [{"ziel": "k1", "aktion": "erscheine", "ab": 1}]}
+    text = "Am Ende liegt der Wassergehalt unter 20 Prozent, meist bei 18 Prozent."
+    sz = Z.beschriftungen_pruefen(Z.pruefe_szene(roh), text)
+    ids = [e["id"] for e in sz["elemente"]]
+    assert "k1" not in ids and "k2" not in ids and sz["schritte"] == []
+    glas = next(e for e in sz["elemente"] if e["id"] == "g")
+    assert abs(glas["prozent"] - .18) < 1e-9
+    assert next(e for e in sz["elemente"] if e["art"] == "beschriftung")["an"] == "g"
+    ohne = Z.beschriftungen_pruefen(Z.pruefe_szene(roh), "Der Honig wird dicker und die Bienen trocknen ihn.")
+    g2 = next(e for e in ohne["elemente"] if e["id"] == "g")
+    assert "prozent" not in g2 and not Z.ist_glas(g2)          # ohne genannte Zahl kein Messglas (nichts erfinden)
+
+
+def test_zoom_bleibt_im_bild():
+    from cudi_video.schaubild import zeichnen as Z
+    sz = Z.pruefe_szene({"elemente": [{"id": "w", "art": "form", "form": "sechseck", "x": 85, "y": 80, "groesse": 60}],
+                         "schritte": [{"ziel": "kamera", "aktion": "zoom", "zu": "w", "auf": 3, "ab": 1}]})
+    assert sz["schritte"][0]["auf"] <= 80 / 60 + 1e-9
+    b = Z.Buehne(sz, 400, [0.0], (240, 236, 226), (214, 162, 84), 0, None)
+    k = b.zustand(30)[Z.KAMERA]
+    rand = 50 / k["f"]
+    assert rand - 1e-6 <= k["x"] <= 100 - rand + 1e-6 and rand - 1e-6 <= k["y"] <= 100 - rand + 1e-6
+
+
+def test_szene_ohne_animation_zeigt_nachbarbild():
+    from cudi_video import animation
+    voll = {"elemente": [{"id": "b", "art": "figur", "figur": "biene", "x": 50, "y": 50, "groesse": 40, "alpha": 0.0},
+                         {"id": "l", "art": "beschriftung", "text": "Biene", "an": "b", "alpha": 0.0}],
+            "schritte": [{"ziel": "b", "aktion": "erscheine"}]}
+    szenen = [{"text": "Die Biene fliegt.", "animation": voll}, {"text": "Für Imker ist das ein Zeichen.", "animation": None}]
+    notes = []
+    animation._luecken_fuellen(szenen, notes)
+    neu = szenen[1]["animation"]
+    assert neu["schritte"] == [] and all(e["alpha"] == 1.0 for e in neu["elemente"])
+    assert not any(e["art"] == "beschriftung" for e in neu["elemente"])      # „Biene“ wird hier nicht gesprochen
+    assert voll["schritte"] and notes

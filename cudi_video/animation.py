@@ -317,6 +317,36 @@ def bericht(abgleich: list[dict]) -> str:
     return "\n".join(zeilen) + "\n"
 
 
+def _hat_bild(sz: dict) -> bool:
+    a = sz.get("animation")
+    return bool(a) and any(e["art"] != "beschriftung" for e in a.get("elemente") or [])
+
+
+def _luecken_fuellen(szenen: list[dict], notes: list[str]) -> None:
+    """Kein Bild nur mit Text: Szenen ohne Animation zeigen die Bühne der Nachbarszene (vorher, sonst danach) ruhig weiter –
+    alles gleich sichtbar, keine Schritte; Beschriftungen nur, wenn ihr Wort auch hier gesprochen wird."""
+    import copy
+
+    from .schaubild import zeichnen
+
+    mit = [i for i, sz in enumerate(szenen) if _hat_bild(sz)]
+    if not mit:
+        return
+    n = 0
+    for i, sz in enumerate(szenen):
+        if _hat_bild(sz):
+            continue
+        quelle = szenen[max([j for j in mit if j < i], default=min(mit))]["animation"]
+        ersatz = copy.deepcopy(quelle)
+        for e in ersatz["elemente"]:
+            e["alpha"] = 1.0
+        ersatz["schritte"] = []
+        sz["animation"] = zeichnen.beschriftungen_pruefen(ersatz, sz.get("text", ""))
+        n += 1
+    if n:
+        notes.append(f"{n} Szene(n) ohne eigene Animation zeigen das Bild der Nachbarszene weiter.")
+
+
 def an_skript(skript: dict, out: Path, art: str, notes: list[str], vorab: list | dict | None = None) -> None:
     """Erklär-Skript (erklaer/reportage): je Szene eine eigene Animation (`szene["animation"]`) + Abgleich speichern.
     `vorab`: Storyboards je Szene (gleiche Reihenfolge), wenn sie schon mit dem Text geschrieben wurden."""
@@ -329,6 +359,7 @@ def an_skript(skript: dict, out: Path, art: str, notes: list[str], vorab: list |
     for i, sz in enumerate(skript.get("szenen") or []):
         if str(i + 1) in szenen:
             sz["animation"] = szenen[str(i + 1)]
+    _luecken_fuellen(skript.get("szenen") or [], notes)
     speichern(out, art, abgleich)
     if abgleich:
         try:
