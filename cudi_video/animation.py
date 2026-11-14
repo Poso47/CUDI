@@ -22,6 +22,7 @@ wichtigsten davon an jede Szenen-Aufgabe – so wird jede Runde besser. Ausschal
 from __future__ import annotations
 
 import json
+import logging
 import os
 import re
 from pathlib import Path
@@ -340,7 +341,7 @@ def an_skript(skript: dict, out: Path, art: str, notes: list[str], vorab: list |
 class Bild:
     """Zeichnet eine geprüfte Szene im Takt der Stimme: `.bild(t, size)` -> quadratisches RGBA-Bild."""
 
-    def __init__(self, szene: dict, text: str, words: list[dict], lead: float, ink, akzent, seed: int = 0):
+    def __init__(self, szene: dict, text: str, words: list[dict], lead: float, ink, akzent, seed: int = 0, dauer: float | None = None):
         from .render.manuskript import align_tokens
         from .schaubild import zeichnen
 
@@ -360,8 +361,63 @@ class Bild:
         self.wort_zeit = wort_zeit
         self._buehnen: dict[int, object] = {}
         self._zeichnen = zeichnen
+        self.dauer = dauer                                    # bekannt -> ganze Szene einmal in echtem 3D vorrendern
+        self._drei: dict[int, object] = {}
+        self._cache: tuple | None = None
+        self.hinweis = ""
 
     def bild(self, t: float, size: int):
         if size not in self._buehnen:
             self._buehnen[size] = self._zeichnen.Buehne(self.szene, size, self.satz, self.ink, self.ak, self.seed, self.wort_zeit)
-        return self._buehnen[size].bild(t)
+        buehne = self._buehnen[size]
+        if self.dauer:
+            from .schaubild import drei
+            if size not in self._drei:
+                self._drei[size] = self._drei_rendern(drei, buehne, size) if drei.aktiv() else False
+            if self._drei[size]:
+                return self._drei_bild(drei, buehne, self._drei[size], t, size)
+        return buehne.bild(t)
+
+    def _drei_rendern(self, drei, buehne, size: int):
+        """Alle Bilder der Szene in 3D (BILDRATE je Sekunde). Fehler -> False, die Szene bleibt 2D."""
+        import atexit
+        import shutil
+
+        zeiten = [i / drei.BILDRATE for i in range(int(self.dauer * drei.BILDRATE) + 2)]
+        try:
+            pfade, lagen, arbeit = drei.rendere(buehne, zeiten, min(size, drei.GROESSE))
+        except Exception as exc:                               # noqa: BLE001 – 3D ist ein Extra, 2D bleibt der sichere Weg
+            self.hinweis = f"3D nicht möglich, Szene in 2D gezeichnet: {exc}"[:240]
+            logging.getLogger(__name__).warning(self.hinweis)
+            return False
+        atexit.register(shutil.rmtree, arbeit, True)
+        return pfade, lagen
+
+    def _drei_bild(self, drei, buehne, daten, t: float, size: int):
+        from PIL import Image
+
+        from .schaubild.zeichnen import clamp
+        pfade, lagen = daten
+        i = max(0, min(len(pfade) - 1, round(t * drei.BILDRATE)))
+        if not self._cache or self._cache[0] != (i, size):
+            im = Image.open(pfade[i]).convert("RGBA")
+            self._cache = ((i, size), im if im.width == size else im.resize((size, size), Image.BICUBIC))
+        im = self._cache[1].copy()
+        st, belegt = buehne.zustand(t), []
+        for eid in buehne.order:                               # Beschriftungen wie in 2D, an der 3D-Bildschirmlage
+            e = buehne.el[eid]
+            if e["art"] != "beschriftung":
+                continue
+            sichtbar = clamp((t - e["_t"]) / .3) * (st[eid]["alpha"] if st[eid]["alpha"] > 0 else 1.0)
+            ziel = st.get(e["an"])
+            if sichtbar <= .01 or not ziel or ziel["alpha"] <= .01 and buehne.el[e["an"]]["art"] == "form":
+                continue
+            lage = lagen[i].get(e["an"])
+            if lage:
+                ziel = dict(ziel, x=lage[0], y=lage[1], g=lage[2] * 2)
+            art = buehne.el[e["an"]]["art"]                    # Linien: Lage aus 3D statt Kurvenpunkt; Figuren: kleiner Abstand wie in 2D
+            ziel_el = dict(buehne.el[e["an"]], art="form" if lage and art in ("schlauch", "pfeil") else art)
+            if lage and art == "figur":
+                ziel = dict(ziel, y=lage[1] - lage[2] * .35)                  # Beschriftung oben an der Figur statt in der Mitte
+            buehne._beschrifte(im, e, ziel, ziel_el, sichtbar, 1.0, 0.0, 0.0, belegt)
+        return im

@@ -707,7 +707,7 @@ class ErklaerScene(Scene):
             from ..animation import Bild
 
             self.anim = Bild(sz["animation"], sz["text"], job["words"], job["lead"], M.INK, (214, 162, 84),
-                             job.get("index", 0))
+                             job.get("index", 0), dauer=job.get("duration"))
 
     def _quote(self):
         v = self.visual

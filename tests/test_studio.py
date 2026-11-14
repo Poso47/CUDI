@@ -234,3 +234,40 @@ def test_beschriftungen_nur_an_dingen_und_figurnamen_mit_umlaut():
     assert sz["elemente"][0]["figur"] == "bluete"
     assert [e["text"] for e in sz["elemente"] if e["art"] == "beschriftung"] == ["Aufnehmen", "Enzyme", "Biene", "Nektar"]
     assert Z.figur_name("Blüte") == "bluete" and Z.figur_info("Blüte")
+
+
+def test_3d_buehne_zustaende_und_rueckfall(monkeypatch):
+    """3D: Python liefert Zustände je Bild; ohne Node/3D zeichnet Bild in 2D weiter (nie ein Abbruch)."""
+    from cudi_video.schaubild import drei, zeichnen as Z
+
+    sz = Z.pruefe_szene({"elemente": [{"id": "b", "art": "figur", "figur": "biene", "x": 50, "y": 50, "groesse": 60},
+                                      {"id": "n", "art": "form", "form": "tropfen", "x": "b.ruessel", "y": "b.ruessel", "groesse": 6}],
+                         "schritte": [{"ab": 1, "ziel": "b", "aktion": "flattere", "dauer": 1}]})
+    buehne = Z.Buehne(sz, 200, [0.0], (240, 236, 226), (214, 162, 84))
+    el = drei.elemente(buehne)
+    assert [e["id"] for e in el] == ["b", "n"] and el[0]["figur"] == "biene" and isinstance(el[1]["farbe"], list)
+    zs = drei.zustaende(buehne, [0.0, 0.5])
+    assert zs[1]["st"]["b"]["flattere"] > 0 and zs[0]["kamera"]["f"] == 1.0
+    monkeypatch.setattr(drei, "rendere", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("kein Chromium")))
+    monkeypatch.setenv("CUDI_3D", "1")
+    bild = animation.Bild(sz, TEXT, [], 0.2, (240, 236, 226), (214, 162, 84), dauer=1.0)
+    assert bild.bild(0.3, 200).size == (200, 200) and "2D" in bild.hinweis
+
+
+def test_3d_buehne_rendert_echt(monkeypatch):
+    """Echter 3D-Lauf im eingebauten Chromium (übersprungen, wo Node/Playwright fehlen)."""
+    import shutil
+    import subprocess
+
+    import pytest
+
+    from cudi_video.schaubild import drei, zeichnen as Z
+    if not shutil.which("node") or subprocess.run(["node", "-e", "require('playwright')"], capture_output=True).returncode:
+        pytest.skip("Node/Playwright fehlt")
+    sz = Z.pruefe_szene({"elemente": [{"id": "bl", "art": "figur", "figur": "bluete", "x": 50, "y": 55, "groesse": 70},
+                                      {"id": "w", "art": "form", "form": "sechseck", "farbe": "gold", "x": 80, "y": 80, "groesse": 15}],
+                         "schritte": []})
+    pfade, lagen, arbeit = drei.rendere(Z.Buehne(sz, 200, [0.0], (240, 236, 226), (214, 162, 84)), [0.0, 0.2], 160)
+    im = Image.open(pfade[1])
+    assert im.size == (160, 160) and im.getchannel("A").getextrema()[1] > 200 and abs(lagen[0]["w"][0] - 80) < 6
+    shutil.rmtree(arbeit, ignore_errors=True)

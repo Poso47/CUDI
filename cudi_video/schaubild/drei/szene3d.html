@@ -1,0 +1,260 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style></head>
+<body>
+<script src="../../data/three/three.min.js"></script>
+<script>
+/* CUDI Animationsstudio – 3D-Bühne (three.js r128, MIT). Python (schaubild/drei.py) berechnet je Bild den Zustand
+   aller Elemente (Lage 0–100, Größe, Deckkraft, Füllung, Farbe, Kamera); hier wird er nur noch in 3D gezeichnet:
+   Licht, weiche Schatten, Glanz, Tiefe, leichte Kamerafahrt. Zurück gehen PNG-Bilder + Bildschirmlage je Element
+   (für die Beschriftungen, die Python wie bisher setzt). */
+const W = 10;                                            // Bühnenbreite in Welt-Einheiten (0–100 -> -5..5)
+const T = THREE;
+let renderer, scene, camera, root, el = {}, size = 720, elemente = [];
+
+const wx = (x) => (x - 50) / 100 * W, wy = (y) => -(y - 50) / 100 * W;
+const rgb = (c) => new T.Color(c[0] / 255, c[1] / 255, c[2] / 255).convertSRGBToLinear();   // Farben wie im 2D-Bild
+function mat(c, o = {}) {
+  return new T.MeshPhysicalMaterial(Object.assign({ color: rgb(c), roughness: .45, metalness: 0, clearcoat: .35, clearcoatRoughness: .4 }, o));
+}
+function streifen(gelb, braun) {                         // Bienen-Hinterleib: Querstreifen als Textur
+  const c = document.createElement("canvas"); c.width = 16; c.height = 256; const g = c.getContext("2d");
+  g.fillStyle = gelb; g.fillRect(0, 0, 16, 256); g.fillStyle = braun;
+  [[40, 30], [100, 30], [160, 30], [215, 41]].forEach(([y, h]) => g.fillRect(0, y, 16, h));
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; return tx;
+}
+function fell(farbe) {                                   // feines Rauschen als Fell/Struktur
+  const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d");
+  g.fillStyle = farbe; g.fillRect(0, 0, 128, 128);
+  for (let i = 0; i < 2600; i++) { g.fillStyle = `rgba(${Math.random() < .5 ? "255,240,200" : "60,30,10"},${Math.random() * .35})`;
+    g.fillRect(Math.random() * 128, Math.random() * 128, 1.5, 3); }
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; tx.wrapS = tx.wrapT = T.RepeatWrapping; tx.repeat.set(3, 3); return tx;
+}
+// Figurenraum wie in figur.json: 400 Einheiten, Mitte (200,200), y nach unten -> lokale Koordinaten (Breite 1)
+const fp = (x, y, z = 0) => new T.Vector3((x - 200) / 400, -(y - 200) / 400, z);
+function kugel(r, m, x, y, z = 0, sx = 1, sy = 1, sz = 1) {
+  const k = new T.Mesh(new T.SphereGeometry(r, 40, 28), m); k.position.copy(fp(x, y, z)); k.scale.set(sx, sy, sz);
+  k.castShadow = true; return k;
+}
+function rohr(pts, r, m) {
+  const c = new T.CatmullRomCurve3(pts.map((p) => fp(p[0], p[1], p[2] || 0)));
+  const t = new T.Mesh(new T.TubeGeometry(c, 40, r, 10, false), m); t.castShadow = true; return t;
+}
+
+const FIGUREN = {
+  biene() {
+    const g = new T.Group(), teile = {};
+    const hl = new T.SphereGeometry(.5, 48, 32); hl.rotateZ(Math.PI / 2);
+    const leib = new T.Mesh(hl, mat([255, 255, 255], { map: streifen("#f2aa22", "#2b1a08"), roughness: .6 }));
+    leib.position.copy(fp(150, 218)); leib.scale.set(.43, .31, .32); leib.castShadow = true; g.add(leib); teile.koerper = leib;
+    g.add(kugel(.03, mat([43, 26, 8]), 44, 246));            // Stachel
+    g.add(kugel(.12, mat([168, 105, 42], { map: fell("#a8692a"), roughness: .95, clearcoat: 0 }), 248, 196));
+    const kopf = new T.Group(); kopf.position.copy(fp(290, 200)); g.add(kopf); teile.kopf = kopf;
+    const kk = kugel(.088, mat([70, 40, 16], { roughness: .7 }), 306, 194); kk.position.sub(kopf.position); kopf.add(kk);
+    [[-1], [1]].forEach(([s]) => { const a = kugel(.03, mat([12, 12, 18], { roughness: .15, clearcoat: 1 }), 318, 186, s * .045, .8, 1.3, .8);
+      a.position.sub(kopf.position); kopf.add(a); });
+    [[[312, 160], [330, 125], [358, 104]], [[302, 160], [314, 120], [336, 96]]].forEach((p, i) => {
+      const f = rohr(p.map((q) => [q[0], q[1], (i ? -1 : 1) * .03]), .006, mat([31, 18, 6])); f.position.sub(kopf.position); kopf.add(f); });
+    const ruessel = rohr([[326, 226], [334, 244], [344, 262]], .008, mat([61, 35, 14])); ruessel.position.sub(kopf.position); kopf.add(ruessel);
+    for (const [a, b, c] of [[[232, 226], [214, 262], [200, 300]], [[250, 232], [258, 270], [250, 304]], [[266, 228], [290, 258], [304, 292]]])
+      for (const s of [-1, 1]) g.add(rohr([a, b, c].map((q) => [q[0], q[1], s * .05]), .009, mat([43, 26, 8])));
+    g.add(kugel(.035, mat([255, 210, 40], { roughness: .8 }), 210, 282, .06));   // Pollenhöschen
+    const flg = new T.Group(); flg.position.copy(fp(242, 166)); g.add(flg); teile.fluegel = flg;
+    const fm = new T.MeshPhysicalMaterial({ color: 0xd6ecff, transparent: true, opacity: .62, roughness: .15,
+      side: T.DoubleSide, clearcoat: 1, depthWrite: false });
+    [[-.21, .1, .2, .075, .55], [-.16, .03, .14, .055, .3]].forEach(([dx, dy, rx, ry, rot]) => {
+      for (const s of [-1, 1]) {
+        const sh = new T.Shape(); sh.absellipse(0, 0, rx, ry, 0, Math.PI * 2);
+        const m = new T.Mesh(new T.ShapeGeometry(sh, 40), fm); m.position.set(dx, dy, s * .04); m.rotation.z = rot;
+        const halter = new T.Group(); halter.add(m); halter.userData.seite = s; flg.add(halter);
+      }
+    });
+    return { g, teile };
+  },
+  bluete() {
+    const g = new T.Group(), teile = {};
+    const stiel = rohr([[200, 172], [192, 260], [212, 320], [198, 374]], .016, mat([90, 170, 70], { roughness: .7 }));
+    g.add(stiel); teile.beine = stiel;
+    [[[300, 260], -.5], [[100, 290], .6]].forEach(([[x, y], r]) => {
+      const b = kugel(.5, mat([80, 170, 60], { roughness: .6, side: T.DoubleSide }), x, y, .02, .24, .07, .03); b.rotation.z = r; g.add(b); });
+    const kopf = new T.Group(); kopf.position.copy(fp(200, 150)); g.add(kopf); teile.koerper = kopf;
+    const blatt = (w, l, br, farbe, z) => {
+      const p = new T.Mesh(new T.SphereGeometry(.5, 32, 16), mat(farbe, { roughness: .5, clearcoat: .6 }));
+      p.scale.set(l, br, .025); const a = w * Math.PI / 180;
+      p.position.set(Math.cos(a) * l * .5, Math.sin(a) * l * .5, z); p.rotation.z = a; p.rotation.x = .25 * Math.sin(a);
+      p.castShadow = true; kopf.add(p);
+    };
+    for (let i = 0; i < 8; i++) blatt(i * 45 + 22.5, .22, .085, [214, 80, 140], -.02);
+    for (let i = 0; i < 8; i++) blatt(i * 45, .25, .095, [245, 130, 180], 0);
+    const mitte = new T.Mesh(new T.CylinderGeometry(.075, .07, .04, 40), mat([240, 178, 28], { map: fell("#f0b21c"), roughness: .8 }));
+    mitte.rotation.x = Math.PI / 2; mitte.position.z = .02; mitte.castShadow = true; kopf.add(mitte); teile.kopf = mitte;
+    for (let i = 0; i < 12; i++) { const a = i * Math.PI / 6;
+      const s = new T.Mesh(new T.SphereGeometry(.011, 12, 8), mat([255, 220, 40])); s.position.set(Math.cos(a) * .07, Math.sin(a) * .07, .06); kopf.add(s); }
+    return { g, teile };
+  },
+  huhn() {
+    const g = new T.Group(), teile = {};
+    const braun = mat([207, 127, 54], { map: fell("#cf7f36"), roughness: .85, clearcoat: .1 });
+    const leib = kugel(.5, braun, 205, 245, 0, .55, .38, .36); g.add(leib); teile.koerper = leib;
+    const flg = new T.Group(); flg.position.copy(fp(160, 205)); g.add(flg); teile.fluegel = flg;
+    const fl = kugel(.5, mat([150, 75, 30], { map: fell("#96501f"), roughness: .9 }), 212, 222, .13, .32, .16, .06); fl.position.sub(flg.position); flg.add(fl);
+    g.add(rohr([[240, 210], [270, 160], [296, 125]], .055, braun));
+    const kopf = new T.Group(); kopf.position.copy(fp(268, 200)); g.add(kopf); teile.kopf = kopf;
+    const add = (o) => { o.position.sub(kopf.position); kopf.add(o); };
+    add(kugel(.075, braun, 305, 115));
+    [[292, 86], [304, 80], [316, 86]].forEach(([x, y]) => add(kugel(.025, mat([224, 38, 43], { clearcoat: .8 }), x, y)));
+    const schnabel = new T.Mesh(new T.ConeGeometry(.025, .07, 20), mat([240, 170, 40])); schnabel.rotation.z = -Math.PI / 2;
+    schnabel.position.copy(fp(348, 121)); add(schnabel);
+    add(kugel(.014, mat([10, 10, 10], { roughness: .1, clearcoat: 1 }), 315, 110, .06));
+    add(kugel(.022, mat([224, 38, 43]), 326, 140));
+    const schwanz = new T.Group(); schwanz.position.copy(fp(122, 200)); g.add(schwanz); teile.schwanz = schwanz;
+    [-160, -140, -120, -100].forEach((w, i) => { const f = kugel(.5, mat([60, 42, 29], { clearcoat: .8, roughness: .3 }), 90, 140 - i * 6, -.02 + i * .01, .2, .05, .03);
+      f.rotation.z = (w + 180) * Math.PI / 180 * .6; f.position.sub(schwanz.position); schwanz.add(f); });
+    for (const x of [188, 226]) { g.add(rohr([[x, 300], [x - 2, 335], [x, 362]], .011, mat([243, 179, 58])));
+      for (const dx of [26, 14, -18]) g.add(rohr([[x, 362], [x + dx, 368]], .007, mat([243, 179, 58]))); }
+    return { g, teile };
+  },
+};
+
+function tropfenGeo() {
+  const pts = []; for (let i = 0; i <= 24; i++) { const t = i / 24, a = t * Math.PI;
+    pts.push(new T.Vector2(Math.sin(a) * .5 * Math.pow(Math.sin(a / 2 + .2), .6) * (t > .5 ? 1 : t * 1.6 + .2), .55 - t * 1.05)); }
+  return new T.LatheGeometry(pts, 40);
+}
+function herzGeo() {
+  const s = new T.Shape(); s.moveTo(0, -.45); s.bezierCurveTo(-.55, -.05, -.45, .45, 0, .2); s.bezierCurveTo(.45, .45, .55, -.05, 0, -.45);
+  const g = new T.ExtrudeGeometry(s, { depth: .25, bevelEnabled: true, bevelThickness: .08, bevelSize: .06, bevelSegments: 6, curveSegments: 24 });
+  g.center(); return g;
+}
+function formGeo(f) {
+  if (f === "ei") { const g = new T.SphereGeometry(.5, 48, 32); g.scale(.82, 1, .82); return g; }
+  if (f === "tropfen") return tropfenGeo();
+  if (f === "quadrat") return new T.BoxGeometry(.85, .85, .5, 4, 4, 4);
+  if (f === "sechseck") { const g = new T.CylinderGeometry(.5, .5, .32, 6); g.rotateX(Math.PI / 2); g.rotateZ(Math.PI / 6); return g; }
+  if (f === "herz") return herzGeo();
+  return new T.SphereGeometry(.5, 48, 32);
+}
+
+function baue(e) {                                       // ein Element -> Objekt3D (Lage/Größe setzt jedes Bild neu)
+  const o = { e, obj: new T.Group() };
+  const farbe = e.farbe || [200, 200, 200];
+  if (e.art === "figur" && FIGUREN[e.figur]) {
+    const f = FIGUREN[e.figur](); o.teile = f.teile; o.innen = f.g; o.obj.add(f.g);
+    if (e.blick < 0) f.g.scale.x = -1;
+    if (e.durchsichtig && f.teile.koerper) f.teile.koerper.traverse((m) => { if (m.material) { m.material = m.material.clone(); m.material.transparent = true; m.material.opacity = .55; } });
+  } else if (e.art === "form" || e.art === "figur") {
+    o.mat = mat(farbe, { transparent: true, opacity: e.deckkraft ?? 1 });
+    const m = new T.Mesh(formGeo(e.form), o.mat); m.castShadow = true; m.scale.y = e.streckung || 1; o.obj.add(m); o.mesh = m;
+  } else if (e.art === "schlauch" || e.art === "pfeil") {
+    o.kurve = new T.CatmullRomCurve3(e.punkte.map((p) => new T.Vector3(wx(p[0]), wy(p[1]), 0)));
+    o.mat = mat(farbe, { transparent: true, opacity: e.durchsichtig ? .35 : 1, roughness: .3, clearcoat: .8 });
+    o.r = Math.max(.02, (e.breite || 8) / 100 * W / 2 * (e.art === "pfeil" ? .25 : 1));
+    o.geo = new T.TubeGeometry(o.kurve, 160, o.r, 16, false); o.mesh = new T.Mesh(o.geo, o.mat); o.mesh.castShadow = true; o.obj.add(o.mesh);
+    if (e.art === "pfeil") { const n = o.kurve.getPoints(2), a = n[n.length - 1], b = n[n.length - 2];
+      const k = new T.Mesh(new T.ConeGeometry(o.r * 3, o.r * 7, 20), o.mat); k.position.copy(a);
+      k.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), a.clone().sub(b).normalize()); o.obj.add(k); }
+  } else if (e.art === "huelle" || e.art === "schale") {
+    o.mat = mat(farbe, { transparent: true, opacity: e.art === "huelle" ? .3 : .9, roughness: .15, transmission: e.art === "huelle" ? .5 : 0, depthWrite: false });
+    o.mesh = new T.Mesh(new T.SphereGeometry(.5, 48, 32), o.mat); o.obj.add(o.mesh);
+  } else if (e.art === "kristalle" || e.art === "partikel" || e.art === "traube") {
+    o.mat = mat(farbe, { roughness: .3, clearcoat: .9 }); o.stuecke = [];
+    const n = e.art === "traube" ? (e.anzahl || 9) : 28;
+    for (let i = 0; i < n; i++) { const m = new T.Mesh(e.art === "kristalle" ? new T.IcosahedronGeometry(.5, 0) : new T.SphereGeometry(.5, 20, 14), o.mat);
+      m.castShadow = true; m.userData.z = [Math.random(), Math.random(), Math.random()]; o.stuecke.push(m); o.obj.add(m); }
+  } else if (e.art === "uhr") {
+    o.mat = mat([245, 240, 230]);
+    const d = new T.Mesh(new T.CylinderGeometry(.5, .5, .08, 48), o.mat); d.rotation.x = Math.PI / 2; o.obj.add(d);
+    o.zeiger = new T.Mesh(new T.BoxGeometry(.04, .42, .05), mat(farbe)); o.zeiger.geometry.translate(0, .2, .06); o.obj.add(o.zeiger);
+  }
+  o.obj.traverse((m) => { if (m.isMesh) m.receiveShadow = false; });
+  root.add(o.obj); return o;
+}
+
+function setzeAlpha(o, a) {
+  o.obj.visible = a > .01;
+  o.obj.traverse((m) => { if (m.isMesh && m.material) { if (m.material.userData.basis === undefined) m.material.userData.basis = m.material.opacity ?? 1;
+    m.material.transparent = true; m.material.opacity = m.material.userData.basis * a; } });
+}
+
+window.init = function (daten) {
+  size = daten.size; elemente = daten.elemente;
+  renderer = new T.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(1); renderer.setSize(size, size); renderer.setClearColor(0x000000, 0);
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
+  renderer.outputEncoding = T.sRGBEncoding; renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+  document.body.appendChild(renderer.domElement);
+  scene = new T.Scene(); root = new T.Group(); scene.add(root);
+  camera = new T.PerspectiveCamera(30, 1, .1, 200);
+  scene.add(new T.HemisphereLight(0xfff4e0, 0x202040, .75));
+  const sonne = new T.DirectionalLight(0xffffff, 1.25); sonne.position.set(-5, 8, 12); sonne.castShadow = true;
+  sonne.shadow.mapSize.set(1024, 1024); Object.assign(sonne.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: 1, far: 40 });
+  sonne.shadow.radius = 6; scene.add(sonne);
+  const rand = new T.DirectionalLight(0x9fd8ff, .5); rand.position.set(6, -2, -6); scene.add(rand);
+  const fang = new T.Mesh(new T.PlaneGeometry(40, 40), new T.ShadowMaterial({ opacity: .28 })); fang.position.z = -1.6; fang.receiveShadow = true; scene.add(fang);
+  elemente.forEach((e, i) => { el[e.id] = baue(e); el[e.id].z = i * .12 + (e.art === "figur" ? 0 : .9); });   // Teile vor/in Figuren bleiben sichtbar
+  return true;
+};
+
+function zeichneBild(b) {                                // b = {t, st: {id: zustand}, kamera: {x,y,f}}
+  const t = b.t;
+  for (const e of elemente) {
+    const o = el[e.id], z = b.st[e.id]; if (!o || !z) continue;
+    const g = Math.max(.02, z.g / 100 * W) * (1 + (z.puls || 0));
+    setzeAlpha(o, z.alpha);
+    if (e.art === "figur" && o.teile) {
+      o.obj.position.set(wx(z.x), wy(z.y), o.z); o.obj.scale.setScalar(g);
+      o.obj.rotation.y = .18 * Math.sin(t * .6 + e.id.length);              // Figuren drehen sich leicht – echtes 3D
+      const k = o.teile.kopf; if (k) k.rotation.z = .04 * Math.sin(t * 1.3) - .38 * (z.picke || 0);
+      const s = o.teile.schwanz; if (s) s.rotation.z = .03 * Math.sin(t * 1.7);
+      const f = o.teile.fluegel;
+      if (f) f.children.forEach((h) => { const s2 = h.userData.seite || 1;
+        h.rotation.x = s2 * (e.figur === "biene" ? .35 + .5 * Math.abs(Math.sin(t * 30)) * (.25 + (z.flattere || 0)) : .25 * (z.flattere || 0) * Math.abs(Math.sin(t * 14))); });
+      if (o.teile.koerper && e.figur !== "biene") o.teile.koerper.scale.y *= 1;     // Atmen über die ganze Figur:
+      o.innen.scale.y = (e.blick < 0 ? 1 : 1) * (1 + .012 * Math.sin(t * 2.4));
+    } else if (e.art === "form" || (e.art === "figur" && !o.teile)) {
+      o.obj.position.set(wx(z.x), wy(z.y), o.z); o.obj.scale.setScalar(g); o.obj.rotation.z = -z.rot * Math.PI / 180;
+      o.obj.rotation.y = .25 * Math.sin(t * .7); o.mat.color.copy(rgb(z.farbe));
+    } else if (e.art === "schlauch" || e.art === "pfeil") {
+      o.mesh.geometry.setDrawRange(0, Math.floor(o.geo.index.count * Math.max(0, Math.min(1, e.art === "schlauch" && e.f === 0 ? z.f : 1)) / 6) * 6);
+      o.mat.color.copy(rgb(z.farbe));
+    } else if (e.art === "huelle" || e.art === "schale") {
+      const ziel = b.st[e.um]; if (ziel) { o.obj.position.set(wx(ziel.x), wy(ziel.y), 0);
+        o.obj.scale.setScalar(Math.max(.01, ziel.g / 100 * W * (1 + (e.art === "huelle" ? z.g / 50 : .12) * z.f))); }
+      setzeAlpha(o, z.alpha * (z.f > .01 ? 1 : 0));
+    } else if (e.art === "kristalle" && b.st[e.um]) {
+      const ziel = b.st[e.um], r = ziel.g / 100 * W / 2;
+      o.stuecke.forEach((m, i) => { const [u, v, w] = m.userData.z, a = u * Math.PI * 2, p = Math.acos(2 * v - 1);
+        m.visible = i / o.stuecke.length < z.f; m.scale.setScalar(r * .18 * (.6 + w));
+        m.position.set(wx(ziel.x) + r * Math.sin(p) * Math.cos(a), wy(ziel.y) + r * Math.cos(p), r * Math.sin(p) * Math.sin(a)); });
+    } else if (e.art === "partikel") {
+      const von = b.st[e.von] || { x: (e.von || [50])[0], y: (e.von || [0, 50])[1] }, nach = b.st[e.nach] || { x: (e.nach || [50])[0], y: (e.nach || [0, 50])[1] };
+      o.stuecke.forEach((m, i) => { const [u, v] = m.userData.z, q = (u + t * .35) % 1;
+        m.visible = i / o.stuecke.length < z.f; m.scale.setScalar(.22);
+        m.position.set(wx(von.x + (nach.x - von.x) * q) + (v - .5) * .3, wy(von.y + (nach.y - von.y) * q) + Math.sin(q * 9 + i) * .08, (v - .5) * .4 + 1.2); });
+    } else if (e.art === "traube") {
+      o.obj.position.set(wx(z.x), wy(z.y), 0);
+      o.stuecke.forEach((m, i) => { const [u, v, w] = m.userData.z; m.scale.setScalar(g * .32);
+        m.position.set((u - .5) * g * .7, (v - .5) * g * .7, (w - .5) * g * .5); });
+    } else if (e.art === "uhr") {
+      o.obj.position.set(wx(z.x), wy(z.y), 0); o.obj.scale.setScalar(g); o.zeiger.rotation.z = -z.f * Math.PI * 2;
+    }
+  }
+  const k = b.kamera, d = 18.66 / Math.max(1, k.f);       // Kamera: leichte Fahrt + Zoom auf das Ziel
+  const zx = wx(k.f > 1.01 ? k.x : 50), zy = wy(k.f > 1.01 ? k.y : 50), sw = .1 * Math.sin(t * .35);
+  camera.position.set(zx + Math.sin(sw) * d, zy + d * .1, Math.cos(sw) * d); camera.lookAt(zx, zy, 0); camera.updateMatrixWorld();
+  renderer.render(scene, camera);
+  const lage = {};                                         // Bildschirmlage je Element (0–100) für die Beschriftungen
+  for (const e of elemente) { const o = el[e.id], z = b.st[e.id]; if (!o || !z) continue;
+    let p = new T.Vector3(); o.obj.getWorldPosition(p);
+    if (e.art === "schlauch" || e.art === "pfeil") p = o.kurve.getPoint(.5);
+    else if (e.art !== "figur" && e.art !== "form" && e.art !== "traube" && e.art !== "uhr") p = new T.Vector3(wx(z.x), wy(z.y), 0);
+    const r = p.clone().add(new T.Vector3(Math.max(.02, z.g / 100 * W) / 2, 0, 0));
+    const a = p.clone().project(camera), c = r.project(camera);
+    lage[e.id] = [(a.x + 1) * 50, (1 - a.y) * 50, Math.abs(c.x - a.x) * 100]; }
+  return lage;
+}
+
+window.bilder = function (liste) {                       // mehrere Bilder auf einmal (spart Wege)
+  return liste.map((b) => { const lage = zeichneBild(b); return { png: renderer.domElement.toDataURL("image/png"), lage }; });
+};
+</script>
+</body></html>

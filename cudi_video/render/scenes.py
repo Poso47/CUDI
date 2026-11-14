@@ -369,7 +369,7 @@ class ItemScene(Scene):
         if it.get("szene"):                                   # eigene Animation statt Foto/Clip (Fakten-Videos)
             from ..animation import Bild
 
-            self.anim = Bild(it["szene"], job["text"], job["words"], job["lead"], (250, 246, 236), self.c1, it["rank"])
+            self.anim = Bild(it["szene"], job["text"], job["words"], job["lead"], (250, 246, 236), self.c1, it["rank"], dauer=job.get("duration"))
             self.photo, it = None, {**it, "clips": [], "credit_short": None, "image_path": None}
             self.full = False
             self.card_size = self.media_size()
