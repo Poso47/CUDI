@@ -744,7 +744,8 @@ class ErklaerScene(Scene):
             return f
         if self.anim is not None:
             shift = max(0, min(170, top + self.sentence.height + 40 - (M.CY - 400)))
-            paste(f, self.anim.bild(t, ART), (W / 2 - ART / 2, M.CY - ART / 2 + shift), opacity=fade)
+            weit = M.fade_in_out(t, self.job["duration"], 0.7, 0.6)     # 3D-Bild blendet länger über (Kamera fliegt ein/weiter)
+            paste(f, self.anim.bild(t, ART), (W / 2 - ART / 2, M.CY - ART / 2 + shift), opacity=weit)
             return f
         if self.kind in DECOR:
             paste(f, decor_layer(), (0, 0), opacity=fade * clamp(t / 0.8))

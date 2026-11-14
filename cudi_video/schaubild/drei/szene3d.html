@@ -2,6 +2,8 @@
 <html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style></head>
 <body>
 <script src="../../data/three/three.min.js"></script>
+<script src="../../data/three/tween.umd.js"></script>
+<script src="../../data/three/camera-controls.js"></script>
 <script>
 /* CUDI Animationsstudio – 3D-Bühne (three.js r128, MIT). Python (schaubild/drei.py) berechnet je Bild den Zustand
    aller Elemente (Lage 0–100, Größe, Deckkraft, Füllung, Farbe, Kamera); hier wird er nur noch in 3D gezeichnet:
@@ -10,6 +12,7 @@
 const W = 10;                                            // Bühnenbreite in Welt-Einheiten (0–100 -> -5..5)
 const T = THREE;
 let renderer, scene, camera, root, el = {}, size = 720, elemente = [];
+let regie = null, dauer = 0, letztesT = null;             // Kamera-Regie (camera-controls) + Szenenlänge für Ein-/Ausflug
 
 const wx = (x) => (x - 50) / 100 * W, wy = (y) => -(y - 50) / 100 * W;
 const rgb = (c) => new T.Color(c[0] / 255, c[1] / 255, c[2] / 255).convertSRGBToLinear();   // Farben wie im 2D-Bild
@@ -403,6 +406,11 @@ window.init = function (daten) {
   scene = new T.Scene(); root = new T.Group(); scene.add(root);
   scene.environment = umgebung();                       // Spiegelungen/Glanz wie im Fotostudio
   camera = new T.PerspectiveCamera(30, 1, .1, 200);
+  dauer = daten.dauer || 0; letztesT = null;
+  try {                                                  // weiche, gedämpfte Kamerafahrten (camera-controls); fehlt sie: direkte Kamera
+    CameraControls.install({ THREE: T }); regie = new CameraControls(camera, renderer.domElement);
+    regie.smoothTime = .38; regie.restThreshold = .0005; regie.minDistance = .5; regie.maxDistance = 200;
+  } catch (err) { regie = null; }
   scene.add(new T.HemisphereLight(0xfff4e0, 0x202040, .35));
   const sonne = new T.DirectionalLight(0xffffff, 1.25); sonne.position.set(-5, 8, 12); sonne.castShadow = true;
   sonne.shadow.mapSize.set(1024, 1024); Object.assign(sonne.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: 1, far: 40 });
@@ -466,9 +474,23 @@ function zeichneBild(b) {                                // b = {t, st: {id: zus
       o.obj.position.set(wx(z.x), wy(z.y), 0); o.obj.scale.setScalar(g); o.zeiger.rotation.z = -z.f * Math.PI * 2;
     }
   }
-  const k = b.kamera, d = 18.66 / Math.max(1, k.f);       // Kamera: leichte Fahrt + Zoom auf das Ziel
-  const zx = wx(k.f > 1.01 ? k.x : 50), zy = wy(k.f > 1.01 ? k.y : 50), sw = .1 * Math.sin(t * .35);
-  camera.position.set(zx + Math.sin(sw) * d, zy + d * .1, Math.cos(sw) * d); camera.lookAt(zx, zy, 0); camera.updateMatrixWorld();
+  // Kamera-Regie: Einflug (Bogen + Heranfahren), ruhiges Schweben, Zoom mit engerem Bildwinkel, Weiterflug zum Szenenende.
+  // Kurven aus tween.js; camera-controls dämpft jede Bewegung, damit nichts ruckt.
+  const k = b.kamera, E = (window.TWEEN && TWEEN.Easing) || null, kl = (v) => Math.max(0, Math.min(1, v));
+  const ein = 1 - (E ? E.Quintic.Out(kl(t / 1.5)) : kl(t / 1.5));                        // 1 -> 0 in den ersten 1,5 s
+  const aus = dauer > 3 ? (E ? E.Cubic.In(kl((t - (dauer - .7)) / .7)) : kl((t - (dauer - .7)) / .7)) : 0;   // 0 -> 1 am Ende
+  const zoom = Math.max(1, k.f), nah = kl((zoom - 1) / 1.5);
+  const d = 18.66 / zoom * (1 + .32 * ein) * (1 - .14 * aus);
+  const zx = wx(zoom > 1.01 ? k.x : 50), zy = wy(zoom > 1.01 ? k.y : 50);
+  const az = .11 * Math.sin(t * .33) + .42 * ein - .16 * aus + .1 * nah * Math.sin(t * .5 + 1);   // seitlicher Bogen
+  const hoch = .1 + .05 * Math.sin(t * .21 + .6) + .1 * ein + .05 * nah;                          // Höhe der Kamera
+  const px = zx + Math.sin(az) * Math.cos(hoch) * d, py = zy + Math.sin(hoch) * d, pz = Math.cos(az) * Math.cos(hoch) * d;
+  camera.fov = 30 - 5 * nah; camera.updateProjectionMatrix();                           // Zoom: etwas engerer Bildwinkel
+  if (regie) {
+    const dt = letztesT === null ? 0 : Math.max(0, Math.min(.5, t - letztesT));
+    regie.setLookAt(px, py, pz, zx, zy, 0, letztesT !== null); regie.update(dt || 1e-4);
+  } else { camera.position.set(px, py, pz); camera.lookAt(zx, zy, 0); }
+  letztesT = t; camera.updateMatrixWorld();
   renderer.render(scene, camera);
   const lage = {};                                         // Bildschirmlage je Element (0–100) für die Beschriftungen
   for (const e of elemente) { const o = el[e.id], z = b.st[e.id]; if (!o || !z) continue;

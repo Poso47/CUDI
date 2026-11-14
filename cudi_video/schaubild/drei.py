@@ -77,7 +77,8 @@ def rendere(buehne, zeiten: list[float], size: int = GROESSE, zeitlimit: int = 9
     """3D-Bilder zu den Zeitpunkten. Rückgabe: (PNG-Pfade, Lage je Bild {id: [x, y, r]} in 0–100, Arbeitsordner)."""
     arbeit = Path(tempfile.mkdtemp(prefix="cudi3d_"))
     auftrag = arbeit / "auftrag.json"
-    auftrag.write_text(json.dumps({"size": size, "elemente": elemente(buehne), "bilder": zustaende(buehne, zeiten)}), "utf-8")
+    auftrag.write_text(json.dumps({"size": size, "elemente": elemente(buehne), "bilder": zustaende(buehne, zeiten),
+                                   "dauer": max(zeiten) if len(zeiten) > 12 else 0}), "utf-8")
     lauf = subprocess.run(["node", str(ORDNER / "render3d.js"), str(auftrag), str(arbeit / "bilder")],
                           capture_output=True, text=True, timeout=zeitlimit)
     if lauf.returncode != 0:

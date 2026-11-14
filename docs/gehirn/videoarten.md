@@ -112,3 +112,6 @@ Figuren-Werkstatt (Wunsch des Nutzers: nie Figuren frei zusammensetzen, immer Cr
 - **3D-Abnahme** (Ziel des Nutzers: am Ende immer ein vollständiges 3D-Video): jede animierte Szene trägt sich in
   `video_output/_3d_protokoll.jsonl` ein (`drei.protokoll`; 3D-Fehler → ein zweiter Versuch, erst dann 2D). `job._summary` setzt
   `drei.abnahme()` an den Anfang der Hinweise: „alle N Szenen in echtem 3D“ oder „NICHT vollständig: x von N nur flach – Grund“.
+- **Kamera-Regie** (`drei/szene3d.html`, Bibliotheken in `data/three/`, Quellen `data/three/QUELLEN.md`): camera-controls dämpft jede
+  Kamerabewegung, tween.js liefert die Kurven. Je Szene: Einflug (1,5 s, Bogen + Heranfahren), ruhiges Schweben, Zoom mit engerem
+  Bildwinkel, Weiterflug in den letzten 0,7 s; das 3D-Bild blendet weich (0,7 s) über. `drei.rendere` gibt dafür die Szenenlänge mit.

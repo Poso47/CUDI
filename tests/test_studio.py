@@ -268,9 +268,11 @@ def test_3d_buehne_rendert_echt(monkeypatch):
     sz = Z.pruefe_szene({"elemente": [{"id": "bl", "art": "figur", "figur": "bluete", "x": 50, "y": 55, "groesse": 70},
                                       {"id": "w", "art": "form", "form": "sechseck", "farbe": "gold", "x": 80, "y": 80, "groesse": 15}],
                          "schritte": []})
-    pfade, lagen, arbeit = drei.rendere(Z.Buehne(sz, 200, [0.0], (240, 236, 226), (214, 162, 84)), [0.0, 0.2], 160)
+    pfade, lagen, arbeit = drei.rendere(Z.Buehne(sz, 200, [0.0], (240, 236, 226), (214, 162, 84)), [0.0, 0.2, 4.0], 160)
     im = Image.open(pfade[1])
-    assert im.size == (160, 160) and im.getchannel("A").getextrema()[1] > 200 and abs(lagen[0]["w"][0] - 80) < 6
+    assert im.size == (160, 160) and im.getchannel("A").getextrema()[1] > 200
+    assert abs(lagen[2]["w"][0] - 80) < 8                      # nach dem Einflug steht die Kamera wieder mittig
+    assert abs(lagen[0]["w"][0] - lagen[2]["w"][0]) > 1         # Einflug: die Kamera bewegt sich wirklich
     shutil.rmtree(arbeit, ignore_errors=True)
 
 
@@ -515,3 +517,15 @@ def test_schreibaufgabe_kaputte_antwort_wird_einmal_neu_gestellt(tmp_path, monke
     neu["antwort"] = '{"szenen": [1]}'                                                              # Antwort als JSON-Text
     datei.write_text(_json.dumps(neu), "utf-8")
     assert handoff.request("probe", "Schreibe.", {"a": 1}) == {"szenen": [1]}
+
+
+def test_kamera_regie_bibliotheken_und_weiche_blende():
+    from cudi_video.render import manuskript as M
+    from cudi_video.schaubild import drei
+    three = drei.THREE.parent
+    assert (three / "camera-controls.js").read_text("utf-8").rstrip().endswith("window.CameraControls=exports.default;})();")
+    assert "Easing" in (three / "tween.umd.js").read_text("utf-8")
+    html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
+    assert "regie.setLookAt" in html and "TWEEN.Easing" in html and "camera-controls.js" in html
+    assert M.fade_in_out(0, 5) == 0 and M.fade_in_out(2.5, 5) == 1
+    assert M.fade_in_out(.125, 5, .5, .5) < .25                 # weich: langsamer Anlauf als linear

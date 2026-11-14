@@ -352,7 +352,8 @@ def small_text(text: str, kind: str, size: int, color=INK_DIM, alpha: int = 255,
 
 def fade_in_out(t: float, duration: float, fade_in: float = 0.5, fade_out: float = 0.6) -> float:
     """Deckkraft für weiche Überblendungen am Szenenanfang und -ende."""
-    return clamp(t / fade_in) * clamp((duration - t) / fade_out)
+    weich = lambda v: v * v * (3 - 2 * v)                      # noqa: E731 – sanft anlaufen und auslaufen statt linear
+    return weich(clamp(t / fade_in)) * weich(clamp((duration - t) / fade_out))
 
 
 def blur_in(layer: Image.Image, p: float, radius: float = 9.0) -> Image.Image:
