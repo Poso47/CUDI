@@ -89,3 +89,21 @@ kein Wikipedia): Crawler über Openverse (Flickr/Museen), iNaturalist (research)
 Kontaktbogen + referenzen.json (Quelle, Lizenz). Nur Modellier-Vorlage, nie ins Video/Repo. Biene 3D danach neu: Drehkörper-Hinterleib mit Ringen,
 gekämmtes Fell (`haare()`, instanziert), Nierenauge mit Facetten, geknickte Fühler, Adernflügel, Studio-Umgebungslicht (`umgebung()`, PMREM).
 Tempo: 3D jetzt 600 px, 12 Bilder/s (Fell + Spiegelungen kosten; ≈ 0,4 s je 3D-Bild).
+
+## Fester Studio-Ablauf je Video (Figuren-Werkstatt)
+
+Jedes Video mit eigener Animation läuft in dieser Reihenfolge (`animation.py`, `schaubild/werkstatt.py`):
+Skript → Skelett/Drehbuch (Storyboard) → Bedarfsliste (`figuren` = vorhandene, `figur_wuensche` = fehlende, Schreibweise
+„deutsch (englisch)“) → **Figuren-Werkstatt** → Szenenbau mit den Figuren → Abnahme.
+
+Figuren-Werkstatt (Wunsch des Nutzers: nie Figuren frei zusammensetzen, immer Crawler + bester Fund):
+- Je fehlender Figur sucht zuerst der Referenz-Scout (`referenzen`): zwei Suchen („<begriff> full body“ und der Begriff allein),
+  Bewertung, dann CLIP „zeigt die GANZE Figur“ (mindestens 0.45). Ohne CLIP muss der Begriff in Titel/Schlagwörtern stehen;
+  die Naturfoto-Quelle zählt nur mit Artnamen. **Ohne Fund wird keine Figur gebaut** (Hinweis im Prüfbericht).
+- Aus dem besten Fund werden die Farben gemessen (`werkstatt.farben`). EINE Schreibaufgabe `<aufgabe>_figuren` für alle fehlenden
+  Figuren des Laufs (höchstens 3): Vorlagenbild ansehen + gemessene Farben → Bauplan aus Grundkörpern (Kugel, Zylinder, Kegel,
+  Quader, Kapsel), streng geprüft (`pruefe_bauplan`).
+- Ablage `video_output/_figuren/<name>.json` mit Quelle/Lizenz der Vorlage; dauerhaft im Lernstand (`studio/lernstand`, Feld
+  `figuren`) – eine Figur wird nur einmal gebaut und gilt dann für alle späteren Videos. Handgebaute Figuren (`data/figuren`)
+  haben Vorrang. Das Vorlagenbild kommt nie ins Video oder ins Repository.
+- 3D: `ausBauplan` in `drei/szene3d.html`; 2D-Ersatz: `werkstatt.zeichne`. Aus: `CUDI_WERKSTATT=0` (in Tests gesetzt).

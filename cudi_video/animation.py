@@ -40,7 +40,7 @@ Thema des Videos: „{thema}“. Sprache des Textes: {lang}.
 
 ABTEILUNGEN = [
     {"id": "storyboard", "name": "Storyboard", "rolle": "zerlegt den Text in ein Drehbuch: jedes Ding, jeder Vorgang, mit Wort und Zeitpunkt"},
-    {"id": "figuren", "name": "Figuren", "rolle": "wählt fertige Figuren, sammelt Wünsche nach neuen Figuren"},
+    {"id": "figuren", "name": "Figuren", "rolle": "wählt fertige Figuren und baut fehlende im selben Lauf (Werkstatt)"},
     {"id": "szenenbau", "name": "Szenenbau", "rolle": "baut aus Drehbuch und Text die Szene: Elemente, Schritte, Beschriftungen"},
     {"id": "animation", "name": "Animation", "rolle": "zeichnet und bewegt jede Szene im Takt der Stimme"},
     {"id": "abnahme", "name": "Abnahme", "rolle": "prüft Bild gegen Text 1:1 und schickt Lücken zurück"},
@@ -62,6 +62,7 @@ REGELN:
 - "ohne_bild": Wörter, die sich wirklich nicht zeigen lassen (z. B. „Regel“) – so wenige wie möglich.
 - "figuren": passende fertige Figuren aus dieser Liste (sonst leer): {figuren}
 - "figur_wuensche": Lebewesen/Gegenstände, für die eine fertige Figur fehlt und die hier eine wäre (z. B. „Kuh“, „Herz“).
+  {figur_bau}
 """
 
 SZENENBAU = """Du bist die Szenenbau-Abteilung eines Animationsstudios. Unter „daten.eintraege“ steht je Abschnitt der gesprochene Text und
@@ -129,6 +130,9 @@ def lernstand_aktualisieren(ordner: Path) -> Path | None:
     daten = {"stand": datetime.now(timezone.utc).isoformat(timespec="seconds"), "abschnitte_n": gesamt, "ohne_luecke": ohne,
              "quote": round(ohne / gesamt, 3) if gesamt else None, "regeln": bildlehrer.regeln_aus(woerter, arten, gesamt, []),
              "figur_wuensche": bildlehrer.figur_wuensche(abschnitte), "abschnitte": abschnitte}
+    from .schaubild import werkstatt
+    if werkstatt.alle():                                       # gebaute Figuren bleiben für alle späteren Videos
+        daten["figuren"] = werkstatt.alle()
     ziel = ordner / "lernstand.json"
     ziel.write_text(json.dumps(daten, ensure_ascii=False), "utf-8")
     return ziel
@@ -136,6 +140,11 @@ def lernstand_aktualisieren(ordner: Path) -> Path | None:
 
 def studio_aktiv() -> bool:
     return os.environ.get("CUDI_STUDIO", "1") != "0"
+
+
+def _bau_text() -> str:
+    from .schaubild import werkstatt
+    return werkstatt.WUNSCH_REGEL
 
 
 def _figuren_text() -> str:
@@ -158,11 +167,11 @@ def anleitung(thema: str = "", lang: str = "de", kopf: str = AUFGABE) -> str:
 
     teil = schaubild.SZENEN_ANLEITUNG
     teil = teil[teil.index("ERST PLANEN"):] if "ERST PLANEN" in teil else teil
-    return _kopf(kopf, thema, lang) + teil.replace("{figuren}", _figuren_text()) + _gelernt()
+    return _kopf(kopf, thema, lang) + teil.replace("{figuren}", _figuren_text()).replace("{figur_bau}", _bau_text()) + _gelernt()
 
 
 def storyboard_anleitung(thema: str = "", lang: str = "de") -> str:
-    return _kopf(STORYBOARD, thema, lang).replace("{figuren}", _figuren_text()) + _gelernt()
+    return _kopf(STORYBOARD, thema, lang).replace("{figuren}", _figuren_text()).replace("{figur_bau}", _bau_text()) + _gelernt()
 
 
 def _drehbuch(roh, text: str) -> list[dict]:
@@ -180,7 +189,7 @@ def storyboard_liste_zusatz() -> str:
     """Wie `storyboard_zusatz`, aber als eigene Liste neben der Antwort (für Antworten, deren Sätze reine Texte sind)."""
     if not (aktiv() and studio_aktiv()):
         return ""
-    regeln = STORYBOARD[STORYBOARD.index("REGELN:"):].replace("{figuren}", _figuren_text())
+    regeln = STORYBOARD[STORYBOARD.index("REGELN:"):].replace("{figuren}", _figuren_text()).replace("{figur_bau}", _bau_text())
     return (" ZUSÄTZLICH – STORYBOARD-ABTEILUNG (für die eigene Animation, ändert nichts am Text): Füge der Antwort das Feld "
             "\"storyboards\": [{\"text\": \"exakt einer deiner Sprechsätze\", \"drehbuch\": [{\"wort\": \"…\", \"zeigt\": \"…\"}], "
             "\"ohne_bild\": [\"…\"], \"figuren\": [\"…\"], \"figur_wuensche\": [\"…\"]}] hinzu – je Sprechsatz einen Eintrag. "
@@ -192,7 +201,7 @@ def storyboard_zusatz() -> str:
     Leer, wenn Studio/Animation aus sind."""
     if not (aktiv() and studio_aktiv()):
         return ""
-    regeln = STORYBOARD[STORYBOARD.index("REGELN:"):].replace("{figuren}", _figuren_text())
+    regeln = STORYBOARD[STORYBOARD.index("REGELN:"):].replace("{figuren}", _figuren_text()).replace("{figur_bau}", _bau_text())
     return (" ZUSÄTZLICH – STORYBOARD-ABTEILUNG (für die eigene Animation, ändert nichts am Text): Gib JEDER Szene/jedem "
             "Abschnitt zusätzlich die Felder \"drehbuch\": [{\"wort\": \"…\", \"zeigt\": \"…\"}], \"ohne_bild\": [\"…\"], "
             "\"figuren\": [\"…\"] und \"figur_wuensche\": [\"…\"] mit – bezogen auf genau den Sprechertext dieser Szene. "
@@ -203,15 +212,19 @@ def plan_aus(eintraege: list[dict], roh: dict) -> dict[str, dict]:
     """Storyboards (roh: key -> Antwort mit drehbuch/ohne_bild/figuren/figur_wuensche) säubern und gegen die Figuren prüfen."""
     from .schaubild import zeichnen
 
+    from .schaubild import werkstatt
+
     vorhanden = set(zeichnen.figuren())
     plan = {}
     for e in eintraege:
         x = roh.get(str(e["key"])) or {}
         gewuenscht = [zeichnen.figur_name(f)[:30] for f in (x.get("figuren") or [])[:4] if str(f).strip()]
-        wuensche = [str(f).strip()[:30] for f in (x.get("figur_wuensche") or [])[:4]
-                    if str(f).strip() and zeichnen.figur_name(f) not in vorhanden]          # vorhandene Figur ist kein Wunsch
+        roh_w = [str(f).strip()[:60] for f in (x.get("figur_wuensche") or [])[:4] if str(f).strip()]
+        gebaut = [werkstatt.wunsch(f)[0] for f in roh_w if werkstatt.wunsch(f)[0] in vorhanden]   # Wunsch gibt es schon (Werkstatt)
+        wuensche = [f for f in roh_w if werkstatt.wunsch(f)[0] not in vorhanden
+                    and zeichnen.figur_name(f) not in vorhanden]                              # vorhandene Figur ist kein Wunsch
         plan[str(e["key"])] = {"drehbuch": _drehbuch(x.get("drehbuch"), e["text"]), "ohne_bild": _ohne_bild(x.get("ohne_bild"), e["text"]),
-                               "figuren": [f for f in gewuenscht if f in vorhanden],
+                               "figuren": list(dict.fromkeys([f for f in gewuenscht if f in vorhanden] + gebaut))[:4],
                                "figur_wuensche": wuensche + [f for f in gewuenscht if f not in vorhanden]}
     return plan
 
@@ -268,6 +281,15 @@ def szenen_schreiben(eintraege: list[dict], thema: str, lang: str, notes: list[s
             plan = {}                                          # zu dünn: eigene Storyboard-Runde
     if studio_aktiv() and not plan:
         plan = storyboard(eintraege, thema, lang, aufgabe + "_storyboard")
+    if plan:                                                   # Abteilung 2: Figuren – fehlende zuerst bauen (Crawler-Vorlage), dann Szenen
+        from .schaubild import werkstatt
+        alle_w = [w for e in eintraege for w in plan[e["key"]]["figur_wuensche"]]
+        if alle_w and werkstatt.bauen(alle_w, aufgabe + "_figuren", notes):
+            neu = set(zeichnen.figuren())
+            for p in plan.values():
+                da = [werkstatt.wunsch(w)[0] for w in p["figur_wuensche"] if werkstatt.wunsch(w)[0] in neu]
+                p["figuren"] = list(dict.fromkeys(p["figuren"] + da))[:4]
+                p["figur_wuensche"] = [w for w in p["figur_wuensche"] if werkstatt.wunsch(w)[0] not in neu]
     if plan:                                                   # Abteilung 3: Szenenbau nach Drehbuch
         daten = [dict(e, **{k: plan[e["key"]][k] for k in ("drehbuch", "ohne_bild", "figuren")}) for e in eintraege]
         answer = handoff.request(aufgabe, anleitung(thema, lang, SZENENBAU), {"thema": thema, "sprache": lang, "eintraege": daten})
