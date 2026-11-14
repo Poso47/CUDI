@@ -959,7 +959,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     artifact: "https://claude.ai/artifact/DYdRsKcD3BCN3SYxj6Y5Jt",
     aufgabe: "trig_01BniK2S5eVdSFKd18JZqBio",   // geplante Aufgabe „CUDI-Auftrag“ (Arbeitsanweisung liegt dort)
     // Felder, die der Cloud-Lauf (cudi_video/job.py) noch nicht kennt, bleiben ausgeblendet (Clip-Felder sind fest eingebaut). Auf true setzen, sobald die Engine sie liest.
-    felder: { erklaer: false },
+    felder: { erklaer: true },
     briefingIssues: "https://github.com/Poso47/CUDI/issues?q=is%3Aissue+label%3Abriefing+sort%3Acreated-desc",
   };
   const FELDER = Object.assign({}, CFG.felder);

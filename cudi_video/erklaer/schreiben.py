@@ -49,6 +49,18 @@ def _norm(text: str) -> str:
     return facts._norm(text)
 
 
+FRAGEWOERTER = {"wie", "warum", "wieso", "weshalb", "was", "wer", "wo", "wozu", "wann", "welche", "welcher", "welches", "ist", "sind",
+                "eigentlich", "funktioniert", "funktionieren", "entsteht", "entstehen", "macht", "machen", "wird", "werden", "kann",
+                "können", "der", "die", "das", "ein", "eine", "einen", "den", "dem", "des", "und", "oder", "man", "es", "sich",
+                "how", "why", "what", "does", "do", "is", "are", "the", "a", "an", "make", "makes", "work", "works"}
+
+
+def kernwoerter(topic: str) -> str:
+    """Suchkern einer Frage: Frage- und Füllwörter weg („Wie machen Bienen Honig?“ -> „Bienen Honig“)."""
+    woerter = [w for w in re.findall(r"[\wÄÖÜäöüß-]+", topic) if w.lower() not in FRAGEWOERTER]
+    return " ".join(woerter)
+
+
 def find_article(topic: str, lang: str) -> tuple[str, str, str]:
     """(Titel, Klartext, Adresse) des passenden Wikipedia-Artikels; leer, wenn keiner gefunden wird."""
     candidates = [topic]
@@ -59,7 +71,17 @@ def find_article(topic: str, lang: str) -> tuple[str, str, str]:
         candidates += [t for t in (data[1] if isinstance(data, list) and len(data) > 1 else []) if t not in candidates]
     except net.FetchError as exc:
         log.warning("Wikipedia-Suche für %r nicht erreichbar: %s", topic, exc)
-    for title in candidates[:4]:
+    kern = kernwoerter(topic)
+    if kern and kern != topic:                                  # Fragen („Wie machen Bienen Honig?“): Volltextsuche nach dem Kern
+        try:
+            data = net.get_json(f"https://{lang}.wikipedia.org/w/api.php",
+                                params={"action": "query", "list": "search", "srsearch": kern, "srlimit": 4, "format": "json"},
+                                cache_hours=24, retries=3, max_wait=30)
+            hits = [h.get("title") for h in ((data or {}).get("query") or {}).get("search") or [] if h.get("title")]
+            candidates += [t for t in hits if t not in candidates]
+        except net.FetchError as exc:
+            log.warning("Wikipedia-Volltextsuche für %r nicht erreichbar: %s", kern, exc)
+    for title in candidates[:8]:
         try:
             text, real = facts.article_text(lang, title, ARTICLE_CHARS)
         except net.FetchError as exc:
