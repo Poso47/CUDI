@@ -252,7 +252,7 @@ class Scene:
             return
         if not hasattr(self, "_anim"):
             from ..animation import Bild
-            self._anim = Bild(self.job["animation"], self.job["text"], self.job["words"], self.job["lead"], INK, RED, self.job["index"])
+            self._anim = Bild(self.job["animation"], self.job["text"], self.job["words"], self.job["lead"], INK, RED, self.job["index"], dauer=self.job.get("duration"))
         size = int(min(560, 1660 - y))
         if size >= 280:
             paste(f, self._anim.bild(t, size), ((W - size) / 2, y), opacity=fade)
