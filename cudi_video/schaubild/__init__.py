@@ -228,14 +228,24 @@ def _passt(a: str, b: str) -> bool:
     return bool(a and b) and (a == b or len(min(a, b, key=len)) > 3 and (a.startswith(b[:max(4, len(b) - 2)]) or b.startswith(a[:max(4, len(a) - 2)])))
 
 
+ADJEKTIV_ENDUNGEN = ("te", "ten", "ter", "tes", "tem", "ige", "igen", "iger", "liche", "lichen", "licher", "ische", "ischen",
+                     "bare", "baren", "lose", "losen", "volle", "vollen")
+
+
 def hauptwoerter(text: str) -> list[str]:
     """Hauptwörter eines deutschen Textes (großgeschrieben; am Satzanfang nur, wenn es kein übliches Anfangswort ist)."""
-    out, anfang = [], True
+    toks, anfang = [], True
     for tok in text.split():
-        roh = tok.strip("„“\"(),;:!?.–-")
-        if roh[:1].isupper() and len(roh) >= 3 and not (anfang and roh.lower() in SATZANFANG) and _wort(roh) not in out:
-            out.append(_wort(roh))
+        toks.append((tok.strip("„“\"(),;:!?.–-"), anfang))
         anfang = tok[-1:] in ".!?:"
+    mitten = {_wort(r) for r, a in toks if not a and r[:1].isupper()}      # mitten im Satz groß = sicher ein Hauptwort
+    out = []
+    for roh, anfang in toks:
+        if not (roh[:1].isupper() and len(roh) >= 3) or _wort(roh) in out:
+            continue
+        if anfang and (roh.lower() in SATZANFANG or (_wort(roh) not in mitten and roh.lower().endswith(ADJEKTIV_ENDUNGEN))):
+            continue                                            # „Bestimmte Arbeiterbienen …“: groß nur wegen des Satzanfangs
+        out.append(_wort(roh))
     return out
 
 

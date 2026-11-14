@@ -319,8 +319,8 @@ def test_glas_fuellstand_aus_prozent_und_kaestchen_weg():
     assert abs(glas["prozent"] - .18) < 1e-9
     assert next(e for e in sz["elemente"] if e["art"] == "beschriftung")["an"] == "g"
     ohne = Z.beschriftungen_pruefen(Z.pruefe_szene(roh), "Der Honig wird dicker und die Bienen trocknen ihn.")
-    g2 = next(e for e in ohne["elemente"] if e["id"] == "g")
-    assert "prozent" not in g2 and not Z.ist_glas(g2)          # ohne genannte Zahl kein Messglas (nichts erfinden)
+    g2 = [e for e in ohne["elemente"] if e["id"] == "g"]       # ohne genannte Zahl kein Messglas (nichts erfinden):
+    assert all("prozent" not in e and not Z.ist_glas(e) for e in g2)   # schlichte Säule oder – ohne passendes Ding – weg
 
 
 def test_zoom_bleibt_im_bild():
@@ -346,3 +346,22 @@ def test_szene_ohne_animation_zeigt_nachbarbild():
     assert neu["schritte"] == [] and all(e["alpha"] == 1.0 for e in neu["elemente"])
     assert not any(e["art"] == "beschriftung" for e in neu["elemente"])      # „Biene“ wird hier nicht gesprochen
     assert voll["schritte"] and notes
+
+
+def test_grosse_kaesten_werden_dinge_oder_fallen_weg():
+    from cudi_video.schaubild import zeichnen as Z
+    roh = {"elemente": [{"id": "k", "art": "form", "form": "quadrat", "x": 30, "y": 50, "groesse": 40},
+                        {"id": "b", "art": "form", "form": "quadrat", "x": 70, "y": 50, "groesse": 30},
+                        {"id": "l", "art": "beschriftung", "text": "Brotaufstrich", "an": "b"}], "schritte": []}
+    sz = Z.beschriftungen_pruefen(Z.pruefe_szene(roh), "Honig ist ein beliebter Brotaufstrich.")
+    objekte = {e["id"]: e.get("objekt") for e in sz["elemente"] if e["art"] == "form"}
+    assert objekte == {"b": "brot"}                           # „k“ ohne passendes Wort fällt weg
+    sz2 = Z.beschriftungen_pruefen(Z.pruefe_szene({"elemente": roh["elemente"][:1], "schritte": []}),
+                                   "Woher kommt eigentlich der Honig im Glas?")
+    assert sz2["elemente"][0]["objekt"] == "honigglas"
+
+
+def test_satzanfang_adjektiv_ist_kein_hauptwort():
+    from cudi_video.schaubild import hauptwoerter
+    w = hauptwoerter("Bestimmte Arbeiterbienen sammeln Nektar. Bienen fliegen weit.")
+    assert "bestimmte" not in w and {"arbeiterbienen", "nektar", "bienen"} <= set(w)

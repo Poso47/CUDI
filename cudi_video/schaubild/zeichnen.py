@@ -238,6 +238,7 @@ def beschriftungen_pruefen(szene: dict | None, text: str) -> dict | None:
         szene["elemente"] = [e for e in szene["elemente"] if e["art"] != "beschriftung"
                              or (e["text"][:1].isupper() and _wort(e["text"].split()[0]) in dinge)]
     _glas_und_kaestchen(szene, text)
+    _kaesten_zu_dingen(szene, text)
     labels = [e for e in szene["elemente"] if e["art"] == "beschriftung"][MAX_BESCHRIFTUNGEN:]
     szene["elemente"] = [e for e in szene["elemente"] if e not in labels]   # höchstens MAX_BESCHRIFTUNGEN je Szene
     return szene
@@ -281,6 +282,40 @@ def _glas_und_kaestchen(szene: dict, text: str) -> None:
             gesehen.add((e["an"], e["text"]))
         neu.append(e)
     szene["elemente"] = neu
+    szene["schritte"] = [x for x in szene["schritte"] if x["ziel"] not in weg and x.get("zu") not in weg]
+
+
+DINGE = {"honigglas": ("honigglas", "glas", "honigtopf", "topf", "jar"), "brot": ("brot", "brotaufstrich", "brötchen", "toast", "bread")}
+
+
+def _kaesten_zu_dingen(szene: dict, text: str) -> None:
+    """Große, schlichte Kästen sind kein Bild: Sie werden zu einem echten Ding, wenn ihre Beschriftung (sonst der Sprechtext)
+    es nennt – Honigglas oder Brotscheibe mit Honig. Ohne passendes Wort fallen sie weg, wenn noch etwas anderes zu sehen ist."""
+    worte = set(re.findall(r"\w+", text.lower()))
+    kaesten = [e for e in szene["elemente"] if e["art"] == "form" and e.get("form") == "quadrat" and not ist_glas(e)
+               and "prozent" not in e and e["groesse"] > 20]
+    if not kaesten:
+        return
+    weg, ohne_schild = set(), []
+    for e in kaesten:                                          # 1. Beschriftung am Kasten entscheidet
+        schild = " ".join(b["text"].lower() for b in szene["elemente"] if b["art"] == "beschriftung" and b.get("an") == e["id"])
+        ding = next((d for d, w in DINGE.items() if set(re.findall(r"\w+", schild)) & set(w)), None)
+        if ding:
+            e["objekt"] = ding
+        else:
+            ohne_schild.append(e)
+    vergeben = {e.get("objekt") for e in kaesten}
+    for e in ohne_schild:                                      # 2. sonst ein im Text genanntes, noch nicht gezeigtes Ding
+        ding = next((d for d, w in DINGE.items() if d not in vergeben and worte & set(w)), None)
+        if ding:
+            e["objekt"] = ding
+            vergeben.add(ding)
+        else:
+            weg.add(e["id"])
+    andere = [e for e in szene["elemente"] if e["art"] != "beschriftung" and e["id"] not in weg]
+    if not weg or not andere:
+        return
+    szene["elemente"] = [e for e in szene["elemente"] if e["id"] not in weg and not (e["art"] == "beschriftung" and e.get("an") in weg)]
     szene["schritte"] = [x for x in szene["schritte"] if x["ziel"] not in weg and x.get("zu") not in weg]
 
 

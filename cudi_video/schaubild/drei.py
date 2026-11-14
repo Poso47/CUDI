@@ -44,7 +44,7 @@ def elemente(buehne) -> list[dict]:
         if e["art"] == "beschriftung":
             continue
         d = {"id": eid, "art": e["art"], "farbe": _rgb(e.get("farbe")), "f": e.get("f", 0)}
-        for k in ("form", "figur", "um", "anzahl", "durchsichtig", "blick", "streckung", "breite", "prozent"):
+        for k in ("form", "figur", "um", "anzahl", "durchsichtig", "blick", "streckung", "breite", "prozent", "objekt"):
             if e.get(k) is not None:
                 d[k] = e[k]
         if e.get("punkte"):
