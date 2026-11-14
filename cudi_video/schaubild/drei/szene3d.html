@@ -321,7 +321,7 @@ function formGeo(f) {
 }
 
 function ausBauplan(teile) {                             // Werkstatt-Figur: Grundkörper im Figurenraum 0–100 (y nach unten)
-  const g = new T.Group();
+  const g = new T.Group(), gruppen = {};
   for (const p of teile) {
     const m = mat(p.farbe, { roughness: .75 - .55 * (p.glanz || 0), clearcoat: p.glanz || 0 });
     const b = p.b / 100, h = p.h / 100, t = p.t / 100; let geo;
@@ -334,15 +334,24 @@ function ausBauplan(teile) {                             // Werkstatt-Figur: Gru
       geo = new T.LatheGeometry(pts, 28); }
     else geo = new T.CylinderGeometry(.5, .5, 1, 28);
     const k = new T.Mesh(geo, m); if (p.form !== "kapsel") k.scale.set(b, h, t);
-    k.position.copy(fp(p.x * 4, p.y * 4, p.z / 100)); k.rotation.z = -(p.dreh || 0) * Math.PI / 180; k.castShadow = true; g.add(k);
+    k.position.copy(fp(p.x * 4, p.y * 4, p.z / 100)); k.rotation.z = -(p.dreh || 0) * Math.PI / 180; k.castShadow = true;
+    if (p.gruppe) (gruppen[p.gruppe] = gruppen[p.gruppe] || []).push({ k, p }); else g.add(k);
   }
-  return { g, teile: {} };
+  const glieder = [];                                      // bewegliche Glieder: Drehpunkt am Ansatz (Kopf unten, sonst oben)
+  Object.keys(gruppen).forEach((name, nr) => {
+    const liste = gruppen[name], art = name.replace(/[0-9]/g, "");
+    const xs = liste.map((q) => q.p.x), oben = Math.min(...liste.map((q) => q.p.y - q.p.h / 2)), unten = Math.max(...liste.map((q) => q.p.y + q.p.h / 2));
+    const mitteX = xs.reduce((a, c) => a + c, 0) / xs.length;
+    const dreh = fp(mitteX * 4, (art === "kopf" ? unten : oben) * 4, 0), gr = new T.Group(); gr.position.copy(dreh);
+    liste.forEach((q) => { q.k.position.sub(dreh); gr.add(q.k); }); g.add(gr); glieder.push({ gr, art, nr });
+  });
+  return { g, teile: {}, glieder };
 }
 function baue(e) {                                       // ein Element -> Objekt3D (Lage/Größe setzt jedes Bild neu)
   const o = { e, obj: new T.Group() };
   const farbe = e.farbe || [200, 200, 200];
   if (e.art === "figur" && (FIGUREN[e.figur] || e.bauplan)) {
-    const f = FIGUREN[e.figur] ? FIGUREN[e.figur]() : ausBauplan(e.bauplan); o.teile = f.teile; o.innen = f.g; o.obj.add(f.g);
+    const f = FIGUREN[e.figur] ? FIGUREN[e.figur]() : ausBauplan(e.bauplan); o.teile = f.teile; o.innen = f.g; o.obj.add(f.g); o.glieder = f.glieder;
     if (e.blick < 0) f.g.scale.x = -1;
     if (e.durchsichtig && f.teile.koerper) f.teile.koerper.traverse((m) => { if (m.material) { m.material = m.material.clone(); m.material.transparent = true; m.material.opacity = .55; } });
   } else if (e.art === "form" || e.art === "figur") {
@@ -413,6 +422,13 @@ function zeichneBild(b) {                                // b = {t, st: {id: zus
     if (e.art === "figur" && o.teile) {
       o.obj.position.set(wx(z.x), wy(z.y), o.z); o.obj.scale.setScalar(g);
       o.obj.rotation.y = .18 * Math.sin(t * .6 + e.id.length);              // Figuren drehen sich leicht – echtes 3D
+      if (o.glieder) for (const gl of o.glieder) {            // Werkstatt-Figur lebt: Kopf nickt, Arme und Beine schwingen
+        const ph = t * 1.5 + gl.nr * 2.1 + e.id.length;
+        gl.gr.rotation.z = gl.art === "kopf" ? .07 * Math.sin(t * 1.3 + gl.nr) - .3 * (z.picke || 0)
+          : gl.art === "arm" ? .16 * Math.sin(ph) : gl.art === "bein" ? .07 * Math.sin(ph)
+          : gl.art === "schwanz" ? .12 * Math.sin(t * 2 + gl.nr) : 0;
+        if (gl.art === "fluegel") gl.gr.rotation.x = (gl.nr % 2 ? -1 : 1) * (.15 + .5 * Math.abs(Math.sin(t * 9)) * (.3 + (z.flattere || 0)));
+      }
       const k = o.teile.kopf; if (k) k.rotation.z = .04 * Math.sin(t * 1.3) - .38 * (z.picke || 0);
       const s = o.teile.schwanz; if (s) s.rotation.z = .03 * Math.sin(t * 1.7);
       const f = o.teile.fluegel;

@@ -18,7 +18,8 @@ from pathlib import Path
 from .. import config
 
 FORMEN = ("kugel", "zylinder", "kegel", "quader", "kapsel")
-MAX_TEILE, MIN_TEILE, MAX_ANKER, MAX_FIGUREN = 28, 3, 8, 40
+MAX_TEILE, MIN_TEILE, MAX_ANKER, MAX_FIGUREN = 32, 8, 8, 40
+GRUPPE = re.compile(r"(kopf|arm|bein|schwanz|fluegel)[1-4]?")   # bewegliche Glieder (werden in 3D animiert)
 GROESSE = 400                                             # Figurenraum wie bei den handgebauten Figuren
 MAX_JE_LAUF = 3                                           # neue Figuren je Lauf (jede kostet eine Suche)
 WUNSCH_REGEL = ("Schreibe jeden Wunsch als „deutsch (englisch)“, z. B. „Imker (beekeeper)“ – das englische Wort sucht die "
@@ -30,12 +31,14 @@ ANLEITUNG = (
     "und kennzeichnende Einzelheiten wie auf dem Foto; als Farben nimmst du die gemessenen (und was du im Bild siehst) – nichts "
     "frei erfinden. Antworte mit EINEM JSON-Objekt: {\"figuren\": [{\"name\": \"imker\", \"gesehen\": \"ein Satz, was das "
     "Foto zeigt\", \"teile\": [{\"form\": \"kugel|zylinder|kegel|quader|kapsel\", \"x\": 50, \"y\": 20, \"z\": 0, "
-    "\"b\": 18, \"h\": 18, \"t\": 18, \"farbe\": \"#e8c9a0\", \"dreh\": 0, \"glanz\": 0.2}, …], "
+    "\"b\": 18, \"h\": 18, \"t\": 18, \"farbe\": \"#e8c9a0\", \"dreh\": 0, \"glanz\": 0.2, \"gruppe\": \"kopf\"}, …], "
     "\"anker\": {\"kopf\": [50, 20]}}]}. "
     "Raum 0–100 (x nach rechts, y nach UNTEN, z nach vorn −30…30), b/h/t = Breite/Höhe/Tiefe, dreh = Drehung in Grad. "
     f"12–{MAX_TEILE} Teile, Seitenansicht, die Figur füllt den Raum (etwa 8–92). Erst die großen Körper (Rumpf, Kopf), dann "
     "Glieder, dann die Einzelheiten, an denen man die Figur sofort erkennt. \"anker\": 2–6 benannte Stellen (kleingeschrieben, "
-    "ein Wort) für Beschriftungen. Kannst du die Vorlage nicht ansehen, baue nur nach „titel“ und „farben“ und schreibe das in "
+    "ein Wort) für Beschriftungen. BEWEGUNG: Die Figur wird in 3D animiert – gib jedem Teil eines beweglichen Glieds das Feld "
+    "\"gruppe\": kopf, arm, arm2, bein, bein2, schwanz, fluegel, fluegel2 (alle Teile eines Glieds dieselbe Gruppe, z. B. Oberarm, "
+    "Unterarm, Hand = arm); Rumpf-Teile bekommen keine Gruppe. Jede Figur braucht mindestens den Kopf als Gruppe. Kannst du die Vorlage nicht ansehen, baue nur nach „titel“ und „farben“ und schreibe das in "
     "„gesehen“. Eine Figur, deren Vorlage nicht zum Namen passt, lässt du weg.")
 
 _neu: list[str] = []                                       # in diesem Prozess neu aufgenommene Figuren (für den Prüfbericht)
@@ -65,6 +68,9 @@ def pruefe_bauplan(roh) -> dict | None:
                       "z": _zahl(t.get("z"), 0, -30, 30), "b": b, "h": _zahl(t.get("h"), b, 1, 100), "t": _zahl(t.get("t"), b, 1, 60),
                       "farbe": list(farbe(t.get("farbe"), (200, 200, 200))), "dreh": _zahl(t.get("dreh"), 0, -180, 180),
                       "glanz": _zahl(t.get("glanz"), .2, 0, 1)})
+        g = str(t.get("gruppe") or "").strip().lower()
+        if GRUPPE.fullmatch(g):
+            teile[-1]["gruppe"] = g
     if len(teile) < MIN_TEILE:
         return None
     xs = [t["x"] - t["b"] / 2 for t in teile] + [t["x"] + t["b"] / 2 for t in teile]

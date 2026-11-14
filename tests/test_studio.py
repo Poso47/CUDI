@@ -408,7 +408,12 @@ def _imker():
         {"form": "kapsel", "x": 50, "y": 52, "b": 26, "h": 36, "t": 18, "farbe": "#f1ede2"},
         {"form": "kugel", "x": 50, "y": 24, "b": 17, "h": 18, "t": 17, "farbe": "#e2b48c"},
         {"form": "zylinder", "x": 50, "y": 15, "b": 36, "h": 3, "t": 36, "farbe": "#d9c48a"},
-        {"form": "kapsel", "x": 43, "y": 80, "b": 10, "h": 28, "t": 10, "farbe": "#ece7da"},
+        {"form": "kapsel", "x": 43, "y": 80, "b": 10, "h": 28, "t": 10, "farbe": "#ece7da", "gruppe": "bein"},
+        {"form": "kapsel", "x": 57, "y": 80, "b": 10, "h": 28, "t": 10, "farbe": "#ece7da", "gruppe": "bein2"},
+        {"form": "kapsel", "x": 31, "y": 52, "b": 8, "h": 28, "t": 8, "farbe": "#f1ede2", "gruppe": "arm"},
+        {"form": "kapsel", "x": 70, "y": 50, "b": 8, "h": 26, "t": 8, "farbe": "#f1ede2", "gruppe": "ARM2"},
+        {"form": "zylinder", "x": 50, "y": 25, "b": 25, "h": 17, "t": 25, "farbe": "#3a3a36", "gruppe": "kopf"},
+        {"form": "kugel", "x": 26, "y": 67, "b": 9, "h": 9, "t": 9, "farbe": "#c9a45c", "gruppe": "tentakel"},
         {"form": "torus", "x": 1, "y": 1}], "anker": {"Hut": [50, 11], "kaputt": "x"}}
 
 
@@ -445,7 +450,8 @@ def test_werkstatt_baut_nur_nach_crawler_vorlage(tmp_path, monkeypatch):
     assert gestellt["daten"]["figuren"][0]["vorlage"] == str(bild) and gestellt["daten"]["figuren"][0]["farben"]
     assert "SIEH SIE DIR ZUERST AN" in gestellt["anleitung"]
     info = Z.figur_info("imker")
-    assert len(info["bauplan"]) == 4 and set(info["anker"]) == {"hut", "mitte"}       # unbekannte Form/kaputter Anker fliegen raus
+    assert len(info["bauplan"]) == 9 and set(info["anker"]) == {"hut", "mitte"}       # unbekannte Form/kaputter Anker fliegen raus
+    assert [t.get("gruppe") for t in info["bauplan"]][3:] == ["bein", "bein2", "arm", "arm2", "kopf", None]   # nur bekannte Glieder
     assert werkstatt.bauplan("imker")["vorlage"]["seite"] == "https://example.org/foto"
     assert Z.figur_info("biene").get("bauplan") is None                                # handgebaute Figur wird nie überschrieben
     assert any("keine Vorlage" in n for n in notes) and any("example.org" in n for n in notes)
@@ -473,3 +479,17 @@ def test_werkstatt_figuren_bleiben_im_lernstand(tmp_path, monkeypatch):
     monkeypatch.setattr(animation, "lernstand_datei", lambda: datei)
     assert Z.figur_info("imker")["bauplan"] and "imker" in Z.figuren()
     assert "deutsch (englisch)" in animation.storyboard_anleitung("Bienen") and "{figur_bau}" not in animation.storyboard_anleitung("Bienen")
+
+
+def test_3d_abnahme_meldet_flache_szenen(tmp_path, monkeypatch):
+    from cudi_video import config
+    from cudi_video.schaubild import drei
+    monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path)
+    assert drei.abnahme() == []
+    drei.protokoll(True); drei.protokoll(True)
+    assert drei.abnahme() == ["3D-Abnahme: alle 2 animierten Szenen in echtem 3D."] and drei.abnahme() == []
+    drei.protokoll(True); drei.protokoll(False, "Chromium abgestürzt")
+    h = drei.abnahme()
+    assert "NICHT vollständig" in h[0] and "1 von 2" in h[0] and "Chromium" in h[0]
+    html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
+    assert "glieder" in html and 'gl.art === "arm"' in html

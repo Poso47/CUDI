@@ -86,3 +86,47 @@ def rendere(buehne, zeiten: list[float], size: int = GROESSE, zeitlimit: int = 9
     lagen = json.loads((arbeit / "bilder" / "lage.json").read_text("utf-8"))
     pfade = [arbeit / "bilder" / f"b_{i:05d}.png" for i in range(len(zeiten))]
     return pfade, lagen, arbeit
+
+
+PROTOKOLL = "_3d_protokoll.jsonl"
+
+
+def _protokoll_datei() -> Path:
+    from .. import config
+    return config.OUTPUT_DIR / PROTOKOLL
+
+
+def protokoll(ok: bool, grund: str = "") -> None:
+    """Je Szene festhalten, ob sie in echtem 3D gerendert wurde (für die 3D-Abnahme im Ergebnis – nichts rutscht still durch)."""
+    try:
+        with open(_protokoll_datei(), "a", encoding="utf-8") as fh:
+            fh.write(json.dumps({"ok": bool(ok), "grund": str(grund)[:160]}, ensure_ascii=False) + "\n")
+    except OSError:
+        pass
+
+
+def protokoll_nehmen() -> tuple[int, list[str]]:
+    """(Anzahl 3D-Szenen, Gründe der flach gezeichneten Szenen) lesen und das Protokoll leeren."""
+    datei, ok, fehl = _protokoll_datei(), 0, []
+    try:
+        for zeile in datei.read_text("utf-8").splitlines():
+            eintrag = json.loads(zeile)
+            if eintrag.get("ok"):
+                ok += 1
+            else:
+                fehl.append(eintrag.get("grund") or "unbekannt")
+        datei.unlink()
+    except (OSError, ValueError):
+        pass
+    return ok, fehl
+
+
+def abnahme() -> list[str]:
+    """Hinweise der 3D-Abnahme: Ziel ist immer ein vollständiges 3D-Video."""
+    ok, fehl = protokoll_nehmen()
+    if not ok and not fehl:
+        return []
+    if not fehl:
+        return [f"3D-Abnahme: alle {ok} animierten Szenen in echtem 3D."]
+    gruende = "; ".join(sorted(set(fehl))[:3])
+    return [f"3D-Abnahme NICHT vollständig: {len(fehl)} von {ok + len(fehl)} Szenen nur flach (2D) gezeichnet – {gruende}"]

@@ -107,3 +107,8 @@ Figuren-Werkstatt (Wunsch des Nutzers: nie Figuren frei zusammensetzen, immer Cr
   `figuren`) – eine Figur wird nur einmal gebaut und gilt dann für alle späteren Videos. Handgebaute Figuren (`data/figuren`)
   haben Vorrang. Das Vorlagenbild kommt nie ins Video oder ins Repository.
 - 3D: `ausBauplan` in `drei/szene3d.html`; 2D-Ersatz: `werkstatt.zeichne`. Aus: `CUDI_WERKSTATT=0` (in Tests gesetzt).
+- Bewegung: Bauplan-Teile tragen `gruppe` (kopf, arm, arm2, bein, bein2, schwanz, fluegel …) – in 3D schwingen/nicken diese Glieder
+  (`ausBauplan` → `glieder`). Mindestens 8 Teile je Figur.
+- **3D-Abnahme** (Ziel des Nutzers: am Ende immer ein vollständiges 3D-Video): jede animierte Szene trägt sich in
+  `video_output/_3d_protokoll.jsonl` ein (`drei.protokoll`; 3D-Fehler → ein zweiter Versuch, erst dann 2D). `job._summary` setzt
+  `drei.abnahme()` an den Anfang der Hinweise: „alle N Szenen in echtem 3D“ oder „NICHT vollständig: x von N nur flach – Grund“.
