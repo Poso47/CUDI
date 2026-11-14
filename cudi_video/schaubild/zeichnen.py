@@ -246,6 +246,39 @@ def _punkt(p):
     return None
 
 
+def _fuellen(elemente: list[dict]) -> None:
+    """Bild nie leer, nie winzig: (1) Ist am Anfang nichts zu sehen, erscheint das erste Element sofort (Grundbild).
+    (2) Nutzen die Elemente (ohne Figur) weniger als die Hälfte der Fläche, werden sie um die Mitte vergrößert."""
+    koerper = [e for e in elemente if e["art"] != "beschriftung"]
+    if koerper and all(e["alpha"] <= 0 for e in koerper):
+        koerper[0]["alpha"] = 1.0
+    if any(e["art"] == "figur" for e in elemente):
+        return
+    boxen = []
+    for e in koerper:
+        pts = list(e.get("punkte") or []) or [(e["x"], e["y"])]
+        r = e["groesse"] / 2 if not e.get("punkte") else e.get("breite", 0) / 2
+        for p in pts:
+            if isinstance(p, (list, tuple)) and all(isinstance(v, (int, float)) for v in p):
+                boxen.append((p[0] - r, p[1] - r, p[0] + r, p[1] + r))
+    if not boxen:
+        return
+    x0, y0 = min(b[0] for b in boxen), min(b[1] for b in boxen)
+    x1, y1 = max(b[2] for b in boxen), max(b[3] for b in boxen)
+    spanne = max(x1 - x0, y1 - y0, 1.0)
+    if spanne >= 50:
+        return
+    f, cx, cy = min(1.8, 72 / spanne), (x0 + x1) / 2, (y0 + y1) / 2
+    zieh = lambda v, c: max(8.0, min(92.0, 50 + (v - c) * f)) if isinstance(v, (int, float)) else v   # noqa: E731
+    for e in koerper:
+        e["x"], e["y"] = zieh(e["x"], cx), zieh(e["y"], cy)
+        e["groesse"] = min(100.0, e["groesse"] * f)
+        if e.get("punkte"):
+            e["punkte"] = [(zieh(p[0], cx), zieh(p[1], cy)) if isinstance(p, (list, tuple)) else p for p in e["punkte"]]
+        if "breite" in e:
+            e["breite"] = min(60.0, e["breite"] * f)
+
+
 def pruefe_szene(roh) -> dict | None:
     """Szenen-Beschreibung säubern: nur bekannte Arten/Aktionen, Werte im Rahmen, Verweise müssen existieren."""
     if not isinstance(roh, dict):
@@ -326,6 +359,7 @@ def pruefe_szene(roh) -> dict | None:
                 and not (e["art"] == "beschriftung" and not e["an"])
                 and not (e["art"] == "partikel" and ("von" not in e or "nach" not in e))]
     ids = {e["id"] for e in elemente}
+    _fuellen(elemente)
     schritte = []
     for s in (roh.get("schritte") or [])[:MAX_SCHRITTE]:
         if not isinstance(s, dict) or s.get("aktion") not in AKTIONEN:

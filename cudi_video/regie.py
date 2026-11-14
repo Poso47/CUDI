@@ -378,6 +378,16 @@ def _segmente(script) -> list[tuple[str, str]]:
     return [(s.kind, s.text) for s in script.segments]
 
 
+def aufgabe(spec, research, scripts: list) -> tuple[str, str, dict] | None:
+    """Die Schreibaufgabe „regie“ (Name, Anleitung, Daten) – zum Bündeln mit anderen Aufgaben (`handoff.request_many`)."""
+    if not handoff.active() or not scripts:
+        return None
+    art = _art(spec)
+    tops = {s.lang: [it.labels.get(s.lang) or it.labels.get("en", "") for it in research.items if it.rank == 1] for s in scripts}
+    data = {s.lang: _daten(spec, s, art, bewerte(_segmente(s), s.lang, art, tops[s.lang]), tops[s.lang]) for s in scripts}
+    return "regie", INSTRUCTIONS, data
+
+
 def verbessere(spec, research, scripts: list, pruefer, use_llm: bool | None = None) -> dict:
     """Regie-Stufe für Ranking-/Fakten-Skripte (mutiert `scripts` bei akzeptierten Änderungen). Gibt den Block `regie` zurück.
     Wirft handoff.WritingNeeded, solange Claudes Antwort aussteht."""

@@ -604,7 +604,8 @@ def _erklaer(order: dict, folder: Path, progress) -> dict:
 
     progress("Animation planen", 0.08)
     animation.an_skript(script, out, "erklaer", report["hinweise"], report.get("storyboard"))            # jede Szene: eigene Animation, 1:1 zum Text
-    rendered = render_erklaerung(script, out_dir=out, progress=lambda f: progress("Rendern", 0.1 + 0.85 * f))
+    with zeiten.stufe("render"):                                   # Stimme darin wird als eigene Stufe abgezogen
+        rendered = render_erklaerung(script, out_dir=out, progress=lambda f: progress("Rendern", 0.1 + 0.85 * f))
     return {"output_dir": str(out), "kind": "erklaer", "warnings": report["hinweise"],
             "videos": {order["sprache"]: {"video": rendered["video"], "cover": rendered["cover"], "duration": rendered["duration"],
                                           "qa": rendered.get("qa"), "description_file": "beschreibung.txt",

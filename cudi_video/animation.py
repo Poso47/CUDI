@@ -225,6 +225,14 @@ def _sauber(eintraege: list[dict]) -> list[dict]:
     return [{"key": str(e["key"]), "text": str(e["text"])} for e in eintraege if str(e.get("text") or "").strip()]
 
 
+def storyboard_aufgaben(auftraege: list[tuple[list[dict], str, str, str]]) -> list[tuple[str, str, dict]]:
+    """Storyboard-Aufgaben (eintraege, thema, lang, aufgabe) zum Bündeln mit anderen Schreibaufgaben derselben Runde."""
+    if not (aktiv() and studio_aktiv() and handoff.active()):
+        return []
+    return [(a + "_storyboard", storyboard_anleitung(t, l), {"thema": t, "sprache": l, "eintraege": _sauber(e)})
+            for e, t, l, a in auftraege if _sauber(e)]
+
+
 def buendeln(auftraege: list[tuple[list[dict], str, str, str]]) -> None:
     """Mehrere Videos/Sprachen (eintraege, thema, lang, aufgabe): Storyboards in EINER Runde, dann alle Szenenbauten in EINER
     Runde stellen (`handoff.request_many`) – spart je Video Wartezeit. Danach liefert `szenen_schreiben` aus dem Zwischenspeicher."""
