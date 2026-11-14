@@ -301,7 +301,8 @@
   .tile .tic svg { width: 24px; height: 24px; }
   .tile b { display: block; font: 700 22px/1.1 var(--display); }
   .tile span.sub { color: var(--muted); font-size: 13px; }
-  .tile:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 96px; }
+  .tile:only-child { grid-column: 1 / -1; min-height: 0; grid-template-columns: auto 1fr; align-items: center; }
+  .tile .sub { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .tile:hover { border-color: var(--accent); }
   .tile .soon { justify-self: start; }
   .back { min-height: 44px; justify-self: start; border: 0; background: none; color: var(--accent); font: 700 15px var(--body); cursor: pointer; padding: 0 8px 0 0;
@@ -345,10 +346,12 @@
   details.more summary { min-height: 44px; display: flex; align-items: center; }
   .klist .body button, .jobs .vid button, .jobs .actions button { min-height: 44px; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--paper); font: 700 13px var(--body); cursor: pointer; justify-self: start; }
   .klist .body button { width: fit-content; }
-  @media (min-width: 560px) { .tiles { grid-template-columns: repeat(3, 1fr); } .tile:last-child:nth-child(odd) { grid-column: auto; } }
+  @media (min-width: 560px) { .tiles { grid-template-columns: repeat(3, 1fr); } }
 
   /* ---------- Bedienung: Gruppen, Finder, Animationen (bei „weniger Bewegung“ automatisch aus) ---------- */
-  .group { display: grid; gap: 8px; }
+  .group { display: grid; gap: 8px; margin-top: 4px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .tile { min-height: 112px; }
   .vfilter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; } .vfilter button { min-width: 0; padding: 0 4px; font-size: 13px; }
   .ghead { margin: 6px 0 0; font: 800 13px var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
   .gdesc { margin: -4px 0 2px; font-size: 13px; color: var(--muted); }
@@ -428,43 +431,39 @@
   <!-- Start -->
   <section class="card" id="start" role="tabpanel" aria-labelledby="tab-start">
     <h2 class="hello">Was willst du machen?</h2>
-    <p class="lead">Videoart antippen, kurz ausfüllen, fertig. Gerechnet wird in deiner Claude-Cloud, meist in 10 bis 20 Minuten – die App darf solange zu sein.</p>
+    <p class="lead">Videoart antippen, kurz ausfüllen – fertig in 5 bis 20 Minuten.</p>
     <div class="finder">
-      <label for="finderInput">Worum soll es gehen? <span class="hint">CUDI schlägt die passende Videoart vor</span></label>
-      <div class="finderrow"><input id="finderInput" type="text" maxlength="200" placeholder="z. B. Wie entsteht ein Gewitter?" autocomplete="off">
+      <label for="finderInput" class="sr-only">Worum soll es gehen? CUDI schlägt die passende Videoart vor</label>
+      <div class="finderrow"><input id="finderInput" type="text" maxlength="200" placeholder="Dein Thema" autocomplete="off">
       <button type="button" class="btn primary" id="finderGo">Vorschlag</button></div>
       <p class="finderout" id="finderOut" hidden role="status"></p>
     </div>
     <section class="group" aria-label="Erklären &amp; Wissen">
       <h3 class="ghead">Erklären &amp; Wissen</h3>
-      <p class="gdesc">Wie etwas funktioniert oder was man wissen sollte – sachlich, mit eigener Animation.</p>
       <div class="tiles">
-      <button type="button" class="tile" style="--i:1" data-go="fakten"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6zM9 12l2 2 4-4"/></svg></span><span><b>Fakten</b><span class="sub">Frei gewähltes Thema, jede Zahl geprüft</span></span></button>
-      <button type="button" class="tile" style="--i:2" data-go="erklaer"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0-4 10.5V16h8v-2.5A6 6 0 0 0 12 3zM9 20h6M10 18h4"/></svg></span><span><b>Erklärvideo</b><span class="sub">Ruhig erklärt im Buchlook</span></span></button>
-      <button type="button" class="tile" style="--i:3" data-go="schaubild"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M4 4l3 3M20 20l-3-3"/></svg></span><span><b>Schaubild</b><span class="sub">Erklärt in Stationen, 21 Bildstile</span></span></button>
+      <button type="button" class="tile" style="--i:1" data-go="fakten"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6zM9 12l2 2 4-4"/></svg></span><span><b>Fakten</b><span class="sub">Jede Zahl geprüft</span></span></button>
+      <button type="button" class="tile" style="--i:2" data-go="erklaer"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0-4 10.5V16h8v-2.5A6 6 0 0 0 12 3zM9 20h6M10 18h4"/></svg></span><span><b>Erklärvideo</b><span class="sub">Ruhig erklärt, animiert</span></span></button>
+      <button type="button" class="tile" style="--i:3" data-go="schaubild"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M4 4l3 3M20 20l-3-3"/></svg></span><span><b>Schaubild</b><span class="sub">Schritt für Schritt animiert</span></span></button>
       </div>
     </section>
     <section class="group" aria-label="Streams &amp; Podcasts">
       <h3 class="ghead">Streams &amp; Podcasts</h3>
-      <p class="gdesc">Die besten Momente aus Streams und Podcasts – nur mit Erlaubnis.</p>
       <div class="tiles">
-      <button type="button" class="tile" style="--i:4" data-go="clips"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4l-3 5M14 4l-3 5M20 4l-3 5"/></svg></span><span><b>Clip</b><span class="sub">Highlight aus Stream oder Podcast</span></span></button>
+      <button type="button" class="tile" style="--i:4" data-go="clips"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4l-3 5M14 4l-3 5M20 4l-3 5"/></svg></span><span><b>Clip</b><span class="sub">Beste Momente aus Streams</span></span></button>
       </div>
     </section>
     <section class="group" aria-label="Listen &amp; Geschichten">
       <h3 class="ghead">Listen &amp; Geschichten</h3>
-      <p class="gdesc">Top-Listen mit messbaren Zahlen und erzählte Reddit-Storys.</p>
       <div class="tiles">
-      <button type="button" class="tile" style="--i:5" data-go="ranking"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b>Ranking</b><span class="sub">Top-Liste mit geprüften Fakten</span></span></button>
-      <button type="button" class="tile" style="--i:6" data-go="story"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg></span><span><b>Story</b><span class="sub">Reddit-Story in deiner Stimmung</span></span></button>
+      <button type="button" class="tile" style="--i:5" data-go="ranking"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b>Ranking</b><span class="sub">Top-Liste mit Zahlen</span></span></button>
+      <button type="button" class="tile" style="--i:6" data-go="story"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg></span><span><b>Story</b><span class="sub">Reddit-Story nach Stimmung</span></span></button>
       </div>
     </section>
     <section class="group" aria-label="Aktuelles &amp; Politik">
       <h3 class="ghead">Aktuelles &amp; Politik</h3>
-      <p class="gdesc">Nachrichten sachlich als Reportage – oder Politiker und Mächtige als gekennzeichnete Satire.</p>
       <div class="tiles">
-      <button type="button" class="tile" style="--i:7" data-go="reportage"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12v14H6a2 2 0 0 1-2-2zM16 8h4v9a2 2 0 0 1-2 2M7 9h6M7 13h6"/></svg></span><span><b>Reportage</b><span class="sub">Sachlich, mit mindestens zwei Quellen</span></span></button>
-      <button type="button" class="tile" style="--i:8" data-go="satire"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 3 4 3 4-3 4-3M9 9h.01M15 9h.01"/></svg></span><span><b>Satire</b><span class="sub">Politik &amp; Mächtige, erkennbar überspitzt</span></span></button>
+      <button type="button" class="tile" style="--i:7" data-go="reportage"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12v14H6a2 2 0 0 1-2-2zM16 8h4v9a2 2 0 0 1-2 2M7 9h6M7 13h6"/></svg></span><span><b>Reportage</b><span class="sub">Nachricht, zwei Quellen</span></span></button>
+      <button type="button" class="tile" style="--i:8" data-go="satire"><span class="tic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 3 4 3 4-3 4-3M9 9h.01M15 9h.01"/></svg></span><span><b>Satire</b><span class="sub">Politik, überspitzt</span></span></button>
       </div>
     </section>
     <div class="homelinks">
@@ -477,7 +476,7 @@
   <section class="card" id="ranking" role="tabpanel" aria-labelledby="tab-start">
     <button type="button" class="back" data-go="start" aria-label="Zurück zum Start"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Start</button>
     <h2>Ranking-Video</h2>
-    <p class="lead">Top-Liste mit geprüften Fakten. Gerendert wird in deiner Claude-Cloud, meist in 10 bis 20 Minuten – du kannst die App solange schließen.</p>
+    <p class="lead">Top-Liste mit geprüften Zahlen – die App darf solange zu sein.</p>
     <form id="rankingForm" novalidate>
       <div style="display:grid;gap:12px">
         <div>
@@ -497,7 +496,7 @@
         <p class="or">oder</p>
         <div>
           <label for="topic">Eigenes Thema</label>
-          <input id="topic" type="text" placeholder="z. B. die höchsten Berge in Europa" autocomplete="off">
+          <input id="topic" type="text" placeholder="z. B. Berge in Europa" autocomplete="off">
         </div>
         <details class="mehr"><summary>Mehr Optionen</summary><div class="inner">
         <div class="row">
@@ -548,12 +547,12 @@
   <section class="card" id="fakten" role="tabpanel" aria-labelledby="tab-start" hidden>
     <button type="button" class="back" data-go="start" aria-label="Zurück zum Start"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Start</button>
     <h2>Fakten-Video</h2>
-    <p class="lead">Frei gewähltes Thema: Jeder Fakt kommt mit wörtlichem Beleg aus einer Quelle, Zahlen werden ein zweites Mal geprüft. Fertig meist nach 10 bis 20 Minuten – du kannst die App solange schließen.</p>
+    <p class="lead">Freies Thema – jeder Fakt mit wörtlichem Beleg, Zahlen doppelt geprüft.</p>
     <form id="faktenForm" novalidate>
       <div style="display:grid;gap:12px">
         <div>
           <label for="factTopic">Thema</label>
-          <input id="factTopic" type="text" maxlength="120" placeholder="z. B. Der Mond oder Wie Bienen kommunizieren" autocomplete="off" aria-describedby="faktenMsg">
+          <input id="factTopic" type="text" maxlength="120" placeholder="z. B. Der Mond" autocomplete="off" aria-describedby="faktenMsg">
         </div>
         <div>
           <label for="factCount">Anzahl Fakten (3 bis 10)</label>
@@ -582,7 +581,7 @@
       <div style="display:grid;gap:12px">
         <div>
           <label for="sbTopic">Thema oder Frage</label>
-          <input id="sbTopic" type="text" maxlength="160" placeholder="z. B. Wie entsteht ein Ei im Huhn?" autocomplete="off" aria-describedby="schaubildMsg">
+          <input id="sbTopic" type="text" maxlength="160" placeholder="z. B. Wie entsteht ein Ei?" autocomplete="off" aria-describedby="schaubildMsg">
         </div>
         <div>
           <label for="sbStil">Bildstil</label>
@@ -629,7 +628,7 @@
         </div>
         <div>
           <label for="wish">Beschreibung oder Reddit-Link</label>
-          <input id="wish" type="text" placeholder="z. B. gruselige Story über einen Stalker im Wald" autocomplete="off">
+          <input id="wish" type="text" placeholder="z. B. Gruselig im Wald" autocomplete="off">
         </div>
         <details class="mehr"><summary>Mehr Optionen</summary><div class="inner">
         <div class="row">
@@ -678,7 +677,7 @@
       <div style="display:grid;gap:12px">
         <div>
           <label for="reportTopic">Thema in einem Satz</label>
-          <input id="reportTopic" type="text" maxlength="160" placeholder="z. B. Erdbeben in Japan: was bisher bestätigt ist" autocomplete="off">
+          <input id="reportTopic" type="text" maxlength="160" placeholder="z. B. Erdbeben in Japan" autocomplete="off">
         </div>
         <details class="mehr"><summary>Mehr Optionen</summary><div class="inner">
         <div>
@@ -703,12 +702,13 @@
   <section class="card" id="satire" role="tabpanel" aria-labelledby="tab-start" hidden>
     <button type="button" class="back" data-go="start" aria-label="Zurück zum Start"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Start</button>
     <h2>Satire</h2>
-    <p class="lead">Nur über Politiker, Regierungen, Parteien, Behörden und Mächtige aus Wirtschaft und Gesellschaft – Erklär- und Wissensthemen gehören ins Erklärvideo bzw. „Fakten“. Nur bestätigte Meldungen, wird als SATIRE gekennzeichnet. Der Kern bleibt wahr, die Überspitzung ist erkennbar; ohne erfundene Zitate, Zahlen oder Namen und ohne Spott gegen Gruppen. Heikles lehnt CUDI ab („nur als Reportage“).</p>
+    <p class="lead">Nur über Politik und Mächtige – immer als SATIRE gekennzeichnet, der Kern ist bestätigt.</p>
+    <details class="mehr"><summary>Regeln der Satire</summary><div class="inner"><p class="hint">Nur über Politiker, Regierungen, Parteien, Behörden und Mächtige aus Wirtschaft und Gesellschaft – Erklär- und Wissensthemen gehören ins Erklärvideo bzw. „Fakten“. Nur bestätigte Meldungen, wird als SATIRE gekennzeichnet. Der Kern bleibt wahr, die Überspitzung ist erkennbar; ohne erfundene Zitate, Zahlen oder Namen und ohne Spott gegen Gruppen. Heikles lehnt CUDI ab („nur als Reportage“).</p></div></details>
     <form id="satireForm" novalidate>
       <div style="display:grid;gap:12px">
         <div>
           <label for="satireTopic">Thema oder Meldung (Titel oder Link)</label>
-          <input id="satireTopic" type="text" maxlength="400" placeholder="z. B. Minister verspricht schnelleres Internet" autocomplete="off">
+          <input id="satireTopic" type="text" maxlength="400" placeholder="z. B. Minister verspricht WLAN" autocomplete="off">
         </div>
         <div id="satirePick" hidden>
           <span class="label">Oder eine bestätigte Meldung von heute</span>
@@ -822,7 +822,7 @@
       <button type="button" data-f="" aria-pressed="true">Alle</button>
       <button type="button" data-f="laeuft" aria-pressed="false">Laufen</button>
       <button type="button" data-f="fertig" aria-pressed="false">Fertig</button>
-      <button type="button" data-f="problem" aria-pressed="false">Probleme</button>
+      <button type="button" data-f="problem" aria-pressed="false">Fehler</button>
     </div>
     <ul class="jobs" id="jobList">
       <li id="jobSkel" aria-hidden="true"><div class="sk big"></div><div class="sk"></div></li>
@@ -917,7 +917,7 @@
     </div>
   </section>
 
-  <footer>Alles bleibt in der App: Jeder Auftrag läuft als Lauf deiner geplanten Aufgabe „CUDI-Auftrag“ in der Claude-Cloud – ohne neue Einträge in deiner Sitzungsliste – und legt Video und Texte hier ab.</footer>
+  <footer>Deine Videos entstehen in deiner Claude-Cloud und landen hier unter „Videos“.</footer>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"><span class="ok"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><span id="toastText"></span></div>
 <nav class="tabbar" role="tablist" aria-label="Bereiche">
@@ -2180,10 +2180,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       bar.setAttribute("aria-valuemin", "0"); bar.setAttribute("aria-valuemax", "100"); bar.setAttribute("aria-valuenow", String(pct));
       const fill = h("i"); fill.style.width = pct + "%"; bar.append(fill);
       li.append(rr, bar);
-      const info = document.createElement("p"); info.className = "hint";
-      info.textContent = (job.versuch === 2 ? "2. Versuch nach einer Störung – " : "") + "Läuft seit " +
-        minutes(job.gestartet) + " Min. – meist 10 bis 20 Minuten. Du kannst die App solange schließen.";
-      li.appendChild(info);
+      if (job.versuch === 2) li.appendChild(h("p", "hint", "2. Versuch nach einer Störung."));    // Laufzeit steht schon über dem Balken
     } else if (state === "limit" || state === "notbetrieb") {
       const info = h("p", "note warn", state === "notbetrieb"
         ? "Im Notbetrieb: Der Auftrag läuft über GitHub (Issue im Repository). Das fertige Video steht dort als Kommentar mit Download-Link, sobald es fertig ist. Hier bleibt der Auftrag zur Übersicht stehen."
