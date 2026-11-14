@@ -169,3 +169,10 @@ def test_storyboard_mit_dem_text_spart_eine_runde(monkeypatch):
     assert aufrufe[0] == "animation_erklaer_storyboard"
     monkeypatch.setenv("CUDI_STUDIO", "0")
     assert animation.storyboard_zusatz() == ""
+
+
+def test_erklaer_suchkern_aus_fragen():
+    from cudi_video.erklaer import schreiben
+
+    assert schreiben.kernwoerter("Wie Bienen Honig machen") == "Bienen Honig"
+    assert schreiben.kernwoerter("Warum ist der Himmel blau?") == "Himmel blau"
