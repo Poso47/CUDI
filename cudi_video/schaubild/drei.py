@@ -19,8 +19,8 @@ from pathlib import Path
 
 ORDNER = Path(__file__).resolve().parent / "drei"
 THREE = Path(__file__).resolve().parent.parent / "data" / "three" / "three.min.js"
-BILDRATE = 15                                     # 3D-Bilder je Sekunde (dazwischen wird gehalten) – spart Renderzeit
-GROESSE = 720                                     # 3D-Kantenlänge; wird auf die Zielgröße skaliert
+BILDRATE = 12                                     # 3D-Bilder je Sekunde (dazwischen wird gehalten) – spart Renderzeit
+GROESSE = 600                                     # 3D-Kantenlänge; wird auf die Zielgröße skaliert
 log = logging.getLogger(__name__)
 
 

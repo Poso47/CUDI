@@ -104,6 +104,9 @@ def main(argv=None) -> int:
     er = sub.add_parser("erklaer", help="Erklärvideo (Buchlook) aus einem Szenen-Skript (JSON)")
     er.add_argument("skript", help="Pfad zum Szenen-Skript, z. B. examples/erklaer_goldener_schnitt.json")
 
+    rf = sub.add_parser("referenzen", help="Referenz-Scout: beste freie Vorlagen-Fotos für 3D-Figuren suchen (nur zum Modellieren)")
+    rf.add_argument("begriff")
+    rf.add_argument("--anzahl", type=int, default=8)
     chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
     chk.add_argument("--ohne-netz", action="store_true", help="nur lokale Prüfungen")
     chk.add_argument("--ohne-stimme", action="store_true", help="KI-Stimme nicht testen")
@@ -183,6 +186,13 @@ def main(argv=None) -> int:
         print(f"\nAusgabe: {result['folder']}\n  {result['video']} ({result['duration']} s)")
         return 0
 
+    if args.cmd == "referenzen":
+        from .referenzen import suche
+        erg = suche(args.begriff, args.anzahl)
+        print(f"{erg['kandidaten']} Kandidaten geprüft, {len(erg['beste'])} beste -> {erg['bogen'] or erg['ordner']}")
+        for h in erg["hinweise"]:
+            print("Hinweis:", h)
+        return 0
     if args.cmd == "check":
         from .check import print_report, run_checks
 

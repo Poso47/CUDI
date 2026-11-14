@@ -83,3 +83,9 @@ setzt Python darauf (`animation.Bild._drei_bild`). Aktiv, wenn `Bild(..., dauer=
 vorhanden; jeder Fehler -> 2D (`Bild.hinweis`), `CUDI_3D=0` aus, Tests setzen es in `conftest.py`. 3D-Modelle: biene, bluete, huhn + Formen
 (kreis/ei/tropfen/quadrat/sechseck/herz), schlauch (Röhre), huelle/schale, kristalle, partikel, traube, pfeil, uhr. Neue 3D-Figur = Funktion in
 `FIGUREN` (Figurenraum 400 wie figur.json, damit Anker passen). Kosten: 8-s-Szene ≈ 16 s Rechenzeit. Notbetrieb (GitHub) ohne Playwright = 2D.
+**Referenz-Scout** (`cudi_video/referenzen.py`, `python -m cudi_video referenzen "<begriff>"`; Nutzerwunsch: realistisch, Vorlagen aus dem Netz,
+kein Wikipedia): Crawler über Openverse (Flickr/Museen), iNaturalist (research), Pexels/Pixabay (mit Schlüssel); bewertet mit CLIP-Vorlagenwert
+(einzelnes Motiv groß/scharf gegen Schwarm/winzig/Zeichnung/unscharf), Schärfe (Laplace), Auflösung, Beliebtheit -> `video_output/_referenzen/<begriff>/`
+Kontaktbogen + referenzen.json (Quelle, Lizenz). Nur Modellier-Vorlage, nie ins Video/Repo. Biene 3D danach neu: Drehkörper-Hinterleib mit Ringen,
+gekämmtes Fell (`haare()`, instanziert), Nierenauge mit Facetten, geknickte Fühler, Adernflügel, Studio-Umgebungslicht (`umgebung()`, PMREM).
+Tempo: 3D jetzt 600 px, 12 Bilder/s (Fell + Spiegelungen kosten; ≈ 0,4 s je 3D-Bild).

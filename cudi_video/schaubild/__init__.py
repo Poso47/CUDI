@@ -74,7 +74,9 @@ OBERSTE REGEL – ALLES ZEIGEN, WAS GESAGT WIRD, GENAU DANN, WENN ES GESAGT WIRD
 - Rechne mit 2–4 Schritten und 1–3 Beschriftungen je Satz. Lieber mehr Einzelheiten als ein leeres Bild.
 Format: {"elemente": [...], "schritte": [...]}. Koordinaten 0–100 (0/0 = links oben, Mitte = 50/50), „groesse“ in Prozent der Bildbreite.
 BILD FÜLLEN: Das Hauptelement (oder die Figur) ist groß (groesse 55–90) und steht von Anfang an da; alles zusammen füllt 70–90 % des
-Bildes. Lebewesen, die es als Figur gibt (Liste unten), IMMER als Figur zeigen – nie aus Formen nachbauen.
+Bildes. Lebewesen, die es als Figur gibt (Liste unten), IMMER als Figur zeigen – nie aus Formen nachbauen. Jede Szene, in der ein
+solches Lebewesen vorkommt oder handelt (auch „sie“, „die Bienen“), zeigt die Figur groß. Lieber 3–6 große, klare Elemente als viele kleine
+Kugeln; Stoffe (Honig, Nektar, Wasser) als Tropfen/Form mit Beschriftung, Orte (Stock, Wabe) als Sechseck-Waben.
 FIGUREN (fertig gezeichnete, lebendige Illustrationen – atmen, blinzeln, bewegen sich): Gibt es für das Thema eine passende Figur,
 benutze sie statt sie aus Formen zu bauen: {"id": "huhn", "art": "figur", "figur": "huhn", "x": 50, "y": 52, "groesse": 85,
 "durchsichtig": true (Körper halb durchsichtig, um Organe im Inneren zu zeigen), "blick": "links"|"rechts"}. Aktionen: picke, flattere,
@@ -207,7 +209,7 @@ def pruefe_station(st: dict, quellen: list[dict], lang: str) -> tuple[dict | Non
             "ohne_bild": [str(w)[:30] for w in (st.get("ohne_bild") or [])[:8] if _wort(str(w)) in _woerter(text)]}, ""
 
 
-SATZANFANG = {"der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer", "hier", "dort", "danach", "dann", "im", "in",
+SATZANFANG = {"wie", "was", "warum", "wieso", "weshalb", "wer", "wo", "wann", "welche", "welcher", "welches", "woher", "wohin", "der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer", "hier", "dort", "danach", "dann", "im", "in",
               "am", "an", "auf", "wenn", "und", "oder", "aber", "es", "sie", "er", "so", "zuerst", "zuletzt", "erst", "nun", "jetzt", "dabei",
               "damit", "dazu", "alles", "alle", "jede", "jeder", "jedes", "diese", "dieser", "dieses", "nach", "vor", "mit", "bei", "aus", "von",
               "zum", "zur", "für", "ohne", "weil", "während", "sobald", "dadurch", "daher", "deshalb", "außerdem", "schließlich", "anschließend"}
