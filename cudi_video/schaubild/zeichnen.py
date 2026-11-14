@@ -221,6 +221,8 @@ def glanzform(form: str, pfad: str, px: int, rgb: tuple, alpha: float = 1.0, rot
 # --------------------------------------------------------------------------- Prüfen
 
 MAX_BESCHRIFTUNGEN = 6
+LEERE_DINGE = {"ende", "anfang", "antwort", "frage", "weise", "art", "fall", "grund", "beispiel", "teil", "ding", "sache", "mal",
+               "prozent"}                                     # Hauptwörter ohne zeigbares Ding: keine Beschriftung
 
 
 def beschriftungen_pruefen(szene: dict | None, text: str) -> dict | None:
@@ -232,7 +234,7 @@ def beschriftungen_pruefen(szene: dict | None, text: str) -> dict | None:
     from . import _wort, hauptwoerter                          # Deutsch: Beschriftungen nur an Dingen (Hauptwörtern), nie an Füllwörtern
     deutsch = re.search(r"\b(der|die|das|und|ist|wird|ein|eine)\b", low) is not None
     if deutsch:
-        dinge = set(hauptwoerter(text))
+        dinge = set(hauptwoerter(text)) - LEERE_DINGE
         szene["elemente"] = [e for e in szene["elemente"] if e["art"] != "beschriftung"
                              or (e["text"][:1].isupper() and _wort(e["text"].split()[0]) in dinge)]
     labels = [e for e in szene["elemente"] if e["art"] == "beschriftung"][MAX_BESCHRIFTUNGEN:]
@@ -265,10 +267,16 @@ def _punkt(p):
     return None
 
 
+MIN_FORM = 12.0
+
+
 def _fuellen(elemente: list[dict]) -> None:
     """Bild nie leer, nie winzig: (1) Ist am Anfang nichts zu sehen, erscheint das erste Element sofort (Grundbild).
     (2) Nutzen die Elemente (ohne Figur) weniger als die Hälfte der Fläche, werden sie um die Mitte vergrößert."""
     koerper = [e for e in elemente if e["art"] != "beschriftung"]
+    for e in koerper:                                          # keine winzigen Kügelchen: Formen mindestens gut sichtbar
+        if e["art"] in ("form", "traube", "uhr") and e["groesse"] < MIN_FORM:
+            e["groesse"] = MIN_FORM
     if koerper and all(e["alpha"] <= 0 for e in koerper):
         koerper[0]["alpha"] = 1.0
     if any(e["art"] == "figur" for e in elemente):

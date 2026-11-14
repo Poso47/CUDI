@@ -271,3 +271,24 @@ def test_3d_buehne_rendert_echt(monkeypatch):
     im = Image.open(pfade[1])
     assert im.size == (160, 160) and im.getchannel("A").getextrema()[1] > 200 and abs(lagen[0]["w"][0] - 80) < 6
     shutil.rmtree(arbeit, ignore_errors=True)
+
+
+def test_referenz_scout_bewertet_ohne_netz(monkeypatch, tmp_path):
+    """Crawler: Quellen einzeln abgesichert, scharfe/passende Vorlagen gewinnen, Doppel fliegen raus."""
+    import numpy as np
+
+    from cudi_video import net, referenzen
+
+    scharf = Image.fromarray((np.indices((300, 300)).sum(0) % 2 * 255).astype("uint8")).convert("RGB")
+    weich = Image.new("RGB", (300, 300), (120, 110, 90))
+    (tmp_path / "a.jpg").parent.mkdir(exist_ok=True)
+    scharf.save(tmp_path / "a.jpg"); weich.save(tmp_path / "b.jpg")
+    liste = [{"bild": "a", "titel": "honey bee macro", "schlagworte": ["bee"], "breite": 4000, "hoehe": 3000, "quelle": "x", "lizenz": "cc0"},
+             {"bild": "b", "titel": "landscape", "schlagworte": [], "breite": 800, "hoehe": 600, "quelle": "y", "lizenz": "cc0"},
+             {"bild": "a", "titel": "honey bee macro", "schlagworte": ["bee"], "breite": 4000, "hoehe": 3000, "quelle": "x", "lizenz": "cc0"}]
+    monkeypatch.setattr(net, "download", lambda url, **k: tmp_path / f"{url}.jpg")
+    beste = referenzen.bewerten("honey bee", liste)
+    assert len(beste) == 2 and beste[0]["titel"] == "honey bee macro"
+    monkeypatch.setattr(referenzen, "QUELLEN", (lambda b, n: (_ for _ in ()).throw(RuntimeError("weg")), lambda b, n: liste[:1]))
+    gefunden, hinweise = referenzen.kandidaten("honey bee")
+    assert len(gefunden) == 1 and hinweise
