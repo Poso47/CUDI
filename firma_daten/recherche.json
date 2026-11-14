@@ -1,94 +1,147 @@
 {
- "erzeugt": "2026-11-13T14:43:35Z",
+ "erzeugt": "2026-11-14T13:40:24Z",
  "hinweise": [],
  "anzahl": 3,
- "bestaetigte_aussagen": 1,
- "seiten_gelesen": 12,
+ "bestaetigte_aussagen": 3,
+ "seiten_gelesen": 10,
  "ergebnisse": [
   {
-   "thema": "Rücktritt von Nvidia-Chef: „Richtiger Schock“ – KI-Experte Espenlaub, ARD",
-   "stand": "2026-11-13",
-   "seiten_gelesen": 4,
-   "hinweise": [
-    "Seiten gelesen, aber keine Aussage zur Frage gefunden. Es wird nichts ergänzt."
-   ],
-   "aussagen": [],
-   "widersprueche": 0,
-   "schritte": [
-    "Frage: „Rücktritt von Nvidia-Chef: „Richtiger Schock“ – KI-Experte Espenlaub, ARD“ (Bereich news, Stand 2026-11-13)",
-    "Zerlegt in Stichwörter: Rücktritt, Nvidia-Chef, Richtiger, Schock, KI-Experte, Espenlaub, ARD",
-    "Suchanfragen: Rücktritt von Nvidia-Chef: „Richtiger Schock“ – KI-Experte Espenlaub, ARD | Rücktritt Nvidia-Chef Richtiger Schock KI-Experte Espenlaub ARD aktuell 2026",
-    "Brave Search: 13 Treffer für „Rücktritt von Nvidia-Chef: „Richtiger Schock“ – KI-Experte Espenlaub, ARD“ …",
-    "GDELT (aktuelle Nachrichten): nicht verfügbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2)",
-    "Gelesen: de.nachrichten.yahoo.com (Medium, gehört Verizon Communications und Yahoo) – Markt sucht Alternativen: Experte Andrea Renda zu Huangs Rücktritt; Datum 2026-11-13 (json-ld)",
-    "Gelesen: de.euronews.com (Medium, gehört Euronews SA und Alpac Capital) – Video. Markt sucht Alternativen: Experte Andrea Renda zu Huangs Rücktr; Datum 2026-11-13 (meta)",
-    "Gelesen: Welt (Medium, gehört Axel Springer SE) – Nvidia-Chef Jensen Huang tritt zurück - WELT; Datum 2026-11-13 (meta)",
-    "Gelesen: Tagesschau (ARD) (Medium, gehört ARD) – Nvidia; Datum 2026-11-13 (json-ld)",
-    "Abgleich: 0 Aussagen, davon 0 bestätigt (≥ 2 unabhängige Betreiber), 0 veraltet, 0 Widersprüche"
-   ]
-  },
-  {
-   "thema": "Nach Putin-Treffen: US-Vermittler wollen Europa in Ukraine-Verhandlungen einbeziehen",
-   "stand": "2026-11-13",
-   "seiten_gelesen": 4,
+   "thema": "Trump kündigt Dreiertreffen mit Putin und Xi in China an",
+   "stand": "2026-11-14",
+   "seiten_gelesen": 3,
    "hinweise": [],
    "aussagen": [
     {
-     "text": "Der russische Präsident Wladimir Putin ist nach Angaben der USA bereit, die Europäer bei Ukraine-Friedensgesprächen an den Verhandlungstisch zu lassen.",
+     "text": "US-Präsident Donald Trump, Chinas Staatschef Xi Jinping und Kremlchef Wladimir Putin werden nach Angaben des Weißen Hauses in der nächsten Woche zu einem Dreiertreffen in China zusammenkommen.",
      "status": "bestaetigt",
-     "n_gruppen": 3,
-     "datum": "2026-11-13",
+     "n_gruppen": 2,
+     "datum": "2026-11-14",
      "belege": [
       {
-       "url": "https://www.dw.com/de/signale-f%C3%BCr-europ%C3%A4ische-beteiligung-an-ukraine-gespr%C3%A4chen/a-79936896",
-       "quelle": "Deutsche Welle",
-       "datum": "2026-11-13",
-       "eigentuemer": "staatlich (Deutschland)"
-      },
-      {
-       "url": "https://www.tagesschau.de/ausland/europa/epg-ukraine-usa-europa-100.html",
+       "url": "https://www.tagesschau.de/ausland/amerika/treffen-trump-putin-xi-100.html",
        "quelle": "Tagesschau (ARD)",
-       "datum": "2026-11-13",
+       "datum": "2026-11-14",
        "eigentuemer": "gehört ARD"
       },
       {
-       "url": "https://web.de/magazine/politik/russland-krieg-ukraine/usa-putin-europaeer-verhandlungstisch-42937256",
-       "quelle": "web.de",
-       "datum": "2026-11-13",
-       "eigentuemer": "gehört Ionos und United Internet"
+       "url": "https://www.welt.de/politik/ausland/article6af7b9d79849eea0701e248e/usa-china-russland-weisses-haus-kuendigt-historisches-dreiertreffen-trumps-mit-xi-und-putin-an.html",
+       "quelle": "Welt",
+       "datum": "2026-11-14",
+       "eigentuemer": "gehört Axel Springer SE"
+      }
+     ]
+    },
+    {
+     "text": "Bei Apec-Gipfel in China Trump will sich mit Putin und Xi treffen",
+     "status": "einzeln",
+     "n_gruppen": 1,
+     "datum": "2026-11-14",
+     "belege": [
+      {
+       "url": "https://www.tagesschau.de/ausland/amerika/treffen-trump-putin-xi-100.html",
+       "quelle": "Tagesschau (ARD)",
+       "datum": "2026-11-14",
+       "eigentuemer": "gehört ARD"
+      }
+     ]
+    },
+    {
+     "text": "Das Weiße Haus in Washington betonte, US-Präsident Trump wolle bei dem Dreiertreffen in China vor allem über den weltweiten Abbau von Atomwaffen sprechen.",
+     "status": "einzeln",
+     "n_gruppen": 1,
+     "datum": "2026-11-14",
+     "belege": [
+      {
+       "url": "https://www.dw.com/de/wei%C3%9Fes-haus-k%C3%BCndigt-dreiertreffen-trumps-mit-xi-und-putin-an/a-79946925",
+       "quelle": "Deutsche Welle",
+       "datum": "2026-11-14",
+       "eigentuemer": "staatlich (Deutschland)"
+      }
+     ]
+    },
+    {
+     "text": "Beim Dreiertreffen in China will US-Präsident Donald Trump auch über eine mögliche Reduzierung der weltweiten Atomwaffenbestände sprechen.",
+     "status": "einzeln",
+     "n_gruppen": 1,
+     "datum": "2026-11-14",
+     "belege": [
+      {
+       "url": "https://www.welt.de/politik/ausland/article6af7b9d79849eea0701e248e/usa-china-russland-weisses-haus-kuendigt-historisches-dreiertreffen-trumps-mit-xi-und-putin-an.html",
+       "quelle": "Welt",
+       "datum": "2026-11-14",
+       "eigentuemer": "gehört Axel Springer SE"
       }
      ]
     }
    ],
    "widersprueche": 0,
    "schritte": [
-    "Frage: „Nach Putin-Treffen: US-Vermittler wollen Europa in Ukraine-Verhandlungen einbeziehen“ (Bereich news, Stand 2026-11-13)",
-    "Zerlegt in Stichwörter: Putin-Treffen, US-Vermittler, wollen, Europa, Ukraine-Verhandlungen, einbeziehen",
-    "Suchanfragen: Nach Putin-Treffen: US-Vermittler wollen Europa in Ukraine-Verhandlungen einbeziehen | Putin-Treffen US-Vermittler wollen Europa Ukraine-Verhandlungen einbeziehen aktuell 2026 | Europe latest 2026",
-    "Brave Search: 16 Treffer für „Nach Putin-Treffen: US-Vermittler wollen Europa in Ukraine-Verhandlungen einbeziehen“ …",
+    "Frage: „Trump kündigt Dreiertreffen mit Putin und Xi in China an“ (Bereich news, Stand 2026-11-14)",
+    "Zerlegt in Stichwörter: Trump, kündigt, Dreiertreffen, Putin, China",
+    "Suchanfragen: Trump kündigt Dreiertreffen mit Putin und Xi in China an | Trump kündigt Dreiertreffen Putin China aktuell 2026 | China latest 2026",
+    "Brave Search: 12 Treffer für „Trump kündigt Dreiertreffen mit Putin und Xi in China an“ …",
     "GDELT (aktuelle Nachrichten): nicht verfügbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2)",
-    "Gelesen: Tagesschau (ARD) (Medium, gehört ARD) – US-Unterhändler kündigen Europas Beteiligung bei Ukraine-Verhandlungen; Datum 2026-11-13 (meta)",
-    "Gelesen: Deutsche Welle (Behörde/Primärquelle, staatlich (Deutschland)) – Signale für europäische Beteiligung an Ukraine-Gesprächen; Datum 2026-11-13 (meta)",
-    "Nicht lesbar: handelsblatt.com – RuntimeError",
-    "Gelesen: web.de (Medium, gehört Ionos und United Internet) – USA: Putin will Europäer an den Verhandlungstisch lassen; Datum 2026-11-13 (json-ld)",
+    "Gelesen: Tagesschau (ARD) (Medium, gehört ARD) – Weißes Haus kündigt Dreiertreffen von Trump mit Putin und Xi an; Datum 2026-11-14 (meta)",
+    "Gelesen: Deutsche Welle (Behörde/Primärquelle, staatlich (Deutschland)) – Historisches Treffen - Weißes Haus kündigt Gespräche Trumps mit Xi und; Datum 2026-11-14 (meta)",
+    "Gelesen: Welt (Medium, gehört Axel Springer SE) – USA, China, Russland: Weißes Haus kündigt historisches Dreiertreffen T; Datum 2026-11-14 (meta)",
     "Genug unabhängige, aktuelle Bestätigung – weitere Seiten werden nicht gelesen",
-    "Abgleich: 1 Aussagen, davon 1 bestätigt (≥ 2 unabhängige Betreiber), 0 veraltet, 0 Widersprüche"
+    "Abgleich: 5 Aussagen, davon 1 bestätigt (≥ 2 unabhängige Betreiber), 0 veraltet, 0 Widersprüche"
    ]
   },
   {
-   "thema": "Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft",
-   "stand": "2026-11-13",
-   "seiten_gelesen": 4,
+   "thema": "Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor",
+   "stand": "2026-11-14",
+   "seiten_gelesen": 3,
    "hinweise": [],
    "aussagen": [
     {
-     "text": "Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft",
+     "text": "Huang und Handelsminister Lutnick sollen vor dem US-Senat aussagen.",
+     "status": "bestaetigt",
+     "n_gruppen": 2,
+     "datum": "2026-11-13",
+     "belege": [
+      {
+       "url": "https://www.tagesschau.de/ausland/amerika/nvidia-huang-us-handelsausschuss-100.html",
+       "quelle": "Tagesschau (ARD)",
+       "datum": "2026-11-13",
+       "eigentuemer": "gehört ARD"
+      },
+      {
+       "url": "https://www.welt.de/newsticker/dpa_nt/infoline_nt/netzwelt/article6af6ad2a559aca3d9f9925ee/senatsausschuss-laedt-handelsminister-und-ex-nvidia-chef-vor.html",
+       "quelle": "Welt",
+       "datum": "2026-11-13",
+       "eigentuemer": "gehört Axel Springer SE"
+      }
+     ]
+    },
+    {
+     "text": "Nach neuen Fragen zu möglichen Lieferungen von Nvidia-Chips nach China sind US-Handelsminister Howard Lutnick und Ex-Konzernchef Jensen Huang vor einen Senatsausschuss geladen worden.",
+     "status": "bestaetigt",
+     "n_gruppen": 2,
+     "datum": "2026-11-13",
+     "belege": [
+      {
+       "url": "https://www.tagesschau.de/ausland/amerika/nvidia-huang-us-handelsausschuss-100.html",
+       "quelle": "Tagesschau (ARD)",
+       "datum": "2026-11-13",
+       "eigentuemer": "gehört ARD"
+      },
+      {
+       "url": "https://www.welt.de/newsticker/dpa_nt/infoline_nt/netzwelt/article6af6ad2a559aca3d9f9925ee/senatsausschuss-laedt-handelsminister-und-ex-nvidia-chef-vor.html",
+       "quelle": "Welt",
+       "datum": "2026-11-13",
+       "eigentuemer": "gehört Axel Springer SE"
+      }
+     ]
+    },
+    {
+     "text": "Handelsminister und Huang vorgeladen Nvidia-Chips nach China?",
      "status": "einzeln",
      "n_gruppen": 1,
      "datum": "2026-11-13",
      "belege": [
       {
-       "url": "https://www.tagesschau.de/wirtschaft/digitales/microsoft-outlook-ausfall-100.html",
+       "url": "https://www.tagesschau.de/ausland/amerika/nvidia-huang-us-handelsausschuss-100.html",
        "quelle": "Tagesschau (ARD)",
        "datum": "2026-11-13",
        "eigentuemer": "gehört ARD"
@@ -96,28 +149,14 @@
      ]
     },
     {
-     "text": "Ein massiver weltweiter Ausfall von Microsoft-Diensten wie Outlook und Teams stört seit Donnerstag den Betrieb von Unternehmen und Behörden rund um den Globus.",
+     "text": "Das Gremium hat in dem Spionageskandal den früheren Firmenchef Jensen Huang und US-Handelsminister Howard Lutnick zu ​einer Anhörung vorgeladen. »Jüngste Berichte wecken ernsthafte Bedenken hinsichtlich unserer nationalen Sicherheit und des",
      "status": "einzeln",
      "n_gruppen": 1,
      "datum": "2026-11-13",
      "belege": [
       {
-       "url": "https://www.tagesschau.de/wirtschaft/digitales/microsoft-outlook-ausfall-100.html",
-       "quelle": "Tagesschau (ARD)",
-       "datum": "2026-11-13",
-       "eigentuemer": "gehört ARD"
-      }
-     ]
-    },
-    {
-     "text": "Wer aktuell nicht auf Outlook, Teams oder andere Microsoft-365-Dienste zugreifen kann, muss sich möglicherweise noch gedulden.",
-     "status": "einzeln",
-     "n_gruppen": 1,
-     "datum": "2026-11-13",
-     "belege": [
-      {
-       "url": "https://www.chip.de/news/software/weltweite-microsoft-stoerung-outlook-teams-und-copilot-betroffen_ed90e7c8-3af0-4f3b-a283-f6cff8177e9d.html",
-       "quelle": "chip.de",
+       "url": "https://www.spiegel.de/ausland/nvidia-affaere-jensen-huang-und-trumps-handelsminister-lutnick-muessen-sich-im-senat-erklaeren-a-14e96682-03e3-4763-a673-f16a0bcfd5d1",
+       "quelle": "spiegel.de",
        "datum": "2026-11-13",
        "eigentuemer": "Eigentümer unbekannt"
       }
@@ -126,15 +165,65 @@
    ],
    "widersprueche": 0,
    "schritte": [
-    "Frage: „Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft“ (Bereich news, Stand 2026-11-13)",
-    "Zerlegt in Stichwörter: Weltweite, Störung, Outlook, Teams, anderen, Programmen, Software-Konzerns, Microsoft",
-    "Suchanfragen: Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft | Weltweite Störung Outlook Teams anderen Programmen Software-Konzerns Microsoft aktuell 2026",
-    "Brave Search: 14 Treffer für „Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft“ …",
-    "Gelesen: Tagesschau (ARD) (Medium, gehört ARD) – Auch Outlook betroffen: Weltweite Störungen bei Microsoft-Diensten; Datum 2026-11-13 (meta)",
-    "Gelesen: Welt (Medium, gehört Axel Springer SE) – Microsoft: Störung bei Outlook und Teams weltweit - Probleme könnten n; Datum 2026-11-13 (meta)",
-    "Nicht lesbar: sueddeutsche.de – Zugang verlangt oder verweigert (HTTP 403)",
-    "Gelesen: chip.de (Unbekannt, Eigentümer unbekannt) – Weltweite Microsoft-Störung: Outlook, Teams und Copilot betroffen; Datum 2026-11-13 (meta)",
-    "Abgleich: 3 Aussagen, davon 0 bestätigt (≥ 2 unabhängige Betreiber), 0 veraltet, 0 Widersprüche"
+    "Frage: „Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor“ (Bereich news, Stand 2026-11-14)",
+    "Zerlegt in Stichwörter: Fall, Nvidia, US-Senatsausschuss, lädt, Handelsminister, Lutnick, Huang, vor",
+    "Suchanfragen: Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor | Fall Nvidia US-Senatsausschuss lädt Handelsminister Lutnick Huang vor aktuell 2026",
+    "Brave Search: 12 Treffer für „Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor“ …",
+    "GDELT (aktuelle Nachrichten): nicht verfügbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2)",
+    "Gelesen: Tagesschau (ARD) (Medium, gehört ARD) – Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang; Datum 2026-11-13 (meta)",
+    "Gelesen: spiegel.de (Unbekannt, Eigentümer unbekannt) – Nvidia-Affäre: Jensen Huang und Trumps Handelsminister Lutnick müssen ; Datum 2026-11-13 (meta)",
+    "Gelesen: Welt (Medium, gehört Axel Springer SE) – Senatsausschuss lädt Handelsminister und Ex-Nvidia-Chef vor - WELT; Datum 2026-11-13 (meta)",
+    "Genug unabhängige, aktuelle Bestätigung – weitere Seiten werden nicht gelesen",
+    "Abgleich: 4 Aussagen, davon 2 bestätigt (≥ 2 unabhängige Betreiber), 0 veraltet, 0 Widersprüche"
+   ]
+  },
+  {
+   "thema": "'We'll get home one day' - US travellers impacted by nationwide ground stop",
+   "stand": "2026-11-14",
+   "seiten_gelesen": 4,
+   "hinweise": [],
+   "aussagen": [
+    {
+     "text": "'We'll get home one day' - US travellers impacted by nationwide ground stop",
+     "status": "einzeln",
+     "n_gruppen": 1,
+     "datum": "2026-11-14",
+     "belege": [
+      {
+       "url": "https://www.bbc.com/news/videos/c893ryz7lw33o",
+       "quelle": "BBC",
+       "datum": "2026-11-14",
+       "eigentuemer": "gehört BBC"
+      }
+     ]
+    },
+    {
+     "text": "The nationwide ground stop that brought all air travel to a halt across the country and stranded thousands of passengers has been canceled, according to the Federal Aviation Administration, though delays from the outage are expected to pers",
+     "status": "einzeln",
+     "n_gruppen": 1,
+     "datum": "2026-11-14",
+     "belege": [
+      {
+       "url": "https://www.nytimes.com/live/2026/11/13/us/ground-stop-nationwide-flights-faa",
+       "quelle": "The New York Times",
+       "datum": "2026-11-14",
+       "eigentuemer": "gehört The New York Times Company"
+      }
+     ]
+    }
+   ],
+   "widersprueche": 0,
+   "schritte": [
+    "Frage: „'We'll get home one day' - US travellers impacted by nationwide ground stop“ (Bereich news, Stand 2026-11-14)",
+    "Zerlegt in Stichwörter: get, home, one, day, travellers, impacted, nationwide, ground, stop",
+    "Suchanfragen: 'We'll get home one day' - US travellers impacted by nationwide ground stop | get home one day travellers impacted nationwide ground stop aktuell 2026",
+    "Brave Search: 13 Treffer für „'We'll get home one day' - US travellers impacted by nationwide ground stop“ …",
+    "GDELT (aktuelle Nachrichten): nicht verfügbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2)",
+    "Gelesen: BBC (Medium, gehört BBC) – 'We'll get home one day' - US travellers impacted by nationwide ground; Datum 2026-11-14 (meta)",
+    "Nicht lesbar: archyde.com – Zugang verlangt oder verweigert (HTTP 403)",
+    "Gelesen: The New York Times (Medium, gehört The New York Times Company) – F.A.A. Ends Nationwide Ground Stop but Delays Persist; Datum 2026-11-14 (meta)",
+    "Nicht lesbar: bbc.co.uk – RuntimeError",
+    "Abgleich: 2 Aussagen, davon 0 bestätigt (≥ 2 unabhängige Betreiber), 0 veraltet, 0 Widersprüche"
    ]
   }
  ]
