@@ -426,7 +426,13 @@ class Bild:
         if self.dauer:
             from .schaubild import drei
             if size not in self._drei:
-                self._drei[size] = self._drei_rendern(drei, buehne, size) if drei.aktiv() else False
+                if drei.aktiv():
+                    self._drei[size] = self._drei_rendern(drei, buehne, size) or self._drei_rendern(drei, buehne, size)   # ein zweiter Versuch
+                    drei.protokoll(bool(self._drei[size]), self.hinweis)
+                else:
+                    self._drei[size] = False
+                    if os.environ.get("CUDI_3D", "1") != "0":   # 3D gewollt, aber Werkzeug fehlt: melden statt verschweigen
+                        drei.protokoll(False, "3D-Werkzeug (Node/Chromium) fehlt")
             if self._drei[size]:
                 return self._drei_bild(drei, buehne, self._drei[size], t, size)
         return buehne.bild(t)

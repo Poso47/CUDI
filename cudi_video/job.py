@@ -474,7 +474,8 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
     data["ordner"] = str(out)
     data["varianten"] = experimente.current()                # welche Variante je Stellschraube (Experimente, Lernen)
     from . import tts
-    data["hinweise"] = (tts.take_notes() + list(result.get("warnings", [])))[:20]
+    from .schaubild import drei
+    data["hinweise"] = (drei.abnahme() + tts.take_notes() + list(result.get("warnings", [])))[:20]
     if result.get("skelett"):
         data["schritt"], data["skelett"] = "skelett", result["skelett"]
     spec = out / "spec.json"
