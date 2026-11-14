@@ -176,3 +176,30 @@ def test_erklaer_suchkern_aus_fragen():
 
     assert schreiben.kernwoerter("Wie Bienen Honig machen") == "Bienen Honig"
     assert schreiben.kernwoerter("Warum ist der Himmel blau?") == "Himmel blau"
+
+
+def test_storyboard_aufgaben_zum_buendeln(monkeypatch):
+    """Fakten: Storyboard-Aufgaben lassen sich mit Titel und Regie in EINE Runde legen."""
+    monkeypatch.setattr(handoff, "active", lambda: True)
+    aufgaben = animation.storyboard_aufgaben([([{"key": "1", "text": TEXT}], "Ei", "de", "animation_fakten_de"),
+                                              ([], "Ei", "en", "animation_fakten_en")])
+    assert [a[0] for a in aufgaben] == ["animation_fakten_de_storyboard"] and "Storyboard-Abteilung" in aufgaben[0][1]
+    monkeypatch.setattr(handoff, "active", lambda: False)
+    assert animation.storyboard_aufgaben([([{"key": "1", "text": TEXT}], "Ei", "de", "x")]) == []
+
+
+def test_szene_fuellt_das_bild_und_ist_nie_leer():
+    from cudi_video.schaubild import zeichnen as Z
+
+    sz = Z.pruefe_szene({"elemente": [{"id": "a", "art": "form", "x": 45, "y": 45, "groesse": 8, "sichtbar": False},
+                                      {"id": "b", "art": "form", "x": 55, "y": 55, "groesse": 8, "sichtbar": False}], "schritte": []})
+    a, b = sz["elemente"]
+    assert a["alpha"] == 1.0 and b["alpha"] == 0.0                     # Grundbild sofort sichtbar
+    assert a["groesse"] > 8 and b["x"] - a["x"] > 10                     # um die Mitte vergrößert
+
+
+def test_figur_biene():
+    from cudi_video.schaubild import zeichnen as Z
+
+    info = Z.figuren()["biene"]
+    assert {"honigblase", "ruessel", "stachel", "pollen", "fluegel"} <= set(info["anker"])

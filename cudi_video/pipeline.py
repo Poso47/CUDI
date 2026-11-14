@@ -214,17 +214,24 @@ def run(
 
             handoff.request_many([narrate.task(spec, research, langs), title_task(spec, research, langs)])
         narration = narrate_request(spec, research, langs) if use_llm is not False and spec.kind != "facts" else {}
-        from .metadata import request_titles
-        titles_llm = request_titles(spec, research, langs) if use_llm is not False else {}      # 3 Titel je Sprache
+        from .metadata import request_titles, title_task
         scripts: list[Script] = []
         for lang in langs:
             script = build_script(spec, research, lang, use_llm=use_llm, narration=narration.get(lang) or None)
             _save(out / f"script_{lang}.json", script.to_dict())
             scripts.append(script)
+        from . import regie
+        if use_llm is not False and spec.kind == "facts":          # Fakten: Titel + Regie + Storyboard in EINER Schreibrunde
+            from . import animation
+
+            handoff.request_many([title_task(spec, research, langs), regie.aufgabe(spec, research, scripts)]
+                                 + animation.storyboard_aufgaben(
+                                     [([{"key": str(seg.rank), "text": seg.text} for seg in s.segments if seg.kind == "item"],
+                                       s.title, s.lang, f"animation_fakten_{s.lang}") for s in scripts]))
+        titles_llm = request_titles(spec, research, langs) if use_llm is not False else {}      # 3 Titel je Sprache
         from . import wahrheit
 
         pruefer = wahrheit.Pruefer(spec, research)
-        from . import regie
 
         regie_block = regie.verbessere(spec, research, scripts, pruefer, use_llm)       # Psychologie + natürlicher Klang (max. 1 Runde)
         _save(out / "regie.json", regie_block)

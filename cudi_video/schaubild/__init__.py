@@ -73,6 +73,8 @@ OBERSTE REGEL – ALLES ZEIGEN, WAS GESAGT WIRD, GENAU DANN, WENN ES GESAGT WIRD
   bekommt eine Uhr. Zeige das Ganze (z. B. das Tier, das Gerät) als Umriss mit den Teilen darin und zoome dann mit der Kamera an die Stelle.
 - Rechne mit 2–4 Schritten und 1–3 Beschriftungen je Satz. Lieber mehr Einzelheiten als ein leeres Bild.
 Format: {"elemente": [...], "schritte": [...]}. Koordinaten 0–100 (0/0 = links oben, Mitte = 50/50), „groesse“ in Prozent der Bildbreite.
+BILD FÜLLEN: Das Hauptelement (oder die Figur) ist groß (groesse 55–90) und steht von Anfang an da; alles zusammen füllt 70–90 % des
+Bildes. Lebewesen, die es als Figur gibt (Liste unten), IMMER als Figur zeigen – nie aus Formen nachbauen.
 FIGUREN (fertig gezeichnete, lebendige Illustrationen – atmen, blinzeln, bewegen sich): Gibt es für das Thema eine passende Figur,
 benutze sie statt sie aus Formen zu bauen: {"id": "huhn", "art": "figur", "figur": "huhn", "x": 50, "y": 52, "groesse": 85,
 "durchsichtig": true (Körper halb durchsichtig, um Organe im Inneren zu zeigen), "blick": "links"|"rechts"}. Aktionen: picke, flattere,

@@ -396,7 +396,9 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
         if isinstance(answer, dict) else {}
     animation.an_skript(skript, out, "reportage", notes, vorab)                      # jede Szene: eigene Animation, 1:1 zum Text
     progress("Video rendern", 0.3)
-    result = render_erklaerung(skript, out, progress=lambda f: progress("Video rendern", 0.3 + 0.65 * f), musik=False)
+    from .. import zeiten
+    with zeiten.stufe("render"):
+        result = render_erklaerung(skript, out, progress=lambda f: progress("Video rendern", 0.3 + 0.65 * f), musik=False)
     files = {"video": result["video"], "cover": result["cover"], "duration": result["duration"], "qa": result.get("qa"),
              "description_file": "youtube.txt", "caption_file": "tiktok.txt", "abnahme": ab}
     return {"output_dir": str(out), "videos": {lang: files}, "kind": "reportage",

@@ -547,7 +547,9 @@ def run(order: dict, folder: Path, progress=lambda stage, f: None) -> dict:
         with open(out / "review.md", "a", encoding="utf-8") as fh:
             fh.write(animation.bericht(abgleich))
     progress("Video rendern", 0.3)
-    result = render_satire(skript, out, progress=lambda f: progress("Video rendern", 0.3 + 0.65 * f))
+    from .. import zeiten
+    with zeiten.stufe("render"):
+        result = render_satire(skript, out, progress=lambda f: progress("Video rendern", 0.3 + 0.65 * f))
     files = {"video": result["video"], "cover": result["cover"], "duration": result["duration"], "qa": result.get("qa"),
              "description_file": "youtube.txt", "caption_file": "tiktok.txt", "abnahme": ab}
     return {"output_dir": str(out), "videos": {lang: files}, "kind": "satire", "warnings": [n for n in notes if not n.startswith("RECHERCHE:")]}

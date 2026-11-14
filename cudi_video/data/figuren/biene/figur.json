@@ -1,0 +1,103 @@
+{
+ "name": "Biene",
+ "ebenen": [
+  "schatten",
+  "beine",
+  "koerper",
+  "brust",
+  "kopf",
+  "fluegel",
+  "lid"
+ ],
+ "groesse": 400,
+ "versteckt": [
+  "lid"
+ ],
+ "mit_kopf": [
+  "lid"
+ ],
+ "drehpunkte": {
+  "kopf": [
+   290,
+   200
+  ],
+  "fluegel": [
+   242,
+   166
+  ],
+  "lid": [
+   318,
+   186
+  ],
+  "koerper": [
+   150,
+   220
+  ]
+ },
+ "anker": {
+  "kopf": [
+   306,
+   194
+  ],
+  "auge": [
+   318,
+   186
+  ],
+  "fuehler": [
+   358,
+   104
+  ],
+  "ruessel": [
+   344,
+   262
+  ],
+  "brust": [
+   248,
+   196
+  ],
+  "hinterleib": [
+   140,
+   222
+  ],
+  "honigblase": [
+   200,
+   214
+  ],
+  "magen": [
+   160,
+   220
+  ],
+  "darm": [
+   110,
+   228
+  ],
+  "herz": [
+   150,
+   184
+  ],
+  "stachel": [
+   46,
+   245
+  ],
+  "fluegel": [
+   205,
+   118
+  ],
+  "beine": [
+   252,
+   290
+  ],
+  "pollen": [
+   210,
+   280
+  ],
+  "wachsdruesen": [
+   150,
+   270
+  ],
+  "futtersaftdruese": [
+   298,
+   208
+  ]
+ }
+}

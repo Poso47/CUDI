@@ -97,11 +97,20 @@ def bericht(folder: Path | None = None) -> dict:
     """Block für ergebnis.json: Sekunden je Stufe, Summe und Anzahl Schreibrunden (Warten auf Claude steht nicht darin)."""
     secs = snapshot()
     rounds = 0
-    if folder:
-        try:
-            rounds = sum(1 for p in Path(folder).glob("schreiben_*.json"))
-        except OSError:
-            rounds = 0
+    import json
+    import os
+    ordner = str(folder) if folder else ""
+    try:
+        from .handoff import DIR_ENV
+        ordner = os.environ.get(DIR_ENV) or ordner
+    except ImportError:
+        pass
+    if ordner:                                                 # Runden = Aufgabendateien; aus einem Bündel beantwortete zählen nicht extra
+        for p in Path(ordner).glob("schreiben_*.json"):
+            try:
+                rounds += json.loads(p.read_text("utf-8")).get("von") != "buendel"
+            except (OSError, ValueError, AttributeError):
+                rounds += 1
     return {"sekunden": secs, "summe": round(sum(secs.values()), 1), "schreibaufgaben": rounds,
             "anzahl": counts()}
 
