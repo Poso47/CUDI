@@ -320,11 +320,29 @@ function formGeo(f) {
   return new T.SphereGeometry(.5, 48, 32);
 }
 
+function ausBauplan(teile) {                             // Werkstatt-Figur: Grundkörper im Figurenraum 0–100 (y nach unten)
+  const g = new T.Group();
+  for (const p of teile) {
+    const m = mat(p.farbe, { roughness: .75 - .55 * (p.glanz || 0), clearcoat: p.glanz || 0 });
+    const b = p.b / 100, h = p.h / 100, t = p.t / 100; let geo;
+    if (p.form === "kugel") geo = new T.SphereGeometry(.5, 32, 22);
+    else if (p.form === "kegel") geo = new T.ConeGeometry(.5, 1, 28);
+    else if (p.form === "quader") geo = new T.BoxGeometry(1, 1, 1);
+    else if (p.form === "kapsel") { const r = Math.min(b, t) / 2, l = Math.max(.001, h - 2 * r);
+      const pts = []; for (let i = 0; i <= 10; i++) { const a = i / 10 * Math.PI / 2; pts.push(new T.Vector2(Math.sin(a) * r, -l / 2 - Math.cos(a) * r)); }
+      for (let i = 0; i <= 10; i++) { const a = i / 10 * Math.PI / 2; pts.push(new T.Vector2(Math.cos(a) * r, l / 2 + Math.sin(a) * r)); }
+      geo = new T.LatheGeometry(pts, 28); }
+    else geo = new T.CylinderGeometry(.5, .5, 1, 28);
+    const k = new T.Mesh(geo, m); if (p.form !== "kapsel") k.scale.set(b, h, t);
+    k.position.copy(fp(p.x * 4, p.y * 4, p.z / 100)); k.rotation.z = -(p.dreh || 0) * Math.PI / 180; k.castShadow = true; g.add(k);
+  }
+  return { g, teile: {} };
+}
 function baue(e) {                                       // ein Element -> Objekt3D (Lage/Größe setzt jedes Bild neu)
   const o = { e, obj: new T.Group() };
   const farbe = e.farbe || [200, 200, 200];
-  if (e.art === "figur" && FIGUREN[e.figur]) {
-    const f = FIGUREN[e.figur](); o.teile = f.teile; o.innen = f.g; o.obj.add(f.g);
+  if (e.art === "figur" && (FIGUREN[e.figur] || e.bauplan)) {
+    const f = FIGUREN[e.figur] ? FIGUREN[e.figur]() : ausBauplan(e.bauplan); o.teile = f.teile; o.innen = f.g; o.obj.add(f.g);
     if (e.blick < 0) f.g.scale.x = -1;
     if (e.durchsichtig && f.teile.koerper) f.teile.koerper.traverse((m) => { if (m.material) { m.material = m.material.clone(); m.material.transparent = true; m.material.opacity = .55; } });
   } else if (e.art === "form" || e.art === "figur") {

@@ -54,7 +54,8 @@ def figur_info(name: str) -> dict | None:
     """Gezeichnete Figur (Ebenen-PNGs + figur.json aus data/figuren/<name>/) oder None."""
     pfad = FIGUREN / figur_name(name) / "figur.json"
     if not pfad.exists():
-        return None
+        from . import werkstatt                             # im Lauf gebaute Figur (Bauplan aus Grundkörpern)
+        return werkstatt.info(name)
     import json
 
     info = json.loads(pfad.read_text("utf-8"))
@@ -64,7 +65,10 @@ def figur_info(name: str) -> dict | None:
 
 def figuren() -> dict[str, dict]:
     """Alle verfügbaren Figuren mit ihren Ankerpunkten (für die Schreibanleitung)."""
-    return {d.parent.name: figur_info(d.parent.name) for d in sorted(FIGUREN.glob("*/figur.json"))}
+    from . import werkstatt
+
+    fest = {d.parent.name: figur_info(d.parent.name) for d in sorted(FIGUREN.glob("*/figur.json"))}
+    return {**{n: werkstatt.info(n) for n in werkstatt.namen() if n not in fest and werkstatt.info(n)}, **fest}
 
 
 @functools.lru_cache(maxsize=64)
@@ -616,6 +620,10 @@ class Buehne:
         dazu die Aktionen „picke“ (Kopf runter) und „flattere“ (Flügel schlagen)."""
         info = figur_info(e["figur"])
         px = max(16, int(z["g"] * self.size / 100 / 8) * 8)
+        if info.get("bauplan"):                               # Werkstatt-Figur: flache Fassung der Grundkörper
+            from . import werkstatt
+            bild = werkstatt.zeichne(info["bauplan"], px, z["alpha"], t)
+            return bild.transpose(Image.FLIP_LEFT_RIGHT) if e.get("blick", 1) < 0 else bild
         f = px / info["groesse"]
         bild = Image.new("RGBA", (px, px), (0, 0, 0, 0))
         dreh = info.get("drehpunkte", {})

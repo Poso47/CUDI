@@ -47,6 +47,11 @@ def elemente(buehne) -> list[dict]:
         for k in ("form", "figur", "um", "anzahl", "durchsichtig", "blick", "streckung", "breite", "prozent", "objekt"):
             if e.get(k) is not None:
                 d[k] = e[k]
+        if e["art"] == "figur":
+            from .zeichnen import figur_info
+            plan = (figur_info(e.get("figur") or "") or {}).get("bauplan")
+            if plan:
+                d["bauplan"] = plan
         if e.get("punkte"):
             d["punkte"] = [list(p) for p in e["punkte"]]
         for k in ("von", "nach"):
