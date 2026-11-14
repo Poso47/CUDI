@@ -97,6 +97,52 @@ function umgebung() {                                    // weiches Studio-Umgeb
   return pm.fromScene(s, .02).texture;
 }
 
+function blatttextur() {                                 // Cosmeen-Blütenblatt: Verlauf zur Mitte kräftiger, feine Adern, gekerbte Spitze
+  const c = document.createElement("canvas"); c.width = 256; c.height = 128; const g = c.getContext("2d");
+  const v = g.createLinearGradient(0, 0, 256, 0); v.addColorStop(0, "#b8287a"); v.addColorStop(.35, "#e45ba8"); v.addColorStop(1, "#f6b8dc");
+  g.fillStyle = v; g.fillRect(0, 0, 256, 128);
+  g.strokeStyle = "rgba(150,20,90,.35)"; g.lineWidth = 1;
+  for (let i = 0; i < 16; i++) { g.beginPath(); g.moveTo(0, 64); g.quadraticCurveTo(140, 64 + (i - 7.5) * 4, 256, 8 + i * 7.5); g.stroke(); }
+  g.globalCompositeOperation = "destination-out";
+  for (let i = 0; i < 5; i++) { g.beginPath(); g.moveTo(256, i * 28 + 4); g.lineTo(236, i * 28 + 14); g.lineTo(256, i * 28 + 24); g.fill(); }   // Kerben
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; return tx;
+}
+function federn(grund, rand) {                           // Gefieder: geschuppte Federn mit dunklem Rand
+  const c = document.createElement("canvas"); c.width = c.height = 256; const g = c.getContext("2d");
+  g.fillStyle = grund; g.fillRect(0, 0, 256, 256);
+  for (let y = -8; y < 264; y += 14) for (let x = -8; x < 264; x += 16) {
+    const ox = x + (y / 14 % 2) * 8; g.beginPath(); g.ellipse(ox, y, 9, 12, 0, 0, Math.PI);
+    g.fillStyle = grund; g.fill(); g.strokeStyle = rand; g.lineWidth = 2; g.stroke(); }
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; tx.wrapS = tx.wrapT = T.RepeatWrapping; tx.repeat.set(3, 2); return tx;
+}
+function wabe() {                                        // Honigwabe (Vorlage „honeycomb cells honey macro“): Wachszellen, Honig, Deckel
+  const g = new T.Group(), r = .17, wachs = mat([238, 210, 140], { roughness: .55, clearcoat: .2 });
+  const honig = new T.MeshPhysicalMaterial({ color: rgb([200, 110, 10]), roughness: .05, clearcoat: 1 });
+  const deckel = mat([245, 236, 205], { roughness: .7 });
+  const zellen = [[0, 0]]; for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3; zellen.push([Math.cos(a) * r * 1.73, Math.sin(a) * r * 1.73]); }
+  zellen.forEach(([x, y], i) => {
+    const wand = new T.Mesh(new T.CylinderGeometry(r, r, .22, 6, 1, true), new T.MeshPhysicalMaterial({ color: rgb([238, 210, 140]), roughness: .5, side: T.DoubleSide }));
+    wand.rotation.x = Math.PI / 2; wand.position.set(x, y, 0); wand.castShadow = true; g.add(wand);
+    const rand = new T.Mesh(new T.TorusGeometry(r * .96, .012, 6, 6), wachs); rand.rotation.z = Math.PI / 6; rand.position.set(x, y, .11); g.add(rand);
+    const fuell = new T.Mesh(new T.CylinderGeometry(r * .93, r * .93, .02, 6), i === 4 ? deckel : honig);
+    fuell.rotation.x = Math.PI / 2; fuell.position.set(x, y, i === 4 ? .1 : .06); g.add(fuell);
+  });
+  g.scale.setScalar(.95); return g;
+}
+function glas(farbe) {                                   // Messglas mit Flüssigkeit – Mengen/Anteile (Füllstand = „fuelle“)
+  const g = new T.Group();
+  const huelle = new T.Mesh(new T.CylinderGeometry(.3, .28, 1, 40, 1, true), new T.MeshPhysicalMaterial({ color: 0xffffff, roughness: .05,
+    transmission: .9, transparent: true, opacity: .35, clearcoat: 1, side: T.DoubleSide, depthWrite: false }));
+  g.add(huelle);
+  const boden = new T.Mesh(new T.CylinderGeometry(.28, .28, .03, 40), new T.MeshPhysicalMaterial({ color: 0xffffff, transparent: true, opacity: .4, roughness: .05 }));
+  boden.position.y = -.5; g.add(boden);
+  const fl = new T.Mesh(new T.CylinderGeometry(.27, .265, 1, 40), new T.MeshPhysicalMaterial({ color: rgb(farbe), roughness: .1, clearcoat: 1,
+    transparent: true, opacity: .8 })); fl.geometry.translate(0, .5, 0); fl.position.y = -.49; g.add(fl);
+  for (let i = 1; i < 5; i++) { const s = new T.Mesh(new T.BoxGeometry(.08, .006, .01), new T.MeshBasicMaterial({ color: 0xdddddd }));
+    s.position.set(-.22, -.5 + i * .2, .27); g.add(s); }                      // Skala
+  return { g, fl };
+}
+
 const FIGUREN = {
   biene() {
     // Vorlage: Nahaufnahmen vom Referenz-Scout (python -m cudi_video referenzen "honey bee apis mellifera macro"):
@@ -159,46 +205,68 @@ const FIGUREN = {
     return { g, teile };
   },
   bluete() {
+    // Vorlage (Referenz-Scout „cosmos daisy flower close up“): 8 breite, gekerbte Blütenblätter mit feinen Adern, zur Mitte kräftiger
+    // gefärbt; gewölbte gelbe Mitte aus winzigen Einzelblüten mit dunklen Staubgefäßen; dünner Stiel, gefiederte Blätter.
     const g = new T.Group(), teile = {};
-    const stiel = rohr([[200, 172], [192, 260], [212, 320], [198, 374]], .016, mat([90, 170, 70], { roughness: .7 }));
+    const stiel = rohr([[200, 176], [194, 250], [206, 320], [200, 378]], .009, mat([86, 150, 60], { roughness: .6 }));
     g.add(stiel); teile.beine = stiel;
-    [[[300, 260], -.5], [[100, 290], .6]].forEach(([[x, y], r]) => {
-      const b = kugel(.5, mat([80, 170, 60], { roughness: .6, side: T.DoubleSide }), x, y, .02, .24, .07, .03); b.rotation.z = r; g.add(b); });
+    const laub = mat([70, 140, 52], { roughness: .55 });
+    [[[200, 290], [250, 262], [292, 250]], [[200, 290], [244, 300], [280, 318]], [[200, 330], [150, 304], [112, 300]], [[200, 330], [158, 342], [126, 360]]]
+      .forEach((p) => g.add(rohr(p, .004, laub)));                                 // gefiederte, dünne Cosmeen-Blätter
     const kopf = new T.Group(); kopf.position.copy(fp(200, 150)); g.add(kopf); teile.koerper = kopf;
-    const blatt = (w, l, br, farbe, z) => {
-      const p = new T.Mesh(new T.SphereGeometry(.5, 32, 16), mat(farbe, { roughness: .5, clearcoat: .6 }));
-      p.scale.set(l, br, .025); const a = w * Math.PI / 180;
-      p.position.set(Math.cos(a) * l * .5, Math.sin(a) * l * .5, z); p.rotation.z = a; p.rotation.x = .25 * Math.sin(a);
-      p.castShadow = true; kopf.add(p);
-    };
-    for (let i = 0; i < 8; i++) blatt(i * 45 + 22.5, .22, .085, [214, 80, 140], -.02);
-    for (let i = 0; i < 8; i++) blatt(i * 45, .25, .095, [245, 130, 180], 0);
-    const mitte = new T.Mesh(new T.CylinderGeometry(.075, .07, .04, 40), mat([240, 178, 28], { map: fell("#f0b21c"), roughness: .8 }));
-    mitte.rotation.x = Math.PI / 2; mitte.position.z = .02; mitte.castShadow = true; kopf.add(mitte); teile.kopf = mitte;
-    for (let i = 0; i < 12; i++) { const a = i * Math.PI / 6;
-      const s = new T.Mesh(new T.SphereGeometry(.011, 12, 8), mat([255, 220, 40])); s.position.set(Math.cos(a) * .07, Math.sin(a) * .07, .06); kopf.add(s); }
+    const tex = blatttextur(), bm = new T.MeshPhysicalMaterial({ map: tex, side: T.DoubleSide, roughness: .55, alphaTest: .4,
+      transparent: true });
+    for (let i = 0; i < 8; i++) {
+      const geo = new T.PlaneGeometry(1, 1, 16, 6), p = geo.attributes.position;
+      for (let k = 0; k < p.count; k++) {
+        const u = p.getX(k) + .5, v = p.getY(k);
+        const breite = .34 * Math.pow(Math.sin(Math.PI * Math.min(1, u * .62 + .05)), .8) + .05;
+        p.setXYZ(k, u * .27, v * breite * .27, .03 * Math.sin(u * 2.6) + .012 * Math.cos(v * 6) * u);   // gewölbt, leicht gewellt
+      }
+      geo.computeVertexNormals();
+      const b = new T.Mesh(geo, bm); b.rotation.z = i * Math.PI / 4 + .2; b.rotation.y = -.12; b.castShadow = true; kopf.add(b);
+    }
+    const mitte = new T.Group(); kopf.add(mitte); teile.kopf = mitte;
+    const kuppel = new T.Mesh(new T.SphereGeometry(.07, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2.4), mat([214, 150, 20], { roughness: .8 }));
+    kuppel.rotation.x = Math.PI / 2; kuppel.scale.set(1, .45, 1); kuppel.position.z = .005; mitte.add(kuppel);
+    const flor = new T.InstancedMesh(new T.ConeGeometry(.006, .014, 5), mat([255, 200, 40], { roughness: .7 }), 260), d = new T.Object3D();
+    for (let i = 0; i < 260; i++) { const r = Math.sqrt(i / 260) * .066, a = i * 2.39996;                     // goldener Winkel wie in echten Blütenköpfen
+      d.position.set(Math.cos(a) * r, Math.sin(a) * r, .03 * (1 - (r / .07) ** 2) + .012); d.rotation.set(Math.PI / 2, 0, 0); d.updateMatrix(); flor.setMatrixAt(i, d.matrix); }
+    mitte.add(flor);
+    for (let i = 0; i < 18; i++) { const a = i * 2.1, r = .02 + (i % 5) * .009;
+      const s = new T.Mesh(new T.CylinderGeometry(.0025, .0025, .02, 6), mat([60, 30, 10])); s.position.set(Math.cos(a) * r, Math.sin(a) * r, .04);
+      s.rotation.x = Math.PI / 2; mitte.add(s); }
     return { g, teile };
   },
   huhn() {
+    // Vorlage („hen chicken side view“): gezackter roter Kamm, Kehllappen, nackte rote Gesichtshaut, oranges Auge, gebogener gelber
+    // Schnabel, braunes Gefieder mit dunklen Federrändern, lange Halsfedern, dunkler glänzender Schwanz, gelbe geschuppte Beine.
     const g = new T.Group(), teile = {};
-    const braun = mat([207, 127, 54], { map: fell("#cf7f36"), roughness: .85, clearcoat: .1 });
-    const leib = kugel(.5, braun, 205, 245, 0, .55, .38, .36); g.add(leib); teile.koerper = leib;
+    const gefieder = mat([255, 255, 255], { map: federn("#9a5a26", "#5a2e10"), roughness: .85, clearcoat: .1 });
+    const leib = kugel(.5, gefieder, 205, 248, 0, .56, .4, .38); g.add(leib); teile.koerper = leib;
     const flg = new T.Group(); flg.position.copy(fp(160, 205)); g.add(flg); teile.fluegel = flg;
-    const fl = kugel(.5, mat([150, 75, 30], { map: fell("#96501f"), roughness: .9 }), 212, 222, .13, .32, .16, .06); fl.position.sub(flg.position); flg.add(fl);
-    g.add(rohr([[240, 210], [270, 160], [296, 125]], .055, braun));
+    const fl = kugel(.5, mat([255, 255, 255], { map: federn("#7a4418", "#3a1c08"), roughness: .8 }), 210, 228, .14, .34, .17, .06);
+    fl.position.sub(flg.position); flg.add(fl);
+    const hals = new T.Mesh(new T.CylinderGeometry(.06, .11, .2, 24), gefieder); hals.position.copy(fp(272, 172)); hals.rotation.z = -.55; g.add(hals);
+    haare(hals, 700, .1, [190, 120, 50], .05);                                       // lange Halsfedern
     const kopf = new T.Group(); kopf.position.copy(fp(268, 200)); g.add(kopf); teile.kopf = kopf;
-    const add = (o) => { o.position.sub(kopf.position); kopf.add(o); };
-    add(kugel(.075, braun, 305, 115));
-    [[292, 86], [304, 80], [316, 86]].forEach(([x, y]) => add(kugel(.025, mat([224, 38, 43], { clearcoat: .8 }), x, y)));
-    const schnabel = new T.Mesh(new T.ConeGeometry(.025, .07, 20), mat([240, 170, 40])); schnabel.rotation.z = -Math.PI / 2;
-    schnabel.position.copy(fp(348, 121)); add(schnabel);
-    add(kugel(.014, mat([10, 10, 10], { roughness: .1, clearcoat: 1 }), 315, 110, .06));
-    add(kugel(.022, mat([224, 38, 43]), 326, 140));
+    const add = (o) => { o.position.sub(kopf.position); kopf.add(o); return o; };
+    add(kugel(.072, gefieder, 300, 118, 0, 1.05, 1, .9));
+    add(kugel(.05, mat([214, 80, 70], { roughness: .55 }), 312, 122, .03, 1, .9, .7));            // nackte rote Gesichtshaut
+    const kamm = mat([210, 30, 36], { roughness: .4, clearcoat: .6 });
+    [[284, 92, .028], [296, 82, .032], [308, 80, .03], [320, 86, .025], [330, 96, .02]].forEach(([x, y, r]) => add(kugel(r, kamm, x, y, 0, .8, 1.3, .55)));
+    add(kugel(.03, kamm, 326, 150, 0, .8, 1.3, .5)); add(kugel(.024, kamm, 316, 156, .01, .8, 1.2, .5));   // Kehllappen
+    const auge = add(kugel(.016, mat([220, 120, 20], { roughness: .1, clearcoat: 1 }), 318, 112, .055));
+    add(kugel(.008, mat([5, 5, 5], { roughness: .05, clearcoat: 1 }), 320, 112, .068));
+    const schnabel = new T.Mesh(new T.ConeGeometry(.024, .075, 20), mat([228, 176, 70], { roughness: .35, clearcoat: .6 }));
+    schnabel.rotation.z = -Math.PI / 2 - .25; schnabel.position.copy(fp(350, 126)); add(schnabel);
     const schwanz = new T.Group(); schwanz.position.copy(fp(122, 200)); g.add(schwanz); teile.schwanz = schwanz;
-    [-160, -140, -120, -100].forEach((w, i) => { const f = kugel(.5, mat([60, 42, 29], { clearcoat: .8, roughness: .3 }), 90, 140 - i * 6, -.02 + i * .01, .2, .05, .03);
-      f.rotation.z = (w + 180) * Math.PI / 180 * .6; f.position.sub(schwanz.position); schwanz.add(f); });
-    for (const x of [188, 226]) { g.add(rohr([[x, 300], [x - 2, 335], [x, 362]], .011, mat([243, 179, 58])));
-      for (const dx of [26, 14, -18]) g.add(rohr([[x, 362], [x + dx, 368]], .007, mat([243, 179, 58]))); }
+    const sm = mat([30, 26, 22], { roughness: .25, clearcoat: .9, clearcoatRoughness: .2 });
+    for (let i = 0; i < 6; i++) { const f = kugel(.5, sm, 128 - i * 4, 196 - i * 9, -.04 + i * .016, .2, .045, .025);   // Sichelfedern am Rücken
+      f.rotation.z = .55 + i * .16; f.position.sub(schwanz.position); schwanz.add(f); }
+    const bein = mat([230, 190, 70], { roughness: .4, clearcoat: .4 });
+    for (const x of [188, 226]) { g.add(rohr([[x, 300], [x - 2, 336], [x, 364]], .012, bein));
+      for (const dx of [28, 14, -18]) g.add(rohr([[x, 364], [x + dx, 370]], .007, bein)); }
     return { g, teile };
   },
 };
@@ -231,7 +299,10 @@ function baue(e) {                                       // ein Element -> Objek
     if (e.durchsichtig && f.teile.koerper) f.teile.koerper.traverse((m) => { if (m.material) { m.material = m.material.clone(); m.material.transparent = true; m.material.opacity = .55; } });
   } else if (e.art === "form" || e.art === "figur") {
     o.mat = mat(farbe, { transparent: true, opacity: e.deckkraft ?? 1 });
-    const m = new T.Mesh(formGeo(e.form), o.mat); m.castShadow = true; m.scale.y = e.streckung || 1; o.obj.add(m); o.mesh = m;
+    if (e.form === "sechseck") { o.obj.add(wabe()); }                              // Wabe statt flachem Sechseck
+    else if (e.form === "quadrat" && (e.streckung || 1) >= 1.3) {                   // hohe Säule = Messglas mit Füllstand
+      const gl = glas(farbe); gl.g.scale.set(.75, e.streckung || 1.6, .75); o.obj.add(gl.g); o.fluessig = gl.fl; o.mat = gl.fl.material;
+    } else { const m = new T.Mesh(formGeo(e.form), o.mat); m.castShadow = true; m.scale.y = e.streckung || 1; o.obj.add(m); o.mesh = m; }
   } else if (e.art === "schlauch" || e.art === "pfeil") {
     o.kurve = new T.CatmullRomCurve3(e.punkte.map((p) => new T.Vector3(wx(p[0]), wy(p[1]), 0)));
     o.mat = mat(farbe, { transparent: true, opacity: e.durchsichtig ? .35 : 1, roughness: .3, clearcoat: .8 });
@@ -302,6 +373,7 @@ function zeichneBild(b) {                                // b = {t, st: {id: zus
     } else if (e.art === "form" || (e.art === "figur" && !o.teile)) {
       o.obj.position.set(wx(z.x), wy(z.y), o.z); o.obj.scale.setScalar(g); o.obj.rotation.z = -z.rot * Math.PI / 180;
       o.obj.rotation.y = .25 * Math.sin(t * .7); o.mat.color.copy(rgb(z.farbe));
+      if (o.fluessig) { o.obj.rotation.y = 0; o.fluessig.scale.y = Math.max(.02, Math.min(.98, z.f > 0 ? z.f : .7)); }
     } else if (e.art === "schlauch" || e.art === "pfeil") {
       o.mesh.geometry.setDrawRange(0, Math.floor(o.geo.index.count * Math.max(0, Math.min(1, e.art === "schlauch" && e.f === 0 ? z.f : 1)) / 6) * 6);
       o.mat.color.copy(rgb(z.farbe));
