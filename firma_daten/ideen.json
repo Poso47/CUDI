@@ -1,10 +1,449 @@
 {
- "erzeugt": "2026-11-14T12:17:16Z",
+ "erzeugt": "2026-11-15T12:49:10Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 77,
- "neu": 18,
+ "anzahl": 79,
+ "neu": 17,
  "ideen": [
+  {
+   "id": "idee-a328d521",
+   "bereich": "ranking",
+   "titel": "Die größten Auslegerbrücken der Welt",
+   "thema": "Die beeindruckendsten Auslegerbrücken nach ihrer Größe.",
+   "begruendung": "Der Trend \"Liste der größten Auslegerbrücken\" ist Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14 mit 32.102 Aufrufen.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184460 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Die beeindruckendsten Auslegerbrücken nach ihrer Größe."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:32Z",
+   "recherche": []
+  },
+  {
+   "id": "idee-03b30eb2",
+   "bereich": "ranking",
+   "titel": "Indiens erfolgreichste Filme",
+   "thema": "Eine Rangliste der umsatzstärksten indischen Filme.",
+   "begruendung": "Der Trend \"List of highest-grossing Indian films\" ist Platz 5 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14 mit 172.992 Aufrufen.",
+   "quelle": {
+    "name": "List of highest-grossing Indian films",
+    "typ": "trend",
+    "score": 81.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Thema nicht als Ranking darstellbar: The topic 'highest-grossing films' requires a property for box office revenue (e.g., P2130), w",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Rangliste der umsatzstärksten indischen Filme."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z",
+   "recherche": []
+  },
+  {
+   "id": "idee-e8b47ff4",
+   "bereich": "fakten",
+   "titel": "Eiskunstlauf-Paar Hase/Volodin",
+   "thema": "Wissenswertes über das Eiskunstlauf-Paar Hase/Volodin und ihre neuen Programme.",
+   "begruendung": "Der Trend \"minerva hase\" ist Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Hase/Volodin vor Saisonstart: Neue Programme, große Ziele“ (Eurosport).",
+   "quelle": {
+    "name": "minerva hase",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über das Eiskunstlauf-Paar Hase/Volodin und ihre neuen Programme.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-3a552f90",
+   "bereich": "fakten",
+   "titel": "Wer ist Jensen Huang?",
+   "thema": "Ein Überblick über die Person Jensen Huang.",
+   "begruendung": "Der Trend \"Jensen Huang\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14 mit 25.026 Aufrufen und Platz 3 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14 mit 304.348 Aufrufen.",
+   "quelle": {
+    "name": "Jensen Huang",
+    "typ": "trend",
+    "score": 98.8,
+    "quellen": [
+     "reddit",
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Ein Überblick über die Person Jensen Huang.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-1329fe45",
+   "bereich": "fakten",
+   "titel": "Ramayana: Teil 1 – Der Epos",
+   "thema": "Hintergründe zum ersten Teil des Ramayana-Epos.",
+   "begruendung": "Der Trend \"Ramayana: Part 1\" ist Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14 mit 581.992 Aufrufen.",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 90.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Hintergründe zum ersten Teil des Ramayana-Epos.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-7789abb7",
+   "bereich": "fakten",
+   "titel": "Die .xxx Domain",
+   "thema": "Wissenswertes über die Top-Level-Domain .xxx.",
+   "begruendung": "Der Trend \".xxx\" ist Platz 4 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14 mit 222.107 Aufrufen.",
+   "quelle": {
+    "name": ".xxx",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über die Top-Level-Domain .xxx.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-c86f5abf",
+   "bereich": "fakten",
+   "titel": "Ansel Adams: Meister der Fotografie",
+   "thema": "Ein Blick auf das Leben und Werk des Fotografen Ansel Adams.",
+   "begruendung": "Der Trend \"Ansel Adams\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14 mit 127.659 Aufrufen.",
+   "quelle": {
+    "name": "Ansel Adams",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Ein Blick auf das Leben und Werk des Fotografen Ansel Adams.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-f0e47cf2",
+   "bereich": "reportage",
+   "titel": "Gestrandet am Flughafen",
+   "thema": "Die Stimmung und Erlebnisse von Reisenden, die von einem landesweiten Flugstopp betroffen sind.",
+   "begruendung": "Die Meldung \"'We'll get home one day' - US travellers impacted by nationwide ground stop\" ist eine bestätigte Nachricht von 2 Quellen (BBC World).",
+   "quelle": {
+    "name": "'We'll get home one day' - US travellers impacted by nationwide ground stop",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Wikipedia · Bloomberg"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Die Stimmung und Erlebnisse von Reisenden, die von einem landesweiten Flugstopp betroffen sind.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-d166812f",
+   "bereich": "erklaer",
+   "titel": "Daayra: Das Ende erklärt",
+   "thema": "Eine Erklärung des Filmendes von Meghna Gulzars Thriller 'Daayra'.",
+   "begruendung": "Der Trend \"daayra movie\" ist Platz 1 der Google-Trends (US) mit über 200 Suchen; Meldung: „‘Daayra’ Ending Explained: What Happens to Raman and Ajooni in Meghna Gulzar’s Thriller?“ (IMDb).",
+   "quelle": {
+    "name": "daayra movie",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung des Filmendes von Meghna Gulzars Thriller 'Daayra'."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-3a208f7f",
+   "bereich": "erklaer",
+   "titel": "Was macht eine Gewerkschaft?",
+   "thema": "Die Rolle und Funktionsweise von Gewerkschaften.",
+   "begruendung": "Der Trend \"gewerkschaft\" ist Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „IG Metall in der Zerreißprobe: Die Gewerkschaft steht vor einem Dilemma“ (FAZ).",
+   "quelle": {
+    "name": "gewerkschaft",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Die Rolle und Funktionsweise von Gewerkschaften."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-f9fc335a",
+   "bereich": "erklaer",
+   "titel": "Starshield: Was steckt dahinter?",
+   "thema": "Eine Erklärung des Starshield-Systems und seiner Funktion.",
+   "begruendung": "Der Trend \"starshield\" ist Platz 4 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Nach tagelangen Ausfällen: US-Senatoren wollen Antworten zu Starlink in der Ukraine“ (Spiegel).",
+   "quelle": {
+    "name": "starshield",
+    "typ": "trend",
+    "score": 80.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung des Starshield-Systems und seiner Funktion."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-94a472fb",
+   "bereich": "erklaer",
+   "titel": "Wie SpaceX Raketenteile fängt",
+   "thema": "Die Technologie und das Verfahren, mit dem SpaceX Raketenteile bei der Rückkehr zur Erde fängt.",
+   "begruendung": "Die Meldung \"'Can you believe it?': SpaceX catches part of its Starship rocket on return to Earth\" ist eine bestätigte Nachricht von 2 Quellen (BBC World).",
+   "quelle": {
+    "name": "'Can you believe it?': SpaceX catches part of its Starship rocket on return to Earth",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Die Technologie und das Verfahren, mit dem SpaceX Raketenteile bei der Rückkehr zur Erde fängt."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-83cec7d3",
+   "bereich": "erklaer",
+   "titel": "Flugstopp durch Kupferkabel?",
+   "thema": "Wie ein Kupferkabel-Upgrade einen landesweiten Flugstopp verursachen kann.",
+   "begruendung": "Die Meldung \"Copper wire upgrade caused nationwide flight suspension, US transport secretary says\" ist eine bestätigte Nachricht von 2 Quellen (BBC World).",
+   "quelle": {
+    "name": "Copper wire upgrade caused nationwide flight suspension, US transport secretary says",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Wie ein Kupferkabel-Upgrade einen landesweiten Flugstopp verursachen kann."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-15T12:48:34Z"
+  },
+  {
+   "id": "idee-09df19db",
+   "bereich": "reportage",
+   "titel": "Aryna Sabalenka entschuldigt sich",
+   "thema": "Eine Reportage über die Entschuldigung von Aryna Sabalenka nach einem viralen Clip.",
+   "begruendung": "Der Trend \"aryna sabalenka\" ist Platz 2 der Google-Trends (DE) mit über 200 Suchen; Meldung: „WTA Finals: Aryna Sabalenka apologises after viral clip of her swearing during Elina Svitolina defeat“ (BBC).",
+   "quelle": {
+    "name": "aryna sabalenka",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Entschuldigung von Aryna Sabalenka nach einem viralen Clip.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-8dcde041",
+   "bereich": "reportage",
+   "titel": "Philippinen gewinnen ESC Asia",
+   "thema": "Eine Reportage über den ersten Gewinn der Philippinen beim Eurovision Song Contest Asia.",
+   "begruendung": "Die Meldung \"Philippines wins first Eurovision Song Contest Asia\" ist eine bestätigte Nachricht von 3 Quellen (BBC World).",
+   "quelle": {
+    "name": "Philippines wins first Eurovision Song Contest Asia",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "Wikipedia · AFP"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über den ersten Gewinn der Philippinen beim Eurovision Song Contest Asia.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-1689e81b",
+   "bereich": "reportage",
+   "titel": "Papstbesuch in Chiclayo, Peru",
+   "thema": "Eine Reportage über den Besuch von Papst Leo XIV. in seiner früheren Diözese Chiclayo.",
+   "begruendung": "Die Meldung \"Papst Leo XIV. besucht frühere Diözese Chiclayo in Peru\" ist eine bestätigte Nachricht von 2 Quellen (Tagesschau).",
+   "quelle": {
+    "name": "Papst Leo XIV. besucht frühere Diözese Chiclayo in Peru",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über den Besuch von Papst Leo XIV. in seiner früheren Diözese Chiclayo.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-468d6046",
+   "bereich": "reportage",
+   "titel": "Italien verhängt Meta-Strafe",
+   "thema": "Eine Reportage über die Geldstrafe von Italien gegen Meta wegen des Zugriffs auf Nutzerfotos.",
+   "begruendung": "Die Meldung \"Italy fines Meta €805m over accessing users' photos\" ist eine bestätigte Nachricht von 2 Quellen (BBC World).",
+   "quelle": {
+    "name": "Italy fines Meta €805m over accessing users' photos",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Geldstrafe von Italien gegen Meta wegen des Zugriffs auf Nutzerfotos.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-15T12:48:34Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
   {
    "id": "idee-aa6ccdb8",
    "bereich": "ranking",
@@ -1064,58 +1503,6 @@
    "recherche": []
   },
   {
-   "id": "idee-b0c3f1c8",
-   "bereich": "reportage",
-   "titel": "Ebola-Fälle: Regionen der DR Kongo",
-   "thema": "Regionen der DR Kongo nach Ebola-Fällen.",
-   "begruendung": "Die Nachricht \"The number of confirmed Ebola cases in the Democratic Republic of the Congo surpasses 11,000, with at least 5,387 deaths, affecting 8 of…\" bestätigt, dass 8 Regionen betroffen sind, was eine Rangliste nach Fallzahlen ermöglic",
-   "quelle": {
-    "name": "The number of confirmed Ebola cases in the Democratic Republic of the Congo surpasses 11,000, with at least 5,387 deaths, affecting 8 of…",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Wikipedia · Al Jazeera",
-     "Wikipedia · DW"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Regionen der DR Kongo nach Ebola-Fällen.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:52:31Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "recherche": [
-    {
-     "text": "Ebola und Unsicherheit verschärfen die Ernährungskrise im Osten der DR Kongo, so die FAO",
-     "status": "einzeln",
-     "datum": "2026-11-12",
-     "quellen": [
-      {
-       "quelle": "kongo-kinshasa.de",
-       "url": "https://kongo-kinshasa.de/12-11-2026",
-       "datum": "2026-11-12"
-      }
-     ]
-    },
-    {
-     "text": "Ebola in der DR Kongo: WHO warnt vor den Auswirkungen der Unsicherheit auf die Bekämpfungsmaßnahmen",
-     "status": "einzeln",
-     "datum": "2026-11-12",
-     "quellen": [
-      {
-       "quelle": "kongo-kinshasa.de",
-       "url": "https://kongo-kinshasa.de/12-11-2026",
-       "datum": "2026-11-12"
-      }
-     ]
-    }
-   ]
-  },
-  {
    "id": "idee-0d5955e9",
    "bereich": "ranking",
    "titel": "Schneefall in der Sierra Nevada",
@@ -1161,115 +1548,6 @@
    "auftrag": {
     "art": "ranking",
     "thema": "Wissenswertes über die historischen Bezeichnungen Australiens.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-2eff17e3",
-   "bereich": "fakten",
-   "titel": "Das Epos Ramayana",
-   "thema": "Wissens-Fakten zum indischen Epos Ramayana.",
-   "begruendung": "Der Trend \"Ramayana: Part 1\" ist Platz 1 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Ramayana: Part 1",
-    "typ": "trend",
-    "score": 90.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten zum indischen Epos Ramayana.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-8c44735a",
-   "bereich": "fakten",
-   "titel": "Der Kriminalroman „Alle Mörder sind schon da“",
-   "thema": "Wissenswertes zum bekannten Kriminalroman.",
-   "begruendung": "Der Trend \"Alle Mörder sind schon da\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (de).",
-   "quelle": {
-    "name": "Alle Mörder sind schon da",
-    "typ": "trend",
-    "score": 87.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes zum bekannten Kriminalroman.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-87ea4c50",
-   "bereich": "fakten",
-   "titel": "Siemens' operativer Rekordgewinn",
-   "thema": "Wissens-Fakten zu den finanziellen Erfolgen von Siemens.",
-   "begruendung": "Der Trend \"siemens aktie\" ist Platz 3 der Google-Trends (DE) und meldet einen operativen Rekordgewinn für Siemens.",
-   "quelle": {
-    "name": "siemens aktie",
-    "typ": "trend",
-    "score": 86.7,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten zu den finanziellen Erfolgen von Siemens.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-b2c1f2f5",
-   "bereich": "fakten",
-   "titel": "Künstliche Riffe und ihre Funktion",
-   "thema": "Wissenswertes über den Bau und Zweck künstlicher Riffe.",
-   "begruendung": "Die Nachricht \"Famed ship SS United States deliberately sunk off Florida coast to become a reef\" bestätigt die Schaffung eines künstlichen Riffs.",
-   "quelle": {
-    "name": "Famed ship SS United States deliberately sunk off Florida coast to become a reef",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Wikipedia · Reuters"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über den Bau und Zweck künstlicher Riffe.",
     "plaetze": 7,
     "sprachen": [
      "de"
@@ -1429,182 +1707,6 @@
    "erstellt": "2026-11-12T13:53:05Z"
   },
   {
-   "id": "idee-eff4ca02",
-   "bereich": "erklaer",
-   "titel": "Masernausbrüche und Impfschutz",
-   "thema": "Wie Masernausbrüche entstehen und warum Impfungen wichtig sind.",
-   "begruendung": "Der Trend \"measles outbreak pennsylvania\" ist Platz 3 der Google-Trends (US) und thematisiert einen Masernausbruch und die Meinungsänderung zu Impfungen.",
-   "quelle": {
-    "name": "measles outbreak pennsylvania",
-    "typ": "trend",
-    "score": 86.7,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Wie Masernausbrüche entstehen und warum Impfungen wichtig sind."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-3269a890",
-   "bereich": "erklaer",
-   "titel": "Die Entstehung künstlicher Riffe",
-   "thema": "Wie aus versenkten Schiffen neue Lebensräume im Meer entstehen.",
-   "begruendung": "Die Nachricht \"Famed ship SS United States deliberately sunk off Florida coast to become a reef\" bestätigt die Schaffung eines künstlichen Riffs.",
-   "quelle": {
-    "name": "Famed ship SS United States deliberately sunk off Florida coast to become a reef",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Wikipedia · Reuters"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Wie aus versenkten Schiffen neue Lebensräume im Meer entstehen."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-3f204c73",
-   "bereich": "erklaer",
-   "titel": "Wie E-Scooter manipuliert werden",
-   "thema": "Die Technik hinter frisierten E-Rollern und ihre Auswirkungen.",
-   "begruendung": "Der Trend \"e roller\" ist Platz 5 der Google-Trends (DE) und berichtet über TikTok-Videos, die den Trend zu frisierten E-Rollern befeuern.",
-   "quelle": {
-    "name": "e roller",
-    "typ": "trend",
-    "score": 73.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Die Technik hinter frisierten E-Rollern und ihre Auswirkungen."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-e05152d9",
-   "bereich": "reportage",
-   "titel": "US-Gesandte in Moskau für Ukraine-Gespräche",
-   "thema": "Aktuelle Entwicklungen bei den Ukraine-Gesprächen.",
-   "begruendung": "Die Nachricht \"US envoys arrive in Moscow for Ukraine talks with Vladimir Putin\" ist von 3 Quellen bestätigt.",
-   "quelle": {
-    "name": "US envoys arrive in Moscow for Ukraine talks with Vladimir Putin",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "Wikipedia · AP"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Aktuelle Entwicklungen bei den Ukraine-Gesprächen.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-f785bd50",
-   "bereich": "reportage",
-   "titel": "Historischer Senator in Mississippi",
-   "thema": "Scott Coloms Wahl zum ersten schwarzen Senator Mississippis seit dem 19. Jahrhundert.",
-   "begruendung": "Die Nachricht \"Democrat Scott Colom makes history as Mississippi's first black senator since 19th Century\" ist von 3 Quellen bestätigt.",
-   "quelle": {
-    "name": "Democrat Scott Colom makes history as Mississippi's first black senator since 19th Century",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Scott Coloms Wahl zum ersten schwarzen Senator Mississippis seit dem 19. Jahrhundert.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-b778d9b9",
-   "bereich": "reportage",
-   "titel": "Teenager in Australien nach sechs Tagen gerettet",
-   "thema": "Die Rettung eines vermissten Teenagers im australischen Busch.",
-   "begruendung": "Die Nachricht \"Australian teen missing in bush for six days rescued alive\" ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Australian teen missing in bush for six days rescued alive",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Die Rettung eines vermissten Teenagers im australischen Busch.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-b175cb1e",
-   "bereich": "reportage",
-   "titel": "Rücktritt des Vizepräsidenten in Indonesien",
-   "thema": "Die Gründe für den Rücktritt des indonesischen Vizepräsidenten.",
-   "begruendung": "Die Nachricht \"Indonesia's vice-president resigns amid signs ruling alliance is fraying\" ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Indonesia's vice-president resigns amid signs ruling alliance is fraying",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Wikipedia · Reuters"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Die Gründe für den Rücktritt des indonesischen Vizepräsidenten.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
    "id": "idee-199de719",
    "bereich": "satire",
    "titel": "Die glorreiche Wiedergeburt der SS United States",
@@ -1740,33 +1842,6 @@
    "erstellt": "2026-11-11T12:47:12Z"
   },
   {
-   "id": "idee-943005ab",
-   "bereich": "fakten",
-   "titel": "Wissenswertes über El Niño",
-   "thema": "Fakten und Auswirkungen des Wetterphänomens El Niño.",
-   "begruendung": "Der Trend 'el nino' ist Platz 1 der Google-Trends (US) und wird von The New York Times im Kontext von Skifahren erwähnt.",
-   "quelle": {
-    "name": "el nino",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten und Auswirkungen des Wetterphänomens El Niño.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
    "id": "idee-7481ec5c",
    "bereich": "story",
    "titel": "Wenn das Wetter plötzlich umschlägt",
@@ -1842,52 +1917,6 @@
     "laenge": "3min"
    },
    "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-6b51775b",
-   "bereich": "erklaer",
-   "titel": "So funktioniert El Niño",
-   "thema": "Eine ruhige Erklärung, wie das Wetterphänomen El Niño entsteht und wirkt.",
-   "begruendung": "Der Trend 'el nino' ist Platz 1 der Google-Trends (US) und wird von The New York Times im Kontext von Skifahren erwähnt, was auf Erklärungsbedarf hindeutet.",
-   "quelle": {
-    "name": "el nino",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine ruhige Erklärung, wie das Wetterphänomen El Niño entsteht und wirkt."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-f07a8e6c",
-   "bereich": "erklaer",
-   "titel": "Wie der Singles Day entstand",
-   "thema": "Ein Erklärvideo über die Entstehung und Entwicklung des Singles Day zum Shopping-Event.",
-   "begruendung": "Der Trend 'singles day 2026' ist Platz 2 der Google-Trends (DE) und wird von BILD im Kontext von Angeboten erwähnt, was die Entstehung und Bedeutung erklärt.",
-   "quelle": {
-    "name": "singles day 2026",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo über die Entstehung und Entwicklung des Singles Day zum Shopping-Event."
-   },
-   "app_auftrag": false,
    "erstellt": "2026-11-11T12:47:12Z"
   },
   {
