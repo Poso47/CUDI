@@ -647,3 +647,13 @@ def test_erklaer_nur_bis_zur_skizze_und_freigabe(tmp_path, monkeypatch):
     assert "rueckmeldung_zur_skizze" in handoff.PREFS_NOTE
     app = (Path(job.__file__).resolve().parent.parent / "docs" / "cudi-app-artefakt.html").read_text("utf-8")
     assert "function skizzeKarte" in app and 'schritt: "skizze"' in app
+
+
+def test_bienenstock_und_honigglas_sind_detailfiguren():
+    from cudi_video.schaubild import drei, zeichnen as Z
+    html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
+    for name, anker in (("bienenstock", {"flugloch", "honigraum", "deckel"}), ("honigglas", {"deckel", "etikett", "loeffel"})):
+        info = Z.figur_info(name)
+        assert info and not info.get("bauplan") and anker <= set(info["anker"])
+        assert f"  {name}() {{" in html
+    assert "kleineBiene()" in html and "o.teile.schwarm" in html

@@ -202,7 +202,98 @@ function wabenbild() {                                   // Wabenrahmen: Zellen 
     g.fillStyle = y < 50 ? "#ecdcae" : ((x * 7 + y * 3) % 11 < 2 ? "#6a3d08" : "#d9951f"); g.fill(); g.strokeStyle = "#f0d79a"; g.lineWidth = 1.4; g.stroke(); }
   const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; return tx;
 }
+function holz(grund, maser) {                            // Holzbrett: Maserung in Längsrichtung, leichte Astlöcher
+  const c = document.createElement("canvas"); c.width = 256; c.height = 128; const g = c.getContext("2d");
+  g.fillStyle = grund; g.fillRect(0, 0, 256, 128);
+  g.strokeStyle = maser; g.globalAlpha = .35;
+  for (let i = 0; i < 40; i++) { const y = (i * 37) % 128; g.lineWidth = 1 + (i % 3) * .6;
+    g.beginPath(); g.moveTo(0, y); for (let x = 0; x <= 256; x += 16) g.lineTo(x, y + Math.sin(x * .03 + i) * 2.5); g.stroke(); }
+  g.globalAlpha = .5; g.fillStyle = maser;
+  for (const [x, y] of [[60, 40], [190, 90]]) { g.beginPath(); g.ellipse(x, y, 6, 3, 0, 0, Math.PI * 2); g.fill(); }
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; tx.wrapS = tx.wrapT = T.RepeatWrapping; return tx;
+}
+function blech() {                                       // verzinktes Blech: feine Riffeln, matter Glanz
+  const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d");
+  g.fillStyle = "#b9bfc4"; g.fillRect(0, 0, 128, 128);
+  for (let y = 0; y < 128; y += 6) { g.fillStyle = y % 12 ? "rgba(255,255,255,.18)" : "rgba(60,70,80,.18)"; g.fillRect(0, y, 128, 3); }
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; tx.wrapS = tx.wrapT = T.RepeatWrapping; return tx;
+}
+function kleineBiene() {                                 // kleine Biene für Schwärme (wenige Flächen, schnell)
+  const g = new T.Group(), gelb = mat([214, 150, 40], { roughness: .6 }), braun = mat([40, 26, 14], { roughness: .5 });
+  const leib = new T.Mesh(new T.SphereGeometry(.012, 10, 8), gelb); leib.scale.set(1.5, 1, 1); g.add(leib);
+  for (const x of [-.006, .004]) { const r = new T.Mesh(new T.TorusGeometry(.0105, .0025, 6, 12), braun); r.rotation.y = Math.PI / 2; r.position.x = x; g.add(r); }
+  const kopf = new T.Mesh(new T.SphereGeometry(.007, 8, 6), braun); kopf.position.x = .018; g.add(kopf);
+  const fm = new T.MeshPhysicalMaterial({ color: 0xffffff, transparent: true, opacity: .45, roughness: .2, side: T.DoubleSide, depthWrite: false });
+  for (const s of [1, -1]) { const f = new T.Mesh(new T.CircleGeometry(.011, 10), fm); f.scale.set(1.3, .6, 1); f.position.set(.002, .01, .006 * s); f.rotation.x = Math.PI / 2 - .5 * s; f.userData.seite = s; g.add(f); }
+  return g;
+}
 const FIGUREN = {
+  bienenstock() {
+    // Vorlage (Referenz-Scout „beehive“): Magazinbeute aus Holz – Boden mit Flugbrett, zwei Brutraum-Zargen, ein flacherer
+    // Honigraum, Deckel mit Blechhaube; Griffleisten, Flugloch, davor Bienen beim Ein- und Ausfliegen.
+    const g = new T.Group(), teile = {};
+    const zarge = (y, h, farbe, maser, z0) => {                                    // eine Zarge: Kasten mit Griffmulden
+      const tx = holz(farbe, maser); tx.repeat.set(1.2, h / .12);
+      const m = mat([206, 178, 150], { map: tx, bumpMap: tx, bumpScale: .004, roughness: .78 });
+      const k = new T.Mesh(new T.BoxGeometry(.42, h, .34), m); k.position.copy(fp(200, y)); k.castShadow = true; k.receiveShadow = true; g.add(k);
+      const leiste = mat([0, 0, 0], { map: tx, roughness: .8 });
+      for (const z of [.172, -.172]) { const gr = new T.Mesh(new T.BoxGeometry(.12, .018, .016), leiste);
+        gr.position.copy(fp(200, y - h * 120)); gr.position.z = z; g.add(gr); }                // Griffleiste
+      const fuge = new T.Mesh(new T.BoxGeometry(.424, .004, .344), mat([60, 44, 28], { roughness: .9 }));
+      fuge.position.copy(fp(200, y + h * 200)); g.add(fuge);                                    // dunkle Fuge zur nächsten Zarge
+      return k;
+    };
+    zarge(316, .15, "#a8703a", "#5a3414"); zarge(254, .15, "#b57d42", "#5a3414");
+    const honigraum = zarge(204, .1, "#c48c4c", "#663c18"); teile.koerper = honigraum;
+    // Deckel mit Blechhaube, leicht überstehend
+    const haube = new T.Mesh(new T.BoxGeometry(.46, .045, .38), mat([255, 255, 255], { map: blech(), metalness: .55, roughness: .38 }));
+    haube.position.copy(fp(200, 172)); haube.castShadow = true; g.add(haube);
+    const rand = new T.Mesh(new T.BoxGeometry(.47, .012, .39), mat([150, 156, 162], { metalness: .6, roughness: .3 })); rand.position.copy(fp(200, 180)); g.add(rand);
+    // Boden mit Flugbrett und Flugloch
+    const bt = holz("#a87a44", "#5d3c1c"); bt.repeat.set(1.5, 1);
+    const boden = new T.Mesh(new T.BoxGeometry(.44, .04, .36), mat([255, 255, 255], { map: bt, roughness: .85 })); boden.position.copy(fp(200, 352)); boden.castShadow = true; g.add(boden);
+    const brett = new T.Mesh(new T.BoxGeometry(.12, .012, .36), mat([255, 255, 255], { map: bt, roughness: .85 }));
+    brett.position.copy(fp(304, 356)); brett.rotation.z = -.18; g.add(brett);
+    const loch = new T.Mesh(new T.BoxGeometry(.012, .016, .24), mat([18, 12, 8], { roughness: 1 })); loch.position.copy(fp(284, 340)); g.add(loch);
+    for (const [x, z] of [[-.17, .14], [.17, .14], [-.17, -.14], [.17, -.14]]) {                 // Füße
+      const f = new T.Mesh(new T.BoxGeometry(.04, .07, .04), mat([90, 66, 40], { roughness: .9 })); f.position.copy(fp(200, 382)); f.position.x += x; f.position.z = z; g.add(f); }
+    // Bienen am Flugloch (auf dem Brett) und im Anflug (Schwarm kreist)
+    for (let i = 0; i < 6; i++) { const b = kleineBiene(); b.position.copy(fp(292 + i * 7, 352 + (i % 2) * 3, -.09 + i * .035)); b.rotation.y = (i % 2 ? .4 : -.6) + Math.PI; g.add(b); }
+    const schwarm = new T.Group(); schwarm.position.copy(fp(300, 300)); g.add(schwarm); teile.schwarm = schwarm;
+    for (let i = 0; i < 9; i++) { const b = kleineBiene(), a = i / 9 * Math.PI * 2, r = .07 + (i % 3) * .035;
+      b.position.set(Math.cos(a) * r, (i % 4) * .03 - .04, Math.sin(a) * r); b.rotation.y = -a; schwarm.add(b); }
+    return { g, teile };
+  },
+  honigglas() {
+    // Vorlage (Referenz-Scout „honey jar“): Schraubglas, randvoll mit dunklem, durchscheinendem Honig, Deckel mit Karostoff
+    // und Gummiband, Papier-Etikett; daneben ein Honiglöffel aus Holz, von dem Honig tropft.
+    const g = new T.Group(), teile = {};
+    const honigm = new T.MeshPhysicalMaterial({ color: rgb([128, 54, 2]), roughness: .05, clearcoat: 1, clearcoatRoughness: .05 });
+    const honig = new T.Mesh(new T.CylinderGeometry(.118, .118, .3, 48), honigm); honig.position.copy(fp(186, 262)); g.add(honig);
+    const glasm = new T.MeshPhysicalMaterial({ color: 0xffffff, roughness: .02, transparent: true, opacity: .2, clearcoat: 1, side: T.DoubleSide, depthWrite: false });
+    const glas = new T.Mesh(new T.CylinderGeometry(.126, .126, .34, 48, 1, true), glasm); glas.position.copy(fp(186, 256)); g.add(glas);
+    const schulter = new T.Mesh(new T.TorusGeometry(.112, .016, 12, 48), glasm); schulter.rotation.x = Math.PI / 2; schulter.position.copy(fp(186, 190)); g.add(schulter);
+    const gewinde = new T.Mesh(new T.CylinderGeometry(.1, .1, .03, 40), mat([200, 168, 70], { metalness: .65, roughness: .3 })); gewinde.position.copy(fp(186, 180)); g.add(gewinde);
+    const c = document.createElement("canvas"); c.width = c.height = 64; const x2 = c.getContext("2d");
+    x2.fillStyle = "#f3ead6"; x2.fillRect(0, 0, 64, 64); x2.fillStyle = "#b8352b";
+    for (let i = 0; i < 64; i += 8) for (let j = 0; j < 64; j += 8) if ((i + j) % 16 === 0) x2.fillRect(i, j, 8, 8);
+    const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; tx.wrapS = tx.wrapT = T.RepeatWrapping; tx.repeat.set(3, 1);
+    const tuch = new T.Mesh(new T.CylinderGeometry(.1, .135, .05, 48, 1, true), mat([255, 255, 255], { map: tx, roughness: .9, side: T.DoubleSide }));
+    tuch.position.copy(fp(186, 172)); g.add(tuch);
+    const tuchdach = new T.Mesh(new T.CircleGeometry(.104, 48), mat([255, 255, 255], { map: tx, roughness: .9 })); tuchdach.rotation.x = -Math.PI / 2; tuchdach.position.copy(fp(186, 162)); g.add(tuchdach);
+    const band = new T.Mesh(new T.TorusGeometry(.103, .005, 6, 48), mat([60, 40, 30])); band.rotation.x = Math.PI / 2; band.position.copy(fp(186, 182)); g.add(band);
+    const et = new T.Mesh(new T.CylinderGeometry(.128, .128, .12, 48, 1, true, -.9, 1.8), mat([246, 238, 216], { roughness: .85, side: T.DoubleSide }));
+    et.position.copy(fp(186, 262)); g.add(et);
+    const holzm = mat([176, 122, 62], { roughness: .5, clearcoat: .25 });                       // Honiglöffel liegt schräg am Glas
+    const loeffel = new T.Group(); loeffel.position.copy(fp(292, 320)); loeffel.rotation.z = .35; loeffel.rotation.y = -.4; g.add(loeffel);
+    const stiel = new T.Mesh(new T.CylinderGeometry(.01, .012, .3, 16), holzm); stiel.rotation.z = Math.PI / 2; stiel.position.x = -.1; loeffel.add(stiel);
+    for (let i = 0; i < 5; i++) { const r = new T.Mesh(new T.CylinderGeometry(i % 2 ? .022 : .03, i % 2 ? .022 : .03, .016, 20), holzm);
+      r.rotation.z = Math.PI / 2; r.position.x = .06 + i * .016; loeffel.add(r); }
+    const benetzt = new T.Mesh(new T.SphereGeometry(.032, 20, 12), honigm); benetzt.scale.set(1.6, .7, 1); benetzt.position.x = .09; benetzt.position.y = -.012; loeffel.add(benetzt);
+    const tropfen = new T.Mesh(tropfenGeo(), honigm); tropfen.scale.setScalar(.045); tropfen.rotation.z = Math.PI; tropfen.position.copy(fp(330, 334)); g.add(tropfen);
+    teile.tropfen = tropfen;
+    return { g, teile };
+  },
   imker() {
     // Vorlage (Referenz-Scout „beekeeper“, Pexels): Imker in Seitenansicht, gelber Schutzanzug mit Kapuze und Netzschleier,
     // Gummizüge an Bund und Ärmeln, helle Lederhandschuhe, hält einen Wabenrahmen mit Bienen vor sich.
@@ -534,6 +625,8 @@ function zeichneBild(b) {                                // b = {t, st: {id: zus
     if (e.art === "figur" && o.teile) {
       o.obj.position.set(wx(z.x), wy(z.y), o.z); o.obj.scale.setScalar(g);
       o.obj.rotation.y = .18 * Math.sin(t * .6 + e.id.length);              // Figuren drehen sich leicht – echtes 3D
+      if (o.teile.schwarm) o.teile.schwarm.rotation.y = t * .9;   // Bienen kreisen um den Stock
+      if (o.teile.tropfen) { const p = (t * .45) % 1; o.teile.tropfen.position.y = fp(330, 334 + p * 60).y; o.teile.tropfen.scale.setScalar(.05 * (1 - p * .3)); }
       if (o.mixer) o.mixer.setTime(t);                        // Modell mit eigener Bewegung (z. B. Gehen)
       if (b.probe !== undefined && o.halter) { o.halter.rotation.y = b.probe * Math.PI / 180; o.obj.rotation.y = 0; }   // Sichtprüfung: Blickrichtungen
       if (o.glieder) for (const gl of o.glieder) {            // Werkstatt-Figur lebt: Kopf nickt, Arme und Beine schwingen
