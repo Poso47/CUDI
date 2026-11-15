@@ -1,12 +1,203 @@
 {
- "erzeugt": "2026-11-15T06:52:06Z",
- "anzahl": 8,
+ "erzeugt": "2026-11-15T18:59:37Z",
+ "anzahl": 7,
  "nur_ausland": 0,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
+   "kurz": "Der Internationale Sportgerichtshof hat den Ausschluss Russlands von Eishockey-Weltmeisterschaften aufgehoben. Doch zahlreiche Länder wehren sich gegen die…",
+   "link": "https://www.nzz.ch/sport/streit-um-russlands-wm-teilnahme-russischer-eishockeyverband-droht-gastgeber-deutschland-ld.10063174",
+   "sprache": "de",
+   "zeit": "2026-11-15T18:49:15Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
+     "link": "https://www.nzz.ch/sport/streit-um-russlands-wm-teilnahme-russischer-eishockeyverband-droht-gastgeber-deutschland-ld.10063174",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Several arrested during Gen Z demonstration in Berlin",
+   "kurz": "Protesters chant slogans against Israel, Chancellor Friedrich Merz",
+   "link": "https://www.aa.com.tr/en/europe/several-arrested-during-gen-z-demonstration-in-berlin/4125886",
+   "sprache": "en",
+   "zeit": "2026-11-15T17:56:29+03:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Türkei"
+   ],
+   "laender_einig": [
+    "Türkei"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Israel"
+   ],
+   "zusammenfassung": [
+    "Anadolu (Türkei): Several arrested during Gen Z demonstration in Berlin"
+   ],
+   "staatsnah": [
+    "Anadolu"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Anadolu",
+     "land": "Türkei",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Several arrested during Gen Z demonstration in Berlin",
+     "link": "https://www.aa.com.tr/en/europe/several-arrested-during-gen-z-demonstration-in-berlin/4125886",
+     "eigentuemer": "staatlich (Türkei)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Van der Bellen in Berlin: \"Mitgefühl ist Zeichen von Stärke\"",
+   "kurz": "Bundespräsident Alexander Van der Bellen war am deutschen Volkstrauertag bei seinem Amtskollegen Frank-Walter Steinmeier zu Gast",
+   "link": "https://www.derstandard.at/story/3000000349328/van-der-bellen-in-berlin-mitgef252hl-ist-zeichen-von-st228rke?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-15T15:58:10Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Van der Bellen in Berlin: \"Mitgefühl ist Zeichen von Stärke\""
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Van der Bellen in Berlin: \"Mitgefühl ist Zeichen von Stärke\"",
+     "link": "https://www.derstandard.at/story/3000000349328/van-der-bellen-in-berlin-mitgef252hl-ist-zeichen-von-st228rke?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Germany vs Netherlands: Nations League – preview, team news, predictions",
+   "kurz": "Germany will likely need to win on Monday to reach the quarterfinals unless Serbia beat Greece away from home.",
+   "link": "https://www.aljazeera.com/sports/2026/11/15/germany-vs-netherlands-nations-league-preview-team-news-predictions?traffic_source=rss",
+   "sprache": "en",
+   "zeit": "2026-11-15T13:54:05Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Katar"
+   ],
+   "laender_einig": [
+    "Katar"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Al Jazeera (Katar): Germany vs Netherlands: Nations League – preview, team news, predictions"
+   ],
+   "staatsnah": [
+    "Al Jazeera"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Al Jazeera",
+     "land": "Katar",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Germany vs Netherlands: Nations League – preview, team news, predictions",
+     "link": "https://www.aljazeera.com/sports/2026/11/15/germany-vs-netherlands-nations-league-preview-team-news-predictions?traffic_source=rss",
+     "eigentuemer": "staatlich (Katar)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "La Orquestra de la Comunitat Valenciana narra a Schumann con Thomas Hengelbrock antes de desembarcar en Madrid",
+   "kurz": "El director alemán firma una versión honda y fluida de la ‘Sinfonía número 2’ con la formación de Les Arts, que acompaña al violinista Christian Tetzlaff en…",
+   "link": "https://elpais.com/cultura/2026-11-15/la-orquestra-de-la-comunitat-valenciana-narra-a-schumann-con-thomas-hengelbrock-antes-de-desembarcar-en-madrid.html",
+   "sprache": "es",
+   "zeit": "2026-11-15T10:23:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): La Orquestra de la Comunitat Valenciana narra a Schumann con Thomas Hengelbrock antes de desembarcar en Madrid"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "La Orquestra de la Comunitat Valenciana narra a Schumann con Thomas Hengelbrock antes de desembarcar en Madrid",
+     "link": "https://elpais.com/cultura/2026-11-15/la-orquestra-de-la-comunitat-valenciana-narra-a-schumann-con-thomas-hengelbrock-antes-de-desembarcar-en-madrid.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "Riesling, una de las variedades de vino blanco más versátiles del mundo",
    "kurz": "La variedad se cultiva hoy en gran parte del mundo, pero Alemania copa, según Wines of Germany, el 45% de su producción del mundo",
@@ -40,197 +231,6 @@
      "titel": "Riesling, una de las variedades de vino blanco más versátiles del mundo",
      "link": "https://elpais.com/gastronomia/2026-11-15/riesling-una-de-las-variedades-de-vino-blanco-mas-versatiles-del-mundo.html",
      "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger",
-   "kurz": "Der 55-jährige Vize-Ministerpräsident von Bayern war am Mittwoch vergangener Woche tot in seinem Hotelzimmer in Berlin entdeckt worden",
-   "link": "https://www.derstandard.at/story/3000000349235/gro223e-anteilnahme-an-trauerfeier-f252r-hubert-aiwanger-in-m252nchen?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-14T12:42:04Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Trauerakt in München: Große Anteilnahme bei Abschied von Aiwanger",
-     "link": "https://www.tagesschau.de/inland/aiwanger-trauerfeier-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger",
-     "link": "https://www.derstandard.at/story/3000000349235/gro223e-anteilnahme-an-trauerfeier-f252r-hubert-aiwanger-in-m252nchen?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Former Hamas bodyguard convicted of Birmingham knife crime also wanted in Germany",
-   "kurz": "Mohammed Alfatih rearrested over alleged plot to target Israelis in Europe while detained for attack on bailiff A former Hamas bodyguard convicted of knife…",
-   "link": "https://www.theguardian.com/uk-news/2026/nov/13/former-hamas-bodyguard-convicted-of-birmingham-knife-also-wanted-in-germany",
-   "sprache": "en",
-   "zeit": "2026-11-13T17:14:56Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): Former Hamas bodyguard convicted of Birmingham knife crime also wanted in Germany"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Former Hamas bodyguard convicted of Birmingham knife crime also wanted in Germany",
-     "link": "https://www.theguardian.com/uk-news/2026/nov/13/former-hamas-bodyguard-convicted-of-birmingham-knife-also-wanted-in-germany",
-     "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
-   "kurz": "German reforms mean foreign and domestic intelligence services will have greater powers to combat espionage, terrorism and sabotage.",
-   "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-13T15:42:52Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "BBC Europe (Großbritannien): German spies handed new powers to tackle 'hybrid threats' from abroad"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "German spies handed new powers to tackle 'hybrid threats' from abroad",
-     "link": "https://www.bbc.co.uk/news/articles/c6jre3z03w4go?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden",
-   "kurz": "Angreifer haben eine manipulierte Update-Datei auf einem Server des Unternehmens platziert",
-   "link": "https://www.derstandard.at/story/3000000349069/cyberangriff-auf-drohnenhersteller-bundeswehr-laesst-flotte-von-quantum-systems-am-boden?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-13T11:19:51Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden",
-     "link": "https://www.derstandard.at/story/3000000349069/cyberangriff-auf-drohnenhersteller-bundeswehr-laesst-flotte-von-quantum-systems-am-boden?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "“Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado",
-   "kurz": "Estuvieron cinco décadas juntos y fueron una de las parejas más emblemáticas del teatro argentino; cómo ensamblaron sus vidas para poder compartir su alegría",
-   "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
-   "sprache": "es",
-   "zeit": "2026-11-14T23:49:16Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Argentinien"
-   ],
-   "zusammenfassung": [
-    "La Nación (Argentinien): “Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "“Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado",
-     "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
-     "eigentuemer": "Eigentümer unbekannt",
      "zaehlt_nicht": ""
     }
    ]
@@ -275,105 +275,9 @@
      "zaehlt_nicht": ""
     }
    ]
-  },
-  {
-   "titel": "Deutschland: \"Zustimmung zur Demokratie auf dem niedrigsten Niveau\"",
-   "kurz": "Zukunftsangst erzeugt Vertrauensverlust. Wie sieht es in Österreich aus?",
-   "link": "https://www.derstandard.at/story/3000000349027/deutschland-zustimmung-zur-demokratie-auf-niedrigsten-niveau?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-13T17:14:37Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Österreich"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Deutschland: \"Zustimmung zur Demokratie auf dem niedrigsten Niveau\""
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Deutschland: \"Zustimmung zur Demokratie auf dem niedrigsten Niveau\"",
-     "link": "https://www.derstandard.at/story/3000000349027/deutschland-zustimmung-zur-demokratie-auf-niedrigsten-niveau?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
   }
  ],
- "verbindungen": [
-  {
-   "name": "Hubert Aiwanger",
-   "wikidata": "https://www.wikidata.org/wiki/Q1633044",
-   "beschreibung": "German politician (1971–2026)",
-   "verbindungen": [
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": "2013"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": "2018"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Bayerischer Staatsminister für Wirtschaft, Landesentwicklung und Energie",
-     "link": "https://www.wikidata.org/wiki/Q65350985",
-     "beendet": "2026"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bundesrates",
-     "link": "https://www.wikidata.org/wiki/Q15835370",
-     "beendet": "2026"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Gemeinderats",
-     "link": "https://www.wikidata.org/wiki/Q96208019",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Partei",
-     "wert": "Freie Wähler",
-     "link": "https://www.wikidata.org/wiki/Q327389",
-     "beendet": "2026"
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Bundeswehr",
-     "link": "https://www.wikidata.org/wiki/Q56010",
-     "beendet": "1991"
-    }
-   ],
-   "themen": [
-    "Große Anteilnahme an Trauerfeier für bayerischen Politiker Hubert Aiwanger"
-   ]
-  }
- ],
+ "verbindungen": [],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -779,6 +683,15 @@
   },
   "Thomas Aeschi": {
    "keine_treffer": true
+  },
+  "Comunitat Valenciana": {
+   "keine_treffer": true
+  },
+  "Thomas Hengelbrock": {
+   "name": "Thomas Hengelbrock",
+   "wikidata": "https://www.wikidata.org/wiki/Q87912",
+   "beschreibung": "German conductor",
+   "verbindungen": []
   }
  }
 }
