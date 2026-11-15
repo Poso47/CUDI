@@ -725,6 +725,10 @@ class ErklaerScene(Scene):
     def frame(self, t):
         f = M.background(t)
         fade = M.fade_in_out(t, self.job["duration"], 0.4, 0.4)
+        ueber = bool(self.job.get("uebergang"))               # echte Übergänge zwischen den Szenen: nicht zusätzlich abblenden
+        if ueber:
+            erste, letzte = self.job.get("index", 0) == 0, self.job.get("index", 0) >= self.job.get("n_items", 1) - 1
+            fade = M.fade_in_out(t, self.job["duration"], 0.4 if erste else 1e-6, 0.4 if letzte else 1e-6)
         top = M.TEXT_Y_PILL if self.pill is not None else M.TEXT_Y
         if self.pill is not None:
             paste(f, self.pill, ((W - self.pill.width) / 2, M.PILL_Y - 22), opacity=fade)
@@ -744,7 +748,7 @@ class ErklaerScene(Scene):
             return f
         if self.anim is not None:
             shift = max(0, min(170, top + self.sentence.height + 40 - (M.CY - 400)))
-            weit = M.fade_in_out(t, self.job["duration"], 0.7, 0.6)     # 3D-Bild blendet länger über (Kamera fliegt ein/weiter)
+            weit = fade if ueber else M.fade_in_out(t, self.job["duration"], 0.7, 0.6)   # ohne Übergänge: 3D-Bild blendet länger
             paste(f, self.anim.bild(t, ART), (W / 2 - ART / 2, M.CY - ART / 2 + shift), opacity=weit)
             return f
         if self.kind in DECOR:

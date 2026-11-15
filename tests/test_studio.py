@@ -529,3 +529,31 @@ def test_kamera_regie_bibliotheken_und_weiche_blende():
     assert "regie.setLookAt" in html and "TWEEN.Easing" in html and "camera-controls.js" in html
     assert M.fade_in_out(0, 5) == 0 and M.fade_in_out(2.5, 5) == 1
     assert M.fade_in_out(.125, 5, .5, .5) < .25                 # weich: langsamer Anlauf als linear
+
+
+def test_erklaer_szenen_gehen_mit_uebergang_ineinander(tmp_path, monkeypatch):
+    import shutil
+    import subprocess
+
+    import pytest
+
+    from cudi_video.erklaer import render as R
+    if not shutil.which("ffmpeg"):
+        pytest.skip("ffmpeg fehlt")
+    assert R.UEBERGANG < R.LEAD and R.UEBERGANG < R.TAIL          # Stimmen zweier Szenen überlappen nie
+    jobs = []
+    for i, farbe in enumerate(("red", "green", "blue")):
+        out = tmp_path / f"part_{i:02d}.mp4"
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi", "-i", f"color={farbe}:s=108x192:r=30:d=2", "-c:v", "libx264",
+                        "-pix_fmt", "yuv420p", str(out)], check=True)
+        jobs.append({"out": str(out), "duration": 2.0, "fps": 30, "uebergang": True, "lead": R.LEAD})
+    assert R.start_zeiten(jobs) == [0.0, 1.5, 3.0]
+    assert R.verbinden(jobs, tmp_path / "film.mp4", tmp_path) == "xfade"
+    laenge = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
+                                   str(tmp_path / "film.mp4")], capture_output=True, text=True).stdout)
+    assert abs(laenge - 5.0) < .15                                # 3 × 2 s minus 2 Übergänge
+    monkeypatch.setenv("CUDI_UEBERGAENGE", "0")
+    assert not R.uebergaenge_aktiv(5)
+    for j in jobs:
+        j["uebergang"] = False
+    assert R.start_zeiten(jobs) == [0.0, 2.0, 4.0] and R.verbinden(jobs, tmp_path / "hart.mp4", tmp_path) == "schnitt"
