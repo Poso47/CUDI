@@ -1,11 +1,873 @@
 {
- "erzeugt": "2026-11-14T22:16:56Z",
+ "erzeugt": "2026-11-15T06:15:38Z",
  "anzahl": 80,
  "hinweise": [
-  "YouTube DE: nicht erreichbar (HTTPError: 403 Client Error: Forbidden for url: https://www.googleapis.com/youtube/v3/videos?…)",
-  "YouTube US: nicht erreichbar (HTTPError: 403 Client Error: Forbidden for url: https://www.googleapis.com/youtube/v3/videos?…)"
+  "YouTube DE: nicht erreichbar (UploadError: YouTube-Anmeldung fehlgeschlagen (Token abgelaufen?… neu einloggen): HTTP 400 { \"error\": \"invalid_grant\", \"error_description\": \"Token has been expired or revoked.\" })",
+  "YouTube US: nicht erreichbar (UploadError: YouTube-Anmeldung fehlgeschlagen (Token abgelaufen?… neu einloggen): HTTP 400 { \"error\": \"invalid_grant\", \"error_description\": \"Token has been expired or revoked.\" })"
  ],
  "themen": [
+  {
+   "thema": "minerva hase",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 1,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Hase/Volodin vor Saisonstart: Neue Programme, große Ziele“ (Eurosport)",
+   "score": 100.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "daayra movie",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 1,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 1 der Google-Trends (US) mit über 200 Suchen; Meldung: „‘Daayra’ Ending Explained: What Happens to Raman and Ajooni in Meghna Gulzar’s Thriller?“ (IMDb)",
+   "score": 100.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Jensen Huang",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 7,
+     "aufrufe": 25026,
+     "link": "https://de.wikipedia.org/wiki/Jensen_Huang",
+     "beschreibung": "taiwanisch-US-amerikanischer Unternehmer; Co-Gründer und ehemaliger CEO von Nvidia"
+    },
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 3,
+     "aufrufe": 304348,
+     "link": "https://en.wikipedia.org/wiki/Jensen_Huang"
+    },
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 7,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xvvahe/"
+    }
+   ],
+   "warum": "Platz 7 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 25.026 Aufrufe · Platz 3 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 304.348 Aufrufe · Reddit r/technology (archiv), Platz 7. 15.395 Punkte",
+   "score": 98.8,
+   "erstmals": "2026-11-09T16:42:03Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "aryna sabalenka",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 2,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 2 der Google-Trends (DE) mit über 200 Suchen; Meldung: „WTA Finals: Aryna Sabalenka apologises after viral clip of her swearing during Elina Svitolina defeat“ (BBC)",
+   "score": 93.3,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "la kings",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 2,
+     "suchen": 500
+    }
+   ],
+   "warum": "Platz 2 der Google-Trends (US) mit über 500 Suchen; Meldung: „11/14 Preview - Panarin out for \"family reasons\", Turcotte checks in + 12/56/40 Line, Latest on Gustafsson, Kuemper 500 Ceremony“ (LA Kings Insider)",
+   "score": 93.3,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Hubert Aiwanger",
+   "kategorie": "Person",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 1,
+     "aufrufe": 72072,
+     "link": "https://de.wikipedia.org/wiki/Hubert_Aiwanger",
+     "beschreibung": "deutscher Politiker (Freie Wähler), MdL, bayerischer Wirtschaftsminister (1971–2026)"
+    }
+   ],
+   "warum": "Platz 1 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 72.072 Aufrufe",
+   "score": 90.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Ramayana: Part 1",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 1,
+     "aufrufe": 581992,
+     "link": "https://en.wikipedia.org/wiki/Ramayana:_Part_1"
+    }
+   ],
+   "warum": "Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 581.992 Aufrufe",
+   "score": 90.0,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Brajan Gruda",
+   "kategorie": "Person",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 2,
+     "aufrufe": 55463,
+     "link": "https://de.wikipedia.org/wiki/Brajan_Gruda",
+     "beschreibung": "deutsch-albanischer Fußballspieler"
+    }
+   ],
+   "warum": "Platz 2 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 55.463 Aufrufe",
+   "score": 87.8,
+   "erstmals": "2026-11-14T06:08:48Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Sean Duffy",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 2,
+     "aufrufe": 434101,
+     "link": "https://en.wikipedia.org/wiki/Sean_Duffy"
+    }
+   ],
+   "warum": "Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 434.101 Aufrufe",
+   "score": 87.8,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "gewerkschaft",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 3,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „IG Metall in der Zerreißprobe: Die Gewerkschaft steht vor einem Dilemma“ (FAZ)",
+   "score": 86.7,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "ilia topuria",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 3,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 3 der Google-Trends (US) mit über 200 Suchen; Meldung: „Ilia Topuria Once Faced Threats From Tagir Ulanbekov and Usman Nurmagomedov: “When We Meet, Your Teeth Will Be Straightened Out”“ (LowKickMMA.com)",
+   "score": 86.7,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Thomas Berthold",
+   "kategorie": "Person",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 3,
+     "aufrufe": 36041,
+     "link": "https://de.wikipedia.org/wiki/Thomas_Berthold",
+     "beschreibung": "deutscher Fußballspieler"
+    }
+   ],
+   "warum": "Platz 3 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 36.041 Aufrufe",
+   "score": 85.5,
+   "erstmals": "2026-11-14T06:08:48Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Liste der größten Auslegerbrücken",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 4,
+     "aufrufe": 32102,
+     "link": "https://de.wikipedia.org/wiki/Liste_der_größten_Auslegerbrücken",
+     "beschreibung": "Auslegerbrücken geordnet nach Spannweite"
+    }
+   ],
+   "warum": "Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 32.102 Aufrufe",
+   "score": 83.2,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": ".xxx",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 4,
+     "aufrufe": 222107,
+     "link": "https://en.wikipedia.org/wiki/.xxx"
+    }
+   ],
+   "warum": "Platz 4 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 222.107 Aufrufe",
+   "score": 83.2,
+   "erstmals": "2026-11-08T21:21:52Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Ralf Dümmel",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 5,
+     "aufrufe": 31643,
+     "link": "https://de.wikipedia.org/wiki/Ralf_Dümmel",
+     "beschreibung": "deutscher Unternehmer und TV-Investor"
+    }
+   ],
+   "warum": "Platz 5 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 31.643 Aufrufe",
+   "score": 81.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "List of highest-grossing Indian films",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 5,
+     "aufrufe": 172992,
+     "link": "https://en.wikipedia.org/wiki/List_of_highest-grossing_Indian_films"
+    }
+   ],
+   "warum": "Platz 5 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 172.992 Aufrufe",
+   "score": 81.0,
+   "erstmals": "2026-11-11T05:59:46Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "starshield",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 4,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 4 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Nach tagelangen Ausfällen: US-Senatoren wollen Antworten zu Starlink in der Ukraine“ (Spiegel)",
+   "score": 80.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "paul mescal",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 4,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 4 der Google-Trends (US) mit über 200 Suchen; Meldung: „Disney's Live-Action Hercules Movie Update Is Good News For The Remake Following Ariana Grande and Paul Mescal Fan-Castings“ (The Direct)",
+   "score": 80.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Tanja Schweiger",
+   "kategorie": "Person",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 6,
+     "aufrufe": 27494,
+     "link": "https://de.wikipedia.org/wiki/Tanja_Schweiger",
+     "beschreibung": "deutsche Politikerin (Freie Wähler), MdL"
+    }
+   ],
+   "warum": "Platz 6 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 27.494 Aufrufe",
+   "score": 78.8,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Ansel Adams",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 6,
+     "aufrufe": 127659,
+     "link": "https://en.wikipedia.org/wiki/Ansel_Adams"
+    }
+   ],
+   "warum": "Platz 6 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 127.659 Aufrufe",
+   "score": 78.8,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Deaths in 2026",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 7,
+     "aufrufe": 125720,
+     "link": "https://en.wikipedia.org/wiki/Deaths_in_2026"
+    }
+   ],
+   "warum": "Platz 7 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 125.720 Aufrufe",
+   "score": 76.5,
+   "erstmals": "2026-11-09T16:42:03Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Helmut Fischer",
+   "kategorie": "Person",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 8,
+     "aufrufe": 24480,
+     "link": "https://de.wikipedia.org/wiki/Helmut_Fischer",
+     "beschreibung": "deutscher Schauspieler (1926–1997)"
+    }
+   ],
+   "warum": "Platz 8 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 24.480 Aufrufe",
+   "score": 74.2,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Markwayne Mullin",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 8,
+     "aufrufe": 113475,
+     "link": "https://en.wikipedia.org/wiki/Markwayne_Mullin"
+    }
+   ],
+   "warum": "Platz 8 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 113.475 Aufrufe",
+   "score": 74.2,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "florian wirtz",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 5,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 5 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Florian Wirtz: Ist DAS das Wirtz-Problem in Liverpool?“ (Sport Bild)",
+   "score": 73.3,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "camp flog gnaw 2026 lineup",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 5,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 5 der Google-Trends (US) mit über 200 Suchen; Meldung: „Camp Flog Gnaw 2026: Amazon Music Livestream Schedule & Details“ (Pitchfork)",
+   "score": 73.3,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Frank Thelen",
+   "kategorie": "Person",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 9,
+     "aufrufe": 24296,
+     "link": "https://de.wikipedia.org/wiki/Frank_Thelen",
+     "beschreibung": "deutscher Unternehmer"
+    }
+   ],
+   "warum": "Platz 9 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 24.296 Aufrufe",
+   "score": 72.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Nvidia",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 9,
+     "aufrufe": 110648,
+     "link": "https://en.wikipedia.org/wiki/Nvidia"
+    }
+   ],
+   "warum": "Platz 9 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 110.648 Aufrufe",
+   "score": 72.0,
+   "erstmals": "2026-11-13T06:29:44Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Democrat Jonathan Kreiss-Tomkins wins race for Alaska governor, replaces a Republican",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 1,
+     "subreddit": "news",
+     "link": "https://www.reddit.com/r/news/comments/1xvuixd/"
+    }
+   ],
+   "warum": "Reddit r/news (archiv), Platz 1. 44.409 Punkte",
+   "score": 70.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Anthony Clark (Schauspieler)",
+   "kategorie": "Person",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 10,
+     "aufrufe": 21900,
+     "link": "https://de.wikipedia.org/wiki/Anthony_Clark_(Schauspieler)",
+     "beschreibung": "US-amerikanischer Schauspieler (1964–2026)"
+    }
+   ],
+   "warum": "Platz 10 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 21.900 Aufrufe",
+   "score": 69.8,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Sam Hartman",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 10,
+     "aufrufe": 105388,
+     "link": "https://en.wikipedia.org/wiki/Sam_Hartman"
+    }
+   ],
+   "warum": "Platz 10 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 105.388 Aufrufe",
+   "score": 69.8,
+   "erstmals": "2026-11-14T06:08:48Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "CNN Aviation Analyst Says ‘It’s Just Too Much of a Coincidence’ FAA Rolled Out New AI Traffic Tool Right Before Nationwide Ground Stop",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 2,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xvudm2/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 2. 35.308 Punkte",
+   "score": 68.9,
+   "erstmals": "2026-11-14T15:45:05Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "The Biden administration created Direct File, a program of free online tax filing that exists in all other advanced economies. In doing so, it overcame a traditional US government reliance on contractors and opposition of the tax preparation industry. Trump and Musk destroyed it upon taking office.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 3,
+     "subreddit": "science",
+     "link": "https://www.reddit.com/r/science/comments/1xw4kor/"
+    }
+   ],
+   "warum": "Reddit r/science (archiv), Platz 3. 35.537 Punkte",
+   "score": 67.8,
+   "erstmals": "2026-11-14T22:16:56Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Maximilian I. (Mexiko)",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 11,
+     "aufrufe": 20032,
+     "link": "https://de.wikipedia.org/wiki/Maximilian_I._(Mexiko)",
+     "beschreibung": "Erzherzog von Österreich, Kaiser von Mexiko (1864–1867)"
+    }
+   ],
+   "warum": "Platz 11 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 20.032 Aufrufe",
+   "score": 67.5,
+   "erstmals": "2026-11-14T06:08:48Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Colette Kress",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 11,
+     "aufrufe": 104257,
+     "link": "https://en.wikipedia.org/wiki/Colette_Kress"
+    }
+   ],
+   "warum": "Platz 11 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 104.257 Aufrufe",
+   "score": 67.5,
+   "erstmals": "2026-11-13T06:29:44Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Johnson says ‘we don’t really need any investigation’ on FAA ground stop",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 4,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xwelwa/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 4. 19.379 Punkte",
+   "score": 66.8,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "tarantel",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 6,
+     "suchen": 1000
+    }
+   ],
+   "warum": "Platz 6 der Google-Trends (DE) mit über 1.000 Suchen; Meldung: „Spinnen: Seit September Hunderte Taranteln nahe der deutschen Grenze gesichtet“ (WELT)",
+   "score": 66.7,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "is tom aspinall going to fight again",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 6,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 6 der Google-Trends (US) mit über 200 Suchen; Meldung: „Josh Hokit open to fight Tom Aspinall after UFC 334, but ‘I don’t think he wants to come back’“ (Yahoo Sports)",
+   "score": 66.7,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Thousands more flights canceled as Duffy warns the FAA's aging system could fail again",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 5,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xw6t73/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 5. 14.989 Punkte",
+   "score": 65.7,
+   "erstmals": "2026-11-14T22:16:56Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Manuel Neuer",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 12,
+     "aufrufe": 19189,
+     "link": "https://de.wikipedia.org/wiki/Manuel_Neuer",
+     "beschreibung": "deutscher Fußballtorhüter"
+    }
+   ],
+   "warum": "Platz 12 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 19.189 Aufrufe",
+   "score": 65.3,
+   "erstmals": "2026-11-13T17:08:56Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Russell Brand",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 12,
+     "aufrufe": 104051,
+     "link": "https://en.wikipedia.org/wiki/Russell_Brand"
+    }
+   ],
+   "warum": "Platz 12 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 104.051 Aufrufe",
+   "score": 65.3,
+   "erstmals": "2026-11-14T06:08:48Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Nvidia deliberately kept GPU prices high through circular financing deals, report claims",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 6,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xwaeah/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 6. 15.580 Punkte",
+   "score": 64.6,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Elisabeth von Österreich",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 13,
+     "aufrufe": 18979,
+     "link": "https://de.wikipedia.org/wiki/Elisabeth_von_Österreich"
+    }
+   ],
+   "warum": "Platz 13 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 18.979 Aufrufe",
+   "score": 63.0,
+   "erstmals": "2026-11-14T06:08:48Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Avril Lavigne",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 13,
+     "aufrufe": 101792,
+     "link": "https://en.wikipedia.org/wiki/Avril_Lavigne"
+    }
+   ],
+   "warum": "Platz 13 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 101.792 Aufrufe",
+   "score": 63.0,
+   "erstmals": "2026-11-14T06:08:48Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "A man rescues a squirrel that got tangled in a net.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 8,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xwbz4n/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 8. 10.430 Punkte",
+   "score": 62.5,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Girl doing live stream and the cat decides to read the chat.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 9,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xwdvqb/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 9. 11.748 Punkte",
+   "score": 61.4,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Friesland (Fernsehreihe)",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "de",
+     "rang": 14,
+     "aufrufe": 17605,
+     "link": "https://de.wikipedia.org/wiki/Friesland_(Fernsehreihe)"
+    }
+   ],
+   "warum": "Platz 14 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 17.605 Aufrufe",
+   "score": 60.8,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Jailer 2",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 14,
+     "aufrufe": 94125,
+     "link": "https://en.wikipedia.org/wiki/Jailer_2"
+    }
+   ],
+   "warum": "Platz 14 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 94.125 Aufrufe",
+   "score": 60.8,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Russia demands that NATO return to its 1997 borders and stop supporting Ukraine",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 10,
+     "subreddit": "worldnews",
+     "link": "https://www.reddit.com/r/worldnews/comments/1xvxyay/"
+    }
+   ],
+   "warum": "Reddit r/worldnews (archiv), Platz 10. 8.325 Punkte",
+   "score": 60.3,
+   "erstmals": "2026-11-14T15:45:05Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "arzt",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 7,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 7 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Verdacht auf Betrug mit Krankschreibungen: Bünder Arzt erscheint nicht zum Prozessauftakt“ (Neue Westfälische)",
+   "score": 60.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "daniel cormier",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 7,
+     "suchen": 2000
+    }
+   ],
+   "warum": "Platz 7 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „Six from Team Nurmagomedov, eight in all get prison time over Dvalishvili brawl“ (ESPN)",
+   "score": 60.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
   {
    "thema": "league of legends new dawn",
    "kategorie": "Thema",
@@ -24,7 +886,7 @@
     }
    ],
    "warum": "Platz 1 der Google-Trends (DE) mit über 500 Suchen; Meldung: „Find a Worlds 2026 Watch Party Near You“ (Riot Games) · Platz 6 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „Find a Worlds 2026 Watch Party Near You“ (Riot Games)",
-   "score": 100.0,
+   "score": 60.0,
    "erstmals": "2026-11-14T22:16:56Z",
    "zuletzt": "2026-11-14T22:16:56Z"
   },
@@ -40,104 +902,145 @@
     }
    ],
    "warum": "Platz 1 der Google-Trends (US) mit über 500 Suchen; Meldung: „Salford City 1-1 Northampton Town: League Two leaders held at home“ (BBC)",
-   "score": 100.0,
+   "score": 60.0,
    "erstmals": "2026-11-14T22:16:56Z",
    "zuletzt": "2026-11-14T22:16:56Z"
   },
   {
-   "thema": "Jensen Huang",
+   "thema": "US proposed Ukraine cedes Donbas in exchange for joining NATO, Zelensky says",
    "kategorie": "Thema",
    "quellen": [
     {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 2,
-     "aufrufe": 67504,
-     "link": "https://de.wikipedia.org/wiki/Jensen_Huang",
-     "beschreibung": "taiwanisch-US-amerikanischer Unternehmer; Co-Gründer und ehemaliger CEO von Nvidia"
-    },
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 1,
-     "aufrufe": 727529,
-     "link": "https://en.wikipedia.org/wiki/Jensen_Huang"
-    },
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 21,
-     "aufrufe": 94201,
-     "link": "https://en.wikipedia.org/wiki/Jensen_Huang_spying_scandal"
-    },
-    {
      "quelle": "reddit",
      "region": "all",
-     "rang": 6,
-     "subreddit": "technology",
-     "link": "https://www.reddit.com/r/technology/comments/1xvvahe/"
-    },
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 37,
-     "subreddit": "technology",
-     "link": "https://www.reddit.com/r/technology/comments/1xvpr68/"
+     "rang": 11,
+     "subreddit": "worldnews",
+     "link": "https://www.reddit.com/r/worldnews/comments/1xvzor3/"
     }
    ],
-   "warum": "Platz 2 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 67.504 Aufrufe · Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 727.529 Aufrufe · Platz 21 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 94.201 Aufrufe",
-   "score": 99.8,
-   "erstmals": "2026-11-09T16:42:03Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "warum": "Reddit r/worldnews (archiv), Platz 11. 9.017 Punkte",
+   "score": 59.2,
+   "erstmals": "2026-11-14T22:16:56Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
-   "thema": "Nvidia",
-   "kategorie": "Thema",
+   "thema": "Monaco Franze – Der ewige Stenz",
+   "kategorie": "Ereignis",
    "quellen": [
     {
      "quelle": "wikipedia",
      "region": "de",
-     "rang": 6,
-     "aufrufe": 29505,
-     "link": "https://de.wikipedia.org/wiki/Nvidia",
-     "beschreibung": "US-amerikanischer Chip-Hersteller"
-    },
+     "rang": 15,
+     "aufrufe": 17472,
+     "link": "https://de.wikipedia.org/wiki/Monaco_Franze_–_Der_ewige_Stenz"
+    }
+   ],
+   "warum": "Platz 15 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 17.472 Aufrufe",
+   "score": 58.5,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Alice Huang (executive)",
+   "kategorie": "Thema",
+   "quellen": [
     {
      "quelle": "wikipedia",
      "region": "en",
-     "rang": 5,
-     "aufrufe": 252871,
-     "link": "https://en.wikipedia.org/wiki/Nvidia"
+     "rang": 15,
+     "aufrufe": 91286,
+     "link": "https://en.wikipedia.org/wiki/Alice_Huang_(executive)"
     }
    ],
-   "warum": "Platz 6 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 29.505 Aufrufe · Platz 5 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 252.871 Aufrufe",
-   "score": 96.0,
+   "warum": "Platz 15 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 91.286 Aufrufe",
+   "score": 58.5,
    "erstmals": "2026-11-13T06:29:44Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
-   "thema": "Colette Kress",
+   "thema": "\"Kids, i know the yellow behemoth may look scary at first, but hear me out on this: extra fluffly sofa\"",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 12,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xw45xz/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 12. 10.863 Punkte",
+   "score": 58.2,
+   "erstmals": "2026-11-14T22:16:56Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Alaska voters reject ballot measure seeking to repeal open primaries, ranked voting system",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 13,
+     "subreddit": "news",
+     "link": "https://www.reddit.com/r/news/comments/1xvug7j/"
+    }
+   ],
+   "warum": "Reddit r/news (archiv), Platz 13. 10.368 Punkte",
+   "score": 57.1,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Holger Stockhaus",
    "kategorie": "Thema",
    "quellen": [
     {
      "quelle": "wikipedia",
      "region": "de",
+     "rang": 16,
+     "aufrufe": 17063,
+     "link": "https://de.wikipedia.org/wiki/Holger_Stockhaus"
+    }
+   ],
+   "warum": "Platz 16 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 17.063 Aufrufe",
+   "score": 56.2,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "The Body (TV series)",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "wikipedia",
+     "region": "en",
+     "rang": 16,
+     "aufrufe": 90665,
+     "link": "https://en.wikipedia.org/wiki/The_Body_(TV_series)"
+    }
+   ],
+   "warum": "Platz 16 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 90.665 Aufrufe",
+   "score": 56.2,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "'Duffy Lied': Air Traffic Controllers Refute Transportation Secretary's Ground Stop Explanation",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
      "rang": 14,
-     "aufrufe": 15341,
-     "link": "https://de.wikipedia.org/wiki/Colette_Kress"
-    },
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 4,
-     "aufrufe": 279241,
-     "link": "https://en.wikipedia.org/wiki/Colette_Kress"
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xwijlj/"
     }
    ],
-   "warum": "Platz 14 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 15.341 Aufrufe · Platz 4 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 279.241 Aufrufe",
-   "score": 93.4,
-   "erstmals": "2026-11-13T06:29:44Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "warum": "Reddit r/technology (archiv), Platz 14. 9.205 Punkte",
+   "score": 56.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
    "thema": "barclays arena hamburg",
@@ -151,7 +1054,7 @@
     }
    ],
    "warum": "Platz 2 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Interpol und Bloc Party in Uber-Arena: Alles (nicht) wie immer“ (rbb24.de)",
-   "score": 93.3,
+   "score": 56.0,
    "erstmals": "2026-11-14T22:16:56Z",
    "zuletzt": "2026-11-14T22:16:56Z"
   },
@@ -167,44 +1070,126 @@
     }
    ],
    "warum": "Platz 2 der Google-Trends (US) mit über 500 Suchen; Meldung: „Home of the Herd: App State vs. Marshall pregame show“ (WSAZ)",
-   "score": 93.3,
+   "score": 56.0,
    "erstmals": "2026-11-14T22:16:56Z",
    "zuletzt": "2026-11-14T22:16:56Z"
   },
   {
-   "thema": "Brajan Gruda",
-   "kategorie": "Person",
+   "thema": "This is how road reflectors are fixed",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 15,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xw36li/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 15. 9.188 Punkte",
+   "score": 54.9,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Totenhütte von Benzingerode",
+   "kategorie": "Thema",
    "quellen": [
     {
      "quelle": "wikipedia",
      "region": "de",
-     "rang": 1,
-     "aufrufe": 76816,
-     "link": "https://de.wikipedia.org/wiki/Brajan_Gruda",
-     "beschreibung": "deutsch-albanischer Fußballspieler"
+     "rang": 17,
+     "aufrufe": 15570,
+     "link": "https://de.wikipedia.org/wiki/Totenhütte_von_Benzingerode"
     }
    ],
-   "warum": "Platz 1 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 76.816 Aufrufe",
-   "score": 90.0,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "warum": "Platz 17 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 15.570 Aufrufe",
+   "score": 54.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
-   "thema": "Ramayana: Part 1",
+   "thema": "Rachel Campos-Duffy",
    "kategorie": "Thema",
    "quellen": [
     {
      "quelle": "wikipedia",
      "region": "en",
-     "rang": 2,
-     "aufrufe": 618656,
-     "link": "https://en.wikipedia.org/wiki/Ramayana:_Part_1"
+     "rang": 17,
+     "aufrufe": 86460,
+     "link": "https://en.wikipedia.org/wiki/Rachel_Campos-Duffy"
     }
    ],
-   "warum": "Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 618.656 Aufrufe",
-   "score": 87.8,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "warum": "Platz 17 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 86.460 Aufrufe",
+   "score": 54.0,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "TIL that the ancient Chinese philosopher Confucius was willing to teach anyone who was eager to learn, asking for nothing more than a simple bundle of dried meat/jerky in exchange.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 16,
+     "subreddit": "todayilearned",
+     "link": "https://www.reddit.com/r/todayilearned/comments/1xvu6me/"
+    }
+   ],
+   "warum": "Reddit r/todayilearned (archiv), Platz 16. 9.301 Punkte",
+   "score": 53.8,
+   "erstmals": "2026-11-14T22:16:56Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "niederländische fußballnationalmannschaft",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "DE",
+     "rang": 8,
+     "suchen": 100
+    }
+   ],
+   "warum": "Platz 8 der Google-Trends (DE) mit über 100 Suchen; Meldung: „\"Oranje\"-Held Reijnders war mit 19 noch Aldi-Kassierer“ (sportschau.de)",
+   "score": 53.3,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "colin jost",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "google",
+     "region": "US",
+     "rang": 8,
+     "suchen": 200
+    }
+   ],
+   "warum": "Platz 8 der Google-Trends (US) mit über 200 Suchen; Meldung: „Scarlett Johansson Makes Candid Admission About Being In Charge In Her Marriage With ‘SNL’ Star Colin Jost“ (Yahoo)",
+   "score": 53.3,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Scientists built an electric comb that regrew nearly 98% of lost hair in balding mice in just 28 days, beating minoxidil (about 70%) and finasteride (about 50%). Its teeth send gentle electric pulses into the skin and push two gene therapies deep into hair follicles to restart growth.",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 17,
+     "subreddit": "science",
+     "link": "https://www.reddit.com/r/science/comments/1xwdwjh/"
+    }
+   ],
+   "warum": "Reddit r/science (archiv), Platz 17. 8.730 Punkte",
+   "score": 52.8,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
    "thema": "roman fress",
@@ -218,7 +1203,7 @@
     }
    ],
    "warum": "Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Sportschau - Box-Abend mit Roman Fress gegen Armend Xhoxhaj - hier anschauen“ (ARD Mediathek)",
-   "score": 86.7,
+   "score": 52.0,
    "erstmals": "2026-11-14T22:16:56Z",
    "zuletzt": "2026-11-14T22:16:56Z"
   },
@@ -234,44 +1219,77 @@
     }
    ],
    "warum": "Platz 3 der Google-Trends (US) mit über 500 Suchen; Meldung: „The Top Yankees Executive at the Center of College Sports’ Big Fight“ (WSJ)",
-   "score": 86.7,
+   "score": 52.0,
    "erstmals": "2026-11-14T22:16:56Z",
    "zuletzt": "2026-11-14T22:16:56Z"
   },
   {
-   "thema": "Thomas Berthold",
-   "kategorie": "Person",
+   "thema": "Ilse Aigner",
+   "kategorie": "Thema",
    "quellen": [
     {
      "quelle": "wikipedia",
      "region": "de",
-     "rang": 3,
-     "aufrufe": 42181,
-     "link": "https://de.wikipedia.org/wiki/Thomas_Berthold",
-     "beschreibung": "deutscher Fußballspieler"
+     "rang": 18,
+     "aufrufe": 14465,
+     "link": "https://de.wikipedia.org/wiki/Ilse_Aigner"
     }
    ],
-   "warum": "Platz 3 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 42.181 Aufrufe",
-   "score": 85.5,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "warum": "Platz 18 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 14.465 Aufrufe",
+   "score": 51.7,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
-   "thema": ".xxx",
+   "thema": "XNXX",
    "kategorie": "Thema",
    "quellen": [
     {
      "quelle": "wikipedia",
      "region": "en",
-     "rang": 3,
-     "aufrufe": 486885,
-     "link": "https://en.wikipedia.org/wiki/.xxx"
+     "rang": 18,
+     "aufrufe": 85368,
+     "link": "https://en.wikipedia.org/wiki/XNXX"
     }
    ],
-   "warum": "Platz 3 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 486.885 Aufrufe",
-   "score": 85.5,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "warum": "Platz 18 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 85.368 Aufrufe",
+   "score": 51.7,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "60 Air Traffic Controllers Reject Transportation Secretary’s Ground Stop Explanation",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 18,
+     "subreddit": "technology",
+     "link": "https://www.reddit.com/r/technology/comments/1xw8k7k/"
+    }
+   ],
+   "warum": "Reddit r/technology (archiv), Platz 18. 8.818 Punkte",
+   "score": 51.7,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
+  },
+  {
+   "thema": "Dutch people dressed as Zwarte Piet during Sinterklaas (2026)",
+   "kategorie": "Thema",
+   "quellen": [
+    {
+     "quelle": "reddit",
+     "region": "all",
+     "rang": 19,
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xw67gt/"
+    }
+   ],
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 19. 4.574 Punkte",
+   "score": 50.6,
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
    "thema": "Die kleinen und die großen Lügen",
@@ -287,1024 +1305,46 @@
     }
    ],
    "warum": "Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 37.954 Aufrufe",
-   "score": 83.2,
+   "score": 49.9,
    "erstmals": "2026-11-14T06:08:48Z",
    "zuletzt": "2026-11-14T22:16:56Z"
   },
   {
-   "thema": "Liste der größten Auslegerbrücken",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 5,
-     "aufrufe": 33139,
-     "link": "https://de.wikipedia.org/wiki/Liste_der_größten_Auslegerbrücken",
-     "beschreibung": "Auslegerbrücken geordnet nach Spannweite"
-    }
-   ],
-   "warum": "Platz 5 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 33.139 Aufrufe",
-   "score": 81.0,
-   "erstmals": "2026-11-08T21:21:52Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "mitternachtsspitzen",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 4,
-     "suchen": 100
-    }
-   ],
-   "warum": "Platz 4 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Mitternachtsspitzen MAXI heute im WDR mit Christoph Sieber und sechs Gästen“ (Münster Aktuell)",
-   "score": 80.0,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "lehigh football",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 4,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 4 der Google-Trends (US) mit über 200 Suchen; Meldung: „Patriot League football: The Ayache family will be busy Saturday as Becahi, Lehigh have big games“ (The Morning Call)",
-   "score": 80.0,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Chris Van Hollen",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 6,
-     "aufrufe": 204913,
-     "link": "https://en.wikipedia.org/wiki/Chris_Van_Hollen"
-    }
-   ],
-   "warum": "Platz 6 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 204.913 Aufrufe",
-   "score": 78.8,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Völkerschau der „Amazonen von Dahomey“ 1888–1903",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 7,
-     "aufrufe": 24541,
-     "link": "https://de.wikipedia.org/wiki/Völkerschau_der_„Amazonen_von_Dahomey“_1888–1903",
-     "beschreibung": "Völkerschau"
-    }
-   ],
-   "warum": "Platz 7 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 24.541 Aufrufe",
-   "score": 76.5,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Piracy",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 7,
-     "aufrufe": 201972,
-     "link": "https://en.wikipedia.org/wiki/Piracy"
-    }
-   ],
-   "warum": "Platz 7 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 201.972 Aufrufe",
-   "score": 76.5,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Manuel Neuer",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 8,
-     "aufrufe": 20084,
-     "link": "https://de.wikipedia.org/wiki/Manuel_Neuer",
-     "beschreibung": "deutscher Fußballtorhüter"
-    }
-   ],
-   "warum": "Platz 8 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 20.084 Aufrufe",
-   "score": 74.2,
-   "erstmals": "2026-11-13T17:08:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Alice Huang (executive)",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 8,
-     "aufrufe": 200012,
-     "link": "https://en.wikipedia.org/wiki/Alice_Huang_(executive)"
-    }
-   ],
-   "warum": "Platz 8 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 200.012 Aufrufe",
-   "score": 74.2,
-   "erstmals": "2026-11-13T06:29:44Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "carl philip von schweden",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 5,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 5 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Kein gewöhnlicher Termin: Schwedischer Prinz Carl Philip hält Ferkel in den Händen“ (T-Online)",
-   "score": 73.3,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "posiciones de selección de fútbol de portugal contra selección de fútbol de dinamarca",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 5,
-     "suchen": 10000
-    }
-   ],
-   "warum": "Platz 5 der Google-Trends (US) mit über 10.000 Suchen; Meldung: „Cristiano no merecía esto“ (Diario AS)",
-   "score": 73.3,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Der Herr der Ringe: Die Ringe der Macht",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 9,
-     "aufrufe": 19898,
-     "link": "https://de.wikipedia.org/wiki/Der_Herr_der_Ringe:_Die_Ringe_der_Macht",
-     "beschreibung": "Fantasy-Fernsehserie (seit 2022)"
-    }
-   ],
-   "warum": "Platz 9 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 19.898 Aufrufe",
-   "score": 72.0,
-   "erstmals": "2026-11-13T06:29:44Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Sam Hartman",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 9,
-     "aufrufe": 191577,
-     "link": "https://en.wikipedia.org/wiki/Sam_Hartman"
-    }
-   ],
-   "warum": "Platz 9 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 191.577 Aufrufe",
-   "score": 72.0,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "CNN Aviation Analyst Says ‘It’s Just Too Much of a Coincidence’ FAA Rolled Out New AI Traffic Tool Right Before Nationwide Ground Stop",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 1,
-     "subreddit": "technology",
-     "link": "https://www.reddit.com/r/technology/comments/1xvudm2/"
-    }
-   ],
-   "warum": "Reddit r/technology (archiv), Platz 1. 32.506 Punkte",
-   "score": 70.0,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Ballers in God",
-   "kategorie": "Person",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 10,
-     "aufrufe": 17853,
-     "link": "https://de.wikipedia.org/wiki/Ballers_in_God",
-     "beschreibung": "Netzwerk christlicher Fußballspieler"
-    }
-   ],
-   "warum": "Platz 10 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 17.853 Aufrufe",
-   "score": 69.8,
-   "erstmals": "2026-11-09T16:42:03Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Mauricio Pochettino",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 10,
-     "aufrufe": 172224,
-     "link": "https://en.wikipedia.org/wiki/Mauricio_Pochettino"
-    }
-   ],
-   "warum": "Platz 10 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 172.224 Aufrufe",
-   "score": 69.8,
-   "erstmals": "2026-11-12T07:01:19Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "The Biden administration created Direct File, a program of free online tax filing that exists in all other advanced economies. In doing so, it overcame a traditional US government reliance on contractors and opposition of the tax preparation industry. Trump and Musk destroyed it upon taking office.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 2,
-     "subreddit": "science",
-     "link": "https://www.reddit.com/r/science/comments/1xw4kor/"
-    }
-   ],
-   "warum": "Reddit r/science (archiv), Platz 2. 25.900 Punkte",
-   "score": 68.9,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "TIL that the Titanic is slowly being eaten away by iron-consuming bacteria, losing an estimated 130-200 kg of iron every day. One researcher estimates that it could take several centuries for the entire wreck to disappear",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 3,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xvkoa2/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 3. 25.217 Punkte",
-   "score": 67.8,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Maximilian I. (Mexiko)",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 11,
-     "aufrufe": 17724,
-     "link": "https://de.wikipedia.org/wiki/Maximilian_I._(Mexiko)",
-     "beschreibung": "Erzherzog von Österreich, Kaiser von Mexiko (1864–1867)"
-    }
-   ],
-   "warum": "Platz 11 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 17.724 Aufrufe",
-   "score": 67.5,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "List of highest-grossing Indian films",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 11,
-     "aufrufe": 171338,
-     "link": "https://en.wikipedia.org/wiki/List_of_highest-grossing_Indian_films"
-    }
-   ],
-   "warum": "Platz 11 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 171.338 Aufrufe",
-   "score": 67.5,
-   "erstmals": "2026-11-11T05:59:46Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "TIL that in the 1920s, \"balloon jumping\" was a popular fad where people harnessed themselves to small helium balloons to leap hundreds of feet over fields and buildings, until a series of lethal accidents ended the trend.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 4,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xvqpb6/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 4. 17.600 Punkte",
-   "score": 66.8,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "mdr live",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 6,
-     "suchen": 100
-    }
-   ],
-   "warum": "Platz 6 der Google-Trends (DE) mit über 100 Suchen; Meldung: „MDR-Funkhaus in Halle wird zum Jahresende wieder ein besonderer Kulturort“ (MDR.de)",
-   "score": 66.7,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Pope Leo XIV denounces 'machismo' and demands women be protected in an emotional return to Peru",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 5,
-     "subreddit": "worldnews",
-     "link": "https://www.reddit.com/r/worldnews/comments/1xvmms9/"
-    }
-   ],
-   "warum": "Reddit r/worldnews (archiv), Platz 5. 16.392 Punkte",
-   "score": 65.7,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Talking Heads",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 12,
-     "aufrufe": 16785,
-     "link": "https://de.wikipedia.org/wiki/Talking_Heads",
-     "beschreibung": "US-amerikanische Band"
-    }
-   ],
-   "warum": "Platz 12 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 16.785 Aufrufe",
-   "score": 65.3,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Deaths in 2026",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 12,
-     "aufrufe": 136924,
-     "link": "https://en.wikipedia.org/wiki/Deaths_in_2026"
-    }
-   ],
-   "warum": "Platz 12 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 136.924 Aufrufe",
-   "score": 65.3,
-   "erstmals": "2026-11-09T16:42:03Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "TIL that Elvis Presley did 636 sold out shows in Las Vegas and never once performed his song “Viva Las Vegas”",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 7,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xvqs2h/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 7. 11.617 Punkte",
-   "score": 63.5,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Klaus Nomi",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 13,
-     "aufrufe": 16434,
-     "link": "https://de.wikipedia.org/wiki/Klaus_Nomi"
-    }
-   ],
-   "warum": "Platz 13 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 16.434 Aufrufe",
-   "score": 63.0,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Avril Lavigne",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 13,
-     "aufrufe": 120937,
-     "link": "https://en.wikipedia.org/wiki/Avril_Lavigne"
-    }
-   ],
-   "warum": "Platz 13 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 120.937 Aufrufe",
-   "score": 63.0,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "\"Kids, i know the yellow behemoth may look scary at first, but hear me out on this: extra fluffly sofa\"",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 8,
-     "subreddit": "interestingasfuck",
-     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xw45xz/"
-    }
-   ],
-   "warum": "Reddit r/interestingasfuck (archiv), Platz 8. 10.863 Punkte",
-   "score": 62.5,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Thousands more flights canceled as Duffy warns the FAA's aging system could fail again",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 9,
-     "subreddit": "technology",
-     "link": "https://www.reddit.com/r/technology/comments/1xw6t73/"
-    }
-   ],
-   "warum": "Reddit r/technology (archiv), Platz 9. 8.140 Punkte",
-   "score": 61.4,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Russell Brand",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 14,
-     "aufrufe": 112783,
-     "link": "https://en.wikipedia.org/wiki/Russell_Brand"
-    }
-   ],
-   "warum": "Platz 14 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 112.783 Aufrufe",
-   "score": 60.8,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "NVIDIA Allegedly Engineered Scarcity By Funding AI Startups To Buy Its GPUs",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 10,
-     "subreddit": "technology",
-     "link": "https://www.reddit.com/r/technology/comments/1xvsezb/"
-    }
-   ],
-   "warum": "Reddit r/technology (archiv), Platz 10. 8.432 Punkte",
-   "score": 60.3,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "btc usd",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 7,
-     "suchen": 100
-    }
-   ],
-   "warum": "Platz 7 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Wholesale inflation rose in October to highest annual rate in nearly four years“ (CNN)",
-   "score": 60.0,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "michigan wolverines football vs oregon ducks football match player stats",
-   "kategorie": "Ereignis",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 7,
-     "suchen": 500
-    }
-   ],
-   "warum": "Platz 7 der Google-Trends (US) mit über 500 Suchen; Meldung: „Savion Hiter Bursts for 70-Yard Rush TD, Trimming Michigan's Deficit vs Oregon“ (FOX Sports)",
-   "score": 60.0,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "ibu-cup",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 1,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Große Überraschung in Norwegen: IBU-Cup-Starterin sticht Vittozzi aus“ (Eurosport)",
-   "score": 60.0,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T15:45:05Z"
-  },
-  {
-   "thema": "husker football schedule",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 1,
-     "suchen": 2000
-    }
-   ],
-   "warum": "Platz 1 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „No. 2 Oklahoma State overpowers No. 3 Nebraska 27-6 in Stillwater“ (NCAA.com)",
-   "score": 60.0,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T15:45:05Z"
-  },
-  {
-   "thema": "British police officer chasing down a suspect on bicycle",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 11,
-     "subreddit": "interestingasfuck",
-     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xw1e66/"
-    }
-   ],
-   "warum": "Reddit r/interestingasfuck (archiv), Platz 11. 7.678 Punkte",
-   "score": 59.2,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Elisabeth von Österreich",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 15,
-     "aufrufe": 15261,
-     "link": "https://de.wikipedia.org/wiki/Elisabeth_von_Österreich"
-    }
-   ],
-   "warum": "Platz 15 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 15.261 Aufrufe",
-   "score": 58.5,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Dan Hicks (sportscaster)",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 15,
-     "aufrufe": 107505,
-     "link": "https://en.wikipedia.org/wiki/Dan_Hicks_(sportscaster)"
-    }
-   ],
-   "warum": "Platz 15 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 107.505 Aufrufe",
-   "score": 58.5,
-   "erstmals": "2026-11-13T06:29:44Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Rubio warns ICC against ‘quoting laws to men with swords’",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 12,
-     "subreddit": "worldnews",
-     "link": "https://www.reddit.com/r/worldnews/comments/1xvw6g0/"
-    }
-   ],
-   "warum": "Reddit r/worldnews (archiv), Platz 12. 6.023 Punkte",
-   "score": 58.2,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "A confused leopard is completely mesmerized by a dung beetle and its rolling ball",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 13,
-     "subreddit": "interestingasfuck",
-     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xvuapf/"
-    }
-   ],
-   "warum": "Reddit r/interestingasfuck (archiv), Platz 13. 7.588 Punkte",
-   "score": 57.1,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Julian Reichelt",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 16,
-     "aufrufe": 13729,
-     "link": "https://de.wikipedia.org/wiki/Julian_Reichelt"
-    }
-   ],
-   "warum": "Platz 16 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 13.729 Aufrufe",
-   "score": 56.2,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Anthony Clark (actor)",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 16,
-     "aufrufe": 105784,
-     "link": "https://en.wikipedia.org/wiki/Anthony_Clark_(actor)"
-    }
-   ],
-   "warum": "Platz 16 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 105.784 Aufrufe",
-   "score": 56.2,
-   "erstmals": "2026-11-13T06:29:44Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "TIL that the ancient Chinese philosopher Confucius was willing to teach anyone who was eager to learn, asking for nothing more than a simple bundle of dried meat/jerky in exchange.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 14,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xvu6me/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 14. 7.200 Punkte",
-   "score": 56.0,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "julia klöckner",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 2,
-     "suchen": 1000
-    }
-   ],
-   "warum": "Platz 2 der Google-Trends (DE) mit über 1.000 Suchen; Meldung: „Palästinafahne am Reichstag: Klöckner empört über «wenig Empörung» nach Fahnenaktion“ (DIE ZEIT)",
-   "score": 56.0,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T15:45:05Z"
-  },
-  {
-   "thema": "uga game today",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 2,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 2 der Google-Trends (US) mit über 200 Suchen; Meldung: „3 things to watch for when No. 22 Mizzou plays No. 1 Georgia“ (STLtoday.com)",
-   "score": 56.0,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T15:45:05Z"
-  },
-  {
-   "thema": "Russia demands that NATO return to its 1997 borders and stop supporting Ukraine",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 15,
-     "subreddit": "worldnews",
-     "link": "https://www.reddit.com/r/worldnews/comments/1xvxyay/"
-    }
-   ],
-   "warum": "Reddit r/worldnews (archiv), Platz 15. 4.471 Punkte",
-   "score": 54.9,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Lothar Matthäus",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 17,
-     "aufrufe": 13239,
-     "link": "https://de.wikipedia.org/wiki/Lothar_Matthäus"
-    }
-   ],
-   "warum": "Platz 17 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 13.239 Aufrufe",
-   "score": 54.0,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "David Walliams",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 17,
-     "aufrufe": 97674,
-     "link": "https://en.wikipedia.org/wiki/David_Walliams"
-    }
-   ],
-   "warum": "Platz 17 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 97.674 Aufrufe",
-   "score": 54.0,
-   "erstmals": "2026-11-11T05:59:46Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "US proposed Ukraine cedes Donbas in exchange for joining NATO, Zelensky says",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 16,
-     "subreddit": "worldnews",
-     "link": "https://www.reddit.com/r/worldnews/comments/1xvzor3/"
-    }
-   ],
-   "warum": "Reddit r/worldnews (archiv), Platz 16. 4.817 Punkte",
-   "score": 53.8,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "portugal",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 8,
-     "suchen": 2000
-    }
-   ],
-   "warum": "Platz 8 der Google-Trends (DE) mit über 2.000 Suchen; Meldung: „Portugal FA to change No. 7 jersey design as tribute to Cristiano Ronaldo“ (ESPN)",
-   "score": 53.3,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "banfield - boca juniors",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 8,
-     "suchen": 2000
-    }
-   ],
-   "warum": "Platz 8 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „Banfield vs. Boca, por la Copa Argentina: seguilo EN VIVO“ (TyC Sports)",
-   "score": 53.3,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "TIL the fruit thrown to Sylvester Stallone during Rocky's famous running montage was completely unscripted—a real street vendor in Philadelphia's Italian Market spontaneously tossed it to him while the crew was filming guerrilla-style.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 17,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xvq5mt/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 17. 6.065 Punkte",
-   "score": 52.8,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "düren",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 3,
-     "suchen": 200
-    }
-   ],
-   "warum": "Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Versuchte Vergewaltigung in Düren: Mann attackiert Frau in Wohnung – jetzt fahndet die Polizei öffentlich nach ihm“ (WEB.DE)",
-   "score": 52.0,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T15:45:05Z"
-  },
-  {
-   "thema": "gio lopez",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 3,
-     "suchen": 500
-    }
-   ],
-   "warum": "Platz 3 der Google-Trends (US) mit über 500 Suchen; Meldung: „College football Week 11 players to watch: Can Wake Forest's Gio Lopez return with big game vs. SMU?“ (Yahoo Sports)",
-   "score": 52.0,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T15:45:05Z"
-  },
-  {
-   "thema": "United States (Schiff, 1952)",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 18,
-     "aufrufe": 12462,
-     "link": "https://de.wikipedia.org/wiki/United_States_(Schiff,_1952)"
-    }
-   ],
-   "warum": "Platz 18 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 12.462 Aufrufe",
-   "score": 51.7,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Lisa Su",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "en",
-     "rang": 18,
-     "aufrufe": 97254,
-     "link": "https://en.wikipedia.org/wiki/Lisa_Su"
-    }
-   ],
-   "warum": "Platz 18 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 97.254 Aufrufe",
-   "score": 51.7,
-   "erstmals": "2026-11-13T06:29:44Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Zelensky Says Starshield Restrictions Persist as 105 US Lawmakers Demand Answers",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 18,
-     "subreddit": "worldnews",
-     "link": "https://www.reddit.com/r/worldnews/comments/1xvu57y/"
-    }
-   ],
-   "warum": "Reddit r/worldnews (archiv), Platz 18. 6.062 Punkte",
-   "score": 51.7,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "TIL a Polish author wrote a novel bragging about committing the \"perfect murder,' only for detectives to realize the book's hyper-specific details matched an unsolved cold case. This lead to his own 25-year prison sentence.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 19,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xw5pt5/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 19. 5.675 Punkte",
-   "score": 50.6,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Barbara Wussow",
+   "thema": "Franz Joseph I.",
    "kategorie": "Thema",
    "quellen": [
     {
      "quelle": "wikipedia",
      "region": "de",
      "rang": 19,
-     "aufrufe": 12262,
-     "link": "https://de.wikipedia.org/wiki/Barbara_Wussow"
+     "aufrufe": 14161,
+     "link": "https://de.wikipedia.org/wiki/Franz_Joseph_I."
     }
    ],
-   "warum": "Platz 19 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 12.262 Aufrufe",
+   "warum": "Platz 19 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14: 14.161 Aufrufe",
    "score": 49.5,
-   "erstmals": "2026-11-14T06:08:48Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
-   "thema": "Hannah Storm",
+   "thema": "Elizabeth Holmes",
    "kategorie": "Thema",
    "quellen": [
     {
      "quelle": "wikipedia",
      "region": "en",
      "rang": 19,
-     "aufrufe": 96412,
-     "link": "https://en.wikipedia.org/wiki/Hannah_Storm"
+     "aufrufe": 80657,
+     "link": "https://en.wikipedia.org/wiki/Elizabeth_Holmes"
     }
    ],
-   "warum": "Platz 19 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-13: 96.412 Aufrufe",
+   "warum": "Platz 19 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14: 80.657 Aufrufe",
    "score": 49.5,
-   "erstmals": "2026-11-13T06:29:44Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
-   "thema": "SpaceX not being honest about ‘political’ reasons for slowing Starshield, says Zelenskyy",
+   "thema": "Will we ever get the truth for the Microsoft outage?",
    "kategorie": "Thema",
    "quellen": [
     {
@@ -1312,96 +1352,30 @@
      "region": "all",
      "rang": 20,
      "subreddit": "technology",
-     "link": "https://www.reddit.com/r/technology/comments/1xw2euh/"
+     "link": "https://www.reddit.com/r/technology/comments/1xvzktn/"
     }
    ],
-   "warum": "Reddit r/technology (archiv), Platz 20. 5.805 Punkte",
+   "warum": "Reddit r/technology (archiv), Platz 20. 7.130 Punkte",
    "score": 49.5,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   },
   {
-   "thema": "Trump, Xi and Putin plan an unprecedented joint meeting on the sidelines of APEC, officials say",
+   "thema": "The difference between Germany and Greece Weather report",
    "kategorie": "Thema",
    "quellen": [
     {
      "quelle": "reddit",
      "region": "all",
      "rang": 21,
-     "subreddit": "worldnews",
-     "link": "https://www.reddit.com/r/worldnews/comments/1xvoo36/"
+     "subreddit": "interestingasfuck",
+     "link": "https://www.reddit.com/r/interestingasfuck/comments/1xw6w97/"
     }
    ],
-   "warum": "Reddit r/worldnews (archiv), Platz 21. 4.419 Punkte",
+   "warum": "Reddit r/interestingasfuck (archiv), Platz 21. 7.591 Punkte",
    "score": 48.5,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "christian streich",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "DE",
-     "rang": 4,
-     "suchen": 100
-    }
-   ],
-   "warum": "Platz 4 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Streich über Rückkehr in Profi-Fußball: \"Ich will nicht mehr\"“ (Kicker)",
-   "score": 48.0,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T15:45:05Z"
-  },
-  {
-   "thema": "ian mcnabb",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "google",
-     "region": "US",
-     "rang": 4,
-     "suchen": 500
-    }
-   ],
-   "warum": "Platz 4 der Google-Trends (US) mit über 500 Suchen; Meldung: „Singer's Hall of Fame induction axed over Russell Brand comments“ (BBC)",
-   "score": 48.0,
-   "erstmals": "2026-11-14T15:45:05Z",
-   "zuletzt": "2026-11-14T15:45:05Z"
-  },
-  {
-   "thema": "TIL that during the filming of Titanic, about 80 cast and crew members, including James Cameron, were hospitalized after eating clam chowder laced with PCP. The local ER descended into chaos as the drugged crew members raced wheelchairs down the hallways and formed impromptu conga lines.",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "reddit",
-     "region": "all",
-     "rang": 22,
-     "subreddit": "todayilearned",
-     "link": "https://www.reddit.com/r/todayilearned/comments/1xvsexb/"
-    }
-   ],
-   "warum": "Reddit r/todayilearned (archiv), Platz 22. 4.221 Punkte",
-   "score": 47.4,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
-  },
-  {
-   "thema": "Grand Theft Auto VI",
-   "kategorie": "Thema",
-   "quellen": [
-    {
-     "quelle": "wikipedia",
-     "region": "de",
-     "rang": 20,
-     "aufrufe": 12045,
-     "link": "https://de.wikipedia.org/wiki/Grand_Theft_Auto_VI"
-    }
-   ],
-   "warum": "Platz 20 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-13: 12.045 Aufrufe",
-   "score": 47.2,
-   "erstmals": "2026-11-14T22:16:56Z",
-   "zuletzt": "2026-11-14T22:16:56Z"
+   "erstmals": "2026-11-15T06:15:38Z",
+   "zuletzt": "2026-11-15T06:15:38Z"
   }
  ]
 }
