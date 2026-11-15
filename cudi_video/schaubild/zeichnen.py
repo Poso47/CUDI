@@ -620,9 +620,9 @@ class Buehne:
         dazu die Aktionen „picke“ (Kopf runter) und „flattere“ (Flügel schlagen)."""
         info = figur_info(e["figur"])
         px = max(16, int(z["g"] * self.size / 100 / 8) * 8)
-        if info.get("bauplan"):                               # Werkstatt-Figur: flache Fassung der Grundkörper
+        if info.get("bauplan") or info.get("modell"):          # Werkstatt-Figur: flache Fassung der Grundkörper
             from . import werkstatt
-            bild = werkstatt.zeichne(info["bauplan"], px, z["alpha"], t)
+            bild = werkstatt.zeichne(info.get("bauplan") or [], px, z["alpha"], t)
             return bild.transpose(Image.FLIP_LEFT_RIGHT) if e.get("blick", 1) < 0 else bild
         f = px / info["groesse"]
         bild = Image.new("RGBA", (px, px), (0, 0, 0, 0))

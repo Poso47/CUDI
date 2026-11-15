@@ -118,3 +118,9 @@ Figuren-Werkstatt (Wunsch des Nutzers: nie Figuren frei zusammensetzen, immer Cr
 - **Szenen-Übergänge** (`erklaer/render.py`: `verbinden`, `start_zeiten`, `UEBERGANG` = 0,5 s < LEAD/TAIL): Erklär-Szenen gehen per ffmpeg
   `xfade` ineinander über (Schieben, Kreisblende, Überblenden im Wechsel); der Ton folgt demselben Zeitplan. Mit Übergängen blenden
   die Szenen nicht mehr einzeln ab (`job["uebergang"]`). Fehler → harte Schnitte. Aus: `CUDI_UEBERGAENGE=0`.
+- **Modell-Scout** (`schaubild/modelle.py`, vor dem Eigenbau der Werkstatt): sucht je fehlender Figur ein fertiges freies 3D-Modell in
+  Objaverse (Hugging Face, LVIS-Teil: 1 156 englische Kategorien, ~46 000 Modelle; nur CC0/CC BY, ≤ 120 000 Flächen, ≤ 9 MB).
+  `sichtpruefung`: Probe-Render aus 6 Richtungen → Größe angleichen (`skala`), beste Ansicht (`dreh`, CLIP ≥ 0,5), Unpassendes fliegt
+  raus. Modelle mit eigener Bewegung spielen sie ab (`AnimationMixer`). Im Lernstand steht nur die Adresse (`modell_url`), die Datei
+  wird neu geladen. **CC BY: Urheber-Nennung ist Pflicht** – `werkstatt.nennungen()` → Prüfbericht-Hinweis und Beschreibungstext
+  (`job._mit_nennung`). Kein Treffer (z. B. „beekeeper“) → Foto-Vorlage + Eigenbau wie bisher. Aus: `CUDI_MODELLE=0`.

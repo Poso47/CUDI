@@ -464,6 +464,16 @@ def _read(path: Path, limit: int = 20_000) -> str:
         return ""
 
 
+def _mit_nennung(text: str) -> str:
+    """Freie 3D-Modelle mit CC BY verlangen die Nennung des Urhebers: Zeilen an den Beschreibungstext hängen."""
+    try:
+        from .schaubild import werkstatt
+        zeilen = [z for z in werkstatt.nennungen() if z not in text]
+    except Exception:                                      # noqa: BLE001
+        zeilen = []
+    return (text.rstrip() + "\n\n" + "\n".join(zeilen)).strip() if text and zeilen else text
+
+
 def _summary(order: dict, result: dict | None, error: str = "") -> dict:
     """ergebnis.json: alles, was die App zeigt – Videos (App-Fassung), Texte, Hinweise, Prüfbericht."""
     data = {"id": order["id"], "art": order["art"], "ok": False, "titel": "", "fehler": error, "videos": [],
@@ -506,8 +516,8 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
             "titel_varianten": (files.get("metadata") or {}).get("titles") or [],            # Paket C: Kopier-Knöpfe
             "titel_gewaehlt": (files.get("metadata") or {}).get("title_chosen") or "",
             "qa": files.get("qa"), "dauer": files.get("duration"), "mb": round(app.stat().st_size / 1048576, 1),
-            "youtube": _read(out / files["description_file"]) if files.get("description_file") else "",
-            "tiktok": _read(out / files["caption_file"]) if files.get("caption_file") else "",
+            "youtube": _mit_nennung(_read(out / files["description_file"]) if files.get("description_file") else ""),
+            "tiktok": _mit_nennung(_read(out / files["caption_file"]) if files.get("caption_file") else ""),
         })
     block = zeiten.bericht(out)                               # Tempo: Sekunden je Stufe (Prüfbericht „Zeiten“)
     data["zeiten"] = block

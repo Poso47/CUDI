@@ -49,9 +49,12 @@ def elemente(buehne) -> list[dict]:
                 d[k] = e[k]
         if e["art"] == "figur":
             from .zeichnen import figur_info
-            plan = (figur_info(e.get("figur") or "") or {}).get("bauplan")
-            if plan:
-                d["bauplan"] = plan
+            fi = figur_info(e.get("figur") or "") or {}
+            if fi.get("modell"):
+                d["modell"] = fi["modell"]                     # GLB-Datei; `rendere` schickt den Inhalt mit
+                d["modell_dreh"], d["modell_skala"] = fi.get("dreh", 0), fi.get("skala", 1)
+            elif fi.get("bauplan"):
+                d["bauplan"] = fi["bauplan"]
         if e.get("punkte"):
             d["punkte"] = [list(p) for p in e["punkte"]]
         for k in ("von", "nach"):
@@ -77,7 +80,13 @@ def rendere(buehne, zeiten: list[float], size: int = GROESSE, zeitlimit: int = 9
     """3D-Bilder zu den Zeitpunkten. Rückgabe: (PNG-Pfade, Lage je Bild {id: [x, y, r]} in 0–100, Arbeitsordner)."""
     arbeit = Path(tempfile.mkdtemp(prefix="cudi3d_"))
     auftrag = arbeit / "auftrag.json"
-    auftrag.write_text(json.dumps({"size": size, "elemente": elemente(buehne), "bilder": zustaende(buehne, zeiten),
+    import base64
+    els, modelle = elemente(buehne), {}
+    for d in els:
+        if d.get("modell"):
+            if d["modell"] not in modelle:
+                modelle[d["modell"]] = base64.b64encode(Path(d["modell"]).read_bytes()).decode("ascii")
+    auftrag.write_text(json.dumps({"size": size, "elemente": els, "modelle": modelle, "bilder": zustaende(buehne, zeiten),
                                    "dauer": max(zeiten) if len(zeiten) > 12 else 0}), "utf-8")
     lauf = subprocess.run(["node", str(ORDNER / "render3d.js"), str(auftrag), str(arbeit / "bilder")],
                           capture_output=True, text=True, timeout=zeitlimit)
@@ -131,3 +140,31 @@ def abnahme() -> list[str]:
         return [f"3D-Abnahme: alle {ok} animierten Szenen in echtem 3D."]
     gruende = "; ".join(sorted(set(fehl))[:3])
     return [f"3D-Abnahme NICHT vollständig: {len(fehl)} von {ok + len(fehl)} Szenen nur flach (2D) gezeichnet – {gruende}"]
+
+
+PROBE_WINKEL = (0, 90, 180, 270, 45, 315)
+PROBE_GROESSE = 70.0
+
+
+def modell_probe(datei: str, size: int = 256):
+    """Ein Modell allein aus mehreren Blickrichtungen rendern -> [(winkel, RGBA-Bild)] (für Größe und beste Ansicht)."""
+    import base64
+
+    from PIL import Image
+
+    arbeit = Path(tempfile.mkdtemp(prefix="cudi3dp_"))
+    try:
+        st = {"m": {"x": 50, "y": 50, "g": PROBE_GROESSE, "alpha": 1, "f": 0, "rot": 0, "puls": 0, "farbe": [200, 200, 200],
+                    "flattere": 0, "picke": 0}}
+        auftrag = {"size": size, "dauer": 0, "elemente": [{"id": "m", "art": "figur", "figur": "probe", "farbe": [200, 200, 200],
+                                                           "f": 0, "modell": datei}],
+                   "modelle": {datei: base64.b64encode(Path(datei).read_bytes()).decode("ascii")},
+                   "bilder": [{"t": 9.0, "kamera": {"x": 50, "y": 50, "f": 1}, "st": st, "probe": w} for w in PROBE_WINKEL]}
+        (arbeit / "auftrag.json").write_text(json.dumps(auftrag), "utf-8")
+        lauf = subprocess.run(["node", str(ORDNER / "render3d.js"), str(arbeit / "auftrag.json"), str(arbeit / "bilder")],
+                              capture_output=True, text=True, timeout=240)
+        if lauf.returncode != 0:
+            return []
+        return [(w, Image.open(arbeit / "bilder" / f"b_{i:05d}.png").convert("RGBA").copy()) for i, w in enumerate(PROBE_WINKEL)]
+    finally:
+        shutil.rmtree(arbeit, ignore_errors=True)

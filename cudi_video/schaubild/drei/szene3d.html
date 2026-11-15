@@ -4,6 +4,7 @@
 <script src="../../data/three/three.min.js"></script>
 <script src="../../data/three/tween.umd.js"></script>
 <script src="../../data/three/camera-controls.js"></script>
+<script src="../../data/three/GLTFLoader.js"></script>
 <script>
 /* CUDI Animationsstudio – 3D-Bühne (three.js r128, MIT). Python (schaubild/drei.py) berechnet je Bild den Zustand
    aller Elemente (Lage 0–100, Größe, Deckkraft, Füllung, Farbe, Kamera); hier wird er nur noch in 3D gezeichnet:
@@ -353,8 +354,8 @@ function ausBauplan(teile) {                             // Werkstatt-Figur: Gru
 function baue(e) {                                       // ein Element -> Objekt3D (Lage/Größe setzt jedes Bild neu)
   const o = { e, obj: new T.Group() };
   const farbe = e.farbe || [200, 200, 200];
-  if (e.art === "figur" && (FIGUREN[e.figur] || e.bauplan)) {
-    const f = FIGUREN[e.figur] ? FIGUREN[e.figur]() : ausBauplan(e.bauplan); o.teile = f.teile; o.innen = f.g; o.obj.add(f.g); o.glieder = f.glieder;
+  if (e.art === "figur" && (FIGUREN[e.figur] || e.bauplan || MODELLE[e.id])) {
+    const f = FIGUREN[e.figur] ? FIGUREN[e.figur]() : MODELLE[e.id] ? ausModell(MODELLE[e.id], e) : ausBauplan(e.bauplan); o.mixer = f.mixer; o.halter = f.halter; o.teile = f.teile; o.innen = f.g; o.obj.add(f.g); o.glieder = f.glieder;
     if (e.blick < 0) f.g.scale.x = -1;
     if (e.durchsichtig && f.teile.koerper) f.teile.koerper.traverse((m) => { if (m.material) { m.material = m.material.clone(); m.material.transparent = true; m.material.opacity = .55; } });
   } else if (e.art === "form" || e.art === "figur") {
@@ -396,8 +397,26 @@ function setzeAlpha(o, a) {
     m.material.transparent = true; m.material.opacity = m.material.userData.basis * a; } });
 }
 
-window.init = function (daten) {
+const MODELLE = {};                                      // fertige 3D-Modelle (GLB), je Element frisch eingelesen
+function ladeModell(b64) {
+  return new Promise((ok) => {
+    try { const bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+      new T.GLTFLoader().parse(buf.buffer, "", (g) => ok(g), () => ok(null)); } catch (err) { ok(null); }
+  });
+}
+function ausModell(gltf, e) {                            // auf Figurengröße bringen: mittig, Höhe/Breite ~0,9
+  const g = new T.Group(), m = gltf.scene, box = new T.Box3().setFromObject(m), gr = box.getSize(new T.Vector3()), mi = box.getCenter(new T.Vector3());
+  const f = .9 / Math.max(gr.x, gr.y, 1e-6); m.position.sub(mi); const halter = new T.Group(); halter.add(m); halter.scale.setScalar(f * (e.modell_skala || 1)); halter.rotation.y = (e.modell_dreh || 0) * Math.PI / 180; g.add(halter);
+  m.traverse((k) => { if (k.isMesh) { k.castShadow = true; k.frustumCulled = false; } });
+  const mixer = gltf.animations && gltf.animations.length ? new T.AnimationMixer(m) : null;
+  if (mixer) mixer.clipAction(gltf.animations[0]).play();
+  return { g, teile: {}, mixer, halter };
+}
+window.init = async function (daten) {
   size = daten.size; elemente = daten.elemente;
+  for (const e of elemente) if (e.modell && daten.modelle && daten.modelle[e.modell]) {
+    const g = await ladeModell(daten.modelle[e.modell]); if (g) MODELLE[e.id] = g;
+  }
   renderer = new T.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(1); renderer.setSize(size, size); renderer.setClearColor(0x000000, 0);
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
@@ -430,6 +449,8 @@ function zeichneBild(b) {                                // b = {t, st: {id: zus
     if (e.art === "figur" && o.teile) {
       o.obj.position.set(wx(z.x), wy(z.y), o.z); o.obj.scale.setScalar(g);
       o.obj.rotation.y = .18 * Math.sin(t * .6 + e.id.length);              // Figuren drehen sich leicht – echtes 3D
+      if (o.mixer) o.mixer.setTime(t);                        // Modell mit eigener Bewegung (z. B. Gehen)
+      if (b.probe !== undefined && o.halter) { o.halter.rotation.y = b.probe * Math.PI / 180; o.obj.rotation.y = 0; }   // Sichtprüfung: Blickrichtungen
       if (o.glieder) for (const gl of o.glieder) {            // Werkstatt-Figur lebt: Kopf nickt, Arme und Beine schwingen
         const ph = t * 1.5 + gl.nr * 2.1 + e.id.length;
         gl.gr.rotation.z = gl.art === "kopf" ? .07 * Math.sin(t * 1.3 + gl.nr) - .3 * (z.picke || 0)
