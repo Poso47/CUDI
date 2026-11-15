@@ -1,6 +1,6 @@
 {
- "erzeugt": "2026-11-14T22:39:28Z",
- "anzahl": 12,
+ "erzeugt": "2026-11-15T06:52:06Z",
+ "anzahl": 8,
  "nur_ausland": 0,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
@@ -8,22 +8,22 @@
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "«Als Bundesrat ungeeignet»: Alt-Richter warnen vor SVP-Kandidat Thomas Aeschi",
-   "kurz": "Thomas Aeschi hat beste Chancen, von der SVP für den Bundesrat nominiert zu werden. Doch sein Verhältnis zur Justiz könnte ihm zum Verhängnis werden. Zudem…",
-   "link": "https://www.nzz.ch/schweiz/als-bundesrat-ungeeignet-alt-richter-warnen-vor-svp-kandidat-thomas-aeschi-ld.10060642",
-   "sprache": "de",
-   "zeit": "2026-11-14T21:37:55Z",
+   "titel": "Riesling, una de las variedades de vino blanco más versátiles del mundo",
+   "kurz": "La variedad se cultiva hoy en gran parte del mundo, pero Alemania copa, según Wines of Germany, el 45% de su producción del mundo",
+   "link": "https://elpais.com/gastronomia/2026-11-15/riesling-una-de-las-variedades-de-vino-blanco-mas-versatiles-del-mundo.html",
+   "sprache": "es",
+   "zeit": "2026-11-15T04:25:00Z",
    "ausland_quellen": 1,
    "laender": [
-    "Schweiz"
+    "Spanien"
    ],
    "laender_einig": [
-    "Schweiz"
+    "Spanien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): «Als Bundesrat ungeeignet»: Alt-Richter warnen vor SVP-Kandidat Thomas Aeschi"
+    "El País (Spanien): Riesling, una de las variedades de vino blanco más versátiles del mundo"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -33,13 +33,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NZZ",
-     "land": "Schweiz",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "«Als Bundesrat ungeeignet»: Alt-Richter warnen vor SVP-Kandidat Thomas Aeschi",
-     "link": "https://www.nzz.ch/schweiz/als-bundesrat-ungeeignet-alt-richter-warnen-vor-svp-kandidat-thomas-aeschi-ld.10060642",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "titel": "Riesling, una de las variedades de vino blanco más versátiles del mundo",
+     "link": "https://elpais.com/gastronomia/2026-11-15/riesling-una-de-las-variedades-de-vino-blanco-mas-versatiles-del-mundo.html",
+     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -162,43 +162,6 @@
    ]
   },
   {
-   "titel": "El Parlamento alemán da el último paso para aprobar el mayor presupuesto de la historia del país",
-   "kurz": "Las cuentas públicas, que se aprobarán definitivamente a finales de mes, dan prioridad a las políticas de Trabajo y de Defensa",
-   "link": "https://elpais.com/economia/2026-11-13/el-parlamento-aleman-da-el-ultimo-paso-para-aprobar-el-mayor-presupuesto-de-la-historia-del-pais.html",
-   "sprache": "es",
-   "zeit": "2026-11-13T15:24:41Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): El Parlamento alemán da el último paso para aprobar el mayor presupuesto de la historia del país"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "El Parlamento alemán da el último paso para aprobar el mayor presupuesto de la historia del país",
-     "link": "https://elpais.com/economia/2026-11-13/el-parlamento-aleman-da-el-ultimo-paso-para-aprobar-el-mayor-presupuesto-de-la-historia-del-pais.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Cyberangriff auf Drohnenhersteller: Bundeswehr lässt Flotte von Quantum Systems am Boden",
    "kurz": "Angreifer haben eine manipulierte Update-Datei auf einem Server des Unternehmens platziert",
    "link": "https://www.derstandard.at/story/3000000349069/cyberangriff-auf-drohnenhersteller-bundeswehr-laesst-flotte-von-quantum-systems-am-boden?ref=rss",
@@ -236,85 +199,11 @@
    ]
   },
   {
-   "titel": "More than 60% of Germany’s female soldiers report harassment or abuse",
-   "kurz": "Defence minister says extent of sexual misconduct found by study is ‘unacceptable’, as military tries to attract more recruits Germany’s defence minister has…",
-   "link": "https://www.theguardian.com/world/2026/nov/13/more-than-60-of-germanys-female-soldiers-report-harassment-or-abuse",
-   "sprache": "en",
-   "zeit": "2026-11-13T05:00:09Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): More than 60% of Germany’s female soldiers report harassment or abuse"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "More than 60% of Germany’s female soldiers report harassment or abuse",
-     "link": "https://www.theguardian.com/world/2026/nov/13/more-than-60-of-germanys-female-soldiers-report-harassment-or-abuse",
-     "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "‘The time is ripe’: ex-helicopter engineer poised to be Germany’s first female president",
-   "kurz": "Backed by MPs from across the political divide, Bavarian Ilse Aigner offers an approachability and warmth the chancellor lacks Germany has had 12 presidents…",
-   "link": "https://www.theguardian.com/world/2026/nov/13/germany-expected-to-elect-ilse-aigner-first-female-president",
-   "sprache": "en",
-   "zeit": "2026-11-13T05:00:09Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): ‘The time is ripe’: ex-helicopter engineer poised to be Germany’s first female president"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "‘The time is ripe’: ex-helicopter engineer poised to be Germany’s first female president",
-     "link": "https://www.theguardian.com/world/2026/nov/13/germany-expected-to-elect-ilse-aigner-first-female-president",
-     "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "“Yo tenía dos hijos”: cómo hicieron Selva Alemán y Arturo Puig para reorganizar sus vidas y acelerar a fondo por un flechazo inesperado",
    "kurz": "Estuvieron cinco décadas juntos y fueron una de las parejas más emblemáticas del teatro argentino; cómo ensamblaron sus vidas para poder compartir su alegría",
    "link": "https://www.lanacion.com.ar/espectaculos/yo-tenia-dos-hijos-como-hicieron-selva-aleman-y-arturo-puig-para-reorganizar-sus-vidas-y-acelerar-a-nid12112026/",
    "sprache": "es",
-   "zeit": "2026-11-14T18:26:31Z",
+   "zeit": "2026-11-14T23:49:16Z",
    "ausland_quellen": 1,
    "laender": [
     "Argentinien"
@@ -420,47 +309,6 @@
      "titel": "Deutschland: \"Zustimmung zur Demokratie auf dem niedrigsten Niveau\"",
      "link": "https://www.derstandard.at/story/3000000349027/deutschland-zustimmung-zur-demokratie-auf-niedrigsten-niveau?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Europe to send diplomats from across the continent to Ukraine peace talks",
-   "kurz": "EU leaders on Friday chose five major powers, including France, Britain, Germany, Italy and Poland, to represent European institutions at the next Ukraine…",
-   "link": "https://www.france24.com/en/europe/20261113-live-zelensky-and-kushner-confirm-that-europe-will-join-next-round-of-russia-ukraine-talks",
-   "sprache": "en",
-   "zeit": "2026-11-13T01:39:42Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Großbritannien",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "France 24 (Frankreich): Europe to send diplomats from across the continent to Ukraine peace talks"
-   ],
-   "staatsnah": [
-    "France 24"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "France 24",
-     "land": "Frankreich",
-     "art": "staatsnah",
-     "beteiligt": true,
-     "titel": "Europe to send diplomats from across the continent to Ukraine peace talks",
-     "link": "https://www.france24.com/en/europe/20261113-live-zelensky-and-kushner-confirm-that-europe-will-join-next-round-of-russia-ukraine-talks",
-     "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
     }
    ]
