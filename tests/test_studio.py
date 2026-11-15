@@ -425,6 +425,7 @@ def test_werkstatt_baut_nur_nach_crawler_vorlage(tmp_path, monkeypatch):
     from cudi_video.schaubild import werkstatt, zeichnen as Z
     monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path)
     monkeypatch.setattr(werkstatt, "_neu", [])
+    monkeypatch.setenv("CUDI_EIGENBAU", "1")
     monkeypatch.setenv("CUDI_WERKSTATT", "1")
     assert Z.figur_info("imker") is None
     assert werkstatt.wunsch("Imker (beekeeper)") == ("imker", "Imker", "beekeeper")
@@ -470,6 +471,7 @@ def test_werkstatt_baut_nur_nach_crawler_vorlage(tmp_path, monkeypatch):
 def test_werkstatt_figuren_bleiben_im_lernstand(tmp_path, monkeypatch):
     from cudi_video import animation, config
     from cudi_video.schaubild import werkstatt, zeichnen as Z
+    monkeypatch.setenv("CUDI_EIGENBAU", "1")
     monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path / "a")
     werkstatt.aufnehmen([_imker()], set(), {"imker": {"seite": "https://example.org/f", "quelle": "pexels"}})
     stand = {"figuren": werkstatt.alle()}
@@ -591,3 +593,21 @@ def test_modell_scout_fertiges_modell_vor_eigenbau(tmp_path, monkeypatch):
     assert "3D-Modell „Cow“ von erika (CC BY 4.0)" in text and job._mit_nennung(text) == text
     html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
     assert "GLTFLoader" in html and "ausModell" in html and (drei.THREE.parent / "GLTFLoader.js").exists()
+
+
+def test_kein_gepuzzelter_eigenbau_im_lauf(tmp_path, monkeypatch):
+    from cudi_video import config, handoff
+    from cudi_video.schaubild import werkstatt, zeichnen as Z
+    monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path)
+    monkeypatch.setenv("CUDI_WERKSTATT", "1")
+    monkeypatch.setattr(handoff, "active", lambda: True)
+    monkeypatch.setattr(handoff, "task_file", lambda t: tmp_path / (t + ".json"))
+    monkeypatch.setattr(handoff, "request", lambda *a: (_ for _ in ()).throw(AssertionError("keine Bau-Aufgabe erwartet")))
+    monkeypatch.setattr(werkstatt, "vorlage_suchen", lambda b: (_ for _ in ()).throw(AssertionError("keine Suche erwartet")))
+    notes = []
+    assert not werkstatt.eigenbau_aktiv()
+    assert werkstatt.bauen(["Imker (beekeeper)"], "a_figuren", notes) == [] and Z.figur_info("imker") is None
+    werkstatt.ordner().mkdir(parents=True, exist_ok=True)       # früher gepuzzelte Figur (z. B. aus dem Lernstand) zählt nicht mehr
+    (werkstatt.ordner() / "imker.json").write_text(__import__("json").dumps(dict(_imker(), name="imker")), "utf-8")
+    assert Z.figur_info("imker") is None and "imker" not in Z.figuren()
+    assert any("Wunschliste" in n and "Imker" in n for n in notes)
