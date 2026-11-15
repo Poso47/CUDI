@@ -1,12 +1,82 @@
 {
- "erzeugt": "2026-11-14T22:42:29Z",
+ "erzeugt": "2026-11-15T07:04:33Z",
  "anzahl": 60,
- "bestaetigt": 7,
+ "bestaetigt": 8,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
+  {
+   "titel": "Philippines wins first Eurovision Song Contest Asia",
+   "kurz": "Front-runner Carmelle emerges victorious with her women's empowerment anthem Sobra-Sobra.",
+   "link": "https://www.bbc.co.uk/news/articles/cqrlgnx9dx6eo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-14T22:44:00Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Philippines wins first Eurovision Song Contest Asia",
+     "link": "https://www.bbc.co.uk/news/articles/cqrlgnx9dx6eo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Philippines wins first Eurovision Song Contest Asia",
+     "link": "https://www.dw.com/en/philippines-wins-first-eurovision-song-contest-asia/a-79950050?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AFP",
+     "titel": "The Philippines , with the song \" Sobra-Sobra \" by Carmelle , wins the inaugural Eurovision Song Contest Asia held in Bangkok , Thailand …",
+     "link": "https://www.afp.com/en/philippines-wins-eurovisions-first-asia-contest",
+     "eigentuemer": "gehört Agence France-Presse",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Judge temporarily blocks Trump from closing Washington DC golf course for renovation",
+   "kurz": "It is the latest development in a months-long challenge to the president's plans for East Potomac Golf Links.",
+   "link": "https://www.bbc.co.uk/news/articles/c6j9mn7l14y0o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-15T03:21:04Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Judge temporarily blocks Trump from closing Washington DC golf course for renovation",
+     "link": "https://www.bbc.co.uk/news/articles/c6j9mn7l14y0o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Judge temporarily blocks Trump from moving ahead on Washington public golf course redevelopment",
+     "link": "https://www.npr.org/2026/11/14/nx-s1-6041152/judge-trump-golf-course-blocks",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "'Can you believe it?': SpaceX catches part of its Starship rocket on return to Earth",
    "kurz": "SpaceX has performed the historic catch using mechanical arms nicknamed \"chopsticks\".",
@@ -70,6 +140,37 @@
    ]
   },
   {
+   "titel": "Copper wire upgrade caused nationwide flight suspension, US transport secretary says",
+   "kurz": "The US government is trying to find out whether the chaos was caused by \"incompetence\" or faulty equipment.",
+   "link": "https://www.bbc.co.uk/news/articles/c6wy9lynq4qno?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-14T19:12:25Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Copper wire upgrade caused nationwide flight suspension, US transport secretary says",
+     "link": "https://www.bbc.co.uk/news/articles/c6wy9lynq4qno?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Maintenance gone awry caused nation-wide ground stop, says Transportation Secretary",
+     "link": "https://www.npr.org/2026/11/14/nx-s1-6040942/maintenance-gone-awry-caused-nation-wide-ground-stop-says-transportation-secretary",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Italy fines Meta €805m over accessing users' photos",
    "kurz": "The social media giant is accused of not informing 20 million users it had access to their photos.",
    "link": "https://www.bbc.co.uk/news/articles/cwn83gxemk35o?at_medium=RSS&at_campaign=rss",
@@ -101,37 +202,6 @@
    ]
   },
   {
-   "titel": "Philippines wins first Eurovision Song Contest Asia",
-   "kurz": "Front-runner Carmelle emerges victorious with her women's empowerment anthem Sobra-Sobra.",
-   "link": "https://www.bbc.co.uk/news/articles/cqrlgnx9dx6eo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-14T18:17:58Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Philippines wins first Eurovision Song Contest Asia",
-     "link": "https://www.bbc.co.uk/news/articles/cqrlgnx9dx6eo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AFP",
-     "titel": "The Philippines , with the song \" Sobra-Sobra \" by Carmelle , wins the inaugural Eurovision Song Contest Asia held in Bangkok , Thailand …",
-     "link": "https://www.afp.com/en/philippines-wins-eurovisions-first-asia-contest",
-     "eigentuemer": "gehört Agence France-Presse",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "US loses measles-elimination status after 26 years, WSJ reports",
    "kurz": "The Pan American Health Organization has reportedly stripped the US of its measles-elimination status after 26 years, as the country battles its worst…",
    "link": "https://www.dw.com/en/us-loses-measles-elimination-status-after-26-years-wsj-reports/a-79946974?maca=en-rss-en-all-1573-xml-mrss",
@@ -157,37 +227,6 @@
      "titel": "US has lost measles elimination status, global health authorities say",
      "link": "https://www.npr.org/2026/11/14/nx-s1-6041119/us-measles-elimination-status-vaccines-cdc-paho",
      "eigentuemer": "gehört NPR",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Weißes Haus kündigt Dreiertreffen von Trump mit Putin und Xi an",
-   "kurz": "Es wäre das erste Dreiertreffen der Staatschefs der USA, Russlands und Chinas. Laut Weißem Haus soll es beim kommenden Apec-Gipfel in Shenzhen stattfinden…",
-   "link": "https://www.tagesschau.de/ausland/amerika/treffen-trump-putin-xi-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-14T09:19:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Weißes Haus kündigt Dreiertreffen von Trump mit Putin und Xi an",
-     "link": "https://www.tagesschau.de/ausland/amerika/treffen-trump-putin-xi-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Weißes Haus kündigt Dreiertreffen Trumps mit Xi und Putin an",
-     "link": "https://www.dw.com/de/weißes-haus-kündigt-dreiertreffen-trumps-mit-xi-und-putin-an/a-79946925?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -227,6 +266,351 @@
    ]
   },
   {
+   "titel": "Berlin: Hunderte bei \"Gen Z regelt\"-Protest - mehrere Festnahmen",
+   "kurz": "In Berlin haben Hunderte Menschen bei einer \"Gen Z regelt\"-Demo mitgemacht. Es ging unter anderem um kaputte Schulen, Wehrpflicht sowie Uni- und…",
+   "link": "https://www.tagesschau.de/inland/regional/berlin/gen-z-regelt-protest-berlin-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-15T07:46:37+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Berlin: Hunderte bei \"Gen Z regelt\"-Protest - mehrere Festnahmen",
+     "link": "https://www.tagesschau.de/inland/regional/berlin/gen-z-regelt-protest-berlin-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Beijing faces its Russia dilemma amid talk of Xi-Trump-Putin summit",
+   "kurz": "China is forced to tread carefully as it considers hosting a meeting between Xi Jinping, Vladimir Putin, and Donald Trump. While the optics are sure to favor…",
+   "link": "https://www.dw.com/en/beijing-faces-its-russia-dilemma-amid-talk-of-xi-trump-putin-summit/a-79942427?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-15T06:31:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Beijing faces its Russia dilemma amid talk of Xi-Trump-Putin summit",
+     "link": "https://www.dw.com/en/beijing-faces-its-russia-dilemma-amid-talk-of-xi-trump-putin-summit/a-79942427?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Could universal basic income be part of the solution in an AI economy?",
+   "kurz": "The scale of the economic disruption caused by AI has led even conservative politicians to talk about universal basic income. But economists are not convinced…",
+   "link": "https://www.dw.com/en/could-universal-basic-income-be-part-of-the-solution-in-an-ai-economy/a-79941597?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-15T05:36:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Could universal basic income be part of the solution in an AI economy?",
+     "link": "https://www.dw.com/en/could-universal-basic-income-be-part-of-the-solution-in-an-ai-economy/a-79941597?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nobelpreisträgerin Mohammadi: Memoiren aus dem Gefängnis - Ein Leben im Kampf für Freiheit im Iran",
+   "kurz": "Im Gefängnis geschrieben und herausgeschmuggelt: Das Buch von Narges Mohammadi, Friedensnobelpreisträgerin von 2023, zeigt, welchen Preis es haben kann, sich…",
+   "link": "https://www.dw.com/de/nobelpreisträgerin-mohammadi-memoiren-aus-dem-gefängnis-ein-leben-im-kampf-für-freiheit-im-iran/a-79875768?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-15T05:35:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Nobelpreisträgerin Mohammadi: Memoiren aus dem Gefängnis - Ein Leben im Kampf für Freiheit im Iran",
+     "link": "https://www.dw.com/de/nobelpreisträgerin-mohammadi-memoiren-aus-dem-gefängnis-ein-leben-im-kampf-für-freiheit-im-iran/a-79875768?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Journalisten in Ägypten: Verbote, Drohungen und Gefängnisstrafen",
+   "kurz": "Journalisten in Ägypten sind enormem Druck ausgesetzt - teilweise werden ganze Redaktionen verhaftet. Mutige Journalisten versuchen dennoch weiterzumachen. Sie…",
+   "link": "https://www.tagesschau.de/ausland/afrika/pressefreiheit-aegypten-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-15T05:11:48+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Journalisten in Ägypten: Verbote, Drohungen und Gefängnisstrafen",
+     "link": "https://www.tagesschau.de/ausland/afrika/pressefreiheit-aegypten-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Illegale Drogen in Vapes - \"Baller-Liquids\" gefährden Jugendliche",
+   "kurz": "Sie fallen nicht auf und sind einfach zu bekommen: sogenannte Baller-Liquids - starke Drogen für die E-Zigarette. Die Flüssigkeiten werden gezielt an Teenager…",
+   "link": "https://www.tagesschau.de/wissen/gesundheit/vapes-baller-liquids-drogen-jugendliche-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-15T05:11:26+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Illegale Drogen in Vapes - \"Baller-Liquids\" gefährden Jugendliche",
+     "link": "https://www.tagesschau.de/wissen/gesundheit/vapes-baller-liquids-drogen-jugendliche-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Europamagazin: Ein Aufschwung, den die Spanier nicht spüren",
+   "kurz": "Die spanische Wirtschaft wächst - doch bei den Menschen kommt der Aufschwung nicht an. Wohnungskrise und hohe Lebenshaltungskosten beherrschen den Wahlkampf…",
+   "link": "https://www.tagesschau.de/ausland/europa/spanien-wahlkampf-108.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-15T05:11:16+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Europamagazin: Ein Aufschwung, den die Spanier nicht spüren",
+     "link": "https://www.tagesschau.de/ausland/europa/spanien-wahlkampf-108.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Frankreich: Zehntausende bei Demos, rund 200 Festnahmen",
+   "kurz": "Erneut sind in Frankreich Zehntausende Menschen in mehreren Städten auf die Straßen gegangen. Sie forderten bessere Bildungschancen und eine Stärkung der…",
+   "link": "https://www.tagesschau.de/ausland/europa/frankreich-proteste-248.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-15T05:10:12+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Frankreich: Zehntausende bei Demos, rund 200 Festnahmen",
+     "link": "https://www.tagesschau.de/ausland/europa/frankreich-proteste-248.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau in 100 Sekunden",
+   "kurz": "tagesschau in 100 Sekunden",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1684072.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-15T04:44:16+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau in 100 Sekunden",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1684072.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Pope Leo speaks of community 'suffering' on visit to remote Andes town",
+   "kurz": "Santa Cruz de Succhabamba is part of the Diocese of Chiclayo, where the pope served as bishop from 2015 to 2023.",
+   "link": "https://www.bbc.co.uk/news/articles/cr4gnz0lv2vlo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-15T02:49:45Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Pope Leo speaks of community 'suffering' on visit to remote Andes town",
+     "link": "https://www.bbc.co.uk/news/articles/cr4gnz0lv2vlo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Tens of thousands continue to protest across France",
+   "kurz": "Some 106,000 people marched through French cities for a fifth consecutive weekend of protests, marking the lowest turnout in recent weeks.",
+   "link": "https://www.dw.com/en/tens-of-thousands-continue-to-protest-across-france/a-79950503?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-15T00:55:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Tens of thousands continue to protest across France",
+     "link": "https://www.dw.com/en/tens-of-thousands-continue-to-protest-across-france/a-79950503?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Erfolg für SpaceX: \"Starship\"-Rakete kehrt zur Startrampe zurück",
+   "kurz": "Eine Rakete, die wie ein ziviles Flugzeug eingesetzt werden kann, das ist das Ziel von SpaceX. Nun kann das \"Starship\"-System einen Erfolg verbuchen: Erstmals…",
+   "link": "https://www.tagesschau.de/ausland/amerika/space-x-rakete-rueckkehr-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-15T00:12:16+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Erfolg für SpaceX: \"Starship\"-Rakete kehrt zur Startrampe zurück",
+     "link": "https://www.tagesschau.de/ausland/amerika/space-x-rakete-rueckkehr-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "My mother told me I would die if I sought treatment for Ebola - I am proof you can survive",
+   "kurz": "Fear and misinformation surrounds the Ebola outbreak in DR Congo - Dr Kamwanga's mother was not immune.",
+   "link": "https://www.bbc.co.uk/news/articles/cmvg2e2q28w1o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-15T00:06:55Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "My mother told me I would die if I sought treatment for Ebola - I am proof you can survive",
+     "link": "https://www.bbc.co.uk/news/articles/cmvg2e2q28w1o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Judo champion shakes up French presidential race with surprise candidacy",
+   "kurz": "Teddy Riner is one of the most popular figures in modern-day France, and one in five voters say they could support him.",
+   "link": "https://www.bbc.co.uk/news/articles/c6dj1e8wyykmo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-15T00:06:51Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Judo champion shakes up French presidential race with surprise candidacy",
+     "link": "https://www.bbc.co.uk/news/articles/c6dj1e8wyykmo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "How telecoms upgrade work sparked US flight chaos",
+   "kurz": "US officials say the disruption was caused by old equipment overloading and not a cyber-attack.",
+   "link": "https://www.bbc.co.uk/news/articles/cqx2wyvyr3zzo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-14T23:11:27Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "How telecoms upgrade work sparked US flight chaos",
+     "link": "https://www.bbc.co.uk/news/articles/cqx2wyvyr3zzo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "US has floated Ukraine ceding Donbas for Nato membership, Zelensky says",
    "kurz": "The US has not confirmed the Ukrainian president's comments - a US official told the BBC \"many ideas continue to be discussed\".",
    "link": "https://www.bbc.co.uk/news/articles/cwvg2l312ylqo?at_medium=RSS&at_campaign=rss",
@@ -244,29 +628,6 @@
      "titel": "US has floated Ukraine ceding Donbas for Nato membership, Zelensky says",
      "link": "https://www.bbc.co.uk/news/articles/cwvg2l312ylqo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Berlin: Hunderte bei \"Gen Z regelt\"-Protest - mehrere Festnahmen",
-   "kurz": "In Berlin haben Hunderte Menschen bei einer \"Gen Z regelt\"-Demo mitgemacht. Es ging unter anderem um kaputte Schulen, Wehrpflicht sowie Uni- und…",
-   "link": "https://www.tagesschau.de/inland/regional/berlin/gen-z-regelt-protest-berlin-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-14T22:31:18+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Berlin: Hunderte bei \"Gen Z regelt\"-Protest - mehrere Festnahmen",
-     "link": "https://www.tagesschau.de/inland/regional/berlin/gen-z-regelt-protest-berlin-100.html",
-     "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -319,9 +680,9 @@
    ]
   },
   {
-   "titel": "Ex-Arbeitsminister Hubertus Heil kandidiert für SPD-Vorsitz",
-   "kurz": "Mitte Januar wird auf einem Bundesparteitag die komplette Führung der SPD neu gewählt. Ex-Arbeitsminister Heil hat laut ARD-Hauptstadtstudio jetzt als Erster…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/heil-spd-vorsitz-kandidatur-100.html",
+   "titel": "Moritz Rödle, ARD Berlin, über die Kandidatur von Ex-Arbeitsminister Hubertus Heil für SPD-Vorsitz",
+   "kurz": "Moritz Rödle, ARD Berlin, über die Kandidatur von Ex-Arbeitsminister Hubertus Heil für SPD-Vorsitz",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1684008.html",
    "quelle": "Tagesschau",
    "sprache": "de",
    "zeit": "2026-11-14T22:15:55+01:00",
@@ -333,8 +694,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Moritz Rödle, ARD Berlin, über die Kandidatur von Ex-Arbeitsminister Hubertus Heil für SPD-Vorsitz",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1684008.html",
+     "titel": "Ex-Arbeitsminister Hubertus Heil kandidiert für SPD-Vorsitz",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/heil-spd-vorsitz-kandidatur-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -366,7 +727,7 @@
   },
   {
    "titel": "SpaceX carries out first-ever spaceship capture",
-   "kurz": "The successful recovery of the SpaceX Starship marks the first recovery of a spaceship.",
+   "kurz": "The successful recovery of SpaceX's Starship marks a breakthrough in founder Elon Musk’s goal of developing a fully reusable rocket system.",
    "link": "https://www.dw.com/en/spacex-carries-out-first-ever-spaceship-capture/a-79950275?maca=en-rss-en-all-1573-xml-mrss",
    "quelle": "Deutsche Welle (en)",
    "sprache": "en",
@@ -618,29 +979,6 @@
    ]
   },
   {
-   "titel": "'Miracle on Mississippi' - All passengers rescued after New Orleans cruise ship collision",
-   "kurz": "The collision leaves 32 people in hospital with non-critical injuries, but no-one unaccounted for.",
-   "link": "https://www.bbc.co.uk/news/articles/cw20xmy0m5yyo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-14T20:23:06Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · BBC News",
-     "titel": "A tanker and the cruise ship American Heritage collide in the Mississippi River of the United States . The cruise ship, carrying 130…",
-     "link": "https://www.bbc.com/news/articles/cw20xmy0m5yyo",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Gaza: Humanitäre Lage verschärft sich, politische Lösung bleibt aus",
    "kurz": "Heftige Regenfälle haben in Gaza Tausende Zelte überflutet, mehrere Menschen starben. Kann Trumps Friedensgremium mit Druck auf Israel und die Hamas die…",
    "link": "https://www.dw.com/de/gaza-humanitäre-lage-verschärft-sich-politische-lösung-bleibt-aus/a-79946973?maca=de-rss-de-all-1119-xml-mrss",
@@ -658,6 +996,29 @@
      "titel": "Gaza: Humanitäre Lage verschärft sich, politische Lösung bleibt aus",
      "link": "https://www.dw.com/de/gaza-humanitäre-lage-verschärft-sich-politische-lösung-bleibt-aus/a-79946973?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "FAA ground stop disrupts college football",
+   "kurz": "Some college football games were delayed a few hours on Saturday or postponed to Sunday. And in Oklahoma at least, there will be perks for fans to make up for…",
+   "link": "https://www.npr.org/2026/11/14/nx-s1-6041115/faa-ground-stop-college-football-delays",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-14T20:13:59-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "FAA blames Friday's ground stop on 'equipment issue' during telecoms network upgrade",
+     "link": "https://www.npr.org/2026/11/14/nx-s1-6040952/faa-ground-stop-airplane-travel",
+     "eigentuemer": "gehört NPR",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -756,29 +1117,6 @@
    ]
   },
   {
-   "titel": "How telecoms upgrade work sparked US flight chaos",
-   "kurz": "US officials say the disruption was caused by old equipment overloading and not a cyber-attack.",
-   "link": "https://www.bbc.co.uk/news/articles/cqx2wyvyr3zzo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-14T20:03:48Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "How telecoms upgrade work sparked US flight chaos",
-     "link": "https://www.bbc.co.uk/news/articles/cqx2wyvyr3zzo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Was über das Startverbot für Flugzeuge in den USA bekannt ist",
    "kurz": "Es war der längste Ausfall des US-Flugbetriebs seit Jahrzehnten. Vier Stunden lang galt ein Startverbot. Warum - und mit welchen Folgen? Könnte in Deutschland…",
    "link": "https://www.tagesschau.de/ausland/amerika/usa-flughaefen-startverbot-100.html",
@@ -848,12 +1186,12 @@
    ]
   },
   {
-   "titel": "Copper wire upgrade caused nationwide flight suspension, US transport secretary says",
-   "kurz": "The US government is trying to find out whether the chaos was caused by \"incompetence\" or faulty equipment.",
-   "link": "https://www.bbc.co.uk/news/articles/c6wy9lynq4qno?at_medium=RSS&at_campaign=rss",
+   "titel": "Watch: Cruise ship overturns after collision with tanker in New Orleans",
+   "kurz": "Around 130 people were rescued from a cruise ship after it was struck by a tanker while docked in New Orleans, Louisiana on Friday.",
+   "link": "https://www.bbc.co.uk/news/videos/ck4gn4y77m40o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-14T19:12:25Z",
+   "zeit": "2026-11-14T19:14:33Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -862,9 +1200,32 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Copper wire upgrade caused nationwide flight suspension, US transport secretary says",
-     "link": "https://www.bbc.co.uk/news/articles/c6wy9lynq4qno?at_medium=RSS&at_campaign=rss",
+     "titel": "Watch: Cruise ship overturns after collision with tanker in New Orleans",
+     "link": "https://www.bbc.co.uk/news/videos/ck4gn4y77m40o?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Florida city cancels St. Patrick's Day parade, citing new anti-DEI law",
+   "kurz": "A new Florida law that prohibits taxpayer dollars from going toward diversity initiatives has prompted Delray Beach to cancel its St. Patrick's Day parade…",
+   "link": "https://www.npr.org/2026/11/14/nx-s1-6041093/st-patricks-day-parade-canceled-florida-dei",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-14T19:03:52-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "Florida city cancels St. Patrick's Day parade, citing new anti-DEI law",
+     "link": "https://www.npr.org/2026/11/14/nx-s1-6041093/st-patricks-day-parade-canceled-florida-dei",
+     "eigentuemer": "gehört NPR",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -911,29 +1272,6 @@
      "titel": "Sotheby's auction of $180m Van Gogh challenged over claims it was 'sold under duress'",
      "link": "https://www.bbc.co.uk/news/articles/cmwy05gg75lvo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "tagesschau in 100 Sekunden",
-   "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1683852.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-14T17:34:54+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1683852.html",
-     "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -1117,328 +1455,6 @@
      "quelle": "NPR",
      "titel": "Bomb found near ethanol plant in central Illinois forces evacuations",
      "link": "https://www.npr.org/2026/11/14/g-s1-153781/bomb-ethanol-plant-peoria-illinois-evacuations",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Mississippi: 32 Verletzte nach Kollision von Dampfer und Tanker",
-   "kurz": "Ein Kreuzfahrtschiff ist auf dem Mississippi in New Orleans von einem Tanker gerammt worden. Der Flussdampfer kenterte. Alle Passagiere an Bord überlebten. Die…",
-   "link": "https://www.tagesschau.de/ausland/amerika/kreuzfahrtschiff-unfall-new-orleans-102.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-14T14:48:00+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Mississippi: 32 Verletzte nach Kollision von Dampfer und Tanker",
-     "link": "https://www.tagesschau.de/ausland/amerika/kreuzfahrtschiff-unfall-new-orleans-102.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Die neue Gefahr durch Künstliche Intelligenz",
-   "kurz": "Cyberkriminelle nutzen KI, um Angriffe zu automatisieren. Banken setzen die Technologie zur Abwehr ein. Sicherheitsexperten sprechen von einem Wettlauf…",
-   "link": "https://www.tagesschau.de/wirtschaft/digitales/ki-mehr-angriffe-banken-kunden-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-14T14:31:48+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Die neue Gefahr durch Künstliche Intelligenz",
-     "link": "https://www.tagesschau.de/wirtschaft/digitales/ki-mehr-angriffe-banken-kunden-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Trauerakt in München: Große Anteilnahme bei Abschied von Aiwanger",
-   "kurz": "Der bayerische Vize-Ministerpräsident und Freie-Wähler-Chef Aiwanger ist mit einem Trauerstaatsakt gewürdigt worden. Die Anteilnahme war groß. Zu der Zeremonie…",
-   "link": "https://www.tagesschau.de/inland/aiwanger-trauerfeier-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-14T14:22:33+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Trauerakt in München: Große Anteilnahme bei Abschied von Aiwanger",
-     "link": "https://www.tagesschau.de/inland/aiwanger-trauerfeier-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "'We can't let them down' -- After midterm wins, Democrats turn to charting path ahead",
-   "kurz": "Democrats from across the country descended on Denver for a two-day conference to chart the course of their party after sweeping victories in the midterm…",
-   "link": "https://www.npr.org/2026/11/14/nx-s1-6037777/democrats-midterms-whats-next-conference",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-14T14:13:54-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "'We can't let them down' -- After midterm wins, Democrats turn to charting path ahead",
-     "link": "https://www.npr.org/2026/11/14/nx-s1-6037777/democrats-midterms-whats-next-conference",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Neue Impulse für NATO-Mitgliedschaft der Ukraine",
-   "kurz": "Die USA haben nach Angaben des ukrainischen Präsidenten Wolodymyr Selenskyj einen NATO-Beitritt der Ukraine ins Spiel gebracht. Voraussetzung sei, dass die…",
-   "link": "https://www.dw.com/de/neue-impulse-für-nato-mitgliedschaft-der-ukraine/a-79948144?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-14T13:36:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Neue Impulse für NATO-Mitgliedschaft der Ukraine",
-     "link": "https://www.dw.com/de/neue-impulse-für-nato-mitgliedschaft-der-ukraine/a-79948144?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Rückt eine Übernahme der Meyer Werft durch MSC näher?",
-   "kurz": "Die weltweit größte Reederei MSC soll einem Spiegel-Bericht zufolge kommende Woche ein Kaufrecht für die Anteile von Bund und Land an der Meyer Werft erhalten…",
-   "link": "https://www.tagesschau.de/inland/regional/niedersachsen/meyer-werft-wird-uebernahme-durch-weltgroesste-reederei-msc-konkret,meyerwerft-164.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-14T13:18:44+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Rückt eine Übernahme der Meyer Werft durch MSC näher?",
-     "link": "https://www.tagesschau.de/inland/regional/niedersachsen/meyer-werft-wird-uebernahme-durch-weltgroesste-reederei-msc-konkret,meyerwerft-164.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "FAA blames Friday's ground stop on 'equipment issue' during telecoms network upgrade",
-   "kurz": "Transportation Secretary Sean Duffy said initial investigations pointed to an issue with contractor L3Harris updating old tech at a remote location.",
-   "link": "https://www.npr.org/2026/11/14/nx-s1-6040952/faa-ground-stop-airplane-travel",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-14T11:53:04-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "FAA blames Friday's ground stop on 'equipment issue' during telecoms network upgrade",
-     "link": "https://www.npr.org/2026/11/14/nx-s1-6040952/faa-ground-stop-airplane-travel",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Ukraine: Zelenskyy says security deal could go to referendum",
-   "kurz": "The US has broached the idea of Kyiv giving up the Donbas region in exchange for NATO membership, the Ukrainian president said.",
-   "link": "https://www.dw.com/en/ukraine-zelenskyy-says-security-deal-could-go-to-referendum/a-79947535?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-14T11:40:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Ukraine: Zelenskyy says security deal could go to referendum",
-     "link": "https://www.dw.com/en/ukraine-zelenskyy-says-security-deal-could-go-to-referendum/a-79947535?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Nach Pannen bei Microsoft raten Experten zu mehr Vorsicht",
-   "kurz": "Wenn ein Tech-Gigant sich als Nadelöhr präsentiert, wird es eng. Nach den Ausfällen beim US-Technologieunternehmen Microsoft warnen Experten eindringlich, sich…",
-   "link": "https://www.dw.com/de/nach-pannen-bei-microsoft-raten-experten-zu-mehr-vorsicht/a-79947639?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-14T11:24:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Nach Pannen bei Microsoft raten Experten zu mehr Vorsicht",
-     "link": "https://www.dw.com/de/nach-pannen-bei-microsoft-raten-experten-zu-mehr-vorsicht/a-79947639?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "New facilities in Laos and Cambodia: Is China expanding its military presence in Southeast Asia?",
-   "kurz": "China has been growing its economic relationships in Southeast Asia. Now new military facilities in Laos and Cambodia are causing smaller countries to worry…",
-   "link": "https://www.dw.com/en/new-facilities-in-laos-and-cambodia-is-china-expanding-its-military-presence-in-southeast-asia/a-79944798?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-14T11:24:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "New facilities in Laos and Cambodia: Is China expanding its military presence in Southeast Asia?",
-     "link": "https://www.dw.com/en/new-facilities-in-laos-and-cambodia-is-china-expanding-its-military-presence-in-southeast-asia/a-79944798?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany news: Solar power production approaches record high",
-   "kurz": "Solar power output in Germany in 2026 has already surpassed last year's total. Meanwhile, experts say the country is headed for a budget crisis. DW has more.",
-   "link": "https://www.dw.com/en/germany-news-solar-power-production-approaches-record-high/live-79947500?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-14T11:22:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Germany news: Solar power production approaches record high",
-     "link": "https://www.dw.com/en/germany-news-solar-power-production-approaches-record-high/live-79947500?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Microsoft: Systeme nach Störung komplett wiederhergestellt",
-   "kurz": "Probleme bei Microsoft hatten zentrale Cloud-Dienste stundenlang lahmgelegt - Unternehmen und Verbraucher weltweit waren betroffen. Laut Microsoft laufen nun…",
-   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/microsoft-stoerung-behoben-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-14T11:17:44+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Microsoft: Systeme nach Störung komplett wiederhergestellt",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/microsoft-stoerung-behoben-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Bahn zieht positive Bilanz zu Alkoholverbot an Bahnhöfen",
-   "kurz": "Seit einem Monat ist bundesweit der Konsum von Alkohol an Bahnhöfen untersagt. Die Deutsche Bahn zeigt sich in einer ersten Bilanz zufrieden. Weniger Müll…",
-   "link": "https://www.tagesschau.de/inland/gesellschaft/bahn-alkohol-verbot-bilanz-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-14T11:07:05+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Bahn zieht positive Bilanz zu Alkoholverbot an Bahnhöfen",
-     "link": "https://www.tagesschau.de/inland/gesellschaft/bahn-alkohol-verbot-bilanz-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Fuel crisis and protests pressure Chile's far-right president",
-   "kurz": "Chile's far-right President José Antonio Kast is facing mounting public anger, as rising fuel prices trigger transport strikes and protests across the country.",
-   "link": "https://www.npr.org/2026/11/14/nx-s1-6040144/chile-protests-fuel-kast-students",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-14T11:05:12-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Fuel crisis and protests pressure Chile's far-right president",
-     "link": "https://www.npr.org/2026/11/14/nx-s1-6040144/chile-protests-fuel-kast-students",
      "eigentuemer": "gehört NPR",
      "gruppe": 0,
      "zaehlt_nicht": ""
