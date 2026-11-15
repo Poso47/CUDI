@@ -115,3 +115,6 @@ Figuren-Werkstatt (Wunsch des Nutzers: nie Figuren frei zusammensetzen, immer Cr
 - **Kamera-Regie** (`drei/szene3d.html`, Bibliotheken in `data/three/`, Quellen `data/three/QUELLEN.md`): camera-controls dämpft jede
   Kamerabewegung, tween.js liefert die Kurven. Je Szene: Einflug (1,5 s, Bogen + Heranfahren), ruhiges Schweben, Zoom mit engerem
   Bildwinkel, Weiterflug in den letzten 0,7 s; das 3D-Bild blendet weich (0,7 s) über. `drei.rendere` gibt dafür die Szenenlänge mit.
+- **Szenen-Übergänge** (`erklaer/render.py`: `verbinden`, `start_zeiten`, `UEBERGANG` = 0,5 s < LEAD/TAIL): Erklär-Szenen gehen per ffmpeg
+  `xfade` ineinander über (Schieben, Kreisblende, Überblenden im Wechsel); der Ton folgt demselben Zeitplan. Mit Übergängen blenden
+  die Szenen nicht mehr einzeln ab (`job["uebergang"]`). Fehler → harte Schnitte. Aus: `CUDI_UEBERGAENGE=0`.
