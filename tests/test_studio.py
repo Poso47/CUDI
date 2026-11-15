@@ -406,7 +406,7 @@ def test_kleiner_kasten_mit_schild_wird_honigglas():
 
 
 def _imker():
-    return {"name": "Imker", "teile": [
+    return {"name": "Gaertner", "teile": [
         {"form": "kapsel", "x": 50, "y": 52, "b": 26, "h": 36, "t": 18, "farbe": "#f1ede2"},
         {"form": "kugel", "x": 50, "y": 24, "b": 17, "h": 18, "t": 17, "farbe": "#e2b48c"},
         {"form": "zylinder", "x": 50, "y": 15, "b": 36, "h": 3, "t": 36, "farbe": "#d9c48a"},
@@ -427,8 +427,8 @@ def test_werkstatt_baut_nur_nach_crawler_vorlage(tmp_path, monkeypatch):
     monkeypatch.setattr(werkstatt, "_neu", [])
     monkeypatch.setenv("CUDI_EIGENBAU", "1")
     monkeypatch.setenv("CUDI_WERKSTATT", "1")
-    assert Z.figur_info("imker") is None
-    assert werkstatt.wunsch("Imker (beekeeper)") == ("imker", "Imker", "beekeeper")
+    assert Z.figur_info("gaertner") is None
+    assert werkstatt.wunsch("Gaertner (gardener)") == ("gaertner", "Gaertner", "gardener")
     assert werkstatt.pruefe_bauplan({"name": "x", "teile": [{"form": "kugel"}]}) is None      # zu wenige Teile
     bild = tmp_path / "v.jpg"
     Image.new("RGB", (200, 200), (240, 236, 220)).save(bild)
@@ -436,7 +436,7 @@ def test_werkstatt_baut_nur_nach_crawler_vorlage(tmp_path, monkeypatch):
     def suche(begriff):
         gesucht.append(begriff)
         return None if begriff == "unicorn" else {"datei": str(bild), "seite": "https://example.org/foto", "quelle": "pexels",
-                                                    "lizenz": "Pexels", "urheber": "A", "titel": "beekeeper", "begriff": begriff,
+                                                    "lizenz": "Pexels", "urheber": "A", "titel": "gardener", "begriff": begriff,
                                                     "farben": werkstatt.farben(bild)}
     monkeypatch.setattr(werkstatt, "vorlage_suchen", suche)
     monkeypatch.setattr(handoff, "active", lambda: True)
@@ -447,21 +447,21 @@ def test_werkstatt_baut_nur_nach_crawler_vorlage(tmp_path, monkeypatch):
     monkeypatch.setattr(handoff, "request", request)
     monkeypatch.setattr(handoff, "task_file", lambda t: tmp_path / (t + ".json"))
     notes = []
-    fertig = werkstatt.bauen(["Imker (beekeeper)", "Einhorn (unicorn)", "Biene (bee)"], "a_figuren", notes)
-    assert fertig == ["imker"] and gesucht == ["beekeeper", "unicorn"]                  # Biene gibt es schon: keine Suche
+    fertig = werkstatt.bauen(["Gaertner (gardener)", "Einhorn (unicorn)", "Biene (bee)"], "a_figuren", notes)
+    assert fertig == ["gaertner"] and gesucht == ["gardener", "unicorn"]                  # Biene gibt es schon: keine Suche
     assert Z.figur_info("einhorn") is None                                             # ohne Fund keine Figur – auch wenn eine geliefert wird
     assert gestellt["daten"]["figuren"][0]["vorlage"] == str(bild) and gestellt["daten"]["figuren"][0]["farben"]
     assert "SIEH SIE DIR ZUERST AN" in gestellt["anleitung"]
-    info = Z.figur_info("imker")
+    info = Z.figur_info("gaertner")
     assert len(info["bauplan"]) == 9 and set(info["anker"]) == {"hut", "mitte"}       # unbekannte Form/kaputter Anker fliegen raus
     assert [t.get("gruppe") for t in info["bauplan"]][3:] == ["bein", "bein2", "arm", "arm2", "kopf", None]   # nur bekannte Glieder
-    assert werkstatt.bauplan("imker")["vorlage"]["seite"] == "https://example.org/foto"
+    assert werkstatt.bauplan("gaertner")["vorlage"]["seite"] == "https://example.org/foto"
     assert Z.figur_info("biene").get("bauplan") is None                                # handgebaute Figur wird nie überschrieben
     assert any("keine Vorlage" in n for n in notes) and any("example.org" in n for n in notes)
-    plan = animation.plan_aus([{"key": "1", "text": "Der Imker erntet den Honig."}],
-                              {"1": {"drehbuch": [{"wort": "Imker", "zeigt": "Imker"}], "figur_wuensche": ["Imker (beekeeper)", "Kuh (cow)"]}})
-    assert plan["1"]["figuren"] == ["imker"] and plan["1"]["figur_wuensche"] == ["Kuh (cow)"]
-    sz = Z.pruefe_szene({"elemente": [{"id": "i", "art": "figur", "figur": "imker", "x": 50, "y": 50, "groesse": 50}], "schritte": []})
+    plan = animation.plan_aus([{"key": "1", "text": "Der Gaertner erntet den Honig."}],
+                              {"1": {"drehbuch": [{"wort": "Gaertner", "zeigt": "Gaertner"}], "figur_wuensche": ["Gaertner (gardener)", "Kuh (cow)"]}})
+    assert plan["1"]["figuren"] == ["gaertner"] and plan["1"]["figur_wuensche"] == ["Kuh (cow)"]
+    sz = Z.pruefe_szene({"elemente": [{"id": "i", "art": "figur", "figur": "gaertner", "x": 50, "y": 50, "groesse": 50}], "schritte": []})
     from cudi_video.schaubild import drei
     assert drei.elemente(Z.Buehne(sz, 200, [0.0], (240, 236, 226), (214, 162, 84), 0, None))[0]["bauplan"]
     assert werkstatt.zeichne(info["bauplan"], 64, 1.0).getbbox() is not None
@@ -473,15 +473,15 @@ def test_werkstatt_figuren_bleiben_im_lernstand(tmp_path, monkeypatch):
     from cudi_video.schaubild import werkstatt, zeichnen as Z
     monkeypatch.setenv("CUDI_EIGENBAU", "1")
     monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path / "a")
-    werkstatt.aufnehmen([_imker()], set(), {"imker": {"seite": "https://example.org/f", "quelle": "pexels"}})
+    werkstatt.aufnehmen([_imker()], set(), {"gaertner": {"seite": "https://example.org/f", "quelle": "pexels"}})
     stand = {"figuren": werkstatt.alle()}
-    assert stand["figuren"]["imker"]["vorlage"]["quelle"] == "pexels"
+    assert stand["figuren"]["gaertner"]["vorlage"]["quelle"] == "pexels"
     monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path / "b")                           # neuer Lauf, leere Ablage
-    assert Z.figur_info("imker") is None
+    assert Z.figur_info("gaertner") is None
     datei = tmp_path / "lernstand.json"
     datei.write_text(__import__("json").dumps(stand), "utf-8")
     monkeypatch.setattr(animation, "lernstand_datei", lambda: datei)
-    assert Z.figur_info("imker")["bauplan"] and "imker" in Z.figuren()
+    assert Z.figur_info("gaertner")["bauplan"] and "gaertner" in Z.figuren()
     assert "deutsch (englisch)" in animation.storyboard_anleitung("Bienen") and "{figur_bau}" not in animation.storyboard_anleitung("Bienen")
 
 
@@ -570,7 +570,7 @@ def test_modell_scout_fertiges_modell_vor_eigenbau(tmp_path, monkeypatch):
     monkeypatch.setenv("CUDI_MODELLE", "1")
     kats = {"cow": 1, "chicken_(animal)": 1, "jar": 1}
     assert modelle.kategorie("cows", kats) == "cow" and modelle.kategorie("Chicken", kats) == "chicken_(animal)"
-    assert modelle.kategorie("beekeeper", kats) is None
+    assert modelle.kategorie("gardener", kats) is None
     glb = tmp_path / "kuh.glb"
     glb.write_bytes(b"glTF" + b"0" * 2000)
     fund = {"datei": str(glb), "url": modelle.BASIS + "/glbs/000-001/abc.glb", "lizenz": "CC BY 4.0", "urheber": "erika",
@@ -581,7 +581,7 @@ def test_modell_scout_fertiges_modell_vor_eigenbau(tmp_path, monkeypatch):
     monkeypatch.setattr(handoff, "active", lambda: True)
     monkeypatch.setattr(handoff, "task_file", lambda t: tmp_path / (t + ".json"))
     notes = []
-    assert werkstatt.bauen(["Kuh (cow)", "Imker (beekeeper)"], "a_figuren", notes) == ["kuh"]   # keine Schreibaufgabe nötig
+    assert werkstatt.bauen(["Kuh (cow)", "Gaertner (gardener)"], "a_figuren", notes) == ["kuh"]   # keine Schreibaufgabe nötig
     info = Z.figur_info("kuh")
     assert info["modell"] == str(glb) and info["dreh"] == 90 and info["skala"] == .8
     assert any("fertiges freies 3D-Modell" in n and "erika" in n for n in notes)
@@ -606,8 +606,20 @@ def test_kein_gepuzzelter_eigenbau_im_lauf(tmp_path, monkeypatch):
     monkeypatch.setattr(werkstatt, "vorlage_suchen", lambda b: (_ for _ in ()).throw(AssertionError("keine Suche erwartet")))
     notes = []
     assert not werkstatt.eigenbau_aktiv()
-    assert werkstatt.bauen(["Imker (beekeeper)"], "a_figuren", notes) == [] and Z.figur_info("imker") is None
+    assert werkstatt.bauen(["Gaertner (gardener)"], "a_figuren", notes) == [] and Z.figur_info("gaertner") is None
     werkstatt.ordner().mkdir(parents=True, exist_ok=True)       # früher gepuzzelte Figur (z. B. aus dem Lernstand) zählt nicht mehr
-    (werkstatt.ordner() / "imker.json").write_text(__import__("json").dumps(dict(_imker(), name="imker")), "utf-8")
-    assert Z.figur_info("imker") is None and "imker" not in Z.figuren()
-    assert any("Wunschliste" in n and "Imker" in n for n in notes)
+    (werkstatt.ordner() / "gaertner.json").write_text(__import__("json").dumps(dict(_imker(), name="gaertner")), "utf-8")
+    assert Z.figur_info("gaertner") is None and "gaertner" not in Z.figuren()
+    assert any("Wunschliste" in n and "Gaertner" in n for n in notes)
+
+
+def test_imker_ist_handgebaute_detailfigur():
+    from cudi_video.schaubild import drei, werkstatt, zeichnen as Z
+    info = Z.figur_info("imker")
+    assert info and not info.get("bauplan") and {"schleier", "wabenrahmen", "handschuhe"} <= set(info["anker"])
+    html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
+    assert "imker() {" in html and "gaze()" in html and "wabenbild()" in html
+    assert not werkstatt.modelle_aktiv()                         # fremde Modelle nur als Vorlage, nie im Video
+    sz = Z.pruefe_szene({"elemente": [{"id": "i", "art": "figur", "figur": "Imker", "x": 50, "y": 50, "groesse": 60},
+                                      {"id": "l", "art": "beschriftung", "text": "Schleier", "an": "i"}], "schritte": []})
+    assert sz and Z.Buehne(sz, 120, [0.0], (240, 236, 226), (214, 162, 84), 0, None).bild(1.0).size == (120, 120)

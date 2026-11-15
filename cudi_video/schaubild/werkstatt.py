@@ -353,8 +353,9 @@ def eigenbau_aktiv() -> bool:
 
 
 def modelle_aktiv() -> bool:
+    """Fertige fremde 3D-Modelle im Video – standardmäßig AUS (Entscheidung des Nutzers: nur als Vorlage zum Nachbauen)."""
     import os
-    return os.environ.get("CUDI_MODELLE", "1") != "0"
+    return os.environ.get("CUDI_MODELLE", "0") == "1"
 
 
 def modell_aufnehmen(name: str, fund: dict) -> bool:
