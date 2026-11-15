@@ -22,6 +22,7 @@ def _no_clip_model(monkeypatch):
     monkeypatch.setenv("CUDI_RECHERCHE", "0")        # Recherche-Agent greift in Tests nie ins Netz (Tests dazu: test_recherche.py)
     monkeypatch.setenv("CUDI_3D", "0")               # 3D-Bühne (Chromium) nur im eigenen Test – die übrigen bleiben schnell
     monkeypatch.setenv("CUDI_WERKSTATT", "0")        # Figuren-Werkstatt (Crawler) nur im eigenen Test
+    monkeypatch.setenv("CUDI_MODELLE", "0")          # Modell-Scout (Objaverse-Download) nur im eigenen Test
     # Tests laufen ohne echtes Sprachmodell, auch wenn die Umgebung CUDI_LLM_* (Notbetrieb) gesetzt hat;
     # Notbetrieb-Tests setzen ihre eigenen Werte.
     from cudi_video import config as _cfg

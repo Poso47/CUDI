@@ -15,7 +15,7 @@ const path = require('path');
   const fehler = [];
   page.on('pageerror', (e) => fehler.push(e.message));
   await page.goto('file://' + path.join(__dirname, 'szene3d.html'));
-  const ok = await page.evaluate((d) => window.init(d), { size: auftrag.size, elemente: auftrag.elemente, dauer: auftrag.dauer || 0 });
+  const ok = await page.evaluate((d) => window.init(d), { size: auftrag.size, elemente: auftrag.elemente, dauer: auftrag.dauer || 0, modelle: auftrag.modelle || {} });
   if (!ok || fehler.length) throw new Error('3D-Bühne startet nicht: ' + fehler.join('; '));
   const lagen = [];
   const N = 12;                                           // Bilder je Aufruf

@@ -59,6 +59,17 @@ def pruefe_bauplan(roh) -> dict | None:
 
     if not isinstance(roh, dict) or not _name(roh.get("name")):
         return None
+    if roh.get("modell") or roh.get("modell_url"):          # fertiges 3D-Modell (Modell-Scout) statt Grundkörper
+        from .zeichnen import _zahl
+        plan = {"name": _name(roh["name"]), "teile": [], "anker": {"mitte": [50.0, 50.0]},
+                "modell_url": str(roh.get("modell_url") or "")[:300], "dreh": _zahl(roh.get("dreh"), 0, 0, 360),
+                "skala": _zahl(roh.get("skala"), 1, .15, 12)}
+        if roh.get("modell"):
+            plan["modell"] = str(roh["modell"])
+        if isinstance(roh.get("vorlage"), dict):
+            plan["vorlage"] = {k: str(v)[:200] for k, v in roh["vorlage"].items()
+                               if k in ("seite", "quelle", "lizenz", "urheber", "begriff", "titel")}
+        return plan
     teile = []
     for t in (roh.get("teile") or [])[:MAX_TEILE]:
         if not isinstance(t, dict) or t.get("form") not in FORMEN:
@@ -112,12 +123,34 @@ def bauplan(name: str) -> dict | None:
     return pruefe_bauplan(dict(alt, name=name)) if isinstance(alt, dict) else None
 
 
+def modell_datei(plan: dict) -> str | None:
+    """Lokale GLB-Datei eines Modell-Bauplans (aus diesem Lauf oder neu geladen über die gemerkte Adresse)."""
+    datei = plan.get("modell")
+    if datei and Path(datei).exists():
+        return str(datei)
+    url = plan.get("modell_url") or ""
+    if not url.startswith("https://huggingface.co/datasets/allenai/objaverse/"):
+        return None
+    try:
+        from .. import net
+        return str(net.download(url, suffix=".glb", timeout=180))
+    except Exception:                                      # noqa: BLE001 – ohne Netz gibt es die Figur gerade nicht
+        return None
+
+
 def info(name: str) -> dict | None:
     """Wie `zeichnen.figur_info`, aber für Werkstatt-Figuren (ohne Ebenen-Bilder, dafür mit „bauplan“)."""
     plan = bauplan(name)
     if not plan:
         return None
     k = GROESSE / 100
+    if plan.get("modell_url") or plan.get("modell"):
+        datei = modell_datei(plan)
+        if not datei:
+            return None
+        return {"name": plan["name"], "ebenen": [], "groesse": GROESSE, "versteckt": [], "mit_kopf": [], "drehpunkte": {},
+                "anker": {a: [v[0] * k, v[1] * k] for a, v in plan["anker"].items()}, "bauplan": [], "modell": datei, "dreh": plan.get("dreh", 0),
+                "skala": plan.get("skala", 1), "ordner": None, "vorlage": plan.get("vorlage") or {}}
     return {"name": plan["name"], "ebenen": [], "groesse": GROESSE, "versteckt": [], "mit_kopf": [], "drehpunkte": {},
             "anker": {a: [v[0] * k, v[1] * k] for a, v in plan["anker"].items()}, "bauplan": plan["teile"], "ordner": None}
 
@@ -133,7 +166,7 @@ def alle() -> dict[str, dict]:
     for n in namen():
         plan = bauplan(n)
         if plan:
-            out[n] = {k: plan[k] for k in ("teile", "anker", "vorlage") if k in plan}
+            out[n] = {k: plan[k] for k in ("teile", "anker", "vorlage", "modell_url", "dreh", "skala") if k in plan}
     return dict(list(out.items())[-MAX_FIGUREN:])
 
 
@@ -266,15 +299,30 @@ def bauen(wuensche: list, aufgabe: str, notes: list[str]) -> list[str]:
         funde = {f["name"]: f["fund"] for f in (alt.get("daten") or {}).get("figuren", []) if isinstance(f.get("fund"), dict)}
     except (OSError, ValueError, AttributeError, KeyError, TypeError):
         funde = {}
+    fertig_modelle = []
     if not funde:
-        for name, anzeige, begriff in offen:
+        from . import modelle
+        rest = []
+        for name, anzeige, begriff in offen:                   # 1. Weg: fertiges freies 3D-Modell
+            fund = None
+            for kand in (modelle.kandidaten(begriff) if modelle_aktiv() else []):
+                fund = modelle.sichtpruefung(kand)             # richtige Größe, beste Ansicht, Unpassendes fliegt raus
+                if fund:
+                    break
+            if fund and modell_aufnehmen(name, fund):
+                fertig_modelle.append(name)
+                notes.append(f"Figuren-Werkstatt: „{name}“ ist ein fertiges freies 3D-Modell – {modelle.nennung(fund)}")
+            else:
+                rest.append((name, anzeige, begriff))
+        offen = rest
+        for name, anzeige, begriff in offen:                   # 2. Weg: nach Foto-Vorlage selbst bauen
             fund = vorlage_suchen(begriff)
             if fund:
                 funde[name] = fund
             else:
                 notes.append(f"Figuren-Werkstatt: keine Vorlage für „{anzeige}“ gefunden – Figur wird nicht gebaut.")
     if not funde:
-        return []
+        return fertig_modelle
     daten = {"figuren": [{"name": n, "vorlage": f["datei"], "titel": f["titel"], "farben": f["farben"], "fund": f} for n, f in funde.items()]}
     answer = handoff.request(aufgabe, ANLEITUNG, daten)
     fertig = aufnehmen((answer or {}).get("figuren") if isinstance(answer, dict) else None, fest, funde)
@@ -282,7 +330,39 @@ def bauen(wuensche: list, aufgabe: str, notes: list[str]) -> list[str]:
         f = funde[n]
         notes.append(f"Figuren-Werkstatt: „{n}“ neu gebaut nach Vorlage aus dem Netz ({f['quelle']}, {f['lizenz'] or 'Lizenz unbekannt'}; "
                      f"nur zum Modellieren, nicht im Video): {f['seite']}")
-    return fertig
+    return fertig_modelle + fertig
+
+
+def modelle_aktiv() -> bool:
+    import os
+    return os.environ.get("CUDI_MODELLE", "1") != "0"
+
+
+def modell_aufnehmen(name: str, fund: dict) -> bool:
+    """Fertiges Modell als Figur ablegen (mit Urheber/Lizenz/Link für die Pflichtnennung)."""
+    plan = pruefe_bauplan({"name": name, "modell": fund["datei"], "modell_url": fund["url"], "vorlage": fund,
+                           "dreh": fund.get("dreh", 0), "skala": fund.get("skala", 1)})
+    if not plan:
+        return False
+    try:
+        ordner().mkdir(parents=True, exist_ok=True)
+        (ordner() / f"{plan['name']}.json").write_text(json.dumps(plan, ensure_ascii=False), "utf-8")
+    except OSError:
+        return False
+    if plan["name"] not in _neu:
+        _neu.append(plan["name"])
+    return True
+
+
+def nennungen() -> list[str]:
+    """Pflichtangaben aller Modell-Figuren dieses Laufs (CC BY) – für Prüfbericht und Beschreibungstext."""
+    from . import modelle
+    out = []
+    for n in ([p.stem for p in sorted(ordner().glob("*.json"))] if ordner().exists() else []):
+        plan = bauplan(n)
+        if plan and plan.get("modell_url") and plan.get("vorlage"):
+            out.append(modelle.nennung(plan["vorlage"]))
+    return out
 
 
 def neu_gebaut() -> list[str]:
@@ -295,6 +375,8 @@ def zeichne(teile: list[dict], px: int, alpha: float, t: float = 0.0):
 
     s = 2
     bild = Image.new("RGBA", (px * s, px * s), (0, 0, 0, 0))
+    if not teile:                                          # fertiges 3D-Modell hat keine flache Fassung: neutraler Platzhalter
+        ImageDraw.Draw(bild).ellipse((px * s * .2, px * s * .2, px * s * .8, px * s * .8), fill=(190, 170, 130, int(255 * alpha)))
     k = px * s / 100
     for teil in sorted(teile, key=lambda q: q["z"]):
         w, h = max(2, int(teil["b"] * k)), max(2, int(teil["h"] * k))

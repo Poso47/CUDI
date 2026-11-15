@@ -557,3 +557,37 @@ def test_erklaer_szenen_gehen_mit_uebergang_ineinander(tmp_path, monkeypatch):
     for j in jobs:
         j["uebergang"] = False
     assert R.start_zeiten(jobs) == [0.0, 2.0, 4.0] and R.verbinden(jobs, tmp_path / "hart.mp4", tmp_path) == "schnitt"
+
+
+def test_modell_scout_fertiges_modell_vor_eigenbau(tmp_path, monkeypatch):
+    from cudi_video import config, handoff, job
+    from cudi_video.schaubild import drei, modelle, werkstatt, zeichnen as Z
+    monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path)
+    monkeypatch.setattr(werkstatt, "_neu", [])
+    monkeypatch.setenv("CUDI_WERKSTATT", "1")
+    monkeypatch.setenv("CUDI_MODELLE", "1")
+    kats = {"cow": 1, "chicken_(animal)": 1, "jar": 1}
+    assert modelle.kategorie("cows", kats) == "cow" and modelle.kategorie("Chicken", kats) == "chicken_(animal)"
+    assert modelle.kategorie("beekeeper", kats) is None
+    glb = tmp_path / "kuh.glb"
+    glb.write_bytes(b"glTF" + b"0" * 2000)
+    fund = {"datei": str(glb), "url": modelle.BASIS + "/glbs/000-001/abc.glb", "lizenz": "CC BY 4.0", "urheber": "erika",
+            "titel": "Cow", "seite": "https://sketchfab.com/3d-models/abc", "quelle": "objaverse/sketchfab", "begriff": "cow"}
+    monkeypatch.setattr(modelle, "kandidaten", lambda b, anzahl=4: [dict(fund, titel="Falsch"), fund] if b == "cow" else [])
+    monkeypatch.setattr(modelle, "sichtpruefung", lambda k: None if k["titel"] == "Falsch" else dict(k, dreh=90, skala=.8, sicher=.9))
+    monkeypatch.setattr(werkstatt, "vorlage_suchen", lambda b: None)
+    monkeypatch.setattr(handoff, "active", lambda: True)
+    monkeypatch.setattr(handoff, "task_file", lambda t: tmp_path / (t + ".json"))
+    notes = []
+    assert werkstatt.bauen(["Kuh (cow)", "Imker (beekeeper)"], "a_figuren", notes) == ["kuh"]   # keine Schreibaufgabe nötig
+    info = Z.figur_info("kuh")
+    assert info["modell"] == str(glb) and info["dreh"] == 90 and info["skala"] == .8
+    assert any("fertiges freies 3D-Modell" in n and "erika" in n for n in notes)
+    sz = Z.pruefe_szene({"elemente": [{"id": "k", "art": "figur", "figur": "kuh", "x": 50, "y": 50, "groesse": 50}], "schritte": []})
+    el = drei.elemente(Z.Buehne(sz, 200, [0.0], (240, 236, 226), (214, 162, 84), 0, None))[0]
+    assert el["modell"] == str(glb) and el["modell_dreh"] == 90
+    assert werkstatt.alle()["kuh"]["modell_url"].endswith("abc.glb") and "modell" not in werkstatt.alle()["kuh"]
+    text = job._mit_nennung("Titel\\n\\nBeschreibung")
+    assert "3D-Modell „Cow“ von erika (CC BY 4.0)" in text and job._mit_nennung(text) == text
+    html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
+    assert "GLTFLoader" in html and "ausModell" in html and (drei.THREE.parent / "GLTFLoader.js").exists()
