@@ -391,6 +391,66 @@ def an_skript(skript: dict, out: Path, art: str, notes: list[str], vorab: list |
             pass
 
 
+def skizzenbogen(skript: dict, ziel: Path, spalten: int = 3, kante: int = 360) -> Path:
+    """Skizze zum Freigeben: je Szene EIN Bild (Endzustand der Szene, in 3D wenn möglich) mit Nummer und Sprechtext –
+    ohne Stimme, ohne Video. Kostet Sekunden statt Minuten; so sieht man früh, ob die Richtung stimmt."""
+    from PIL import Image, ImageDraw, ImageFont
+
+    from .schaubild import drei, zeichnen
+
+    def schrift(groesse):
+        for name in ("Inter-SemiBold.ttf", "EBGaramond-Medium.ttf"):
+            pfad = Path(__file__).resolve().parent.parent / "video_assets" / "fonts" / name
+            if pfad.exists():
+                return ImageFont.truetype(str(pfad), groesse)
+        return ImageFont.load_default()
+
+    klein, fett = schrift(17), schrift(22)
+    szenen = skript.get("szenen") or []
+    hoehe = kante + 150
+    zeilen = (len(szenen) + spalten - 1) // spalten or 1
+    bogen = Image.new("RGB", (spalten * kante, zeilen * hoehe + 60), (18, 18, 22))
+    d = ImageDraw.Draw(bogen)
+    d.text((16, 16), f"Skizze – {skript.get('titel', '')}"[:80], font=fett, fill=(236, 228, 210))
+    for i, sz in enumerate(szenen):
+        x, y = (i % spalten) * kante, 60 + (i // spalten) * hoehe
+        feld = Image.new("RGBA", (kante, kante), (26, 26, 32, 255))
+        if _hat_bild(sz):
+            try:
+                buehne = zeichnen.Buehne(sz["animation"], kante, [0.0], (236, 228, 210), (214, 162, 84), i, None)
+                bild = None
+                if drei.aktiv():
+                    try:
+                        pfade, _, arbeit = drei.rendere(buehne, [20.0], kante)
+                        bild = Image.open(pfade[0]).convert("RGBA").copy()
+                        import shutil
+                        shutil.rmtree(arbeit, ignore_errors=True)
+                    except Exception:                          # noqa: BLE001 – Skizze darf flach ausfallen
+                        bild = None
+                bild = bild or buehne.bild(20.0)
+                feld.alpha_composite(bild if bild.size == (kante, kante) else bild.resize((kante, kante)))
+            except Exception:                                  # noqa: BLE001
+                ImageDraw.Draw(feld).text((20, kante // 2), "Szene ließ sich nicht zeichnen", font=klein, fill=(230, 120, 110))
+        else:
+            ImageDraw.Draw(feld).text((20, kante // 2), "noch ohne Bild", font=klein, fill=(230, 120, 110))
+        bogen.paste(feld.convert("RGB"), (x, y))
+        d.text((x + 10, y + 8), str(i + 1), font=fett, fill=(214, 162, 84))
+        worte, zeile, ty = str(sz.get("text", "")).split(), "", y + kante + 8
+        for w in worte:
+            if d.textlength(zeile + " " + w, font=klein) > kante - 24:
+                d.text((x + 12, ty), zeile, font=klein, fill=(220, 214, 200))
+                zeile, ty = w, ty + 22
+                if ty > y + hoehe - 26:
+                    zeile = "…"
+                    break
+            else:
+                zeile = (zeile + " " + w).strip()
+        d.text((x + 12, ty), zeile, font=klein, fill=(220, 214, 200))
+    ziel.parent.mkdir(parents=True, exist_ok=True)
+    bogen.save(ziel, quality=86)
+    return ziel
+
+
 class Bild:
     """Zeichnet eine geprüfte Szene im Takt der Stimme: `.bild(t, size)` -> quadratisches RGBA-Bild."""
 

@@ -49,7 +49,7 @@ RETRY_PAUSE = 60                       # Sekunden Pause vor dem zweiten Versuch 
 # Dazu für fertige Videos: „bearbeiten“ (Texte/Format/Design/Tempo/Maskottchen aus der App, ohne neue Recherche) und
 # „hochladen“ (fertiges Video nach Freigabe in der App hochladen, ohne Neu-Rendern).
 STEPS = ("", "skelett", "video", "bearbeiten", "hochladen")
-STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "fakten": ("hochladen",), "erklaer": ("hochladen",), "clip": ("hochladen",), "reportage": ("hochladen",), "satire": ("hochladen",), "schaubild": ("hochladen",)}
+STEPS_OTHER = {"ranking": ("bearbeiten", "hochladen"), "fakten": ("hochladen",), "erklaer": ("hochladen", "skizze", "video"), "clip": ("hochladen",), "reportage": ("hochladen",), "satire": ("hochladen",), "schaubild": ("hochladen",)}
 SKELETON_DIR = "cudi_skelette"         # dorthin legt die Sitzung das bearbeitete Skelett (ArtifactData out_dir)
 EDIT_DIR = "cudi_bearbeitungen"        # … die Änderungen eines fertigen Videos (Sammlung „bearbeitungen“)
 UPLOAD_DIR = "cudi_hochladen"          # … das Ergebnisdokument (Sammlung „results“) und die Video-Dateien zum Hochladen
@@ -234,6 +234,8 @@ def parse_order(raw: dict, presets: set[str]) -> dict:
         if step not in STEPS_OTHER[order["art"]]:
             raise OrderError("Unbekannter Schritt für diese Art.")
         order["schritt"] = step
+    if _text(raw.get("feedback") if isinstance(raw, dict) else "", 600):   # Rückmeldung zur letzten Skizze (geht in die Schreibaufgaben)
+        order["feedback"] = _text(raw.get("feedback"), 600)
     if order.get("schritt") == "hochladen" and not order.get("hochladen"):
         raise OrderError("Hochladen: Ziel („youtube“, „tiktok“, „instagram“, „beide“ oder „alle“) fehlt.")
     if order.get("schritt") in ("bearbeiten", "hochladen"):          # Notbetrieb: Verweis auf das frühere Ergebnis im Issue
@@ -488,6 +490,8 @@ def _summary(order: dict, result: dict | None, error: str = "") -> dict:
     data["hinweise"] = (drei.abnahme() + tts.take_notes() + list(result.get("warnings", [])))[:20]
     if result.get("skelett"):
         data["schritt"], data["skelett"] = "skelett", result["skelett"]
+    if result.get("skizze"):
+        data["schritt"], data["skizze"] = "skizze", result["skizze"]
     spec = out / "spec.json"
     if spec.exists():
         titles = json.loads(spec.read_text("utf-8")).get("title", {})
@@ -594,6 +598,16 @@ def _erklaer(order: dict, folder: Path, progress) -> dict:
     Ohne Schreibhilfe oder zu wenig geprüfte Szenen ehrlicher Abbruch: es wird nichts erfunden."""
     from .erklaer import render_erklaerung, schreiben
 
+    if order.get("schritt") == "video":                     # freigegebene Skizze: dieselben Antworten wieder verwenden (keine neue Schreibrunde)
+        try:
+            alt = app_file(order["id"], SKELETON_DIR, "skelette", "antworten")
+        except RuntimeError:
+            raise RuntimeError("Die freigegebene Skizze ist nicht angekommen – bitte in der App erneut „Video erstellen“.") from None
+        for name, antwort in (alt.get("antworten") or {}).items():
+            if re.fullmatch(r"[a-z0-9_]{1,60}", str(name)) and antwort not in (None, "", [], {}):
+                datei = handoff.task_file(name)
+                if not datei.exists():
+                    datei.write_text(json.dumps({"aufgabe": name, "antwort": antwort}, ensure_ascii=False), "utf-8")
     progress("Skript schreiben und prüfen", 0.03)
     with zeiten.stufe("planen"):
         script, report = schreiben.write_script(order["thema"], order["sprache"])
@@ -615,6 +629,23 @@ def _erklaer(order: dict, folder: Path, progress) -> dict:
 
     progress("Animation planen", 0.08)
     animation.an_skript(script, out, "erklaer", report["hinweise"], report.get("storyboard"))            # jede Szene: eigene Animation, 1:1 zum Text
+    if order.get("schritt") == "skizze":                    # nur bis zur Skizze: ein Bild je Szene, kein Ton, kein Video
+        progress("Skizze zeichnen", 0.3)
+        with zeiten.stufe("render"):
+            bogen = animation.skizzenbogen(script, out / "skizze.jpg")
+        antworten = {}
+        for datei in sorted(Path(os.environ[handoff.DIR_ENV]).glob("schreiben_*.json")):
+            try:
+                antwort = json.loads(datei.read_text("utf-8")).get("antwort")
+            except (OSError, ValueError, AttributeError):
+                continue
+            if antwort not in (None, "", [], {}):
+                antworten[datei.stem.removeprefix("schreiben_")] = antwort
+        fehlend = sorted({w for a in animation._lies(out / "abgleich.json").get("abschnitte", []) for w in a.get("figur_wuensche", [])})
+        return {"output_dir": str(out), "kind": "erklaer", "warnings": report["hinweise"], "videos": {},
+                "skizze": {"bild": str(bogen), "titel": script["titel"], "antworten": antworten, "fehlende_figuren": fehlend,
+                           "szenen": [{"nr": i, "text": sz["text"], "mit_bild": animation._hat_bild(sz)}
+                                      for i, sz in enumerate(script["szenen"], start=1)]}}
     with zeiten.stufe("render"):                                   # Stimme darin wird als eigene Stufe abgezogen
         rendered = render_erklaerung(script, out_dir=out, progress=lambda f: progress("Rendern", 0.1 + 0.85 * f))
     return {"output_dir": str(out), "kind": "erklaer", "warnings": report["hinweise"],
@@ -972,6 +1003,8 @@ def _run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=N
         os.environ.pop(CLAUDE_FILE_ENV, None)
     os.environ[handoff.DIR_ENV] = str(folder)              # Schreibaufgaben (Thema deuten, erzählen) ebenso
     prefs = dict(order.get("vorlieben") or {})            # gelernte Vorlieben gehen in jede Schreibaufgabe
+    if order.get("feedback"):                             # „Das soll anders“: Rückmeldung des Nutzers zur Skizze
+        prefs["rueckmeldung_zur_skizze"] = order["feedback"]
     variants = {k.removeprefix("varianten_"): prefs.pop(k) for k in ("varianten_gut", "varianten_schlecht") if k in prefs}
     if prefs:
         os.environ[handoff.PREFS_ENV] = json.dumps(prefs, ensure_ascii=False)
@@ -1060,7 +1093,8 @@ def _run_order(order: dict, folder: Path, via_claude: bool = True, on_progress=N
 
 def uploads(data: dict) -> list[str]:
     """Hochzuladende Dateien: je Video die App-Fassung (bei langen Videos ihre Stücke) und das Titelbild."""
-    return [p for v in data.get("videos", []) for p in (*(v.get("teile") or [v["video"]]), v.get("cover")) if p]
+    skizze = [(data.get("skizze") or {}).get("bild")] if (data.get("skizze") or {}).get("bild") else []
+    return skizze + [p for v in data.get("videos", []) for p in (*(v.get("teile") or [v["video"]]), v.get("cover")) if p]
 
 
 def upload_records(order: dict, data: dict) -> list[dict]:
@@ -1140,6 +1174,11 @@ def document(folder: Path, addresses: dict[str, str]) -> dict:
         doc["bearbeitung"] = data["bearbeitung"]
     if data.get("skelett"):                       # Schritt 1 einer Story: Skelett zum Prüfen in der App
         doc["schritt"], doc["skelett"] = "skelett", data["skelett"]
+    if data.get("skizze"):                        # Erklärvideo nur bis zur Skizze: Bilderbogen + Antworten für die Freigabe
+        sk = dict(data["skizze"])
+        sk["bild_url"] = addresses.get(sk.get("bild", "")) or addresses.get(Path(sk.get("bild", "x")).name) or ""
+        sk.pop("bild", None)
+        doc["schritt"], doc["skizze"] = "skizze", sk
     return doc
 
 

@@ -1164,7 +1164,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   function erklaerOrder() {
     const t = $("erklaerTopic").value.trim().replace(/\s+/g, " ").slice(0, 160);
     if (t.length < 6) return { error: "Bitte das Thema in einem Satz nennen." };
-    return { label: "Erklärvideo: " + t.slice(0, 60), order: { art: "erklaer", thema: t, sprache: $("erklaerLang").value } };
+    return { label: "Erklärvideo: " + t.slice(0, 60), order: { art: "erklaer", thema: t, sprache: $("erklaerLang").value, schritt: "skizze" } };   // erst nur die Skizze (schnell, spart Limit)
   }
   function jobPrompt(id, order) {
     const json = JSON.stringify(order).replace(/'/g, "\\u0027");      // sicher in '…' der Shell
@@ -1228,7 +1228,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   // (sehr lange Storys oder ein verlängertes Skelett teilen sich bei 10 Minuten).
   function needMB(order) {
     const o = order || {};
-    if ((o.art === "story" && o.schritt === "skelett") || o.schritt === "hochladen") return 0;   // Skelett: noch kein Video; Hochladen: nichts Neues
+    if ((o.art === "story" && o.schritt === "skelett") || o.schritt === "skizze" || o.schritt === "hochladen") return 0;   // Skelett: noch kein Video; Hochladen: nichts Neues
     if (o.art === "clip") return 30;                                    // ein Short bis 3 Minuten, App-Fassung ≤ 19 MB
     const per = o.laenge === "lang" ? 160 : 20;                         // lange Videos bis ~150 MB
     const videos = o.art === "ranking" ? Math.max(1, (o.sprachen || []).length)
@@ -1463,8 +1463,8 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     if (job && job.wechsel) return "laeuft";                    // Skelett -> Video wird gerade gestartet
     if (job && !res && job.notbetrieb) return "notbetrieb";     // an den Notbetrieb übergeben (GitHub-Issue)
     if (job && !res && job.limit) return "limit";               // Start scheiterte am Claude-Limit, Auftrag bleibt stehen
-    if (res && res.schritt === "skelett" && job && job.auftrag && job.auftrag.schritt === "video") return "laeuft";
-    if (res) return res.ok ? (res.schritt === "skelett" ? "skelett" : "fertig") : "fehler";
+    if (res && (res.schritt === "skelett" || res.schritt === "skizze") && job && job.auftrag && job.auftrag.schritt === "video") return "laeuft";
+    if (res) return res.ok ? ((res.schritt === "skelett" || res.schritt === "skizze") ? "skelett" : "fertig") : "fehler";
     const b = (job && buckets.get(job.session)) || "";
     if (b === "BLOCKED") return "wartet";
     if (b === "FAILED") return "fehler";
@@ -1503,7 +1503,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       const job = jobs.get(id);
       if (!job || !job.session || job.weg === "aufgabe" || job.wechsel || done.has(job.session)) continue;
       const res = results.get(id);                                   // altes Skelett-Ergebnis gehört nicht zum Videolauf
-      if (res && res.schritt === "skelett" && job.auftrag && job.auftrag.schritt === "video") continue;
+      if (res && (res.schritt === "skelett" || res.schritt === "skizze") && job.auftrag && job.auftrag.schritt === "video") continue;
       if (res && job.pub && job.pub.fertig === res.fertig && minutes(job.pub.seit) < 30) continue;   // lädt gerade hoch
       rememberArchived(job.session);
       mcp.callTool(CFG.server, "archive_session", { session_id: job.session }).catch(() => { /* bleibt sichtbar */ });
@@ -1605,6 +1605,54 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
   function scheduleSave(id) {
     clearTimeout(saveTimers.get(id));
     saveTimers.set(id, setTimeout(() => { db.doc("skelette/" + id).set(skeletons.get(id)).catch(() => {}); }, 800));
+  }
+  // Erklärvideo, Stufe „Skizze“: ein Bild je Szene zum Prüfen. Von hier: Änderung wünschen (neue Skizze) oder Video freigeben.
+  function skizzeKarte(id, job, res) {
+    const sk = res.skizze || {}, box = h("div", "skizze");
+    box.append(h("p", "hint", "Skizze: ein Bild je Szene, noch ohne Stimme und Bewegung. Passt die Richtung? Dann „Video erstellen“ – sonst schreib kurz, was anders sein soll."));
+    if (sk.bild_url) { const img = document.createElement("img"); img.src = blobSrc(sk.bild_url); img.alt = "Skizzenbogen: ein Bild je Szene mit Sprechtext";
+      img.loading = "lazy"; img.style.cssText = "width:100%;height:auto;border-radius:12px;display:block"; box.append(img); }
+    const ohne = (sk.szenen || []).filter((z) => !z.mit_bild).map((z) => z.nr);
+    if (ohne.length) box.append(h("p", "note warn", "Noch ohne Bild: Szene " + ohne.join(", ") + "."));
+    if ((sk.fehlende_figuren || []).length) box.append(h("p", "note warn", "Diese Figuren fehlen noch und müssen erst im Detail gebaut werden: " + sk.fehlende_figuren.join(", ") + "."));
+    const lab = h("label", "", "Was soll anders sein? (optional)"), ta = document.createElement("textarea");
+    ta.rows = 3; ta.maxLength = 600; ta.id = "skizzeFb-" + id; lab.htmlFor = ta.id; ta.placeholder = "z. B. Szene 3: lieber die Wabe von nah zeigen";
+    const row = h("div", "actions"), neu = h("button", "btn", "Neue Skizze"), ok = h("button", "btn primary", "Video erstellen");
+    neu.type = ok.type = "button";
+    neu.addEventListener("click", () => {
+      if (!ta.value.trim()) { note("videosMsg", "Schreib kurz, was anders sein soll – dann zeichne ich die Skizze neu.", "warn"); ta.focus(); return; }
+      weiterAusSkizze(id, Object.assign({}, job.auftrag, { schritt: "skizze", feedback: ta.value.trim().slice(0, 600) }), null, neu, "Neue Skizze wird gezeichnet – meist 3 bis 6 Minuten.");
+    });
+    ok.addEventListener("click", () => {
+      const order = Object.assign({}, job.auftrag, { schritt: "video" }); delete order.feedback;
+      weiterAusSkizze(id, order, { antworten: sk.antworten || {} }, ok, "Video wird aus der freigegebenen Skizze erstellt – meist 5 bis 10 Minuten.");
+    });
+    row.append(neu, ok); box.append(lab, ta, row);
+    return box;
+  }
+  async function weiterAusSkizze(id, order, ablage, btn, meldung) {
+    const job = jobs.get(id);
+    if (!job || !mcp || !db) { note("videosMsg", "Aufträge starten nur, wenn die App in Claude geöffnet ist (App oder claude.ai).", "warn"); return; }
+    const free = await freeMB(), need = needMB(order);
+    if (free < need) { offerCleanup("videosMsg", free, need, () => weiterAusSkizze(id, order, ablage, btn, meldung)); return; }
+    btn.disabled = true;
+    const ref = db.doc("jobs/" + id), alt = results.get(id);
+    try {
+      await ref.update({ wechsel: true });
+      if (ablage) await db.doc("skelette/" + id).set(ablage);          // die Cloud holt genau diese freigegebenen Antworten
+      const started = await dispatch(id, order, job.label);
+      const still = await ref.get().catch(() => null);
+      if (still && !still.exists) { if (started.session) mcp.callTool(CFG.server, "archive_session", { session_id: started.session }).catch(() => {}); return; }
+      if (alt && alt.skizze && assets && assetId(alt.skizze.bild_url)) await assets.delete(assetId(alt.skizze.bild_url)).catch(() => {});
+      await db.doc("results/" + id).delete().catch(() => {});
+      retrying.delete(id);
+      await ref.update({ auftrag: order, session: started.session, weg: started.weg, gestartet: new Date().toISOString(), versuch: 0, wechsel: false });
+      note("videosMsg", meldung, "ok");
+    } catch (err) {
+      await ref.update({ wechsel: false }).catch(() => {});
+      note("videosMsg", explain(err), "bad");
+      btn.disabled = false;
+    }
   }
   function skeletonEditor(id, job, res) {
     const box = document.createElement("div"); box.className = "skel";
@@ -2157,7 +2205,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const title = document.createElement("b"); title.textContent = (res && res.titel) || job.label || "Auftrag";
     const LABEL = { fertig: ["fertig", "ok"], fehler: ["Fehler", "bad"], wartet: ["wartet", "warn"], ohne: ["ohne Ergebnis", "bad"],
                     laeuft: ["läuft", "run"], skelett: ["Skelett prüfen", "warn"], limit: ["Limit erreicht", "warn"], notbetrieb: ["im Notbetrieb", "warn"] };
-    const p = document.createElement("span"); p.className = "pill " + LABEL[state][1]; p.textContent = LABEL[state][0];
+    const p = document.createElement("span"); p.className = "pill " + LABEL[state][1]; p.textContent = state === "skelett" && res && res.schritt === "skizze" ? "Skizze prüfen" : LABEL[state][0];
     top.append(title, p);
     const meta = document.createElement("div"); meta.className = "meta";
     meta.textContent = [{ story: "Story", ranking: "Ranking", fakten: "Fakten", schaubild: "Schaubild", clip: "Clip", reportage: "Reportage", satire: "Satire", erklaer: "Erklärvideo" }[job.art] || "", when(job.gestartet || (res && res.fertig))]
@@ -2172,7 +2220,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
     const actions = document.createElement("div"); actions.className = "actions";
 
     if (state === "skelett") {
-      li.appendChild(skeletonEditor(id, job, res));
+      li.appendChild(res.schritt === "skizze" ? skizzeKarte(id, job, res) : skeletonEditor(id, job, res));
     } else if (state === "laeuft") {
       const mins = minutes(job.gestartet), pct = Math.min(95, Math.max(4, Math.round(100 * mins / expectMin({ job: job }))));
       const rr = h("div", "runrow"); rr.append(h("span", "", "Läuft seit " + mins + " Min."), h("span", "", "ca. " + pct + " % (Schätzung)"));
@@ -2433,7 +2481,7 @@ Schlägt ein Schritt fehl, mache trotzdem mit Schritt 4 und 5 weiter, damit die 
       e.hung = true; e.state = "hängt"; e.pill = "bad";
       e.reason = st === "ohne" ? "Die Sitzung ruht, aber es kam kein Ergebnis." : "Läuft seit " + mins + " Min. ohne Ergebnis.";
     }
-    const skipVideo = res && (res.schritt === "skelett" || (job.auftrag && job.auftrag.nur_skript));
+    const skipVideo = res && ((res.schritt === "skelett" || res.schritt === "skizze") || (job.auftrag && job.auftrag.nur_skript));
     if (res && !skipVideo) {                                                     // Regel 2: halbe Arbeit
       const hasVideo = (res.videos || []).some((v) => v && v.video_url);
       if (res.fehler || !res.ok) { e.half = true; e.reason = res.fehler || "Der Auftrag endete mit einem Fehler."; }
