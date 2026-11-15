@@ -28,7 +28,8 @@ DIR_ENV = "CUDI_SCHREIBEN_ORDNER"
 PREFS_ENV = "CUDI_VORLIEBEN"          # Bewertungen aus der App (gut/schlecht) – Claude lernt daraus
 PREFS_NOTE = (" Beachte außerdem „vorlieben“: So hat der Nutzer frühere Videos bewertet (gut / schlecht, mit Notiz). "
               "Übernimm, was ihm gefiel, und vermeide, was ihm nicht gefiel – bei Themenwahl, Blickwinkel, Stil, Länge "
-              "und Bildideen. Die Prüfregeln oben (nichts erfinden, Belege, Zahlen) haben immer Vorrang.")
+              "und Bildideen. Steht dort „rueckmeldung_zur_skizze“, hat der Nutzer die letzte Skizze dieses Videos gesehen und "
+              "möchte genau das geändert haben – setze es um. Die Prüfregeln oben (nichts erfinden, Belege, Zahlen) haben immer Vorrang.")
 
 
 def preferences() -> dict:

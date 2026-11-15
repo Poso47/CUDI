@@ -623,3 +623,27 @@ def test_imker_ist_handgebaute_detailfigur():
     sz = Z.pruefe_szene({"elemente": [{"id": "i", "art": "figur", "figur": "Imker", "x": 50, "y": 50, "groesse": 60},
                                       {"id": "l", "art": "beschriftung", "text": "Schleier", "an": "i"}], "schritte": []})
     assert sz and Z.Buehne(sz, 120, [0.0], (240, 236, 226), (214, 162, 84), 0, None).bild(1.0).size == (120, 120)
+
+
+def test_erklaer_nur_bis_zur_skizze_und_freigabe(tmp_path, monkeypatch):
+    from cudi_video import animation, handoff, job
+    from cudi_video.schaubild import zeichnen as Z
+    o = job.parse_order({"art": "erklaer", "id": "pskizze01", "thema": "Bienen", "schritt": "skizze", "feedback": "Szene 2 näher zeigen"}, {})
+    assert o["schritt"] == "skizze" and o["feedback"] == "Szene 2 näher zeigen"
+    assert job.parse_order({"art": "erklaer", "id": "pskizze01", "thema": "Bienen", "schritt": "video"}, {})["schritt"] == "video"
+    sz = Z.pruefe_szene({"elemente": [{"id": "b", "art": "figur", "figur": "biene", "x": 50, "y": 50, "groesse": 50}], "schritte": []})
+    skript = {"titel": "Bienen", "szenen": [{"text": "Die Biene fliegt los.", "animation": sz}, {"text": "Ohne Bild.", "animation": None}]}
+    bogen = animation.skizzenbogen(skript, tmp_path / "skizze.jpg")
+    with Image.open(bogen) as im:
+        assert im.size == (1080, 60 + 510)
+    daten = {"id": "t1", "art": "erklaer", "ok": True, "videos": [], "schritt": "skizze",
+             "skizze": {"bild": str(bogen), "titel": "Bienen", "antworten": {"erklaer": {"szenen": [1]}}, "fehlende_figuren": ["Imker"],
+                        "szenen": [{"nr": 1, "text": "x", "mit_bild": True}]}}
+    assert job.uploads(daten) == [str(bogen)]
+    (tmp_path / "ergebnis.json").write_text(__import__("json").dumps(daten), "utf-8")
+    doc = job.document(tmp_path, {str(bogen): "/_blob/" + "a" * 32})
+    assert doc["schritt"] == "skizze" and doc["skizze"]["bild_url"].endswith("a" * 32) and "bild" not in doc["skizze"]
+    assert doc["skizze"]["antworten"] == {"erklaer": {"szenen": [1]}} and doc["ok"]
+    assert "rueckmeldung_zur_skizze" in handoff.PREFS_NOTE
+    app = (Path(job.__file__).resolve().parent.parent / "docs" / "cudi-app-artefakt.html").read_text("utf-8")
+    assert "function skizzeKarte" in app and 'schritt: "skizze"' in app

@@ -129,3 +129,8 @@ Figuren-Werkstatt (Wunsch des Nutzers: nie Figuren frei zusammensetzen, immer Cr
   Der Eigenbau der Werkstatt im Lauf ist deshalb standardmäßig AUS (`CUDI_EIGENBAU=1` schaltet ihn nur für Versuche an); früher
   gepuzzelte Baupläne aus dem Lernstand gelten nicht mehr. Fehlende Figuren stehen als Hinweis/Wunschliste im Ergebnis und werden in
   der Hauptsitzung in Bienen-Qualität nachgebaut.
+- **Skizzen-Stufe (Erklärvideo, Standard in der App; spart Zeit und Limit):** Auftrag `"schritt":"skizze"` läuft nur bis Skript +
+  Drehbuch + Szenen und liefert `animation.skizzenbogen` (ein Bild je Szene mit Sprechtext, kein Ton/Video) als `skizze` im Ergebnis
+  (`bild_url`, `szenen`, `fehlende_figuren`, `antworten` = alle Schreibantworten). App-Karte „Skizze prüfen“: „Neue Skizze“ schickt
+  `feedback` (geht als `rueckmeldung_zur_skizze` in jede Schreibaufgabe), „Video erstellen“ legt `skelette/<id>` = {antworten} ab und
+  startet `"schritt":"video"` – der Lauf verwendet dieselben Antworten wieder (keine neue Schreibrunde).
