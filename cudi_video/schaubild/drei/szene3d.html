@@ -177,7 +177,92 @@ function glas(farbe) {                                   // Messglas mit Flüssi
   return { g, fl };
 }
 
+function stoff(farbe, dunkel) {                          // Gewebe mit weichen Falten (Schutzanzug)
+  const c = document.createElement("canvas"); c.width = c.height = 256; const g = c.getContext("2d");
+  g.fillStyle = farbe; g.fillRect(0, 0, 256, 256);
+  g.globalAlpha = .1; g.strokeStyle = dunkel; g.lineWidth = 1;
+  for (let i = 0; i < 256; i += 3) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, 256); g.stroke(); g.beginPath(); g.moveTo(0, i); g.lineTo(256, i); g.stroke(); }
+  g.globalAlpha = .22; g.lineWidth = 5; g.lineCap = "round";
+  for (let i = 0; i < 26; i++) { const x = (i * 71) % 256, y = (i * 113) % 256, l = 18 + (i * 7) % 30;   // Falten
+    g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + l * .5, y + 8, x + l, y + (i % 2 ? 14 : -6)); g.stroke(); }
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; tx.wrapS = tx.wrapT = T.RepeatWrapping; return tx;
+}
+function gaze() {                                        // Schleier: feines schwarzes Netz, durchsichtig
+  const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d");
+  g.clearRect(0, 0, 128, 128); g.fillStyle = "rgba(20,18,14,.28)"; g.fillRect(0, 0, 128, 128);
+  g.strokeStyle = "rgba(10,10,8,.95)"; g.lineWidth = 1.6;
+  for (let i = 0; i <= 128; i += 8) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, 128); g.stroke(); g.beginPath(); g.moveTo(0, i); g.lineTo(128, i); g.stroke(); }
+  const tx = new T.CanvasTexture(c); tx.wrapS = tx.wrapT = T.RepeatWrapping; tx.repeat.set(3, 2); return tx;
+}
+function wabenbild() {                                   // Wabenrahmen: Zellen mit Honig, oben verdeckelt
+  const c = document.createElement("canvas"); c.width = 256; c.height = 160; const g = c.getContext("2d");
+  g.fillStyle = "#b8791c"; g.fillRect(0, 0, 256, 160);
+  const r = 7; for (let y = 0, z = 0; y < 170; y += r * 1.5, z++) for (let x = (z % 2) * r * .87; x < 266; x += r * 1.74) {
+    g.beginPath(); for (let k = 0; k < 6; k++) { const a = Math.PI / 6 + k * Math.PI / 3; g.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); } g.closePath();
+    g.fillStyle = y < 50 ? "#ecdcae" : ((x * 7 + y * 3) % 11 < 2 ? "#6a3d08" : "#d9951f"); g.fill(); g.strokeStyle = "#f0d79a"; g.lineWidth = 1.4; g.stroke(); }
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; return tx;
+}
 const FIGUREN = {
+  imker() {
+    // Vorlage (Referenz-Scout „beekeeper“, Pexels): Imker in Seitenansicht, gelber Schutzanzug mit Kapuze und Netzschleier,
+    // Gummizüge an Bund und Ärmeln, helle Lederhandschuhe, hält einen Wabenrahmen mit Bienen vor sich.
+    const g = new T.Group(), teile = {}, glieder = [];
+    const tuch = stoff("#e9c63a", "#7a5c00"); tuch.repeat.set(2, 2);
+    const anzug = mat([255, 255, 255], { map: tuch, bumpMap: tuch, bumpScale: .012, roughness: .82, clearcoat: 0 });
+    const bund = mat([196, 160, 30], { roughness: .9 }), leder = mat([226, 208, 170], { roughness: .7, clearcoat: .15 });
+    const stiefel = mat([52, 44, 38], { roughness: .55, clearcoat: .3 });
+    // Rumpf: Jacke mit Gummizug am Bund (Rotationskörper, leicht flach gedrückt)
+    const prof = [[.0, -.15], [.082, -.15], [.094, -.12], [.086, -.1], [.098, -.06], [.11, .02], [.112, .09], [.1, .15], [.07, .185], [.045, .2], [0, .2]]
+      .map(([r, y]) => new T.Vector2(r, y));
+    const rumpf = new T.Mesh(new T.LatheGeometry(prof, 40), anzug); rumpf.position.copy(fp(196, 196)); rumpf.scale.set(1, 1, .78); rumpf.castShadow = true; g.add(rumpf);
+    const gummi = new T.Mesh(new T.TorusGeometry(.088, .012, 10, 40), bund); gummi.rotation.x = Math.PI / 2; gummi.position.copy(fp(196, 238)); gummi.scale.set(1, .78, 1); g.add(gummi);
+    const reiss = rohr([[212, 124, .083], [214, 170, .09], [213, 232, .072]], .004, mat([150, 150, 150], { metalness: .7, roughness: .3 })); g.add(reiss);
+    const tasche = new T.Mesh(new T.BoxGeometry(.06, .05, .006), anzug); tasche.position.copy(fp(182, 212, .084)); tasche.rotation.y = -.25; g.add(tasche);
+    // Beine: Hose mit Knie, Gummizug über dem Stiefel
+    for (const [x, z, knie] of [[184, .03, 4], [208, -.03, -3]]) {
+      g.add(rohr([[x, 250, z], [x + knie, 300, z], [x, 344, z]], .044, anzug));
+      const zug = new T.Mesh(new T.TorusGeometry(.04, .009, 8, 24), bund); zug.rotation.x = Math.PI / 2; zug.position.copy(fp(x, 344, z)); g.add(zug);
+      g.add(rohr([[x, 346, z], [x, 366, z]], .036, stiefel));
+      g.add(kugel(.045, stiefel, x + 12, 372, z, 1.5, .55, .95));
+    }
+    // Kopf: Kapuze, Gesicht hinter dem Netzschleier (Blick nach rechts)
+    const kopf = new T.Group(); kopf.position.copy(fp(198, 122)); g.add(kopf); teile.kopf = kopf;
+    const dazu = (o) => { o.position.sub(kopf.position); kopf.add(o); return o; };
+    dazu(kugel(.082, anzug, 192, 86, 0, 1, 1.05, .95));                                   // Kapuze hinten/oben
+    const haut = mat([226, 172, 132], { roughness: .6 });
+    dazu(kugel(.055, haut, 206, 92, 0, .95, 1.1, .9));
+    dazu(kugel(.014, haut, 228, 96, .008, 1.3, .9, .8));                                 // Nase
+    dazu(kugel(.007, mat([30, 24, 20]), 222, 86, .03)); dazu(kugel(.012, haut, 204, 94, .05, .6, 1, .5));   // Auge, Ohr
+    const brau = rohr([[216, 80, .034], [224, 79, .028]], .003, mat([70, 50, 34])); dazu(brau);
+    const netz = new T.Mesh(new T.CylinderGeometry(.078, .086, .12, 40, 1, true, -.35, 2.5),
+      new T.MeshPhysicalMaterial({ map: gaze(), transparent: true, side: T.DoubleSide, roughness: .9, depthWrite: false }));
+    netz.position.copy(fp(204, 94)); dazu(netz);
+    for (const [y, r] of [[70, .079], [118, .087]]) {                                    // gelbe Säume des Schleiers
+      const saum = new T.Mesh(new T.TorusGeometry(r, .008, 8, 40, 2.6), anzug); saum.rotation.x = Math.PI / 2; saum.rotation.z = -1.15;
+      saum.position.copy(fp(204, y)); dazu(saum);
+    }
+    dazu(kugel(.06, anzug, 196, 62, 0, 1.25, .45, 1.15));                                 // Kapuzendach
+    const kragen = new T.Mesh(new T.TorusGeometry(.06, .016, 10, 32), anzug); kragen.rotation.x = Math.PI / 2; kragen.position.copy(fp(198, 124)); g.add(kragen);
+    // Arme + Wabenrahmen als ein bewegliches Glied (Drehpunkt Schulter)
+    const arm = new T.Group(); arm.position.copy(fp(200, 142)); g.add(arm); glieder.push({ gr: arm, art: "arm", nr: 0 });
+    const an = (o) => { o.position.sub(arm.position); arm.add(o); return o; };
+    for (const z of [.085, -.07]) {
+      an(rohr([[198, 142, z], [228, 176, z * 1.05], [262, 168, z * .8]], .034, anzug));
+      const mansch = new T.Mesh(new T.TorusGeometry(.032, .008, 8, 20), bund); mansch.rotation.y = Math.PI / 2; mansch.position.copy(fp(262, 168, z * .8)); an(mansch);
+      an(rohr([[262, 168, z * .8], [280, 160, z * .72]], .026, leder));                    // Stulpe
+      an(kugel(.034, leder, 288, 154, z * .68, 1, 1.15, .7));                              // Hand
+      for (let f = 0; f < 4; f++) an(rohr([[292, 146 + f * 5, z * .68], [300, 140 + f * 5, z * .5]], .008, leder));   // Finger
+    }
+    const holz = mat([196, 150, 92], { roughness: .7 }), rahmen = new T.Group(); rahmen.position.copy(fp(304, 146)); rahmen.rotation.y = .62; rahmen.scale.setScalar(1.3); an(rahmen);
+    const fl = new T.Mesh(new T.PlaneGeometry(.26, .16), new T.MeshPhysicalMaterial({ map: wabenbild(), side: T.DoubleSide, roughness: .35, clearcoat: .6 }));
+    fl.rotation.y = Math.PI / 2; rahmen.add(fl);
+    for (const [y, h] of [[.088, .022], [-.088, .014]]) { const l = new T.Mesh(new T.BoxGeometry(.02, h, .3), holz); l.position.y = y; l.castShadow = true; rahmen.add(l); }
+    for (const z of [.137, -.137]) { const l = new T.Mesh(new T.BoxGeometry(.018, .176, .014), holz); l.position.z = z; rahmen.add(l); }
+    const bm = mat([70, 48, 14], { roughness: .5 });
+    for (let i = 0; i < 9; i++) { const b = new T.Mesh(new T.SphereGeometry(.008, 8, 6), bm); b.scale.set(1, .7, 1.6);
+      b.position.set(.008 * (i % 2 ? 1 : -1), -.06 + (i * 37 % 100) / 100 * .12, -.1 + (i * 53 % 100) / 100 * .2); rahmen.add(b); }
+    return { g, teile, glieder };
+  },
   biene() {
     // Vorlage: Nahaufnahmen vom Referenz-Scout (python -m cudi_video referenzen "honey bee apis mellifera macro"):
     // dichtes goldbraunes Brustfell, dunkler Kopf mit großem glänzenden Nierenauge, geknickte Fühler, spitzer Hinterleib
