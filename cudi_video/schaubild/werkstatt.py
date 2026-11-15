@@ -109,7 +109,15 @@ def _lernstand() -> dict:
 
 
 def bauplan(name: str) -> dict | None:
-    """Abgelegter Bauplan: aus diesem Lauf (Datei) oder aus dem Lernstand früherer Läufe."""
+    """Abgelegter Bauplan: aus diesem Lauf (Datei) oder aus dem Lernstand früherer Läufe. Aus Grundkörpern gepuzzelte
+    Figuren (auch früher gemerkte) gelten nur noch, wenn der Eigenbau ausdrücklich an ist."""
+    plan = _bauplan_roh(name)
+    if plan and not plan.get("modell_url") and not plan.get("modell") and not eigenbau_aktiv():
+        return None
+    return plan
+
+
+def _bauplan_roh(name: str) -> dict | None:
     name = _name(name)
     if not name:
         return None
@@ -315,6 +323,11 @@ def bauen(wuensche: list, aufgabe: str, notes: list[str]) -> list[str]:
             else:
                 rest.append((name, anzeige, begriff))
         offen = rest
+        if not eigenbau_aktiv():                               # Wunsch des Nutzers: keine aus Grundkörpern gepuzzelten Figuren
+            for name, anzeige, begriff in offen:
+                notes.append(f"Figur „{anzeige}“ fehlt in der Bibliothek – sie wird nicht behelfsmäßig zusammengesetzt, sondern "
+                             "steht auf der Wunschliste und wird im Detail gebaut (wie die Biene).")
+            return fertig_modelle
         for name, anzeige, begriff in offen:                   # 2. Weg: nach Foto-Vorlage selbst bauen
             fund = vorlage_suchen(begriff)
             if fund:
@@ -331,6 +344,12 @@ def bauen(wuensche: list, aufgabe: str, notes: list[str]) -> list[str]:
         notes.append(f"Figuren-Werkstatt: „{n}“ neu gebaut nach Vorlage aus dem Netz ({f['quelle']}, {f['lizenz'] or 'Lizenz unbekannt'}; "
                      f"nur zum Modellieren, nicht im Video): {f['seite']}")
     return fertig_modelle + fertig
+
+
+def eigenbau_aktiv() -> bool:
+    """Eigenbau aus Grundkörpern im Lauf – standardmäßig AUS (Qualität: Figuren entstehen im Detail in der Hauptsitzung)."""
+    import os
+    return os.environ.get("CUDI_EIGENBAU", "0") == "1"
 
 
 def modelle_aktiv() -> bool:

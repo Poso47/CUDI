@@ -124,3 +124,8 @@ Figuren-Werkstatt (Wunsch des Nutzers: nie Figuren frei zusammensetzen, immer Cr
   raus. Modelle mit eigener Bewegung spielen sie ab (`AnimationMixer`). Im Lernstand steht nur die Adresse (`modell_url`), die Datei
   wird neu geladen. **CC BY: Urheber-Nennung ist Pflicht** – `werkstatt.nennungen()` → Prüfbericht-Hinweis und Beschreibungstext
   (`job._mit_nennung`). Kein Treffer (z. B. „beekeeper“) → Foto-Vorlage + Eigenbau wie bisher. Aus: `CUDI_MODELLE=0`.
+- **Qualitätsregel Figuren (Wunsch des Nutzers, gilt für alle Videos außer Clips):** Jede Figur wird im Detail gebaut, gezeichnet und
+  animiert wie die Biene (`FIGUREN.<name>` in `drei/szene3d.html`, nach Crawler-Vorlage) – nie aus Grundkörpern zusammengepuzzelt.
+  Der Eigenbau der Werkstatt im Lauf ist deshalb standardmäßig AUS (`CUDI_EIGENBAU=1` schaltet ihn nur für Versuche an); früher
+  gepuzzelte Baupläne aus dem Lernstand gelten nicht mehr. Fehlende Figuren stehen als Hinweis/Wunschliste im Ergebnis und werden in
+  der Hauptsitzung in Bienen-Qualität nachgebaut.
