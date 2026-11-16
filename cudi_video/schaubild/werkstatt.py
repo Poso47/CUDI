@@ -362,9 +362,11 @@ def eigenbau_aktiv() -> bool:
 
 
 def modelle_aktiv() -> bool:
-    """Fertige freie 3D-Modelle (CC0/CC BY, mit Nennung) im Video – standardmäßig AN (Nutzer: realistisch statt selbst gepuzzelt)."""
+    """Automatische Modellwahl IN VIDEO-LÄUFEN – standardmäßig AUS. Probelauf 16.11.: ohne Blick aufs Modell landeten ein
+    Lamborghini-Rad als „Käselaib“, eine Spielfigur als „Ziege“ und ein nackter Anatomie-Körper als „Mensch“ im Lernstand.
+    Freie Profi-Modelle wählt nur die Figuren-Abteilung (figur-modell: Vergleich mit dem Foto, Probe, Anker)."""
     import os
-    return os.environ.get("CUDI_MODELLE", "1") != "0"     # Entscheidung des Nutzers (16.11.): freie Profi-Modelle ins Video
+    return os.environ.get("CUDI_MODELLE", "0") == "1"
 
 
 def modell_aufnehmen(name: str, fund: dict) -> bool:

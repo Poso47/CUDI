@@ -33,6 +33,11 @@ dieser Weg. Selbst gebaut (Ablauf unten) wird nur, wenn er kein passendes Modell
 Vergleichsbogen, `--dreh 90 --boden-weg`) ist „genau so“ gewollt. Realismus geht vor exakter Fellfarbe und vor eigener
 Laufbewegung. Selbst gebaute Tiere sahen trotz Opus und 3 Runden nach Spielzeug aus, daher dieser Weg.
 
+**Nie ungeprüft (Probelauf 16.11.):** Die automatische Modellwahl in Video-Läufen (`CUDI_MODELLE`) ist aus. Sie hatte ohne
+Blick aufs Modell ein Lamborghini-Rad als „Käselaib“, eine Spielfigur (Goat Simulator) als „Ziege“ und einen nackten
+Anatomie-Körper als „Mensch“ abgelegt. Modelle mit Nacktheit, Marken/Spielfiguren, Waffen oder Gewalt sind tabu. Ein Modell
+muss das Gesuchte **in der Art des Videos** zeigen (Mensch: bekleidet, natürlich), sonst lieber selbst bauen.
+
 ## Ablauf je Figur, wenn kein Profi-Modell passt (in der Figuren-Sitzung)
 
 1. **Vorlage holen** (Crawler, bester Ganzkörper-Fund):
