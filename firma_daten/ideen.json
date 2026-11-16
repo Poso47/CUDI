@@ -1,10 +1,454 @@
 {
- "erzeugt": "2026-11-15T12:49:10Z",
+ "erzeugt": "2026-11-16T13:46:50Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 78,
- "neu": 17,
+ "anzahl": 80,
+ "neu": 16,
  "ideen": [
+  {
+   "id": "idee-c098a7d1",
+   "bereich": "ranking",
+   "titel": "Die größten Auslegerbrücken der Welt",
+   "thema": "Eine Liste der größten Auslegerbrücken weltweit.",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' war Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-15 mit 32.184 Aufrufen.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "geplant",
+   "hinweis": "Wikidata-Probe mit zu wenigen Treffern",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Liste der größten Auslegerbrücken weltweit."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:18Z",
+   "plan": {
+    "klasse": "Q184390",
+    "eigenschaft": "P2043",
+    "reihenfolge": "desc"
+   },
+   "recherche": [
+    {
+     "text": "Liste der größten Auslegerbrücken: 989.681 Abrufe",
+     "status": "einzeln",
+     "datum": "2026-11-16",
+     "quellen": [
+      {
+       "quelle": "severint.net",
+       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
+       "datum": "2026-11-16"
+      }
+     ]
+    },
+    {
+     "text": "Die geheime Weltherrschaft der Auslegerbrücken wäre die vierte Möglichkeit.",
+     "status": "einzeln",
+     "datum": "2026-11-16",
+     "quellen": [
+      {
+       "quelle": "severint.net",
+       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
+       "datum": "2026-11-16"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-0144bad7",
+   "bereich": "ranking",
+   "titel": "Top-Einspielergebnisse: Indische Filme",
+   "thema": "Eine Rangliste der indischen Filme mit den höchsten Einspielergebnissen.",
+   "begruendung": "Der Trend 'List of highest-grossing Indian films' war Platz 6 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-15 mit 214.408 Aufrufen.",
+   "quelle": {
+    "name": "List of highest-grossing Indian films",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Thema nicht als Ranking darstellbar: The topic 'highest-grossing Indian films' cannot be expressed using the allowed numeric proper",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Rangliste der indischen Filme mit den höchsten Einspielergebnissen."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z",
+   "recherche": []
+  },
+  {
+   "id": "idee-f97696f3",
+   "bereich": "fakten",
+   "titel": "Wer ist Jensen Huang?",
+   "thema": "Wissenswertes über die Person Jensen Huang.",
+   "begruendung": "Der Trend 'Jensen Huang' war Platz 19 der meistgelesenen Wikipedia-Seiten (de) mit 16.478 Aufrufen und Platz 7 der meistgelesenen Wikipedia-Seiten (en) mit 194.070 Aufrufen am 2026-11-15, sowie Platz 10 auf Reddit r/technology (archiv) mit ",
+   "quelle": {
+    "name": "Jensen Huang",
+    "typ": "trend",
+    "score": 95.3,
+    "quellen": [
+     "reddit",
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über die Person Jensen Huang.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z"
+  },
+  {
+   "id": "idee-241f1e5f",
+   "bereich": "fakten",
+   "titel": "Amon-Ra St. Brown: Der Spieler im Fokus",
+   "thema": "Fakten über den Footballspieler Amon-Ra St. Brown.",
+   "begruendung": "Der Trend 'Amon-Ra St. Brown' war Platz 5 der meistgelesenen Wikipedia-Seiten (de) mit 30.492 Aufrufen und Platz 17 der meistgelesenen Wikipedia-Seiten (en) mit 112.331 Aufrufen am 2026-11-15.",
+   "quelle": {
+    "name": "Amon-Ra St. Brown",
+    "typ": "trend",
+    "score": 91.3,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über den Footballspieler Amon-Ra St. Brown.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z"
+  },
+  {
+   "id": "idee-a814af5a",
+   "bereich": "fakten",
+   "titel": "Was ist Archive of Our Own?",
+   "thema": "Wissenswertes über die Fanfiction-Plattform Archive of Our Own.",
+   "begruendung": "Der Trend 'Archive of Our Own' war Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-15 mit 860.729 Aufrufen.",
+   "quelle": {
+    "name": "Archive of Our Own",
+    "typ": "trend",
+    "score": 90.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über die Fanfiction-Plattform Archive of Our Own.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z"
+  },
+  {
+   "id": "idee-78ab2932",
+   "bereich": "fakten",
+   "titel": "9/11: Die Fakten zum Ereignis",
+   "thema": "Wissens-Fakten über das Ereignis 9/11.",
+   "begruendung": "Der Trend '9/11' war Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-15 mit 673.012 Aufrufen.",
+   "quelle": {
+    "name": "9/11",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über das Ereignis 9/11.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z"
+  },
+  {
+   "id": "idee-bcbb5525",
+   "bereich": "fakten",
+   "titel": "Der Film Fedora: Ein Überblick",
+   "thema": "Fakten über den Film Fedora.",
+   "begruendung": "Der Trend 'Fedora (Film)' war Platz 1 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-15 mit 43.708 Aufrufen.",
+   "quelle": {
+    "name": "Fedora (Film)",
+    "typ": "trend",
+    "score": 90.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über den Film Fedora.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z"
+  },
+  {
+   "id": "idee-084608bb",
+   "bereich": "erklaer",
+   "titel": "Immobilien in Ebersberg: Mehrfach überschreiben?",
+   "thema": "Ein Erklärvideo darüber, warum Familien in Ebersberg Immobilien mehrfach überschreiben.",
+   "begruendung": "Der Trend 'ebersberg' war Platz 1 der Google-Trends (DE) mit über 100 Suchen; die Meldung 'Neuer Ebersberger Notar: Warum Familien hier Immobilien mehrfach überschreiben' (Merkur) beschreibt das Thema.",
+   "quelle": {
+    "name": "ebersberg",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo darüber, warum Familien in Ebersberg Immobilien mehrfach überschreiben."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-16T13:45:20Z"
+  },
+  {
+   "id": "idee-bd95258f",
+   "bereich": "erklaer",
+   "titel": "Abschiebezentren: Was steckt dahinter?",
+   "thema": "Ein Erklärvideo über das Konzept und die Eignung von Abschiebezentren.",
+   "begruendung": "Der Trend 'ruanda' war Platz 2 der Google-Trends (DE) mit über 100 Suchen; die Meldung 'Mögliche Abkommen: Eignet sich Ruanda für Abschiebezentren?' (tagesschau.de) thematisiert dies.",
+   "quelle": {
+    "name": "ruanda",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo über das Konzept und die Eignung von Abschiebezentren."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-16T13:45:20Z"
+  },
+  {
+   "id": "idee-e8555ae8",
+   "bereich": "erklaer",
+   "titel": "Volkstrauertag: Bedeutung und Tradition",
+   "thema": "Ein Erklärvideo über die Bedeutung und die Traditionen des Volkstrauertags.",
+   "begruendung": "Der Trend 'Volkstrauertag' war Platz 6 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-15 mit 28.956 Aufrufen.",
+   "quelle": {
+    "name": "Volkstrauertag",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo über die Bedeutung und die Traditionen des Volkstrauertags."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-16T13:45:20Z"
+  },
+  {
+   "id": "idee-6dac00e9",
+   "bereich": "erklaer",
+   "titel": "Avengers: Was bedeutet 'Kein Team'?",
+   "thema": "Ein Erklärvideo zur Aussage über die Konsequenzen eines 'No Organised Avengers Team'.",
+   "begruendung": "Der Trend 'anthony mackie' war Platz 1 der Google-Trends (US) mit über 200 Suchen; die Meldung 'Doomsday Explores The Consequence Of Years With ‘No Organised Avengers Team’, Says Kevin Feige' (Empire) beschreibt das Thema.",
+   "quelle": {
+    "name": "anthony mackie",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zur Aussage über die Konsequenzen eines 'No Organised Avengers Team'."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-16T13:45:20Z"
+  },
+  {
+   "id": "idee-27f78c23",
+   "bereich": "reportage",
+   "titel": "Uvalde: Prozess gegen Polizeichef verlegt",
+   "thema": "Eine sachliche Reportage über die Verlegung des Prozesses gegen den ehemaligen Polizeichef der Robb Elementary School.",
+   "begruendung": "Der Trend 'robb elementary school' war Platz 3 der Google-Trends (US) mit über 200 Suchen; die Meldung 'Trial for former Uvalde school police chief in Robb Elementary shooting criminal case moves to Corpus Christi' (KSAT) ist eine bestätigt",
+   "quelle": {
+    "name": "robb elementary school",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über die Verlegung des Prozesses gegen den ehemaligen Polizeichef der Robb Elementary School.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-148f078e",
+   "bereich": "reportage",
+   "titel": "Kap Verde: Jose Maria Neves vor zweiter Amtszeit",
+   "thema": "Eine sachliche Reportage über die erwartete zweite Amtszeit von Jose Maria Neves bei der Wahl in Kap Verde.",
+   "begruendung": "Die Meldung 'Cape Verde election: Jose Maria Neves set to win second term' ist von 3 Quellen (Deutsche Welle (en)) bestätigt.",
+   "quelle": {
+    "name": "Cape Verde election: Jose Maria Neves set to win second term",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "Wikipedia · AP",
+     "Wikipedia · AFP via France 24"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über die erwartete zweite Amtszeit von Jose Maria Neves bei der Wahl in Kap Verde.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-ead6ec19",
+   "bereich": "reportage",
+   "titel": "Mexikanischer Drogenbaron Gallardo stirbt",
+   "thema": "Eine sachliche Reportage über den Tod des mexikanischen Drogenbarons Miguel Ángel Félix Gallardo.",
+   "begruendung": "Die Meldung 'Mexican drug lord Miguel Ángel Félix Gallardo dies age 80' ist von 2 Quellen (BBC World) bestätigt.",
+   "quelle": {
+    "name": "Mexican drug lord Miguel Ángel Félix Gallardo dies age 80",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über den Tod des mexikanischen Drogenbarons Miguel Ángel Félix Gallardo.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-45c7c474",
+   "bereich": "reportage",
+   "titel": "Estland schließt Grenze zu Russland",
+   "thema": "Eine sachliche Reportage über die Schließung der estnischen Grenze zu Russland nach einem mutmaßlichen Drohnenfabrikbrand.",
+   "begruendung": "Die Meldung 'Estonia closes border to Russia after suspected drone factory arson' ist von 2 Quellen (Deutsche Welle (en)) bestätigt.",
+   "quelle": {
+    "name": "Estonia closes border to Russia after suspected drone factory arson",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "Wikipedia · CNN"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über die Schließung der estnischen Grenze zu Russland nach einem mutmaßlichen Drohnenfabrikbran",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-d5bfecaf",
+   "bereich": "reportage",
+   "titel": "Philippinen gewinnen Eurovision Asia",
+   "thema": "Eine sachliche Reportage über den Sieg der Philippinen beim ersten Eurovision Song Contest Asia.",
+   "begruendung": "Die Meldung 'Philippines wins first Eurovision Song Contest Asia' ist von 2 Quellen (Deutsche Welle (en)) bestätigt.",
+   "quelle": {
+    "name": "Philippines wins first Eurovision Song Contest Asia",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "Wikipedia · AFP"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über den Sieg der Philippinen beim ersten Eurovision Song Contest Asia.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-16T13:45:20Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
   {
    "id": "idee-a328d521",
    "bereich": "ranking",
@@ -1065,139 +1509,6 @@
    ]
   },
   {
-   "id": "idee-630c5773",
-   "bereich": "fakten",
-   "titel": "Was ist .xxx?",
-   "thema": "Wissens-Fakten über die Top-Level-Domain .xxx",
-   "begruendung": "Der Trend '.xxx' war auf Platz 6 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-12 mit 257.723 Aufrufen.",
-   "quelle": {
-    "name": ".xxx",
-    "typ": "trend",
-    "score": 78.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten über die Top-Level-Domain .xxx",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-dbc96052",
-   "bereich": "fakten",
-   "titel": "Fakten zu Ramayana: Part 1",
-   "thema": "Wissens-Fakten zum Thema Ramayana: Part 1",
-   "begruendung": "Der Trend 'Ramayana: Part 1' war auf Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-12 mit 735.438 Aufrufen.",
-   "quelle": {
-    "name": "Ramayana: Part 1",
-    "typ": "trend",
-    "score": 87.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten zum Thema Ramayana: Part 1",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-92c8f6f4",
-   "bereich": "fakten",
-   "titel": "Alles über die SS United States",
-   "thema": "Wissens-Fakten über das Schiff SS United States",
-   "begruendung": "Der Trend 'SS United States' war auf Platz 7 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-12 mit 241.627 Aufrufen.",
-   "quelle": {
-    "name": "SS United States",
-    "typ": "trend",
-    "score": 76.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten über das Schiff SS United States",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-9174f78c",
-   "bereich": "fakten",
-   "titel": "Die Fernsehreihe Wolfsland",
-   "thema": "Wissens-Fakten zur Fernsehreihe Wolfsland",
-   "begruendung": "Der Trend 'Wolfsland (Fernsehreihe)' war auf Platz 8 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-12 mit 23.353 Aufrufen.",
-   "quelle": {
-    "name": "Wolfsland (Fernsehreihe)",
-    "typ": "trend",
-    "score": 74.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten zur Fernsehreihe Wolfsland",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-a6cccb71",
-   "bereich": "reportage",
-   "titel": "Mein schlimmster Tag im Homeoffice",
-   "thema": "Eine Alltagsgeschichte über unerwartete IT-Probleme bei der Arbeit",
-   "begruendung": "Der Trend 'm365' war auf Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Firma aus dem Landkreis Deggendorf wird Opfer eines Onlineangriffs“ (Idowa.de).",
-   "quelle": {
-    "name": "m365",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Alltagsgeschichte über unerwartete IT-Probleme bei der Arbeit",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
    "id": "idee-b2bc4b52",
    "bereich": "story",
    "titel": "Als die Brücke zum Problem wurde",
@@ -1276,31 +1587,6 @@
    "erstellt": "2026-11-13T13:12:39Z"
   },
   {
-   "id": "idee-56fa0205",
-   "bereich": "reportage",
-   "titel": "Wie Onlineangriffe Firmen treffen",
-   "thema": "Ein Erklärvideo darüber, wie Onlineangriffe auf Unternehmen funktionieren",
-   "begruendung": "Der Trend 'm365' war auf Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Firma aus dem Landkreis Deggendorf wird Opfer eines Onlineangriffs“ (Idowa.de).",
-   "quelle": {
-    "name": "m365",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Erklärvideo darüber, wie Onlineangriffe auf Unternehmen funktionieren",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
    "id": "idee-92dfafb3",
    "bereich": "erklaer",
    "titel": "Was tun bei maroden Brücken?",
@@ -1322,131 +1608,6 @@
    },
    "app_auftrag": false,
    "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-c6bd444a",
-   "bereich": "erklaer",
-   "titel": "Was passiert bei einem Webhoster-Angriff?",
-   "thema": "Ein Erklärvideo, wie ein Webhoster in den Krisenmodus gerät und was das bedeutet",
-   "begruendung": "Der Trend 'heise online' war auf Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Angriff über MCP-Server: Webhoster Mittwald im Krisenmodus“ (heise online).",
-   "quelle": {
-    "name": "heise online",
-    "typ": "trend",
-    "score": 86.7,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo, wie ein Webhoster in den Krisenmodus gerät und was das bedeutet"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-3d09035a",
-   "bereich": "erklaer",
-   "titel": "Die Rolle von Nvidia in der Tech-Welt",
-   "thema": "Ein Erklärvideo über die Funktionen und Bedeutung von Nvidia",
-   "begruendung": "Der Trend 'Nvidia' war auf Platz 3 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-12 mit 45.354 Aufrufen und Platz 5 der meistgelesenen Wikipedia-Seiten (en) mit 366.417 Aufrufen.",
-   "quelle": {
-    "name": "Nvidia",
-    "typ": "trend",
-    "score": 97.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo über die Funktionen und Bedeutung von Nvidia"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-6c1a039b",
-   "bereich": "reportage",
-   "titel": "Microsoft-Störung: Was wir wissen",
-   "thema": "Eine sachliche Reportage über die weltweite Störung bei Microsoft-Diensten",
-   "begruendung": "Die Nachricht 'What we know about the global Microsoft outage' ist von 2 Quellen (BBC World) bestätigt und 'Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft' ist von 2 Quellen (Tagesschau) bestätig",
-   "quelle": {
-    "name": "What we know about the global Microsoft outage",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Reportage über die weltweite Störung bei Microsoft-Diensten",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-f7401fee",
-   "bereich": "reportage",
-   "titel": "Nvidia-Chef: Rücktritt und Schock",
-   "thema": "Eine sachliche Reportage über den Rücktritt des Nvidia-Chefs und die Reaktionen",
-   "begruendung": "Die Nachricht 'Rücktritt von Nvidia-Chef: „Richtiger Schock“ – KI-Experte Espenlaub, ARD' ist von 2 Quellen (Tagesschau) bestätigt.",
-   "quelle": {
-    "name": "Rücktritt von Nvidia-Chef: „Richtiger Schock“ – KI-Experte Espenlaub, ARD",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Reportage über den Rücktritt des Nvidia-Chefs und die Reaktionen",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-6aca4dd5",
-   "bereich": "reportage",
-   "titel": "Ukraine-Verhandlungen: Europa dabei?",
-   "thema": "Eine sachliche Reportage über die Einbeziehung Europas in die Ukraine-Verhandlungen",
-   "begruendung": "Die Nachricht 'Zelensky welcomes US bringing Europe into Russia-Ukraine peace talks' ist von 4 Quellen (BBC World) bestätigt und 'Nach Putin-Treffen: US-Vermittler wollen Europa in Ukraine-Verhandlungen einbeziehen' ist von 2 Quellen (Tages",
-   "quelle": {
-    "name": "Zelensky welcomes US bringing Europe into Russia-Ukraine peace talks",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "Wikipedia · Reuters"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Reportage über die Einbeziehung Europas in die Ukraine-Verhandlungen",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
   },
   {
    "id": "idee-6b4dd7d4",
@@ -1525,33 +1686,6 @@
      "de"
     ],
     "thema": "Die Orte der Sierra Nevada mit den höchsten Schneefällen."
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-4660e7c3",
-   "bereich": "fakten",
-   "titel": "Australiens frühere Namen",
-   "thema": "Wissenswertes über die historischen Bezeichnungen Australiens.",
-   "begruendung": "Der Trend \"australien\" ist Platz 1 der Google-Trends (DE) und fragt nach dem Namen Australiens zu Beginn des 19. Jahrhunderts.",
-   "quelle": {
-    "name": "australien",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über die historischen Bezeichnungen Australiens.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
    },
    "app_auftrag": true,
    "erstellt": "2026-11-12T13:53:05Z"
@@ -1658,52 +1792,6 @@
     "laenge": "3min"
    },
    "app_auftrag": true,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-f0a42972",
-   "bereich": "erklaer",
-   "titel": "Die Namensgeschichte Australiens",
-   "thema": "Wie Australien zu seinem heutigen Namen kam.",
-   "begruendung": "Der Trend \"australien\" ist Platz 1 der Google-Trends (DE) und fragt nach dem Namen Australiens zu Beginn des 19. Jahrhunderts.",
-   "quelle": {
-    "name": "australien",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Wie Australien zu seinem heutigen Namen kam."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-5b183acc",
-   "bereich": "erklaer",
-   "titel": "Rockerclubs und Razzien",
-   "thema": "Die Hintergründe von Razzien gegen Rockerclubs.",
-   "begruendung": "Der Trend \"baden-württemberg\" ist Platz 2 der Google-Trends (DE) und meldet eine Großrazzia gegen Gremium MC.",
-   "quelle": {
-    "name": "baden-württemberg",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Die Hintergründe von Razzien gegen Rockerclubs."
-   },
-   "app_auftrag": false,
    "erstellt": "2026-11-12T13:53:05Z"
   },
   {
