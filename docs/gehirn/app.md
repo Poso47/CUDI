@@ -69,3 +69,5 @@ Tipp-Federung, Lade-Kreisel auf `.go:disabled`, aufklappen, Streifen im Fortschr
 „weniger Bewegung“ alles aus. Englisch-Häkchen standardmäßig aus.
 **Lernen aus App-Läufen:** Aufgabe holt vor dem Start `studio/lernstand` (out_dir `cudi_studio`), `auftrag --dokument` schreibt
 `STUDIO: <lernstand.json>` (`animation.lernstand_aktualisieren`), Schritt 5 legt ihn wieder in `studio/lernstand` ab.
+
+- **Figuren-Abteilung in der App**: Skizze mit `fehlende_figuren` → `figurPruefen` startet `CFG.figurAufgabe` (Ersatz `create_session` Sonnet, `#figurPrompt`), Status in `jobs/<id>.figurenbau` {status läuft/fertig/fehler, figuren, runde, session, weg}; Ergebnis `figurenbau/<id>` {gebaut[{name, anzeige, probe_url}], offen}; danach automatisch neue Skizze (≤ 3 Runden, gleiche Liste nicht erneut); „Video erstellen“ gesperrt, solange Figuren fehlen; Knopf „Figuren neu bauen“ bei Fehler/hängt (> 90 Min.). Demo `?demo=1` zeigt eine laufende Figuren-Abteilung.

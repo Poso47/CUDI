@@ -657,3 +657,66 @@ def test_bienenstock_und_honigglas_sind_detailfiguren():
         assert info and not info.get("bauplan") and anker <= set(info["anker"])
         assert f"  {name}() {{" in html
     assert "kleineBiene()" in html and "o.teile.schwarm" in html
+
+
+PILZ = """const g = new T.Group(), teile = {};
+const hut = kugel(.2, mat([196, 30, 28]), 200, 210, 0, 1, .7, 1); g.add(hut); teile.kopf = hut;
+g.add(kugel(.09, mat([236, 226, 200], { map: fell("#ece2c8") }), 200, 290, 0, 1, 2, 1));
+return { g, teile, glieder: [] };"""
+
+
+def test_figurenbau_pruefung_ablage_und_laden(tmp_path, monkeypatch):
+    from cudi_video import config
+    from cudi_video.schaubild import drei, figurenbau as F, zeichnen as Z
+    monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path)
+    monkeypatch.setattr(animation, "lernstand_datei", lambda: tmp_path / "alt.json")
+    (tmp_path / "alt.json").write_text(json.dumps({"regeln": [{"regel": "r", "faelle": 2}]}), "utf-8")
+    assert F.pruefe_code(PILZ) is None
+    assert "fetch" in F.pruefe_code(PILZ + "\nfetch('x');")
+    assert "return" in F.pruefe_code("const g = 1;")
+    assert F.pruefe_anker({"hut": [200, 200], "stiel": [200, 290]})[1]
+    assert not F.pruefe_anker({"hut": [200, 200], "stiel": [200, 290], "rand": [300, 230]})[1]
+    assert F.pruefe_anker({"a": [500, 1], "b": [1, 1], "c": [2, 2]})[1]          # außerhalb 0–400 zählt nicht
+    assert Z.figur_info("Pilz") is None
+    ziel = F.ablegen("Pilz", PILZ, {"hut": [200, 200], "stiel": [200, 290], "rand": [300, 230]}, "Pilz")
+    daten = json.loads(ziel.read_text("utf-8"))
+    assert daten["regeln"] and "pilz" in daten["figuren_code"]                    # alter Lernstand bleibt erhalten
+    info = Z.figur_info("Pilz")
+    assert info["code"] == PILZ and info["nur3d"] and set(info["anker"]) == {"hut", "stiel", "rand"}
+    assert "pilz" in Z.figuren()
+
+    class B:
+        order = ["p"]
+        el = {"p": {"art": "figur", "figur": "pilz", "farbe": (1, 2, 3), "f": 0}}
+    assert drei.elemente(B())[0]["figur_code"] == PILZ
+    html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
+    assert "function ausCode" in html and "new Function(code)" in html
+    doc = json.loads(F.bericht("t1", {}, ["Zwerg: keine Vorlage"]).read_text("utf-8"))
+    assert doc["gebaut"][0]["name"] == "pilz" and not doc["ok"] and doc["offen"]
+    # ein Video-Lauf gibt die gebauten Figuren beim Zurückschreiben weiter
+    (tmp_path / "lauf").mkdir()
+    (tmp_path / "lauf" / "abgleich.json").write_text(json.dumps({"art": "erklaer", "abschnitte": [{"maengel": []}]}), "utf-8")
+    neu = animation.lernstand_aktualisieren(tmp_path / "lauf")
+    assert "pilz" in json.loads(neu.read_text("utf-8"))["figuren_code"]
+    app = (Path(animation.__file__).resolve().parent.parent / "docs" / "cudi-app-artefakt.html").read_text("utf-8")
+    assert "figurPruefen" in app and "figurAufgabe" in app and 'id="figurPrompt"' in app
+
+
+def test_figurenbau_probe_rendert_und_meldet_fehler(tmp_path, monkeypatch):
+    import shutil
+    import pytest
+    from cudi_video import config
+    from cudi_video.schaubild import figurenbau as F
+    if not shutil.which("node"):
+        pytest.skip("ohne node kein 3D")
+    monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path)
+    try:
+        bild = F.probe("pilz", PILZ, {"hut": [200, 200], "stiel": [200, 290], "rand": [300, 230]}, size=160)
+    except RuntimeError as err:
+        if "Cannot find module" in str(err) or "Executable" in str(err):
+            pytest.skip("ohne Playwright/Chromium kein 3D")
+        raise
+    with Image.open(bild) as im:
+        assert im.size == (640, 160 * 2 + 34)
+    with pytest.raises(RuntimeError, match="nichtDa"):
+        F.probe("kaputt", "nichtDa(); const g = new T.Group(); return { g };", size=120)

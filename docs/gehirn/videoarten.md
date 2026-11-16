@@ -134,3 +134,5 @@ Figuren-Werkstatt (Wunsch des Nutzers: nie Figuren frei zusammensetzen, immer Cr
   (`bild_url`, `szenen`, `fehlende_figuren`, `antworten` = alle Schreibantworten). App-Karte „Skizze prüfen“: „Neue Skizze“ schickt
   `feedback` (geht als `rueckmeldung_zur_skizze` in jede Schreibaufgabe), „Video erstellen“ legt `skelette/<id>` = {antworten} ab und
   startet `"schritt":"video"` – der Lauf verwendet dieselben Antworten wieder (keine neue Schreibrunde).
+
+- **Figuren-Abteilung** (Stand 16.11.): Fehlt eine Figur in der Skizze, baut die geplante Aufgabe „CUDI-Figurenbau“ (`trig_013izkDesiVmL1cV2eXd9tjA`) sie im Detail als three.js-Code nach einer Crawler-Vorlage – Ablauf `docs/gehirn/figurenbau.md`. Abgelegt im Lernstand `figuren_code`; `figur_info` lädt sie vor Werkstatt-Figuren.

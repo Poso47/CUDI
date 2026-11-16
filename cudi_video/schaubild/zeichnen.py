@@ -54,8 +54,8 @@ def figur_info(name: str) -> dict | None:
     """Gezeichnete Figur (Ebenen-PNGs + figur.json aus data/figuren/<name>/) oder None."""
     pfad = FIGUREN / figur_name(name) / "figur.json"
     if not pfad.exists():
-        from . import werkstatt                             # im Lauf gebaute Figur (Bauplan aus Grundkörpern)
-        return werkstatt.info(name)
+        from . import figurenbau, werkstatt                 # Figuren-Abteilung (Detail-Code) vor Werkstatt (Modell/Bauplan)
+        return figurenbau.info(name) or werkstatt.info(name)
     import json
 
     info = json.loads(pfad.read_text("utf-8"))
@@ -65,10 +65,11 @@ def figur_info(name: str) -> dict | None:
 
 def figuren() -> dict[str, dict]:
     """Alle verfügbaren Figuren mit ihren Ankerpunkten (für die Schreibanleitung)."""
-    from . import werkstatt
+    from . import figurenbau, werkstatt
 
     fest = {d.parent.name: figur_info(d.parent.name) for d in sorted(FIGUREN.glob("*/figur.json"))}
-    return {**{n: werkstatt.info(n) for n in werkstatt.namen() if n not in fest and werkstatt.info(n)}, **fest}
+    code = {n: i for n in figurenbau.alle() if n not in fest and (i := figurenbau.info(n))}
+    return {**{n: werkstatt.info(n) for n in werkstatt.namen() if n not in fest and n not in code and werkstatt.info(n)}, **code, **fest}
 
 
 @functools.lru_cache(maxsize=64)

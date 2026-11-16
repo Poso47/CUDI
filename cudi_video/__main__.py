@@ -107,6 +107,21 @@ def main(argv=None) -> int:
     rf = sub.add_parser("referenzen", help="Referenz-Scout: beste freie Vorlagen-Fotos für 3D-Figuren suchen (nur zum Modellieren)")
     rf.add_argument("begriff")
     rf.add_argument("--anzahl", type=int, default=8)
+    fv = sub.add_parser("figur-vorlage", help="Figuren-Abteilung: beste Ganzkörper-Vorlage für eine Figur holen (nur zum Ansehen)")
+    fv.add_argument("wunsch", help="„Deutsch (english)“, z. B. „Imker (beekeeper)“")
+    fpr = sub.add_parser("figur-probe", help="Figuren-Abteilung: Figuren-Code aus mehreren Richtungen neben der Vorlage rendern")
+    fpr.add_argument("name")
+    fpr.add_argument("code", help="Datei mit dem three.js-Code der Figur (Funktionskörper, endet mit return { g, teile, glieder })")
+    fpr.add_argument("--anker", default="", help="JSON {teil: [x, y]} im Figurenraum 0–400 – wird rot eingezeichnet")
+    fab = sub.add_parser("figur-ablegen", help="Figuren-Abteilung: geprüfte Figur in den Lernstand schreiben (für alle Videos)")
+    fab.add_argument("name")
+    fab.add_argument("code")
+    fab.add_argument("--anker", required=True, help="JSON {teil: [x, y]} im Figurenraum 0–400 (mindestens 3)")
+    fab.add_argument("--anzeige", default="", help="Anzeigename, z. B. „Imker“")
+    fbe = sub.add_parser("figur-bericht", help="Figuren-Abteilung: Ergebnis für die App (ohne --adressen: Probe-Bilder zum Hochladen)")
+    fbe.add_argument("id")
+    fbe.add_argument("--adressen", default=None, help="JSON {Dateipfad: url} der hochgeladenen Probe-Bilder")
+    fbe.add_argument("--offen", default="[]", help="JSON-Liste: nicht gebaute Figuren mit Grund")
     chk = sub.add_parser("check", help="Selbsttest: ffmpeg, Schriften, Stimme, Datenquellen")
     chk.add_argument("--ohne-netz", action="store_true", help="nur lokale Prüfungen")
     chk.add_argument("--ohne-stimme", action="store_true", help="KI-Stimme nicht testen")
@@ -193,6 +208,35 @@ def main(argv=None) -> int:
         for h in erg["hinweise"]:
             print("Hinweis:", h)
         return 0
+    if args.cmd in ("figur-vorlage", "figur-probe", "figur-ablegen", "figur-bericht"):
+        import json
+
+        from .schaubild import figurenbau
+        try:
+            if args.cmd == "figur-vorlage":
+                fund = figurenbau.vorlage(args.wunsch)
+                print(f"Vorlage: {fund['datei']}\nName: {fund['name']} · Quelle: {fund.get('quelle')} {fund.get('seite')}\n"
+                      f"Farben (gemessen): {', '.join(fund.get('farben') or [])}")
+                return 0
+            if args.cmd == "figur-bericht":
+                if args.adressen is None:
+                    print("DATEIEN: " + json.dumps(figurenbau.proben(), ensure_ascii=False))
+                    return 0
+                print(f"DOKUMENT: {figurenbau.bericht(args.id, json.loads(args.adressen), json.loads(args.offen))}")
+                studio = figurenbau.ordner() / "lernstand.json"
+                if studio.exists():
+                    print(f"STUDIO: {studio}")
+                return 0
+            code = Path(args.code).read_text("utf-8")
+            anker = json.loads(args.anker) if args.anker else None
+            if args.cmd == "figur-probe":
+                print(f"Probe: {figurenbau.probe(args.name, code, anker)}")
+                return 0
+            print(f"LERNSTAND: {figurenbau.ablegen(args.name, code, anker, args.anzeige)}")
+            return 0
+        except (ValueError, RuntimeError, OSError) as err:
+            print(f"FEHLER: {err}")
+            return 1
     if args.cmd == "check":
         from .check import print_report, run_checks
 

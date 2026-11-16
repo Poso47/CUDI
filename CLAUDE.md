@@ -10,6 +10,7 @@ CUDI Video (`cudi_video/`): kostenlose Hochformat-Videos (1080×1920, Deutsch; E
 | Thema | Datei im Gehirn | Skill |
 |---|---|---|
 | Videoarten (Ranking, Fakten, Story, Reportage, Satire, Erklär, Regie, Recherche), Abgrenzung, Animationsstudio | `docs/gehirn/videoarten.md` | `neue-videoart`, `recherche` |
+| Figuren-Abteilung: fehlende Figuren im Detail bauen (Vorlage → Code → Probe → Lernstand), Aufgabe „CUDI-Figurenbau“ | `docs/gehirn/figurenbau.md` | – |
 | CUDI-App (Artefakt), Cloud-Auftrag, Tabs, 3D-Büro | `docs/gehirn/app.md` | `app-artefakt`, `cloud-probelauf` |
 | Notbetrieb ohne Claude (GitHub-Issue) | `docs/gehirn/notbetrieb.md` | `notbetrieb` |
 | Upload, Betonung, Endkontrolle, Wahrheit, Musik | `docs/gehirn/qualitaet.md` | – |

@@ -37,6 +37,7 @@ if ! command -v ffmpeg > /dev/null; then
   done
   command -v ffmpeg > /dev/null || echo "FEHLER: ffmpeg fehlt"
 fi
+if [ "${1:-}" = "--nur-pakete" ]; then echo "PAKETE OK"; exit 0; fi   # Figuren-Abteilung: nur einrichten
 export CUDI_ZEIT_PAKETE=$(( $(date +%s) - T0 ))      # Zeitmessung: Prüfbericht „Zeiten“
 if [ "${1:-}" = "--weiter" ]; then
   exec python3 -m cudi_video auftrag --weiter "${2:-}"

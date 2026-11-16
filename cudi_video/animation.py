@@ -130,7 +130,9 @@ def lernstand_aktualisieren(ordner: Path) -> Path | None:
     daten = {"stand": datetime.now(timezone.utc).isoformat(timespec="seconds"), "abschnitte_n": gesamt, "ohne_luecke": ohne,
              "quote": round(ohne / gesamt, 3) if gesamt else None, "regeln": bildlehrer.regeln_aus(woerter, arten, gesamt, []),
              "figur_wuensche": bildlehrer.figur_wuensche(abschnitte), "abschnitte": abschnitte}
-    from .schaubild import werkstatt
+    from .schaubild import figurenbau, werkstatt
+    if figurenbau.alle():                                      # im Detail gebaute Figuren (Figuren-Abteilung) gehen nie verloren
+        daten["figuren_code"] = figurenbau.alle()
     if werkstatt.alle():                                       # gebaute Figuren bleiben für alle späteren Videos
         daten["figuren"] = werkstatt.alle()
     ziel = ordner / "lernstand.json"
