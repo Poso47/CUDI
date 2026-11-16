@@ -666,12 +666,45 @@ function ladeModell(b64) {
       new T.GLTFLoader().parse(buf.buffer, "", (g) => ok(g), () => ok(null)); } catch (err) { ok(null); }
   });
 }
+function huelle(obj) {                                   // echte Ausdehnung – auch bei Modellen mit Skelett (Pose statt Ruhe-Geometrie)
+  obj.updateMatrixWorld(true); const box = new T.Box3(), v = new T.Vector3();
+  obj.traverse((k) => {
+    if (!k.isMesh || !k.geometry || !k.geometry.attributes.position) return;
+    const pos = k.geometry.attributes.position, schritt = Math.max(1, Math.floor(pos.count / 4000));
+    if (k.isSkinnedMesh && k.boneTransform) { k.skeleton.update();
+      for (let i = 0; i < pos.count; i += schritt) { v.fromBufferAttribute(pos, i); k.boneTransform(i, v); v.applyMatrix4(k.matrixWorld); box.expandByPoint(v); } }
+    else { if (!k.geometry.boundingBox) k.geometry.computeBoundingBox(); box.union(k.geometry.boundingBox.clone().applyMatrix4(k.matrixWorld)); }
+  });
+  return box.isEmpty() ? new T.Box3().setFromObject(obj) : box;
+}
+function bodenWeg(obj) {                                 // flache, nach oben zeigende Dreiecke ganz unten (Scan-Boden) weglassen
+  const box = huelle(obj), unten = box.min.y + (box.max.y - box.min.y) * .12, a = new T.Vector3(), b = new T.Vector3(), c = new T.Vector3(), n = new T.Vector3();
+  obj.traverse((k) => {
+    if (!k.isMesh || k.isSkinnedMesh || !k.geometry.attributes.position) return;
+    const geo = k.geometry, pos = geo.attributes.position, idx = geo.index ? Array.from(geo.index.array) : [...Array(pos.count).keys()], neu = [];
+    for (let i = 0; i < idx.length; i += 3) {
+      a.fromBufferAttribute(pos, idx[i]).applyMatrix4(k.matrixWorld); b.fromBufferAttribute(pos, idx[i + 1]).applyMatrix4(k.matrixWorld);
+      c.fromBufferAttribute(pos, idx[i + 2]).applyMatrix4(k.matrixWorld);
+      n.subVectors(c, b).cross(new T.Vector3().subVectors(a, b)).normalize();
+      if (a.y < unten && b.y < unten && c.y < unten && Math.abs(n.y) > .3) continue;
+      neu.push(idx[i], idx[i + 1], idx[i + 2]);
+    }
+    geo.setIndex(neu);
+  });
+}
 function ausModell(gltf, e) {                            // auf Figurengröße bringen: mittig, Höhe/Breite ~0,9
-  const g = new T.Group(), m = gltf.scene, box = new T.Box3().setFromObject(m), gr = box.getSize(new T.Vector3()), mi = box.getCenter(new T.Vector3());
-  const f = .9 / Math.max(gr.x, gr.y, 1e-6); m.position.sub(mi); const halter = new T.Group(); halter.add(m); halter.scale.setScalar(f * (e.modell_skala || 1)); halter.rotation.y = (e.modell_dreh || 0) * Math.PI / 180; g.add(halter);
+  const g = new T.Group(), m = gltf.scene, halter = new T.Group(); halter.add(m);
   m.traverse((k) => { if (k.isMesh) { k.castShadow = true; k.frustumCulled = false; } });
   const mixer = gltf.animations && gltf.animations.length ? new T.AnimationMixer(m) : null;
-  if (mixer) mixer.clipAction(gltf.animations[0]).play();
+  if (mixer) {                                           // gewählte Bewegung (z. B. „Walk“), sonst Gehen/Leerlauf, sonst die erste
+    const an = gltf.animations, w = String(e.modell_clip || "").toLowerCase();
+    const clip = (w && an.find((a) => a.name.toLowerCase() === w)) || an.find((a) => /walk|idle|graz|eat/i.test(a.name)) || an[0];
+    mixer.clipAction(clip).play(); mixer.setTime(0);
+  }
+  if (e.modell_boden_weg) bodenWeg(m);                    // eingescannte Modelle: mitgescannten Boden entfernen
+  const box = huelle(m), gr = box.getSize(new T.Vector3()), mi = box.getCenter(new T.Vector3());
+  const f = .9 / Math.max(gr.x, gr.y, gr.z * .8, 1e-6); m.position.sub(mi);
+  halter.scale.setScalar(f * (e.modell_skala || 1)); halter.rotation.y = (e.modell_dreh || 0) * Math.PI / 180; g.add(halter);
   return { g, teile: {}, mixer, halter };
 }
 window.init = async function (daten) {
@@ -714,7 +747,7 @@ function zeichneBild(b) {                                // b = {t, st: {id: zus
       if (o.teile.schwarm) o.teile.schwarm.rotation.y = t * .9;   // Bienen kreisen um den Stock
       if (o.teile.tropfen) { const p = (t * .45) % 1; o.teile.tropfen.position.y = fp(330, 334 + p * 60).y; o.teile.tropfen.scale.setScalar(.05 * (1 - p * .3)); }
       if (o.mixer) o.mixer.setTime(t);                        // Modell mit eigener Bewegung (z. B. Gehen)
-      if (b.probe !== undefined && (o.halter || o.innen)) { (o.halter || o.innen).rotation.y = b.probe * Math.PI / 180; o.obj.rotation.y = 0; }   // Sichtprüfung: Blickrichtungen
+      if (b.probe !== undefined && (o.halter || o.innen)) { (o.halter || o.innen).rotation.y = (b.probe + (o.halter ? e.modell_dreh || 0 : 0)) * Math.PI / 180; o.obj.rotation.y = 0; }   // Sichtprüfung: Blickrichtungen
       if (o.glieder) for (const gl of o.glieder) {            // Werkstatt-Figur lebt: Kopf nickt, Arme und Beine schwingen
         const ph = t * 1.5 + gl.nr * 2.1 + e.id.length;
         gl.gr.rotation.z = gl.art === "kopf" ? .07 * Math.sin(t * 1.3 + gl.nr) - .3 * (z.picke || 0)

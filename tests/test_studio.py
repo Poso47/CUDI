@@ -733,3 +733,40 @@ def test_figurenbau_probe_rendert_und_meldet_fehler(tmp_path, monkeypatch):
     assert all(f"function {h}(" in html for h in ("organ", "koerper", "fellmat", "hautmat", "auge"))
     with pytest.raises(RuntimeError, match="nichtDa"):
         F.probe("kaputt", "nichtDa(); const g = new T.Group(); return { g };", size=120)
+
+
+def test_profi_modell_als_figur_mit_anker_und_nennung(tmp_path, monkeypatch):
+    from cudi_video import config
+    from cudi_video.schaubild import drei, figurenbau as F, werkstatt, zeichnen as Z
+    monkeypatch.setattr(config, "OUTPUT_DIR", tmp_path)
+    monkeypatch.setattr(animation, "lernstand_datei", lambda: tmp_path / "alt.json")
+    glb = tmp_path / "kuh.glb"
+    glb.write_bytes(b"glTF" + b"\0" * 2000)
+    (tmp_path / "alt.json").write_text(json.dumps({"figuren_code": {"kuh": {"code": PILZ, "anker": {}}}}), "utf-8")
+    (tmp_path / "figurenbau" / "modelle").mkdir(parents=True)
+    (tmp_path / "figurenbau" / "modelle" / "kuh.json").write_text(json.dumps({"anzeige": "Kuh", "modelle": [
+        {"nr": 1, "datei": str(glb), "url": "https://huggingface.co/datasets/allenai/objaverse/resolve/main/glbs/x/kuh.glb",
+         "lizenz": "CC BY 4.0", "urheber": "jemand", "titel": "Cow", "seite": "https://sketchfab.com/3d-models/x", "skala": 1.2}]}), "utf-8")
+    anker = {"kopf": [330, 150], "euter": [200, 250], "schwanz": [85, 175]}
+    import pytest
+    with pytest.raises(ValueError, match="probe"):
+        F.modell_ablegen("Kuh", 1, anker, dreh=90)
+    (tmp_path / "figurenbau" / "proben").mkdir(parents=True)
+    (tmp_path / "figurenbau" / "proben" / "kuh.json").write_text(json.dumps({"runden": 1}), "utf-8")
+    ziel = F.modell_ablegen("Kuh", 1, anker, dreh=90, boden_weg=True)
+    daten = json.loads(ziel.read_text("utf-8"))
+    assert "kuh" in daten["figuren"] and "kuh" not in daten.get("figuren_code", {})        # Profi-Modell ersetzt den Eigenbau
+    info = Z.figur_info("Kuh")
+    assert info["modell"] == str(glb) and info["boden_weg"] and info["dreh"] == 90
+    assert info["anker"]["kopf"] == [330.0, 150.0]                                          # 0–100 gespeichert, 0–400 zurück
+    werkstatt._genutzt.clear()
+
+    class B:
+        order = ["k"]
+        el = {"k": {"art": "figur", "figur": "kuh", "farbe": (1, 2, 3), "f": 0}}
+    d = drei.elemente(B())[0]
+    assert d["modell_boden_weg"] and d["modell_dreh"] == 90
+    assert any("jemand" in n and "CC BY" in n for n in werkstatt.nennungen())
+    assert F.gebaut() == ["kuh"]
+    html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
+    assert "function huelle" in html and "function bodenWeg" in html and "boneTransform" in html

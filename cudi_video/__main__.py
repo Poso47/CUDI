@@ -118,6 +118,23 @@ def main(argv=None) -> int:
     fab.add_argument("code")
     fab.add_argument("--anker", required=True, help="JSON {teil: [x, y]} im Figurenraum 0–400 (mindestens 3)")
     fab.add_argument("--anzeige", default="", help="Anzeigename, z. B. „Imker“")
+    fmo = sub.add_parser("figur-modell", help="Figuren-Abteilung: freie Profi-3D-Modelle (CC0/CC BY) suchen, neben dem Foto zeigen")
+    fmo.add_argument("wunsch", help="„Deutsch (english)“, z. B. „Kuh (cow)“")
+    fmp = sub.add_parser("figur-modell-probe", help="Figuren-Abteilung: gewähltes Modell wie eine Figur proben (Anker, Nahaufnahme)")
+    fmp.add_argument("name")
+    fmp.add_argument("nr", type=int)
+    fmp.add_argument("--anker", default="")
+    fmp.add_argument("--dreh", type=float, default=None, help="Blickrichtung in Grad (Figur schaut nach rechts)")
+    fmp.add_argument("--clip", default="", help="Bewegung des Modells (Name der Animation)")
+    fmp.add_argument("--boden-weg", action="store_true", help="eingescannten Boden unter dem Modell entfernen")
+    fma = sub.add_parser("figur-modell-ablegen", help="Figuren-Abteilung: gewähltes Modell als Figur in den Lernstand schreiben")
+    fma.add_argument("name")
+    fma.add_argument("nr", type=int)
+    fma.add_argument("--anker", required=True)
+    fma.add_argument("--dreh", type=float, default=0)
+    fma.add_argument("--clip", default="")
+    fma.add_argument("--anzeige", default="")
+    fma.add_argument("--boden-weg", action="store_true")
     fbe = sub.add_parser("figur-bericht", help="Figuren-Abteilung: Ergebnis für die App (ohne --adressen: Probe-Bilder zum Hochladen)")
     fbe.add_argument("id")
     fbe.add_argument("--adressen", default=None, help="JSON {Dateipfad: url} der hochgeladenen Probe-Bilder")
@@ -208,7 +225,8 @@ def main(argv=None) -> int:
         for h in erg["hinweise"]:
             print("Hinweis:", h)
         return 0
-    if args.cmd in ("figur-vorlage", "figur-probe", "figur-ablegen", "figur-bericht"):
+    if args.cmd in ("figur-vorlage", "figur-probe", "figur-ablegen", "figur-bericht", "figur-modell", "figur-modell-probe",
+                    "figur-modell-ablegen"):
         import json
 
         from .schaubild import figurenbau
@@ -217,6 +235,18 @@ def main(argv=None) -> int:
                 fund = figurenbau.vorlage(args.wunsch)
                 print(f"Vorlage: {fund['datei']}\nName: {fund['name']} · Quelle: {fund.get('quelle')} {fund.get('seite')}\n"
                       f"Farben (gemessen): {', '.join(fund.get('farben') or [])}")
+                return 0
+            if args.cmd == "figur-modell":
+                bogen = figurenbau.modell_kandidaten(args.wunsch)
+                print(f"Modelle: {bogen}\nListe: {bogen.with_suffix('.json')}")
+                return 0
+            if args.cmd == "figur-modell-probe":
+                print("Probe: " + str(figurenbau.modell_probe(args.name, args.nr, json.loads(args.anker) if args.anker else None,
+                                                              args.dreh, args.clip, args.boden_weg)))
+                return 0
+            if args.cmd == "figur-modell-ablegen":
+                print(f"LERNSTAND: {figurenbau.modell_ablegen(args.name, args.nr, json.loads(args.anker), args.dreh, args.clip, args.anzeige,
+                                                                   args.boden_weg)}")
                 return 0
             if args.cmd == "figur-bericht":
                 if args.adressen is None:

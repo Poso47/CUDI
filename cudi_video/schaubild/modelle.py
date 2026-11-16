@@ -18,7 +18,7 @@ from .. import config, net
 
 BASIS = "https://huggingface.co/datasets/allenai/objaverse/resolve/main"
 LIZENZEN = {"cc0": "CC0", "by": "CC BY 4.0"}              # frei + kommerziell; BY = Urheber nennen
-MAX_FLAECHEN, MAX_BYTES, MAX_PRUEFEN = 120_000, 9_000_000, 10
+MAX_FLAECHEN, MAX_BYTES, MAX_PRUEFEN = 150_000, 12_000_000, 30
 UA = {"User-Agent": "CUDI-Video/1.0 (Modell-Scout)"}
 
 
@@ -74,7 +74,7 @@ def kandidaten(begriff: str, anzahl: int = 4) -> list[dict]:
             if m.get("license") not in LIZENZEN or not 0 < (m.get("faceCount") or 0) <= MAX_FLAECHEN:
                 continue
             roh.append((m.get("likeCount") or 0, uid, pfad, m))
-            if len(meta_cache) >= 4 and roh:           # Metadaten sind groß: nicht endlos weitere Teile laden
+            if len(meta_cache) >= 8 and roh:           # Metadaten sind groß: nicht endlos weitere Teile laden
                 break
         for _, uid, pfad, m in sorted(roh, key=lambda x: -x[0]):
             datei = net.download(f"{BASIS}/{pfad}", suffix=".glb", headers=UA, timeout=180)

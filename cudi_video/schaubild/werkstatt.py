@@ -61,9 +61,18 @@ def pruefe_bauplan(roh) -> dict | None:
         return None
     if roh.get("modell") or roh.get("modell_url"):          # fertiges 3D-Modell (Modell-Scout) statt Grundkörper
         from .zeichnen import _zahl
-        plan = {"name": _name(roh["name"]), "teile": [], "anker": {"mitte": [50.0, 50.0]},
+        anker = {"mitte": [50.0, 50.0]}
+        for k, v in list((roh.get("anker") or {}).items())[:MAX_ANKER] if isinstance(roh.get("anker"), dict) else []:
+            key = re.sub(r"[^a-zäöüß0-9_]", "", str(k).lower())[:20]
+            if key and isinstance(v, (list, tuple)) and len(v) == 2:
+                anker[key] = [_zahl(v[0], 50, 0, 100), _zahl(v[1], 50, 0, 100)]   # Figurenraum 0–100 (Figuren-Abteilung setzt sie)
+        plan = {"name": _name(roh["name"]), "teile": [], "anker": anker,
                 "modell_url": str(roh.get("modell_url") or "")[:300], "dreh": _zahl(roh.get("dreh"), 0, 0, 360),
                 "skala": _zahl(roh.get("skala"), 1, .15, 12)}
+        if roh.get("clip"):
+            plan["clip"] = str(roh["clip"])[:60]
+        if roh.get("boden_weg"):
+            plan["boden_weg"] = True                             # eingescanntes Modell: mitgescannten Boden entfernen                # Bewegung des Modells (Name der Animation, z. B. „Walk“)
         if roh.get("modell"):
             plan["modell"] = str(roh["modell"])
         if isinstance(roh.get("vorlage"), dict):
@@ -158,7 +167,7 @@ def info(name: str) -> dict | None:
             return None
         return {"name": plan["name"], "ebenen": [], "groesse": GROESSE, "versteckt": [], "mit_kopf": [], "drehpunkte": {},
                 "anker": {a: [v[0] * k, v[1] * k] for a, v in plan["anker"].items()}, "bauplan": [], "modell": datei, "dreh": plan.get("dreh", 0),
-                "skala": plan.get("skala", 1), "ordner": None, "vorlage": plan.get("vorlage") or {}}
+                "skala": plan.get("skala", 1), "clip": plan.get("clip", ""), "boden_weg": plan.get("boden_weg", False), "ordner": None, "vorlage": plan.get("vorlage") or {}}
     return {"name": plan["name"], "ebenen": [], "groesse": GROESSE, "versteckt": [], "mit_kopf": [], "drehpunkte": {},
             "anker": {a: [v[0] * k, v[1] * k] for a, v in plan["anker"].items()}, "bauplan": plan["teile"], "ordner": None}
 
@@ -174,7 +183,7 @@ def alle() -> dict[str, dict]:
     for n in namen():
         plan = bauplan(n)
         if plan:
-            out[n] = {k: plan[k] for k in ("teile", "anker", "vorlage", "modell_url", "dreh", "skala") if k in plan}
+            out[n] = {k: plan[k] for k in ("teile", "anker", "vorlage", "modell_url", "dreh", "skala", "clip", "boden_weg") if k in plan}
     return dict(list(out.items())[-MAX_FIGUREN:])
 
 
@@ -353,9 +362,9 @@ def eigenbau_aktiv() -> bool:
 
 
 def modelle_aktiv() -> bool:
-    """Fertige fremde 3D-Modelle im Video – standardmäßig AUS (Entscheidung des Nutzers: nur als Vorlage zum Nachbauen)."""
+    """Fertige freie 3D-Modelle (CC0/CC BY, mit Nennung) im Video – standardmäßig AN (Nutzer: realistisch statt selbst gepuzzelt)."""
     import os
-    return os.environ.get("CUDI_MODELLE", "0") == "1"
+    return os.environ.get("CUDI_MODELLE", "1") != "0"     # Entscheidung des Nutzers (16.11.): freie Profi-Modelle ins Video
 
 
 def modell_aufnehmen(name: str, fund: dict) -> bool:
@@ -374,15 +383,23 @@ def modell_aufnehmen(name: str, fund: dict) -> bool:
     return True
 
 
+_genutzt: list[dict] = []                                  # im Video verwendete Modelle (Pflichtnennung, auch aus dem Lernstand)
+
+
+def genutzt(vorlage: dict) -> None:
+    if isinstance(vorlage, dict) and vorlage.get("urheber") and vorlage not in _genutzt:
+        _genutzt.append(vorlage)
+
+
 def nennungen() -> list[str]:
     """Pflichtangaben aller Modell-Figuren dieses Laufs (CC BY) – für Prüfbericht und Beschreibungstext."""
     from . import modelle
-    out = []
+    out = [modelle.nennung(v) for v in _genutzt]
     for n in ([p.stem for p in sorted(ordner().glob("*.json"))] if ordner().exists() else []):
         plan = bauplan(n)
         if plan and plan.get("modell_url") and plan.get("vorlage"):
             out.append(modelle.nennung(plan["vorlage"]))
-    return out
+    return list(dict.fromkeys(out))
 
 
 def neu_gebaut() -> list[str]:

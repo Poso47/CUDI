@@ -8,7 +8,28 @@ und Kästen zusammengepuzzelt.
 Die App startet diese Abteilung von selbst, wenn eine Skizze „fehlende Figuren“ meldet. Danach zeichnet sie automatisch
 eine neue Skizze. „Video erstellen“ geht erst, wenn keine Figur mehr fehlt.
 
-## Ablauf je Figur (in der Figuren-Sitzung)
+## Zuerst: freies Profi-Modell (Entscheidung des Nutzers vom 16.11.: realistisch statt selbst gebaut)
+
+Selbst geschriebener 3D-Code wirkt bei Tieren und Menschen nie wie ein Foto. Deshalb gilt für **jede** Figur zuerst
+dieser Weg. Selbst gebaut (Ablauf unten) wird nur, wenn er kein passendes Modell liefert.
+
+1. `python3 -m cudi_video figur-modell "Kuh (cow)"` sucht freie 3D-Modelle (Objaverse/Sketchfab, nur CC0 oder CC BY,
+   frei und kommerziell nutzbar). Ausgegeben wird ein Vergleichsbogen: links das Foto, je Zeile ein Modell aus
+   4 Richtungen, mit Nummer, Urheber, Lizenz und „bewegt“ (Modell hat eigene Animationen). Den Bogen mit Read ansehen.
+2. **Wählen.** Am wichtigsten ist der Realismus: fotorealistische oder eingescannte Modelle vor Cartoon- und
+   Low-Poly-Modellen. Danach zählen die passende Art und Farbe zum Thema (z. B. Milchkuh schwarz-weiß), dann
+   Bewegung, dann Vollständigkeit. Kaputte, halbe oder falsche Modelle nie nehmen.
+3. `python3 -m cudi_video figur-modell-probe <name> <nr> --dreh <grad> --anker '{…}' [--boden-weg] [--clip <animation>]`
+   ansehen.
+   - `--dreh` so wählen, dass die Figur in der 0°-Ansicht im Dreiviertelprofil nach rechts schaut.
+   - `--boden-weg` entfernt bei eingescannten Modellen mitgescannten Boden.
+   - Die Anker (0–400, rot eingezeichnet) so oft verschieben, bis jeder genau auf seinem Teil sitzt.
+4. `python3 -m cudi_video figur-modell-ablegen <name> <nr> --dreh … --anker '{…}' [--boden-weg] [--clip …] --anzeige "Kuh"`
+   legt das Modell ab. Es landet im Lernstand unter `figuren` und hat Vorrang vor einer selbst gebauten Fassung.
+   Urheber und Lizenz kommen automatisch in Beschreibung und Prüfbericht jedes Videos, das die Figur zeigt
+   (Pflicht bei CC BY).
+
+## Ablauf je Figur, wenn kein Profi-Modell passt (in der Figuren-Sitzung)
 
 1. **Vorlage holen** (Crawler, bester Ganzkörper-Fund):
    `python3 -m cudi_video figur-vorlage "Imker (beekeeper)"`. Danach die ausgegebene Bilddatei mit dem Read-Werkzeug
