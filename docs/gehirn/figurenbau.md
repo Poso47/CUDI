@@ -29,6 +29,10 @@ dieser Weg. Selbst gebaut (Ablauf unten) wird nur, wenn er kein passendes Modell
    Urheber und Lizenz kommen automatisch in Beschreibung und Prüfbericht jedes Videos, das die Figur zeigt
    (Pflicht bei CC BY).
 
+**Maßstab (vom Nutzer bestätigt am 16.11.):** Die eingescannte Kuh „Cow brown“ (Nyilonelycompany, CC BY, Nr. 1 im
+Vergleichsbogen, `--dreh 90 --boden-weg`) ist „genau so“ gewollt. Realismus geht vor exakter Fellfarbe und vor eigener
+Laufbewegung. Selbst gebaute Tiere sahen trotz Opus und 3 Runden nach Spielzeug aus, daher dieser Weg.
+
 ## Ablauf je Figur, wenn kein Profi-Modell passt (in der Figuren-Sitzung)
 
 1. **Vorlage holen** (Crawler, bester Ganzkörper-Fund):
