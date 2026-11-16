@@ -46,6 +46,10 @@ STRONG = re.compile(
     r"\bclippers? (?:wanted|needed)\b|\bbecome a clipper\b|\bclips? (?:sind|ist) (?:erlaubt|ausdrücklich erwünscht)\b|"
     r"\bclips? (?:are|is) (?:allowed|welcome)\b",
     re.I)
+# Nur für Belege, bei denen der Creator nachweislich SELBST spricht (vom Nutzer eingetragen, z. B. im Video gesagt):
+# „Wir suchen Clipper“ ist dort eindeutig – in fremden Beschreibungen bliebe es ein schwacher Hinweis (könnte eine Agentur sein).
+STRONG_SELBST = re.compile(r"\b(?:wir|ich)\s+(?:such\w*|brauch\w*)\s+(?:\w+\s+){0,2}clipper\b|\bclipper\s+(?:werden|sind)\s+gesucht\b|"
+                           r"\bsucht\s+clipper\b|\bclipper\s+(?:willkommen|erwünscht)\b", re.I)
 CALL = re.compile(r"\bclipp(?:er|ing|en|ern)\b|\bclips? (?:schneiden|machen)\b.{0,60}(?:geld|verdien|bezahl|€|\$)", re.I)
 RECRUIT = re.compile(r"gesucht|such\w*|werd\w*|team|programm|kampagne|verdien\w*|geld|bezahl\w*|€|\$|join|become|paid|apply|bewerb\w*",
                      re.I)
@@ -55,7 +59,7 @@ VERBOT = re.compile(
     r"\bnot allowed to (?:clip|re-?upload)\b|\bclips? (?:are |is |sind |ist )?(?:not allowed|prohibited|forbidden|verboten|nicht erlaubt)\b|"
     r"\bre-?uploads? (?:are |is |sind |ist )?(?:not allowed|prohibited|forbidden|verboten|nicht erlaubt)\b|\bcopyright strikes?\b", re.I)
 NOISE = re.compile(r"clipping[- ]?(?:software|tool|mask|path)|hair ?clipper|barber|photoshop|illustrator|premiere", re.I)
-LINK = re.compile(r"(?:https?://)?(?:www\.)?(?:discord\.gg/|discord\.com/invite/|whop\.com/|contentrewards\.com/|linktr\.ee/|"
+LINK = re.compile(r"(?:https?://)?(?:www\.)?(?:discord\.gg/|discord\.com/invite/|t\.me/|whop\.com/|contentrewards\.com/|linktr\.ee/|"
                   r"forms\.gle/|docs\.google\.com/forms/)[^\s)\]>\"']+", re.I)
 RISKY = re.compile(r"onlyfans|fansly|nsfw|\b18\+|porn|adult content|erotik|casino|gambl|betting|\bbet\b|sportsbook|stake\.com|"
                    r"roobet|glücksspiel|wetten", re.I)
@@ -86,6 +90,10 @@ def load_creators(notes: list[str]) -> list[dict]:
                     "youtube": [str(x).strip() for x in c.get("youtube") or [] if str(x).strip()],
                     "twitch": [str(x).strip().lower() for x in c.get("twitch") or [] if str(x).strip()],
                     "tiktok": [str(x).strip() for x in c.get("tiktok") or [] if str(x).strip()],
+                    "telegram": [t for x in c.get("telegram") or [] if (t := telegram_name(x))],
+                    "discord": [d for x in c.get("discord") or [] if (d := discord_code(x))],
+                    "belege": [b for b in (manueller_beleg(x) for x in c.get("belege") or []) if b],
+                    "hinweis": _norm(str(c.get("hinweis") or ""))[:300],
                     "gesperrt": bool(c.get("gesperrt"))})
     if not out:
         notes.append("clip_creators.json enthält keinen Creator – optional: eigene Creator/Sperrliste eintragen (docs/clip-team.md).")
@@ -155,6 +163,132 @@ def twitch_clips(login: str, limit: int = 20) -> list[dict]:
 
 
 # --------------------------------------------------------------------------- Aufruf-Finder
+
+# --------------------------------------------------------------------------- Telegram / Discord / TikTok / eigene Belege
+
+GUTE_ARTEN = {"beschreibung", "telegram", "discord", "tiktok", "aufruf"}   # Arten, deren eindeutiger Aufruf „erlaubt“ trägt
+TG_NAME = re.compile(r"^[A-Za-z][A-Za-z0-9_]{3,31}$")
+DISCORD_API = "https://discord.com/api/v10"
+DISCORD_KANAL = re.compile(r"clip|ankündig|ankuendig|announce|news|info|regeln|rules|aufruf|programm", re.I)
+MAX_DISCORD_KANAELE, MAX_TIKTOK = 6, 12
+
+
+def telegram_name(roh) -> str:
+    """„https://t.me/kanal“, „t.me/s/kanal“, „@kanal“ -> „kanal“ (nur öffentliche Kanalnamen, keine Einladungslinks)."""
+    t = str(roh or "").strip()
+    t = re.sub(r"^(?:https?://)?(?:www\.)?(?:t\.me|telegram\.me)/(?:s/)?", "", t).lstrip("@").split("/")[0].split("?")[0]
+    return t if TG_NAME.fullmatch(t) and t.lower() not in ("joinchat", "share", "addstickers", "proxy") else ""
+
+
+def discord_code(roh) -> str:
+    t = str(roh or "").strip()
+    m = re.search(r"(?:discord\.gg/|discord(?:app)?\.com/invite/)([A-Za-z0-9-]{2,32})", t)
+    if m:
+        return m.group(1)
+    return t if re.fullmatch(r"[A-Za-z0-9-]{2,32}", t) else ""
+
+
+def manueller_beleg(roh) -> dict | None:
+    """Beleg, den der Nutzer einträgt (z. B. ein Clipper-Aufruf im Video): Link, wörtliches Zitat, Datum. Stärke aus dem Zitat."""
+    if not isinstance(roh, dict):
+        return None
+    url, zitat, datum = str(roh.get("url") or "").strip(), _norm(str(roh.get("zitat") or "")), str(roh.get("datum") or "")[:10]
+    if not url.startswith("http") or len(zitat) < 8 or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", datum):
+        return None
+    verbot = VERBOT.search(zitat)
+    staerke = "verbot" if verbot else ("eindeutig" if STRONG.search(zitat) or STRONG_SELBST.search(zitat) else "hinweis")
+    return {"url": url[:300], "zitat": zitat[:300], "datum": datum, "art": "verbot" if verbot else "aufruf", "staerke": staerke,
+            "links": [], "quelle": _norm(str(roh.get("quelle") or "vom Nutzer eingetragen"))[:120]}
+
+
+def telegram_posts(name: str, html: str | None = None) -> list[dict]:
+    """Öffentliche Telegram-Kanal-Vorschau (t.me/s/<name>, ohne Konto) -> [{url, beschreibung, veroeffentlicht}]."""
+    from bs4 import BeautifulSoup
+
+    if html is None:
+        html = common.fetch(f"https://t.me/s/{name}", timeout=20).text
+    soup = BeautifulSoup(html, "lxml")
+    out = []
+    for msg in soup.select("div.tgme_widget_message[data-post]"):
+        text_el, zeit = msg.select_one(".tgme_widget_message_text"), msg.select_one("time[datetime]")
+        if not text_el:
+            continue
+        out.append({"url": f"https://t.me/{msg['data-post']}", "beschreibung": _norm(text_el.get_text(" ")),
+                    "veroeffentlicht": (zeit["datetime"] if zeit else iso())[:19]})
+    return out[-40:]
+
+
+def discord_einladung(code: str) -> dict | None:
+    """Öffentliche Angaben einer Discord-Einladung (ohne Konto): Servername, Beschreibung, Mitglieder."""
+    d = common.fetch(f"{DISCORD_API}/invites/{code}", params={"with_counts": "true"}, timeout=15).json()
+    g = d.get("guild") or {}
+    if not g.get("id"):
+        return None
+    return {"id": g["id"], "name": _norm(g.get("name") or "")[:80], "beschreibung": _norm(g.get("description") or ""),
+            "mitglieder": d.get("approximate_member_count") or 0, "url": f"https://discord.gg/{code}"}
+
+
+def discord_bot_posts(notes: list[str], token: str | None = None) -> dict[str, dict]:
+    """Lese-Bot (nur Server, in die ein Admin ihn eingeladen hat; Secret CUDI_DISCORD_BOT_TOKEN): Nachrichten der Clip-/Ankündigungs-
+    Kanäle -> {guild_id: {"name", "posts": [...]}}. Ohne Token: {} (ehrlicher Hinweis)."""
+    import os
+
+    token = token if token is not None else os.environ.get("CUDI_DISCORD_BOT_TOKEN", "")
+    if not token:
+        notes.append("Discord-Lese-Bot nicht eingerichtet (Secret CUDI_DISCORD_BOT_TOKEN fehlt) – siehe docs/discord-bot.md.")
+        return {}
+    kopf = {"Authorization": f"Bot {token}"}
+    out: dict[str, dict] = {}
+    for g in (common.fetch(f"{DISCORD_API}/users/@me/guilds", headers=kopf, timeout=15).json() or [])[:25]:
+        posts = []
+        try:
+            kanaele = [k for k in common.fetch(f"{DISCORD_API}/guilds/{g['id']}/channels", headers=kopf, timeout=15).json()
+                       if k.get("type") in (0, 5) and DISCORD_KANAL.search(k.get("name") or "")][:MAX_DISCORD_KANAELE]
+            for k in kanaele:
+                for m in common.fetch(f"{DISCORD_API}/channels/{k['id']}/messages", params={"limit": 50}, headers=kopf,
+                                      timeout=15).json() or []:
+                    if m.get("content"):
+                        posts.append({"url": f"https://discord.com/channels/{g['id']}/{k['id']}/{m['id']}",
+                                      "beschreibung": _norm(m["content"]), "veroeffentlicht": str(m.get("timestamp") or iso())[:19]})
+        except Exception as exc:                          # noqa: BLE001 – ein Server stoppt den Lauf nicht
+            notes.append(f"Discord-Server {g.get('name', '?')}: nicht lesbar ({common.short_error(exc)})")
+        out[str(g["id"])] = {"name": _norm(g.get("name") or ""), "posts": posts}
+    return out
+
+
+def tiktok_posts(handle: str) -> list[dict]:
+    """Neueste TikTok-Beschreibungen eines Kontos (yt-dlp, ohne Anmeldung; TikTok sperrt das oft – dann leer mit Hinweis)."""
+    h = handle.strip().lstrip("@")
+    res = subprocess.run(["yt-dlp", "--flat-playlist", "--dump-single-json", "--playlist-end", str(MAX_TIKTOK),
+                          f"https://www.tiktok.com/@{h}"], capture_output=True, text=True, timeout=120)
+    if res.returncode != 0 or not res.stdout.strip():
+        raise RuntimeError((res.stderr or "keine Antwort").strip().splitlines()[-1][:120] if res.stderr else "keine Antwort")
+    out = []
+    for e in json.loads(res.stdout).get("entries") or []:
+        ts = e.get("timestamp")
+        out.append({"url": e.get("url") or e.get("webpage_url") or f"https://www.tiktok.com/@{h}/video/{e.get('id')}",
+                    "beschreibung": _norm(e.get("description") or e.get("title") or ""),
+                    "veroeffentlicht": iso(datetime.fromtimestamp(ts, tz=timezone.utc)) if ts else iso()})
+    return out
+
+
+def evidence_from_posts(posts: list[dict], art: str) -> list[dict]:
+    """Wie `evidence_from_videos`, für Telegram-/Discord-/TikTok-Beiträge (Art des Belegs bleibt erkennbar)."""
+    out = evidence_from_videos([dict(p, veroeffentlicht=p.get("veroeffentlicht") or iso()) for p in posts])
+    for b in out:
+        if b["art"] == "beschreibung":
+            b["art"] = art
+    return out
+
+
+def kontakt_links(texte: list[str]) -> dict[str, list[str]]:
+    """Telegram-/Discord-Links aus den eigenen Beschreibungen eines Creators (gehören damit zu ihm)."""
+    tg, dc = [], []
+    for t in texte:
+        tg += [n for m in re.finditer(r"(?:t\.me|telegram\.me)/(?:s/)?([A-Za-z0-9_]{4,32})", t or "") if (n := telegram_name(m.group(1)))]
+        dc += [c for m in re.finditer(r"(?:discord\.gg|discord(?:app)?\.com/invite)/[A-Za-z0-9-]{2,32}", t or "") if (c := discord_code(m.group(0)))]
+    return {"telegram": list(dict.fromkeys(tg))[:3], "discord": list(dict.fromkeys(dc))[:3]}
+
 
 def _snippet(text: str, m: re.Match, width: int = 120) -> str:
     return _norm(text[max(0, m.start() - width): m.end() + width])
@@ -259,7 +393,7 @@ def decide(creator: dict, belege: list[dict], signale: list[str] | None = None, 
     if ban:
         return {"status": "gesperrt", "monetarisierung": "unklar", "signale": [],
                 "bedingungen": [f"ausdrückliches Verbot: „{ban[0]['zitat'][:160]}“ ({ban[0]['datum']}) – {ban[0]['url']}"]}
-    good = [b for b in belege if b.get("url") and b.get("zitat") and b.get("datum") and b.get("art") == "beschreibung"
+    good = [b for b in belege if b.get("url") and b.get("zitat") and b.get("datum") and b.get("art") in GUTE_ARTEN
             and b.get("staerke") == "eindeutig"]
     camp = [b for b in belege if b.get("art") == "kampagne"]
     paid = any(b.get("bezahlt") for b in camp) or any(re.search(r"verdien|bezahl|geld|paid|€|\$", b.get("zitat", ""), re.I) for b in good)
@@ -619,24 +753,64 @@ def _scan_creator(c: dict, cache: dict, notes: list[str], budget: dict | None = 
     return {"cids": cids, "videos": videos, "clips": clips}
 
 
+def _weitere_quellen(c: dict, scan: dict, notes: list[str], discord_bot: dict) -> dict:
+    """Telegram-Kanäle, Discord (Einladung + Lese-Bot) und TikTok eines Creators nach Clipper-Aufrufen durchsuchen."""
+    gefunden = kontakt_links([v.get("beschreibung", "") for v in scan["videos"]])
+    telegram = list(dict.fromkeys(c.get("telegram", []) + gefunden["telegram"]))[:4]
+    discord = list(dict.fromkeys(c.get("discord", []) + gefunden["discord"]))[:3]
+    belege, server = [], []
+    for name in telegram:
+        try:
+            belege += evidence_from_posts(telegram_posts(name), "telegram")
+        except Exception as exc:                          # noqa: BLE001
+            notes.append(f"{c['name']}: Telegram {name} nicht lesbar ({common.short_error(exc)})")
+    for code in discord:
+        try:
+            inv = discord_einladung(code)
+        except Exception as exc:                          # noqa: BLE001
+            notes.append(f"{c['name']}: Discord-Einladung {code} nicht lesbar ({common.short_error(exc)})")
+            continue
+        if not inv:
+            continue
+        server.append(inv)
+        belege += evidence_from_posts([{"url": inv["url"], "beschreibung": inv["beschreibung"], "veroeffentlicht": iso()}], "discord")
+        if inv["id"] in discord_bot:                       # Lese-Bot ist in diesem Server: Nachrichten prüfen
+            belege += evidence_from_posts(discord_bot[inv["id"]]["posts"], "discord")
+    for name, g in discord_bot.items():                    # Server ohne Einladungslink: Zuordnung über den Namen
+        if c["name"].lower() in g["name"].lower() and not any(s["id"] == name for s in server):
+            server.append({"id": name, "name": g["name"], "beschreibung": "", "mitglieder": 0, "url": ""})
+            belege += evidence_from_posts(g["posts"], "discord")
+    for h in c.get("tiktok", [])[:2]:
+        try:
+            belege += evidence_from_posts(tiktok_posts(h), "tiktok")
+        except Exception as exc:                          # noqa: BLE001
+            notes.append(f"{c['name']}: TikTok {h} nicht lesbar ({common.short_error(exc)})")
+    return {"belege": belege, "telegram": telegram, "discord": server}
+
+
 def _process(c: dict, cache: dict, camps: list[dict], old_by: dict, notes: list[str], eintrag: dict | None = None,
-             budget: dict | None = None) -> dict:
+             budget: dict | None = None, discord_bot: dict | None = None) -> dict:
     scan = _scan_creator(c, cache, notes, budget)
+    extra = _weitere_quellen(c, scan, notes, discord_bot or {})
     belege = merge_belege((old_by.get(c["name"]) or {}).get("belege", []),
-                          evidence_from_videos(scan["videos"]) + evidence_from_campaigns(c, camps, scan["cids"]))
+                          c.get("belege", []) + extra["belege"] + evidence_from_videos(scan["videos"])
+                          + evidence_from_campaigns(c, camps, scan["cids"]))
     signale = duldung_signale(eintrag, scan, belege)
     unsicher = bool(eintrag) and not eintrag.get("kanal_bestaetigt", True) and not any(b.get("art") == "kampagne" for b in belege)
-    verdict = decide(c, belege, [] if unsicher else signale, lesbar=bool(scan["videos"]))
+    verdict = decide(c, belege, [] if unsicher else signale, lesbar=bool(scan["videos"]) or bool(extra["belege"]))
+    if c.get("hinweis"):
+        verdict["bedingungen"].append(c["hinweis"])
     if unsicher and verdict["status"] == "unklar":
         verdict["bedingungen"].append("Kanal nur aus Beitragstiteln vermutet – nicht bestätigt, daher keine Duldung angenommen")
-    erl = {"name": c["name"], "kanaele": {"youtube": scan["cids"] or c["youtube"], "twitch": c["twitch"], "tiktok": c["tiktok"]},
-           **verdict, "belege": [{k: b[k] for k in ("url", "zitat", "datum", "art") if k in b} | {"staerke": b.get("staerke", "")}
+    erl = {"name": c["name"], "kanaele": {"youtube": scan["cids"] or c["youtube"], "twitch": c["twitch"], "tiktok": c["tiktok"],
+                                          "telegram": extra["telegram"], "discord": [s["url"] or s["name"] for s in extra["discord"]]},
+           **verdict, "belege": [{k: b[k] for k in ("url", "zitat", "datum", "art", "quelle") if k in b} | {"staerke": b.get("staerke", "")}
                                  for b in belege], "geprueft": iso()}
     status = verdict["status"]
     if status == "gesperrt":
         why = "gesperrt: " + (verdict["bedingungen"][0] if verdict["bedingungen"] else "")
     elif status == "erlaubt":
-        first = next((b for b in belege if b.get("staerke") == "eindeutig"), belege[0])
+        first = next((b for b in belege if b.get("staerke") == "eindeutig" and b.get("art") in GUTE_ARTEN), belege[0])
         why = "Aufruf des Creators: „" + first["zitat"][:90] + "“"
     elif status == "geduldet":
         why = "geduldet (Signale: " + "; ".join(verdict["signale"]) + ") – nicht ausdrücklich erlaubt"
@@ -679,8 +853,10 @@ def run() -> dict:
     radar_rows: list[dict] = []
     erlaubnis: list[dict] = []
     manual_keys: dict[str, str] = {}                       # Schlüssel -> Status des manuellen Creators (Sperre gewinnt)
+    bot = common.run_source("Discord-Lese-Bot", lambda: [discord_bot_posts(notes)], notes)
+    bot = bot[0] if bot else {}
     for c in creators:
-        res = _process(c, cache, camps, old_by, notes)
+        res = _process(c, cache, camps, old_by, notes, discord_bot=bot)
         erlaubnis.append(res["erl"])
         radar_rows += res["rows"]
         for k in _manual_keys(c, res["scan"]["cids"]):
@@ -714,7 +890,7 @@ def run() -> dict:
         radar_rows += res["rows"]
         speed = max([r["aufrufe_je_stunde"] for r in res["rows"]] or [0])
         e["signal"]["aufrufe_je_stunde"] = speed
-        if any(b["art"] == "beschreibung" and b.get("staerke") == "eindeutig" for b in res["erl"]["belege"]):
+        if any(b["art"] in GUTE_ARTEN and b.get("staerke") == "eindeutig" for b in res["erl"]["belege"]):
             e["signal"]["aufruf"] = True
         e.update(erlaubnis=res["status"], signale=res["signale"], aufrufe_je_stunde=speed)
         e["kanal_geprueft"] = bool(res["scan"]["videos"] or res["scan"]["clips"])
@@ -725,7 +901,7 @@ def run() -> dict:
         for r in radar_rows:
             if r["erlaubnis"] == stufe and (r["faktor"] >= MIN_FAKTOR or r["plattform"] == "twitch") and len(vorschlaege) < 8:
                 vorschlaege.append(_vorschlag(r))
-    calls = [{"creator": e["name"], **b} for e in erlaubnis for b in e["belege"] if b["art"] == "beschreibung"][:10]
+    calls = [{"creator": e["name"], **b} for e in erlaubnis for b in e["belege"] if b["art"] in GUTE_ARTEN][:10]
     offen = [{"name": e["name"], "plattform": e["plattform"], "link": e.get("link", ""), "grund": e["grund"],
               "aufrufe_je_stunde": e.get("aufrufe_je_stunde", 0)}
              for e in entdeckt if e.get("erlaubnis") == "unklar" and not e.get("bereits_manuell")][:10]

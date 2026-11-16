@@ -179,6 +179,7 @@ def test_erklaer_suchkern_aus_fragen():
 
     assert schreiben.kernwoerter("Wie Bienen Honig machen") == "Bienen Honig"
     assert schreiben.kernwoerter("Warum ist der Himmel blau?") == "Himmel blau"
+    assert schreiben.kernwoerter("Woher kommt die Milch?") == "Milch"          # Probelauf 16.11.: landete bei „Galactose“
 
 
 def test_storyboard_aufgaben_zum_buendeln(monkeypatch):

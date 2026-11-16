@@ -17,6 +17,15 @@ OUT = Path(os.environ.get("CUDI_FIRMA_EXPORT", config.PROJECT_DIR / "docs" / "fi
 MAX_BYTES = 60_000
 
 
+def _autopilot() -> dict:
+    """Clip-Autopilot für App/Büro: heute geschnitten, letzte Clips mit Upload-Ergebnis (nur öffentliche Angaben)."""
+    ap = common.read_json("clip_autopilot.json", {}) or {}
+    return {"aktiv": bool((ap.get("einstellungen") or {}).get("aktiv", True)), "heute": ap.get("heute", 0),
+            "letzte": [{"creator": _cut(c.get("creator"), 40), "titel": _cut(c.get("titel"), 90), "ok": bool(c.get("ok")),
+                        "zeit": c.get("zeit", ""), "links": [h.get("url") for h in c.get("hochgeladen") or [] if h.get("url")][:3],
+                        "fehler": _cut(c.get("fehler"), 120)} for c in (ap.get("clips") or [])[-5:]][::-1]}
+
+
 def _cut(text, n: int) -> str:
     return " ".join(str(text or "").split())[:n]
 
@@ -93,7 +102,8 @@ def build() -> dict:
                         for e in ent.get("creators", []) if e.get("erlaubnis") != "gesperrt"][:5],
             "vorschlaege": len(radar.get("vorschlaege", [])),
             "kampagnen": len(radar.get("kampagnen", [])),
-            "messung": {"posts": mess.get("anzahl", 0), "aufrufe": mess.get("gesamt_aufrufe", 0)}}
+            "messung": {"posts": mess.get("anzahl", 0), "aufrufe": mess.get("gesamt_aufrufe", 0)},
+            "autopilot": _autopilot()}
     rech = common.read_json("recherche.json", {}) or {}
     if rech.get("ergebnisse"):
         data["recherche"] = {"anzahl": rech.get("anzahl", 0), "seiten_gelesen": rech.get("seiten_gelesen", 0),

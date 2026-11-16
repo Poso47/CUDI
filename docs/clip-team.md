@@ -6,10 +6,18 @@ Zwei Firma-Mitarbeiter auf GitHub (kostenlos, kein Claude-Verbrauch). Sie liefer
 Die Liste ist nur noch für **eigene Ergänzungen und die Sperrliste**; wer im Hype ist, findet der Clip-Scout selbst (siehe „Entdeckung“).
 ```json
 {"creators": [
-  {"name": "Beispiel-Creator", "youtube": ["@beispielkanal", "UCxxxxxxxxxxxxxxxxxxxxxx"], "twitch": ["beispiel"], "tiktok": [], "gesperrt": false}
+  {"name": "Beispiel-Creator", "youtube": ["@beispielkanal", "UCxxxxxxxxxxxxxxxxxxxxxx"], "twitch": ["beispiel"], "tiktok": ["@beispiel"],
+   "telegram": ["beispielkanal"], "discord": ["https://discord.gg/abc123"],
+   "belege": [{"url": "https://…", "zitat": "Wir suchen Clipper …", "datum": "2026-11-16", "quelle": "TikTok-Video"}],
+   "hinweis": "Regeln/Belohnung des Creators", "gesperrt": false}
 ]}
 ```
 - `youtube`: @Handle oder Kanal-ID (UC…), `twitch`: Login-Name. `gesperrt: true` schlägt immer jede Erlaubnis.
+- `telegram`: öffentliche Kanäle (Vorschau t.me/s/…, ohne Konto lesbar; geschlossene Gruppen nicht). `discord`: Einladungslinks
+  (Servername/Beschreibung öffentlich, Nachrichten nur mit Lese-Bot – `docs/discord-bot.md`). Telegram-/Discord-Links in den
+  eigenen Videobeschreibungen des Creators findet der Scout selbst.
+- `belege`: Aufrufe, die du gesehen hast (z. B. im Video gesprochen): Link, wörtliches Zitat, Datum. Ein eindeutiger Aufruf
+  („Wir suchen Clipper“, „Clipper gesucht“ …) macht den Creator „erlaubt“; `hinweis` (Regeln/Belohnung) steht dann im Prüfbericht.
 - Die Liste startet leer; es werden **keine** Creator erfunden. `gesperrt: true` gewinnt auch gegen entdeckte Creator (gleicher Name/Kanal).
 - Datenschutz: Das Repo ist öffentlich. Nur öffentliche Kanalnamen eintragen, keine privaten Daten, keine Zugangsdaten.
 
@@ -36,3 +44,13 @@ Alle im Hype werden **beobachtet**, geclippt wird nur nach Stufe (unten). Je Ein
 
 ## Sichtbar
 Morgen-Briefing Abschnitt „6. Clip-Team“ (Top 10 im Hype mit Stufe als Pille-Text, „im Hype, Erlaubnis offen“ mit Link, erlaubte Neuzugänge), `docs/firma/firma.json` → `clipteam` (`entdeckt`, `im_hype` mit `erlaubnis`-Stufe, `geduldet`; für App/3D-Büro), Status in `status.json`.
+
+## Clip-Autopilot (alle 6 h, `firma-clipautopilot.yml`) – Entscheidung des Nutzers: „Alles automatisch“
+- Nimmt **nur** Material von Creators mit Status **erlaubt** (eindeutiger Beleg): frische Videos aus dem Radar (schnellste zuerst,
+  höchstens 7 Tage alt) und je Twitch-Kanal einmal am Tag das Clip-Ranking der Woche. „geduldet“, „unklar“, „gesperrt“ nie.
+- Schneidet ohne Claude (`job.run_order(via_claude=False)`) und lädt sofort hoch (`freigabe: false`) auf die eingestellten
+  Ziele; Credit „Original: …“ steht automatisch im Text. Fehlen Upload-Secrets, steht das im Protokoll.
+- Einstellungen `firma_daten/clip_autopilot_einstellungen.json` (optional): `aktiv`, `max_pro_tag` (3), `max_versuche` (5),
+  `hochladen` („alle“), `sichtbarkeit` („oeffentlich“), `clip_stil`, `laenge` (60 s), `max_alter_tage` (7).
+- Protokoll `clip_autopilot.json` (jede Quelle nur einmal, Fehlschläge höchstens 2-mal), Videos als Artefakt am Lauf (7 Tage),
+  hochgeladene Links gehen in `clip_radar.clip_posts` (Messung). Export → `firma.json` `clipteam.autopilot`.
