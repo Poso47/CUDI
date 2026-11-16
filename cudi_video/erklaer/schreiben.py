@@ -50,6 +50,8 @@ def _norm(text: str) -> str:
 
 
 FRAGEWOERTER = {"wie", "warum", "wieso", "weshalb", "was", "wer", "wo", "wozu", "wann", "welche", "welcher", "welches", "ist", "sind",
+                "woher", "wohin", "womit", "wodurch", "woraus", "worin", "kommt", "kommen", "gibt", "gibts", "gab", "hat", "haben",
+                "eigentlich", "genau", "überhaupt", "erklärt", "erklärung", "alles", "über", "where", "from", "come", "comes",
                 "eigentlich", "funktioniert", "funktionieren", "entsteht", "entstehen", "macht", "machen", "wird", "werden", "kann",
                 "können", "der", "die", "das", "ein", "eine", "einen", "den", "dem", "des", "und", "oder", "man", "es", "sich",
                 "how", "why", "what", "does", "do", "is", "are", "the", "a", "an", "make", "makes", "work", "works"}
@@ -73,6 +75,8 @@ def find_article(topic: str, lang: str) -> tuple[str, str, str]:
         log.warning("Wikipedia-Suche für %r nicht erreichbar: %s", topic, exc)
     kern = kernwoerter(topic)
     if kern and kern != topic:                                  # Fragen („Wie machen Bienen Honig?“): Volltextsuche nach dem Kern
+        if " " not in kern and kern not in candidates:          # ein einziges Hauptwort („Woher kommt die Milch?“ -> „Milch“): direkt
+            candidates.insert(1, kern)
         try:
             data = net.get_json(f"https://{lang}.wikipedia.org/w/api.php",
                                 params={"action": "query", "list": "search", "srsearch": kern, "srlimit": 4, "format": "json"},

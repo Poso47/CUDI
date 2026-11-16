@@ -30,6 +30,7 @@ jobs:
       - name: Clip-Scout arbeitet
         env:
           CUDI_BRAVE_API_KEY: ${{ secrets.CUDI_BRAVE_API_KEY }}
+          CUDI_DISCORD_BOT_TOKEN: ${{ secrets.CUDI_DISCORD_BOT_TOKEN }}   # optional: Lese-Bot (docs/discord-bot.md)
         run: python -m cudi_video.firma clipscout
       - name: Ergebnis sichern
         run: bash scripts/firma_commit.sh "Clip-Scout"

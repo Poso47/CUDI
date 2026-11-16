@@ -1,0 +1,61 @@
+# Firma-Mitarbeiter „Clip-Autopilot“ (kostenlos, kein Claude-Verbrauch): schneidet und veröffentlicht Clips von Creators mit
+# BELEGTER Erlaubnis (Clipper-Aufruf mit Zitat + Link + Datum). Doku: docs/clip-team.md, Abschnitt „Clip-Autopilot“.
+name: Firma · Clip-Autopilot
+
+on:
+  schedule:
+    - cron: "47 */6 * * *"          # eine knappe halbe Stunde nach dem Clip-Scout (23 */6)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: firma-daten
+  cancel-in-progress: false
+
+jobs:
+  autopilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: cudi_video/requirements.txt
+      - name: System-Pakete
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg fonts-inter
+      - name: Python-Pakete
+        run: pip install -r cudi_video/requirements.txt
+      - name: Aktuellen Stand holen
+        run: git pull --ff-only
+      - name: Clip-Autopilot arbeitet
+        env:
+          CUDI_LLM_BASE_URL: ${{ secrets.CUDI_LLM_BASE_URL }}
+          CUDI_LLM_API_KEY: ${{ secrets.CUDI_LLM_API_KEY }}
+          CUDI_LLM_MODEL: ${{ secrets.CUDI_LLM_MODEL }}
+          CUDI_YT_CLIENT_ID: ${{ secrets.CUDI_YT_CLIENT_ID }}
+          CUDI_YT_CLIENT_SECRET: ${{ secrets.CUDI_YT_CLIENT_SECRET }}
+          CUDI_YT_REFRESH_TOKEN: ${{ secrets.CUDI_YT_REFRESH_TOKEN }}
+          CUDI_TIKTOK_CLIENT_KEY: ${{ secrets.CUDI_TIKTOK_CLIENT_KEY }}
+          CUDI_TIKTOK_CLIENT_SECRET: ${{ secrets.CUDI_TIKTOK_CLIENT_SECRET }}
+          CUDI_TIKTOK_REFRESH_TOKEN: ${{ secrets.CUDI_TIKTOK_REFRESH_TOKEN }}
+          CUDI_TIKTOK_ACCESS_TOKEN: ${{ secrets.CUDI_TIKTOK_ACCESS_TOKEN }}
+          CUDI_IG_USER_ID: ${{ secrets.CUDI_IG_USER_ID }}
+          CUDI_IG_ACCESS_TOKEN: ${{ secrets.CUDI_IG_ACCESS_TOKEN }}
+        run: python -m cudi_video.firma clipautopilot
+      - name: Clips als Artefakt sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clip-autopilot-${{ github.run_number }}
+          path: |
+            video_output/auftrag-ap*/**/*.mp4
+            video_output/auftrag-ap*/**/ergebnis.json
+            video_output/auftrag-ap*/**/autopilot.json
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Ergebnis sichern
+        run: bash scripts/firma_commit.sh "Clip-Autopilot"
