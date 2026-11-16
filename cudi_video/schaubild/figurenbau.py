@@ -30,6 +30,8 @@ VERBOTEN = re.compile(r"\b(fetch|XMLHttpRequest|WebSocket|EventSource|importScri
                       r"document\.write)\b|\bimport\s*\(|\bwindow\s*\[")
 PFLICHT = re.compile(r"\breturn\s*\{[^}]*\bg\b")
 PROBE_ANSICHTEN = ((0, 2.0), (45, 2.0), (90, 2.0), (180, 2.0), (0, 2.6), (315, 3.1))   # (Winkel, Zeitpunkt)
+MIN_RUNDEN = 3                                             # so oft muss die Figur geprobt und verglichen worden sein
+MINDEST = {"teile": 35, "materialien": 5, "texturiert": 3, "organisch": 6}   # Detailgrad wie die Biene (nie gepuzzelt)
 
 
 def ordner() -> Path:
@@ -140,7 +142,29 @@ def _vorlage_von(name: str) -> dict:
         return {}
 
 
-def probe(name: str, code: str, anker: dict | None = None, size: int = 420) -> Path:
+def _code_id(code: str) -> str:
+    import hashlib
+    return hashlib.sha1(code.encode("utf-8")).hexdigest()[:12]
+
+
+def probe_stand(name: str) -> dict:
+    try:
+        return json.loads((ordner() / "proben" / f"{_name(name)}.json").read_text("utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def maengel(stats: dict) -> list[str]:
+    """Was der Figur zum Detailgrad der Biene fehlt (leer = genug)."""
+    namen = {"teile": "Einzelteile", "materialien": "Materialien", "texturiert": "Materialien mit Textur/Relief",
+             "organisch": "organische Formen (organ/koerper/Lathe/Tube)"}
+    out = [f"zu wenige {namen[k]}: {stats.get(k, 0)} statt mindestens {v}" for k, v in MINDEST.items() if stats.get(k, 0) < v]
+    if stats.get("grundkoerper", 0) > max(6, stats.get("teile", 0) * .3):
+        out.append(f"zu viele Kästen/Zylinder/Kegel ({stats['grundkoerper']}) – wirkt gepuzzelt, organische Formen nehmen")
+    return out
+
+
+def probe(name: str, code: str, anker: dict | None = None, size: int = 380) -> Path:
     """Probe-Render der Code-Figur aus mehreren Richtungen neben der Vorlage -> Bilderbogen (JPG). Fehler im Code = Ausnahme
     mit der Meldung des Browsers (streng: kein stiller Ersatz)."""
     from PIL import Image, ImageDraw
@@ -159,13 +183,16 @@ def probe(name: str, code: str, anker: dict | None = None, size: int = 420) -> P
                    "elemente": [{"id": "m", "art": "figur", "figur": n, "farbe": [200, 200, 200], "f": 0, "figur_code": code,
                                  **({"anker_probe": anker} if anker else {})}],
                    "bilder": [{"t": t, "kamera": {"x": 50, "y": 50, "f": 1}, "st": st, "probe": w} for w, t in PROBE_ANSICHTEN]}
+        kx, ky = (anker or {}).get("kopf") or (anker or {}).get("gesicht") or [200, 120]   # Nahaufnahme: Kopf/Gesicht im Detail
+        auftrag["bilder"].append({"t": 2.0, "kamera": {"x": 50 + (kx / GROESSE - .5) * 70, "y": 50 + (ky / GROESSE - .5) * 70, "f": 2.6},
+                                  "st": st, "probe": 0})
         (arbeit / "auftrag.json").write_text(json.dumps(auftrag), "utf-8")
         lauf = subprocess.run(["node", str(drei.ORDNER / "render3d.js"), str(arbeit / "auftrag.json"), str(arbeit / "bilder")],
                               capture_output=True, text=True, timeout=300)
         if lauf.returncode != 0:
             raise RuntimeError("Probe-Render fehlgeschlagen: " + (lauf.stderr or lauf.stdout or "ohne Meldung").strip()[:600])
         lagen = json.loads((arbeit / "bilder" / "lage.json").read_text("utf-8"))
-        ansichten = [Image.open(arbeit / "bilder" / f"b_{i:05d}.png").convert("RGBA").copy() for i in range(len(PROBE_ANSICHTEN))]
+        ansichten = [Image.open(arbeit / "bilder" / f"b_{i:05d}.png").convert("RGBA").copy() for i in range(len(auftrag["bilder"]))]
     finally:
         shutil.rmtree(arbeit, ignore_errors=True)
     if anker:                                               # Anker auf der Vorderansicht: zeigen Pfeile/Beschriftungen genau?
@@ -174,7 +201,12 @@ def probe(name: str, code: str, anker: dict | None = None, size: int = 420) -> P
             px, py = px / 100 * size, py / 100 * size
             d.ellipse((px - 5, py - 5, px + 5, py + 5), outline=(230, 30, 60, 255), width=2)
             d.text((px + 7, py - 7), teil, fill=(230, 30, 60, 255))
-    spalten, kante = 4, size
+    stats = lagen[0].get("_stats") or {}
+    alt = probe_stand(n)
+    stand = {"runden": int(alt.get("runden", 0)) + 1, "code": _code_id(code), "stats": stats, "maengel": maengel(stats)}
+    (ordner() / "proben").mkdir(parents=True, exist_ok=True)
+    (ordner() / "proben" / f"{n}.json").write_text(json.dumps(stand, ensure_ascii=False), "utf-8")
+    spalten, kante = 5, size
     vorlage_bild = None
     v = _vorlage_von(n)
     if v.get("datei") and Path(v["datei"]).exists():
@@ -192,19 +224,23 @@ def probe(name: str, code: str, anker: dict | None = None, size: int = 420) -> P
         d.text((8, 10), "Vorlage (nur zum Ansehen)", fill=(40, 40, 40))
         x0 = 1
     plaetze = [(c, r) for r in range(2) for c in range(x0, spalten)]
-    for (c, r), bild, (w, t) in zip(plaetze, ansichten, PROBE_ANSICHTEN):
+    titel = [f"{w}° · t={t}s" for w, t in PROBE_ANSICHTEN] + ["Nahaufnahme Kopf"]
+    for (c, r), bild, beschr in zip(plaetze, ansichten, titel):
         feld = Image.new("RGBA", (kante, kante), (250, 248, 244, 255))
         feld.alpha_composite(bild.resize((kante, kante)))
         bogen.paste(feld.convert("RGB"), (c * kante, 34 + r * kante))
-        d.text((c * kante + 8, 34 + r * kante + 6), f"{w}° · t={t}s", fill=(90, 90, 90))
-    d.text((x0 * kante + 8, 10), f"Figur '{n}' - Probe-Render (Anker rot)", fill=(40, 40, 40))
+        d.text((c * kante + 8, 34 + r * kante + 6), beschr.replace("°", " Grad"), fill=(90, 90, 90))
+    kurz = ", ".join(f"{k} {stats.get(k, 0)}" for k in ("teile", "materialien", "texturiert", "organisch", "grundkoerper"))
+    d.text((x0 * kante + 8, 6), f"Figur '{n}' - Probe {stand['runden']} (Anker rot) - {kurz}", fill=(40, 40, 40))
+    d.text((x0 * kante + 8, 20), ("FEHLT: " + "; ".join(stand["maengel"]))[:230] if stand["maengel"] else "Detailgrad erreicht",
+           fill=(180, 30, 40) if stand["maengel"] else (30, 120, 60))
     ziel = ordner() / "proben" / f"{n}.jpg"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     bogen.save(ziel, quality=88)
     return ziel
 
 
-def ablegen(name: str, code: str, anker: dict, anzeige: str = "") -> Path:
+def ablegen(name: str, code: str, anker: dict, anzeige: str = "", pruefen: bool = True) -> Path:
     """Geprüfte Figur ablegen: lokal (für diesen Lauf) und im Lernstand (für alle späteren Läufe) -> Pfad der Lernstand-Datei,
     die die Sitzung per ArtifactData unter „studio/lernstand“ speichert."""
     fehler = pruefe_code(code)
@@ -214,6 +250,14 @@ def ablegen(name: str, code: str, anker: dict, anzeige: str = "") -> Path:
     n = _name(name)
     if not n:
         raise ValueError("Figurname fehlt.")
+    if pruefen:                                             # Qualitätsschleife: genug Runden, genau dieser Code geprobt, Detailgrad erreicht
+        stand = probe_stand(n)
+        if stand.get("code") != _code_id(code):
+            raise ValueError("Genau dieser Code wurde noch nicht geprobt – erst figur-probe, ansehen, dann ablegen.")
+        if int(stand.get("runden", 0)) < MIN_RUNDEN:
+            raise ValueError(f"Erst {stand.get('runden', 0)} Probe-Runde(n) – mindestens {MIN_RUNDEN} mit Vergleich gegen die Vorlage.")
+        if stand.get("maengel"):
+            raise ValueError("Detailgrad nicht erreicht: " + "; ".join(stand["maengel"]))
     from datetime import datetime, timezone
     v = _vorlage_von(n)
     fig = {"name": anzeige or v.get("anzeige") or n, "code": code, "anker": anker,

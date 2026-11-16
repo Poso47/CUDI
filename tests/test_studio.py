@@ -678,7 +678,7 @@ def test_figurenbau_pruefung_ablage_und_laden(tmp_path, monkeypatch):
     assert not F.pruefe_anker({"hut": [200, 200], "stiel": [200, 290], "rand": [300, 230]})[1]
     assert F.pruefe_anker({"a": [500, 1], "b": [1, 1], "c": [2, 2]})[1]          # außerhalb 0–400 zählt nicht
     assert Z.figur_info("Pilz") is None
-    ziel = F.ablegen("Pilz", PILZ, {"hut": [200, 200], "stiel": [200, 290], "rand": [300, 230]}, "Pilz")
+    ziel = F.ablegen("Pilz", PILZ, {"hut": [200, 200], "stiel": [200, 290], "rand": [300, 230]}, "Pilz", pruefen=False)
     daten = json.loads(ziel.read_text("utf-8"))
     assert daten["regeln"] and "pilz" in daten["figuren_code"]                    # alter Lernstand bleibt erhalten
     info = Z.figur_info("Pilz")
@@ -717,6 +717,19 @@ def test_figurenbau_probe_rendert_und_meldet_fehler(tmp_path, monkeypatch):
             pytest.skip("ohne Playwright/Chromium kein 3D")
         raise
     with Image.open(bild) as im:
-        assert im.size == (640, 160 * 2 + 34)
+        assert im.size == (800, 160 * 2 + 34)                                        # 7 Ansichten inkl. Nahaufnahme Kopf
+    stand = F.probe_stand("pilz")
+    assert stand["runden"] == 1 and stand["stats"]["teile"] >= 2 and stand["maengel"]   # Pilz ist viel zu einfach
+    anker = {"hut": [200, 200], "stiel": [200, 290], "rand": [300, 230]}
+    with pytest.raises(ValueError, match="Probe-Runde"):
+        F.ablegen("pilz", PILZ, anker)
+    with pytest.raises(ValueError, match="geprobt"):
+        F.ablegen("pilz", PILZ + "\n// geändert", anker)
+    stand.update(runden=3)
+    (tmp_path / "figurenbau" / "proben" / "pilz.json").write_text(json.dumps(stand), "utf-8")
+    with pytest.raises(ValueError, match="Detailgrad"):
+        F.ablegen("pilz", PILZ, anker)
+    html = (Path(F.__file__).parent / "drei" / "szene3d.html").read_text("utf-8")
+    assert all(f"function {h}(" in html for h in ("organ", "koerper", "fellmat", "hautmat", "auge"))
     with pytest.raises(RuntimeError, match="nichtDa"):
         F.probe("kaputt", "nichtDa(); const g = new T.Group(); return { g };", size=120)
