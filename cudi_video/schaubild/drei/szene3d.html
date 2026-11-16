@@ -677,16 +677,28 @@ function huelle(obj) {                                   // echte Ausdehnung –
   });
   return box.isEmpty() ? new T.Box3().setFromObject(obj) : box;
 }
-function bodenWeg(obj) {                                 // flache, nach oben zeigende Dreiecke ganz unten (Scan-Boden) weglassen
-  const box = huelle(obj), unten = box.min.y + (box.max.y - box.min.y) * .12, a = new T.Vector3(), b = new T.Vector3(), c = new T.Vector3(), n = new T.Vector3();
+function bodenWeg(obj) {                                 // Scan-Boden weg: unterste Dreiecke, die flach sind ODER außerhalb des Körperumrisses liegen
+  const box = huelle(obj), h = box.max.y - box.min.y, unten = box.min.y + h * .12, koerperAb = box.min.y + h * .3;
+  const fuss = new T.Box3(), a = new T.Vector3(), b = new T.Vector3(), c = new T.Vector3(), n = new T.Vector3(), m = new T.Vector3();
+  obj.updateMatrixWorld(true);
+  obj.traverse((k) => {                                  // Grundriss des Körpers (alles oberhalb von 30 % der Höhe)
+    if (!k.isMesh || !k.geometry.attributes.position) return;
+    const pos = k.geometry.attributes.position, schritt = Math.max(1, Math.floor(pos.count / 6000));
+    for (let i = 0; i < pos.count; i += schritt) { a.fromBufferAttribute(pos, i).applyMatrix4(k.matrixWorld); if (a.y > koerperAb) fuss.expandByPoint(a); }
+  });
+  if (fuss.isEmpty()) return;
+  const rand = (fuss.max.x - fuss.min.x) * .04, rz = (fuss.max.z - fuss.min.z) * .04;
   obj.traverse((k) => {
     if (!k.isMesh || k.isSkinnedMesh || !k.geometry.attributes.position) return;
     const geo = k.geometry, pos = geo.attributes.position, idx = geo.index ? Array.from(geo.index.array) : [...Array(pos.count).keys()], neu = [];
     for (let i = 0; i < idx.length; i += 3) {
       a.fromBufferAttribute(pos, idx[i]).applyMatrix4(k.matrixWorld); b.fromBufferAttribute(pos, idx[i + 1]).applyMatrix4(k.matrixWorld);
       c.fromBufferAttribute(pos, idx[i + 2]).applyMatrix4(k.matrixWorld);
-      n.subVectors(c, b).cross(new T.Vector3().subVectors(a, b)).normalize();
-      if (a.y < unten && b.y < unten && c.y < unten && Math.abs(n.y) > .3) continue;
+      if (a.y < unten && b.y < unten && c.y < unten) {
+        n.subVectors(c, b).cross(new T.Vector3().subVectors(a, b)).normalize(); m.copy(a).add(b).add(c).divideScalar(3);
+        const draussen = m.x < fuss.min.x - rand || m.x > fuss.max.x + rand || m.z < fuss.min.z - rz || m.z > fuss.max.z + rz;
+        if (draussen || Math.abs(n.y) > .3) continue;
+      }
       neu.push(idx[i], idx[i + 1], idx[i + 2]);
     }
     geo.setIndex(neu);

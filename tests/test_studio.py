@@ -771,3 +771,15 @@ def test_profi_modell_als_figur_mit_anker_und_nennung(tmp_path, monkeypatch):
     assert F.gebaut() == ["kuh"]
     html = (drei.ORDNER / "szene3d.html").read_text("utf-8")
     assert "function huelle" in html and "function bodenWeg" in html and "boneTransform" in html
+
+
+def test_schritt_auf_entferntes_element_zerstoert_die_szene_nicht():
+    """Probelauf 16.11.: Beschriftung beim Anker-Auflösen entfernt, ihr Schritt blieb -> KeyError, 6 von 7 Skizzen-Szenen leer."""
+    from cudi_video.schaubild import zeichnen as Z
+    sz = Z.pruefe_szene({"elemente": [{"id": "k", "art": "form", "form": "kreis", "x": 50, "y": 50, "groesse": 30}],
+                         "schritte": [{"aktion": "erscheine", "ziel": "k", "dauer": 1}]})
+    ok = dict(sz["schritte"][0])
+    sz["schritte"] = [dict(ok, ziel="weg"), dict(ok, aktion="bewege", zu="auch_weg"), ok]
+    b = Z.Buehne(sz, 120, [0.0], (236, 228, 210), (214, 162, 84))
+    assert [s["ziel"] for s in b.schritte] == ["k"]
+    assert b.bild(2.0).size == (120, 120)
