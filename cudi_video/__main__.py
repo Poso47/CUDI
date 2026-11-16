@@ -245,8 +245,9 @@ def main(argv=None) -> int:
                                                               args.dreh, args.clip, args.boden_weg)))
                 return 0
             if args.cmd == "figur-modell-ablegen":
-                print(f"LERNSTAND: {figurenbau.modell_ablegen(args.name, args.nr, json.loads(args.anker), args.dreh, args.clip, args.anzeige,
-                                                                   args.boden_weg)}")
+                ziel = figurenbau.modell_ablegen(args.name, args.nr, json.loads(args.anker), args.dreh, args.clip, args.anzeige,
+                                                 args.boden_weg)
+                print(f"LERNSTAND: {ziel}")
                 return 0
             if args.cmd == "figur-bericht":
                 if args.adressen is None:
