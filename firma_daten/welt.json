@@ -1,18 +1,131 @@
 {
- "erzeugt": "2026-11-15T18:59:37Z",
- "anzahl": 7,
+ "erzeugt": "2026-11-16T06:53:37Z",
+ "anzahl": 6,
  "nur_ausland": 0,
  "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+  "GDELT: keine Daten erhalten"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
-   "kurz": "Der Internationale Sportgerichtshof hat den Ausschluss Russlands von Eishockey-Weltmeisterschaften aufgehoben. Doch zahlreiche Länder wehren sich gegen die…",
-   "link": "https://www.nzz.ch/sport/streit-um-russlands-wm-teilnahme-russischer-eishockeyverband-droht-gastgeber-deutschland-ld.10063174",
+   "titel": "‘I’m done’: Tedesco rep footy retirement after Cup win",
+   "kurz": "James Tedesco has confirmed his retirement from all representative football after a shock World Cup cameo completed a dream Test farewell. The post ‘I’m done’…",
+   "link": "https://www.postcourier.com.pg/im-done-tedesco-rep-footy-retirement-after-cup-win1/",
+   "sprache": "en",
+   "zeit": "2026-11-16T05:50:57Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Papua-Neuguinea"
+   ],
+   "laender_einig": [
+    "Papua-Neuguinea"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Post-Courier (Papua-Neuguinea): ‘I’m done’: Tedesco rep footy retirement after Cup win"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Post-Courier",
+     "land": "Papua-Neuguinea",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "‘I’m done’: Tedesco rep footy retirement after Cup win",
+     "link": "https://www.postcourier.com.pg/im-done-tedesco-rep-footy-retirement-after-cup-win1/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Europe’s Wadden Sea is a natural wonder. So why might it join the world heritage in danger list?",
+   "kurz": "Along the coasts of the Netherlands, Germany and Denmark, its intertidal flats host a wealth of marine life and birds. But extraction industries, tourism and…",
+   "link": "https://www.theguardian.com/environment/2026/nov/16/europes-wadden-sea-is-a-natural-wonder-so-why-might-it-join-the-world-heritage-in-danger-list",
+   "sprache": "en",
+   "zeit": "2026-11-16T05:00:34Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): Europe’s Wadden Sea is a natural wonder. So why might it join the world heritage in danger list?"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Europe’s Wadden Sea is a natural wonder. So why might it join the world heritage in danger list?",
+     "link": "https://www.theguardian.com/environment/2026/nov/16/europes-wadden-sea-is-a-natural-wonder-so-why-might-it-join-the-world-heritage-in-danger-list",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "El tabú de criticar a Israel marca la política alemana mientras crece el apoyo de la sociedad a Palestina",
+   "kurz": "Casi la mitad de la ciudadanía de Alemania opina que en Gaza se ha producido un genocidio mientras las instituciones y los grandes partidos penalizan este…",
+   "link": "https://elpais.com/internacional/2026-11-16/el-tabu-de-criticar-a-israel-marca-la-politica-alemana-mientras-crece-el-apoyo-de-la-sociedad-a-palestina.html",
+   "sprache": "es",
+   "zeit": "2026-11-16T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Israel"
+   ],
+   "zusammenfassung": [
+    "El País (Spanien): El tabú de criticar a Israel marca la política alemana mientras crece el apoyo de la sociedad a Palestina"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "El tabú de criticar a Israel marca la política alemana mientras crece el apoyo de la sociedad a Palestina",
+     "link": "https://elpais.com/internacional/2026-11-16/el-tabu-de-criticar-a-israel-marca-la-politica-alemana-mientras-crece-el-apoyo-de-la-sociedad-a-palestina.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Die Bundeswehr rüstet auf. Das ist dringend notwendig. Aber was geschieht, wenn die AfD an die Macht kommt?",
+   "kurz": "Deutschland muss seine Rolle in der europäischen Sicherheitspolitik neu definieren. Die Politikwissenschafterin Liana Fix legt ihr Heimatland auf die…",
+   "link": "https://www.nzz.ch/feuilleton/die-bundeswehr-ruestet-auf-das-ist-dringend-notwendig-aber-was-geschieht-wenn-die-afd-an-die-macht-kommt-ld.10062956",
    "sprache": "de",
-   "zeit": "2026-11-15T18:49:15Z",
+   "zeit": "2026-11-16T04:30:00Z",
    "ausland_quellen": 1,
    "laender": [
     "Schweiz"
@@ -23,7 +136,7 @@
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland"
+    "NZZ (Schweiz): Die Bundeswehr rüstet auf. Das ist dringend notwendig. Aber was geschieht, wenn die AfD an die Macht kommt?"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -37,8 +150,8 @@
      "land": "Schweiz",
      "art": "privat",
      "beteiligt": false,
-     "titel": "DIE NEUESTEN ENTWICKLUNGEN - Streit um Russlands WM-Teilnahme: Russischer Eishockeyverband droht Gastgeber Deutschland",
-     "link": "https://www.nzz.ch/sport/streit-um-russlands-wm-teilnahme-russischer-eishockeyverband-droht-gastgeber-deutschland-ld.10063174",
+     "titel": "Die Bundeswehr rüstet auf. Das ist dringend notwendig. Aber was geschieht, wenn die AfD an die Macht kommt?",
+     "link": "https://www.nzz.ch/feuilleton/die-bundeswehr-ruestet-auf-das-ist-dringend-notwendig-aber-was-geschieht-wenn-die-afd-an-die-macht-kommt-ld.10062956",
      "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     }
@@ -86,82 +199,6 @@
    ]
   },
   {
-   "titel": "Van der Bellen in Berlin: \"Mitgefühl ist Zeichen von Stärke\"",
-   "kurz": "Bundespräsident Alexander Van der Bellen war am deutschen Volkstrauertag bei seinem Amtskollegen Frank-Walter Steinmeier zu Gast",
-   "link": "https://www.derstandard.at/story/3000000349328/van-der-bellen-in-berlin-mitgef252hl-ist-zeichen-von-st228rke?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-15T15:58:10Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Van der Bellen in Berlin: \"Mitgefühl ist Zeichen von Stärke\""
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Van der Bellen in Berlin: \"Mitgefühl ist Zeichen von Stärke\"",
-     "link": "https://www.derstandard.at/story/3000000349328/van-der-bellen-in-berlin-mitgef252hl-ist-zeichen-von-st228rke?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany vs Netherlands: Nations League – preview, team news, predictions",
-   "kurz": "Germany will likely need to win on Monday to reach the quarterfinals unless Serbia beat Greece away from home.",
-   "link": "https://www.aljazeera.com/sports/2026/11/15/germany-vs-netherlands-nations-league-preview-team-news-predictions?traffic_source=rss",
-   "sprache": "en",
-   "zeit": "2026-11-15T13:54:05Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Katar"
-   ],
-   "laender_einig": [
-    "Katar"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Al Jazeera (Katar): Germany vs Netherlands: Nations League – preview, team news, predictions"
-   ],
-   "staatsnah": [
-    "Al Jazeera"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Germany vs Netherlands: Nations League – preview, team news, predictions",
-     "link": "https://www.aljazeera.com/sports/2026/11/15/germany-vs-netherlands-nations-league-preview-team-news-predictions?traffic_source=rss",
-     "eigentuemer": "staatlich (Katar)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "La Orquestra de la Comunitat Valenciana narra a Schumann con Thomas Hengelbrock antes de desembarcar en Madrid",
    "kurz": "El director alemán firma una versión honda y fluida de la ‘Sinfonía número 2’ con la formación de Les Arts, que acompaña al violinista Christian Tetzlaff en…",
    "link": "https://elpais.com/cultura/2026-11-15/la-orquestra-de-la-comunitat-valenciana-narra-a-schumann-con-thomas-hengelbrock-antes-de-desembarcar-en-madrid.html",
@@ -194,84 +231,6 @@
      "titel": "La Orquestra de la Comunitat Valenciana narra a Schumann con Thomas Hengelbrock antes de desembarcar en Madrid",
      "link": "https://elpais.com/cultura/2026-11-15/la-orquestra-de-la-comunitat-valenciana-narra-a-schumann-con-thomas-hengelbrock-antes-de-desembarcar-en-madrid.html",
      "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Riesling, una de las variedades de vino blanco más versátiles del mundo",
-   "kurz": "La variedad se cultiva hoy en gran parte del mundo, pero Alemania copa, según Wines of Germany, el 45% de su producción del mundo",
-   "link": "https://elpais.com/gastronomia/2026-11-15/riesling-una-de-las-variedades-de-vino-blanco-mas-versatiles-del-mundo.html",
-   "sprache": "es",
-   "zeit": "2026-11-15T04:25:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Riesling, una de las variedades de vino blanco más versátiles del mundo"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Riesling, una de las variedades de vino blanco más versátiles del mundo",
-     "link": "https://elpais.com/gastronomia/2026-11-15/riesling-una-de-las-variedades-de-vino-blanco-mas-versatiles-del-mundo.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "France among five major powers to represent EU in Ukraine talks",
-   "kurz": "European Council President Antonio Costa on Friday said that Brussels will send diplomats from the bloc and five countries, including the UK, France, Germany…",
-   "link": "https://www.france24.com/en/europe/20261113-europe-to-send-diplomats-from-across-the-continent-to-ukraine-peace-talks",
-   "sprache": "en",
-   "zeit": "2026-11-13T21:38:52Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Großbritannien",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "France 24 (Frankreich): France among five major powers to represent EU in Ukraine talks"
-   ],
-   "staatsnah": [
-    "France 24"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "France 24",
-     "land": "Frankreich",
-     "art": "staatsnah",
-     "beteiligt": true,
-     "titel": "France among five major powers to represent EU in Ukraine talks",
-     "link": "https://www.france24.com/en/europe/20261113-europe-to-send-diplomats-from-across-the-continent-to-ukraine-peace-talks",
-     "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
     }
    ]
@@ -691,6 +650,12 @@
    "name": "Thomas Hengelbrock",
    "wikidata": "https://www.wikidata.org/wiki/Q87912",
    "beschreibung": "German conductor",
+   "verbindungen": []
+  },
+  "Wadden Sea": {
+   "name": "Wadden Sea",
+   "wikidata": "https://www.wikidata.org/wiki/Q26080",
+   "beschreibung": "intertidal zone in the southeastern part of the North Sea (Netherlands, Germany and Denmark)",
    "verbindungen": []
   }
  }
