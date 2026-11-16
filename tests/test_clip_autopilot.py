@@ -135,3 +135,19 @@ def test_autopilot_ohne_erlaubnis_und_fehlschlaege():
     quelle = clipautopilot._id("https://www.youtube.com/watch?v=a1")
     assert calls.count(quelle) == 2                                           # höchstens 2 Versuche je Quelle
     assert json.dumps(common.read_json("clip_autopilot.json"), ensure_ascii=False).count("YouTube sperrt") >= 2
+
+
+def test_erlaubnis_ohne_youtube_abruf_ueber_radar(monkeypatch):
+    """YouTube sperrt Cloud-Server (kein yt-dlp-Abruf): Kanal kommt aus dem Feed des Scouts – nur für Videos, die er dort sah."""
+    from cudi_video.clip import erlaubnis
+    monkeypatch.setattr(erlaubnis, "daten_ordner", lambda: common.DATA_DIR)
+    monkeypatch.setattr(erlaubnis, "meta_holen", lambda url: {})
+    common.write_json("clip_radar.json", {"videos": [{"creator": "Flying Uwe", "plattform": "youtube",
+                                                      "url": "https://www.youtube.com/watch?v=2H9tnAUvkjo"}]})
+    common.write_json("clip_erlaubnis.json", {"creators": [{"name": "Flying Uwe", "status": "erlaubt",
+        "kanaele": {"youtube": ["UCGw_fXi_RpPT_0AhmUYS7WQ"]},
+        "belege": [{"url": "https://www.tiktok.com/@flyinguwe", "zitat": "Wir suchen Clipper", "datum": "2026-11-16"}]}]})
+    r = erlaubnis.pruefe("https://youtu.be/2H9tnAUvkjo")
+    assert r["erlaubt"] and r["creator"] == "Flying Uwe"
+    fremd = erlaubnis.pruefe("https://www.youtube.com/watch?v=xxxxxxxxxxx")
+    assert not fremd["erlaubt"] and fremd["status"] == "unklar"
