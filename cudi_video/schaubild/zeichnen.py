@@ -572,7 +572,11 @@ class Buehne:
             t = wort_zeit(s["bei"]) if (wort_zeit and s.get("bei")) else None
             return (t if t is not None else zeiten[min(len(zeiten), s.get("ab", 1)) - 1]) + s.get("nach_s", 0.0)
 
-        self.schritte = sorted(({**s, "t": beginn(s)} for s in szene["schritte"]), key=lambda s: s["t"])
+        def gueltig(s: dict) -> bool:                          # Schritt auf ein (z. B. beim Anker-Auflösen) entferntes Element: weglassen
+            ziel_ok = s.get("aktion") == "zoom" or s.get("ziel") in self.el
+            return ziel_ok and ("zu" not in s or s["zu"] in self.el)
+
+        self.schritte = sorted(({**s, "t": beginn(s)} for s in szene["schritte"] if gueltig(s)), key=lambda s: s["t"])
         for e in szene["elemente"]:                            # Beschriftung erscheint, wenn ihr Wort fällt
             if e["art"] == "beschriftung":
                 e["_t"] = beginn({"bei": e.get("bei") or e["text"], "ab": 1, "nach_s": 0.0}) if wort_zeit else zeiten[0]
