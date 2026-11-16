@@ -13,6 +13,22 @@ from . import ClipError
 _ENDUNGEN = (".mp4", ".mkv", ".webm", ".mov")
 
 
+
+def cookie_args() -> list[str]:
+    """Optional: Browser-Cookies eines eigenen Google-Kontos (Secret CUDI_YT_COOKIES, Netscape-Format) – YouTube verlangt von
+    Cloud-Servern sonst eine Anmeldung. Ohne Secret: keine Cookies. Die Datei liegt nur im Arbeitsordner des Laufs, nie im Repo."""
+    import os
+    import tempfile
+
+    text = os.environ.get("CUDI_YT_COOKIES", "").strip()
+    if not text or "\t" not in text:
+        return []
+    pfad = Path(tempfile.gettempdir()) / "cudi_yt_cookies.txt"
+    if not pfad.exists():
+        pfad.write_text(text if text.startswith("#") else "# Netscape HTTP Cookie File\n" + text, "utf-8")
+        pfad.chmod(0o600)
+    return ["--cookies", str(pfad)]
+
 def ist_url(quelle: str) -> bool:
     return bool(re.match(r"^https?://", quelle.strip(), re.I))
 
@@ -46,7 +62,7 @@ def beschaffen(quelle: str, arbeitsordner: Path) -> Path:
         if alt.suffix in _ENDUNGEN:
             return alt
     cmd = ["yt-dlp", "--no-playlist", "-f", "bv*[height<=1080]+ba/b[height<=1080]/b", "--merge-output-format", "mp4",
-           "--write-info-json", "-o", str(arbeitsordner / "quelle.%(ext)s"), quelle]
+           "--write-info-json", *cookie_args(), "-o", str(arbeitsordner / "quelle.%(ext)s"), quelle]
     res = subprocess.run(cmd, capture_output=True, text=True)
     files = [f for f in arbeitsordner.glob("quelle.*") if f.suffix in _ENDUNGEN]
     if res.returncode != 0 or not files:

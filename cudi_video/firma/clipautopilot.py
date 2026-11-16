@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import time
 
 from . import common
@@ -97,7 +98,10 @@ def run(runner=None) -> dict:
         if not liste:
             notes.append("Kein Material von Creators mit belegter Erlaubnis – der Clip-Scout sucht weiter.")
         run_order = runner or job.run_order
+        youtube_gesperrt = False
         for k in liste[:e["max_versuche"]]:
+            if youtube_gesperrt and "youtu" in k["quelle"]:
+                continue                                  # YouTube sperrt diesen Server gerade: übrige YouTube-Quellen später
             if frei <= 0:
                 notes.append(f"Tagesgrenze erreicht ({e['max_pro_tag']} Clips).")
                 break
@@ -109,6 +113,9 @@ def run(runner=None) -> dict:
                 code, data = 1, {"ok": False, "fehler": common.short_error(exc)}
             data = data or {}
             eintrag["ok"] = bool(data.get("ok"))
+            if not eintrag["ok"] and "youtu" in k["quelle"] and re.search(r"sign in|bot|403|429|gesperrt|sperren", str(data.get("fehler") or ""), re.I):
+                youtube_gesperrt = True
+                notes.append("YouTube sperrt den Server (Anmeldung verlangt) – mit Secret CUDI_YT_COOKIES geht es (docs/clip-team.md).")
             eintrag["fehler"] = "" if eintrag["ok"] else str(data.get("fehler") or f"Exit-Code {code}")[:300]
             eintrag["hochgeladen"] = [{"ziel": h.get("ziel"), "ok": bool(h.get("ok")), "url": h.get("url", ""),
                                        "fehler": str(h.get("fehler") or "")[:160]} for h in data.get("hochgeladen") or []]

@@ -45,6 +45,7 @@ jobs:
           CUDI_TIKTOK_ACCESS_TOKEN: ${{ secrets.CUDI_TIKTOK_ACCESS_TOKEN }}
           CUDI_IG_USER_ID: ${{ secrets.CUDI_IG_USER_ID }}
           CUDI_IG_ACCESS_TOKEN: ${{ secrets.CUDI_IG_ACCESS_TOKEN }}
+          CUDI_YT_COOKIES: ${{ secrets.CUDI_YT_COOKIES }}   # optional: YouTube-Abruf aus der Cloud (docs/clip-team.md)
         run: python -m cudi_video.firma clipautopilot
       - name: Clips als Artefakt sichern
         if: always()

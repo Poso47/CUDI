@@ -105,7 +105,8 @@ def meta_holen(url: str) -> dict:
         return _META_CACHE[url]
     meta: dict = {}
     try:
-        res = subprocess.run(["yt-dlp", "--no-playlist", "--skip-download", "--dump-single-json", url],
+        from .source import cookie_args
+        res = subprocess.run(["yt-dlp", "--no-playlist", "--skip-download", "--dump-single-json", *cookie_args(), url],
                              capture_output=True, text=True, timeout=90)
         if res.returncode == 0 and res.stdout.strip():
             meta = json.loads(res.stdout)
@@ -113,6 +114,35 @@ def meta_holen(url: str) -> dict:
         meta = {}
     _META_CACHE[url] = meta
     return meta
+
+
+def _video_id(url: str) -> str:
+    p = urlparse(str(url or "").strip())
+    host = (p.hostname or "").lower().removeprefix("www.").removeprefix("m.")
+    if host == "youtu.be":
+        return p.path.strip("/").split("/")[0]
+    if host.endswith("youtube.com"):
+        from urllib.parse import parse_qs
+        if p.path.startswith("/shorts/"):
+            return p.path.split("/")[2] if len(p.path.split("/")) > 2 else ""
+        return (parse_qs(p.query).get("v") or [""])[0]
+    return ""
+
+
+def kanal_aus_radar(url: str) -> list[tuple[str, str]]:
+    """Kanal eines YouTube-Videos aus dem Radar des Clip-Scouts: Er hat es im RSS-Feed genau dieses Kanals gesehen (verlässlich,
+    ohne yt-dlp). Nur Videos, die der Scout selbst gefunden hat – ein fremder Link bekommt so keine fremde Erlaubnis."""
+    vid = _video_id(url)
+    if not vid:
+        return []
+    radar = _lies("clip_radar.json")
+    namen = {str(r.get("creator") or "") for r in radar.get("videos") or []
+             if isinstance(r, dict) and r.get("plattform", "youtube") == "youtube" and _video_id(r.get("url", "")) == vid}
+    out: list[tuple[str, str]] = []
+    for c in _lies("clip_erlaubnis.json").get("creators") or []:
+        if isinstance(c, dict) and c.get("name") in namen:
+            out += [_norm("youtube", k) for k in (c.get("kanaele") or {}).get("youtube") or [] if str(k).startswith("UC")]
+    return out
 
 
 def _passt(creator: dict, kanaele: list[tuple[str, str]]) -> bool:
@@ -135,6 +165,8 @@ def pruefe(url: str, meta: dict | None = None, online: bool = True) -> dict:
     if not kanaele and online and meta is None:
         meta = meta_holen(url)
         kanaele = kanal_aus_meta(meta)
+    if not kanaele:                                       # Plattform sperrt Abrufe (YouTube aus der Cloud): Kanal aus dem Feed des Scouts
+        kanaele = kanal_aus_radar(url)
     kanaele = list(dict.fromkeys(kanaele))
     basis = {"erlaubt": False, "status": UNKLAR, "grund": "", "belege": [], "creator": "", "monetarisierung": "unklar",
              "bedingungen": [], "kanaele": [f"{p}:{k}" for p, k in kanaele]}

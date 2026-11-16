@@ -54,3 +54,9 @@ Morgen-Briefing Abschnitt „6. Clip-Team“ (Top 10 im Hype mit Stufe als Pille
   `hochladen` („alle“), `sichtbarkeit` („oeffentlich“), `clip_stil`, `laenge` (60 s), `max_alter_tage` (7).
 - Protokoll `clip_autopilot.json` (jede Quelle nur einmal, Fehlschläge höchstens 2-mal), Videos als Artefakt am Lauf (7 Tage),
   hochgeladene Links gehen in `clip_radar.clip_posts` (Messung). Export → `firma.json` `clipteam.autopilot`.
+- **YouTube aus der Cloud**: YouTube verlangt von GitHub-/Cloud-Servern eine Anmeldung („Sign in to confirm you're not a bot“).
+  Optional: Secret `CUDI_YT_COOKIES` = Inhalt einer cookies.txt (Netscape-Format, z. B. Browser-Erweiterung „Get cookies.txt LOCALLY“)
+  eines **eigenen Zweit-Google-Kontos** (nicht dein Hauptkonto: Google kann Konten mit Download-Tools einschränken; Cookies laufen nach
+  einigen Wochen ab). Ohne Secret nutzt der Autopilot nur Quellen, die ohne Anmeldung gehen (Twitch-Clips/VODs); nach dem ersten
+  YouTube-Block überspringt er weitere YouTube-Quellen im selben Lauf. Erlaubnis-Prüfung braucht kein yt-dlp: Videos aus dem Feed des
+  Scouts sind ihrem Kanal zugeordnet (`erlaubnis.kanal_aus_radar`).
