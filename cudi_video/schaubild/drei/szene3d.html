@@ -97,7 +97,7 @@ function fellkarte(grund, o = {}) {                        // Fell: Grundfarbe, 
 }
 function fellmat(grund, o = {}) {                         // fertiges Fell-Material (matt, Haarstruktur als Relief)
   const k = fellkarte(grund, o);
-  return mat([255, 255, 255], { map: k.map, bumpMap: k.bump, bumpScale: o.relief ?? .006, roughness: .88, clearcoat: 0, sheen: 0 });
+  return mat([255, 255, 255], { map: k.map, bumpMap: k.bump, bumpScale: o.relief ?? .006, roughness: .88, clearcoat: 0 });
 }
 function hautmat(farbe, o = {}) {                          // Haut/Schnauze/Euter: Poren, leichte Flecken, feuchter oder matter Glanz
   const c = document.createElement("canvas"); c.width = c.height = 256; const g = c.getContext("2d");
