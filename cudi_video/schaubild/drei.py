@@ -55,6 +55,12 @@ def elemente(buehne) -> list[dict]:
             elif fi.get("modell"):
                 d["modell"] = fi["modell"]                     # GLB-Datei; `rendere` schickt den Inhalt mit
                 d["modell_dreh"], d["modell_skala"] = fi.get("dreh", 0), fi.get("skala", 1)
+                if fi.get("clip"):
+                    d["modell_clip"] = fi["clip"]
+                if fi.get("boden_weg"):
+                    d["modell_boden_weg"] = True
+                from .werkstatt import genutzt
+                genutzt(fi.get("vorlage") or {})               # Urheber gehört in Beschreibung und Prüfbericht
             elif fi.get("bauplan"):
                 d["bauplan"] = fi["bauplan"]
         if e.get("punkte"):

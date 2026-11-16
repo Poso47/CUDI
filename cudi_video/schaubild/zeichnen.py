@@ -55,7 +55,10 @@ def figur_info(name: str) -> dict | None:
     pfad = FIGUREN / figur_name(name) / "figur.json"
     if not pfad.exists():
         from . import figurenbau, werkstatt                 # Figuren-Abteilung (Detail-Code) vor Werkstatt (Modell/Bauplan)
-        return figurenbau.info(name) or werkstatt.info(name)
+        w = werkstatt.info(name)
+        if w and w.get("modell"):                           # freies Profi-Modell (realistisch) vor selbst gebautem Code
+            return w
+        return figurenbau.info(name) or w
     import json
 
     info = json.loads(pfad.read_text("utf-8"))

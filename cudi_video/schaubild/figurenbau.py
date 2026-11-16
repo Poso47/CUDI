@@ -86,12 +86,27 @@ def _lernstand() -> dict:
     return animation._lies(animation.lernstand_datei())
 
 
+def _basis() -> dict:
+    """Lernstand, auf den abgelegt wird: schon in diesem Lauf geschriebener Stand, sonst der geholte."""
+    try:
+        return json.loads((ordner() / "lernstand.json").read_text("utf-8"))
+    except (OSError, ValueError):
+        return dict(_lernstand())
+
+
 def _lokal(name: str) -> dict | None:
     datei = ordner() / "code" / f"{name}.json"
     try:
         return json.loads(datei.read_text("utf-8")) if datei.exists() else None
     except (OSError, ValueError):
         return None
+
+
+def _modell_lokal(name: str) -> dict:
+    try:
+        return json.loads((ordner() / "code" / f"{name}.modell").read_text("utf-8"))
+    except (OSError, ValueError):
+        return {}
 
 
 def alle() -> dict[str, dict]:
@@ -164,24 +179,32 @@ def maengel(stats: dict) -> list[str]:
     return out
 
 
-def probe(name: str, code: str, anker: dict | None = None, size: int = 380) -> Path:
+def probe(name: str, code: str, anker: dict | None = None, size: int = 380, modell: dict | None = None) -> Path:
     """Probe-Render der Code-Figur aus mehreren Richtungen neben der Vorlage -> Bilderbogen (JPG). Fehler im Code = Ausnahme
     mit der Meldung des Browsers (streng: kein stiller Ersatz)."""
     from PIL import Image, ImageDraw
 
     from . import drei
 
-    fehler = pruefe_code(code)
+    fehler = None if modell else pruefe_code(code)
     if fehler:
         raise ValueError(fehler)
     n = _name(name)
+    if modell:                                              # freies Profi-Modell (GLB) statt Code
+        import base64
+        teil = {"modell": modell["datei"], "modell_dreh": modell.get("dreh", 0), "modell_skala": modell.get("skala", 1),
+                **({"modell_clip": modell["clip"]} if modell.get("clip") else {}),
+                **({"modell_boden_weg": True} if modell.get("boden_weg") else {})}
+        modelle_map = {modell["datei"]: base64.b64encode(Path(modell["datei"]).read_bytes()).decode("ascii")}
+    else:
+        teil, modelle_map = {"figur_code": code}, {}
     arbeit = Path(tempfile.mkdtemp(prefix="cudifig_"))
     try:
         st = {"m": {"x": 50, "y": 50, "g": 70.0, "alpha": 1, "f": 0, "rot": 0, "puls": 0, "farbe": [200, 200, 200],
                     "flattere": .6, "picke": 0}}
         auftrag = {"size": size, "dauer": 0, "streng": True,
-                   "elemente": [{"id": "m", "art": "figur", "figur": n, "farbe": [200, 200, 200], "f": 0, "figur_code": code,
-                                 **({"anker_probe": anker} if anker else {})}],
+                   "elemente": [{"id": "m", "art": "figur", "figur": n, "farbe": [200, 200, 200], "f": 0, **teil,
+                                 **({"anker_probe": anker} if anker else {})}], "modelle": modelle_map,
                    "bilder": [{"t": t, "kamera": {"x": 50, "y": 50, "f": 1}, "st": st, "probe": w} for w, t in PROBE_ANSICHTEN]}
         kx, ky = (anker or {}).get("kopf") or (anker or {}).get("gesicht") or [200, 120]   # Nahaufnahme: Kopf/Gesicht im Detail
         auftrag["bilder"].append({"t": 2.0, "kamera": {"x": 50 + (kx / GROESSE - .5) * 70, "y": 50 + (ky / GROESSE - .5) * 70, "f": 2.6},
@@ -203,7 +226,8 @@ def probe(name: str, code: str, anker: dict | None = None, size: int = 380) -> P
             d.text((px + 7, py - 7), teil, fill=(230, 30, 60, 255))
     stats = lagen[0].get("_stats") or {}
     alt = probe_stand(n)
-    stand = {"runden": int(alt.get("runden", 0)) + 1, "code": _code_id(code), "stats": stats, "maengel": maengel(stats)}
+    stand = {"runden": int(alt.get("runden", 0)) + 1, "code": _code_id(code or json.dumps(modell or {})), "stats": stats,
+             "maengel": [] if modell else maengel(stats)}
     (ordner() / "proben").mkdir(parents=True, exist_ok=True)
     (ordner() / "proben" / f"{n}.json").write_text(json.dumps(stand, ensure_ascii=False), "utf-8")
     spalten, kante = 5, size
@@ -265,7 +289,7 @@ def ablegen(name: str, code: str, anker: dict, anzeige: str = "", pruefen: bool 
            "stand": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     (ordner() / "code").mkdir(parents=True, exist_ok=True)
     (ordner() / "code" / f"{n}.json").write_text(json.dumps(fig, ensure_ascii=False), "utf-8")
-    daten = dict(_lernstand())
+    daten = _basis()
     figs = dict(daten.get("figuren_code") or {})
     figs[n] = fig
     daten["figuren_code"] = dict(sorted(figs.items(), key=lambda kv: kv[1].get("stand", ""))[-MAX_FIGUREN:])
@@ -277,7 +301,7 @@ def ablegen(name: str, code: str, anker: dict, anzeige: str = "", pruefen: bool 
 def gebaut() -> list[str]:
     """In diesem Lauf abgelegte Figuren."""
     d = ordner() / "code"
-    return sorted(p.stem for p in d.glob("*.json")) if d.exists() else []
+    return sorted({p.stem for p in d.glob("*.json")} | {p.stem for p in d.glob("*.modell")}) if d.exists() else []
 
 
 def proben() -> list[str]:
@@ -291,7 +315,7 @@ def bericht(auftrag_id: str, adressen: dict | None = None, offen: list | None = 
     adressen = adressen or {}
     figs = []
     for n in gebaut():
-        fig = _lokal(n) or {}
+        fig = _lokal(n) or _modell_lokal(n)
         probe_bild = ordner() / "proben" / f"{n}.jpg"
         figs.append({"name": n, "anzeige": fig.get("name") or n, "anker": sorted(fig.get("anker") or {}),
                      "probe_url": adressen.get(str(probe_bild), "")})
@@ -301,4 +325,111 @@ def bericht(auftrag_id: str, adressen: dict | None = None, offen: list | None = 
     ziel = ordner() / "bericht.json"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     ziel.write_text(json.dumps(doc, ensure_ascii=False), "utf-8")
+    return ziel
+
+
+# ---------- Freie Profi-Modelle (Entscheidung des Nutzers 16.11.: realistisch statt selbst gebaut) ----------
+def modell_kandidaten(wunsch: str, anzahl: int = 4) -> Path:
+    """Freie 3D-Modelle (Objaverse/Sketchfab, nur CC0/CC BY) zum Figur-Wunsch suchen und je Modell 4 Ansichten neben der
+    Foto-Vorlage zeigen -> Vergleichsbogen (JPG); Liste in `modelle/<name>.json` (Nummer = Zeile im Bogen)."""
+    from PIL import Image, ImageDraw
+
+    from . import drei, modelle, werkstatt
+
+    name, anzeige, begriff = werkstatt.wunsch(wunsch)
+    if not name or not begriff:
+        raise ValueError("Figur-Wunsch unverständlich – Form „Deutsch (english)“, z. B. „Kuh (cow)“.")
+    funde = modelle.kandidaten(begriff, anzahl)
+    if not funde:
+        raise RuntimeError(f"Kein freies 3D-Modell für „{begriff}“ gefunden – dann im Detail selbst bauen (figur-vorlage …).")
+    try:
+        foto = vorlage(wunsch).get("datei")
+    except (ValueError, RuntimeError):
+        foto = None
+    kante, liste, zeilen = 300, [], []
+    for i, f in enumerate(funde, start=1):
+        bilder = dict(drei.modell_probe(f["datei"], size=kante))
+        if not bilder:
+            continue
+        masse = []
+        for im in bilder.values():
+            box = im.getchannel("A").point(lambda v: 255 if v > 24 else 0).getbbox()
+            masse.append(max(box[2] - box[0], box[3] - box[1]) / im.width if box else 0.0)
+        skala = round(max(.15, min(12.0, .9 * drei.PROBE_GROESSE / 100 / max(max(masse), .01))), 3)
+        eintrag = {k: f.get(k) for k in ("datei", "url", "lizenz", "urheber", "titel", "seite", "quelle", "flaechen", "bewegt", "begriff")}
+        eintrag.update(nr=len(liste) + 1, skala=skala)
+        liste.append(eintrag)
+        zeilen.append((eintrag, [bilder.get(w) for w in (0, 90, 180, 270)]))
+    if not liste:
+        raise RuntimeError(f"Die freien Modelle für „{begriff}“ ließen sich nicht rendern – dann im Detail selbst bauen.")
+    bogen = Image.new("RGB", (kante * 5, 30 + kante * len(zeilen)), (238, 234, 226))
+    d = ImageDraw.Draw(bogen)
+    d.text((8, 8), f"Freie 3D-Modelle fuer '{name}' - Zeile = Nummer, links die Foto-Vorlage", fill=(40, 40, 40))
+    if foto and Path(foto).exists():
+        with Image.open(foto) as im:
+            im = im.convert("RGB")
+            im.thumbnail((kante, kante * len(zeilen)))
+            bogen.paste(im, (0, 30))
+    for r, (e, bilder) in enumerate(zeilen):
+        for c, bild in enumerate(bilder, start=1):
+            feld = Image.new("RGBA", (kante, kante), (250, 248, 244, 255))
+            if bild:
+                feld.alpha_composite(bild.resize((kante, kante)))
+            bogen.paste(feld.convert("RGB"), (c * kante, 30 + r * kante))
+        info = f"Nr. {e['nr']}: {e['titel']} - {e['urheber']} ({e['lizenz']}), {e['flaechen']} Flaechen" + (", bewegt" if e["bewegt"] else "")
+        d.text((kante + 8, 30 + r * kante + 6), info[:110], fill=(30, 30, 30))
+    ziel = ordner() / "modelle" / f"{name}.jpg"
+    ziel.parent.mkdir(parents=True, exist_ok=True)
+    bogen.save(ziel, quality=86)
+    (ziel.with_suffix(".json")).write_text(json.dumps({"anzeige": anzeige, "begriff": begriff, "modelle": liste}, ensure_ascii=False), "utf-8")
+    return ziel
+
+
+def _modell_wahl(name: str, nr: int) -> tuple[dict, dict]:
+    try:
+        daten = json.loads((ordner() / "modelle" / f"{_name(name)}.json").read_text("utf-8"))
+    except (OSError, ValueError):
+        raise ValueError("Erst figur-modell ausführen (Modelle suchen und ansehen).") from None
+    for m in daten.get("modelle") or []:
+        if m.get("nr") == nr:
+            return m, daten
+    raise ValueError(f"Modell Nr. {nr} gibt es nicht.")
+
+
+def modell_probe(name: str, nr: int, anker: dict | None = None, dreh: float | None = None, clip: str = "",
+                 boden_weg: bool = False) -> Path:
+    """Gewähltes Modell wie eine Figur proben (7 Ansichten inkl. Nahaufnahme, Anker rot) – Blickrichtung `dreh` in Grad."""
+    m, _ = _modell_wahl(name, nr)
+    return probe(name, "", anker, modell={"datei": m["datei"], "dreh": m.get("dreh", 0) if dreh is None else dreh,
+                                           "skala": m["skala"], "clip": clip, "boden_weg": boden_weg})
+
+
+def modell_ablegen(name: str, nr: int, anker: dict, dreh: float = 0, clip: str = "", anzeige: str = "", boden_weg: bool = False) -> Path:
+    """Gewähltes freies Modell als Figur ablegen (Lernstand „figuren“, mit Urheber/Lizenz für die Pflichtnennung)."""
+    from . import werkstatt
+
+    anker, fehler = pruefe_anker(anker)
+    if fehler:
+        raise ValueError(fehler)
+    n = _name(name)
+    m, daten = _modell_wahl(n, nr)
+    if int(probe_stand(n).get("runden", 0)) < 1:
+        raise ValueError("Erst figur-modell-probe mit Ankern ansehen, dann ablegen.")
+    plan = werkstatt.pruefe_bauplan({"name": n, "modell": m["datei"], "modell_url": m["url"], "dreh": dreh % 360, "skala": m["skala"],
+                                     "clip": clip, "boden_weg": boden_weg, "anker": {k: [v[0] / 4, v[1] / 4] for k, v in anker.items()},
+                                     "vorlage": {k: m.get(k, "") for k in ("seite", "quelle", "lizenz", "urheber", "begriff", "titel")}})
+    if not plan:
+        raise ValueError("Modell-Bauplan ungültig.")
+    werkstatt.ordner().mkdir(parents=True, exist_ok=True)
+    (werkstatt.ordner() / f"{n}.json").write_text(json.dumps(plan, ensure_ascii=False), "utf-8")
+    (ordner() / "code").mkdir(parents=True, exist_ok=True)          # für den Bericht an die App (gebaut = Modell gewählt)
+    (ordner() / "code" / f"{n}.modell").write_text(json.dumps({"name": anzeige or daten.get("anzeige") or n, "anker": anker}), "utf-8")
+    daten_ls = _basis()
+    figs = dict(daten_ls.get("figuren") or {})
+    figs[n] = {k: plan[k] for k in ("teile", "anker", "vorlage", "modell_url", "dreh", "skala", "clip", "boden_weg") if k in plan}
+    daten_ls["figuren"] = figs
+    if isinstance(daten_ls.get("figuren_code"), dict):                 # Profi-Modell ersetzt eine selbst gebaute Fassung
+        daten_ls["figuren_code"] = {k: v for k, v in daten_ls["figuren_code"].items() if k != n}
+    ziel = ordner() / "lernstand.json"
+    ziel.write_text(json.dumps(daten_ls, ensure_ascii=False), "utf-8")
     return ziel
