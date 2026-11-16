@@ -50,7 +50,9 @@ def elemente(buehne) -> list[dict]:
         if e["art"] == "figur":
             from .zeichnen import figur_info
             fi = figur_info(e.get("figur") or "") or {}
-            if fi.get("modell"):
+            if fi.get("code"):
+                d["figur_code"] = fi["code"]                   # Figuren-Abteilung: im Detail gebaute Figur (three.js-Code)
+            elif fi.get("modell"):
                 d["modell"] = fi["modell"]                     # GLB-Datei; `rendere` schickt den Inhalt mit
                 d["modell_dreh"], d["modell_skala"] = fi.get("dreh", 0), fi.get("skala", 1)
             elif fi.get("bauplan"):

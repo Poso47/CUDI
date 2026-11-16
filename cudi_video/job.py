@@ -641,7 +641,9 @@ def _erklaer(order: dict, folder: Path, progress) -> dict:
                 continue
             if antwort not in (None, "", [], {}):
                 antworten[datei.stem.removeprefix("schreiben_")] = antwort
-        fehlend = sorted({w for a in animation._lies(out / "abgleich.json").get("abschnitte", []) for w in a.get("figur_wuensche", [])})
+        from .schaubild import werkstatt, zeichnen as _z      # schon gebaute Figuren (Figuren-Abteilung) fehlen nicht mehr
+        fehlend = sorted({w for a in animation._lies(out / "abgleich.json").get("abschnitte", []) for w in a.get("figur_wuensche", [])
+                          if not _z.figur_info(werkstatt.wunsch(w)[0] or "-")})
         return {"output_dir": str(out), "kind": "erklaer", "warnings": report["hinweise"], "videos": {},
                 "skizze": {"bild": str(bogen), "titel": script["titel"], "antworten": antworten, "fehlende_figuren": fehlend,
                            "szenen": [{"nr": i, "text": sz["text"], "mit_bild": animation._hat_bild(sz)}
