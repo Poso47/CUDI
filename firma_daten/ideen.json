@@ -2,7 +2,7 @@
  "erzeugt": "2026-11-15T12:49:10Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 79,
+ "anzahl": 78,
  "neu": 17,
  "ideen": [
   {
@@ -2143,34 +2143,6 @@
    },
    "app_auftrag": true,
    "erstellt": "2026-11-09T13:59:17Z"
-  },
-  {
-   "id": "idee-b9eb1790",
-   "bereich": "ranking",
-   "titel": "Die längsten Auslegerbrücken",
-   "thema": "Eine Rangliste der größten Auslegerbrücken weltweit.",
-   "begruendung": "Der Trend \"Liste der größten Auslegerbrücken\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-06 mit 33.338 Aufrufen.",
-   "quelle": {
-    "name": "Liste der größten Auslegerbrücken",
-    "typ": "trend",
-    "score": 78.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184600 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de",
-     "en"
-    ],
-    "thema": "Eine Rangliste der größten Auslegerbrücken weltweit."
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-08T21:47:40Z"
   }
  ]
 }
