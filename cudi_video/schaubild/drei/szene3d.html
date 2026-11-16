@@ -43,6 +43,82 @@ function rohr(pts, r, m) {
   const c = new T.CatmullRomCurve3(pts.map((p) => fp(p[0], p[1], p[2] || 0)));
   const t = new T.Mesh(new T.TubeGeometry(c, 40, r, 10, false), m); t.castShadow = true; return t;
 }
+// ---------- Realismus-Baukasten (Figuren-Abteilung): organische Formen, Fell, Haut, Augen ----------
+function organ(pts, radien, m, o = {}) {                   // Glied/Hals/Schwanz: Röhre mit wechselnder Dicke (Muskel, Knie, Fessel), runde Enden
+  const c = new T.CatmullRomCurve3(pts.map((q) => fp(q[0], q[1], q[2] || 0)));
+  const n = o.teile || 48, rs = o.rund || 18, fr = c.computeFrenetFrames(n, false), fl = o.flach || 1;
+  const r = (u) => { const f = u * (radien.length - 1), i = Math.min(radien.length - 2, Math.floor(f)), t = f - i, w = t * t * (3 - 2 * t);
+    return radien[i] * (1 - w) + radien[i + 1] * w; };
+  const pos = [], uv = [], idx = [];
+  for (let i = 0; i <= n; i++) {
+    const u = i / n, q = c.getPointAt(u), N = fr.normals[i], B = fr.binormals[i], rad = r(u);
+    for (let j = 0; j <= rs; j++) { const a = j / rs * Math.PI * 2, sx = Math.cos(a) * rad * fl, sy = Math.sin(a) * rad;
+      pos.push(q.x + N.x * sx + B.x * sy, q.y + N.y * sx + B.y * sy, q.z + N.z * sx + B.z * sy); uv.push(j / rs, u); }
+  }
+  for (let i = 0; i < n; i++) for (let j = 0; j < rs; j++) { const a = i * (rs + 1) + j, b = a + rs + 1; idx.push(a, a + 1, b, b, a + 1, b + 1); }
+  const geo = new T.BufferGeometry(); geo.setAttribute("position", new T.Float32BufferAttribute(pos, 3));
+  geo.setAttribute("uv", new T.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
+  const g = new T.Mesh(geo, m); g.castShadow = true; g.receiveShadow = true;
+  for (const u of [0, 1]) { const k = new T.Mesh(new T.SphereGeometry(r(u), 20, 14), m); k.position.copy(c.getPointAt(u)); k.castShadow = true; g.add(k); }
+  return g;
+}
+function koerper(profil, m, o = {}) {                      // Rumpf/Kopf als Drehkörper: profil = [[radius, y], …] in Welt-Einheiten, dann gestaucht/gedreht
+  const geo = new T.LatheGeometry(profil.map(([r, y]) => new T.Vector2(r, y)), o.rund || 48);
+  const k = new T.Mesh(geo, m); k.castShadow = true; k.receiveShadow = true;
+  if (o.liegend) k.rotation.z = Math.PI / 2;                 // waagerechter Rumpf (Vierbeiner)
+  if (o.skala) k.scale.set(...o.skala);
+  if (o.bei) k.position.copy(fp(...o.bei));
+  return k;
+}
+function fellkarte(grund, o = {}) {                        // Fell: Grundfarbe, organische Flecken, Haarstriche in Wuchsrichtung -> {map, bump}
+  const N = 512, mk = () => { const c = document.createElement("canvas"); c.width = c.height = N; return c; };
+  const c = mk(), g = c.getContext("2d"), cb = mk(), gb = cb.getContext("2d");
+  let seed = o.seed || 7; const zufall = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  g.fillStyle = grund; g.fillRect(0, 0, N, N); gb.fillStyle = "#808080"; gb.fillRect(0, 0, N, N);
+  for (const f of o.flecken || []) {                        // {farbe, n, groesse}: unregelmäßige, weiche Flecken (Rand ausgefranst)
+    for (let k = 0; k < (f.n || 4); k++) {
+      const cx = zufall() * N, cy = zufall() * N, R = (f.groesse || .18) * N * (.6 + zufall() * .8);
+      g.fillStyle = f.farbe; g.beginPath();
+      for (let a = 0; a <= 64; a++) { const w = a / 64 * Math.PI * 2, rr = R * (.72 + .28 * Math.sin(w * 3 + k) + .12 * Math.sin(w * 7 + k * 2) + .06 * (zufall() - .5));
+        const x = cx + Math.cos(w) * rr, y = cy + Math.sin(w) * rr * .8; a ? g.lineTo(x, y) : g.moveTo(x, y); }
+      g.fill();
+    }
+  }
+  const wuchs = o.wuchs ?? .35, laenge = o.laenge || 7;     // Haarstriche: hell/dunkel, leicht gebogen, gleiche Richtung
+  for (let i = 0; i < (o.dichte || 26000); i++) {
+    const x = zufall() * N, y = zufall() * N, w = wuchs + (zufall() - .5) * .5, l = laenge * (.5 + zufall());
+    const hell = zufall() < .5; g.strokeStyle = hell ? `rgba(255,250,240,${.05 + zufall() * .12})` : `rgba(10,8,6,${.05 + zufall() * .14})`;
+    g.lineWidth = .8; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(w) * l, y + Math.sin(w) * l); g.stroke();
+    gb.strokeStyle = hell ? "rgba(255,255,255,.25)" : "rgba(0,0,0,.25)"; gb.beginPath(); gb.moveTo(x, y); gb.lineTo(x + Math.cos(w) * l, y + Math.sin(w) * l); gb.stroke();
+  }
+  const map = new T.CanvasTexture(c), bump = new T.CanvasTexture(cb); map.encoding = T.sRGBEncoding;
+  for (const t of [map, bump]) { t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(...(o.wiederholung || [1, 1])); }
+  return { map, bump };
+}
+function fellmat(grund, o = {}) {                         // fertiges Fell-Material (matt, Haarstruktur als Relief)
+  const k = fellkarte(grund, o);
+  return mat([255, 255, 255], { map: k.map, bumpMap: k.bump, bumpScale: o.relief ?? .006, roughness: .88, clearcoat: 0 });
+}
+function hautmat(farbe, o = {}) {                          // Haut/Schnauze/Euter: Poren, leichte Flecken, feuchter oder matter Glanz
+  const c = document.createElement("canvas"); c.width = c.height = 256; const g = c.getContext("2d");
+  g.fillStyle = farbe; g.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 4000; i++) { g.fillStyle = `rgba(${Math.random() < .5 ? "255,235,225" : "90,40,40"},${Math.random() * .12})`;
+    g.beginPath(); g.arc(Math.random() * 256, Math.random() * 256, .6 + Math.random() * 1.6, 0, 7); g.fill(); }
+  const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; tx.wrapS = tx.wrapT = T.RepeatWrapping; tx.repeat.set(2, 2);
+  return mat([255, 255, 255], { map: tx, bumpMap: tx, bumpScale: .002, roughness: o.feucht ? .28 : .6, clearcoat: o.feucht ? .6 : .1 });
+}
+function auge(r, iris = [70, 45, 25], o = {}) {           // Auge: Augapfel, Iris, Pupille, glänzende Hornhaut, Lider -> Group (Blick +z)
+  const g = new T.Group();
+  g.add(new T.Mesh(new T.SphereGeometry(r, 32, 24), mat(o.weiss || [236, 230, 222], { roughness: .3 })));
+  const ir = new T.Mesh(new T.CircleGeometry(r * .62, 32), mat(iris, { roughness: .35 })); ir.position.z = r * .965; g.add(ir);
+  const pu = new T.Mesh(new T.CircleGeometry(r * (o.pupille || .3), 24), mat([8, 6, 6], { roughness: .2 }));
+  pu.position.z = r * .975; if (o.quer) pu.scale.set(1.8, .55, 1); g.add(pu);              // Querpupille (Kuh, Schaf, Ziege)
+  g.add(new T.Mesh(new T.SphereGeometry(r * 1.04, 32, 24), new T.MeshPhysicalMaterial({ color: 0xffffff, transparent: true, opacity: .14,
+    roughness: .02, clearcoat: 1, clearcoatRoughness: .02, depthWrite: false })));
+  if (o.lid) { const lid = new T.Mesh(new T.SphereGeometry(r * 1.08, 32, 16, 0, Math.PI * 2, 0, Math.PI * .42), o.lid);
+    lid.rotation.x = -.35; g.add(lid); }
+  return g;
+}
 
 function ringe(bump) {                                   // Hinterleib: Ringe quer zur Körperachse (Bänder entlang v)
   const c = document.createElement("canvas"); c.width = 64; c.height = 512; const g = c.getContext("2d");
@@ -685,6 +761,7 @@ function zeichneBild(b) {                                // b = {t, st: {id: zus
   }
   // Kamera-Regie: Einflug (Bogen + Heranfahren), ruhiges Schweben, Zoom mit engerem Bildwinkel, Weiterflug zum Szenenende.
   // Kurven aus tween.js; camera-controls dämpft jede Bewegung, damit nichts ruckt.
+  if (b.probe !== undefined) letztesT = null;              // Probe-Bilder: Kamera springt direkt (keine Glättung zwischen Ansichten)
   const k = b.kamera, E = (window.TWEEN && TWEEN.Easing) || null, kl = (v) => Math.max(0, Math.min(1, v));
   const ein = 1 - (E ? E.Quintic.Out(kl(t / 1.5)) : kl(t / 1.5));                        // 1 -> 0 in den ersten 1,5 s
   const aus = dauer > 3 ? (E ? E.Cubic.In(kl((t - (dauer - .7)) / .7)) : kl((t - (dauer - .7)) / .7)) : 0;   // 0 -> 1 am Ende
@@ -709,6 +786,14 @@ function zeichneBild(b) {                                // b = {t, st: {id: zus
     const r = p.clone().add(new T.Vector3(Math.max(.02, z.g / 100 * W) / 2, 0, 0));
     const a = p.clone().project(camera), c = r.project(camera);
     lage[e.id] = [(a.x + 1) * 50, (1 - a.y) * 50, Math.abs(c.x - a.x) * 100];
+    if (b.probe !== undefined && o.innen && e.art === "figur") {          // Figuren-Probe: Kennzahlen für die Qualitätsprüfung
+      const mats = new Set(), tex = new Set(); let teile = 0, organisch = 0, grund = 0;
+      o.innen.traverse((m) => { if (!m.isMesh) return; teile++; const ty = m.geometry && m.geometry.type;
+        if (/Lathe|Extrude|Tube/.test(ty) || (ty === "BufferGeometry" && !m.isInstancedMesh)) organisch++;
+        if (/^(Box|Cylinder|Cone)Geometry$/.test(ty)) grund++;
+        for (const mm of [].concat(m.material || [])) { mats.add(mm.uuid); if (mm.map || mm.bumpMap) tex.add(mm.uuid); }
+        if (m.isInstancedMesh) organisch++; });
+      lage._stats = { teile, materialien: mats.size, texturiert: tex.size, organisch, grundkoerper: grund }; }
     if (e.anker_probe && o.innen) { lage._anker = {};                   // Figuren-Probe: echte Bildschirmlage der Ankerpunkte
       for (const [teil, q] of Object.entries(e.anker_probe)) { const w = o.innen.localToWorld(fp(q[0], q[1], .05)).project(camera);
         lage._anker[teil] = [(w.x + 1) * 50, (1 - w.y) * 50]; } } }

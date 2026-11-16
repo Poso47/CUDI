@@ -21,10 +21,48 @@ eine neue Skizze. „Video erstellen“ geht erst, wenn keine Figur mehr fehlt.
    Das ausgegebene JPG mit Read ansehen. Es zeigt die Vorlage links, 4 Richtungen und 2 Bewegungsmomente. Die Anker
    sind rot eingezeichnet.
 5. **Nachbessern**, bis Umriss, Proportionen, Farben und alle typischen Teile der Vorlage entsprechen und jeder Anker
-   genau auf seinem Teil sitzt. Das dauert höchstens 4 Runden. Meldet die Probe einen Fehler, steht die Meldung des
+   genau auf seinem Teil sitzt. Mindestens 3 und höchstens 6 Runden, jede mit der Prüfliste unten. Meldet die Probe einen Fehler, steht die Meldung des
    Browsers in der Ausgabe.
 6. **Ablegen:** `python3 -m cudi_video figur-ablegen <name> <datei.js> --anker '{…}' --anzeige "Imker"`. Der Befehl
    prüft die Figur und schreibt den Lernstand. Ab dann laden alle Video-Läufe die Figur automatisch.
+
+## Realismus – Pflicht für jede Figur
+
+Ziel ist eine Figur, die neben dem Foto **wie dasselbe Tier, dieselbe Person, dasselbe Ding** aussieht, nur als 3D-Modell.
+Spielzeug- oder Knetfiguren-Look gilt als nicht fertig.
+
+**Baukasten** (in `szene3d.html`, für realistische Formen):
+
+- `organ(punkte, radien, mat, {flach})` baut Beine, Arme, Hälse, Schwänze und Finger. Die Dicke wechselt entlang des
+  Glieds: Oberschenkel-Muskel, schmales Knie, Fessel, Huf. **Nie** glatte Röhren oder Zylinder für Glieder verwenden.
+- `koerper(profil, mat, {liegend, skala, bei})` baut Rumpf, Kopf, Schnauze und Euter als Drehkörper aus einem
+  Umriss-Profil. Das Profil wird vom Foto abgemessen (Brust tiefer als Bauch, Hüfthöcker, Widerrist).
+- `fellmat(grund, {flecken, wuchs, laenge, dichte, wiederholung, relief})` erzeugt Fell mit organischen Flecken nach der
+  Vorlage und Haaren in Wuchsrichtung als Relief. Für dichtes Fell zusätzlich `haare(...)`.
+- `hautmat(farbe, {feucht})` ist für Haut, Schnauze, Euter und Lippen gedacht: Poren, feuchter Glanz.
+- `auge(r, iris, {quer, pupille, lid})` baut ein echtes Auge: Augapfel, Iris, Pupille (`quer` bei Kuh, Ziege, Schaf),
+  glänzende Hornhaut, Lid.
+
+**Prüfliste je Probe-Runde.** Jeden Punkt gegen die Vorlage abhaken und im Kopf begründen:
+
+1. Proportionen: Länge zu Höhe, Kopfgröße, Beinlänge, Halsansatz und Rückenlinie stimmen mit dem Foto überein.
+2. Silhouette aus 0°, 90° und 180° ist sofort erkennbar, auch ohne Farbe.
+3. Anatomie: Gelenke an der richtigen Stelle und in der richtigen Richtung (Kuh-Hinterbein: Sprunggelenk nach hinten),
+   Muskeln, Knochenpunkte, Hufe, Krallen und Finger.
+4. Gesicht in der Nahaufnahme: Augen mit Glanz und Lid, Nasenlöcher, Maul oder Lippen, Ohren mit Innenseite,
+   Hörner und Haare.
+5. Oberfläche: Fell, Haut oder Stoff mit Struktur. Fleckenmuster und Farben wie die Vorlage (gemessene Farben nutzen).
+6. Typische Merkmale der Vorlage sind alle da (bei der Kuh z. B. Euter mit 4 Zitzen, Ohrmarke, Quaste, Blesse).
+
+**Ablage nur nach bestandener Prüfung:**
+
+- `figur-ablegen` verweigert die Ablage, wenn weniger als 3 Probe-Runden gemacht wurden.
+- Es verweigert auch, wenn genau dieser Code nicht geprobt wurde.
+- Und es verweigert, wenn der Detailgrad fehlt: mindestens 35 Teile, 5 Materialien, 3 mit Textur oder Relief,
+  6 organische Formen und nicht mehr als 30 % Kästen, Zylinder oder Kegel.
+- Die Probe zeigt die Werte und „FEHLT: …“ oben im Bild.
+
+Lieber 6 gründliche Runden als 3 schnelle: Jede Runde behebt die größten Abweichungen aus der Prüfliste.
 
 ## Regeln für den Code
 
