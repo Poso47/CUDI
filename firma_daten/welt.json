@@ -1,109 +1,45 @@
 {
- "erzeugt": "2026-11-16T22:24:05Z",
- "anzahl": 18,
- "nur_ausland": 2,
+ "erzeugt": "2026-11-17T08:11:50Z",
+ "anzahl": 13,
+ "nur_ausland": 1,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "Germany 5-0 Netherlands – UEFA Nations League as it happened",
-   "kurz": "Live text commentary stream as Germany thrash the Netherlands in Nations League's final Group A2 football match.",
-   "link": "https://www.aljazeera.com/sports/liveblog/2026/11/16/live-germany-vs-netherlands-uefa-nations-league?traffic_source=rss",
-   "sprache": "en",
-   "zeit": "2026-11-16T22:20:06Z",
-   "ausland_quellen": 3,
-   "laender": [
-    "Argentinien",
-    "Katar",
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Argentinien",
-    "Katar"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Spanien"
-   ],
-   "zusammenfassung": [
-    "Al Jazeera (Katar): Germany 5-0 Netherlands – UEFA Nations League as it happened",
-    "El País (Spanien): Alemania despierta ante Países Bajos para liderar su grupo y endosar la primera goleada a Xavi",
-    "La Nación (Argentinien): Alemania goleó 5 a 0 a Países Bajos y se clasificó a los cuartos de final de la UEFA Nations League"
-   ],
-   "staatsnah": [
-    "Al Jazeera"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": true,
-   "unabhaengig_n": 3,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [
-    "La Nación (Argentinien)"
-   ],
-   "quellen": [
-    {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Germany 5-0 Netherlands – UEFA Nations League as it happened",
-     "link": "https://www.aljazeera.com/sports/liveblog/2026/11/16/live-germany-vs-netherlands-uefa-nations-league?traffic_source=rss",
-     "eigentuemer": "staatlich (Katar)",
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Alemania despierta ante Países Bajos para liderar su grupo y endosar la primera goleada a Xavi",
-     "link": "https://elpais.com/deportes/futbol/2026-11-16/alemania-despierta-ante-paises-bajos-para-liderar-su-grupo-y-endosar-la-primera-goleada-a-xavi.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Alemania goleó 5 a 0 a Países Bajos y se clasificó a los cuartos de final de la UEFA Nations League",
-     "link": "https://www.lanacion.com.ar/deportes/futbol/uefa-nations-league-en-vivo-nid16112026/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Five EU countries announce migrant deportation centre in Rwanda",
    "kurz": "Germany, Denmark, Austria, Greece and the Netherlands have announced a \"return hub\" for failed asylum seekers.",
    "link": "https://www.bbc.co.uk/news/articles/cw987343352go?at_medium=RSS&at_campaign=rss",
    "sprache": "en",
-   "zeit": "2026-11-16T17:33:48+01:00",
-   "ausland_quellen": 3,
+   "zeit": "2026-11-17T04:22:05+01:00",
+   "ausland_quellen": 4,
    "laender": [
     "Frankreich",
-    "Großbritannien"
+    "Großbritannien",
+    "Katar"
    ],
    "laender_einig": [
     "Frankreich",
-    "Großbritannien"
+    "Großbritannien",
+    "Katar"
    ],
-   "bestaetigt_laender": false,
+   "bestaetigt_laender": true,
    "beteiligte_laender": [
     "Österreich"
    ],
    "zusammenfassung": [
     "BBC Europe (Großbritannien): Five EU countries announce migrant deportation centre in Rwanda",
     "Guardian Germany (Großbritannien): Five EU states announce plans for immigration ‘return hubs’ in Rwanda",
+    "Al Jazeera (Katar): EU countries announce migrant deportation centre in Rwanda",
     "Le Monde (en) (Frankreich): Five EU nations reveal deal to deport migrants to Rwanda hub"
    ],
-   "staatsnah": [],
+   "staatsnah": [
+    "Al Jazeera"
+   ],
    "deutsch_quellen": [],
    "nur_ausland": true,
-   "unabhaengig_n": 3,
+   "unabhaengig_n": 4,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
@@ -128,6 +64,16 @@
      "zaehlt_nicht": ""
     },
     {
+     "quelle": "Al Jazeera",
+     "land": "Katar",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "EU countries announce migrant deportation centre in Rwanda",
+     "link": "https://www.aljazeera.com/video/newsfeed/2026/11/17/eu-countries-announce-migrant-deportation-centre-in-rwanda?traffic_source=rss",
+     "eigentuemer": "staatlich (Katar)",
+     "zaehlt_nicht": ""
+    },
+    {
      "quelle": "Le Monde (en)",
      "land": "Frankreich",
      "art": "privat",
@@ -140,36 +86,27 @@
    ]
   },
   {
-   "titel": "Deutschland gewinnt gegen die Niederlande mit 5:0 – und zieht als Gruppenerster in der Nations League weiter",
-   "kurz": "Das DFB-Team überrollt Erzrivalen Holland nach Traumtoren mit 5:0. Damit zieht Jürgen Klopps Mannschaft als Gruppenerster in die K.o.-Runde der Nations League…",
-   "link": "https://www.nzz.ch/sport/deutschland-gewinnt-gegen-die-niederlande-mit-50-und-zieht-als-gruppenerster-in-der-nations-league-weiter-ld.10065682",
+   "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+   "kurz": "Wie wirken sich Energiewende und globale Krisen auf Strom- und Gaspreise in Deutschland aus? Hier gibt es jeden Tag die aktuellen Zahlen.",
+   "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
    "sprache": "de",
-   "zeit": "2026-11-16T22:13:39Z",
-   "ausland_quellen": 2,
+   "zeit": "2026-11-17T08:04:24Z",
+   "ausland_quellen": 1,
    "laender": [
-    "Schweiz",
-    "Österreich"
+    "Schweiz"
    ],
    "laender_einig": [
-    "Schweiz",
-    "Österreich"
+    "Schweiz"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): Deutschland gewinnt gegen die Niederlande mit 5:0 – und zieht als Gruppenerster in der Nations League weiter",
-    "Der Standard (Österreich): Deutschland steht nach Gala gegen die Niederlande im Viertelfinale der Nations League"
+    "NZZ (Schweiz): INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "DFB-Endspiel gegen die Niederlande",
-     "link": "https://www.sportschau.de/live-und-ergebnisse/fussball/uefa-nations-league-a/ma11904007/deutschland_niederlande/liveticker"
-    }
-   ],
+   "deutsch_quellen": [],
    "nur_ausland": false,
-   "unabhaengig_n": 2,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
@@ -178,11 +115,83 @@
      "land": "Schweiz",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Deutschland gewinnt gegen die Niederlande mit 5:0 – und zieht als Gruppenerster in der Nations League weiter",
-     "link": "https://www.nzz.ch/sport/deutschland-gewinnt-gegen-die-niederlande-mit-50-und-zieht-als-gruppenerster-in-der-nations-league-weiter-ld.10065682",
+     "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+     "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
      "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
-    },
+    }
+   ]
+  },
+  {
+   "titel": "Brandanschlag auf Julian Reichelts Auto: Politische Gewalt ist unter Linken wieder populär",
+   "kurz": "In Deutschland und Frankreich nehmen Extremisten konservative Journalisten ins Visier. Sie sind das Feindbild schlechthin. Umfragen zeigen: In Teilen der…",
+   "link": "https://www.nzz.ch/meinung/anschlag-auf-reichelts-auto-wie-die-linke-gewalt-legitimiert-ld.10065285",
+   "sprache": "de",
+   "zeit": "2026-11-17T04:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Brandanschlag auf Julian Reichelts Auto: Politische Gewalt ist unter Linken wieder populär"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Brandanschlag auf Julian Reichelts Auto: Politische Gewalt ist unter Linken wieder populär",
+     "link": "https://www.nzz.ch/meinung/anschlag-auf-reichelts-auto-wie-die-linke-gewalt-legitimiert-ld.10065285",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutschland steht nach Gala gegen die Niederlande im Viertelfinale der Nations League",
+   "kurz": "Die DFB-Elf besiegte Oranje 5:0, die ebenfalls in die K.-o.-Phase einzieht. Wirtz traf in Berlin doppelt. Griechenland hat das Nachsehen",
+   "link": "https://www.derstandard.at/story/3000000349560/deutschland-steht-nach-gala-gegen-die-niederlande-im-viertelfinale-der-nations-league?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-16T21:55:11Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Deutschland steht nach Gala gegen die Niederlande im Viertelfinale der Nations League"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "5:0 gegen Niederlande: Deutschland im Viertelfinale der Nations League",
+     "link": "https://www.sportschau.de/fussball/nationalmannschaft/klopp-setzt-auf-schlotterbeck-und-brown,deutschland-niederlande-spielbericht-102.html"
+    }
+   ],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
     {
      "quelle": "Der Standard",
      "land": "Österreich",
@@ -191,45 +200,6 @@
      "titel": "Deutschland steht nach Gala gegen die Niederlande im Viertelfinale der Nations League",
      "link": "https://www.derstandard.at/story/3000000349560/deutschland-steht-nach-gala-gegen-die-niederlande-im-viertelfinale-der-nations-league?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany thrash Netherlands to book quarterfinal spot",
-   "kurz": "Jurgen Klopp's side outclasses the Dutch 5-0 in Berlin to secure top spot in UEFA Nations League Group A2.",
-   "link": "https://www.aljazeera.com/sports/2026/11/16/germany-thrash-netherlands-to-book-quarterfinal-spot?traffic_source=rss",
-   "sprache": "en",
-   "zeit": "2026-11-16T22:04:31Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Katar"
-   ],
-   "laender_einig": [
-    "Katar"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Al Jazeera (Katar): Germany thrash Netherlands to book quarterfinal spot"
-   ],
-   "staatsnah": [
-    "Al Jazeera"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Germany thrash Netherlands to book quarterfinal spot",
-     "link": "https://www.aljazeera.com/sports/2026/11/16/germany-thrash-netherlands-to-book-quarterfinal-spot?traffic_source=rss",
-     "eigentuemer": "staatlich (Katar)",
      "zaehlt_nicht": ""
     }
    ]
@@ -269,49 +239,6 @@
      "titel": "EU nations unveil Rwanda deal for migrant return hub",
      "link": "https://www.france24.com/en/eu-nations-unveil-rwanda-deal-for-migrant-return-hub",
      "eigentuemer": "staatlich (Frankreich)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "DER ANDERE BLICK - Abgelehnte Asylbewerber nach Rwanda ausschaffen? Deutschland sollte es versuchen",
-   "kurz": "Die deutsche Regierung erwägt, mit vier EU-Partnern abgelehnte Asylbewerber nach Rwanda zu bringen. Die Empörung ist gross. Doch die Kritiker machen es sich zu…",
-   "link": "https://www.nzz.ch/der-andere-blick/abgelehnte-asylbewerber-nach-rwanda-ausschaffen-deutschland-sollte-es-versuchen-ld.10065405",
-   "sprache": "de",
-   "zeit": "2026-11-16T16:48:10Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): DER ANDERE BLICK - Abgelehnte Asylbewerber nach Rwanda ausschaffen? Deutschland sollte es versuchen"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Abgelehnte Asylbewerber sollen nach Ruanda abgeschoben werden",
-     "link": "https://www.dw.com/de/abgelehnte-asylbewerber-sollen-nach-ruanda-abgeschoben-werden/a-79962582?maca=de-rss-de-all-1119-xml-mrss"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "DER ANDERE BLICK - Abgelehnte Asylbewerber nach Rwanda ausschaffen? Deutschland sollte es versuchen",
-     "link": "https://www.nzz.ch/der-andere-blick/abgelehnte-asylbewerber-nach-rwanda-ausschaffen-deutschland-sollte-es-versuchen-ld.10065405",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     }
    ]
@@ -357,82 +284,6 @@
    ]
   },
   {
-   "titel": "Cinco países europeos crearán en Ruanda el primer centro de deportación fuera de la UE",
-   "kurz": "Bruselas da el visto bueno a este acuerdo negociado por Dinamarca, Alemania, Países Bajos, Grecia y Austria para acelerar la expulsión de migrantes a partir de…",
-   "link": "https://elpais.com/internacional/2026-11-16/cinco-paises-europeos-crearan-en-ruanda-el-primer-centro-de-deportacion-fuera-de-la-ue.html",
-   "sprache": "es",
-   "zeit": "2026-11-16T15:23:03Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Österreich"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Cinco países europeos crearán en Ruanda el primer centro de deportación fuera de la UE"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Cinco países europeos crearán en Ruanda el primer centro de deportación fuera de la UE",
-     "link": "https://elpais.com/internacional/2026-11-16/cinco-paises-europeos-crearan-en-ruanda-el-primer-centro-de-deportacion-fuera-de-la-ue.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "La izquierda alemana aplica el cordón sanitario y revalida el Gobierno de Mecklemburgo-Pomerania Occidental",
-   "kurz": "SPD, Die Linke y los Verdes suman mayoría para una coalición de Gobierno frente a la reciente victoria electoral de la extrema derecha de AfD",
-   "link": "https://elpais.com/internacional/2026-11-16/la-izquierda-alemana-aplica-el-cordon-sanitario-y-revalida-el-gobierno-de-mecklemburgo-pomerania-occidental.html",
-   "sprache": "es",
-   "zeit": "2026-11-16T14:41:04Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): La izquierda alemana aplica el cordón sanitario y revalida el Gobierno de Mecklemburgo-Pomerania Occidental"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "La izquierda alemana aplica el cordón sanitario y revalida el Gobierno de Mecklemburgo-Pomerania Occidental",
-     "link": "https://elpais.com/internacional/2026-11-16/la-izquierda-alemana-aplica-el-cordon-sanitario-y-revalida-el-gobierno-de-mecklemburgo-pomerania-occidental.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Tesla will drei Milliarden Euro in Werk in Deutschland stecken",
    "kurz": "Das Werk soll Kapazitäten für bis zu einer Million \"Cybercabs\" haben. Die Robotaxi sollen Passagiere fahrerlos befördern",
    "link": "https://www.derstandard.at/story/3000000349498/tesla-will-drei-milliarden-euro-in-werk-in-deutschland-stecken?ref=rss",
@@ -454,8 +305,8 @@
    "deutsch_quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Tesla investiert drei Milliarden in Werk in Grünheide",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1684958.html"
+     "titel": "Tesla kündigt Milliarden-Investition in Werk in Brandenburg an",
+     "link": "https://www.tagesschau.de/inland/regional/brandenburg/tesla-investitionen-brandenburg-100.html"
     }
    ],
    "nur_ausland": false,
@@ -508,49 +359,6 @@
      "titel": "Europe hunts for Palantir alternatives as Militaries seek to limit U.S. dependence",
      "link": "https://www.thehindu.com/news/international/europe-hunts-for-palantir-alternatives-as-militaries-seek-to-limit-us-dependence/article71707080.ece",
      "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Bruselas da luz verde sin condiciones a UniCredit para comprar Commerzbank pese a las reticencias de Alemania",
-   "kurz": "La entidad italiana ya posee casi el 50% del banco alemán",
-   "link": "https://elpais.com/economia/2026-11-16/bruselas-da-la-luz-verde-sin-condiciones-a-unicredit-para-comprar-commerzbank.html",
-   "sprache": "es",
-   "zeit": "2026-11-16T10:34:09Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Bruselas da luz verde sin condiciones a UniCredit para comprar Commerzbank pese a las reticencias de Alemania"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "EU gibt UniCredit grünes Licht für Commerzbank-Übernahme",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/commerzbank-unicredit-eu-genehmigung-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Bruselas da luz verde sin condiciones a UniCredit para comprar Commerzbank pese a las reticencias de Alemania",
-     "link": "https://elpais.com/economia/2026-11-16/bruselas-da-la-luz-verde-sin-condiciones-a-unicredit-para-comprar-commerzbank.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -611,13 +419,7 @@
     "Der Standard (Österreich): Keine weitere Senkung der Stromsteuer: Merz verspielt Glaubwürdigkeit"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Merz erwartet Einigung zur Stromsteuer im Koalitionsausschuss",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/merz-stromsteuer-100.html"
-    }
-   ],
+   "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -673,22 +475,23 @@
    ]
   },
   {
-   "titel": "La Orquestra de la Comunitat Valenciana narra a Schumann con Thomas Hengelbrock antes de desembarcar en Madrid",
-   "kurz": "El director alemán firma una versión honda y fluida de la ‘Sinfonía número 2’ con la formación de Les Arts, que acompaña al violinista Christian Tetzlaff en…",
-   "link": "https://elpais.com/cultura/2026-11-15/la-orquestra-de-la-comunitat-valenciana-narra-a-schumann-con-thomas-hengelbrock-antes-de-desembarcar-en-madrid.html",
+   "titel": "Alemania despierta ante Países Bajos para liderar su grupo y endosar la primera goleada a Xavi",
+   "kurz": "El combinado germano dirigido por Klopp, la Francia de Zidane y Portugal o Dinamarca, serán los posibles rivales de España en los cuartos de final",
+   "link": "https://elpais.com/deportes/futbol/2026-11-16/alemania-despierta-ante-paises-bajos-para-liderar-su-grupo-y-endosar-la-primera-goleada-a-xavi.html",
    "sprache": "es",
-   "zeit": "2026-11-15T10:23:00Z",
+   "zeit": "2026-11-16T22:04:25Z",
    "ausland_quellen": 1,
    "laender": [
     "Spanien"
    ],
-   "laender_einig": [
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich",
     "Spanien"
    ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
    "zusammenfassung": [
-    "El País (Spanien): La Orquestra de la Comunitat Valenciana narra a Schumann con Thomas Hengelbrock antes de desembarcar en Madrid"
+    "El País (Spanien): Alemania despierta ante Países Bajos para liderar su grupo y endosar la primera goleada a Xavi"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -701,9 +504,9 @@
      "quelle": "El País",
      "land": "Spanien",
      "art": "privat",
-     "beteiligt": false,
-     "titel": "La Orquestra de la Comunitat Valenciana narra a Schumann con Thomas Hengelbrock antes de desembarcar en Madrid",
-     "link": "https://elpais.com/cultura/2026-11-15/la-orquestra-de-la-comunitat-valenciana-narra-a-schumann-con-thomas-hengelbrock-antes-de-desembarcar-en-madrid.html",
+     "beteiligt": true,
+     "titel": "Alemania despierta ante Países Bajos para liderar su grupo y endosar la primera goleada a Xavi",
+     "link": "https://elpais.com/deportes/futbol/2026-11-16/alemania-despierta-ante-paises-bajos-para-liderar-su-grupo-y-endosar-la-primera-goleada-a-xavi.html",
      "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
@@ -744,44 +547,6 @@
      "titel": "Turkish foreign minister meets German, Maltese counterparts in Brussels",
      "link": "https://www.aa.com.tr/en/world/turkish-foreign-minister-meets-german-maltese-counterparts-in-brussels/4126898",
      "eigentuemer": "staatlich (Türkei)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Die Uno will KI-gesteuerte Killerroboter verhindern. Russland stellt sich quer",
-   "kurz": "Dürfen Maschinen autonom über Leben und Tod entscheiden? Viele Länder wollen das verhindern, so auch die Schweiz und Deutschland. Doch die Verhandlungen mit…",
-   "link": "https://www.nzz.ch/technologie/die-uno-will-ki-gesteuerte-killerroboter-verhindern-russland-stellt-sich-quer-ld.10065393",
-   "sprache": "de",
-   "zeit": "2026-11-16T15:07:48Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Schweiz"
-   ],
-   "zusammenfassung": [
-    "NZZ (Schweiz): Die Uno will KI-gesteuerte Killerroboter verhindern. Russland stellt sich quer"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Die Uno will KI-gesteuerte Killerroboter verhindern. Russland stellt sich quer",
-     "link": "https://www.nzz.ch/technologie/die-uno-will-ki-gesteuerte-killerroboter-verhindern-russland-stellt-sich-quer-ld.10065393",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     }
    ]
@@ -1222,6 +987,18 @@
    "keine_treffer": true
   },
   "Ihr Motiv": {
+   "keine_treffer": true
+  },
+  "Julian Reichelts": {
+   "keine_treffer": true
+  },
+  "Reichelts Auto": {
+   "keine_treffer": true
+  },
+  "Politische Gewalt": {
+   "keine_treffer": true
+  },
+  "Chefin Fürst": {
    "keine_treffer": true
   }
  }
