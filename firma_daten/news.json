@@ -1,5 +1,5 @@
 {
- "erzeugt": "2026-11-16T19:48:24Z",
+ "erzeugt": "2026-11-17T04:09:06Z",
  "anzahl": 60,
  "bestaetigt": 8,
  "hinweise": [
@@ -7,6 +7,123 @@
  ],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
+  {
+   "titel": "Landmark Crimea bridge hit as Russia reports biggest Ukrainian drone attack of war",
+   "kurz": "Russia said Ukraine had launched over 2,000 drones over the course of a day, while Kyiv came under a record 17 air raid alerts.",
+   "link": "https://www.bbc.co.uk/news/articles/ckx27v6dpjz0o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-17T02:28:00Z",
+   "status": "bestätigt",
+   "n_quellen": 4,
+   "unabhaengig_n": 4,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Estonia to close Russia border crossings after attempted drone factory arson attack",
+     "link": "https://www.bbc.co.uk/news/articles/cqp83nk673reo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Ukraine: Russian strikes hit bridges in Kyiv, mayor says",
+     "link": "https://www.dw.com/en/ukraine-russian-strikes-hit-bridges-in-kyiv-mayor-says/live-79964446?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · The Guardian",
+     "titel": "The Crimean Bridge is struck by a Ukrainian kamikaze drone , damaging the structure and prompting Russian authorities to close vehicle…",
+     "link": "https://www.theguardian.com/world/2026/nov/16/ukraine-drone-kerch-bridge-russia-occupied-crimea",
+     "eigentuemer": "gehört Guardian Media Group",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · CNN",
+     "titel": "Estonia announces the closure of its three border crossings with Russia starting December 1 after eight suspects were detained over an…",
+     "link": "https://edition.cnn.com/2026/11/15/europe/estonia-close-russian-border-attack-intl",
+     "eigentuemer": "gehört Warner Bros. Discovery",
+     "gruppe": 3,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Two mass shootings in South Africa leave 17 dead",
+   "kurz": "The shootings in KwaZulu-Natal and Gauteng highlight South Africa's struggle to curb violent crime.",
+   "link": "https://www.bbc.co.uk/news/articles/c8y5x3n4kywpo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-16T10:57:48Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Two mass shootings in South Africa leave 17 dead",
+     "link": "https://www.bbc.co.uk/news/articles/c8y5x3n4kywpo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · NBC News",
+     "titel": "Nine people are killed in a mass shooting at a shack near Pretoria , South Africa .",
+     "link": "https://www.nbcnews.com/world/africa/least-17-people-killed-2-mass-shootings-day-south-africa-rcna609688",
+     "eigentuemer": "gehört NBCUniversal und NBCUniversal Television Group",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AP",
+     "titel": "Eight people are found shot and killed inside a vehicle in Sweetwaters, South Africa.",
+     "link": "https://apnews.com/article/south-africa-shootings-pretoria-1d8c73c660ebe7feda8d4c3848f6ac4f",
+     "eigentuemer": "gehört The Associated Press",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Germany beat Netherlands 5-0 to win Nations League group",
+   "kurz": "Florian Wirtz scored twice as Germany cruised to a comfortable 5-0 win over the Netherlands to qualify for the Nations League quarter-finals on Monday.",
+   "link": "https://www.dw.com/en/germany-beat-netherlands-5-0-to-win-nations-league-group/a-79964394?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-16T23:48:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Germany beat Netherlands 5-0 to win Nations League group",
+     "link": "https://www.dw.com/en/germany-beat-netherlands-5-0-to-win-nations-league-group/a-79964394?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AP",
+     "titel": "In association football , England defeats Spain 3–2 in the group stage of UEFA Nations League A to end Spain's 43-match unbeaten streak …",
+     "link": "https://apnews.com/article/nations-league-england-spain-kane-france-7e32be3d9b49ad4d7f6ed0b59ca7410c",
+     "eigentuemer": "gehört The Associated Press",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "Lindsay Clancy to face retrial next year for deaths of her three children",
    "kurz": "The 36-year-old's first trial this year fell apart when a 12-person jury failed to reach a verdict.",
@@ -39,6 +156,37 @@
    ]
   },
   {
+   "titel": "Grammy Awards: Raye and Rosalia lead nominations",
+   "kurz": "The nominations for the 2027 Grammy Awards are in and women dominated the top categories for the highest accolade in the music industry.",
+   "link": "https://www.dw.com/en/grammy-awards-raye-and-rosalia-lead-nominations/a-79961198?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-16T18:14:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Grammy Awards: Raye and Rosalia lead nominations",
+     "link": "https://www.dw.com/en/grammy-awards-raye-and-rosalia-lead-nominations/a-79961198?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · Reuters",
+     "titel": "The Recording Academy announced nominations for the 69th Annual Grammy Awards, which will take place at Crypto.com Arena , Los Angeles …",
+     "link": "https://www.reuters.com/business/media-telecom/raye-and-rosalia-lead-nominations-for-musics-grammy-awards-2026-11-16/",
+     "eigentuemer": "gehört Thomson Reuters",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "When will we see Robert Pattinson as Bond in cinemas?",
    "kurz": "Robert Pattinson has been announced as the next James Bond, becoming the seventh actor to take up the mantle of 007.",
    "link": "https://www.bbc.co.uk/news/videos/cmd91xjd9zk2o?at_medium=RSS&at_campaign=rss",
@@ -63,99 +211,6 @@
      "quelle": "Deutsche Welle (en)",
      "titel": "British actor Robert Pattinson confirmed as new James Bond",
      "link": "https://www.dw.com/en/british-actor-robert-pattinson-confirmed-as-new-james-bond/a-79961789?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Landmark Crimea bridge hit as Russia reports biggest Ukrainian drone attack of war",
-   "kurz": "Russia said Ukraine had launched over 2,000 drones over the course of a day, while Kyiv came under a record 17 air raid alerts.",
-   "link": "https://www.bbc.co.uk/news/articles/ckx27v6dpjz0o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-16T14:58:12Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Estonia to close Russia border crossings after attempted drone factory arson attack",
-     "link": "https://www.bbc.co.uk/news/articles/cqp83nk673reo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · CNN",
-     "titel": "Estonia announces the closure of its three border crossings with Russia starting December 1 after eight suspects were detained over an…",
-     "link": "https://edition.cnn.com/2026/11/15/europe/estonia-close-russian-border-attack-intl",
-     "eigentuemer": "gehört Warner Bros. Discovery",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "EU gibt UniCredit grünes Licht für Commerzbank-Übernahme",
-   "kurz": "Die EU hat ihr Go für die umstrittene Übernahme der Commerzbank durch die italienische Großbank UniCredit gegeben. Die Kommission sieht \"keine…",
-   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/commerzbank-unicredit-eu-genehmigung-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-16T13:46:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "EU gibt UniCredit grünes Licht für Commerzbank-Übernahme",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/commerzbank-unicredit-eu-genehmigung-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "EU genehmigt Übernahme der Commerzbank durch Unicredit",
-     "link": "https://www.dw.com/de/eu-genehmigt-übernahme-der-commerzbank-durch-unicredit/a-79960252?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Two mass shootings in South Africa leave 17 dead",
-   "kurz": "The shootings in KwaZulu-Natal and Gauteng highlight South Africa's struggle to curb violent crime.",
-   "link": "https://www.bbc.co.uk/news/articles/c8y5x3n4kywpo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-16T10:57:48Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Two mass shootings in South Africa leave 17 dead",
-     "link": "https://www.bbc.co.uk/news/articles/c8y5x3n4kywpo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "South Africa: 17 killed in separate mass shooting incidents",
-     "link": "https://www.dw.com/en/south-africa-17-killed-in-separate-mass-shooting-incidents/a-79956966?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
@@ -194,39 +249,6 @@
    ]
   },
   {
-   "titel": "The European Commission (EC) and the United States Federal Reserve approve Italian bank UniCredit 's proposed € 45 billion ( US$ 49…",
-   "kurz": "The European Commission (EC) and the United States Federal Reserve approve Italian bank UniCredit 's proposed € 45 billion ( US$ 49 billion) acquisition of…",
-   "link": "https://www.reuters.com/business/finance/unicredit-wins-eu-approval-commerzbank-acquisition-2026-11-16/",
-   "quelle": "Wikipedia · Reuters",
-   "sprache": "en",
-   "zeit": "",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [
-    "bloomberg.com"
-   ],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · Reuters",
-     "titel": "The European Commission (EC) and the United States Federal Reserve approve Italian bank UniCredit 's proposed € 45 billion ( US$ 49…",
-     "link": "https://www.reuters.com/business/finance/unicredit-wins-eu-approval-commerzbank-acquisition-2026-11-16/",
-     "eigentuemer": "gehört Thomson Reuters",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · Bloomberg",
-     "titel": "The United States Federal Aviation Administration issues a nationwide ground stop for all flights due to \"extraordinary circumstances…",
-     "link": "https://www.bloomberg.com/news/articles/2026-11-14/faa-lifts-ground-stop-allowing-flights-to-resume-after-outage",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "The Gambian election commission approves President Adama Barrow 's candidacy for a third term in the December 5 presidential election as…",
    "kurz": "The Gambian election commission approves President Adama Barrow 's candidacy for a third term in the December 5 presidential election as the country's…",
    "link": "https://www.reuters.com/world/africa/gambia-clears-barrow-run-third-presidential-term-approves-eight-other-candidates-2026-11-16/",
@@ -258,6 +280,351 @@
    ]
   },
   {
+   "titel": "Krieg gegen die Ukraine: Europas Unterhändler bringen sich in Stellung",
+   "kurz": "Europa hat erstmals mit den USA und Kiew über eine Beendigung des Kriegs diskutiert - und dabei die Vertreter, die später mit Russland verhandeln, instruiert.",
+   "link": "https://www.tagesschau.de/ausland/europa/europa-ukraine-usa-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-17T04:28:15+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Krieg gegen die Ukraine: Europas Unterhändler bringen sich in Stellung",
+     "link": "https://www.tagesschau.de/ausland/europa/europa-ukraine-usa-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nach Huang-Affäre: Bald alles neu in der KI-Chipindustrie?",
+   "kurz": "Konkurrenten wie AMD oder Qualcomm reiben sich nach dem Abgang von Huang als CEO bei Nvidia schon die Hände. Was ist dran am möglichen Umbruch der Chip-Branche…",
+   "link": "https://www.tagesschau.de/wirtschaft/technologie/ki-chipindustrie-nvidia-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-17T04:16:17+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Nach Huang-Affäre: Bald alles neu in der KI-Chipindustrie?",
+     "link": "https://www.tagesschau.de/wirtschaft/technologie/ki-chipindustrie-nvidia-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Japan scrambles jets to counter suspected Russian aircraft",
+   "kurz": "Japan said it lodged a \"very stern protest\" with Moscow after two suspected Russian aircraft violated Japanese airspace.",
+   "link": "https://www.dw.com/en/japan-scrambles-jets-to-counter-suspected-russian-aircraft/a-79964537?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-17T03:29:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Japan scrambles jets to counter suspected Russian aircraft",
+     "link": "https://www.dw.com/en/japan-scrambles-jets-to-counter-suspected-russian-aircraft/a-79964537?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Proteste in Frankreich: Die Wut der Schüler, die Ohnmacht der Schulen",
+   "kurz": "Gewerkschaften und Gelbwesten haben in Frankreich für heute erneut zu Protesten aufgerufen. Schüler wollen sich daran beteiligen. Schulleiter und…",
+   "link": "https://www.tagesschau.de/ausland/europa/proteste-frankreich-188.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-17T03:20:12+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Proteste in Frankreich: Die Wut der Schüler, die Ohnmacht der Schulen",
+     "link": "https://www.tagesschau.de/ausland/europa/proteste-frankreich-188.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau in 100 Sekunden",
+   "kurz": "tagesschau in 100 Sekunden",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1685082.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-17T03:17:30+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau in 100 Sekunden",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1685082.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nvidia dismisses 'Bring Jensen Back' campaign as Trump backs effort to reinstate ex CEO",
+   "kurz": "A number of tech figures have backed an effort asking the AI chip giant to give Jensen Huang his job back.",
+   "link": "https://www.bbc.co.uk/news/articles/cry49plv8v3go?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-17T02:37:53Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Nvidia dismisses 'Bring Jensen Back' campaign as Trump backs effort to reinstate ex CEO",
+     "link": "https://www.bbc.co.uk/news/articles/cry49plv8v3go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Künstliche Intelligenz: Kalifornien verklagt OpenAI wegen Cyberangriffen",
+   "kurz": "Der Generalstaatsanwalt von Kalifornien klagt OpenAI an - ein gefährliches Produkt ohne angemessene Sicherheitsverfahren oder Aufsicht habe das Unternehmen…",
+   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/openai-klage-kalifornien-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-17T02:16:16+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Künstliche Intelligenz: Kalifornien verklagt OpenAI wegen Cyberangriffen",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/openai-klage-kalifornien-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Five EU countries announce migrant deportation centre in Rwanda",
+   "kurz": "Germany, Denmark, Austria, Greece and the Netherlands have announced a \"return hub\" for failed asylum seekers.",
+   "link": "https://www.bbc.co.uk/news/articles/cw987343352go?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-16T23:20:45Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Five EU countries announce migrant deportation centre in Rwanda",
+     "link": "https://www.bbc.co.uk/news/articles/cw987343352go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "United Airlines resolves tech outage that delayed flights",
+   "kurz": "United Airlines said a system outage that delayed departures has been resolved. The disruption came on the heels of a stoppage that halted all flights to and…",
+   "link": "https://www.dw.com/en/united-airlines-resolves-tech-outage-that-delayed-flights/a-79964387?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-16T23:13:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "United Airlines resolves tech outage that delayed flights",
+     "link": "https://www.dw.com/en/united-airlines-resolves-tech-outage-that-delayed-flights/a-79964387?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "5:0 gegen Niederlande: Deutschland im Viertelfinale der Nations League",
+   "kurz": "Die deutsche Nationalmannschaft hat mit einem rauschhaften Auftritt die Niederlande klar besiegt und den Gruppensieg in der Nations League eingefahren. Damit…",
+   "link": "https://www.sportschau.de/fussball/nationalmannschaft/klopp-setzt-auf-schlotterbeck-und-brown,deutschland-niederlande-spielbericht-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-16T22:35:02+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Nations League: So kommt das DFB-Team ins Viertelfinale",
+     "link": "https://www.sportschau.de/fussball/nationalmannschaft/so-erreicht-klopp-mit-dem-dfb-team-noch-viertelfinale,artikel-nations-league-viertelfinale-100.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Branche in Schwierigkeiten: Welche Zukunft für Stahl aus Deutschland?",
+   "kurz": "Branche in Schwierigkeiten: Welche Zukunft für Stahl aus Deutschland?",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1684988.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-16T21:58:22+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Branche in Schwierigkeiten: Welche Zukunft für Stahl aus Deutschland?",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1684988.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Iris Sayram, ARD Berlin, zu den Änderungen in der Migrationspolitik",
+   "kurz": "Iris Sayram, ARD Berlin, zu den Änderungen in der Migrationspolitik",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1684986.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-16T21:54:22+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Iris Sayram, ARD Berlin, zu den Änderungen in der Migrationspolitik",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1684986.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Migrationspolitik: Deutschland plant Abschiebezentrum in Ruanda",
+   "kurz": "Migrationspolitik: Deutschland plant Abschiebezentrum in Ruanda",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1684984.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-16T21:50:56+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Migrationspolitik: Deutschland plant Abschiebezentrum in Ruanda",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1684984.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Tesla kündigt Milliarden-Investition in Werk in Brandenburg an",
+   "kurz": "Tesla will drei Milliarden Euro für den Ausbau des Werks in Grünheide östlich von Berlin ausgeben. Der US-Elektroautobauer will damit ein neues…",
+   "link": "https://www.tagesschau.de/inland/regional/brandenburg/tesla-investitionen-brandenburg-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-16T21:48:40+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Tesla kündigt Milliarden-Investition in Werk in Brandenburg an",
+     "link": "https://www.tagesschau.de/inland/regional/brandenburg/tesla-investitionen-brandenburg-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Houthi rebel advance in Yemen may further destabilise global economy",
+   "kurz": "The Iran-backed Houthis are gaining ground and their advance could have dangerous consequences, writes the BBC's security correspondent.",
+   "link": "https://www.bbc.co.uk/news/articles/cmy97qperq9eo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-16T21:40:07Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Houthi rebel advance in Yemen may further destabilise global economy",
+     "link": "https://www.bbc.co.uk/news/articles/cmy97qperq9eo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "tagesschau mit Gebärdensprache",
    "kurz": "tagesschau mit Gebärdensprache",
    "link": "https://www.tagesschau.de/tagesschau_mit_gebaerdensprache/tsg-12380.html",
@@ -281,12 +648,12 @@
    ]
   },
   {
-   "titel": "Tesla investiert drei Milliarden in Werk in Grünheide",
-   "kurz": "Tesla investiert drei Milliarden in Werk in Grünheide",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1684958.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-16T20:19:36+01:00",
+   "titel": "Forensic expert says his analysis of autopsy photos suggests Epstein was killed",
+   "kurz": "Professor Michael Freeman tells BBC Newsnight that he believes the convicted sex offender's injuries are consistent with a homicide.",
+   "link": "https://www.bbc.co.uk/news/articles/c5n4exg1kkmyo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-16T20:33:57Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -294,22 +661,45 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Tesla kündigt Milliarden-Investition in Werk in Brandenburg an",
-     "link": "https://www.tagesschau.de/inland/regional/brandenburg/tesla-investitionen-brandenburg-100.html",
-     "eigentuemer": "gehört ARD",
+     "quelle": "BBC World",
+     "titel": "Forensic expert says his analysis of autopsy photos suggests Epstein was killed",
+     "link": "https://www.bbc.co.uk/news/articles/c5n4exg1kkmyo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Stahlhersteller und Länder fordern mehr Unterstützung vom Bund",
-   "kurz": "Stahlhersteller und Länder fordern mehr Unterstützung vom Bund",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1684956.html",
+   "titel": "France's Philippe Diallo to challenge Infantino for FIFA presidency",
+   "kurz": "Philippe Diallo is the second candidate to stand against incumbent Gianni Infantino. He is backed by European football's governing body UEFA, known to be…",
+   "link": "https://www.dw.com/en/france-s-philippe-diallo-to-challenge-infantino-for-fifa-presidency/a-79962843?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-16T20:24:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "France's Philippe Diallo to challenge Infantino for FIFA presidency",
+     "link": "https://www.dw.com/en/france-s-philippe-diallo-to-challenge-infantino-for-fifa-presidency/a-79962843?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau 20:00 Uhr",
+   "kurz": "Deutschland und vier andere EU-Staaten planen Abschiebezentrum in Ruanda, Gegenseitige Angriffe zwischen Russland und der Ukraine auf die Energieinfrastruktur…",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1684966.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-16T20:18:29+01:00",
+   "zeit": "2026-11-16T20:18:36+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -318,8 +708,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Stahlhersteller und Länder fordern mehr Unterstützung vom Bund",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1684956.html",
+     "titel": "tagesschau 20:00 Uhr",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1684966.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -373,29 +763,6 @@
    ]
   },
   {
-   "titel": "EU-Staaten wollen 2027 Abschiebezentrum in Ruanda eröffnen",
-   "kurz": "Fünf EU-Staaten, darunter Deutschland, planen für das kommende Jahr die Eröffnung des ersten Abschiebezentrums in Ruanda. Dorthin sollen Asylbewerber gebracht…",
-   "link": "https://www.tagesschau.de/ausland/europa/eu-staaten-abschiebungen-asylbewerber-ruanda-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-16T20:10:29+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Deutschland und weitere Staaten planen Abschiebezentrum in Ruanda",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1684948.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Abschiebezentrum geplant: Was steckt hinter den Ruanda-Plänen?",
    "kurz": "Abgelehnte Asylbewerber sollen in Zukunft nach Ruanda gebracht werden können - auch wenn sie keine Verbindung zu dem Land haben. Innenminister Dobrindt will…",
    "link": "https://www.tagesschau.de/inland/innenpolitik/ruanda-return-hub-abschiebezentrum-100.html",
@@ -419,29 +786,6 @@
    ]
   },
   {
-   "titel": "DFB-Endspiel gegen die Niederlande",
-   "kurz": "In Berlin kommt es zum Duell der Erzrivalen Deutschland und Niederlande. Mit einem Sieg zieht das DFB-Team sicher ins Nations-League-Viertelfinale ein.",
-   "link": "https://www.sportschau.de/live-und-ergebnisse/fussball/uefa-nations-league-a/ma11904007/deutschland_niederlande/liveticker",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-16T19:54:40+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "DFB-Endspiel gegen die Niederlande",
-     "link": "https://www.sportschau.de/live-und-ergebnisse/fussball/uefa-nations-league-a/ma11904007/deutschland_niederlande/liveticker",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
    "kurz": "Am Dienstag ist es teilweise stürmisch mit Regenfällen, die im Verlauf nordostwärts vorankommen. Vom Westen und Südwesten bis in die Mitte wird es später…",
    "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
@@ -459,52 +803,6 @@
      "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
      "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
      "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "tagesschau in 100 Sekunden",
-   "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1684852.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-16T19:23:55+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1684852.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Forensic expert says his analysis raises doubts about how Epstein died",
-   "kurz": "Professor Michael Freeman tells BBC Newsnight that he believes the convicted sex offender's injuries are consistent with a homicide.",
-   "link": "https://www.bbc.co.uk/news/articles/c5n4exg1kkmyo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-16T19:19:18Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Forensic expert says his analysis raises doubts about how Epstein died",
-     "link": "https://www.bbc.co.uk/news/articles/c5n4exg1kkmyo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -551,29 +849,6 @@
      "titel": "Pakistan: Former leader Khan pleads for medical care",
      "link": "https://www.dw.com/en/pakistan-former-leader-khan-pleads-for-medical-care/a-79961718?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Trump backs return of ex-Nvidia boss after 'Bring Jensen Back' campaign launched",
-   "kurz": "A number of tech figures want the board of the AI chip giant to give Jensen Huang his job back.",
-   "link": "https://www.bbc.co.uk/news/articles/cry49plv8v3go?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-16T19:16:52Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Trump backs return of ex-Nvidia boss after 'Bring Jensen Back' campaign launched",
-     "link": "https://www.bbc.co.uk/news/articles/cry49plv8v3go?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -649,12 +924,12 @@
    ]
   },
   {
-   "titel": "Grammy Awards: Raye and Rosalia lead nominations",
-   "kurz": "The nominations for the 2027 Grammy Awards are in and women dominated the top categories for the highest accolade in the music industry.",
-   "link": "https://www.dw.com/en/grammy-awards-raye-and-rosalia-lead-nominations/a-79961198?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-16T18:14:00Z",
+   "titel": "EU-Staaten wollen 2027 Abschiebezentrum in Ruanda eröffnen",
+   "kurz": "Fünf EU-Staaten, darunter Deutschland, planen für das kommende Jahr die Eröffnung des ersten Abschiebezentrums in Ruanda. Dorthin sollen Asylbewerber gebracht…",
+   "link": "https://www.tagesschau.de/ausland/europa/eu-staaten-abschiebungen-asylbewerber-ruanda-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-16T18:07:43+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -662,10 +937,10 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Grammy Awards: Raye and Rosalia lead nominations",
-     "link": "https://www.dw.com/en/grammy-awards-raye-and-rosalia-lead-nominations/a-79961198?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "Tagesschau",
+     "titel": "EU-Staaten wollen 2027 Abschiebezentrum in Ruanda eröffnen",
+     "link": "https://www.tagesschau.de/ausland/europa/eu-staaten-abschiebungen-asylbewerber-ruanda-100.html",
+     "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -856,6 +1131,29 @@
    ]
   },
   {
+   "titel": "California sues OpenAI over hacking risks",
+   "kurz": "The state's attorney general started investigating OpenAI after the Hugging Face attack and now says this attack was \"entirely foreseeable\" due to OpenAI's…",
+   "link": "https://www.npr.org/2026/11/16/nx-s1-6042920/california-sues-openai-hugging-face-hacking-incident",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-16T17:06:22-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "California sues OpenAI over hacking risks",
+     "link": "https://www.npr.org/2026/11/16/nx-s1-6042920/california-sues-openai-hugging-face-hacking-incident",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Weltklimakonferenz: Australien legt Entwurf für Abschlusserklärung vor",
    "kurz": "Auf der Weltklimakonferenz in Antalya hat die entscheidende Phase begonnen. Die australische Delegation hat einen ersten Entwurf für die Abschlusserklärung…",
    "link": "https://www.tagesschau.de/ausland/asien/klimakonferenz-abschlusserklaerung-100.html",
@@ -896,29 +1194,6 @@
      "titel": "Nvidia scandal: China's chips dilemma, US rivalry shape AI race",
      "link": "https://www.dw.com/en/nvidia-scandal-china-s-chips-dilemma-us-rivalry-shape-ai-race/a-79961766?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Five EU countries announce migrant deportation centre in Rwanda",
-   "kurz": "Germany, Denmark, Austria, Greece and the Netherlands have announced a \"return hub\" for failed asylum seekers.",
-   "link": "https://www.bbc.co.uk/news/articles/cw987343352go?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-16T16:27:24Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Five EU countries announce migrant deportation centre in Rwanda",
-     "link": "https://www.bbc.co.uk/news/articles/cw987343352go?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -1195,259 +1470,6 @@
      "titel": "Wassertürme in Kuwait, Ehren-Oscar für Glenn Close, Chhath-Puja-Fest",
      "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10570.html",
      "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Street cricket with a legend then metro ride as William and Kate begin India visit",
-   "kurz": "The Prince and Princess of Wales are visiting Mumbai for the Earthshot Prize this week, but started their trip with some fun outings.",
-   "link": "https://www.bbc.co.uk/news/videos/crkgvnl51w1vo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-16T15:08:59Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Street cricket with a legend then metro ride as William and Kate begin India visit",
-     "link": "https://www.bbc.co.uk/news/videos/crkgvnl51w1vo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Robert Pattinson: How the Twilight star became 007",
-   "kurz": "The Twilight, Batman and Odyssey star's profile will go even more stellar when he plays James Bond.",
-   "link": "https://www.bbc.co.uk/news/articles/c574290jvk8wo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-16T15:02:41Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Robert Pattinson: How the Twilight star became 007",
-     "link": "https://www.bbc.co.uk/news/articles/c574290jvk8wo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Oppositionspolitiker vor Gericht: Mosambiks Justiz auf dem Prüfstand",
-   "kurz": "Am 17. November beginnt in Maputo der Prozess gegen Oppositionspolitiker Venâncio Mondlane. Ein Vorwurf: Anstiftung zum Terrorismus, Die Unabhängigkeit der…",
-   "link": "https://www.dw.com/de/oppositionspolitiker-vor-gericht-mosambiks-justiz-auf-dem-prüfstand/a-79932436?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-16T14:54:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Oppositionspolitiker vor Gericht: Mosambiks Justiz auf dem Prüfstand",
-     "link": "https://www.dw.com/de/oppositionspolitiker-vor-gericht-mosambiks-justiz-auf-dem-prüfstand/a-79932436?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Raye, Rosalía and Dolly Parton recognised in Grammy nominations",
-   "kurz": "British singer Raye lands 11 nominations while Dolly Parton is recognised two months after her death.",
-   "link": "https://www.bbc.co.uk/news/articles/cq9vwkggpx73o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-16T14:48:55Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Raye, Rosalía and Dolly Parton recognised in Grammy nominations",
-     "link": "https://www.bbc.co.uk/news/articles/cq9vwkggpx73o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Guinea's gold rush: Arrests, deportations spark outcry",
-   "kurz": "Guinea has banned illegal gold mining, citing environmental concerns. It has further charged hundreds of suspected local and foreign illegal miners amid…",
-   "link": "https://www.dw.com/en/guinea-s-gold-rush-arrests-deportations-spark-outcry/a-79922842?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-16T14:38:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Guinea's gold rush: Arrests, deportations spark outcry",
-     "link": "https://www.dw.com/en/guinea-s-gold-rush-arrests-deportations-spark-outcry/a-79922842?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "SPD-Politikerin Schwesig erneut zur Ministerpräsidentin gewählt",
-   "kurz": "Der Schweriner Landtag hat Mecklenburg-Vorpommerns Ministerpräsidentin Schwesig wiedergewählt. Das Parlament bestätigte die SPD-Politikerin für weitere fünf…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/schwesig-ministerpraesidentin-mecklenburg-vorpommern-wiedergewaehlt-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-16T14:23:01+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "SPD-Politikerin Schwesig erneut zur Ministerpräsidentin gewählt",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/schwesig-ministerpraesidentin-mecklenburg-vorpommern-wiedergewaehlt-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "COP31 draft deal calls for 'immediate' shift away from fossil fuels",
-   "kurz": "The preliminary agreement at UN climate talks in Turkey calls for a rapid reduction of planet-warming emissions and at least $120 billion to help countries…",
-   "link": "https://www.dw.com/en/cop31-draft-deal-calls-for-immediate-shift-away-from-fossil-fuels/a-79960705?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-16T14:05:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "COP31 draft deal calls for 'immediate' shift away from fossil fuels",
-     "link": "https://www.dw.com/en/cop31-draft-deal-calls-for-immediate-shift-away-from-fossil-fuels/a-79960705?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Vor 30 Jahren ging der Kult-Messenger ICQ online",
-   "kurz": "Vor 30 Jahren ging ICQ an den Start. Der Instant-Messenger prägte eine ganze Generation - und tut das bis heute. Doch Soziale Netzwerke, WhatsApp und KI haben…",
-   "link": "https://www.tagesschau.de/kultur/30-jahre-icq-messenger-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-16T14:01:18+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Vor 30 Jahren ging der Kult-Messenger ICQ online",
-     "link": "https://www.tagesschau.de/kultur/30-jahre-icq-messenger-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "U.S. tightens controls on remote access to AI technology amid Nvidia fallout",
-   "kurz": "The new rule closes a loophole that existed that allowed Chinese companies to still access advanced AI chips remotely, despite U.S. restrictions on their…",
-   "link": "https://www.npr.org/2026/11/16/nx-s1-6042883/nvidia-jensen-huang-commerce-department",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-16T13:49:26-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "U.S. tightens controls on remote access to AI technology amid Nvidia fallout",
-     "link": "https://www.npr.org/2026/11/16/nx-s1-6042883/nvidia-jensen-huang-commerce-department",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Merz erwartet Einigung zur Stromsteuer im Koalitionsausschuss",
-   "kurz": "Die Bundesregierung will die Stromsteuer senken - bislang war jedoch unklar, wie das gegenfinanziert werden soll. Jetzt gibt es offenbar eine Möglichkeit…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/merz-stromsteuer-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-16T13:46:45+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Merz erwartet Einigung zur Stromsteuer im Koalitionsausschuss",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/merz-stromsteuer-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Gérard Depardieu drops appeal against sexual assault conviction",
-   "kurz": "The French film star was due to start an appeal trial after being found guilty of sexually assaulting two women on a Paris set.",
-   "link": "https://www.bbc.co.uk/news/articles/cm20vexye1d0o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-16T13:40:56Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Gérard Depardieu drops appeal against sexual assault conviction",
-     "link": "https://www.bbc.co.uk/news/articles/cm20vexye1d0o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
