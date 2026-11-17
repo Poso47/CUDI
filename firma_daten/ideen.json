@@ -1,10 +1,470 @@
 {
- "erzeugt": "2026-11-16T13:46:50Z",
+ "erzeugt": "2026-11-17T14:36:02Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 77,
- "neu": 16,
+ "anzahl": 76,
+ "neu": 17,
  "ideen": [
+  {
+   "id": "idee-f9634854",
+   "bereich": "ranking",
+   "titel": "Die größten Auslegerbrücken der Welt",
+   "thema": "Eine Rangliste der größten Auslegerbrücken nach messbaren Werten.",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist Platz 5 der meistgelesenen Wikipedia-Seiten (de) und passt direkt zu diesem Format.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 81.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184600 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Rangliste der größten Auslegerbrücken nach messbaren Werten."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z",
+   "recherche": [
+    {
+     "text": "Liste der größten Auslegerbrücken: 989.681 Abrufe",
+     "status": "einzeln",
+     "datum": "2026-11-16",
+     "quellen": [
+      {
+       "quelle": "severint.net",
+       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
+       "datum": "2026-11-16"
+      }
+     ]
+    },
+    {
+     "text": "Die geheime Weltherrschaft der Auslegerbrücken wäre die vierte Möglichkeit.",
+     "status": "einzeln",
+     "datum": "2026-11-16",
+     "quellen": [
+      {
+       "quelle": "severint.net",
+       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
+       "datum": "2026-11-16"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-2e92d346",
+   "bereich": "fakten",
+   "titel": "Robert Pattinson: Fakten zu seiner Karriere",
+   "thema": "Wissens-Fakten über die Karriere von Robert Pattinson.",
+   "begruendung": "Robert Pattinson ist Platz 1 der meistgelesenen Wikipedia-Seiten (de) und (en).",
+   "quelle": {
+    "name": "Robert Pattinson",
+    "typ": "trend",
+    "score": 99.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über die Karriere von Robert Pattinson.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z",
+   "recherche": []
+  },
+  {
+   "id": "idee-532078b0",
+   "bereich": "fakten",
+   "titel": "Suki Waterhouse: Fakten zur Person",
+   "thema": "Wissens-Fakten über Suki Waterhouse.",
+   "begruendung": "Suki Waterhouse ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) und Platz 4 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Suki Waterhouse",
+    "typ": "trend",
+    "score": 96.4,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über Suki Waterhouse.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
+  {
+   "id": "idee-0fe097ed",
+   "bereich": "fakten",
+   "titel": "Fakten zum Phänomen James Bond",
+   "thema": "Wissens-Fakten über die Filmreihe James Bond.",
+   "begruendung": "James Bond ist Platz 7 der meistgelesenen Wikipedia-Seiten (de) und ein Reddit r/todayilearned Thema.",
+   "quelle": {
+    "name": "James Bond",
+    "typ": "trend",
+    "score": 95.0,
+    "quellen": [
+     "reddit",
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über die Filmreihe James Bond.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
+  {
+   "id": "idee-6e1f3f3f",
+   "bereich": "fakten",
+   "titel": "Das Gemälde 'Saturn verschlingt seinen Sohn'",
+   "thema": "Wissens-Fakten über das Gemälde 'Saturn Devouring His Son'.",
+   "begruendung": "'Saturn Devouring His Son' ist Platz 7 der meistgelesenen Wikipedia-Seiten (en) und ein Reddit r/todayilearned Thema.",
+   "quelle": {
+    "name": "Saturn Devouring His Son",
+    "typ": "trend",
+    "score": 91.9,
+    "quellen": [
+     "reddit",
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über das Gemälde 'Saturn Devouring His Son'.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
+  {
+   "id": "idee-5636dee1",
+   "bereich": "fakten",
+   "titel": "Fakten zur Geschichte von Ramayana",
+   "thema": "Wissens-Fakten über die Erzählung Ramayana.",
+   "begruendung": "'Ramayana: Part 1' ist Platz 2 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über die Erzählung Ramayana.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
+  {
+   "id": "idee-b17b8584",
+   "bereich": "erklaer",
+   "titel": "Urlaub im öffentlichen Dienst erklärt",
+   "thema": "Wie die Urlaubsregelungen im öffentlichen Dienst funktionieren.",
+   "begruendung": "Der Trend 'öffentlicher dienst' ist Platz 1 der Google-Trends (DE) mit einer Meldung zu Urlaubstagen 2027 für Angestellte und Beamte.",
+   "quelle": {
+    "name": "öffentlicher dienst",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Wie die Urlaubsregelungen im öffentlichen Dienst funktionieren."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
+  {
+   "id": "idee-2b8880a4",
+   "bereich": "erklaer",
+   "titel": "So funktioniert die Nations League",
+   "thema": "Wie die UEFA Nations League strukturiert ist und abläuft.",
+   "begruendung": "'UEFA Nations League' ist ein mehrfach gelesener Wikipedia-Trend.",
+   "quelle": {
+    "name": "UEFA Nations League",
+    "typ": "trend",
+    "score": 93.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Wie die UEFA Nations League strukturiert ist und abläuft."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
+  {
+   "id": "idee-95de1fad",
+   "bereich": "erklaer",
+   "titel": "Das Spiel NYT Connections erklärt",
+   "thema": "Wie das Spielprinzip von NYT Connections funktioniert.",
+   "begruendung": "'connections hint november 16' ist Platz 3 der Google-Trends (US) mit einer Meldung zu den Antworten des Spiels.",
+   "quelle": {
+    "name": "connections hint november 16",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Wie das Spielprinzip von NYT Connections funktioniert."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
+  {
+   "id": "idee-254046e8",
+   "bereich": "erklaer",
+   "titel": "Was ist Archive of Our Own?",
+   "thema": "Wie die Plattform Archive of Our Own funktioniert und was sie bietet.",
+   "begruendung": "'Archive of Our Own' ist Platz 3 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Archive of Our Own",
+    "typ": "trend",
+    "score": 85.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Wie die Plattform Archive of Our Own funktioniert und was sie bietet."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
+  {
+   "id": "idee-e79a7751",
+   "bereich": "erklaer",
+   "titel": "Die Beamtenbesoldung in Deutschland",
+   "thema": "Wie das System der Beamtenbesoldung in Deutschland funktioniert.",
+   "begruendung": "Der Trend 'beamter' ist Platz 4 der Google-Trends (DE) mit einer Meldung zur Prüfung der Beamtenbesoldung in Sachsen-Anhalt.",
+   "quelle": {
+    "name": "beamter",
+    "typ": "trend",
+    "score": 80.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Wie das System der Beamtenbesoldung in Deutschland funktioniert."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
+  {
+   "id": "idee-74f73ebc",
+   "bereich": "reportage",
+   "titel": "Phil Collins: Gesundheits-Update",
+   "thema": "Eine sachliche Nachrichtenreportage zum Gesundheitszustand von Phil Collins.",
+   "begruendung": "Der Trend 'phil collins' ist Platz 1 der Google-Trends (US) mit einer Meldung zum Gesundheits-Update.",
+   "quelle": {
+    "name": "phil collins",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Nachrichtenreportage zum Gesundheitszustand von Phil Collins.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-95e22874",
+   "bereich": "reportage",
+   "titel": "GZSZ Vorschau: Was passiert in Folge 8657?",
+   "thema": "Eine sachliche Nachrichtenreportage zur Vorschau der GZSZ-Folge 8657.",
+   "begruendung": "Der Trend 'jo gerner' ist Platz 2 der Google-Trends (DE) mit einer Meldung zur GZSZ-Vorschau.",
+   "quelle": {
+    "name": "jo gerner",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Nachrichtenreportage zur Vorschau der GZSZ-Folge 8657.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-c6dbb1e8",
+   "bereich": "reportage",
+   "titel": "NHL-Transfer: Blackhawks und Rangers",
+   "thema": "Eine sachliche Nachrichtenreportage über den Torwart-Transfer zwischen den Blackhawks und Rangers.",
+   "begruendung": "Der Trend 'rangers' ist Platz 2 der Google-Trends (US) mit einer Meldung zu einem Goaltending Trade.",
+   "quelle": {
+    "name": "rangers",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Nachrichtenreportage über den Torwart-Transfer zwischen den Blackhawks und Rangers.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-a34157a9",
+   "bereich": "reportage",
+   "titel": "Krim-Brücke getroffen: Drohnenangriff",
+   "thema": "Eine sachliche Nachrichtenreportage über den Angriff auf die Krim-Brücke.",
+   "begruendung": "Die Meldung 'Landmark Crimea bridge hit as Russia reports biggest Ukrainian drone attack of war' ist von 4 Quellen bestätigt.",
+   "quelle": {
+    "name": "Landmark Crimea bridge hit as Russia reports biggest Ukrainian drone attack of war",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "Wikipedia · The Guardian"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Nachrichtenreportage über den Angriff auf die Krim-Brücke.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-b27ff409",
+   "bereich": "reportage",
+   "titel": "Deutschland gewinnt Nations League Gruppe",
+   "thema": "Eine sachliche Nachrichtenreportage über den Sieg Deutschlands in der Nations League.",
+   "begruendung": "Die Meldung 'Germany beat Netherlands 5-0 to win Nations League group' ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Germany beat Netherlands 5-0 to win Nations League group",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "Wikipedia · AP"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Nachrichtenreportage über den Sieg Deutschlands in der Nations League.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-639a4133",
+   "bereich": "satire",
+   "titel": "Gambia: Wahlkommission und 3. Amtszeit",
+   "thema": "Eine Satire über die Genehmigung der Kandidatur des Präsidenten für eine dritte Amtszeit.",
+   "begruendung": "Die Meldung 'The Gambian election commission approves President Adama Barrow 's candidacy for a third term in the December 5 presidential election as…' ist von 2 Quellen bestätigt und betrifft eine Regierung/Politiker.",
+   "quelle": {
+    "name": "The Gambian election commission approves President Adama Barrow 's candidacy for a third term in the December 5 presidential election as…",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Wikipedia · Reuters",
+     "Wikipedia · AFP via France 24"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Eine Satire über die Genehmigung der Kandidatur des Präsidenten für eine dritte Amtszeit.",
+    "sprache": "de",
+    "meldung": "The Gambian election commission approves President Adama Barrow 's candidacy for a third term in the December 5 presidential election as…"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-17T14:35:05Z"
+  },
   {
    "id": "idee-c098a7d1",
    "bereich": "ranking",
@@ -942,168 +1402,6 @@
    ]
   },
   {
-   "id": "idee-a42d3208",
-   "bereich": "fakten",
-   "titel": "Fakten zu Jensen Huang",
-   "thema": "Wissenswertes über Jensen Huang, eine Person mit hoher Wikipedia-Popularität.",
-   "begruendung": "Der Trend \"Jensen Huang\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (de) und Platz 1 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Jensen Huang",
-    "typ": "trend",
-    "score": 99.8,
-    "quellen": [
-     "reddit",
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über Jensen Huang, eine Person mit hoher Wikipedia-Popularität.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z",
-   "recherche": [
-    {
-     "text": "Wir schätzen das Vermögen von Jensen Huang auf rund 139,52 Milliarden Euro .",
-     "status": "einzeln",
-     "datum": "2026-11-14",
-     "quellen": [
-      {
-       "quelle": "vermoegenmagazin.de",
-       "url": "https://www.vermoegenmagazin.de/jensen-huang-vermoegen/",
-       "datum": "2026-11-14"
-      }
-     ]
-    },
-    {
-     "text": "Legt man das geschätzte Vermögen von Jensen Huang zugrunde und nimmt eine Rendite von 7 Prozent pro Jahr an, kommt Jensen Huang auf rund 309 Euro pro Sekunde , ohne dafür zu arbeiten.",
-     "status": "einzeln",
-     "datum": "2026-11-14",
-     "quellen": [
-      {
-       "quelle": "vermoegenmagazin.de",
-       "url": "https://www.vermoegenmagazin.de/jensen-huang-vermoegen/",
-       "datum": "2026-11-14"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-ec7b582f",
-   "bereich": "fakten",
-   "titel": "Wissenswertes über Nvidia",
-   "thema": "Fakten zu Nvidia, einem Unternehmen mit hoher Wikipedia-Popularität.",
-   "begruendung": "Der Trend \"Nvidia\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) und Platz 5 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Nvidia",
-    "typ": "trend",
-    "score": 96.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten zu Nvidia, einem Unternehmen mit hoher Wikipedia-Popularität.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
-   "id": "idee-0ae892ee",
-   "bereich": "fakten",
-   "titel": "Das Ramayana: Teil 1",
-   "thema": "Fakten zum Epos Ramayana, dessen erster Teil auf Wikipedia trendet.",
-   "begruendung": "Der Trend \"Ramayana: Part 1\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Ramayana: Part 1",
-    "typ": "trend",
-    "score": 87.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten zum Epos Ramayana, dessen erster Teil auf Wikipedia trendet.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
-   "id": "idee-9f2d5b68",
-   "bereich": "fakten",
-   "titel": "Was ist die .xxx Domain?",
-   "thema": "Fakten zur .xxx Domain, die auf Wikipedia trendet.",
-   "begruendung": "Der Trend \".xxx\" ist Platz 3 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": ".xxx",
-    "typ": "trend",
-    "score": 85.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten zur .xxx Domain, die auf Wikipedia trendet.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
-   "id": "idee-9b19b16b",
-   "bereich": "fakten",
-   "titel": "Piraterie: Fakten",
-   "thema": "Fakten zum Thema Piraterie, das auf Wikipedia trendet.",
-   "begruendung": "Der Trend \"Piracy\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Piracy",
-    "typ": "trend",
-    "score": 76.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten zum Thema Piraterie, das auf Wikipedia trendet.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
    "id": "idee-524414e9",
    "bereich": "erklaer",
    "titel": "Nvidia: Was macht das Unternehmen?",
@@ -1125,230 +1423,6 @@
    },
    "app_auftrag": false,
    "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
-   "id": "idee-318d7059",
-   "bereich": "erklaer",
-   "titel": "Was ist die .xxx Domain?",
-   "thema": "Eine Erklärung zur Funktion und Bedeutung der .xxx Domain.",
-   "begruendung": "Der Trend \".xxx\" ist Platz 3 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": ".xxx",
-    "typ": "trend",
-    "score": 85.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung zur Funktion und Bedeutung der .xxx Domain."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
-   "id": "idee-4b2c8e17",
-   "bereich": "erklaer",
-   "titel": "Völkerschau der Amazonen",
-   "thema": "Eine Erklärung zum historischen Phänomen der Völkerschau der „Amazonen von Dahomey“.",
-   "begruendung": "Der Trend \"Völkerschau der „Amazonen von Dahomey“ 1888–1903\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (de).",
-   "quelle": {
-    "name": "Völkerschau der „Amazonen von Dahomey“ 1888–1903",
-    "typ": "trend",
-    "score": 76.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung zum historischen Phänomen der Völkerschau der „Amazonen von Dahomey“."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
-   "id": "idee-44f5d009",
-   "bereich": "erklaer",
-   "titel": "Piraterie: Das Konzept erklärt",
-   "thema": "Eine Erklärung des Konzepts der Piraterie.",
-   "begruendung": "Der Trend \"Piracy\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Piracy",
-    "typ": "trend",
-    "score": 76.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung des Konzepts der Piraterie."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
-   "id": "idee-499785bc",
-   "bereich": "erklaer",
-   "titel": "Das Einheits-Sozialgeld erklärt",
-   "thema": "Eine Erklärung, wie das \"Единое пособие\" (Einheitliches Sozialgeld) funktioniert.",
-   "begruendung": "Der Trend \"пособие\" ist Platz 5 der Google-Trends (DE) mit einer Meldung über dessen Erhöhung.",
-   "quelle": {
-    "name": "пособие",
-    "typ": "trend",
-    "score": 73.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung, wie das \"Единое пособие\" (Einheitliches Sozialgeld) funktioniert."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
-   "id": "idee-4d4f4434",
-   "bereich": "reportage",
-   "titel": "US-Flugstopp betrifft Reisende",
-   "thema": "Eine Reportage über die Auswirkungen des landesweiten Flugstopps auf Reisende in den USA.",
-   "begruendung": "Die Nachricht \"'We'll get home one day' - US travellers impacted by nationwide ground stop\" ist von 4 Quellen bestätigt.",
-   "quelle": {
-    "name": "'We'll get home one day' - US travellers impacted by nationwide ground stop",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Auswirkungen des landesweiten Flugstopps auf Reisende in den USA.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-1bcc0c1c",
-   "bereich": "reportage",
-   "titel": "Rettung nach Schiffskollision",
-   "thema": "Eine Reportage über die Rettung aller Passagiere nach einer Schiffskollision in New Orleans.",
-   "begruendung": "Die Nachricht \"'Miracle on Mississippi' - All passengers rescued after New Orleans cruise ship collision\" ist von 3 Quellen bestätigt.",
-   "quelle": {
-    "name": "'Miracle on Mississippi' - All passengers rescued after New Orleans cruise ship collision",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Wikipedia · BBC News",
-     "Deutsche Welle (en)",
-     "Wikipedia · Reuters"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Rettung aller Passagiere nach einer Schiffskollision in New Orleans.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-74f05ef4",
-   "bereich": "reportage",
-   "titel": "Trump kündigt Dreiertreffen an",
-   "thema": "Eine Reportage über Trumps Ankündigung eines Dreiertreffens mit Putin und Xi in China.",
-   "begruendung": "Die Nachricht \"Trump kündigt Dreiertreffen mit Putin und Xi in China an\" ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Trump kündigt Dreiertreffen mit Putin und Xi in China an",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über Trumps Ankündigung eines Dreiertreffens mit Putin und Xi in China.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-eb5f9a1e",
-   "bereich": "reportage",
-   "titel": "SpaceX Starship Test Rückschlag",
-   "thema": "Eine Reportage über den Rückschlag beim Double-Catch-Test der SpaceX Starship Rakete.",
-   "begruendung": "Die Nachricht \"Setback for SpaceX Starship rocket's double-catch test\" ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Setback for SpaceX Starship rocket's double-catch test",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über den Rückschlag beim Double-Catch-Test der SpaceX Starship Rakete.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-3a15842f",
-   "bereich": "reportage",
-   "titel": "US-Senatsausschuss lädt Huang vor",
-   "thema": "Eine Reportage über die Vorladung von Handelsminister Lutnick und Jensen Huang durch den US-Senatsausschuss im Fall Nvidia.",
-   "begruendung": "Die Nachricht \"Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor\" ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Fall Nvidia: US-Senatsausschuss lädt Handelsminister Lutnick und Huang vor",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Vorladung von Handelsminister Lutnick und Jensen Huang durch den US-Senatsausschuss im Fall Nvid",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-14T12:16:39Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
   },
   {
    "id": "idee-4d6e31f0",
@@ -1584,29 +1658,6 @@
     "laenge": "3min"
    },
    "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-92dfafb3",
-   "bereich": "erklaer",
-   "titel": "Was tun bei maroden Brücken?",
-   "thema": "Ein Erklärvideo über die Herausforderungen und Lösungen bei alternder Infrastruktur",
-   "begruendung": "Der Trend 'köhlbrandbrücke' war auf Platz 2 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Marode Köhlbrandbrücke: Hamburgs Hafen droht der Infarkt“ (taz.de).",
-   "quelle": {
-    "name": "köhlbrandbrücke",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo über die Herausforderungen und Lösungen bei alternder Infrastruktur"
-   },
-   "app_auftrag": false,
    "erstellt": "2026-11-13T13:12:39Z"
   },
   {
@@ -2059,100 +2110,6 @@
    },
    "app_auftrag": true,
    "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-d61e0e0a",
-   "bereich": "ranking",
-   "titel": "Die größten Auslegerbrücken der Welt",
-   "thema": "Eine Liste der größten Auslegerbrücken nach Messwerten.",
-   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) und eignet sich direkt für ein Ranking.",
-   "quelle": {
-    "name": "Liste der größten Auslegerbrücken",
-    "typ": "trend",
-    "score": 78.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184660 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de"
-    ],
-    "thema": "Eine Liste der größten Auslegerbrücken nach Messwerten."
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z",
-   "recherche": [
-    {
-     "text": "Sie soll den Woluo-Fluss überspannen und wird mit 1680 m Hauptspannweite zu den größten Hängebrücken der Welt gehören.",
-     "status": "einzeln",
-     "datum": "2026-10-26",
-     "quellen": [
-      {
-       "quelle": "ingenieur.de",
-       "url": "https://www.ingenieur.de/283-m-hoch-200-t-tragkraft-so-entsteht-chinas-naechste-mega-bruecke-732e10d9-eeab-40bb-bb2c-9b516a058c24/",
-       "datum": "2026-10-26"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-13fca753",
-   "bereich": "satire",
-   "titel": "Klare Worte von Aigner: Eine neue Ära der Politik?",
-   "thema": "Satirischer Kommentar zu Ilse Aigners Aussage über ihre Sprache als Bundespräsidentin.",
-   "begruendung": "Die Meldung 'Aigner soll Bundespräsidentin werden: \"Meine Sprache wird klar sein und verständlich\"' ist von 2 Quellen (Tagesschau) bestätigt und bietet Anlass für Satire auf politische Phrasen.",
-   "quelle": {
-    "name": "Aigner soll Bundespräsidentin werden: \"Meine Sprache wird klar sein und verständlich\"",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
-   "auftrag": {
-    "art": "satire",
-    "thema": "Satirischer Kommentar zu Ilse Aigners Aussage über ihre Sprache als Bundespräsidentin.",
-    "sprache": "de",
-    "meldung": "Aigner soll Bundespräsidentin werden: \"Meine Sprache wird klar sein und verständlich\""
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z"
-  },
-  {
-   "id": "idee-1ae91145",
-   "bereich": "satire",
-   "titel": "Kühlschrank-Hacking: Die neue Cyber-Bedrohung?",
-   "thema": "Satirische Auseinandersetzung mit dem Vorwurf des Supermarkt-Kühlschrank-Hackings.",
-   "begruendung": "Die Meldung 'France accuses Iran of supermarket fridge hacking' ist von 3 Quellen (BBC World) bestätigt und bietet Anlass für Satire auf die Absurdität des spezifischen Ziels der Cyberattacke.",
-   "quelle": {
-    "name": "France accuses Iran of supermarket fridge hacking",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
-   "auftrag": {
-    "art": "satire",
-    "thema": "Satirische Auseinandersetzung mit dem Vorwurf des Supermarkt-Kühlschrank-Hackings.",
-    "sprache": "de",
-    "meldung": "France accuses Iran of supermarket fridge hacking"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-10T13:33:26Z"
   }
  ]
 }
