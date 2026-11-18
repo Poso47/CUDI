@@ -1,61 +1,22 @@
 {
- "erzeugt": "2026-11-18T12:10:03Z",
+ "erzeugt": "2026-11-18T20:52:10Z",
  "anzahl": 60,
- "bestaetigt": 10,
+ "bestaetigt": 15,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
   {
-   "titel": "Democrats win Alaska Senate race two weeks after midterms counting began",
-   "kurz": "Confirmation of Mary Peltola's victory caps of the party's rout of the Republicans in the midterms Senate election.",
-   "link": "https://www.bbc.co.uk/news/articles/cqev3v2ygzlvo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-18T10:23:57Z",
-   "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Democrats win Alaska Senate race two weeks after midterms counting began",
-     "link": "https://www.bbc.co.uk/news/articles/cqev3v2ygzlvo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "US Democrats flip Alaska Senate seat as Mary Peltola wins race",
-     "link": "https://www.dw.com/en/us-democrats-flip-alaska-senate-seat-as-mary-peltola-wins-race/a-79976628?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AP",
-     "titel": "Two weeks after Election Day , Democratic candidate Mary Peltola defeats incumbent Republican senator Dan Sullivan to become the new…",
-     "link": "https://apnews.com/article/alaska-senate-peltola-sullivan-congress-f1fd4d243bf764ec46ff94db4c792953",
-     "eigentuemer": "gehört The Associated Press",
-     "gruppe": 2,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Putin's Crimean Bridge partly collapses as Zelensky hails 'unprecedented' attack by Ukraine",
    "kurz": "Ukraine says the missile and drone attack on the strategic bridge in the Russian-annexed Crimea took weeks to plan.",
    "link": "https://www.bbc.co.uk/news/articles/cw772jk4rvmxo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-17T21:24:35Z",
+   "zeit": "2026-11-18T20:30:00Z",
    "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
+   "n_quellen": 4,
+   "unabhaengig_n": 4,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
@@ -68,11 +29,19 @@
      "zaehlt_nicht": ""
     },
     {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "What the Crimean bridge attack means for Russia",
+     "link": "https://www.dw.com/en/what-the-crimean-bridge-attack-means-for-russia/a-79985991?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
      "quelle": "Wikipedia · Reuters",
      "titel": "The Crimean Bridge is struck by Ukrainian drones for the second day in a row, killing two people and prompting Russian authorities to close…",
      "link": "https://www.reuters.com/world/europe/ukraine-strikes-crimean-bridge-second-day-russia-pounds-kyiv-bridges-2026-11-17/",
      "eigentuemer": "gehört Thomson Reuters",
-     "gruppe": 1,
+     "gruppe": 2,
      "zaehlt_nicht": ""
     },
     {
@@ -80,6 +49,123 @@
      "titel": "A Russian Air Force Antonov An-12 crashes near Kemerovo , Russia, killing all 19 people on board. ( The Independent )",
      "link": "https://apnews.com/article/russia-military-air-crash-siberia-an12-bb68e35e985a5e72786d813cf0ce598d",
      "eigentuemer": "gehört The Associated Press",
+     "gruppe": 3,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Grand Theft Auto 6 is a masterpiece, say critics",
+   "kurz": "Critics have their say as to whether GTA 6, the most anticipated video game of all time, lives up to the hype.",
+   "link": "https://www.bbc.co.uk/news/articles/cw8r75xm8v4po?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T17:34:25Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Grand Theft Auto 6 is a masterpiece, say critics",
+     "link": "https://www.bbc.co.uk/news/articles/cw8r75xm8v4po?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "What makes 'Grand Theft Auto VI' more than just a game?",
+     "link": "https://www.dw.com/en/what-makes-grand-theft-auto-vi-more-than-just-a-game/a-79965822?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Grand Theft Auto VI is a grounded love story, a gonzo crime thriller and a gaming triumph",
+     "link": "https://www.npr.org/2026/11/18/nx-s1-6040326/grand-theft-auto-6-review-vice-city-masterpiece",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Democrats nominate Hakeem Jeffries to be US Speaker of the House",
+   "kurz": "The nomination sets him on the path to become the first black lawmaker to lead the chamber when Democrats take control of the House in January.",
+   "link": "https://www.bbc.co.uk/news/articles/cmy49873dn95o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T17:34:23Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Democrats nominate Hakeem Jeffries to be US Speaker of the House",
+     "link": "https://www.bbc.co.uk/news/articles/cmy49873dn95o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "US House Democrats nominate Hakeem Jeffries for speaker",
+     "link": "https://www.dw.com/en/us-house-democrats-nominate-hakeem-jeffries-for-speaker/a-79983827?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Democrats formally nominate Hakeem Jeffries for speaker of the House",
+     "link": "https://www.npr.org/2026/11/18/nx-s1-6043183/hakeem-jeffries-house-democrats-leadership-votes",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Trump shakes hands with Putin and Xi ahead of historic talks in China",
+   "kurz": "The three leaders will meet together for the first time on Thursday during a closely-watched summit.",
+   "link": "https://www.bbc.co.uk/news/articles/ck9d75x5wwwwo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T16:10:44Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Steve Rosenberg: Historic talks with Xi and Trump are a coup for Putin",
+     "link": "https://www.bbc.co.uk/news/articles/c9n70gd320mpo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "APEC summit: Xi, Trump and Putin gather in Shenzhen, China",
+     "link": "https://www.dw.com/en/apec-summit-xi-trump-and-putin-gather-in-shenzhen-china/live-79964719?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Trump lands in China with key meetings with Xi and Putin on the agenda",
+     "link": "https://www.npr.org/2026/11/18/nx-s1-6045518/trump-china-xi-putin",
+     "eigentuemer": "gehört NPR",
      "gruppe": 2,
      "zaehlt_nicht": ""
     }
@@ -125,6 +211,163 @@
    ]
   },
   {
+   "titel": "Xi, Trump und Putin: Drei Perspektiven, viele Differenzen",
+   "kurz": "Es gilt schon vorab als historisch - das erste Dreier-Treffen von Xi, Trump und Putin auf dem APEC-Gipfel in Shenzhen. Doch die Positionen der drei Präsidenten…",
+   "link": "https://www.tagesschau.de/ausland/asien/apec-treffen-xi-putin-trump-themen-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T20:43:17+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Xi, Trump und Putin: Drei Perspektiven, viele Differenzen",
+     "link": "https://www.tagesschau.de/ausland/asien/apec-treffen-xi-putin-trump-themen-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Trump, Xi, Putin: Dreiergipfel mit drei Erwartungen",
+     "link": "https://www.dw.com/de/trump-xi-putin-dreiergipfel-mit-drei-erwartungen/a-79978410?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ergebnis nach US-Zwischenwahlen in Alaska: Demokratin Mary Peltola sichert sich offenen Sitz im Senat",
+   "kurz": "Ergebnis nach US-Zwischenwahlen in Alaska: Demokratin Mary Peltola sichert sich offenen Sitz im Senat",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686120.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T20:32:34+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Bernd Rasem, ARD-aktuell, zum Senatssitz für Mary Peltola in Alaska",
+     "link": "https://www.tagesschau.de/video/video-1685764.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "US-Senat: Mary Peltola gewinnt für Demokraten in Alaska",
+     "link": "https://www.dw.com/de/us-senat-mary-peltola-gewinnt-für-demokraten-in-alaska/a-79979852?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Israeli military launches rare ground operation in Gaza beyond Yellow Line",
+   "kurz": "Hamas condemns the incursion, which the Israeli military says is dismantling a \"terror tunnel\", as a \"flagrant\" ceasefire violation.",
+   "link": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T20:14:57Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Israeli military launches rare ground operation in Gaza beyond Yellow Line",
+     "link": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Israel launches new ground operation in Gaza",
+     "link": "https://www.dw.com/en/israel-launches-new-ground-operation-in-gaza/a-79984958?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "APEC-Gipfel in Shenzhen: Xi umarmt Trump - Putin schon da",
+   "kurz": "Die Staatschefs der drei Großmächte China, USA und Russland - Xi, Trump und Putin - sind zum APEC-Gipfel in Shenzhen eingetroffen. Dabei stach die herzliche…",
+   "link": "https://www.tagesschau.de/ausland/asien/apec-gipfel-shenzen-trump-xi-putin-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T14:23:23+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "APEC-Gipfel in Shenzhen: Xi umarmt Trump - Putin schon da",
+     "link": "https://www.tagesschau.de/ausland/asien/apec-gipfel-shenzen-trump-xi-putin-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Gipfel der Großmächte: Xi, Trump und Putin an einem Tisch",
+     "link": "https://www.dw.com/de/gipfel-der-großmächte-xi-trump-und-putin-an-einem-tisch/a-79971939?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russland-Debatte - Cyber-Attacke auf Eishockey-Weltverband",
+   "kurz": "Der Eishockey-Weltverband IIHF hat bestätigt, Ziel einer Cyber-Attacke geworden zu sein. Der Hacker-Angriff könnte im Zusammenhang mit dem umstrittenen…",
+   "link": "https://www.sportschau.de/eishockey/eishockey-weltverband-bestaetigt-cyber-angriff,cyber-attacke-russland-cas-urteil-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T12:53:38+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "sportschau.de"
+   ],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Russland-Debatte - Cyber-Attacke auf Eishockey-Weltverband",
+     "link": "https://www.sportschau.de/eishockey/eishockey-weltverband-bestaetigt-cyber-angriff,cyber-attacke-russland-cas-urteil-100.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Angriff aus Russland? Cyberattacke auf Eishockey-Weltverband",
+     "link": "https://www.dw.com/de/angriff-aus-russland-cyberattacke-auf-eishockey-weltverband/a-79977795?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Treffen von Trump, Xi und Putin: Rüstung, KI - und ein heikles Thema",
    "kurz": "Heute beginnt im chinesischen Shenzhen das APEC-Treffen. Erstmals wird es zu einem Dreiertreffen von Xi, Trump und Putin kommen. Um was könnte es dabei gehen?…",
    "link": "https://www.tagesschau.de/ausland/asien/apec-trump-putin-xi-100.html",
@@ -161,7 +404,7 @@
    "link": "https://www.bbc.co.uk/news/articles/cm2kl50vkwkdo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-18T01:18:18Z",
+   "zeit": "2026-11-18T07:14:28-05:00",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -177,10 +420,10 @@
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Nvidia beats Q3 expectations in first report post-Jensen Huang",
-     "link": "https://www.dw.com/en/nvidia-beats-q3-expectations-in-first-report-post-jensen-huang/a-79975683?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "NPR",
+     "titel": "Mary Peltola flips Alaska's Senate seat. And, Nvidia won't reinstate Jensen Huang",
+     "link": "https://www.npr.org/2026/11/18/g-s1-154145/up-first-newsletter-mary-peltola-alaska-trump-asia-nvidia-tech-issues-ai",
+     "eigentuemer": "gehört NPR",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -218,37 +461,6 @@
    ]
   },
   {
-   "titel": "Datenleck: Interne Dokumente belasten die Deutsche Bank",
-   "kurz": "Die Schatten der Vergangenheit holen die Deutsche Bank erneut ein. Informationen aus einem Datenleck offenbaren fragwürdige Geschäftspraktiken und mutmaßliche…",
-   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/deutsche-bank-datenleak-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-17T13:03:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Datenleck: Interne Dokumente belasten die Deutsche Bank",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/deutsche-bank-datenleak-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Datenleak bringt Deutsche Bank ins Stolpern",
-     "link": "https://www.dw.com/de/datenleak-bringt-deutsche-bank-ins-stolpern/a-79970605?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Bahrain 's military intercepts a number of drones fired by Iran 's Islamic Revolutionary Guard Corps (IRGC) at Sheikh Isa Air Base .",
    "kurz": "",
    "link": "https://www.aljazeera.com/amp/news/2026/11/17/bahrain-thwarts-drone-attack-iran-claims-targeting-us-military-radar",
@@ -274,39 +486,6 @@
      "titel": "Bahrain sentences 64 Shia Muslims , mostly clerics , to life in prison for establishing a terrorist group linked to Iran 's Islamic…",
      "link": "https://www.bbc.com/news/articles/cmx20pyew3zxo",
      "eigentuemer": "gehört BBC",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Three people are killed when a Piper Comanche aircraft crashes in the North Rim area of Grand Canyon National Park in Arizona , United…",
-   "kurz": "Three people are killed when a Piper Comanche aircraft crashes in the North Rim area of Grand Canyon National Park in Arizona , United States .",
-   "link": "https://www.foxweather.com/weather-news/3-dead-missing-plane-crash-grand-canyon-national-park",
-   "quelle": "Wikipedia · FOX Weather",
-   "sprache": "en",
-   "zeit": "",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [
-    "gmanetwork.com"
-   ],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · FOX Weather",
-     "titel": "Three people are killed when a Piper Comanche aircraft crashes in the North Rim area of Grand Canyon National Park in Arizona , United…",
-     "link": "https://www.foxweather.com/weather-news/3-dead-missing-plane-crash-grand-canyon-national-park",
-     "eigentuemer": "gehört Fox News Media und Fox Corporation",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · GMA News Online",
-     "titel": "Philippine police arrest at least 287 people during nationwide protests against the potential signing of a Pax Silica deal with the United…",
-     "link": "https://www.gmanetwork.com/news/topstories/metro/1009656/pnp-defends-response-to-asean-summit-protests/story/",
-     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -344,12 +523,12 @@
    ]
   },
   {
-   "titel": "Keine Neuauszählung: BSW scheitert mit Wahlprüfungsbeschwerde",
-   "kurz": "Zu wenige Stimmen und Belege: Das Bundesverfassungsgericht lehnt eine Klage des BSW auf Neuauszählung der Stimmen bei der Bundestagswahl ab. Nun erwägt die…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/bsw-beschwerde-abgelehnt-bundestagswahl-100.html",
+   "titel": "tagesschau in 100 Sekunden",
+   "kurz": "tagesschau in 100 Sekunden",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686176.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T12:55:00+01:00",
+   "zeit": "2026-11-18T21:44:31+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -358,8 +537,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Keine Neuauszählung: BSW scheitert mit Wahlprüfungsbeschwerde",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/bsw-beschwerde-abgelehnt-bundestagswahl-100.html",
+     "titel": "tagesschau in 100 Sekunden",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686176.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -367,12 +546,12 @@
    ]
   },
   {
-   "titel": "Wie eine Zuckersteuer der Gesundheit helfen kann",
-   "kurz": "Weniger Zucker in Getränken, weniger Erkrankungen - das ist die Hoffnung hinter einer Zuckersteuer. Doch dabei kommt es darauf an, was tatsächlich in die…",
-   "link": "https://www.tagesschau.de/wissen/gesundheit/wie-eine-zuckersteuer-der-gesundheit-helfen-koennte-100.html",
+   "titel": "Team aus Karlsruhe erhält Zukunftspreis für Mikrochip-Forschung",
+   "kurz": "Mit dem Deutschen Zukunftspreis des Bundespräsidenten soll besonders innovative Forschung ausgezeichnet werden. Dieses Jahr geht er an ein Forscher-Team, das…",
+   "link": "https://www.tagesschau.de/wissen/forschung/zukunftspreis-110.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T12:43:38+01:00",
+   "zeit": "2026-11-18T20:44:46+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -381,9 +560,193 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Wie eine Zuckersteuer der Gesundheit helfen kann",
-     "link": "https://www.tagesschau.de/wissen/gesundheit/wie-eine-zuckersteuer-der-gesundheit-helfen-koennte-100.html",
+     "titel": "Team aus Karlsruhe erhält Zukunftspreis für Mikrochip-Forschung",
+     "link": "https://www.tagesschau.de/wissen/forschung/zukunftspreis-110.html",
      "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau 20:00 Uhr",
+   "kurz": "Union und SPD einigen sich auf Kompromiss bei der Stromsteuer, Bundesverfassungsgericht weist Beschwerde des BSW zur Auszählung der Bundestagswahl zurück…",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686132.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T20:44:05+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau 20:00 Uhr",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686132.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Union und SPD einigen sich auf Kompromiss bei der Stromsteuer",
+   "kurz": "Union und SPD einigen sich auf Kompromiss bei der Stromsteuer",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686138.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T20:38:18+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Union und SPD einigen sich auf Kompromiss bei der Stromsteuer",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686138.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Finanzbildung für Kinder an einer Schule in Rodgau",
+   "kurz": "Finanzbildung für Kinder an einer Schule in Rodgau",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686122.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T20:34:04+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Finanzbildung für Kinder an einer Schule in Rodgau",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686122.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau mit Gebärdensprache",
+   "kurz": "tagesschau mit Gebärdensprache",
+   "link": "https://www.tagesschau.de/tagesschau_mit_gebaerdensprache/tsg-12384.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T20:31:48+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau mit Gebärdensprache",
+     "link": "https://www.tagesschau.de/tagesschau_mit_gebaerdensprache/tsg-12384.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Bundesverfassungsgericht weist Wahlbeschwerde von BSW ab",
+   "kurz": "Bundesverfassungsgericht weist Wahlbeschwerde von BSW ab",
+   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686114.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T20:29:00+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Bundesverfassungsgericht weist Wahlbeschwerde von BSW ab",
+     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686114.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "US Pentagon chief Hegseth signs military deal in Venezuela",
+   "kurz": "On a visit to Caracas, Pete Hegseth signed a deal that signifies the \"reestablishment of our defense partnership.\" US-Venezuela ties were strained for years…",
+   "link": "https://www.dw.com/en/us-pentagon-chief-hegseth-signs-military-deal-in-venezuela/a-79985607?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-18T20:19:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "US Pentagon chief Hegseth signs military deal in Venezuela",
+     "link": "https://www.dw.com/en/us-pentagon-chief-hegseth-signs-military-deal-in-venezuela/a-79985607?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "William and Kate meet PM Modi as they wrap up India tour",
+   "kurz": "The meeting in New Delhi was a late addition to the royal couple's India visit, which also included their appearance at the annual Earthshot Prize",
+   "link": "https://www.bbc.co.uk/news/articles/cq62ped2ypy4o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T20:07:08Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "William and Kate meet PM Modi as they wrap up India tour",
+     "link": "https://www.bbc.co.uk/news/articles/cq62ped2ypy4o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Bayern-Trainer Kompany gegen Köln wieder dabei",
+   "kurz": "Am Freitag kehrt Vincent Kompany als Bayern-Coach an die Seitenlinie zurück: Beim Spiel gegen Köln ist er nach einer Hirnhautentzündung wieder dabei, wie der…",
+   "link": "https://www.sportschau.de/regional/br/br-fcb-nach-der-pause-kompany-vor-rueckkehr-auf-die-bank-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T20:03:30+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Bayern-Trainer Kompany gegen Köln wieder dabei",
+     "link": "https://www.sportschau.de/regional/br/br-fcb-nach-der-pause-kompany-vor-rueckkehr-auf-die-bank-102.html",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -391,11 +754,11 @@
   },
   {
    "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
-   "kurz": "Am Donnerstag ist es meist wolkenverhangen. Dazu gibt es in der Südwesthälfte teilweise kräftige Regenfälle, die sich in den Norden und Osten verlagern. Hinter…",
+   "kurz": "Donnerstag breiten sich teilweise kräftige Regenfälle aus der Südwesthälfte in den Norden und Osten aus. Dahinter locket es auf und es folgen Schauer. Dabei…",
    "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T12:40:22+01:00",
+   "zeit": "2026-11-18T19:14:51+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -413,12 +776,12 @@
    ]
   },
   {
-   "titel": "Jörg Endriss, ARD Peking, zum Treffen von Putin und Xi in Shenzen",
-   "kurz": "Jörg Endriss, ARD Peking, zum Treffen von Putin und Xi in Shenzen",
-   "link": "https://www.tagesschau.de/video/video-1685790.html",
+   "titel": "Demokraten nominieren Jeffries als Chef des US-Repräsentantenhauses",
+   "kurz": "Trotz Vorbehalten einiger Progressiver haben die US-Demokraten ihren Fraktionschef Jeffries für den Vorsitz des US-Repräsentantenhauses nominiert. Als solcher…",
+   "link": "https://www.tagesschau.de/ausland/amerika/jeffries-nominiert-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T12:32:59+01:00",
+   "zeit": "2026-11-18T19:11:40+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -427,8 +790,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Jörg Endriss, ARD Peking, zum Treffen von Putin und Xi in Shenzen",
-     "link": "https://www.tagesschau.de/video/video-1685790.html",
+     "titel": "Demokraten nominieren Jeffries als Chef des US-Repräsentantenhauses",
+     "link": "https://www.tagesschau.de/ausland/amerika/jeffries-nominiert-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -436,12 +799,12 @@
    ]
   },
   {
-   "titel": "Sorgerechtsreform: Kein Umgangsrecht mehr für gewalttätigen Elternteil",
-   "kurz": "Wie können Kinder besser geschützt werden, wenn es zwischen den Eltern zu Gewalt kommt? Die Regierung hat dafür eine Gesetzesreform auf den Weg gebracht - mit…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/gesetzentwurf-sorgerecht-100.html",
+   "titel": "Neuer EU-Kredit für Ukraine: \"Wir sind entschlossener denn je\"",
+   "kurz": "Die Ukraine braucht dringend Geld - den Großteil soll die EU nach Willen der Kommission übernehmen. Für die Rückzahlung sollen künftige russische Reparationen…",
+   "link": "https://www.tagesschau.de/ausland/europa/eu-ukraine-unsterstuetzung-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T12:19:09+01:00",
+   "zeit": "2026-11-18T19:02:26+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -450,8 +813,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Sorgerechtsreform: Kein Umgangsrecht mehr für gewalttätigen Elternteil",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/gesetzentwurf-sorgerecht-100.html",
+     "titel": "Neuer EU-Kredit für Ukraine: \"Wir sind entschlossener denn je\"",
+     "link": "https://www.tagesschau.de/ausland/europa/eu-ukraine-unsterstuetzung-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -459,12 +822,12 @@
    ]
   },
   {
-   "titel": "Schüler wünschen sich mehr Orientierung bei Finanzwissen",
-   "kurz": "Schüler wünschen sich mehr Orientierung bei Finanzwissen",
-   "link": "https://www.tagesschau.de/video/video-1685804.html",
+   "titel": "\"Grand Theft Auto VI: Was hinter dem weltweiten Hype um GTA steckt",
+   "kurz": "13 Jahre nach dem Vorgänger erscheint \"Grand Theft Auto VI\". Viele Fans haben den Start mit Spannung erwartet, andere halten die Aufregung um das Videospiel…",
+   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/spiele-gta-sechs-neuerscheinung-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T12:06:26+01:00",
+   "zeit": "2026-11-18T18:55:38+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -473,8 +836,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Schüler wünschen sich mehr Orientierung bei Finanzwissen",
-     "link": "https://www.tagesschau.de/video/video-1685804.html",
+     "titel": "\"Grand Theft Auto VI: Was hinter dem weltweiten Hype um GTA steckt",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/spiele-gta-sechs-neuerscheinung-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -482,12 +845,12 @@
    ]
   },
   {
-   "titel": "400 Jahre Petersdom - Rom feiert sein Wahrzeichen",
-   "kurz": "400 Jahre Petersdom - Rom feiert sein Wahrzeichen",
-   "link": "https://www.tagesschau.de/video/video-1685802.html",
+   "titel": "Deutliche Kursverluste: DAX rutscht unter 26.000er-Marke",
+   "kurz": "Das Rekordhoch der vergangenen Woche ist längst wieder passé. Der Leitindex DAX endet mit einem deutlichen Minus und fällt bis auf 25.736 Punkte. Da helfen…",
+   "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-nvidia-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T12:02:39+01:00",
+   "zeit": "2026-11-18T18:45:45+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -496,8 +859,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "400 Jahre Petersdom - Rom feiert sein Wahrzeichen",
-     "link": "https://www.tagesschau.de/video/video-1685802.html",
+     "titel": "Deutliche Kursverluste: DAX rutscht unter 26.000er-Marke",
+     "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-nvidia-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -505,12 +868,35 @@
    ]
   },
   {
-   "titel": "Israels Parlamentspräsident gewählt",
-   "kurz": "Israels Parlamentspräsident gewählt",
-   "link": "https://www.tagesschau.de/video/video-1685798.html",
+   "titel": "Would Ukraine trade land for NATO membership or protection?",
+   "kurz": "The US is exploring whether Ukraine would cede parts of Donetsk province still under its control in return for NATO membership or protection. Experts warn the…",
+   "link": "https://www.dw.com/en/would-ukraine-trade-land-for-nato-membership-or-protection/a-79984492?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-18T18:40:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Would Ukraine trade land for NATO membership or protection?",
+     "link": "https://www.dw.com/en/would-ukraine-trade-land-for-nato-membership-or-protection/a-79984492?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ex-Ministerin Kneissl: Österreich prüft Aberkennung der Staatsbürgerschaft",
+   "kurz": "Österreichs Ex-Außenministerin Kneissl fiel schon während ihrer Amtszeit durch ihre Nähe zu Russland auf. Inzwischen lebt sie dort und stellt sich öffentlich…",
+   "link": "https://www.tagesschau.de/ausland/europa/kneissl-staatsbuergerschaft-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T11:58:48+01:00",
+   "zeit": "2026-11-18T18:17:56+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -519,8 +905,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Israels Knesset: Eisenkot-Verbündeter als Parlamentspräsident gewählt",
-     "link": "https://www.tagesschau.de/ausland/asien/israel-knesset-praesident-100.html",
+     "titel": "Ex-Ministerin Kneissl: Österreich prüft Aberkennung der Staatsbürgerschaft",
+     "link": "https://www.tagesschau.de/ausland/europa/kneissl-staatsbuergerschaft-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -528,12 +914,12 @@
    ]
   },
   {
-   "titel": "Frank Bräutigam, ARD-Rechtsredaktion, zur Ablehnung der BSW-Wahlbeschwerde durch das Bundesverfassungsgericht",
-   "kurz": "Frank Bräutigam, ARD-Rechtsredaktion, zur Ablehnung der BSW-Wahlbeschwerde durch das Bundesverfassungsgericht",
-   "link": "https://www.tagesschau.de/video/video-1685796.html",
+   "titel": "Brasilianischer Regenwald: Indigene verlassen offenbar aus Not ihre Isolation",
+   "kurz": "Offenbar aus Hunger heraus haben isoliert lebende Indigene in Brasilien Kontakt zur Außenwelt gesucht: Etwa 20 Angehörige der Awá kamen Berichten zufolge in…",
+   "link": "https://www.tagesschau.de/ausland/amerika/brasilien-awa-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T11:55:03+01:00",
+   "zeit": "2026-11-18T18:09:00+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -542,8 +928,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Bundesverfassungsgericht: BSW scheitert mit Wahlbeschwerde",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/bsw-wahlpruefung-100.html",
+     "titel": "Brasilianischer Regenwald: Indigene verlassen offenbar aus Not ihre Isolation",
+     "link": "https://www.tagesschau.de/ausland/amerika/brasilien-awa-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -551,12 +937,12 @@
    ]
   },
   {
-   "titel": "Tina Handel, ARD Berlin, zu den Ergebnissen des Koalitionsausschusses",
-   "kurz": "Tina Handel, ARD Berlin, zu den Ergebnissen des Koalitionsausschusses",
-   "link": "https://www.tagesschau.de/video/video-1685794.html",
+   "titel": "Gericht: Preiserhöhungs-Klausel von DAZN unwirksam",
+   "kurz": "Von 11,99 Euro monatlich auf 29,99 Euro in kurzer Zeit: Die Preiserhöhungen bei DAZN waren auf viel Kritik gestoßen - nun hat ein Gericht die zugrundeliegende…",
+   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/dazn-preise-urteil-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T11:49:12+01:00",
+   "zeit": "2026-11-18T18:04:38+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -565,8 +951,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Tina Handel, ARD Berlin, zu den Ergebnissen des Koalitionsausschusses",
-     "link": "https://www.tagesschau.de/video/video-1685794.html",
+     "titel": "Gericht: Preiserhöhungs-Klausel von DAZN unwirksam",
+     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/dazn-preise-urteil-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -574,12 +960,58 @@
    ]
   },
   {
-   "titel": "Who to watch in Spain's election race",
-   "kurz": "Spain votes on 29 November, with the conservatives leading most polls after eight years of Socialist-led rule.",
-   "link": "https://www.bbc.co.uk/news/articles/cxr5g4lyp94no?at_medium=RSS&at_campaign=rss",
+   "titel": "Muslims to outnumber Christians by 2035, research shows",
+   "kurz": "Pew Research Center projections show that there will be 2.57 billion Muslims and 2.52 billion Christians by 2035. Researchers say differences in fertility…",
+   "link": "https://www.dw.com/en/muslims-to-outnumber-christians-by-2035-research-shows/a-79984307?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-18T17:52:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Muslims to outnumber Christians by 2035, research shows",
+     "link": "https://www.dw.com/en/muslims-to-outnumber-christians-by-2035-research-shows/a-79984307?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau in Einfacher Sprache",
+   "kurz": "tagesschau in Einfacher Sprache",
+   "link": "https://www.tagesschau.de/tagesschau_in_einfacher_sprache/tse-1520.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T17:37:32+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau in Einfacher Sprache",
+     "link": "https://www.tagesschau.de/tagesschau_in_einfacher_sprache/tse-1520.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Inside the old gas pipeline where Ukraine is fighting an underground war with Russia",
+   "kurz": "Watch: The BBC's Jonathan Beale joins Ukrainian forces taking the battle below ground and out of sight of Russian drones.",
+   "link": "https://www.bbc.co.uk/news/videos/c8p3vw4q6nzzo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-18T11:44:25Z",
+   "zeit": "2026-11-18T17:00:40Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -588,8 +1020,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Who to watch in Spain's election race",
-     "link": "https://www.bbc.co.uk/news/articles/cxr5g4lyp94no?at_medium=RSS&at_campaign=rss",
+     "titel": "Inside the old gas pipeline where Ukraine is fighting an underground war with Russia",
+     "link": "https://www.bbc.co.uk/news/videos/c8p3vw4q6nzzo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -597,12 +1029,12 @@
    ]
   },
   {
-   "titel": "Unions-Fraktionsvize sieht Nachholbedarf bei Politik für junge Menschen",
-   "kurz": "Ende Oktober hatte es am Rande von \"Gen Z\"-Demos massive Gewalt gegeben, danach gab es Forderungen nach Demo-Verboten. Für Freitag sind neue Kundgebungen…",
-   "link": "https://www.tagesschau.de/inland/gesellschaft/gen-z-proteste-union-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T11:32:57+01:00",
+   "titel": "'The drones don't fly here' - BBC reports from Ukraine's new front line",
+   "kurz": "Ukrainian forces are fighting Russian troops in an old Soviet tunnel in the Kharkiv region.",
+   "link": "https://www.bbc.co.uk/news/articles/c32l507ev4v4o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T17:00:04Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -610,22 +1042,22 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Unions-Fraktionsvize sieht Nachholbedarf bei Politik für junge Menschen",
-     "link": "https://www.tagesschau.de/inland/gesellschaft/gen-z-proteste-union-100.html",
-     "eigentuemer": "gehört ARD",
+     "quelle": "BBC World",
+     "titel": "'The drones don't fly here' - BBC reports from Ukraine's new front line",
+     "link": "https://www.bbc.co.uk/news/articles/c32l507ev4v4o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "US-Senat: Demokraten färben Alaska blau",
-   "kurz": "Traditionell wird im nördlichsten US-Bundesstaat republikanisch gewählt. Jetzt gelingt einer indigenen Demokratin die Sensation: Sie zieht für Alaska in den…",
-   "link": "https://www.dw.com/de/us-senat-demokraten-färben-alaska-blau/a-79979852?maca=de-rss-de-all-1119-xml-mrss",
+   "titel": "Die \"Koalition der Willigen\" bei der Ukraine-Unterstützung trifft sich in Berlin. Europa will künftig über einen Frieden mitreden",
+   "kurz": "Die \"Koalition der Willigen\" bei der Ukraine-Unterstützung trifft sich in Berlin. Es geht auch darum, ob Europa über die Zukunft des Landes künftig mit…",
+   "link": "https://www.dw.com/de/die-koalition-der-willigen-bei-der-ukraine-unterstützung-trifft-sich-in-berlin-europa-will-künftig-über-einen-frieden-mitreden/a-79960717?maca=de-rss-de-all-1119-xml-mrss",
    "quelle": "Deutsche Welle",
    "sprache": "de",
-   "zeit": "2026-11-18T11:22:00Z",
+   "zeit": "2026-11-18T16:51:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -634,8 +1066,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle",
-     "titel": "US-Senat: Demokraten färben Alaska blau",
-     "link": "https://www.dw.com/de/us-senat-demokraten-färben-alaska-blau/a-79979852?maca=de-rss-de-all-1119-xml-mrss",
+     "titel": "Die \"Koalition der Willigen\" bei der Ukraine-Unterstützung trifft sich in Berlin. Europa will künftig über einen Frieden mitreden",
+     "link": "https://www.dw.com/de/die-koalition-der-willigen-bei-der-ukraine-unterstützung-trifft-sich-in-berlin-europa-will-künftig-über-einen-frieden-mitreden/a-79960717?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -643,12 +1075,12 @@
    ]
   },
   {
-   "titel": "Wie riskant ist Nvidias Kurssturz für ETF-Sparer?",
-   "kurz": "Nach dem Rücktritt von Jensen Huang hat die Nvidia-Aktie massiv an Wert verloren. Weil sie im MSCI World gelistet ist, betrifft das viele ETF-Sparer. Wie…",
-   "link": "https://www.tagesschau.de/wirtschaft/finanzen/nvidia-kurssturz-etf-sparer-risiken-100.html",
+   "titel": "Kommentar zur Stromsteuer-Einigung: Fahren auf Sicht - aber wer sitzt eigentlich am Steuer?",
+   "kurz": "Kanzler Merz hat die Stromsteuer zur Schicksalsfrage erklärt - und dann acht Stunden lang das kleinstmögliche Ergebnis verhandelt, meint Georg Schwarte. Der…",
+   "link": "https://www.tagesschau.de/kommentar/koalitionsausschuss-merz-stromsteuersenkung-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T11:17:57+01:00",
+   "zeit": "2026-11-18T16:47:07+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -657,8 +1089,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Wie riskant ist Nvidias Kurssturz für ETF-Sparer?",
-     "link": "https://www.tagesschau.de/wirtschaft/finanzen/nvidia-kurssturz-etf-sparer-risiken-100.html",
+     "titel": "Kommentar zur Stromsteuer-Einigung: Fahren auf Sicht - aber wer sitzt eigentlich am Steuer?",
+     "link": "https://www.tagesschau.de/kommentar/koalitionsausschuss-merz-stromsteuersenkung-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -666,58 +1098,12 @@
    ]
   },
   {
-   "titel": "Trump, Xi, Putin: Dreiergipfel mit drei Erwartungen",
-   "kurz": "Ein bahnbrechendes Treffen, ein \"Jalta 2.0\", der Start einer \"neuen Weltordnung\": Vor dem Dreiergipfel von Xi, Trump und Putin in Shenzhen hagelt es geradezu…",
-   "link": "https://www.dw.com/de/trump-xi-putin-dreiergipfel-mit-drei-erwartungen/a-79978410?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-18T11:16:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Trump, Xi, Putin: Dreiergipfel mit drei Erwartungen",
-     "link": "https://www.dw.com/de/trump-xi-putin-dreiergipfel-mit-drei-erwartungen/a-79978410?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Parthenon-Puzzle gelöst? So sah der Ostgiebel des antiken Meisterwerks wohl aus",
-   "kurz": "Die Geburt der Göttin Athena über dem Parthenon-Eingang gilt als Meisterwerk der Antike. Ein deutsches Forschungsteam konnte sämtliche Fragmente nun…",
-   "link": "https://www.dw.com/de/parthenon-puzzle-gelöst-so-sah-der-ostgiebel-des-antiken-meisterwerks-wohl-aus/a-79966471?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-18T11:02:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Parthenon-Puzzle gelöst? So sah der Ostgiebel des antiken Meisterwerks wohl aus",
-     "link": "https://www.dw.com/de/parthenon-puzzle-gelöst-so-sah-der-ostgiebel-des-antiken-meisterwerks-wohl-aus/a-79966471?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Koalition einigt sich auf Stromsteuersenkung für alle",
-   "kurz": "Koalition einigt sich auf Stromsteuersenkung für alle",
-   "link": "https://www.tagesschau.de/video/video-1685738.html",
+   "titel": "Einigung über Stromsteuersenkung: Die Koalition ist in eine neue Phase eingetreten",
+   "kurz": "Union und SPD haben sich auf eine Senkung der Stromsteuer geeinigt. Doch die Verhandlungen liefen Teilnehmern zufolge teils ruppig. Wie es zur Einigung kam und…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/stromsteuer-spritpreisdeckel-einigung-koalition-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T10:57:35+01:00",
+   "zeit": "2026-11-18T16:45:55+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -726,8 +1112,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Koalition einigt sich auf Stromsteuersenkung für alle",
-     "link": "https://www.tagesschau.de/video/video-1685738.html",
+     "titel": "Einigung über Stromsteuersenkung: Die Koalition ist in eine neue Phase eingetreten",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/stromsteuer-spritpreisdeckel-einigung-koalition-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -735,35 +1121,12 @@
    ]
   },
   {
-   "titel": "tagesschau in 100 Sekunden",
-   "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1685774.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T10:57:25+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1685774.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Philippe Diallo: Europäische Integrität gegen das System Infantino",
-   "kurz": "Frankreichs Verbandspräsident und UEFA-Kandidat Philippe Diallo fordert FIFA-Präsident Gianni Infantino heraus. Seine Chancen sind gering, doch Justiz und…",
-   "link": "https://www.dw.com/de/philippe-diallo-europäische-integrität-gegen-das-system-infantino/a-79978574?maca=de-rss-de-all-1119-xml-mrss",
+   "titel": "Tigray: Der Schwelbrand am Horn von Afrika lodert wieder auf",
+   "kurz": "Im Norden Äthiopiens nehmen die Spannungen abermals zu: Die Kämpfe verlagern sich an die Grenze zu Eritrea. Unterdessen verschärfen sich die Spannungen mit dem…",
+   "link": "https://www.dw.com/de/tigray-der-schwelbrand-am-horn-von-afrika-lodert-wieder-auf/a-79979704?maca=de-rss-de-all-1119-xml-mrss",
    "quelle": "Deutsche Welle",
    "sprache": "de",
-   "zeit": "2026-11-18T10:56:00Z",
+   "zeit": "2026-11-18T16:38:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -772,8 +1135,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle",
-     "titel": "Philippe Diallo: Europäische Integrität gegen das System Infantino",
-     "link": "https://www.dw.com/de/philippe-diallo-europäische-integrität-gegen-das-system-infantino/a-79978574?maca=de-rss-de-all-1119-xml-mrss",
+     "titel": "Tigray: Der Schwelbrand am Horn von Afrika lodert wieder auf",
+     "link": "https://www.dw.com/de/tigray-der-schwelbrand-am-horn-von-afrika-lodert-wieder-auf/a-79979704?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -781,12 +1144,173 @@
    ]
   },
   {
-   "titel": "Axes, cutlass and blunt objects: Nigeria's campaign trail of violence",
-   "kurz": "As Nigeria's January 2027 polls inch closer, a spate of violence and political thuggery during campaign rallies and town hall meetings is raising concerns…",
-   "link": "https://www.dw.com/en/axes-cutlass-and-blunt-objects-nigeria-s-campaign-trail-of-violence/a-79978467?maca=en-rss-en-all-1573-xml-mrss",
+   "titel": "Kabinett will bei Unterhaltszahlungen für Alleinerziehende sparen",
+   "kurz": "Wenn Elternteile keinen Unterhalt zahlen, springt oft der Staat ein. Das Kabinett will dafür jetzt eine Einkommensgrenze einführen. Säumigen Zahlern sollen…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/kabinett-unterhaltszahlung-verschaerfung-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T16:37:39+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Kabinett will bei Unterhaltszahlungen für Alleinerziehende sparen",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/kabinett-unterhaltszahlung-verschaerfung-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutscher Ökonom Brunnermeier als EZB-Chefvolkswirt nominiert",
+   "kurz": "Die Bundesregierung schlägt Markus Brunnermeier als nächsten Chefvolkswirt der Europäischen Zentralbank vor. Der Posten gilt als einflussreich, wenn es um…",
+   "link": "https://www.tagesschau.de/wirtschaft/finanzen/bundesregierung-ezb-chefvolkswirt-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T16:36:01+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Deutscher Ökonom Brunnermeier als EZB-Chefvolkswirt nominiert",
+     "link": "https://www.tagesschau.de/wirtschaft/finanzen/bundesregierung-ezb-chefvolkswirt-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Julio Iglesias facing court investigation over alleged sexual offences",
+   "kurz": "The 83-year-old singer is accused of abusing two former employees at Caribbean residences in 2021.",
+   "link": "https://www.bbc.co.uk/news/articles/c6x284pnn4e2o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T16:33:16Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Julio Iglesias facing court investigation over alleged sexual offences",
+     "link": "https://www.bbc.co.uk/news/articles/c6x284pnn4e2o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Studie: Diese Themen machen Kindern und Jugendlichen Angst",
+   "kurz": "Kriege, Wirtschaftskrisen, Wohnungsnot: Viele Jugendliche sorgen sich um ihre Zukunft. Das zeigt die neue COPSY-Studie. Ob Kinder dauerhaft psychisch belastet…",
+   "link": "https://www.tagesschau.de/wissen/copsy-studie-2026-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T16:06:36+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Studie: Diese Themen machen Kindern und Jugendlichen Angst",
+     "link": "https://www.tagesschau.de/wissen/copsy-studie-2026-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Fiona the hippo undergoing care after swallowing a hat at Cincinnati Zoo",
+   "kurz": "Zookeepers say she cannot have surgery but are providing fluids and supportive care to help her pass the hat.",
+   "link": "https://www.bbc.co.uk/news/articles/cm2d93z0e9gjo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T16:05:26Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Fiona the hippo undergoing care after swallowing a hat at Cincinnati Zoo",
+     "link": "https://www.bbc.co.uk/news/articles/cm2d93z0e9gjo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutsche Jugendliche im Netz: Vom freundlichen Chat zur sexuellen Erpressung",
+   "kurz": "Das Netz ist oft zentraler Ort der sexualisierten Gewalt gegen Jugendliche. Und die Eltern sind sich der Gefahren oft nicht bewusst. Die zuständige…",
+   "link": "https://www.dw.com/de/deutsche-jugendliche-im-netz-vom-freundlichen-chat-zur-sexuellen-erpressung/a-79981951?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-18T15:54:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Deutsche Jugendliche im Netz: Vom freundlichen Chat zur sexuellen Erpressung",
+     "link": "https://www.dw.com/de/deutsche-jugendliche-im-netz-vom-freundlichen-chat-zur-sexuellen-erpressung/a-79981951?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Parents jailed for torture and death of four-year-old girl found along French motorway in 1987",
+   "kurz": "Inass Touloub's body was found along the A10 road in 1987, bearing marks of abuse, and was not identified until 2018.",
+   "link": "https://www.bbc.co.uk/news/articles/c6lyw490z14jo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T15:39:57Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Parents jailed for torture and death of four-year-old girl found along French motorway in 1987",
+     "link": "https://www.bbc.co.uk/news/articles/c6lyw490z14jo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Borussia Dortmund bows to fan pressure and end Rheinmetall deal",
+   "kurz": "Borussia Dortmund has reluctantly ended its association with a major sponsor after long-term fan protests. They are not the first Bundesliga club to u-turn, as…",
+   "link": "https://www.dw.com/en/borussia-dortmund-bows-to-fan-pressure-and-end-rheinmetall-deal/a-79980121?maca=en-rss-en-all-1573-xml-mrss",
    "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-18T10:56:00Z",
+   "zeit": "2026-11-18T15:39:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -795,8 +1319,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "Axes, cutlass and blunt objects: Nigeria's campaign trail of violence",
-     "link": "https://www.dw.com/en/axes-cutlass-and-blunt-objects-nigeria-s-campaign-trail-of-violence/a-79978467?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "Borussia Dortmund bows to fan pressure and end Rheinmetall deal",
+     "link": "https://www.dw.com/en/borussia-dortmund-bows-to-fan-pressure-and-end-rheinmetall-deal/a-79980121?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -804,81 +1328,12 @@
    ]
   },
   {
-   "titel": "Japaner Tashima kündigt offizielle Kandidatur gegen Infantino an",
-   "kurz": "Europa setzt bei der Wahl um die FIFA-Präsidentschaft auf Philippe Diallo aus Frankreich - das japanische FIFA-Ratsmitglied Kozo Tashima hält aber an seiner…",
-   "link": "https://www.sportschau.de/fussball/japaner-tashima-kuendigt-offizielle-kandidatur-gegen-infantino-an,tashima-diallo-infantino-fifa-praesident-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T10:52:41+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Japaner Tashima kündigt offizielle Kandidatur gegen Infantino an",
-     "link": "https://www.sportschau.de/fussball/japaner-tashima-kuendigt-offizielle-kandidatur-gegen-infantino-an,tashima-diallo-infantino-fifa-praesident-100.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "So weit wie noch nie: Raumsonde \"Voyager 1\" - einen Lichttag von Erde entfernt",
-   "kurz": "Seit fast 50 Jahren erkunden die \"Voyager\"-Sonden die Tiefen des Weltraums. Mit einer solchen Lebensdauer hatte niemand gerechnet. Und heute ist \"Voyager 1\"…",
-   "link": "https://www.tagesschau.de/wissen/technologie/voyager-1-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T10:46:22+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "So weit wie noch nie: Raumsonde \"Voyager 1\" - einen Lichttag von Erde entfernt",
-     "link": "https://www.tagesschau.de/wissen/technologie/voyager-1-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Latin America's mega-prisons: Can El Salvador's model work?",
-   "kurz": "El Salvador's mega-prison has become a model for governments across Latin America seeking to combat organized crime. But experts question whether the approach…",
-   "link": "https://www.dw.com/en/latin-america-s-mega-prisons-can-el-salvador-s-model-work/a-79973524?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T10:45:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Latin America's mega-prisons: Can El Salvador's model work?",
-     "link": "https://www.dw.com/en/latin-america-s-mega-prisons-can-el-salvador-s-model-work/a-79973524?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Green Growth: Wirtschaftswachstum gegen die Klimakrise?",
-   "kurz": "Mehr Wohlstand, weniger Umweltbelastung: Green Growth verspricht die Entkopplung von Wachstum und Umweltschäden. Doch ist das realistisch oder geht Klimaschutz…",
-   "link": "https://www.dw.com/de/green-growth-wirtschaftswachstum-gegen-die-klimakrise/a-79784223?maca=de-rss-de-all-1119-xml-mrss",
+   "titel": "Angriff auf die Krim-Brücke: Welche Folgen Kyjiws Operation hat",
+   "kurz": "Die Ukraine hat der Krim-Brücke schwere Schäden zufügen können. Was bedeutet das für Russland - militärisch und wirtschaftlich? Und was für das politische…",
+   "link": "https://www.dw.com/de/angriff-auf-die-krim-brücke-welche-folgen-kyjiws-operation-hat/a-79979350?maca=de-rss-de-all-1119-xml-mrss",
    "quelle": "Deutsche Welle",
    "sprache": "de",
-   "zeit": "2026-11-18T10:37:00Z",
+   "zeit": "2026-11-18T15:26:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -887,8 +1342,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle",
-     "titel": "Green Growth: Wirtschaftswachstum gegen die Klimakrise?",
-     "link": "https://www.dw.com/de/green-growth-wirtschaftswachstum-gegen-die-klimakrise/a-79784223?maca=de-rss-de-all-1119-xml-mrss",
+     "titel": "Angriff auf die Krim-Brücke: Welche Folgen Kyjiws Operation hat",
+     "link": "https://www.dw.com/de/angriff-auf-die-krim-brücke-welche-folgen-kyjiws-operation-hat/a-79979350?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -896,12 +1351,173 @@
    ]
   },
   {
-   "titel": "Fransenfledermaus, Ausgrabungsstätte in Jericho, Kälte in Kaschmir",
-   "kurz": "Fransenfledermaus, Ausgrabungsstätte in Jericho, Kälte in Kaschmir",
+   "titel": "DAK-Auswertung: Jugendliche konsumieren immer mehr Nikotinbeutel",
+   "kurz": "Kein Rauchen, kein Dampfen: Nikotinbeutel sind unauffällig. Doch der konzentrierte Suchtstoff bereitet Gesundheitsexperten Sorgen - sie warnen vor einer…",
+   "link": "https://www.tagesschau.de/inland/gesellschaft/nikotinbeutel-jugendliche-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T15:24:48+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "DAK-Auswertung: Jugendliche konsumieren immer mehr Nikotinbeutel",
+     "link": "https://www.tagesschau.de/inland/gesellschaft/nikotinbeutel-jugendliche-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "North Korea expanded uranium enrichment plant, says IAEA head",
+   "kurz": "IAEA chief Rafael Grossi has said the ongoing expansion of North Korea's uranium enrichment program remains \"a cause for serious concern.\"",
+   "link": "https://www.dw.com/en/north-korea-expanded-uranium-enrichment-plant-says-iaea-head/a-79982758?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-18T15:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "North Korea expanded uranium enrichment plant, says IAEA head",
+     "link": "https://www.dw.com/en/north-korea-expanded-uranium-enrichment-plant-says-iaea-head/a-79982758?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "EU-Kommission schlägt 45-Milliarden-Kredit für Ukraine vor",
+   "kurz": "Die Ukraine braucht für 2027 viel frisches Geld für den Staatshaushalt. Kanzler Merz will über die EU helfen, stellt aber Bedingungen. Nun gibt es einen…",
+   "link": "https://www.dw.com/de/eu-kommission-schlägt-45-milliarden-kredit-für-ukraine-vor/a-79982843?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-18T15:13:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "EU-Kommission schlägt 45-Milliarden-Kredit für Ukraine vor",
+     "link": "https://www.dw.com/de/eu-kommission-schlägt-45-milliarden-kredit-für-ukraine-vor/a-79982843?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "'Coalition of the Willing' meets in Berlin: Europe remains committed to Ukraine",
+   "kurz": "The \"Coalition of the Willing\" supporting Ukraine is gathering in Berlin. One of the key issues under discussion is whether Europe will be able to play a role…",
+   "link": "https://www.dw.com/en/coalition-of-the-willing-meets-in-berlin-europe-remains-committed-to-ukraine/a-79974996?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-18T15:03:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "'Coalition of the Willing' meets in Berlin: Europe remains committed to Ukraine",
+     "link": "https://www.dw.com/en/coalition-of-the-willing-meets-in-berlin-europe-remains-committed-to-ukraine/a-79974996?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Petersdom wurde heute vor 400 Jahren geweiht",
+   "kurz": "Seit der Antike pilgern Gläubige an den Ort des heutigen Petersdoms. Dort soll das Grab des Apostels Petrus liegen. Vor genau 400 Jahren, am 18. November 1626…",
+   "link": "https://www.tagesschau.de/ausland/europa/400-jahre-petersdom-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T15:02:36+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Petersdom wurde heute vor 400 Jahren geweiht",
+     "link": "https://www.tagesschau.de/ausland/europa/400-jahre-petersdom-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Has the 'Parthenon puzzle' been solved? The long quest to reassemble lost eastern pediment",
+   "kurz": "The depiction of the birth of the goddess Athena above the Parthenon's entrance is considered a masterpiece of ancient art. Now, a German research team has…",
+   "link": "https://www.dw.com/en/has-the-parthenon-puzzle-been-solved-the-long-quest-to-reassemble-lost-eastern-pediment/a-79982098?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-18T14:49:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Has the 'Parthenon puzzle' been solved? The long quest to reassemble lost eastern pediment",
+     "link": "https://www.dw.com/en/has-the-parthenon-puzzle-been-solved-the-long-quest-to-reassemble-lost-eastern-pediment/a-79982098?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Regierung erleichtert Befristungen von Jobs",
+   "kurz": "Leichtere Befristungen, weniger Kündigungsschutz für Hochverdiener: Bereits im Juli hatte sich die Koalition grundsätzlich auf mehrere Änderungen im…",
+   "link": "https://www.tagesschau.de/wirtschaft/jobbefristungen-kabinett-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T14:44:31+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Regierung erleichtert Befristungen von Jobs",
+     "link": "https://www.tagesschau.de/wirtschaft/jobbefristungen-kabinett-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ausstellung \"Seed Pattern\", Fransenfledermaus, Ausgrabungsstätte in Jericho",
+   "kurz": "Ausstellung \"Seed Pattern\", Fransenfledermaus, Ausgrabungsstätte in Jericho",
    "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10574.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T10:10:11+01:00",
+   "zeit": "2026-11-18T14:43:55+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -910,7 +1526,7 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Fransenfledermaus, Ausgrabungsstätte in Jericho, Kälte in Kaschmir",
+     "titel": "Ausstellung \"Seed Pattern\", Fransenfledermaus, Ausgrabungsstätte in Jericho",
      "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10574.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
@@ -919,12 +1535,12 @@
    ]
   },
   {
-   "titel": "Baugenehmigungen von Wohnungen brechen nach starkem Anstieg ein",
-   "kurz": "Nach mehr als einem Jahr mit steigenden Baugenehmigungen gibt es im September erstmals wieder einen Rückgang. Im Vergleich zum Vorjahresmonat wurden knapp 15…",
-   "link": "https://www.tagesschau.de/wirtschaft/konjunktur/wohnungsbau-september-100.html",
+   "titel": "VW-Chef Blume: \"Komplett verändertes Umfeld\" zwingt zum Sparkurs",
+   "kurz": "Bei VW starten kommende Woche die Tarifgespräche. Im NDR-Interview spricht Konzernchef Blume über zu hohe Kosten, teure Werke und den umstrittenen Auftritt des…",
+   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vw-volkswagen-blume-zukunftsstrategie-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T10:01:00+01:00",
+   "zeit": "2026-11-18T14:43:17+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -933,560 +1549,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Baugenehmigungen von Wohnungen brechen nach starkem Anstieg ein",
-     "link": "https://www.tagesschau.de/wirtschaft/konjunktur/wohnungsbau-september-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Stromsteuersenkung und Spritpreisdeckel - zeitlich begrenzt",
-   "kurz": "Die Spitzen von Union und SPD haben sich im Koalitionsausschuss auf eine Senkung der Stromsteuer für alle geeinigt. Die Finanzierung steht allerdings nur für…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/koalitionsausschuss-einigung-stromsteuer-spritpreisdeckel-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T09:55:03+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Stromsteuersenkung und Spritpreisdeckel - zeitlich begrenzt",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/koalitionsausschuss-einigung-stromsteuer-spritpreisdeckel-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Linken-Vorstand beantragt Ausschluss der Abgeordneten Emde",
-   "kurz": "Der Vorstand der Linken-Fraktion im Berliner Abgeordnetenhaus hat offiziell den Ausschluss von Vanessa Emde beantragt. In einer Mitteilung wurde das mit dem…",
-   "link": "https://www.tagesschau.de/inland/regional/berlin/emde-ausschluss-linke-antrag-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T09:38:42+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Linken-Vorstand beantragt Ausschluss der Abgeordneten Emde",
-     "link": "https://www.tagesschau.de/inland/regional/berlin/emde-ausschluss-linke-antrag-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Ghana's new $60m presidential jet sparks public outrage",
-   "kurz": "The purchase has sparked outrage over its cost as many Ghanaians struggle with rising cost of living.",
-   "link": "https://www.bbc.co.uk/news/articles/ck792dez8dp3o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-18T09:27:51Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Ghana's new $60m presidential jet sparks public outrage",
-     "link": "https://www.bbc.co.uk/news/articles/ck792dez8dp3o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Stromsteuersenkung und Spritpreisdeckel: Was die Entlastungen im Alltag bringen könnten",
-   "kurz": "Ab Januar wollen Union und SPD die Stromsteuer für ein Jahr auf das europäische Mindestniveau senken. Auch ein Spritpreisdeckel ist vereinbart. Was wurde…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/was-bringt-stromsteuer-senkung-koalitionsausschuss-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T09:26:33+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Stromsteuersenkung und Spritpreisdeckel: Was die Entlastungen im Alltag bringen könnten",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/was-bringt-stromsteuer-senkung-koalitionsausschuss-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Angriff aus Russland? Cyberattacke auf Eishockey-Weltverband",
-   "kurz": "Mitten im Streit um Russlands Rückkehr wird der Eishockey-Weltverband IIHF gezielt gehackt. Auf seiner Website erscheint russische Propaganda. WM-Gastgeber…",
-   "link": "https://www.dw.com/de/angriff-aus-russland-cyberattacke-auf-eishockey-weltverband/a-79977795?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-18T09:25:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Angriff aus Russland? Cyberattacke auf Eishockey-Weltverband",
-     "link": "https://www.dw.com/de/angriff-aus-russland-cyberattacke-auf-eishockey-weltverband/a-79977795?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "APEC summit: Xi greets Trump on arrival in Shenzhen",
-   "kurz": "US President Donald Trump has arrived in the Chinese tech hub of Shenzhen for a much-anticipated meeting with Russian and Chinese counterparts. Follow DW live.",
-   "link": "https://www.dw.com/en/apec-summit-xi-greets-trump-on-arrival-in-shenzhen/live-79964719?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T09:23:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "APEC summit: What Trump, Xi and Putin want",
-     "link": "https://www.dw.com/en/apec-summit-what-trump-xi-and-putin-want/a-79970462?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "How a green economy could help reverse climate change",
-   "kurz": "Green growth promises a future in which economies thrive without destroying the environment. But is this vision realistic?",
-   "link": "https://www.dw.com/en/how-a-green-economy-could-help-reverse-climate-change/a-79874576?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T09:02:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "How a green economy could help reverse climate change",
-     "link": "https://www.dw.com/en/how-a-green-economy-could-help-reverse-climate-change/a-79874576?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany news: Merz's coalition agrees on electricity tax cut",
-   "kurz": "The coalition government has agreed on an electricity tax cut for households amid energy shocks from the war in Iran. Meanwhile, the BSW party has failed to…",
-   "link": "https://www.dw.com/en/germany-news-merz-s-coalition-agrees-on-electricity-tax-cut/live-79976869?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T08:52:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Germany news: Merz's coalition agrees on electricity tax cut",
-     "link": "https://www.dw.com/en/germany-news-merz-s-coalition-agrees-on-electricity-tax-cut/live-79976869?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Ukraine: Kyiv targets Krasnodar refineries after felling Kerch bridge",
-   "kurz": "Reports that two industrial facilities were targeted overnight in Krasnodar, after the Kerch bridge was put out of action by Ukrainian strikes.",
-   "link": "https://www.dw.com/en/ukraine-kyiv-targets-krasnodar-refineries-after-felling-kerch-bridge/live-79976877?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T08:42:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Ukraine: Kyiv targets Krasnodar refineries after felling Kerch bridge",
-     "link": "https://www.dw.com/en/ukraine-kyiv-targets-krasnodar-refineries-after-felling-kerch-bridge/live-79976877?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "News kompakt: Rubio schließt Cyberattacke auf USA aus",
-   "kurz": "US-Außenminister Rubio sieht nach eigenen Worten keine Hinweise auf einen koordinierten Cyberangriff bei US-Technikpannen. In Alaska gewinnen die Demokraten…",
-   "link": "https://www.dw.com/de/news-kompakt-rubio-schließt-cyberattacke-auf-usa-aus/a-79976623?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-18T08:01:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "News kompakt: Rubio schließt Cyberattacke auf USA aus",
-     "link": "https://www.dw.com/de/news-kompakt-rubio-schließt-cyberattacke-auf-usa-aus/a-79976623?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "US-Midterms: Demokraten gewinnen auch Senatssitz in Alaska",
-   "kurz": "Alaska stand noch aus, nun ist klar: Auch dort haben die Demokraten den Senatssitz gewonnen. Damit konnten sie bei den Midterms neun zusätzliche Sitze erobern…",
-   "link": "https://www.tagesschau.de/ausland/amerika/midterms-usa-alaska-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T07:56:21+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "US-Midterms: Demokraten gewinnen auch Senatssitz in Alaska",
-     "link": "https://www.tagesschau.de/ausland/amerika/midterms-usa-alaska-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Philippines police ask prosecutors to charge Thomas Markle over child sex abuse material",
-   "kurz": "Markle is being held in custody in the US after one charge and has previously denied all of the allegations.",
-   "link": "https://www.bbc.co.uk/news/articles/ckg5ry8m49ggo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-18T07:48:18Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Philippines police ask prosecutors to charge Thomas Markle over child sex abuse material",
-     "link": "https://www.bbc.co.uk/news/articles/ckg5ry8m49ggo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Die Ergebnisse der Midterms in den USA in Zahlen und Karten",
-   "kurz": "Immer noch laufen in den USA Auszählungen nach den Midterms. Die wichtigsten Fragen sind aber geklärt: Wer dominiert Senat und im Repräsentantenhaus? Wer…",
-   "link": "https://www.tagesschau.de/ausland/amerika/midterms-ergebnisse-102.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T07:07:52+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Die Ergebnisse der Midterms in den USA in Zahlen und Karten",
-     "link": "https://www.tagesschau.de/ausland/amerika/midterms-ergebnisse-102.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "India news: Gandhi gives talk in New York, warns of 'looming crisis'",
-   "kurz": "Indian opposition leader Rahul Gandhi's US remarks on the economy drew a BJP counterattack. Meanwhile, the Quad leaders pushed back on moves to undermine…",
-   "link": "https://www.dw.com/en/india-news-gandhi-gives-talk-in-new-york-warns-of-looming-crisis/live-79976447?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T07:03:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "India news: Gandhi gives talk in New York, warns of 'looming crisis'",
-     "link": "https://www.dw.com/en/india-news-gandhi-gives-talk-in-new-york-warns-of-looming-crisis/live-79976447?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "15 Minuten: Rennen um FIFA-Spitze, Weihnachtszeit, KI-Bewerbungen",
-   "kurz": "Wer wird der neue FIFA-Präsident? Infantino gegen Diallo. KI bei Bewerbungen - geht das so einfach? Was kostet ein Weihnachtsmarktbesuch in diesem Jahr? Die…",
-   "link": "https://www.tagesschau.de/multimedia/podcast/15-minuten/15min-podcast-fifa-weihnachtsmarkt-ki-bewerbungen-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T06:46:40+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "15 Minuten: Rennen um FIFA-Spitze, Weihnachtszeit, KI-Bewerbungen",
-     "link": "https://www.tagesschau.de/multimedia/podcast/15-minuten/15min-podcast-fifa-weihnachtsmarkt-ki-bewerbungen-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Ruandas Abschiebezentrum für Europa kommt - Uganda treibt Planungen voran",
-   "kurz": "Ab 2027 will auch Deutschland abgelehnte Asylbewerber nach Ruanda abschieben - ein radikaler Kurswechsel. Auch mit Uganda laufen Verhandlungen europäischer…",
-   "link": "https://www.dw.com/de/ruandas-abschiebezentrum-für-europa-kommt-uganda-treibt-planungen-voran/a-79975193?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-18T06:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Ruandas Abschiebezentrum für Europa kommt - Uganda treibt Planungen voran",
-     "link": "https://www.dw.com/de/ruandas-abschiebezentrum-für-europa-kommt-uganda-treibt-planungen-voran/a-79975193?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "11KM-Podcast: Torfabbau im Moor - Profit vor Klimaschutz?",
-   "kurz": "Für den Klimaschutz sollen Moore wiedervernässt werden. Doch Torfabbauunternehmen in Niedersachsen haben offenbar tiefer gegraben als genehmigt. 11KM über…",
-   "link": "https://www.tagesschau.de/multimedia/podcast/11km/podcast-11km-torfabbau-moor-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T06:27:44+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "11KM-Podcast: Torfabbau im Moor - Profit vor Klimaschutz?",
-     "link": "https://www.tagesschau.de/multimedia/podcast/11km/podcast-11km-torfabbau-moor-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Welche Fortschritte beim Klimaschutz erreicht wurden",
-   "kurz": "Weltweit kommt der Ausbau von Erneuerbaren Energien voran - viel stärker als vor Jahren noch erwartet. Das liegt unter anderem daran, dass Solarzellen viel…",
-   "link": "https://www.tagesschau.de/wissen/klima/erneuerbare-energien-fortschritte-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T06:16:11+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Welche Fortschritte beim Klimaschutz erreicht wurden",
-     "link": "https://www.tagesschau.de/wissen/klima/erneuerbare-energien-fortschritte-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "K.o.-Tropfen: Neue Spur im Urin hilft beim Nachweis",
-   "kurz": "Der Einsatz von K.o.-Tropfen bei Sexualdelikten oder Raub ist für die Opfer hochgefährlich - und meist schwer nachzuweisen. Mithilfe eines neu identifizierten…",
-   "link": "https://www.tagesschau.de/wissen/gesundheit/neuer-biomarker-im-urin-hilft-ko-tropfen-nachzuweisen-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T06:06:29+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "K.o.-Tropfen: Neue Spur im Urin hilft beim Nachweis",
-     "link": "https://www.tagesschau.de/wissen/gesundheit/neuer-biomarker-im-urin-hilft-ko-tropfen-nachzuweisen-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Deutsche-Bank-Tochter DWS: Zwölf Milliarden Euro ohne Geldwäsche-Aufsicht",
-   "kurz": "Die Deutsche-Bank-Tochter DWS verwaltet Milliarden für Betriebsrenten in einer Stiftung, die nicht von der Finanzaufsicht Bafin kontrolliert wird. Doch nun…",
-   "link": "https://www.tagesschau.de/investigativ/ndr-wdr/dws-118.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T06:00:42+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Deutsche-Bank-Tochter DWS: Zwölf Milliarden Euro ohne Geldwäsche-Aufsicht",
-     "link": "https://www.tagesschau.de/investigativ/ndr-wdr/dws-118.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Greetings from a Berlin square, where an artist's statue watches over children at play",
-   "kurz": "Children frolic around the ever-watchful and calm Käthe Kollwitz cast in bronze, in a square named after the German artist, whose work often depicted children…",
-   "link": "https://www.npr.org/2026/11/18/nx-s1-6043021/berlin-kollwitzplatz-statue",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-18T06:00:00-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Greetings from a Berlin square, where an artist's statue watches over children at play",
-     "link": "https://www.npr.org/2026/11/18/nx-s1-6043021/berlin-kollwitzplatz-statue",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Grand Theft Auto VI is a grounded love story, a gonzo crime thriller and a gaming triumph",
-   "kurz": "An inspired synthesis of violent satire and contemplative storytelling, Grand Theft Auto VI is more mature and ambitious than any prior game in the…",
-   "link": "https://www.npr.org/2026/11/18/nx-s1-6040326/grand-theft-auto-6-review-vice-city-masterpiece",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-18T06:00:00-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Grand Theft Auto VI is a grounded love story, a gonzo crime thriller and a gaming triumph",
-     "link": "https://www.npr.org/2026/11/18/nx-s1-6040326/grand-theft-auto-6-review-vice-city-masterpiece",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Trump lands in China with key meetings with Xi and Putin on the agenda",
-   "kurz": "Xi paid Trump a special honor by greeting him on the tarmac after Air Force One arrived in Shenzhen, reciprocating a gesture made by the U.S. president during…",
-   "link": "https://www.npr.org/2026/11/18/nx-s1-6045518/trump-china-xi-putin",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-18T05:32:03-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Trump lands in China with key meetings with Xi and Putin on the agenda",
-     "link": "https://www.npr.org/2026/11/18/nx-s1-6045518/trump-china-xi-putin",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "\"Heimatreport\": Viel Zufriedenheit, aber auch Sorgen",
-   "kurz": "Der erste \"Heimatreport\" des Bundeslandwirtschaftsministeriums zeigt: Viele Deutsche sind zufrieden und fühlen sich mit Wohnort und Region verbunden. Sorgen…",
-   "link": "https://www.tagesschau.de/inland/gesellschaft/stimmungslage-deutschland-heimatreport-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T05:31:00+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "\"Heimatreport\": Viel Zufriedenheit, aber auch Sorgen",
-     "link": "https://www.tagesschau.de/inland/gesellschaft/stimmungslage-deutschland-heimatreport-100.html",
+     "titel": "VW-Chef Blume: \"Komplett verändertes Umfeld\" zwingt zum Sparkurs",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vw-volkswagen-blume-zukunftsstrategie-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
