@@ -1,66 +1,216 @@
 {
- "erzeugt": "2026-11-18T07:45:06Z",
- "anzahl": 14,
- "nur_ausland": 1,
- "hinweise": [],
+ "erzeugt": "2026-11-18T20:45:39Z",
+ "anzahl": 13,
+ "nur_ausland": 0,
+ "hinweise": [
+  "Daily Nation: nicht erreichbar (HTTPError: 404 Client Error: Not Found for url: https://nation.africa/kenya/rss.xml)",
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+ ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "Five EU countries announce migrant deportation centre in Rwanda",
-   "kurz": "Germany, Denmark, Austria, Greece and the Netherlands have announced a \"return hub\" for failed asylum seekers.",
-   "link": "https://www.bbc.co.uk/news/articles/cw987343352go?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-17T01:10:59Z",
-   "ausland_quellen": 2,
+   "titel": "El Eurogrupo amplía el plazo para presentar candidatos a la dirección del BCE con Hernández de Cos como favorito a la presidencia",
+   "kurz": "Alemania designa de forma oficial al economista Markus K. Brunnermeier para ser economista jefe",
+   "link": "https://elpais.com/economia/2026-11-18/el-eurogrupo-amplia-el-plazo-para-presentar-candidatos-a-la-direccion-del-bce-con-hernandez-de-cos-como-favorito-a-la-presidencia.html",
+   "sprache": "es",
+   "zeit": "2026-11-18T18:15:45Z",
+   "ausland_quellen": 1,
    "laender": [
-    "Großbritannien"
+    "Spanien"
    ],
    "laender_einig": [
-    "Großbritannien"
+    "Spanien"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Österreich"
-   ],
+   "beteiligte_laender": [],
    "zusammenfassung": [
-    "BBC Europe (Großbritannien): Five EU countries announce migrant deportation centre in Rwanda",
-    "Guardian Germany (Großbritannien): Five EU states announce plans for immigration ‘return hubs’ in Rwanda"
+    "El País (Spanien): El Eurogrupo amplía el plazo para presentar candidatos a la dirección del BCE con Hernández de Cos como favorito a la presidencia"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
-   "nur_ausland": true,
-   "unabhaengig_n": 2,
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "Five EU countries announce migrant deportation centre in Rwanda",
-     "link": "https://www.bbc.co.uk/news/articles/cw987343352go?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Five EU states announce plans for immigration ‘return hubs’ in Rwanda",
-     "link": "https://www.theguardian.com/world/2026/nov/16/eu-states-immigration-return-hubs-rwanda",
-     "eigentuemer": "gehört Guardian Media Group",
+     "titel": "El Eurogrupo amplía el plazo para presentar candidatos a la dirección del BCE con Hernández de Cos como favorito a la presidencia",
+     "link": "https://elpais.com/economia/2026-11-18/el-eurogrupo-amplia-el-plazo-para-presentar-candidatos-a-la-direccion-del-bce-con-hernandez-de-cos-como-favorito-a-la-presidencia.html",
+     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers",
-   "kurz": "Tanks in Gaza, armored vehicles sold to Qatar, and bombs dropped in Yemen. A leak of internal documents from Germany's largest bank shows how Deutsche Bank…",
-   "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/18/inside-deutsche-bank-how-the-banking-giant-bent-rules-to-fund-arms-dealers_6783130_8.html",
+   "titel": "Paketdienst GLS schließt sich in Deutschland mit DPD zusammen",
+   "kurz": "Die Marke DPD soll in Deutschland verschwinden, der GLS-Eigentümer 80 Prozent am Joint Venture halten",
+   "link": "https://www.derstandard.at/story/3000000349912/paketdienst-gls-schlie223t-sich-mit-wettbewerber-dpd-zusammen?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-18T15:46:47Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Paketdienst GLS schließt sich in Deutschland mit DPD zusammen"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Paketdienst GLS schließt sich in Deutschland mit DPD zusammen",
+     "link": "https://www.derstandard.at/story/3000000349912/paketdienst-gls-schlie223t-sich-mit-wettbewerber-dpd-zusammen?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’",
+   "kurz": "Reports cite 15 million leaked records reviewed by more than 200 journalists; German Finance Minister calls for authorities to investigate",
+   "link": "https://www.thehindu.com/news/international/deutsche-bank-chair-backs-ceo-after-reports-expose-past-lapses-trump-calls-tax-leak-illegal/article71715150.ece",
    "sprache": "en",
-   "zeit": "2026-11-18T07:01:05+01:00",
+   "zeit": "2026-11-18T15:33:34+05:30",
+   "ausland_quellen": 1,
+   "laender": [
+    "Indien"
+   ],
+   "laender_einig": [
+    "Indien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "The Hindu (Indien): Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Datenleck: Interne Dokumente belasten die Deutsche Bank",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/deutsche-bank-datenleak-100.html"
+    }
+   ],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "The Hindu",
+     "land": "Indien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’",
+     "link": "https://www.thehindu.com/news/international/deutsche-bank-chair-backs-ceo-after-reports-expose-past-lapses-trump-calls-tax-leak-illegal/article71715150.ece",
+     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutsche Bank desarrolló una artimaña fiscal para la familia Aldi en el pago de impuestos",
+   "kurz": "Los documentos filtrados esta semana sobre el gigante alemán revelan que ayudó a una de las mayores fortunas del país a pagar menos a Hacienda",
+   "link": "https://elpais.com/economia/2026-11-18/deutsche-bank-desarrollo-una-artimana-fiscal-para-la-familia-aldi-en-el-pago-de-impuestos.html",
+   "sprache": "es",
+   "zeit": "2026-11-18T15:25:08Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Deutsche Bank desarrolló una artimaña fiscal para la familia Aldi en el pago de impuestos"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Datenleck: Interne Dokumente belasten die Deutsche Bank",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/deutsche-bank-datenleak-100.html"
+    }
+   ],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Deutsche Bank desarrolló una artimaña fiscal para la familia Aldi en el pago de impuestos",
+     "link": "https://elpais.com/economia/2026-11-18/deutsche-bank-desarrollo-una-artimana-fiscal-para-la-familia-aldi-en-el-pago-de-impuestos.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Das exklusive britische Meersalz von Maldon soll Beimischungen aus Deutschland enthalten",
+   "kurz": "Der britische \"Observer\" hat herausgefunden, dass dem Produkt deutsches Steinsalz zugesetzt worden sein soll",
+   "link": "https://www.derstandard.at/story/3000000349813/das-exklusive-britische-meersalz-von-maldon-soll-beimischungen-aus-deutschland-enthalten?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-18T11:58:13Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Das exklusive britische Meersalz von Maldon soll Beimischungen aus Deutschland enthalten"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Das exklusive britische Meersalz von Maldon soll Beimischungen aus Deutschland enthalten",
+     "link": "https://www.derstandard.at/story/3000000349813/das-exklusive-britische-meersalz-von-maldon-soll-beimischungen-aus-deutschland-enthalten?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "'Inside Deutsche Bank': How the banking giant found out it had acted as an intermediary for a huge money-laundering network",
+   "kurz": "The scheme, which was discovered in 2020 by an analyst at the German bank, has moved more than €1.7 billion and was linked to Russian oligarch Oleg Deripaska…",
+   "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/18/inside-deutsche-bank-how-the-banking-giant-found-out-it-had-acted-as-an-intermediary-for-a-huge-money-laundering-network_6783295_8.html",
+   "sprache": "en",
+   "zeit": "2026-11-18T11:41:15+01:00",
    "ausland_quellen": 1,
    "laender": [
     "Frankreich"
@@ -70,7 +220,8 @@
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Katar"
+    "Katar",
+    "Russland"
    ],
    "zusammenfassung": [
     "Le Monde (en) (Frankreich): 'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers"
@@ -90,6 +241,43 @@
      "titel": "'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers",
      "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/18/inside-deutsche-bank-how-the-banking-giant-bent-rules-to-fund-arms-dealers_6783130_8.html",
      "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Vor Van-Gogh-Auktion: Einigung mit Erben in letzter Minute",
+   "kurz": "Nachfahren des früheren jüdischen Besitzers aus Deutschland wollten die Versteigerung von \"Blühende Kastanienbäume\" verhindern. Die Auktion kann nun wie…",
+   "link": "https://www.derstandard.at/story/3000000349783/vor-van-gogh-auktion-einigung-mit-erben-in-letzter-minute?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-18T07:57:44Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Vor Van-Gogh-Auktion: Einigung mit Erben in letzter Minute"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Vor Van-Gogh-Auktion: Einigung mit Erben in letzter Minute",
+     "link": "https://www.derstandard.at/story/3000000349783/vor-van-gogh-auktion-einigung-mit-erben-in-letzter-minute?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -132,44 +320,7 @@
    ]
   },
   {
-   "titel": "DER ANDERE BLICK - Das Elterngeld ist eine teure Umverteilung mit einer ernüchternden Bilanz",
-   "kurz": "Fast zwanzig Jahre und Milliarden Euro später ist Deutschland weder bei der Geburtenrate noch bei der Gleichberechtigung entscheidend weitergekommen. Auch die…",
-   "link": "https://www.nzz.ch/der-andere-blick/das-elterngeld-hat-traditionelle-rollen-nicht-veraendert-nur-subventioniert-ld.10066254",
-   "sprache": "de",
-   "zeit": "2026-11-18T04:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): DER ANDERE BLICK - Das Elterngeld ist eine teure Umverteilung mit einer ernüchternden Bilanz"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "DER ANDERE BLICK - Das Elterngeld ist eine teure Umverteilung mit einer ernüchternden Bilanz",
-     "link": "https://www.nzz.ch/der-andere-blick/das-elterngeld-hat-traditionelle-rollen-nicht-veraendert-nur-subventioniert-ld.10066254",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its open-door policy",
+   "titel": "From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its welcome policy",
    "kurz": "Along with four other European countries, Germany, which has taken in nearly one million Syrians since 2015, is now considering the creation of a 'return…",
    "link": "https://www.lemonde.fr/en/international/article/2026/11/18/from-merkel-s-we-can-do-it-to-deporting-rejected-asylum-seekers-to-rwanda-germany-has-abandoned-its-open-door-policy_6782999_4.html",
    "sprache": "en",
@@ -184,7 +335,7 @@
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "Le Monde (en) (Frankreich): From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its open-door policy"
+    "Le Monde (en) (Frankreich): From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its welcome policy"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -198,7 +349,7 @@
      "land": "Frankreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its open-door policy",
+     "titel": "From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its welcome policy",
      "link": "https://www.lemonde.fr/en/international/article/2026/11/18/from-merkel-s-we-can-do-it-to-deporting-rejected-asylum-seekers-to-rwanda-germany-has-abandoned-its-open-door-policy_6782999_4.html",
      "eigentuemer": "gehört Groupe Le Monde",
      "zaehlt_nicht": ""
@@ -206,22 +357,24 @@
    ]
   },
   {
-   "titel": "Volkswagen lanzó una semana de descuentos y financiación a tasa 0",
-   "kurz": "La automotriz alemana lanzó una campaña con beneficios de financiación para la compra de sus modelos 0km; qué vehículos incluye",
-   "link": "https://www.lanacion.com.ar/autos/volkswagen-lanzo-una-semana-de-descuentos-y-financiacion-a-tasa-0-nid18112026/",
-   "sprache": "es",
-   "zeit": "2026-11-18T03:00:00Z",
+   "titel": "Five EU states announce plans for immigration ‘return hubs’ in Rwanda",
+   "kurz": "Germany, Austria, Netherlands, Denmark and Greece likely to face challenges to policy criticised as ‘grave moral failing’ Five EU member states have announced…",
+   "link": "https://www.theguardian.com/world/2026/nov/16/eu-states-immigration-return-hubs-rwanda",
+   "sprache": "en",
+   "zeit": "2026-11-17T01:10:59Z",
    "ausland_quellen": 1,
    "laender": [
-    "Argentinien"
+    "Großbritannien"
    ],
    "laender_einig": [
-    "Argentinien"
+    "Großbritannien"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [],
+   "beteiligte_laender": [
+    "Österreich"
+   ],
    "zusammenfassung": [
-    "La Nación (Argentinien): Volkswagen lanzó una semana de descuentos y financiación a tasa 0"
+    "Guardian Germany (Großbritannien): Five EU states announce plans for immigration ‘return hubs’ in Rwanda"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -231,34 +384,34 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "La Nación",
-     "land": "Argentinien",
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Volkswagen lanzó una semana de descuentos y financiación a tasa 0",
-     "link": "https://www.lanacion.com.ar/autos/volkswagen-lanzo-una-semana-de-descuentos-y-financiacion-a-tasa-0-nid18112026/",
-     "eigentuemer": "Eigentümer unbekannt",
+     "titel": "Five EU states announce plans for immigration ‘return hubs’ in Rwanda",
+     "link": "https://www.theguardian.com/world/2026/nov/16/eu-states-immigration-return-hubs-rwanda",
+     "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "A research blade in Germany sheds its worn front edge after erosion , and the spar underneath stays bolted to the turbine for a second life",
-   "kurz": "",
-   "link": "https://www.ecoportal.net/en/worn-front-edge-research-blade-germany/46636/",
+   "titel": "German knives, English socks: 13 gifts beloved globally that Americans are missing out on",
+   "kurz": "From Guyanese rum to soft Australian bedsheets, you don’t have to buy a plane ticket to enjoy Guardian staff’s international favorites – perfect for holidays…",
+   "link": "https://www.theguardian.com/thefilter-us/2026/nov/11/best-international-gifts",
    "sprache": "en",
-   "zeit": "2026-11-18T01:15:00Z",
+   "zeit": "2026-11-18T20:11:07Z",
    "ausland_quellen": 1,
    "laender": [
-    "United States"
+    "Großbritannien"
    ],
-   "laender_einig": [
-    "United States"
-   ],
+   "laender_einig": [],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [],
+   "beteiligte_laender": [
+    "Großbritannien"
+   ],
    "zusammenfassung": [
-    "ecoportal.net (United States): A research blade in Germany sheds its worn front edge after erosion , and the spar underneath stays bolted to the turbine for a second life"
+    "Guardian Germany (Großbritannien): German knives, English socks: 13 gifts beloved globally that Americans are missing out on"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -268,227 +421,35 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "ecoportal.net",
-     "land": "United States",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "A research blade in Germany sheds its worn front edge after erosion , and the spar underneath stays bolted to the turbine for a second life",
-     "link": "https://www.ecoportal.net/en/worn-front-edge-research-blade-germany/46636/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Bagels Over Berlin : Honor , Valor , and the Jewish Airmen of WWII",
-   "kurz": "",
-   "link": "https://www.hamlethub.com/events/bagels-over-berlin-honor-valor-and-the-jewish-airmen-of-wwii-2026-11-17",
-   "sprache": "en",
-   "zeit": "2026-11-18T01:15:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "United States"
-   ],
-   "laender_einig": [
-    "United States"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "hamlethub.com (United States): Bagels Over Berlin : Honor , Valor , and the Jewish Airmen of WWII"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "hamlethub.com",
-     "land": "United States",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "Bagels Over Berlin : Honor , Valor , and the Jewish Airmen of WWII",
-     "link": "https://www.hamlethub.com/events/bagels-over-berlin-honor-valor-and-the-jewish-airmen-of-wwii-2026-11-17",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany demands 'transparency' from Deutsche Bank after data leak",
-   "kurz": "Lars Klingbeil, Germany's finance minister and vice chancellor, said the banking giant must 'provide full transparency' after an international investigation by…",
-   "link": "https://www.lemonde.fr/en/international/article/2026/11/17/germany-demands-transparency-from-deutsche-bank-after-data-leak_6782825_4.html",
-   "sprache": "en",
-   "zeit": "2026-11-17T17:49:36+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): Germany demands 'transparency' from Deutsche Bank after data leak"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Datenleck: Interne Dokumente belasten die Deutsche Bank",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/deutsche-bank-datenleak-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
      "art": "privat",
-     "beteiligt": false,
-     "titel": "Germany demands 'transparency' from Deutsche Bank after data leak",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/17/germany-demands-transparency-from-deutsche-bank-after-data-leak_6782825_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
+     "beteiligt": true,
+     "titel": "German knives, English socks: 13 gifts beloved globally that Americans are missing out on",
+     "link": "https://www.theguardian.com/thefilter-us/2026/nov/11/best-international-gifts",
+     "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "German foreign minister criticizes Moscow's 'threats' to keep influence in South Caucasus",
-   "kurz": "Germany supports Azerbaijan, Armenia peace process, their interest in closer ties with Europe Johann Wadephul says ahead of visit to Baku",
-   "link": "https://www.aa.com.tr/en/europe/german-foreign-minister-criticizes-moscows-threats-to-keep-influence-in-south-caucasus/4128033",
-   "sprache": "en",
-   "zeit": "2026-11-17T17:44:55+03:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Türkei"
-   ],
-   "laender_einig": [
-    "Türkei"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Anadolu (Türkei): German foreign minister criticizes Moscow's 'threats' to keep influence in South Caucasus"
-   ],
-   "staatsnah": [
-    "Anadolu"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Anadolu",
-     "land": "Türkei",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "German foreign minister criticizes Moscow's 'threats' to keep influence in South Caucasus",
-     "link": "https://www.aa.com.tr/en/europe/german-foreign-minister-criticizes-moscows-threats-to-keep-influence-in-south-caucasus/4128033",
-     "eigentuemer": "staatlich (Türkei)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Alemania presupuestará 20 millones de euros para enviar a 40 migrantes al centro de deportación en Ruanda",
-   "kurz": "El SPD, miembro de la coalición de Gobierno junto a los democristianos, avisa de que actuará para frenar la participación de Berlín en el pacto con Kigali",
-   "link": "https://elpais.com/internacional/2026-11-17/alemania-presupuestara-20-millones-de-euros-para-enviar-a-40-migrantes-al-centro-de-deportacion-europeo-en-ruanda.html",
-   "sprache": "es",
-   "zeit": "2026-11-17T16:30:51Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Alemania presupuestará 20 millones de euros para enviar a 40 migrantes al centro de deportación en Ruanda"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Alemania presupuestará 20 millones de euros para enviar a 40 migrantes al centro de deportación en Ruanda",
-     "link": "https://elpais.com/internacional/2026-11-17/alemania-presupuestara-20-millones-de-euros-para-enviar-a-40-migrantes-al-centro-de-deportacion-europeo-en-ruanda.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Jódar, del bajón a la esperanza gracias al salvador Zverev",
-   "kurz": "El madrileño sufre un pinchazo físico y cede frente a Fils: 4-6, 6-2 y 6-2. A pesar de haber perdido ya dos duelos, el triunfo del alemán ante Shelton evita su…",
-   "link": "https://elpais.com/deportes/tenis/2026-11-17/jodar-batido-por-fils-y-pendiente-de-un-hilo-solo-zverev-puede-salvarle.html",
-   "sprache": "es",
-   "zeit": "2026-11-17T15:33:44Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Jódar, del bajón a la esperanza gracias al salvador Zverev"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Jódar, del bajón a la esperanza gracias al salvador Zverev",
-     "link": "https://elpais.com/deportes/tenis/2026-11-17/jodar-batido-por-fils-y-pendiente-de-un-hilo-solo-zverev-puede-salvarle.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Nach dem 5:0 ist Deutschland wieder im Klopp-Fieber: \"Das wird kein Spaß gegen uns\"",
-   "kurz": "Der triumphale Sieg gegen die Niederlande steigert die Erwartung an das DFB-Team ins Unermessliche. Der Bundestrainer nimmt es an und kündigt noch mehr an",
-   "link": "https://www.derstandard.at/story/3000000349619/nach-dem-50-ist-deutschland-wieder-im-klopp-fieber-das-wird-kein-spass-gegen-uns?ref=rss",
+   "titel": "Krankenstand wegen \"GTA 6\": Legt der Hype ums Game die Arbeitswelt lahm?",
+   "kurz": "In Deutschland steigen die Urlaubsanträge, in den USA wird über eine Krankmeldungswelle spekuliert. Auch Österreich dürfte vom \"GTA\"-Fieber nicht verschont…",
+   "link": "https://www.derstandard.at/story/3000000349823/krankenstand-wegen-gta-6-legt-der-hype-ums-game-die-arbeitswelt-lahm?ref=rss",
    "sprache": "de",
-   "zeit": "2026-11-17T09:38:40Z",
+   "zeit": "2026-11-18T16:00:06Z",
    "ausland_quellen": 1,
    "laender": [
     "Österreich"
    ],
-   "laender_einig": [
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "USA",
     "Österreich"
    ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
    "zusammenfassung": [
-    "Der Standard (Österreich): Nach dem 5:0 ist Deutschland wieder im Klopp-Fieber: \"Das wird kein Spaß gegen uns\""
+    "Der Standard (Österreich): Krankenstand wegen \"GTA 6\": Legt der Hype ums Game die Arbeitswelt lahm?"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -501,35 +462,33 @@
      "quelle": "Der Standard",
      "land": "Österreich",
      "art": "privat",
-     "beteiligt": false,
-     "titel": "Nach dem 5:0 ist Deutschland wieder im Klopp-Fieber: \"Das wird kein Spaß gegen uns\"",
-     "link": "https://www.derstandard.at/story/3000000349619/nach-dem-50-ist-deutschland-wieder-im-klopp-fieber-das-wird-kein-spass-gegen-uns?ref=rss",
+     "beteiligt": true,
+     "titel": "Krankenstand wegen \"GTA 6\": Legt der Hype ums Game die Arbeitswelt lahm?",
+     "link": "https://www.derstandard.at/story/3000000349823/krankenstand-wegen-gta-6-legt-der-hype-ums-game-die-arbeitswelt-lahm?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "EU nations unveil Rwanda deal for migrant return hub",
-   "kurz": "Five EU countries including Germany and Denmark on Monday unveiled a deal to establish a migrant deportation centre in Rwanda -- the first such facility…",
-   "link": "https://www.france24.com/en/eu-nations-unveil-rwanda-deal-for-migrant-return-hub",
-   "sprache": "en",
-   "zeit": "2026-11-16T20:01:34Z",
+   "titel": "\"Zu lange zugeschaut\": Österreich und Deutschland wollen \"Europäisierung\" von TikTok",
+   "kurz": "Europa sei immer mehr von digitalen Diensten, die nicht den demokratischen Grundwerten Europas verpflichtet sind, durchdrungen. Dagegen wolle man jetzt vorgehen",
+   "link": "https://www.derstandard.at/story/3000000349869/zu-lange-zugeschaut-oesterreich-und-deutschland-wollen-europaeisierung-von-tiktok?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-18T12:48:15Z",
    "ausland_quellen": 1,
    "laender": [
-    "Frankreich"
+    "Österreich"
    ],
-   "laender_einig": [
-    "Frankreich"
-   ],
+   "laender_einig": [],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [],
+   "beteiligte_laender": [
+    "Österreich"
+   ],
    "zusammenfassung": [
-    "France 24 (Frankreich): EU nations unveil Rwanda deal for migrant return hub"
+    "Der Standard (Österreich): \"Zu lange zugeschaut\": Österreich und Deutschland wollen \"Europäisierung\" von TikTok"
    ],
-   "staatsnah": [
-    "France 24"
-   ],
+   "staatsnah": [],
    "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
@@ -537,13 +496,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "France 24",
-     "land": "Frankreich",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "EU nations unveil Rwanda deal for migrant return hub",
-     "link": "https://www.france24.com/en/eu-nations-unveil-rwanda-deal-for-migrant-return-hub",
-     "eigentuemer": "staatlich (Frankreich)",
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "\"Zu lange zugeschaut\": Österreich und Deutschland wollen \"Europäisierung\" von TikTok",
+     "link": "https://www.derstandard.at/story/3000000349869/zu-lange-zugeschaut-oesterreich-und-deutschland-wollen-europaeisierung-von-tiktok?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -611,8 +570,9 @@
     }
    ],
    "themen": [
-    "'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers",
-    "Germany demands 'transparency' from Deutsche Bank after data leak"
+    "Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’",
+    "Deutsche Bank desarrolló una artimaña fiscal para la familia Aldi en el pago de impuestos",
+    "'Inside Deutsche Bank': How the banking giant found out it had acted as an intermediary for a huge money-laundering network"
    ]
   }
  ],
@@ -1144,6 +1104,9 @@
    "keine_treffer": true
   },
   "Jewish Airmen": {
+   "keine_treffer": true
+  },
+  "Vor Van": {
    "keine_treffer": true
   }
  }

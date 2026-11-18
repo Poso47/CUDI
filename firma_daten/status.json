@@ -38,12 +38,15 @@
    "naechste_planung": "2026-11-19T14:12:38Z"
   },
   "welt": {
-   "letzter_lauf": "2026-11-18T07:45:06Z",
-   "dauer_s": 28.2,
+   "letzter_lauf": "2026-11-18T20:45:39Z",
+   "dauer_s": 46.1,
    "ergebnis": "ok",
-   "zusammenfassung": "14 Themen, 1 nur im Ausland, 1 Verbindungen",
-   "hinweise": [],
-   "naechste_planung": "2026-11-18T13:45:06Z"
+   "zusammenfassung": "13 Themen, 0 nur im Ausland, 1 Verbindungen",
+   "hinweise": [
+    "Daily Nation: nicht erreichbar (HTTPError: 404 Client Error: Not Found for url: https://nation.africa/kenya/rss.xml)",
+    "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+   ],
+   "naechste_planung": "2026-11-19T02:45:39Z"
   },
   "briefing": {
    "letzter_lauf": "2026-11-18T13:58:16Z",
@@ -134,5 +137,5 @@
    "naechste_planung": "2026-11-19T13:56:48Z"
   }
  },
- "erzeugt": "2026-11-18T20:39:31Z"
+ "erzeugt": "2026-11-18T20:45:39Z"
 }
