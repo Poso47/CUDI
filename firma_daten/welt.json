@@ -1,10 +1,8 @@
 {
- "erzeugt": "2026-11-17T21:08:42Z",
- "anzahl": 15,
+ "erzeugt": "2026-11-18T07:45:06Z",
+ "anzahl": 14,
  "nur_ausland": 1,
- "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
- ],
+ "hinweise": [],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
@@ -12,14 +10,12 @@
    "kurz": "Germany, Denmark, Austria, Greece and the Netherlands have announced a \"return hub\" for failed asylum seekers.",
    "link": "https://www.bbc.co.uk/news/articles/cw987343352go?at_medium=RSS&at_campaign=rss",
    "sprache": "en",
-   "zeit": "2026-11-17T04:22:05+01:00",
-   "ausland_quellen": 3,
+   "zeit": "2026-11-17T01:10:59Z",
+   "ausland_quellen": 2,
    "laender": [
-    "Frankreich",
     "Großbritannien"
    ],
    "laender_einig": [
-    "Frankreich",
     "Großbritannien"
    ],
    "bestaetigt_laender": false,
@@ -28,13 +24,12 @@
    ],
    "zusammenfassung": [
     "BBC Europe (Großbritannien): Five EU countries announce migrant deportation centre in Rwanda",
-    "Guardian Germany (Großbritannien): Five EU states announce plans for immigration ‘return hubs’ in Rwanda",
-    "Le Monde (en) (Frankreich): Five EU countries plan 'return hub' in Rwanda, a shift in European immigration policy"
+    "Guardian Germany (Großbritannien): Five EU states announce plans for immigration ‘return hubs’ in Rwanda"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
    "nur_ausland": true,
-   "unabhaengig_n": 3,
+   "unabhaengig_n": 2,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
@@ -57,36 +52,139 @@
      "link": "https://www.theguardian.com/world/2026/nov/16/eu-states-immigration-return-hubs-rwanda",
      "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
-    },
+    }
+   ]
+  },
+  {
+   "titel": "'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers",
+   "kurz": "Tanks in Gaza, armored vehicles sold to Qatar, and bombs dropped in Yemen. A leak of internal documents from Germany's largest bank shows how Deutsche Bank…",
+   "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/18/inside-deutsche-bank-how-the-banking-giant-bent-rules-to-fund-arms-dealers_6783130_8.html",
+   "sprache": "en",
+   "zeit": "2026-11-18T07:01:05+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [
+    "Frankreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Katar"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): 'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
     {
      "quelle": "Le Monde (en)",
      "land": "Frankreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Five EU countries plan 'return hub' in Rwanda, a shift in European immigration policy",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/17/five-european-countries-plan-to-open-a-return-hub-in-rwanda-signaling-a-shift-in-european-immigration-policy_6782602_4.html",
+     "titel": "'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers",
+     "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/18/inside-deutsche-bank-how-the-banking-giant-bent-rules-to-fund-arms-dealers_6783130_8.html",
      "eigentuemer": "gehört Groupe Le Monde",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Van Gogh Auction Challenge: Heirs seek to halt Sotheby’s sale; auction house disputes duress",
-   "kurz": "Descendants of German publisher Samuel Fischer have requested Sotheby’s to withdraw a Van Gogh painting from auction. They argue the painting's sale in 1936…",
-   "link": "https://timesofindia.indiatimes.com/world/us/a-van-gogh-painting-expected-to-fetch-180-million-at-sothebys-in-new-york-faces-a-last-minute-challenge-heirs-of-its-former-jewish-owners-say-a-1936-sale-was-forced-by-nazi-persecution-and-want-the-auction-stopped/articleshow/135892208.cms",
+   "titel": "Szczecin, un oasis urbano poco conocido entre Berlín y Varsovia",
+   "kurz": "Situada en el noroeste de Polonia, frontera con Alemania, la ciudad es un auténtico hallazgo rodeado de bosques, canales y ríos",
+   "link": "https://elpais.com/elviajero/escapadas/europa/2026-11-18/szczecin-un-oasis-urbano-poco-conocido-entre-berlin-y-varsovia.html",
+   "sprache": "es",
+   "zeit": "2026-11-18T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Szczecin, un oasis urbano poco conocido entre Berlín y Varsovia"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Szczecin, un oasis urbano poco conocido entre Berlín y Varsovia",
+     "link": "https://elpais.com/elviajero/escapadas/europa/2026-11-18/szczecin-un-oasis-urbano-poco-conocido-entre-berlin-y-varsovia.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "DER ANDERE BLICK - Das Elterngeld ist eine teure Umverteilung mit einer ernüchternden Bilanz",
+   "kurz": "Fast zwanzig Jahre und Milliarden Euro später ist Deutschland weder bei der Geburtenrate noch bei der Gleichberechtigung entscheidend weitergekommen. Auch die…",
+   "link": "https://www.nzz.ch/der-andere-blick/das-elterngeld-hat-traditionelle-rollen-nicht-veraendert-nur-subventioniert-ld.10066254",
+   "sprache": "de",
+   "zeit": "2026-11-18T04:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): DER ANDERE BLICK - Das Elterngeld ist eine teure Umverteilung mit einer ernüchternden Bilanz"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "DER ANDERE BLICK - Das Elterngeld ist eine teure Umverteilung mit einer ernüchternden Bilanz",
+     "link": "https://www.nzz.ch/der-andere-blick/das-elterngeld-hat-traditionelle-rollen-nicht-veraendert-nur-subventioniert-ld.10066254",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its open-door policy",
+   "kurz": "Along with four other European countries, Germany, which has taken in nearly one million Syrians since 2015, is now considering the creation of a 'return…",
+   "link": "https://www.lemonde.fr/en/international/article/2026/11/18/from-merkel-s-we-can-do-it-to-deporting-rejected-asylum-seekers-to-rwanda-germany-has-abandoned-its-open-door-policy_6782999_4.html",
    "sprache": "en",
-   "zeit": "2026-11-18T00:01:27+05:30",
+   "zeit": "2026-11-18T03:29:53+01:00",
    "ausland_quellen": 1,
    "laender": [
-    "Indien"
+    "Frankreich"
    ],
    "laender_einig": [
-    "Indien"
+    "Frankreich"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "Times of India (Indien): Van Gogh Auction Challenge: Heirs seek to halt Sotheby’s sale; auction house disputes duress"
+    "Le Monde (en) (Frankreich): From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its open-door policy"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -96,23 +194,23 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Times of India",
-     "land": "Indien",
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Van Gogh Auction Challenge: Heirs seek to halt Sotheby’s sale; auction house disputes duress",
-     "link": "https://timesofindia.indiatimes.com/world/us/a-van-gogh-painting-expected-to-fetch-180-million-at-sothebys-in-new-york-faces-a-last-minute-challenge-heirs-of-its-former-jewish-owners-say-a-1936-sale-was-forced-by-nazi-persecution-and-want-the-auction-stopped/articleshow/135892208.cms",
-     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "titel": "From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its open-door policy",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/18/from-merkel-s-we-can-do-it-to-deporting-rejected-asylum-seekers-to-rwanda-germany-has-abandoned-its-open-door-policy_6782999_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Por qué la caída de Outlook le trajo problemas en las vías respiratorias a turistas en Alemania",
-   "kurz": "La falla de un día entero en los servidores de Microsoft 365 tuvo consecuencias inesperadas en algunos sectores",
-   "link": "https://www.lanacion.com.ar/tecnologia/por-que-la-caida-de-outlook-le-trajo-problemas-en-las-vias-respiratorias-a-turistas-en-alemania-nid17112026/",
+   "titel": "Volkswagen lanzó una semana de descuentos y financiación a tasa 0",
+   "kurz": "La automotriz alemana lanzó una campaña con beneficios de financiación para la compra de sus modelos 0km; qué vehículos incluye",
+   "link": "https://www.lanacion.com.ar/autos/volkswagen-lanzo-una-semana-de-descuentos-y-financiacion-a-tasa-0-nid18112026/",
    "sprache": "es",
-   "zeit": "2026-11-17T19:18:18Z",
+   "zeit": "2026-11-18T03:00:00Z",
    "ausland_quellen": 1,
    "laender": [
     "Argentinien"
@@ -123,7 +221,7 @@
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "La Nación (Argentinien): Por qué la caída de Outlook le trajo problemas en las vías respiratorias a turistas en Alemania"
+    "La Nación (Argentinien): Volkswagen lanzó una semana de descuentos y financiación a tasa 0"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -137,73 +235,30 @@
      "land": "Argentinien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Por qué la caída de Outlook le trajo problemas en las vías respiratorias a turistas en Alemania",
-     "link": "https://www.lanacion.com.ar/tecnologia/por-que-la-caida-de-outlook-le-trajo-problemas-en-las-vias-respiratorias-a-turistas-en-alemania-nid17112026/",
+     "titel": "Volkswagen lanzó una semana de descuentos y financiación a tasa 0",
+     "link": "https://www.lanacion.com.ar/autos/volkswagen-lanzo-una-semana-de-descuentos-y-financiacion-a-tasa-0-nid18112026/",
      "eigentuemer": "Eigentümer unbekannt",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "El escándalo que golpea al Deutsche Bank: pagos a Epstein, negocios con oligarcas rusos y el reclamo del gobierno alemán",
-   "kurz": "Una investigación basada en 15 millones de documentos internos describe cómo el banco alemán habría privilegiado sus intereses comerciales frente a alertas…",
-   "link": "https://www.lanacion.com.ar/el-mundo/el-escandalo-que-golpea-al-deutsche-bank-pagos-a-epstein-negocios-con-oligarcas-rusos-y-el-reclamo-nid17112026/",
-   "sprache": "es",
-   "zeit": "2026-11-17T18:13:56Z",
+   "titel": "A research blade in Germany sheds its worn front edge after erosion , and the spar underneath stays bolted to the turbine for a second life",
+   "kurz": "",
+   "link": "https://www.ecoportal.net/en/worn-front-edge-research-blade-germany/46636/",
+   "sprache": "en",
+   "zeit": "2026-11-18T01:15:00Z",
    "ausland_quellen": 1,
    "laender": [
-    "Argentinien"
+    "United States"
    ],
    "laender_einig": [
-    "Argentinien"
+    "United States"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "La Nación (Argentinien): El escándalo que golpea al Deutsche Bank: pagos a Epstein, negocios con oligarcas rusos y el reclamo del gobierno alemán"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Jakob Schaumann, HR, zum Datenleck bei der Deutschen Bank",
-     "link": "https://www.tagesschau.de/video/video-1685330.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "El escándalo que golpea al Deutsche Bank: pagos a Epstein, negocios con oligarcas rusos y el reclamo del gobierno alemán",
-     "link": "https://www.lanacion.com.ar/el-mundo/el-escandalo-que-golpea-al-deutsche-bank-pagos-a-epstein-negocios-con-oligarcas-rusos-y-el-reclamo-nid17112026/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "“Se les caía el techo en la cabeza”: una violenta tormenta sorprendió a 110 alumnos en plena clase en una escuela rural",
-   "kurz": "En Germania, partido de General Pinto, en la Escuela de Educación Secundaria Agraria N° 1 el viento arrancó techos, paredes y ventanas; ningún alumno sufrió…",
-   "link": "https://www.lanacion.com.ar/economia/campo/se-les-caia-el-techo-en-la-cabeza-una-violenta-tormenta-sorprendio-a-110-alumnos-en-plena-clase-en-nid17112026/",
-   "sprache": "es",
-   "zeit": "2026-11-17T18:06:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [
-    "Argentinien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "La Nación (Argentinien): “Se les caía el techo en la cabeza”: una violenta tormenta sorprendió a 110 alumnos en plena clase en una escuela rural"
+    "ecoportal.net (United States): A research blade in Germany sheds its worn front edge after erosion , and the spar underneath stays bolted to the turbine for a second life"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -213,12 +268,49 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
+     "quelle": "ecoportal.net",
+     "land": "United States",
+     "art": "unbekannt",
      "beteiligt": false,
-     "titel": "“Se les caía el techo en la cabeza”: una violenta tormenta sorprendió a 110 alumnos en plena clase en una escuela rural",
-     "link": "https://www.lanacion.com.ar/economia/campo/se-les-caia-el-techo-en-la-cabeza-una-violenta-tormenta-sorprendio-a-110-alumnos-en-plena-clase-en-nid17112026/",
+     "titel": "A research blade in Germany sheds its worn front edge after erosion , and the spar underneath stays bolted to the turbine for a second life",
+     "link": "https://www.ecoportal.net/en/worn-front-edge-research-blade-germany/46636/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Bagels Over Berlin : Honor , Valor , and the Jewish Airmen of WWII",
+   "kurz": "",
+   "link": "https://www.hamlethub.com/events/bagels-over-berlin-honor-valor-and-the-jewish-airmen-of-wwii-2026-11-17",
+   "sprache": "en",
+   "zeit": "2026-11-18T01:15:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "United States"
+   ],
+   "laender_einig": [
+    "United States"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "hamlethub.com (United States): Bagels Over Berlin : Honor , Valor , and the Jewish Airmen of WWII"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "hamlethub.com",
+     "land": "United States",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "Bagels Over Berlin : Honor , Valor , and the Jewish Airmen of WWII",
+     "link": "https://www.hamlethub.com/events/bagels-over-berlin-honor-valor-and-the-jewish-airmen-of-wwii-2026-11-17",
      "eigentuemer": "Eigentümer unbekannt",
      "zaehlt_nicht": ""
     }
@@ -246,8 +338,8 @@
    "deutsch_quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Jakob Schaumann, HR, zum Datenleck bei der Deutschen Bank",
-     "link": "https://www.tagesschau.de/video/video-1685330.html"
+     "titel": "Datenleck: Interne Dokumente belasten die Deutsche Bank",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/deutsche-bank-datenleak-100.html"
     }
    ],
    "nur_ausland": false,
@@ -307,43 +399,6 @@
    ]
   },
   {
-   "titel": "DER ANDERE BLICK - Die AfD will offenbar nicht regieren",
-   "kurz": "Die deutsche Rechtspartei streitet, wie viele Ausländer Deutschland verlassen müssen. Ihre Vorstellungen in der Migrationspolitik sind vielfach utopisch.",
-   "link": "https://www.nzz.ch/der-andere-blick/will-die-afd-regierungsfaehig-werden-muss-sie-ihren-remigrationsbegriff-klaeren-ld.10066221",
-   "sprache": "de",
-   "zeit": "2026-11-17T16:40:04Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): DER ANDERE BLICK - Die AfD will offenbar nicht regieren"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "DER ANDERE BLICK - Die AfD will offenbar nicht regieren",
-     "link": "https://www.nzz.ch/der-andere-blick/will-die-afd-regierungsfaehig-werden-muss-sie-ihren-remigrationsbegriff-klaeren-ld.10066221",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Alemania presupuestará 20 millones de euros para enviar a 40 migrantes al centro de deportación en Ruanda",
    "kurz": "El SPD, miembro de la coalición de Gobierno junto a los democristianos, avisa de que actuará para frenar la participación de Berlín en el pacto con Kigali",
    "link": "https://elpais.com/internacional/2026-11-17/alemania-presupuestara-20-millones-de-euros-para-enviar-a-40-migrantes-al-centro-de-deportacion-europeo-en-ruanda.html",
@@ -381,61 +436,22 @@
    ]
   },
   {
-   "titel": "Trotz Protesten: Sotheby's hält an Van-Gogh-Versteigerung fest",
-   "kurz": "Nachfahren des früheren jüdischen Besitzers von \"Blühende Kastanienbäume\" aus Deutschland wollten das Gemälde nicht zur Auktion zulassen",
-   "link": "https://www.derstandard.at/story/3000000349685/trotz-protesten-sothebys-h228lt-an-van-gogh-versteigerung-fest?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-17T13:32:42Z",
+   "titel": "Jódar, del bajón a la esperanza gracias al salvador Zverev",
+   "kurz": "El madrileño sufre un pinchazo físico y cede frente a Fils: 4-6, 6-2 y 6-2. A pesar de haber perdido ya dos duelos, el triunfo del alemán ante Shelton evita su…",
+   "link": "https://elpais.com/deportes/tenis/2026-11-17/jodar-batido-por-fils-y-pendiente-de-un-hilo-solo-zverev-puede-salvarle.html",
+   "sprache": "es",
+   "zeit": "2026-11-17T15:33:44Z",
    "ausland_quellen": 1,
    "laender": [
-    "Österreich"
+    "Spanien"
    ],
    "laender_einig": [
-    "Österreich"
+    "Spanien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "Der Standard (Österreich): Trotz Protesten: Sotheby's hält an Van-Gogh-Versteigerung fest"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Trotz Protesten: Sotheby's hält an Van-Gogh-Versteigerung fest",
-     "link": "https://www.derstandard.at/story/3000000349685/trotz-protesten-sothebys-h228lt-an-van-gogh-versteigerung-fest?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Alemania propondrá al próximo economista jefe del BCE y allana el camino de Cos a la presidencia",
-   "kurz": "La coalición de gobierno postula a Markus Brunnermeier para el influyente puesto, mientras Francia tiene hasta el miércoles para proponer a su candidato para…",
-   "link": "https://elpais.com/economia/2026-11-17/alemania-propondra-a-markus-brunnermeier-como-proximo-economista-jefe-del-bce.html",
-   "sprache": "es",
-   "zeit": "2026-11-17T10:19:07Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Alemania propondrá al próximo economista jefe del BCE y allana el camino de Cos a la presidencia"
+    "El País (Spanien): Jódar, del bajón a la esperanza gracias al salvador Zverev"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -449,8 +465,8 @@
      "land": "Spanien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Alemania propondrá al próximo economista jefe del BCE y allana el camino de Cos a la presidencia",
-     "link": "https://elpais.com/economia/2026-11-17/alemania-propondra-a-markus-brunnermeier-como-proximo-economista-jefe-del-bce.html",
+     "titel": "Jódar, del bajón a la esperanza gracias al salvador Zverev",
+     "link": "https://elpais.com/deportes/tenis/2026-11-17/jodar-batido-por-fils-y-pendiente-de-un-hilo-solo-zverev-puede-salvarle.html",
      "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
@@ -531,80 +547,6 @@
      "zaehlt_nicht": ""
     }
    ]
-  },
-  {
-   "titel": "Europe’s Wadden Sea is a natural wonder. So why might it join the world heritage in danger list?",
-   "kurz": "Along the coasts of the Netherlands, Germany and Denmark, its intertidal flats host a wealth of marine life and birds. But extraction industries, tourism and…",
-   "link": "https://www.theguardian.com/environment/2026/nov/16/europes-wadden-sea-is-a-natural-wonder-so-why-might-it-join-the-world-heritage-in-danger-list",
-   "sprache": "en",
-   "zeit": "2026-11-16T05:00:34Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): Europe’s Wadden Sea is a natural wonder. So why might it join the world heritage in danger list?"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Europe’s Wadden Sea is a natural wonder. So why might it join the world heritage in danger list?",
-     "link": "https://www.theguardian.com/environment/2026/nov/16/europes-wadden-sea-is-a-natural-wonder-so-why-might-it-join-the-world-heritage-in-danger-list",
-     "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Fünf EU-Staaten wollen Migranten nach Rwanda abschieben. Und die Schweiz? Beat Jans sagt: «Wir schaffen jetzt die Grundlagen für die Beteiligung an solchen…",
-   "kurz": "Ob der Bundesrat am Ende mitmacht, bleibt aber fraglich – aus rechtsstaatlichen, menschenrechtlichen und ökonomischen Gründen. Das Parlament sieht das anders…",
-   "link": "https://www.nzz.ch/schweiz/fuenf-eu-staaten-wollen-migranten-nach-rwanda-abschieben-und-die-schweiz-beat-jans-sagt-wir-schaffen-jetzt-die-grundlagen-fuer-die-beteiligung-an-solchen-return-hubs-ld.10066596",
-   "sprache": "de",
-   "zeit": "2026-11-17T16:00:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Schweiz"
-   ],
-   "zusammenfassung": [
-    "NZZ (Schweiz): Fünf EU-Staaten wollen Migranten nach Rwanda abschieben. Und die Schweiz? Beat Jans sagt: «Wir schaffen jetzt die Grundlagen für die…"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Fünf EU-Staaten wollen Migranten nach Rwanda abschieben. Und die Schweiz? Beat Jans sagt: «Wir schaffen jetzt die Grundlagen für die Beteiligung an solchen…",
-     "link": "https://www.nzz.ch/schweiz/fuenf-eu-staaten-wollen-migranten-nach-rwanda-abschieben-und-die-schweiz-beat-jans-sagt-wir-schaffen-jetzt-die-grundlagen-fuer-die-beteiligung-an-solchen-return-hubs-ld.10066596",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
   }
  ],
  "verbindungen": [
@@ -669,7 +611,7 @@
     }
    ],
    "themen": [
-    "El escándalo que golpea al Deutsche Bank: pagos a Epstein, negocios con oligarcas rusos y el reclamo del gobierno alemán",
+    "'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers",
     "Germany demands 'transparency' from Deutsche Bank after data leak"
    ]
   }
@@ -1193,6 +1135,15 @@
    "keine_treffer": true
   },
   "Trotz Protesten": {
+   "keine_treffer": true
+  },
+  "Inside Deutsche": {
+   "keine_treffer": true
+  },
+  "From Merkel": {
+   "keine_treffer": true
+  },
+  "Jewish Airmen": {
    "keine_treffer": true
   }
  }
