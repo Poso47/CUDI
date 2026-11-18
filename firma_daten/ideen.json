@@ -1,10 +1,527 @@
 {
- "erzeugt": "2026-11-17T14:36:02Z",
+ "erzeugt": "2026-11-18T14:12:38Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 76,
- "neu": 17,
+ "anzahl": 74,
+ "neu": 19,
  "ideen": [
+  {
+   "id": "idee-bdce4ad4",
+   "bereich": "ranking",
+   "titel": "Die größten Auslegerbrücken",
+   "thema": "Eine Rangliste der größten Auslegerbrücken.",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' war Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-17.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q185360 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Rangliste der größten Auslegerbrücken."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:01Z",
+   "recherche": [
+    {
+     "text": "Liste der größten Auslegerbrücken: 989.681 Abrufe",
+     "status": "einzeln",
+     "datum": "2026-11-16",
+     "quellen": [
+      {
+       "quelle": "severint.net",
+       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
+       "datum": "2026-11-16"
+      }
+     ]
+    },
+    {
+     "text": "Warum die Auslegerbrücken so oft abgerufen werden, bleibt also offen.",
+     "status": "einzeln",
+     "datum": "2026-11-16",
+     "quellen": [
+      {
+       "quelle": "severint.net",
+       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
+       "datum": "2026-11-16"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-c74c7332",
+   "bereich": "ranking",
+   "titel": "Umsatzstärkste indische Filme",
+   "thema": "Ein Ranking der umsatzstärksten indischen Filme.",
+   "begruendung": "Der Trend 'List of highest-grossing Indian films' war Platz 4 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-17.",
+   "quelle": {
+    "name": "List of highest-grossing Indian films",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Thema nicht als Ranking darstellbar: The topic 'umsatzstärksten' (highest-grossing/revenue) cannot be expressed using the allowed n",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Ein Ranking der umsatzstärksten indischen Filme."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z",
+   "recherche": []
+  },
+  {
+   "id": "idee-71d4e3d8",
+   "bereich": "fakten",
+   "titel": "Fakten über Robert Pattinson",
+   "thema": "Wissenswerte Fakten über die Person Robert Pattinson.",
+   "begruendung": "Der Trend 'Robert Pattinson' war Platz 1 der meistgelesenen Wikipedia-Seiten (de) und (en) am 2026-11-17.",
+   "quelle": {
+    "name": "Robert Pattinson",
+    "typ": "trend",
+    "score": 99.7,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswerte Fakten über die Person Robert Pattinson.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-39bdf4cd",
+   "bereich": "fakten",
+   "titel": "Wissenswertes zu James Bond",
+   "thema": "Interessante Fakten zum James-Bond-Franchise.",
+   "begruendung": "Der Trend 'James Bond' war Platz 7 der meistgelesenen Wikipedia-Seiten (de) und Platz 11 (en) am 2026-11-17.",
+   "quelle": {
+    "name": "James Bond",
+    "typ": "trend",
+    "score": 95.6,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Interessante Fakten zum James-Bond-Franchise.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-75f86e2d",
+   "bereich": "fakten",
+   "titel": "Fakten zu Suki Waterhouse",
+   "thema": "Wissenswertes über die Person Suki Waterhouse.",
+   "begruendung": "Der Trend 'Suki Waterhouse' war Platz 10 der meistgelesenen Wikipedia-Seiten (de) und Platz 3 (en) am 2026-11-17.",
+   "quelle": {
+    "name": "Suki Waterhouse",
+    "typ": "trend",
+    "score": 95.6,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über die Person Suki Waterhouse.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-bb27edcc",
+   "bereich": "fakten",
+   "titel": "Grand Theft Auto VI: Fakten",
+   "thema": "Wissenswertes zum Videospiel Grand Theft Auto VI.",
+   "begruendung": "Der Trend 'Grand Theft Auto VI' war Platz 14 der meistgelesenen Wikipedia-Seiten (de) und Platz 5 (en) am 2026-11-17.",
+   "quelle": {
+    "name": "Grand Theft Auto VI",
+    "typ": "trend",
+    "score": 92.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes zum Videospiel Grand Theft Auto VI.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-6fc0c41c",
+   "bereich": "fakten",
+   "titel": "Der Leopard von Rudraprayag",
+   "thema": "Fakten über den Leopard von Rudraprayag.",
+   "begruendung": "Der Trend 'Leopard von Rudraprayag' war Platz 6 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-17.",
+   "quelle": {
+    "name": "Leopard von Rudraprayag",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über den Leopard von Rudraprayag.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-a877c441",
+   "bereich": "story",
+   "titel": "Vorfreude auf ein neues Spiel",
+   "thema": "Die Stimmung der Vorfreude auf ein lang erwartetes Videospiel.",
+   "begruendung": "Der Trend 'Grand Theft Auto VI' war Platz 14 der meistgelesenen Wikipedia-Seiten (de) und Platz 5 (en) am 2026-11-17.",
+   "quelle": {
+    "name": "Grand Theft Auto VI",
+    "typ": "trend",
+    "score": 92.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die Stimmung der Vorfreude auf ein lang erwartetes Videospiel.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-ef4461a1",
+   "bereich": "story",
+   "titel": "Faszination für alte Epen",
+   "thema": "Die Faszination für alte Epen und Geschichten.",
+   "begruendung": "Der Trend 'Ramayana: Part 1' war Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-17.",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die Faszination für alte Epen und Geschichten.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-4556ef85",
+   "bereich": "story",
+   "titel": "Leidenschaft für Fußballturniere",
+   "thema": "Die Leidenschaft für internationale Fußballturniere.",
+   "begruendung": "Der Trend 'UEFA Nations League' war Platz 16 der meistgelesenen Wikipedia-Seiten (de) und Platz 16 (en) am 2026-11-17.",
+   "quelle": {
+    "name": "UEFA Nations League",
+    "typ": "trend",
+    "score": 91.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die Leidenschaft für internationale Fußballturniere.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-74b3565a",
+   "bereich": "erklaer",
+   "titel": "So funktioniert die Nations League",
+   "thema": "Ein Erklärvideo zur Funktionsweise der UEFA Nations League.",
+   "begruendung": "Der Trend 'UEFA Nations League' war Platz 16 der meistgelesenen Wikipedia-Seiten (de) und Platz 16 (en) am 2026-11-17.",
+   "quelle": {
+    "name": "UEFA Nations League",
+    "typ": "trend",
+    "score": 91.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zur Funktionsweise der UEFA Nations League."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-01143029",
+   "bereich": "erklaer",
+   "titel": "Was ist die Domain .xxx?",
+   "thema": "Ein Erklärvideo zur Bedeutung der Top-Level-Domain .xxx.",
+   "begruendung": "Der Trend '.xxx' war Platz 7 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-17.",
+   "quelle": {
+    "name": ".xxx",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zur Bedeutung der Top-Level-Domain .xxx."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-b9a3ded7",
+   "bereich": "reportage",
+   "titel": "Masern-Eliminierung erklärt",
+   "thema": "Ein Erklärvideo zum Status der Masern-Eliminierung.",
+   "begruendung": "Die Nachricht 'US loses measles elimination status after 26 years amid record case numbers' wurde von 2 Quellen bestätigt (BBC World).",
+   "quelle": {
+    "name": "US loses measles elimination status after 26 years amid record case numbers",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Wikipedia · AFP via France 24"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Ein Erklärvideo zum Status der Masern-Eliminierung.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-ceeae6a1",
+   "bereich": "erklaer",
+   "titel": "Faszination GTA-Reihe",
+   "thema": "Ein Erklärvideo, was die Faszination der Grand Theft Auto-Reihe ausmacht.",
+   "begruendung": "Der Trend 'Grand Theft Auto VI' war Platz 14 der meistgelesenen Wikipedia-Seiten (de) und Platz 5 (en) am 2026-11-17.",
+   "quelle": {
+    "name": "Grand Theft Auto VI",
+    "typ": "trend",
+    "score": 92.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo, was die Faszination der Grand Theft Auto-Reihe ausmacht."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
+  {
+   "id": "idee-5db0d03c",
+   "bereich": "reportage",
+   "titel": "JP Kraemers Firmen in Dortmund",
+   "thema": "Eine Reportage darüber, was aus den Dortmunder Firmen von JP Kraemer wird.",
+   "begruendung": "Der Trend 'jean pierre kraemer' war Platz 1 der Google-Trends (DE) mit der Meldung „JP Kraemer: Was aus seinen Dortmunder Firmen wird“ (t-online – Dortmund).",
+   "quelle": {
+    "name": "jean pierre kraemer",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage darüber, was aus den Dortmunder Firmen von JP Kraemer wird.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-04da7373",
+   "bereich": "reportage",
+   "titel": "Urteil im Fall Hanau erwartet",
+   "thema": "Eine Reportage über das erwartete Urteil zum tödlichen Angriff in Hanau.",
+   "begruendung": "Der Trend 'hanau' war Platz 2 der Google-Trends (DE) mit der Meldung „Hessen: Landgericht Hanau: Urteil zu tödlichem Angriff auf Obdachlosen erwartet“ (tagesschau.de).",
+   "quelle": {
+    "name": "hanau",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über das erwartete Urteil zum tödlichen Angriff in Hanau.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-cb2d281d",
+   "bereich": "reportage",
+   "titel": "Kritik an Twitch-Streamer Zarbex",
+   "thema": "Eine Reportage über die massive Kritik an Zarbex nach einer GTA 6-Livestream-Ankündigung.",
+   "begruendung": "Der Trend 'twitch zarbex' war Platz 3 der Google-Trends (DE) mit der Meldung „\"Wird seinen Kanal knallen\": Zarbex kassiert nach Ankündigung für GTA 6-Livestream massive Kritik“ (Comicschau).",
+   "quelle": {
+    "name": "twitch zarbex",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die massive Kritik an Zarbex nach einer GTA 6-Livestream-Ankündigung.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-552996b1",
+   "bereich": "reportage",
+   "titel": "Gipfeltreffen Trump, Xi, Putin",
+   "thema": "Eine Reportage über das Treffen von Trump, Xi und Putin.",
+   "begruendung": "Die Nachricht 'Treffen von Trump, Xi und Putin: Rüstung, KI - und ein heikles Thema' wurde von 2 Quellen bestätigt (Tagesschau).",
+   "quelle": {
+    "name": "Treffen von Trump, Xi und Putin: Rüstung, KI - und ein heikles Thema",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über das Treffen von Trump, Xi und Putin.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-f2cd0d34",
+   "bereich": "satire",
+   "titel": "Alaskas Senatswahl: Warten lohnt sich",
+   "thema": "Satire über die ungewöhnlich lange Auszählung der Alaska Senatswahl.",
+   "begruendung": "Die Nachricht 'Democrats win Alaska Senate race two weeks after midterms counting began' wurde von 3 Quellen bestätigt (BBC World).",
+   "quelle": {
+    "name": "Democrats win Alaska Senate race two weeks after midterms counting began",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "Wikipedia · AP"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Satire über die ungewöhnlich lange Auszählung der Alaska Senatswahl.",
+    "sprache": "de",
+    "meldung": "Democrats win Alaska Senate race two weeks after midterms counting began"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-18T14:11:03Z"
+  },
   {
    "id": "idee-f9634854",
    "bereich": "ranking",
@@ -966,168 +1483,6 @@
    "recherche": []
   },
   {
-   "id": "idee-e8b47ff4",
-   "bereich": "fakten",
-   "titel": "Eiskunstlauf-Paar Hase/Volodin",
-   "thema": "Wissenswertes über das Eiskunstlauf-Paar Hase/Volodin und ihre neuen Programme.",
-   "begruendung": "Der Trend \"minerva hase\" ist Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Hase/Volodin vor Saisonstart: Neue Programme, große Ziele“ (Eurosport).",
-   "quelle": {
-    "name": "minerva hase",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über das Eiskunstlauf-Paar Hase/Volodin und ihre neuen Programme.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z"
-  },
-  {
-   "id": "idee-3a552f90",
-   "bereich": "fakten",
-   "titel": "Wer ist Jensen Huang?",
-   "thema": "Ein Überblick über die Person Jensen Huang.",
-   "begruendung": "Der Trend \"Jensen Huang\" ist Platz 7 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-14 mit 25.026 Aufrufen und Platz 3 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14 mit 304.348 Aufrufen.",
-   "quelle": {
-    "name": "Jensen Huang",
-    "typ": "trend",
-    "score": 98.8,
-    "quellen": [
-     "reddit",
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Ein Überblick über die Person Jensen Huang.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z"
-  },
-  {
-   "id": "idee-1329fe45",
-   "bereich": "fakten",
-   "titel": "Ramayana: Teil 1 – Der Epos",
-   "thema": "Hintergründe zum ersten Teil des Ramayana-Epos.",
-   "begruendung": "Der Trend \"Ramayana: Part 1\" ist Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14 mit 581.992 Aufrufen.",
-   "quelle": {
-    "name": "Ramayana: Part 1",
-    "typ": "trend",
-    "score": 90.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Hintergründe zum ersten Teil des Ramayana-Epos.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z"
-  },
-  {
-   "id": "idee-7789abb7",
-   "bereich": "fakten",
-   "titel": "Die .xxx Domain",
-   "thema": "Wissenswertes über die Top-Level-Domain .xxx.",
-   "begruendung": "Der Trend \".xxx\" ist Platz 4 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14 mit 222.107 Aufrufen.",
-   "quelle": {
-    "name": ".xxx",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über die Top-Level-Domain .xxx.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z"
-  },
-  {
-   "id": "idee-c86f5abf",
-   "bereich": "fakten",
-   "titel": "Ansel Adams: Meister der Fotografie",
-   "thema": "Ein Blick auf das Leben und Werk des Fotografen Ansel Adams.",
-   "begruendung": "Der Trend \"Ansel Adams\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-14 mit 127.659 Aufrufen.",
-   "quelle": {
-    "name": "Ansel Adams",
-    "typ": "trend",
-    "score": 78.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Ein Blick auf das Leben und Werk des Fotografen Ansel Adams.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z"
-  },
-  {
-   "id": "idee-f0e47cf2",
-   "bereich": "reportage",
-   "titel": "Gestrandet am Flughafen",
-   "thema": "Die Stimmung und Erlebnisse von Reisenden, die von einem landesweiten Flugstopp betroffen sind.",
-   "begruendung": "Die Meldung \"'We'll get home one day' - US travellers impacted by nationwide ground stop\" ist eine bestätigte Nachricht von 2 Quellen (BBC World).",
-   "quelle": {
-    "name": "'We'll get home one day' - US travellers impacted by nationwide ground stop",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Wikipedia · Bloomberg"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Die Stimmung und Erlebnisse von Reisenden, die von einem landesweiten Flugstopp betroffen sind.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
    "id": "idee-d166812f",
    "bereich": "erklaer",
    "titel": "Daayra: Das Ende erklärt",
@@ -1197,158 +1552,6 @@
    "erstellt": "2026-11-15T12:48:34Z"
   },
   {
-   "id": "idee-94a472fb",
-   "bereich": "erklaer",
-   "titel": "Wie SpaceX Raketenteile fängt",
-   "thema": "Die Technologie und das Verfahren, mit dem SpaceX Raketenteile bei der Rückkehr zur Erde fängt.",
-   "begruendung": "Die Meldung \"'Can you believe it?': SpaceX catches part of its Starship rocket on return to Earth\" ist eine bestätigte Nachricht von 2 Quellen (BBC World).",
-   "quelle": {
-    "name": "'Can you believe it?': SpaceX catches part of its Starship rocket on return to Earth",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Die Technologie und das Verfahren, mit dem SpaceX Raketenteile bei der Rückkehr zur Erde fängt."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-15T12:48:34Z"
-  },
-  {
-   "id": "idee-83cec7d3",
-   "bereich": "erklaer",
-   "titel": "Flugstopp durch Kupferkabel?",
-   "thema": "Wie ein Kupferkabel-Upgrade einen landesweiten Flugstopp verursachen kann.",
-   "begruendung": "Die Meldung \"Copper wire upgrade caused nationwide flight suspension, US transport secretary says\" ist eine bestätigte Nachricht von 2 Quellen (BBC World).",
-   "quelle": {
-    "name": "Copper wire upgrade caused nationwide flight suspension, US transport secretary says",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Wie ein Kupferkabel-Upgrade einen landesweiten Flugstopp verursachen kann."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-15T12:48:34Z"
-  },
-  {
-   "id": "idee-09df19db",
-   "bereich": "reportage",
-   "titel": "Aryna Sabalenka entschuldigt sich",
-   "thema": "Eine Reportage über die Entschuldigung von Aryna Sabalenka nach einem viralen Clip.",
-   "begruendung": "Der Trend \"aryna sabalenka\" ist Platz 2 der Google-Trends (DE) mit über 200 Suchen; Meldung: „WTA Finals: Aryna Sabalenka apologises after viral clip of her swearing during Elina Svitolina defeat“ (BBC).",
-   "quelle": {
-    "name": "aryna sabalenka",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Entschuldigung von Aryna Sabalenka nach einem viralen Clip.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-8dcde041",
-   "bereich": "reportage",
-   "titel": "Philippinen gewinnen ESC Asia",
-   "thema": "Eine Reportage über den ersten Gewinn der Philippinen beim Eurovision Song Contest Asia.",
-   "begruendung": "Die Meldung \"Philippines wins first Eurovision Song Contest Asia\" ist eine bestätigte Nachricht von 3 Quellen (BBC World).",
-   "quelle": {
-    "name": "Philippines wins first Eurovision Song Contest Asia",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "Wikipedia · AFP"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über den ersten Gewinn der Philippinen beim Eurovision Song Contest Asia.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-1689e81b",
-   "bereich": "reportage",
-   "titel": "Papstbesuch in Chiclayo, Peru",
-   "thema": "Eine Reportage über den Besuch von Papst Leo XIV. in seiner früheren Diözese Chiclayo.",
-   "begruendung": "Die Meldung \"Papst Leo XIV. besucht frühere Diözese Chiclayo in Peru\" ist eine bestätigte Nachricht von 2 Quellen (Tagesschau).",
-   "quelle": {
-    "name": "Papst Leo XIV. besucht frühere Diözese Chiclayo in Peru",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über den Besuch von Papst Leo XIV. in seiner früheren Diözese Chiclayo.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-468d6046",
-   "bereich": "reportage",
-   "titel": "Italien verhängt Meta-Strafe",
-   "thema": "Eine Reportage über die Geldstrafe von Italien gegen Meta wegen des Zugriffs auf Nutzerfotos.",
-   "begruendung": "Die Meldung \"Italy fines Meta €805m over accessing users' photos\" ist eine bestätigte Nachricht von 2 Quellen (BBC World).",
-   "quelle": {
-    "name": "Italy fines Meta €805m over accessing users' photos",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Geldstrafe von Italien gegen Meta wegen des Zugriffs auf Nutzerfotos.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-15T12:48:34Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
    "id": "idee-aa6ccdb8",
    "bereich": "ranking",
    "titel": "Die größten Auslegerbrücken",
@@ -1400,29 +1603,6 @@
      ]
     }
    ]
-  },
-  {
-   "id": "idee-524414e9",
-   "bereich": "erklaer",
-   "titel": "Nvidia: Was macht das Unternehmen?",
-   "thema": "Eine Erklärung der Geschäftsfelder und Technologien von Nvidia.",
-   "begruendung": "Der Trend \"Nvidia\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) und Platz 5 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Nvidia",
-    "typ": "trend",
-    "score": 96.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der Geschäftsfelder und Technologien von Nvidia."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-14T12:16:39Z"
   },
   {
    "id": "idee-4d6e31f0",
@@ -1896,220 +2076,6 @@
    },
    "app_auftrag": true,
    "erstellt": "2026-11-12T13:53:05Z"
-  },
-  {
-   "id": "idee-7f957e69",
-   "bereich": "ranking",
-   "titel": "Die größten Auslegerbrücken der Welt",
-   "thema": "Die größten Auslegerbrücken nach ihrer Spannweite.",
-   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist Platz 7 der meistgelesenen Wikipedia-Seiten (de) und bezieht sich auf eine Liste von Dingen einer Art, sortierbar nach einer messbaren Zahl.",
-   "quelle": {
-    "name": "Liste der größten Auslegerbrücken",
-    "typ": "trend",
-    "score": 76.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Thema nicht als Ranking darstellbar: The property 'main span' (P2101) required for 'Spannweite' is not in the list of allowed prope",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de"
-    ],
-    "thema": "Die größten Auslegerbrücken nach ihrer Spannweite."
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:03Z",
-   "recherche": []
-  },
-  {
-   "id": "idee-b9b07765",
-   "bereich": "ranking",
-   "titel": "Die größten NBA-Spieler nach Körpergröße",
-   "thema": "Die größten Spieler der NBA, gemessen an ihrer Körpergröße.",
-   "begruendung": "Der Trend 'victor wembanyama' ist Platz 1 der Google-Trends (DE) und bezieht sich auf einen Basketballspieler, dessen Körpergröße eine messbare Eigenschaft ist.",
-   "quelle": {
-    "name": "victor wembanyama",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q1136599 heißt 'Kuril Straits', nicht 'National Basketball Association player' – bitte Vorlage nutzen.",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de"
-    ],
-    "thema": "Die größten Spieler der NBA, gemessen an ihrer Körpergröße."
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:06Z",
-   "recherche": []
-  },
-  {
-   "id": "idee-f12bd865",
-   "bereich": "ranking",
-   "titel": "Die schnellsten Pitcher der MLB",
-   "thema": "Die schnellsten Pitcher der Major League Baseball nach Wurfgeschwindigkeit.",
-   "begruendung": "Der Trend 'emilio pagán' ist Platz 2 der Google-Trends (US) und bezieht sich auf einen Pitcher, dessen Wurfgeschwindigkeit eine messbare Eigenschaft ist.",
-   "quelle": {
-    "name": "emilio pagán",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q1137177 heißt '1989 in country music', nicht 'pitcher' – bitte Vorlage nutzen.",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de"
-    ],
-    "thema": "Die schnellsten Pitcher der Major League Baseball nach Wurfgeschwindigkeit."
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-7481ec5c",
-   "bereich": "story",
-   "titel": "Wenn das Wetter plötzlich umschlägt",
-   "thema": "Die alltägliche Stimmung und Erfahrung bei einem plötzlichen Wetterwechsel.",
-   "begruendung": "Der Trend 'weather' ist Platz 4 der Google-Trends (DE) und wird im Tacoma News Tribune im Kontext einer Wetterwarnung erwähnt, was eine allgemeine Alltagsstimmung beschreiben kann.",
-   "quelle": {
-    "name": "weather",
-    "typ": "trend",
-    "score": 80.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Die alltägliche Stimmung und Erfahrung bei einem plötzlichen Wetterwechsel.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-1a93c001",
-   "bereich": "story",
-   "titel": "Die Vorfreude auf ein Festival",
-   "thema": "Die Stimmung der Erwartung und Vorfreude auf ein großes Musikfestival.",
-   "begruendung": "Der Trend 'coachella 2027 lineup' ist Platz 4 der Google-Trends (US) und wird im SFGATE im Kontext von Lineup-Leaks erwähnt, was die Stimmung der Erwartung widerspiegelt.",
-   "quelle": {
-    "name": "coachella 2027 lineup",
-    "typ": "trend",
-    "score": 80.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Die Stimmung der Erwartung und Vorfreude auf ein großes Musikfestival.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-6d601d22",
-   "bereich": "story",
-   "titel": "Die Faszination alter Epen",
-   "thema": "Die persönliche Faszination und das Eintauchen in alte Geschichten und Epen.",
-   "begruendung": "Der Trend 'Ramayana: Part 1' ist Platz 1 der meistgelesenen Wikipedia-Seiten (en) mit 840.888 Aufrufen, was auf ein breites Interesse an der Erzählung hindeutet.",
-   "quelle": {
-    "name": "Ramayana: Part 1",
-    "typ": "trend",
-    "score": 90.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Die persönliche Faszination und das Eintauchen in alte Geschichten und Epen.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-5153549d",
-   "bereich": "satire",
-   "titel": "Impeachment: Die Show muss weitergehen",
-   "thema": "Satirische Betrachtung der politischen Prozesse und der Blockade eines Impeachment-Versuchs.",
-   "begruendung": "Die Meldung 'US House blocks bid to impeach Defence Secretary Pete Hegseth, for now' ist von BBC World bestätigt und betrifft eine politische Institution, die Ziel von Spott sein kann, wenn es um bürokratische Prozesse geht.",
-   "quelle": {
-    "name": "US House blocks bid to impeach Defence Secretary Pete Hegseth, for now",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
-   "auftrag": {
-    "art": "satire",
-    "thema": "Satirische Betrachtung der politischen Prozesse und der Blockade eines Impeachment-Versuchs.",
-    "sprache": "de",
-    "meldung": "US House blocks bid to impeach Defence Secretary Pete Hegseth, for now"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
-  },
-  {
-   "id": "idee-8fd56655",
-   "bereich": "satire",
-   "titel": "FDA: Wenn der Beipackzettel wächst",
-   "thema": "Satirische Betrachtung der bürokratischen Anordnungen und Vorschriften der FDA.",
-   "begruendung": "Die Meldung 'The United States Food and Drug Administration orders manufacturers of GLP-1 medicines such as semaglutide and tirzepatide , originally…' ist durch Wikipedia und BBC News bestätigt und betrifft eine mächtige Institution, deren ",
-   "quelle": {
-    "name": "The United States Food and Drug Administration orders manufacturers of GLP-1 medicines such as semaglutide and tirzepatide , originally…",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Wikipedia · BBC News",
-     "Wikipedia · Al Jazeera"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
-   "auftrag": {
-    "art": "satire",
-    "thema": "Satirische Betrachtung der bürokratischen Anordnungen und Vorschriften der FDA.",
-    "sprache": "de",
-    "meldung": "The United States Food and Drug Administration orders manufacturers of GLP-1 medicines such as semaglutide and tirzepatide , originally…"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-11T12:47:12Z"
   }
  ]
 }
