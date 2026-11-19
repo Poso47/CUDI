@@ -1,19 +1,19 @@
 {
- "erzeugt": "2026-11-18T20:52:10Z",
+ "erzeugt": "2026-11-19T02:46:14Z",
  "anzahl": 60,
- "bestaetigt": 15,
+ "bestaetigt": 13,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
   {
-   "titel": "Putin's Crimean Bridge partly collapses as Zelensky hails 'unprecedented' attack by Ukraine",
-   "kurz": "Ukraine says the missile and drone attack on the strategic bridge in the Russian-annexed Crimea took weeks to plan.",
-   "link": "https://www.bbc.co.uk/news/articles/cw772jk4rvmxo?at_medium=RSS&at_campaign=rss",
+   "titel": "Crimean Bridge attacked again, Russian official says",
+   "kurz": "The head of Crimea said traffic was suspended after another attack on the link between Russia and the occupied territory.",
+   "link": "https://www.bbc.co.uk/news/articles/cm879dqn3e1jo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-18T20:30:00Z",
+   "zeit": "2026-11-19T01:05:03Z",
    "status": "bestätigt",
    "n_quellen": 4,
    "unabhaengig_n": 4,
@@ -37,30 +37,30 @@
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · Reuters",
-     "titel": "The Crimean Bridge is struck by Ukrainian drones for the second day in a row, killing two people and prompting Russian authorities to close…",
-     "link": "https://www.reuters.com/world/europe/ukraine-strikes-crimean-bridge-second-day-russia-pounds-kyiv-bridges-2026-11-17/",
-     "eigentuemer": "gehört Thomson Reuters",
-     "gruppe": 2,
-     "zaehlt_nicht": ""
-    },
-    {
      "quelle": "Wikipedia · AP",
      "titel": "A Russian Air Force Antonov An-12 crashes near Kemerovo , Russia, killing all 19 people on board. ( The Independent )",
      "link": "https://apnews.com/article/russia-military-air-crash-siberia-an12-bb68e35e985a5e72786d813cf0ce598d",
      "eigentuemer": "gehört The Associated Press",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · Reuters",
+     "titel": "The Crimean Bridge is struck by Ukrainian drones for the second day in a row, killing two people and prompting Russian authorities to close…",
+     "link": "https://www.reuters.com/world/europe/ukraine-strikes-crimean-bridge-second-day-russia-pounds-kyiv-bridges-2026-11-17/",
+     "eigentuemer": "gehört Thomson Reuters",
      "gruppe": 3,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Grand Theft Auto 6 is a masterpiece, say critics",
-   "kurz": "Critics have their say as to whether GTA 6, the most anticipated video game of all time, lives up to the hype.",
-   "link": "https://www.bbc.co.uk/news/articles/cw8r75xm8v4po?at_medium=RSS&at_campaign=rss",
+   "titel": "Israeli military launches rare ground operation in Gaza beyond Yellow Line",
+   "kurz": "Hamas condemns the incursion, which the Israeli military says is dismantling a \"terror tunnel\", as a \"flagrant\" ceasefire violation.",
+   "link": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-18T17:34:25Z",
+   "zeit": "2026-11-18T22:34:56Z",
    "status": "bestätigt",
    "n_quellen": 3,
    "unabhaengig_n": 3,
@@ -68,26 +68,26 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC World",
-     "titel": "Grand Theft Auto 6 is a masterpiece, say critics",
-     "link": "https://www.bbc.co.uk/news/articles/cw8r75xm8v4po?at_medium=RSS&at_campaign=rss",
+     "quelle": "Wikipedia · BBC",
+     "titel": "The Israeli army launches its first military operation in central Gaza Strip amid the displacement of families from the area, for the first…",
+     "link": "https://www.bbc.com/news/articles/cw8r7510degno",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "What makes 'Grand Theft Auto VI' more than just a game?",
-     "link": "https://www.dw.com/en/what-makes-grand-theft-auto-vi-more-than-just-a-game/a-79965822?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "Israel launches new ground operation in Gaza",
+     "link": "https://www.dw.com/en/israel-launches-new-ground-operation-in-gaza/a-79984958?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "NPR",
-     "titel": "Grand Theft Auto VI is a grounded love story, a gonzo crime thriller and a gaming triumph",
-     "link": "https://www.npr.org/2026/11/18/nx-s1-6040326/grand-theft-auto-6-review-vice-city-masterpiece",
-     "eigentuemer": "gehört NPR",
+     "quelle": "Wikipedia · AA",
+     "titel": "Three Palestinians are killed and others are injured in shelling and shooting attacks by Israeli troops in various areas of the Gaza Strip…",
+     "link": "https://www.aa.com.tr/en/middle-east/3-palestinians-killed-in-israeli-attacks-across-gaza-medical-sources/4126079",
+     "eigentuemer": "staatlich (Türkei)",
      "gruppe": 2,
      "zaehlt_nicht": ""
     }
@@ -99,7 +99,7 @@
    "link": "https://www.bbc.co.uk/news/articles/cmy49873dn95o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-18T17:34:23Z",
+   "zeit": "2026-11-18T21:13:06Z",
    "status": "bestätigt",
    "n_quellen": 3,
    "unabhaengig_n": 3,
@@ -133,90 +133,12 @@
    ]
   },
   {
-   "titel": "Trump shakes hands with Putin and Xi ahead of historic talks in China",
-   "kurz": "The three leaders will meet together for the first time on Thursday during a closely-watched summit.",
-   "link": "https://www.bbc.co.uk/news/articles/ck9d75x5wwwwo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-18T16:10:44Z",
-   "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Steve Rosenberg: Historic talks with Xi and Trump are a coup for Putin",
-     "link": "https://www.bbc.co.uk/news/articles/c9n70gd320mpo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "APEC summit: Xi, Trump and Putin gather in Shenzhen, China",
-     "link": "https://www.dw.com/en/apec-summit-xi-trump-and-putin-gather-in-shenzhen-china/live-79964719?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "NPR",
-     "titel": "Trump lands in China with key meetings with Xi and Putin on the agenda",
-     "link": "https://www.npr.org/2026/11/18/nx-s1-6045518/trump-china-xi-putin",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 2,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Palestinian woman, 72, shot dead by Israeli settlers in West Bank, health ministry says",
-   "kurz": "Palestinians say there was an attack by settlers in al-Duyuk al-Tahta, while the Israeli military says the settlers fired after being attacked.",
-   "link": "https://www.bbc.co.uk/news/articles/cqrlg377638yo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-17T20:30:20Z",
-   "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Palestinian woman, 72, shot dead by Israeli settlers in West Bank, health ministry says",
-     "link": "https://www.bbc.co.uk/news/articles/cqrlg377638yo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · Al Jazeera",
-     "titel": "A 72-year-old Palestinian woman is killed and ten others are injured in an attack by Israeli settlers on Palestinian homes in the village…",
-     "link": "https://www.aljazeera.com/news/2026/11/17/israeli-settler-pogrom-kills-palestinian-woman-wounds-10-people",
-     "eigentuemer": "staatlich (Katar)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AA",
-     "titel": "Three Palestinians are killed and others are injured in shelling and shooting attacks by Israeli troops in various areas of the Gaza Strip…",
-     "link": "https://www.aa.com.tr/en/middle-east/3-palestinians-killed-in-israeli-attacks-across-gaza-medical-sources/4126079",
-     "eigentuemer": "staatlich (Türkei)",
-     "gruppe": 2,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Xi, Trump und Putin: Drei Perspektiven, viele Differenzen",
    "kurz": "Es gilt schon vorab als historisch - das erste Dreier-Treffen von Xi, Trump und Putin auf dem APEC-Gipfel in Shenzhen. Doch die Positionen der drei Präsidenten…",
    "link": "https://www.tagesschau.de/ausland/asien/apec-treffen-xi-putin-trump-themen-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T20:43:17+01:00",
+   "zeit": "2026-11-19T00:33:32+01:00",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -242,43 +164,12 @@
    ]
   },
   {
-   "titel": "Ergebnis nach US-Zwischenwahlen in Alaska: Demokratin Mary Peltola sichert sich offenen Sitz im Senat",
-   "kurz": "Ergebnis nach US-Zwischenwahlen in Alaska: Demokratin Mary Peltola sichert sich offenen Sitz im Senat",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686120.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T20:32:34+01:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Bernd Rasem, ARD-aktuell, zum Senatssitz für Mary Peltola in Alaska",
-     "link": "https://www.tagesschau.de/video/video-1685764.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "US-Senat: Mary Peltola gewinnt für Demokraten in Alaska",
-     "link": "https://www.dw.com/de/us-senat-mary-peltola-gewinnt-für-demokraten-in-alaska/a-79979852?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Israeli military launches rare ground operation in Gaza beyond Yellow Line",
-   "kurz": "Hamas condemns the incursion, which the Israeli military says is dismantling a \"terror tunnel\", as a \"flagrant\" ceasefire violation.",
-   "link": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_medium=RSS&at_campaign=rss",
+   "titel": "Myanmar faces historic genocide verdict at UN court over Rohingya massacres",
+   "kurz": "No state has ever been found guilty by an international court of committing genocide.",
+   "link": "https://www.bbc.co.uk/news/articles/c5m2l90ez144o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-18T20:14:57Z",
+   "zeit": "2026-11-18T23:04:06Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -287,17 +178,48 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Israeli military launches rare ground operation in Gaza beyond Yellow Line",
-     "link": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_medium=RSS&at_campaign=rss",
+     "titel": "Myanmar faces historic genocide verdict at UN court over Rohingya massacres",
+     "link": "https://www.bbc.co.uk/news/articles/c5m2l90ez144o?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "Israel launches new ground operation in Gaza",
-     "link": "https://www.dw.com/en/israel-launches-new-ground-operation-in-gaza/a-79984958?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "ICJ to rule on Rohingya genocide case against Myanmar: What to know",
+     "link": "https://www.dw.com/en/icj-to-rule-on-rohingya-genocide-case-against-myanmar-what-to-know/a-79981434?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Can Anthropic's record-breaking IPO stop the AI bubble bursting?",
+   "kurz": "Anthropic's hotly anticipated IPO is expected to put it in the top 10 most valuable US companies, but the future is uncertain.",
+   "link": "https://www.bbc.co.uk/news/articles/cj4gnpzll020o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T21:28:08Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Can Anthropic's record-breaking IPO stop the AI bubble bursting?",
+     "link": "https://www.bbc.co.uk/news/articles/cj4gnpzll020o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Anthropic IPO raises record $81.3 billion on strong AI demand",
+     "link": "https://www.npr.org/2026/11/18/nx-s1-6046212/anthropic-record-ipo-price",
+     "eigentuemer": "gehört NPR",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -368,6 +290,37 @@
    ]
   },
   {
+   "titel": "US-Midterms: Demokraten gewinnen auch Senatssitz in Alaska",
+   "kurz": "Alaska stand noch aus, nun ist klar: Auch dort haben die Demokraten den Senatssitz gewonnen. Damit konnten sie bei den Midterms neun zusätzliche Sitze erobern…",
+   "link": "https://www.tagesschau.de/ausland/amerika/midterms-usa-alaska-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T11:22:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "US-Midterms: Demokraten gewinnen auch Senatssitz in Alaska",
+     "link": "https://www.tagesschau.de/ausland/amerika/midterms-usa-alaska-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "US-Senat: Mary Peltola gewinnt für Demokraten in Alaska",
+     "link": "https://www.dw.com/de/us-senat-mary-peltola-gewinnt-für-demokraten-in-alaska/a-79979852?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Treffen von Trump, Xi und Putin: Rüstung, KI - und ein heikles Thema",
    "kurz": "Heute beginnt im chinesischen Shenzhen das APEC-Treffen. Erstmals wird es zu einem Dreiertreffen von Xi, Trump und Putin kommen. Um was könnte es dabei gehen?…",
    "link": "https://www.tagesschau.de/ausland/asien/apec-trump-putin-xi-100.html",
@@ -399,12 +352,12 @@
    ]
   },
   {
-   "titel": "Nvidia says it won't reinstate Huang as it reports soaring sales",
-   "kurz": "The AI chip giant reported strong quarterly earnings on Tuesday after the dramatic exit of Jensen Huang.",
-   "link": "https://www.bbc.co.uk/news/articles/cm2kl50vkwkdo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
+   "titel": "Five Palestinians are killed, including a child, and others are injured in a series of Israeli airstrikes on various areas of the Gaza…",
+   "kurz": "Five Palestinians are killed, including a child, and others are injured in a series of Israeli airstrikes on various areas of the Gaza Strip , Palestine .",
+   "link": "https://www.aa.com.tr/en/middle-east/israeli-army-kills-palestinian-blows-up-homes-in-gaza-despite-ceasefire/4127526",
+   "quelle": "Wikipedia · AA",
    "sprache": "en",
-   "zeit": "2026-11-18T07:14:28-05:00",
+   "zeit": "",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -412,49 +365,18 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC World",
-     "titel": "Nvidia says it won't reinstate Huang as it reports soaring sales",
-     "link": "https://www.bbc.co.uk/news/articles/cm2kl50vkwkdo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
+     "quelle": "Wikipedia · AA",
+     "titel": "Five Palestinians are killed, including a child, and others are injured in a series of Israeli airstrikes on various areas of the Gaza…",
+     "link": "https://www.aa.com.tr/en/middle-east/israeli-army-kills-palestinian-blows-up-homes-in-gaza-despite-ceasefire/4127526",
+     "eigentuemer": "staatlich (Türkei)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "NPR",
-     "titel": "Mary Peltola flips Alaska's Senate seat. And, Nvidia won't reinstate Jensen Huang",
-     "link": "https://www.npr.org/2026/11/18/g-s1-154145/up-first-newsletter-mary-peltola-alaska-trump-asia-nvidia-tech-issues-ai",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "US loses measles elimination status after 26 years amid record case numbers",
-   "kurz": "States have reported over 5,400 cases and 10 measles-related deaths for the first time since the early 1990s.",
-   "link": "https://www.bbc.co.uk/news/articles/c977p71jx0xxo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-17T21:04:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "US loses measles elimination status after 26 years amid record case numbers",
-     "link": "https://www.bbc.co.uk/news/articles/c977p71jx0xxo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AFP via France 24",
-     "titel": "The Pan American Health Organization revokes the measles elimination statuses of Bolivia , Mexico , and the United States . For the U.S…",
-     "link": "https://www.france24.com/en/live-news/20261117-us-loses-measles-free-status-as-cases-deaths-mount",
-     "eigentuemer": "staatlich (Frankreich)",
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "A 72-year-old Palestinian woman is killed and ten others are injured in an attack by Israeli settlers on Palestinian homes in the village…",
+     "link": "https://www.aljazeera.com/news/2026/11/17/israeli-settler-pogrom-kills-palestinian-woman-wounds-10-people",
+     "eigentuemer": "staatlich (Katar)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -523,12 +445,104 @@
    ]
   },
   {
-   "titel": "tagesschau in 100 Sekunden",
-   "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686176.html",
+   "titel": "Militärabkommen zwischen Venezuela und USA unterzeichnet",
+   "kurz": "Die USA und Venezuela haben ein Militärabkommen unterzeichnet, wie US-Verteidigungsminister Hegseth mitteilte. Mit dem bereits angekündigten Ölabkommen werde…",
+   "link": "https://www.tagesschau.de/ausland/amerika/hegseth-usa-venezuela-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-18T21:44:31+01:00",
+   "zeit": "2026-11-19T03:10:36+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Militärabkommen zwischen Venezuela und USA unterzeichnet",
+     "link": "https://www.tagesschau.de/ausland/amerika/hegseth-usa-venezuela-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Claude-maker Anthropic poised for stock market debut worth up to $1.5tn",
+   "kurz": "Anthropic started just five years ago an is now one of the biggest names in artificial intelligence.",
+   "link": "https://www.bbc.co.uk/news/articles/c6742m39xgzxo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-19T02:20:15Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Claude-maker Anthropic poised for stock market debut worth up to $1.5tn",
+     "link": "https://www.bbc.co.uk/news/articles/c6742m39xgzxo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Commerzbank-Übernahme: Bundesregierung und UniCredit einigen sich",
+   "kurz": "Die italienische Bank und deren Chef Orcel sind bei der Übernahme der Commerzbank einen wichtigen Schritt weiter - die Bundesregierung einigte sich mit…",
+   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/unicredit-bundesregierung-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-19T02:06:22+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Commerzbank-Übernahme: Bundesregierung und UniCredit einigen sich",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/unicredit-bundesregierung-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Elon Musk says record spending on US midterms was 'pretty foolish'",
+   "kurz": "The multi-billionaire also said he was \"not Maga\", distancing himself from the political movement linked to Trump.",
+   "link": "https://www.bbc.co.uk/news/articles/cm9q8j2z3gg8o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-19T01:56:28Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Elon Musk says record spending on US midterms was 'pretty foolish'",
+     "link": "https://www.bbc.co.uk/news/articles/cm9q8j2z3gg8o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau in 100 Sekunden",
+   "kurz": "tagesschau in 100 Sekunden",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686220.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-19T01:54:14+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -538,7 +552,306 @@
     {
      "quelle": "Tagesschau",
      "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686176.html",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686220.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Van Gogh painting sells for record $190.4m after row over its Nazi history",
+   "kurz": "Châtaigniers en fleurs was painted in 1890 in the final two months of Vincent van Gogh's life.",
+   "link": "https://www.bbc.co.uk/news/articles/c5dj1dkwzvzwo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-19T00:49:19Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Van Gogh painting sells for record $190.4m after row over its Nazi history",
+     "link": "https://www.bbc.co.uk/news/articles/c5dj1dkwzvzwo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "India's religious make-up - what a new Pew study says about Hindus and Muslims",
+   "kurz": "India will remain predominantly Hindu, though its Muslim population is projected to grow faster, according to a new survey.",
+   "link": "https://www.bbc.co.uk/news/articles/cqd01epyrz1do?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-19T00:38:52Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "India's religious make-up - what a new Pew study says about Hindus and Muslims",
+     "link": "https://www.bbc.co.uk/news/articles/cqd01epyrz1do?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Almost 1 in 4 children live in conflict zones — report",
+   "kurz": "Denial of humanitarian access, abductions and sexual violence are among several violations against children that have increased dramtically over the past year…",
+   "link": "https://www.dw.com/en/almost-1-in-4-children-live-in-conflict-zones-report/a-79979203?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-19T00:34:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Almost 1 in 4 children live in conflict zones — report",
+     "link": "https://www.dw.com/en/almost-1-in-4-children-live-in-conflict-zones-report/a-79979203?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Grand Theft Auto VI released as gamers rejoice globally",
+   "kurz": "After 13 years of waiting, fans around the world will get to play the latest installment in the blockbuster video game series. In focus: A tale of crime and…",
+   "link": "https://www.dw.com/en/grand-theft-auto-vi-released-as-gamers-rejoice-globally/a-79986461?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-18T23:58:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "What makes 'Grand Theft Auto VI' more than just a game?",
+     "link": "https://www.dw.com/en/what-makes-grand-theft-auto-vi-more-than-just-a-game/a-79965822?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Waymo pulls driverless taxis from all US freeways",
+   "kurz": "The decision comes after California banned Waymo's driverless vehicles from operating on the state's highways following a series of traffic incidents.",
+   "link": "https://www.bbc.co.uk/news/articles/cmy86pp336qlo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T23:47:46Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Why has Waymo pulled all its driverless cars from US freeways?",
+     "link": "https://www.bbc.co.uk/news/videos/cmx2ryw97x4go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russian arrested for spying on US defence company Palantir over Ukraine support",
+   "kurz": "The suspect followed employees and was found with fake US IDs and two Russian passports, prosecutors say.",
+   "link": "https://www.bbc.co.uk/news/articles/cq20xg80ly47o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T23:28:03Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Russian arrested for spying on US defence company Palantir over Ukraine support",
+     "link": "https://www.bbc.co.uk/news/articles/cq20xg80ly47o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Beratungen zu KI-gestützten Waffensystemen bei UN-Konferenz in Genf",
+   "kurz": "Beratungen zu KI-gestützten Waffensystemen bei UN-Konferenz in Genf",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1686202.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T22:44:26+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Beratungen zu KI-gestützten Waffensystemen bei UN-Konferenz in Genf",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1686202.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Estland plant Schließung der russisch-estnischen Grenze nach Brandanschlag auf Drohnenfabrik",
+   "kurz": "Estland plant Schließung der russisch-estnischen Grenze nach Brandanschlag auf Drohnenfabrik",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1686200.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T22:41:51+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Estland plant Schließung der russisch-estnischen Grenze nach Brandanschlag auf Drohnenfabrik",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1686200.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Catherine visits Mumbai maternity hospital on the last day of royal trip",
+   "kurz": "The Prince and Princess of Wales ended their three-day trip to India on Wednesday, the couple's first international tour since 2022.",
+   "link": "https://www.bbc.co.uk/news/videos/c9gkljpgdn1lo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T22:32:47Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Catherine visits Mumbai maternity hospital on the last day of royal trip",
+     "link": "https://www.bbc.co.uk/news/videos/c9gkljpgdn1lo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Regierungskoalition einigt sich auf Stromsteuersenkung für mindestens ein Jahr",
+   "kurz": "Regierungskoalition einigt sich auf Stromsteuersenkung für mindestens ein Jahr",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1686192.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T22:32:06+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Regierungskoalition einigt sich auf Stromsteuersenkung für mindestens ein Jahr",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1686192.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Monika Schnitzer, Vorsitzende Sachverständigenrat Wirtschaft, zur Senkung der Stromsteuer",
+   "kurz": "Monika Schnitzer, Vorsitzende Sachverständigenrat Wirtschaft, zur Senkung der Stromsteuer",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1686196.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T22:32:03+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Monika Schnitzer, Vorsitzende Sachverständigenrat Wirtschaft, zur Senkung der Stromsteuer",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1686196.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Die Meinung von Kerstin Palzer, MDR, zur Senkung der Stromsteuer",
+   "kurz": "Die Meinung von Kerstin Palzer, MDR, zur Senkung der Stromsteuer",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1686194.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T22:32:01+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Die Meinung von Kerstin Palzer, MDR, zur Senkung der Stromsteuer",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1686194.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Israels Armee startet Einsatz in von Hamas kontrolliertem Gebiet",
+   "kurz": "Trotz der Waffenruhe hat Israels Armee nach eigenen Angaben einen neuen Einsatz im Zentrum des Gazastreifens begonnen. Ziel des Angriffs sei Infrastruktur der…",
+   "link": "https://www.tagesschau.de/ausland/asien/israel-gaza-bodenoffensive-104.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-18T22:04:52+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Israels Armee startet Einsatz in von Hamas kontrolliertem Gebiet",
+     "link": "https://www.tagesschau.de/ausland/asien/israel-gaza-bodenoffensive-104.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -592,52 +905,6 @@
    ]
   },
   {
-   "titel": "Union und SPD einigen sich auf Kompromiss bei der Stromsteuer",
-   "kurz": "Union und SPD einigen sich auf Kompromiss bei der Stromsteuer",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686138.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T20:38:18+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Union und SPD einigen sich auf Kompromiss bei der Stromsteuer",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686138.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Finanzbildung für Kinder an einer Schule in Rodgau",
-   "kurz": "Finanzbildung für Kinder an einer Schule in Rodgau",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686122.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T20:34:04+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Finanzbildung für Kinder an einer Schule in Rodgau",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686122.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "tagesschau mit Gebärdensprache",
    "kurz": "tagesschau mit Gebärdensprache",
    "link": "https://www.tagesschau.de/tagesschau_mit_gebaerdensprache/tsg-12384.html",
@@ -654,29 +921,6 @@
      "quelle": "Tagesschau",
      "titel": "tagesschau mit Gebärdensprache",
      "link": "https://www.tagesschau.de/tagesschau_mit_gebaerdensprache/tsg-12384.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Bundesverfassungsgericht weist Wahlbeschwerde von BSW ab",
-   "kurz": "Bundesverfassungsgericht weist Wahlbeschwerde von BSW ab",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686114.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T20:29:00+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Bundesverfassungsgericht weist Wahlbeschwerde von BSW ab",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686114.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1006,6 +1250,98 @@
    ]
   },
   {
+   "titel": "The law releasing the Epstein files passed one year ago. What do his victims say?",
+   "kurz": "It's been a year since the House passed the Epstein Files Transparency Act, forcing the Justice Department to release millions of files connected to the…",
+   "link": "https://www.npr.org/2026/11/18/nx-s1-6041708/the-law-releasing-the-epstein-files-passed-one-year-ago-what-do-his-victims-say",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-18T17:27:43-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "The law releasing the Epstein files passed one year ago. What do his victims say?",
+     "link": "https://www.npr.org/2026/11/18/nx-s1-6041708/the-law-releasing-the-epstein-files-passed-one-year-ago-what-do-his-victims-say",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Why the Nvidia scandal is a national security issue",
+   "kurz": "The Nvidia scandal has spilled over into the Trump administration, which is now under intense scrutiny for how it allowed America's top AI chips to end up in…",
+   "link": "https://www.npr.org/2026/11/18/nx-s1-6044275/why-the-nvidia-scandal-is-a-national-security-issue",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-18T17:12:56-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "Why the Nvidia scandal is a national security issue",
+     "link": "https://www.npr.org/2026/11/18/nx-s1-6044275/why-the-nvidia-scandal-is-a-national-security-issue",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "New video shows explosions moments before part of Crimea Bridge collapses",
+   "kurz": "BBC Verify analyses footage showing the final moments before part of the bridge fell and videos showing the scale of destruction.",
+   "link": "https://www.bbc.co.uk/news/videos/ckvg28jy77z5o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-18T17:09:43Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "New video shows explosions moments before part of Crimea Bridge collapses",
+     "link": "https://www.bbc.co.uk/news/videos/ckvg28jy77z5o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "After Nepal's epic flood, they're restoring their community ... and their lives",
+   "kurz": "As the emergency response to the flood ends, aid workers turn to the hard work of rebuilding communities that lost everything. Many of those workers lost…",
+   "link": "https://www.npr.org/2026/11/18/nx-s1-6022034/flood-nepal-survival-climate-change",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-18T17:01:17-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "After Nepal's epic flood, they're restoring their community ... and their lives",
+     "link": "https://www.npr.org/2026/11/18/nx-s1-6022034/flood-nepal-survival-climate-change",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Inside the old gas pipeline where Ukraine is fighting an underground war with Russia",
    "kurz": "Watch: The BBC's Jonathan Beale joins Ukrainian forces taking the battle below ground and out of sight of Russian drones.",
    "link": "https://www.bbc.co.uk/news/videos/c8p3vw4q6nzzo?at_medium=RSS&at_campaign=rss",
@@ -1046,6 +1382,29 @@
      "titel": "'The drones don't fly here' - BBC reports from Ukraine's new front line",
      "link": "https://www.bbc.co.uk/news/articles/c32l507ev4v4o?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Democratic Black women take over almost all state agencies in Georgia soon",
+   "kurz": "In January, most of Georgia's state agencies will be headed by Black women who were all elected in the 2026 midterms.",
+   "link": "https://www.npr.org/2026/11/18/nx-s1-6043103/democratic-black-women-take-over-almost-all-state-agencies-in-georgia-soon",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-18T16:51:33-05:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NPR",
+     "titel": "Democratic Black women take over almost all state agencies in Georgia soon",
+     "link": "https://www.npr.org/2026/11/18/nx-s1-6043103/democratic-black-women-take-over-almost-all-state-agencies-in-georgia-soon",
+     "eigentuemer": "gehört NPR",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -1160,397 +1519,6 @@
      "quelle": "Tagesschau",
      "titel": "Kabinett will bei Unterhaltszahlungen für Alleinerziehende sparen",
      "link": "https://www.tagesschau.de/inland/innenpolitik/kabinett-unterhaltszahlung-verschaerfung-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Deutscher Ökonom Brunnermeier als EZB-Chefvolkswirt nominiert",
-   "kurz": "Die Bundesregierung schlägt Markus Brunnermeier als nächsten Chefvolkswirt der Europäischen Zentralbank vor. Der Posten gilt als einflussreich, wenn es um…",
-   "link": "https://www.tagesschau.de/wirtschaft/finanzen/bundesregierung-ezb-chefvolkswirt-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T16:36:01+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Deutscher Ökonom Brunnermeier als EZB-Chefvolkswirt nominiert",
-     "link": "https://www.tagesschau.de/wirtschaft/finanzen/bundesregierung-ezb-chefvolkswirt-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Julio Iglesias facing court investigation over alleged sexual offences",
-   "kurz": "The 83-year-old singer is accused of abusing two former employees at Caribbean residences in 2021.",
-   "link": "https://www.bbc.co.uk/news/articles/c6x284pnn4e2o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-18T16:33:16Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Julio Iglesias facing court investigation over alleged sexual offences",
-     "link": "https://www.bbc.co.uk/news/articles/c6x284pnn4e2o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Studie: Diese Themen machen Kindern und Jugendlichen Angst",
-   "kurz": "Kriege, Wirtschaftskrisen, Wohnungsnot: Viele Jugendliche sorgen sich um ihre Zukunft. Das zeigt die neue COPSY-Studie. Ob Kinder dauerhaft psychisch belastet…",
-   "link": "https://www.tagesschau.de/wissen/copsy-studie-2026-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T16:06:36+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Studie: Diese Themen machen Kindern und Jugendlichen Angst",
-     "link": "https://www.tagesschau.de/wissen/copsy-studie-2026-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Fiona the hippo undergoing care after swallowing a hat at Cincinnati Zoo",
-   "kurz": "Zookeepers say she cannot have surgery but are providing fluids and supportive care to help her pass the hat.",
-   "link": "https://www.bbc.co.uk/news/articles/cm2d93z0e9gjo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-18T16:05:26Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Fiona the hippo undergoing care after swallowing a hat at Cincinnati Zoo",
-     "link": "https://www.bbc.co.uk/news/articles/cm2d93z0e9gjo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Deutsche Jugendliche im Netz: Vom freundlichen Chat zur sexuellen Erpressung",
-   "kurz": "Das Netz ist oft zentraler Ort der sexualisierten Gewalt gegen Jugendliche. Und die Eltern sind sich der Gefahren oft nicht bewusst. Die zuständige…",
-   "link": "https://www.dw.com/de/deutsche-jugendliche-im-netz-vom-freundlichen-chat-zur-sexuellen-erpressung/a-79981951?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-18T15:54:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Deutsche Jugendliche im Netz: Vom freundlichen Chat zur sexuellen Erpressung",
-     "link": "https://www.dw.com/de/deutsche-jugendliche-im-netz-vom-freundlichen-chat-zur-sexuellen-erpressung/a-79981951?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Parents jailed for torture and death of four-year-old girl found along French motorway in 1987",
-   "kurz": "Inass Touloub's body was found along the A10 road in 1987, bearing marks of abuse, and was not identified until 2018.",
-   "link": "https://www.bbc.co.uk/news/articles/c6lyw490z14jo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-18T15:39:57Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Parents jailed for torture and death of four-year-old girl found along French motorway in 1987",
-     "link": "https://www.bbc.co.uk/news/articles/c6lyw490z14jo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Borussia Dortmund bows to fan pressure and end Rheinmetall deal",
-   "kurz": "Borussia Dortmund has reluctantly ended its association with a major sponsor after long-term fan protests. They are not the first Bundesliga club to u-turn, as…",
-   "link": "https://www.dw.com/en/borussia-dortmund-bows-to-fan-pressure-and-end-rheinmetall-deal/a-79980121?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T15:39:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Borussia Dortmund bows to fan pressure and end Rheinmetall deal",
-     "link": "https://www.dw.com/en/borussia-dortmund-bows-to-fan-pressure-and-end-rheinmetall-deal/a-79980121?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Angriff auf die Krim-Brücke: Welche Folgen Kyjiws Operation hat",
-   "kurz": "Die Ukraine hat der Krim-Brücke schwere Schäden zufügen können. Was bedeutet das für Russland - militärisch und wirtschaftlich? Und was für das politische…",
-   "link": "https://www.dw.com/de/angriff-auf-die-krim-brücke-welche-folgen-kyjiws-operation-hat/a-79979350?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-18T15:26:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Angriff auf die Krim-Brücke: Welche Folgen Kyjiws Operation hat",
-     "link": "https://www.dw.com/de/angriff-auf-die-krim-brücke-welche-folgen-kyjiws-operation-hat/a-79979350?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "DAK-Auswertung: Jugendliche konsumieren immer mehr Nikotinbeutel",
-   "kurz": "Kein Rauchen, kein Dampfen: Nikotinbeutel sind unauffällig. Doch der konzentrierte Suchtstoff bereitet Gesundheitsexperten Sorgen - sie warnen vor einer…",
-   "link": "https://www.tagesschau.de/inland/gesellschaft/nikotinbeutel-jugendliche-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T15:24:48+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "DAK-Auswertung: Jugendliche konsumieren immer mehr Nikotinbeutel",
-     "link": "https://www.tagesschau.de/inland/gesellschaft/nikotinbeutel-jugendliche-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "North Korea expanded uranium enrichment plant, says IAEA head",
-   "kurz": "IAEA chief Rafael Grossi has said the ongoing expansion of North Korea's uranium enrichment program remains \"a cause for serious concern.\"",
-   "link": "https://www.dw.com/en/north-korea-expanded-uranium-enrichment-plant-says-iaea-head/a-79982758?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T15:15:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "North Korea expanded uranium enrichment plant, says IAEA head",
-     "link": "https://www.dw.com/en/north-korea-expanded-uranium-enrichment-plant-says-iaea-head/a-79982758?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "EU-Kommission schlägt 45-Milliarden-Kredit für Ukraine vor",
-   "kurz": "Die Ukraine braucht für 2027 viel frisches Geld für den Staatshaushalt. Kanzler Merz will über die EU helfen, stellt aber Bedingungen. Nun gibt es einen…",
-   "link": "https://www.dw.com/de/eu-kommission-schlägt-45-milliarden-kredit-für-ukraine-vor/a-79982843?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-18T15:13:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "EU-Kommission schlägt 45-Milliarden-Kredit für Ukraine vor",
-     "link": "https://www.dw.com/de/eu-kommission-schlägt-45-milliarden-kredit-für-ukraine-vor/a-79982843?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "'Coalition of the Willing' meets in Berlin: Europe remains committed to Ukraine",
-   "kurz": "The \"Coalition of the Willing\" supporting Ukraine is gathering in Berlin. One of the key issues under discussion is whether Europe will be able to play a role…",
-   "link": "https://www.dw.com/en/coalition-of-the-willing-meets-in-berlin-europe-remains-committed-to-ukraine/a-79974996?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T15:03:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "'Coalition of the Willing' meets in Berlin: Europe remains committed to Ukraine",
-     "link": "https://www.dw.com/en/coalition-of-the-willing-meets-in-berlin-europe-remains-committed-to-ukraine/a-79974996?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Petersdom wurde heute vor 400 Jahren geweiht",
-   "kurz": "Seit der Antike pilgern Gläubige an den Ort des heutigen Petersdoms. Dort soll das Grab des Apostels Petrus liegen. Vor genau 400 Jahren, am 18. November 1626…",
-   "link": "https://www.tagesschau.de/ausland/europa/400-jahre-petersdom-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T15:02:36+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Petersdom wurde heute vor 400 Jahren geweiht",
-     "link": "https://www.tagesschau.de/ausland/europa/400-jahre-petersdom-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Has the 'Parthenon puzzle' been solved? The long quest to reassemble lost eastern pediment",
-   "kurz": "The depiction of the birth of the goddess Athena above the Parthenon's entrance is considered a masterpiece of ancient art. Now, a German research team has…",
-   "link": "https://www.dw.com/en/has-the-parthenon-puzzle-been-solved-the-long-quest-to-reassemble-lost-eastern-pediment/a-79982098?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-18T14:49:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Has the 'Parthenon puzzle' been solved? The long quest to reassemble lost eastern pediment",
-     "link": "https://www.dw.com/en/has-the-parthenon-puzzle-been-solved-the-long-quest-to-reassemble-lost-eastern-pediment/a-79982098?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Regierung erleichtert Befristungen von Jobs",
-   "kurz": "Leichtere Befristungen, weniger Kündigungsschutz für Hochverdiener: Bereits im Juli hatte sich die Koalition grundsätzlich auf mehrere Änderungen im…",
-   "link": "https://www.tagesschau.de/wirtschaft/jobbefristungen-kabinett-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T14:44:31+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Regierung erleichtert Befristungen von Jobs",
-     "link": "https://www.tagesschau.de/wirtschaft/jobbefristungen-kabinett-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Ausstellung \"Seed Pattern\", Fransenfledermaus, Ausgrabungsstätte in Jericho",
-   "kurz": "Ausstellung \"Seed Pattern\", Fransenfledermaus, Ausgrabungsstätte in Jericho",
-   "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10574.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T14:43:55+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Ausstellung \"Seed Pattern\", Fransenfledermaus, Ausgrabungsstätte in Jericho",
-     "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10574.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "VW-Chef Blume: \"Komplett verändertes Umfeld\" zwingt zum Sparkurs",
-   "kurz": "Bei VW starten kommende Woche die Tarifgespräche. Im NDR-Interview spricht Konzernchef Blume über zu hohe Kosten, teure Werke und den umstrittenen Auftritt des…",
-   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vw-volkswagen-blume-zukunftsstrategie-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T14:43:17+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "VW-Chef Blume: \"Komplett verändertes Umfeld\" zwingt zum Sparkurs",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vw-volkswagen-blume-zukunftsstrategie-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
