@@ -1,13 +1,242 @@
 {
- "erzeugt": "2026-11-18T20:45:39Z",
+ "erzeugt": "2026-11-19T07:41:18Z",
  "anzahl": 13,
  "nur_ausland": 0,
  "hinweise": [
-  "Daily Nation: nicht erreichbar (HTTPError: 404 Client Error: Not Found for url: https://nation.africa/kenya/rss.xml)",
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "Xi-Putin-Trump trilateral: Why is it being compared to 1945 Yalta Conference?",
+   "kurz": "The Xi-Putin-Jinping meet is being compared with the Yalta Conference of 1945, which led to the establishment of four quarters of post-Nazi Germany and laid…",
+   "link": "https://www.thehindu.com/news/international/us-china-russia-trump-xi-jinping-putin-meet-2026-yalta-conference-explained/article71716078.ece",
+   "sprache": "en",
+   "zeit": "2026-11-19T12:28:34+05:30",
+   "ausland_quellen": 1,
+   "laender": [
+    "Indien"
+   ],
+   "laender_einig": [
+    "Indien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "The Hindu (Indien): Xi-Putin-Trump trilateral: Why is it being compared to 1945 Yalta Conference?"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "The Hindu",
+     "land": "Indien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Xi-Putin-Trump trilateral: Why is it being compared to 1945 Yalta Conference?",
+     "link": "https://www.thehindu.com/news/international/us-china-russia-trump-xi-jinping-putin-meet-2026-yalta-conference-explained/article71716078.ece",
+     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Far from Trump-Putin meeting, Europe to count cost of Ukraine’s defence",
+   "kurz": "European leaders set to meet in Berlin as Kyiv faces a 25 billion-euro ($27.4bn) financing gap next year.",
+   "link": "https://www.aljazeera.com/news/2026/11/19/far-from-trump-putin-meeting-europe-to-count-cost-of-ukraines-defence?traffic_source=rss",
+   "sprache": "en",
+   "zeit": "2026-11-19T04:58:36Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Katar"
+   ],
+   "laender_einig": [
+    "Katar"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Al Jazeera (Katar): Far from Trump-Putin meeting, Europe to count cost of Ukraine’s defence"
+   ],
+   "staatsnah": [
+    "Al Jazeera"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Al Jazeera",
+     "land": "Katar",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Far from Trump-Putin meeting, Europe to count cost of Ukraine’s defence",
+     "link": "https://www.aljazeera.com/news/2026/11/19/far-from-trump-putin-meeting-europe-to-count-cost-of-ukraines-defence?traffic_source=rss",
+     "eigentuemer": "staatlich (Katar)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Rwanda ist afrikanischer Vorzeigestaat und Diktatur. Der neue Asylplan mit Europäern ist für das Land ein Coup",
+   "kurz": "Rwanda ist ein Land mit zwei Gesichtern – auch im Flüchtlingsbereich. Dank dem geplanten Abkommen mit Deutschland und der «Gruppe der Umsetzer» repariert es…",
+   "link": "https://www.nzz.ch/international/rwanda-und-eu-return-hubs-zwischen-vorzeigestaat-und-diktatur-ld.10066261",
+   "sprache": "de",
+   "zeit": "2026-11-19T04:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Rwanda ist afrikanischer Vorzeigestaat und Diktatur. Der neue Asylplan mit Europäern ist für das Land ein Coup"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Rwanda ist afrikanischer Vorzeigestaat und Diktatur. Der neue Asylplan mit Europäern ist für das Land ein Coup",
+     "link": "https://www.nzz.ch/international/rwanda-und-eu-return-hubs-zwischen-vorzeigestaat-und-diktatur-ld.10066261",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "El sonido al caer: cuatro generaciones de mujeres, fantasmas y una historia que se resiste a ser contada",
+   "kurz": "La directora alemana Mascha Schilinski entrelaza historias en una experiencia cinematográfica hipnótica, enigmática y de una extraordinaria potencia visual",
+   "link": "https://www.lanacion.com.ar/espectaculos/cine/el-sonido-al-caer-cuatro-generaciones-de-mujeres-fantasmas-y-una-historia-que-se-resiste-a-ser-nid19112026/",
+   "sprache": "es",
+   "zeit": "2026-11-19T03:01:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "La Nación (Argentinien): El sonido al caer: cuatro generaciones de mujeres, fantasmas y una historia que se resiste a ser contada"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "El sonido al caer: cuatro generaciones de mujeres, fantasmas y una historia que se resiste a ser contada",
+     "link": "https://www.lanacion.com.ar/espectaculos/cine/el-sonido-al-caer-cuatro-generaciones-de-mujeres-fantasmas-y-una-historia-que-se-resiste-a-ser-nid19112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nació como monasterio, fue apropiada por Napoleón y acaba de ser elegida la mejor bodega del mundo",
+   "kurz": "Schloss Johannisberg, en Alemania, ocupa desde ayer el puesto N°1 del ranking The 50 Best Vineyards",
+   "link": "https://www.lanacion.com.ar/sabado/nacio-como-monasterio-fue-apropiada-por-napoleon-y-acaba-de-ser-elegida-la-mejor-bodega-del-mundo-nid18112026/",
+   "sprache": "es",
+   "zeit": "2026-11-19T02:10:51Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "La Nación (Argentinien): Nació como monasterio, fue apropiada por Napoleón y acaba de ser elegida la mejor bodega del mundo"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Nació como monasterio, fue apropiada por Napoleón y acaba de ser elegida la mejor bodega del mundo",
+     "link": "https://www.lanacion.com.ar/sabado/nacio-como-monasterio-fue-apropiada-por-napoleon-y-acaba-de-ser-elegida-la-mejor-bodega-del-mundo-nid18112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "German FA backs France’s Diallo for FIFA presidency",
+   "kurz": "Incumbent Gianni Infantino has resisted repeated calls to resign, citing overwhelming global support.",
+   "link": "https://www.aljazeera.com/news/2026/11/19/german-fa-backs-frances-diallo-for-fifa-presidency?traffic_source=rss",
+   "sprache": "en",
+   "zeit": "2026-11-19T00:44:50Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Katar"
+   ],
+   "laender_einig": [
+    "Katar"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "Al Jazeera (Katar): German FA backs France’s Diallo for FIFA presidency"
+   ],
+   "staatsnah": [
+    "Al Jazeera"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Al Jazeera",
+     "land": "Katar",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "German FA backs France’s Diallo for FIFA presidency",
+     "link": "https://www.aljazeera.com/news/2026/11/19/german-fa-backs-frances-diallo-for-fifa-presidency?traffic_source=rss",
+     "eigentuemer": "staatlich (Katar)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "El Eurogrupo amplía el plazo para presentar candidatos a la dirección del BCE con Hernández de Cos como favorito a la presidencia",
    "kurz": "Alemania designa de forma oficial al economista Markus K. Brunnermeier para ser economista jefe",
@@ -46,43 +275,6 @@
    ]
   },
   {
-   "titel": "Paketdienst GLS schließt sich in Deutschland mit DPD zusammen",
-   "kurz": "Die Marke DPD soll in Deutschland verschwinden, der GLS-Eigentümer 80 Prozent am Joint Venture halten",
-   "link": "https://www.derstandard.at/story/3000000349912/paketdienst-gls-schlie223t-sich-mit-wettbewerber-dpd-zusammen?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-18T15:46:47Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Paketdienst GLS schließt sich in Deutschland mit DPD zusammen"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Paketdienst GLS schließt sich in Deutschland mit DPD zusammen",
-     "link": "https://www.derstandard.at/story/3000000349912/paketdienst-gls-schlie223t-sich-mit-wettbewerber-dpd-zusammen?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’",
    "kurz": "Reports cite 15 million leaked records reviewed by more than 200 journalists; German Finance Minister calls for authorities to investigate",
    "link": "https://www.thehindu.com/news/international/deutsche-bank-chair-backs-ceo-after-reports-expose-past-lapses-trump-calls-tax-leak-illegal/article71715150.ece",
@@ -101,13 +293,7 @@
     "The Hindu (Indien): Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Datenleck: Interne Dokumente belasten die Deutsche Bank",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/deutsche-bank-datenleak-100.html"
-    }
-   ],
+   "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -121,49 +307,6 @@
      "titel": "Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’",
      "link": "https://www.thehindu.com/news/international/deutsche-bank-chair-backs-ceo-after-reports-expose-past-lapses-trump-calls-tax-leak-illegal/article71715150.ece",
      "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Deutsche Bank desarrolló una artimaña fiscal para la familia Aldi en el pago de impuestos",
-   "kurz": "Los documentos filtrados esta semana sobre el gigante alemán revelan que ayudó a una de las mayores fortunas del país a pagar menos a Hacienda",
-   "link": "https://elpais.com/economia/2026-11-18/deutsche-bank-desarrollo-una-artimana-fiscal-para-la-familia-aldi-en-el-pago-de-impuestos.html",
-   "sprache": "es",
-   "zeit": "2026-11-18T15:25:08Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Deutsche Bank desarrolló una artimaña fiscal para la familia Aldi en el pago de impuestos"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Datenleck: Interne Dokumente belasten die Deutsche Bank",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/deutsche-bank-datenleak-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Deutsche Bank desarrolló una artimaña fiscal para la familia Aldi en el pago de impuestos",
-     "link": "https://elpais.com/economia/2026-11-18/deutsche-bank-desarrollo-una-artimana-fiscal-para-la-familia-aldi-en-el-pago-de-impuestos.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -220,11 +363,10 @@
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Katar",
     "Russland"
    ],
    "zusammenfassung": [
-    "Le Monde (en) (Frankreich): 'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers"
+    "Le Monde (en) (Frankreich): 'Inside Deutsche Bank': How the banking giant found out it had acted as an intermediary for a huge money-laundering network"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -238,159 +380,9 @@
      "land": "Frankreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "'Inside Deutsche Bank': How the banking giant bent rules to fund arms dealers",
-     "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/18/inside-deutsche-bank-how-the-banking-giant-bent-rules-to-fund-arms-dealers_6783130_8.html",
+     "titel": "'Inside Deutsche Bank': How the banking giant found out it had acted as an intermediary for a huge money-laundering network",
+     "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/18/inside-deutsche-bank-how-the-banking-giant-found-out-it-had-acted-as-an-intermediary-for-a-huge-money-laundering-network_6783295_8.html",
      "eigentuemer": "gehört Groupe Le Monde",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Vor Van-Gogh-Auktion: Einigung mit Erben in letzter Minute",
-   "kurz": "Nachfahren des früheren jüdischen Besitzers aus Deutschland wollten die Versteigerung von \"Blühende Kastanienbäume\" verhindern. Die Auktion kann nun wie…",
-   "link": "https://www.derstandard.at/story/3000000349783/vor-van-gogh-auktion-einigung-mit-erben-in-letzter-minute?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-18T07:57:44Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Vor Van-Gogh-Auktion: Einigung mit Erben in letzter Minute"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Vor Van-Gogh-Auktion: Einigung mit Erben in letzter Minute",
-     "link": "https://www.derstandard.at/story/3000000349783/vor-van-gogh-auktion-einigung-mit-erben-in-letzter-minute?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Szczecin, un oasis urbano poco conocido entre Berlín y Varsovia",
-   "kurz": "Situada en el noroeste de Polonia, frontera con Alemania, la ciudad es un auténtico hallazgo rodeado de bosques, canales y ríos",
-   "link": "https://elpais.com/elviajero/escapadas/europa/2026-11-18/szczecin-un-oasis-urbano-poco-conocido-entre-berlin-y-varsovia.html",
-   "sprache": "es",
-   "zeit": "2026-11-18T04:30:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Szczecin, un oasis urbano poco conocido entre Berlín y Varsovia"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Szczecin, un oasis urbano poco conocido entre Berlín y Varsovia",
-     "link": "https://elpais.com/elviajero/escapadas/europa/2026-11-18/szczecin-un-oasis-urbano-poco-conocido-entre-berlin-y-varsovia.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its welcome policy",
-   "kurz": "Along with four other European countries, Germany, which has taken in nearly one million Syrians since 2015, is now considering the creation of a 'return…",
-   "link": "https://www.lemonde.fr/en/international/article/2026/11/18/from-merkel-s-we-can-do-it-to-deporting-rejected-asylum-seekers-to-rwanda-germany-has-abandoned-its-open-door-policy_6782999_4.html",
-   "sprache": "en",
-   "zeit": "2026-11-18T03:29:53+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its welcome policy"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "From Merkel's 'We can do it' to deporting rejected asylum seekers to Rwanda, Germany has abandoned its welcome policy",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/18/from-merkel-s-we-can-do-it-to-deporting-rejected-asylum-seekers-to-rwanda-germany-has-abandoned-its-open-door-policy_6782999_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Five EU states announce plans for immigration ‘return hubs’ in Rwanda",
-   "kurz": "Germany, Austria, Netherlands, Denmark and Greece likely to face challenges to policy criticised as ‘grave moral failing’ Five EU member states have announced…",
-   "link": "https://www.theguardian.com/world/2026/nov/16/eu-states-immigration-return-hubs-rwanda",
-   "sprache": "en",
-   "zeit": "2026-11-17T01:10:59Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Österreich"
-   ],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): Five EU states announce plans for immigration ‘return hubs’ in Rwanda"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Five EU states announce plans for immigration ‘return hubs’ in Rwanda",
-     "link": "https://www.theguardian.com/world/2026/nov/16/eu-states-immigration-return-hubs-rwanda",
-     "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
     }
    ]
@@ -571,7 +563,6 @@
    ],
    "themen": [
     "Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’",
-    "Deutsche Bank desarrolló una artimaña fiscal para la familia Aldi en el pago de impuestos",
     "'Inside Deutsche Bank': How the banking giant found out it had acted as an intermediary for a huge money-laundering network"
    ]
   }
@@ -1107,6 +1098,9 @@
    "keine_treffer": true
   },
   "Vor Van": {
+   "keine_treffer": true
+  },
+  "Yalta Conference": {
    "keine_treffer": true
   }
  }
