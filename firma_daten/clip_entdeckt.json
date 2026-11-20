@@ -1,12 +1,12 @@
 {
- "erzeugt": "2026-11-20T07:27:37Z",
+ "erzeugt": "2026-11-20T20:29:27Z",
  "anzahl": 14,
  "hinweise": [
   "Entdeckung Aufruf-Suche: nicht erreichbar (RuntimeError: YouTube-Suche nicht lesbar)",
   "Entdeckung YouTube-Trends: keine Daten erhalten",
   "Entdeckung Wikipedia-Personen: keine Daten erhalten",
   "Twitch-Top-Liste: ohne Anmeldung gibt es keine öffentliche Quelle – Twitch-Kanäle kommen über Grundliste, Reddit, Wikidata und Kampagnen.",
-  "Sprachfokus de: 22 Treffer anderer Sprache nicht beobachtet.",
+  "Sprachfokus de: 24 Treffer anderer Sprache nicht beobachtet.",
   "Discord-Lese-Bot nicht eingerichtet (Secret CUDI_DISCORD_BOT_TOKEN fehlt) – siehe docs/discord-bot.md."
  ],
  "cache": {
@@ -43,7 +43,10 @@
    "de:Jürgen Klopp": {},
    "de:Sophie Marceau": {},
    "de:Mary Peltola": {},
-   "de:Hunter Schafer": {}
+   "de:Hunter Schafer": {},
+   "de:Larry Poindexter": {},
+   "de:Sophia Thomalla": {},
+   "de:Felix Lobrecht": {}
   }
  },
  "creators": [
@@ -84,18 +87,18 @@
     "grundliste_de"
    ],
    "signal": {
-    "aufrufe_je_stunde": 142.4
+    "aufrufe_je_stunde": 67.9
    },
    "punkte": 15,
    "link": "https://www.twitch.tv/montanablack88",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [
     "Twitch-Clips: 20 öffentliche Clips der letzten 24 h"
    ],
-   "aufrufe_je_stunde": 142.4,
+   "aufrufe_je_stunde": 67.9,
    "kanal_geprueft": true
   },
   {
@@ -109,18 +112,18 @@
     "grundliste_de"
    ],
    "signal": {
-    "aufrufe_je_stunde": 11.8
+    "aufrufe_je_stunde": 42.7
    },
    "punkte": 15,
    "link": "https://www.twitch.tv/trymacs",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [
     "Twitch-Clips: 20 öffentliche Clips der letzten 24 h"
    ],
-   "aufrufe_je_stunde": 11.8,
+   "aufrufe_je_stunde": 42.7,
    "kanal_geprueft": true
   },
   {
@@ -134,18 +137,18 @@
     "grundliste_de"
    ],
    "signal": {
-    "aufrufe_je_stunde": 156.0
+    "aufrufe_je_stunde": 73.5
    },
    "punkte": 15,
    "link": "https://www.twitch.tv/papaplatte",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [
     "Twitch-Clips: 20 öffentliche Clips der letzten 24 h"
    ],
-   "aufrufe_je_stunde": 156.0,
+   "aufrufe_je_stunde": 73.5,
    "kanal_geprueft": true
   },
   {
@@ -165,7 +168,7 @@
    "link": "https://www.twitch.tv/knossi",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
@@ -182,16 +185,18 @@
     "grundliste_de"
    ],
    "signal": {
-    "aufrufe_je_stunde": 0.1
+    "aufrufe_je_stunde": 46.4
    },
    "punkte": 15,
    "link": "https://www.twitch.tv/handofblood",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
-   "signale": [],
-   "aufrufe_je_stunde": 0.1,
+   "signale": [
+    "Twitch-Clips: 20 öffentliche Clips der letzten 24 h"
+   ],
+   "aufrufe_je_stunde": 46.4,
    "kanal_geprueft": true
   },
   {
@@ -211,7 +216,7 @@
    "link": "https://www.twitch.tv/reved",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
@@ -228,17 +233,17 @@
     "grundliste_de"
    ],
    "signal": {
-    "aufrufe_je_stunde": 0.3
+    "aufrufe_je_stunde": 0
    },
    "punkte": 15,
    "link": "https://www.twitch.tv/gronkh",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [],
-   "aufrufe_je_stunde": 0.3,
-   "kanal_geprueft": true
+   "aufrufe_je_stunde": 0,
+   "kanal_geprueft": false
   },
   {
    "key": "twitch:eliasn97",
@@ -251,18 +256,18 @@
     "grundliste_de"
    ],
    "signal": {
-    "aufrufe_je_stunde": 17.3
+    "aufrufe_je_stunde": 51.0
    },
    "punkte": 15,
    "link": "https://www.twitch.tv/eliasn97",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [
-    "Twitch-Clips: 17 öffentliche Clips der letzten 24 h"
+    "Twitch-Clips: 20 öffentliche Clips der letzten 24 h"
    ],
-   "aufrufe_je_stunde": 17.3,
+   "aufrufe_je_stunde": 51.0,
    "kanal_geprueft": true
   },
   {
@@ -282,7 +287,7 @@
    "link": "https://www.twitch.tv/stegi",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
@@ -299,19 +304,17 @@
     "grundliste_de"
    ],
    "signal": {
-    "aufrufe_je_stunde": 2.7
+    "aufrufe_je_stunde": 0
    },
    "punkte": 15,
    "link": "https://www.twitch.tv/rewinside",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
-   "signale": [
-    "Twitch-Clips: 20 öffentliche Clips der letzten 24 h"
-   ],
-   "aufrufe_je_stunde": 2.7,
-   "kanal_geprueft": true
+   "signale": [],
+   "aufrufe_je_stunde": 0,
+   "kanal_geprueft": false
   },
   {
    "key": "twitch:sidneyeweka",
@@ -330,7 +333,7 @@
    "link": "https://www.twitch.tv/sidneyeweka",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
@@ -353,7 +356,7 @@
    "link": "https://www.twitch.tv/mckytv",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
@@ -376,7 +379,7 @@
    "link": "https://www.twitch.tv/staiy",
    "kanal_bestaetigt": true,
    "erste_sichtung": "2026-11-09T16:47:57Z",
-   "zuletzt": "2026-11-20T07:27:26Z",
+   "zuletzt": "2026-11-20T20:29:17Z",
    "erlaubnis": "unklar",
    "signale": [],
    "aufrufe_je_stunde": 0,
