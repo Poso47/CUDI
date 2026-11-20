@@ -1,33 +1,86 @@
 {
- "erzeugt": "2026-11-20T07:32:43Z",
- "anzahl": 16,
- "nur_ausland": 0,
+ "erzeugt": "2026-11-20T20:35:46Z",
+ "anzahl": 20,
+ "nur_ausland": 1,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "‘We don’t want our future decided by the military’: Young Germans protest",
-   "kurz": "Ahead of Friday's nationwide rallies, German teenagers explain why they are resisting conscription.",
-   "link": "https://www.aljazeera.com/news/2026/11/20/we-dont-want-our-future-decided-by-the-military-young-germans-protest?traffic_source=rss",
+   "titel": "China summit ends with little new, Europe backs Ukraine in Berlin",
+   "kurz": "The leaders of China, the United States and Russia met in Shenzhen for a historic first, but the summit brought little new: non-binding statements on peace and…",
+   "link": "https://www.france24.com/en/china-summit-ends-with-little-new-europe-backs-ukraine-in-berlin",
    "sprache": "en",
-   "zeit": "2026-11-20T06:20:26Z",
-   "ausland_quellen": 1,
+   "zeit": "2026-11-20T10:28:42+01:00",
+   "ausland_quellen": 2,
    "laender": [
-    "Katar"
+    "Frankreich"
    ],
    "laender_einig": [
-    "Katar"
+    "Frankreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Hongkong/China",
+    "Russland",
+    "USA",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "France 24 (Frankreich): Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks",
+    "Le Monde (en) (Frankreich): Kyiv's allies push back against Trump and Putin's provocations"
+   ],
+   "staatsnah": [
+    "France 24"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": true,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "France 24",
+     "land": "Frankreich",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks",
+     "link": "https://www.france24.com/en/europe/20261119-european-leaders-to-meet-in-berlin-to-support-for-ukraine-after-trump-putin-xi-talks",
+     "eigentuemer": "staatlich (Frankreich)",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Kyiv's allies push back against Trump and Putin's provocations",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/20/kyiv-s-allies-push-back-against-trump-and-putin-s-provocations_6785209_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Anthropic researcher says Claude solved maths’ greatest riddle",
+   "kurz": "First proposed by German mathematician Bernhard Riemann in 1859, the hypothesis concerns the distribution of prime numbers and is widely regarded as the most…",
+   "link": "https://www.thehindu.com/sci-tech/technology/anthropic-researcher-says-claude-solved-maths-greatest-riddle/article71725942.ece",
+   "sprache": "en",
+   "zeit": "2026-11-21T00:05:22+05:30",
+   "ausland_quellen": 1,
+   "laender": [
+    "Indien"
+   ],
+   "laender_einig": [
+    "Indien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "Al Jazeera (Katar): ‘We don’t want our future decided by the military’: Young Germans protest"
+    "The Hindu (Indien): Anthropic researcher says Claude solved maths’ greatest riddle"
    ],
-   "staatsnah": [
-    "Al Jazeera"
-   ],
+   "staatsnah": [],
    "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
@@ -35,13 +88,355 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
-     "art": "staatsnah",
+     "quelle": "The Hindu",
+     "land": "Indien",
+     "art": "privat",
      "beteiligt": false,
-     "titel": "‘We don’t want our future decided by the military’: Young Germans protest",
-     "link": "https://www.aljazeera.com/news/2026/11/20/we-dont-want-our-future-decided-by-the-military-young-germans-protest?traffic_source=rss",
-     "eigentuemer": "staatlich (Katar)",
+     "titel": "Anthropic researcher says Claude solved maths’ greatest riddle",
+     "link": "https://www.thehindu.com/sci-tech/technology/anthropic-researcher-says-claude-solved-maths-greatest-riddle/article71725942.ece",
+     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nachfolge von Guy Parmelin im Bundesrat: Die SVP nominiert Thomas Aeschi und Michael Graber",
+   "kurz": "Die Bundeshausfraktion der SVP präsentiert dem Parlament ein Zweierticket.",
+   "link": "https://www.nzz.ch/schweiz/nachfolge-von-guy-parmelin-im-bundesrat-die-svp-nominiert-thomas-aeschi-und-michael-graber-ld.10070030",
+   "sprache": "de",
+   "zeit": "2026-11-20T19:34:08Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): LIVE-TICKER - Der Entscheid ist gefallen: Die SVP nominiert Thomas Aeschi und Michael Graber für den Bundesrat"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "LIVE-TICKER - Der Entscheid ist gefallen: Die SVP nominiert Thomas Aeschi und Michael Graber für den Bundesrat",
+     "link": "https://www.nzz.ch/schweiz/der-entscheid-ist-gefallen-die-svp-nominiert-thomas-aeschi-und-michael-graber-fuer-den-bundesrat-ld.10069881",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "'Inside Deutsche Bank': German government demands 'transparency' over revelations",
+   "kurz": "Rocked by investigative reports published by a consortium of more than 50 media outlets, including Le Monde, Deutsche Bank has downplayed the matter and said…",
+   "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/20/inside-deutsche-bank-german-government-demands-transparency-over-revelations_6785607_8.html",
+   "sprache": "en",
+   "zeit": "2026-11-20T18:38:40+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [
+    "Frankreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): 'Inside Deutsche Bank': German government demands 'transparency' over revelations"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "'Inside Deutsche Bank': German government demands 'transparency' over revelations",
+     "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/20/inside-deutsche-bank-german-government-demands-transparency-over-revelations_6785607_8.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Hans Baldung Grien, un maestro de la mirada, el cuerpo y la muerte a la sombra de Durero",
+   "kurz": "El Museo del Prado inaugura una exposición monográfica dedicada a uno de los grandes desconocidos del Renacimiento alemán",
+   "link": "https://elpais.com/cultura/2026-11-20/hans-baldung-grien-un-maestro-de-la-mirada-el-cuerpo-y-la-muerte-a-la-sombra-de-durero.html",
+   "sprache": "es",
+   "zeit": "2026-11-20T17:03:17Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Hans Baldung Grien, un maestro de la mirada, el cuerpo y la muerte a la sombra de Durero"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Hans Baldung Grien, un maestro de la mirada, el cuerpo y la muerte a la sombra de Durero",
+     "link": "https://elpais.com/cultura/2026-11-20/hans-baldung-grien-un-maestro-de-la-mirada-el-cuerpo-y-la-muerte-a-la-sombra-de-durero.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "El acuerdo francoalemán para la dirección del BCE coloca a Hernández de Cos a un paso de la presidencia",
+   "kurz": "El holandés Knot evita retirar su candidatura, aunque pierda opciones. El alemán Brunnermeier y la francesa Boone optan a los otros dos puestos a renovar del…",
+   "link": "https://elpais.com/economia/2026-11-20/hernandez-de-cos-roza-la-presidencia-del-bce-tras-conocerse-los-candidatos-de-francia-y-alemania-a-la-direccion.html",
+   "sprache": "es",
+   "zeit": "2026-11-20T16:42:05Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): El acuerdo francoalemán para la dirección del BCE coloca a Hernández de Cos a un paso de la presidencia"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "El acuerdo francoalemán para la dirección del BCE coloca a Hernández de Cos a un paso de la presidencia",
+     "link": "https://elpais.com/economia/2026-11-20/hernandez-de-cos-roza-la-presidencia-del-bce-tras-conocerse-los-candidatos-de-francia-y-alemania-a-la-direccion.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa",
+   "kurz": "Der Deutsche führt die \"Koalition der Willigen\" zur Unterstützung Kyjiws an: Verhandlungen mit Putin erst bei Waffenstillstand. Hilfe für Kyjiw, was immer…",
+   "link": "https://www.derstandard.at/story/3000000350209/kanzler-merz-zeigt-in-sachen-ukraine-fuehrungsstaerke-in-europa?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-20T16:14:52Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa",
+     "link": "https://www.derstandard.at/story/3000000350209/kanzler-merz-zeigt-in-sachen-ukraine-fuehrungsstaerke-in-europa?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "LIVE-TICKER - Jugendstreik in Europa: Angespannte Situation in Lausanne +++ Polizei ist in Zürich mit Grossaufgebot vor Ort",
+   "kurz": "Für den 20. November haben Jugendliche zu Protesten aufgerufen. Die NZZ berichtet live aus Zürich, Bern, der Westschweiz, Paris, Rom und Berlin.",
+   "link": "https://www.nzz.ch/international/jugendstreik-in-europa-am-freitag-geht-die-gen-z-in-ganz-europa-auf-die-strasse-ld.10066446",
+   "sprache": "de",
+   "zeit": "2026-11-20T16:02:43Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): LIVE-TICKER - Jugendstreik in Europa: Angespannte Situation in Lausanne +++ Polizei ist in Zürich mit Grossaufgebot vor Ort"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "LIVE-TICKER - Jugendstreik in Europa: Angespannte Situation in Lausanne +++ Polizei ist in Zürich mit Grossaufgebot vor Ort",
+     "link": "https://www.nzz.ch/international/jugendstreik-in-europa-am-freitag-geht-die-gen-z-in-ganz-europa-auf-die-strasse-ld.10066446",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "BILDSTRECKE - Tausende Junge protestieren in Europa – die Bilder",
+   "kurz": "Ob gegen Wehrpflicht in Deutschland, für bessere Bildung in Frankreich oder gegen Sparbudgets in Italien: Tausende junge Menschen haben am Freitag in…",
+   "link": "https://www.nzz.ch/international/tausende-junge-protestieren-in-europa-die-bilder-ld.10070000",
+   "sprache": "de",
+   "zeit": "2026-11-20T15:27:19Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "NZZ (Schweiz): BILDSTRECKE - Tausende Junge protestieren in Europa – die Bilder"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "BILDSTRECKE - Tausende Junge protestieren in Europa – die Bilder",
+     "link": "https://www.nzz.ch/international/tausende-junge-protestieren-in-europa-die-bilder-ld.10070000",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Kracher Spanien gegen Frankreich im Nations-League-Viertelfinale",
+   "kurz": "Deutschland spielt gegen Belgien. Die Partien finden zwischen 25. und 30. März statt",
+   "link": "https://www.derstandard.at/story/3000000350262/fu223ball-spanien-gegen-frankreich-im-nations-league-viertelfinale?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-20T12:02:16Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich",
+    "Spanien"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Kracher Spanien gegen Frankreich im Nations-League-Viertelfinale"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Kracher Spanien gegen Frankreich im Nations-League-Viertelfinale",
+     "link": "https://www.derstandard.at/story/3000000350262/fu223ball-spanien-gegen-frankreich-im-nations-league-viertelfinale?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Gegen Wehrpflicht, marode Klos: Jugendproteste in Deutschland – Flaute in Frankreich",
+   "kurz": "Genug von leeren Versprechen: In Deutschland gehen wieder junge Menschen auf die Straße, um für Bildungschancen und gegen die Wehrpflicht zu demonstrieren",
+   "link": "https://www.derstandard.at/story/3000000350188/gegen-wehrpflicht-und-marode-klos-neue-jugendproteste-in-deutschland?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-20T11:44:42Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Gegen Wehrpflicht, marode Klos: Jugendproteste in Deutschland – Flaute in Frankreich"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Gegen Wehrpflicht, marode Klos: Jugendproteste in Deutschland – Flaute in Frankreich",
+     "link": "https://www.derstandard.at/story/3000000350188/gegen-wehrpflicht-und-marode-klos-neue-jugendproteste-in-deutschland?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -121,8 +516,48 @@
    ]
   },
   {
+   "titel": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
+   "kurz": "European allies of Ukraine say they have a \"united\" negotiating position at a summit in Berlin.",
+   "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:50:24Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "BBC Europe (Großbritannien): Europe ready for talks with Russia on ending war in Ukraine, leaders say"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
+     "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "US open to NATO-style security guarantees for Ukraine, Kushner says",
-   "kurz": "The US envoy's remarks came after Kyiv's allies gathered in Berlin for a 'Coalition of the Willing' summit with President Volodymyr Zelensky. German Chancellor…",
+   "kurz": "The US envoy's remarks came after Kyiv's allies gathered in Berlin for a 'Coalition of the Willing' summit with President Volodymyr Zelensky.",
    "link": "https://www.lemonde.fr/en/international/article/2026/11/19/europe-expects-to-join-new-ukraine-peace-talks-soon-says-german-chancellor_6784813_4.html",
    "sprache": "en",
    "zeit": "2026-11-19T23:36:26+01:00",
@@ -200,95 +635,6 @@
    ]
   },
   {
-   "titel": "Germany, France, UK, Ukraine urge Russia to agree to winter energy ceasefire",
-   "kurz": "Leaders also call for Black Sea ceasefire to allow food exports as 1st step toward ending hostilities",
-   "link": "https://www.aa.com.tr/en/europe/germany-france-uk-ukraine-urge-russia-to-agree-to-winter-energy-ceasefire/4131510",
-   "sprache": "en",
-   "zeit": "2026-11-19T22:58:22+03:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Türkei"
-   ],
-   "laender_einig": [
-    "Türkei"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Großbritannien",
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Anadolu (Türkei): Germany, France, UK, Ukraine urge Russia to agree to winter energy ceasefire"
-   ],
-   "staatsnah": [
-    "Anadolu"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Anadolu",
-     "land": "Türkei",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Germany, France, UK, Ukraine urge Russia to agree to winter energy ceasefire",
-     "link": "https://www.aa.com.tr/en/europe/germany-france-uk-ukraine-urge-russia-to-agree-to-winter-energy-ceasefire/4131510",
-     "eigentuemer": "staatlich (Türkei)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Merz critica la entente entre Trump, Xi y Putin: “El formato de Yalta solo trae inseguridad y división”",
-   "kurz": "Una coalición de casi 40 países se reúne en Berlín para apoyar a Ucrania y exigir que Europa participe en las negociaciones de paz",
-   "link": "https://elpais.com/internacional/2026-11-19/merz-critica-la-entente-entre-trump-xi-y-putin-el-formato-de-yalta-solo-trae-inseguridad-y-division.html",
-   "sprache": "es",
-   "zeit": "2026-11-19T19:20:55Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Merz critica la entente entre Trump, Xi y Putin: “El formato de Yalta solo trae inseguridad y división”"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Erstmals gemeinsames Treffen von Putin, Trump und Xi im Rahmen eines Gipfels in Shenzhen",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1686796.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Merz critica la entente entre Trump, Xi y Putin: “El formato de Yalta solo trae inseguridad y división”",
-     "link": "https://elpais.com/internacional/2026-11-19/merz-critica-la-entente-entre-trump-xi-y-putin-el-formato-de-yalta-solo-trae-inseguridad-y-division.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Windkraftbetrüger Hendrik Holt ist in Dubai offenbar auf freiem Fuß",
    "kurz": "Der deutsche Hochstapler, der mit erfundenen Windparks Millionen ergaunert hatte, erklärte nun auch, warum er im August aus einem Berliner Gefängnis geflüchtet…",
    "link": "https://www.derstandard.at/story/3000000350149/windkraftbetrueger-hendrik-holt-ist-in-dubai-offenbar-auf-freiem-fuss?ref=rss",
@@ -321,87 +667,6 @@
      "titel": "Windkraftbetrüger Hendrik Holt ist in Dubai offenbar auf freiem Fuß",
      "link": "https://www.derstandard.at/story/3000000350149/windkraftbetrueger-hendrik-holt-ist-in-dubai-offenbar-auf-freiem-fuss?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "China summit ends with little new, Europe backs Ukraine in Berlin",
-   "kurz": "The leaders of China, the United States and Russia met in Shenzhen for a historic first, but the summit brought little new: non-binding statements on peace and…",
-   "link": "https://www.france24.com/en/china-summit-ends-with-little-new-europe-backs-ukraine-in-berlin",
-   "sprache": "en",
-   "zeit": "2026-11-19T14:04:03Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Hongkong/China",
-    "Russland",
-    "USA",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "France 24 (Frankreich): Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks"
-   ],
-   "staatsnah": [
-    "France 24"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "France 24",
-     "land": "Frankreich",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks",
-     "link": "https://www.france24.com/en/europe/20261119-european-leaders-to-meet-in-berlin-to-support-for-ukraine-after-trump-putin-xi-talks",
-     "eigentuemer": "staatlich (Frankreich)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "'Inside Deutsche Bank': The German bank's greenwashing",
-   "kurz": "After the Paris Agreement in 2015, the bank made multiple announcements about reducing its climate footprint. The 'Inside Deutsche Bank' data leak shows that…",
-   "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/19/inside-deutsche-bank-the-german-bank-s-greenwashing_6784319_8.html",
-   "sprache": "en",
-   "zeit": "2026-11-19T13:00:09+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): 'Inside Deutsche Bank': The German bank's greenwashing"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "'Inside Deutsche Bank': The German bank's greenwashing",
-     "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/19/inside-deutsche-bank-the-german-bank-s-greenwashing_6784319_8.html",
-     "eigentuemer": "gehört Groupe Le Monde",
      "zaehlt_nicht": ""
     }
    ]
@@ -444,61 +709,26 @@
    ]
   },
   {
-   "titel": "Tesla will Millionen Cybercabs in Berlin produzieren, aber der Weg dahin ist noch weit",
-   "kurz": "Die Produktion des Autos ohne Lenkrad soll 2029 starten. Dafür müssen aber noch Gesetze geändert werden. Aktuell sind erst 300 Cybercabs in Texas unterwegs",
-   "link": "https://www.derstandard.at/story/3000000349656/tesla-will-millionen-cybercabs-in-berlin-produzieren-aber-der-weg-dahin-ist-noch-weit?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-19T07:58:36Z",
+   "titel": "Qatar and Germany deepen strategic ties during emir’s Berlin visit",
+   "kurz": "German chancellor says Qatar pledged $16.5bn in new investments as the two countries deepen defence and technology ties.",
+   "link": "https://www.aljazeera.com/news/2026/11/20/qatar-and-germany-deepen-strategic-ties-during-emirs-berlin-visit?traffic_source=rss",
+   "sprache": "en",
+   "zeit": "2026-11-20T16:13:57Z",
    "ausland_quellen": 1,
    "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Tesla will Millionen Cybercabs in Berlin produzieren, aber der Weg dahin ist noch weit"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Tesla will Millionen Cybercabs in Berlin produzieren, aber der Weg dahin ist noch weit",
-     "link": "https://www.derstandard.at/story/3000000349656/tesla-will-millionen-cybercabs-in-berlin-produzieren-aber-der-weg-dahin-ist-noch-weit?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "VIDEO - Kriegsmaterialgesetz: Der Bundesrat will die Regeln für Waffenexporte lockern",
-   "kurz": "Am 29. November stimmt das Schweizer Stimmvolk über die Revision des Kriegsmaterialgesetzes ab. Während Bundesrat und Parlament damit die heimische…",
-   "link": "https://www.nzz.ch/shorts/kriegsmaterialgesetz-der-bundesrat-will-die-regeln-fuer-waffenexporte-lockern-ld.10069683",
-   "sprache": "de",
-   "zeit": "2026-11-20T05:47:05Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
+    "Katar"
    ],
    "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Schweiz"
+    "Katar"
    ],
    "zusammenfassung": [
-    "NZZ (Schweiz): VIDEO - Kriegsmaterialgesetz: Der Bundesrat will die Regeln für Waffenexporte lockern"
+    "Al Jazeera (Katar): Qatar and Germany deepen strategic ties during emir’s Berlin visit"
    ],
-   "staatsnah": [],
+   "staatsnah": [
+    "Al Jazeera"
+   ],
    "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
@@ -506,13 +736,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
+     "quelle": "Al Jazeera",
+     "land": "Katar",
+     "art": "staatsnah",
      "beteiligt": true,
-     "titel": "VIDEO - Kriegsmaterialgesetz: Der Bundesrat will die Regeln für Waffenexporte lockern",
-     "link": "https://www.nzz.ch/shorts/kriegsmaterialgesetz-der-bundesrat-will-die-regeln-fuer-waffenexporte-lockern-ld.10069683",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "titel": "Qatar and Germany deepen strategic ties during emir’s Berlin visit",
+     "link": "https://www.aljazeera.com/news/2026/11/20/qatar-and-germany-deepen-strategic-ties-during-emirs-berlin-visit?traffic_source=rss",
+     "eigentuemer": "staatlich (Katar)",
      "zaehlt_nicht": ""
     }
    ]
@@ -553,100 +783,9 @@
      "zaehlt_nicht": ""
     }
    ]
-  },
-  {
-   "titel": "German knives, English socks: 13 gifts beloved globally that Americans are missing out on",
-   "kurz": "From Guyanese rum to soft Australian bedsheets, you don’t have to buy a plane ticket to enjoy Guardian staff’s international favorites – perfect for holidays…",
-   "link": "https://www.theguardian.com/thefilter-us/2026/nov/11/best-international-gifts",
-   "sprache": "en",
-   "zeit": "2026-11-18T20:11:07Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Großbritannien"
-   ],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): German knives, English socks: 13 gifts beloved globally that Americans are missing out on"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "German knives, English socks: 13 gifts beloved globally that Americans are missing out on",
-     "link": "https://www.theguardian.com/thefilter-us/2026/nov/11/best-international-gifts",
-     "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Krankenstand wegen \"GTA 6\": Legt der Hype ums Game die Arbeitswelt lahm?",
-   "kurz": "In Deutschland steigen die Urlaubsanträge, in den USA wird über eine Krankmeldungswelle spekuliert. Auch Österreich dürfte vom \"GTA\"-Fieber nicht verschont…",
-   "link": "https://www.derstandard.at/story/3000000349823/krankenstand-wegen-gta-6-legt-der-hype-ums-game-die-arbeitswelt-lahm?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-18T16:00:06Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "USA",
-    "Österreich"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Krankenstand wegen \"GTA 6\": Legt der Hype ums Game die Arbeitswelt lahm?"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Krankenstand wegen \"GTA 6\": Legt der Hype ums Game die Arbeitswelt lahm?",
-     "link": "https://www.derstandard.at/story/3000000349823/krankenstand-wegen-gta-6-legt-der-hype-ums-game-die-arbeitswelt-lahm?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
   }
  ],
  "verbindungen": [
-  {
-   "name": "Sandra Hüller",
-   "wikidata": "https://www.wikidata.org/wiki/Q70003",
-   "beschreibung": "German actress (born 1978)",
-   "verbindungen": [
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Akademie der Künste Berlin",
-     "link": "https://www.wikidata.org/wiki/Q414110",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa"
-   ]
-  },
   {
    "name": "Deutsche Bank",
    "wikidata": "https://www.wikidata.org/wiki/Q66048",
@@ -708,7 +847,23 @@
     }
    ],
    "themen": [
-    "'Inside Deutsche Bank': The German bank's greenwashing"
+    "'Inside Deutsche Bank': German government demands 'transparency' over revelations"
+   ]
+  },
+  {
+   "name": "Sandra Hüller",
+   "wikidata": "https://www.wikidata.org/wiki/Q70003",
+   "beschreibung": "German actress (born 1978)",
+   "verbindungen": [
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Akademie der Künste Berlin",
+     "link": "https://www.wikidata.org/wiki/Q414110",
+     "beendet": null
+    }
+   ],
+   "themen": [
+    "‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa"
    ]
   },
   {
@@ -1325,6 +1480,21 @@
      "beendet": null
     }
    ]
+  },
+  "Guy Parmelin": {
+   "keine_treffer": true
+  },
+  "Michael Graber": {
+   "keine_treffer": true
+  },
+  "Hans Baldung": {
+   "keine_treffer": true
+  },
+  "Baldung Grien": {
+   "keine_treffer": true
+  },
+  "Sachen Ukraine": {
+   "keine_treffer": true
   }
  }
 }
