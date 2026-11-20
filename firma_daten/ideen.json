@@ -1,10 +1,417 @@
 {
- "erzeugt": "2026-11-19T14:30:44Z",
+ "erzeugt": "2026-11-20T14:07:47Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 66,
- "neu": 15,
+ "anzahl": 61,
+ "neu": 14,
  "ideen": [
+  {
+   "id": "idee-6a79fe23",
+   "bereich": "fakten",
+   "titel": "Alles über Grand Theft Auto",
+   "thema": "Wissenswertes zur Videospielreihe Grand Theft Auto",
+   "begruendung": "Der Trend 'Grand Theft Auto' ist Platz 1 der meistgelesenen Wikipedia-Seiten (de) mit 73.626 Aufrufen und Platz 1 der meistgelesenen Wikipedia-Seiten (en) mit 750.227 Aufrufen.",
+   "quelle": {
+    "name": "Grand Theft Auto",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes zur Videospielreihe Grand Theft Auto",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z",
+   "recherche": [
+    {
+     "text": "13 Jahre nach dem Vorgänger erscheint \"Grand Theft Auto VI\".",
+     "status": "einzeln",
+     "datum": "2026-11-19",
+     "quellen": [
+      {
+       "quelle": "Tagesschau (ARD)",
+       "url": "https://www.tagesschau.de/wirtschaft/unternehmen/spiele-gta-sechs-neuerscheinung-100.html",
+       "datum": "2026-11-19"
+      }
+     ]
+    },
+    {
+     "text": "Lange warteten Fans auf ein neues Videospiel der Reihe \"Grand Theft Auto\" (GTA).",
+     "status": "einzeln",
+     "datum": "2026-11-19",
+     "quellen": [
+      {
+       "quelle": "Tagesschau (ARD)",
+       "url": "https://www.tagesschau.de/wirtschaft/unternehmen/spiele-gta-sechs-neuerscheinung-100.html",
+       "datum": "2026-11-19"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-d529fe1d",
+   "bereich": "fakten",
+   "titel": "Was ist Anthropic?",
+   "thema": "Fakten über das Unternehmen Anthropic",
+   "begruendung": "Der Trend 'Anthropic' ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) mit 25.551 Aufrufen und Platz 16 der meistgelesenen Wikipedia-Seiten (en) mit 112.202 Aufrufen.",
+   "quelle": {
+    "name": "Anthropic",
+    "typ": "trend",
+    "score": 90.7,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über das Unternehmen Anthropic",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z",
+   "recherche": [
+    {
+     "text": "Anthropic hat sich verpflichtet, bis 2045 fast 900 Milliarden Dollar in Rechenleistung oder Computer-Chips zu investieren.",
+     "status": "einzeln",
+     "datum": "2026-11-19",
+     "quellen": [
+      {
+       "quelle": "Tagesschau (ARD)",
+       "url": "https://www.tagesschau.de/wirtschaft/unternehmen/anthropic-boersengang-aktie-100.html",
+       "datum": "2026-11-19"
+      }
+     ]
+    },
+    {
+     "text": "Anthropic will verantwortungsvoll mit KI umgehen",
+     "status": "einzeln",
+     "datum": "2026-11-19",
+     "quellen": [
+      {
+       "quelle": "Tagesschau (ARD)",
+       "url": "https://www.tagesschau.de/wirtschaft/unternehmen/anthropic-boersengang-aktie-100.html",
+       "datum": "2026-11-19"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-5913e1b4",
+   "bereich": "fakten",
+   "titel": "Wer ist Dario Amodei?",
+   "thema": "Fakten zur Person Dario Amodei",
+   "begruendung": "Der Trend 'Dario Amodei' ist Platz 13 der meistgelesenen Wikipedia-Seiten (de) mit 16.466 Aufrufen und Platz 8 der meistgelesenen Wikipedia-Seiten (en) mit 167.998 Aufrufen.",
+   "quelle": {
+    "name": "Dario Amodei",
+    "typ": "trend",
+    "score": 90.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zur Person Dario Amodei",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z"
+  },
+  {
+   "id": "idee-71374133",
+   "bereich": "fakten",
+   "titel": "Fakten zu Sophia Thomalla",
+   "thema": "Wissenswertes über die Person Sophia Thomalla",
+   "begruendung": "Der Trend 'Sophia Thomalla' ist Platz 2 der meistgelesenen Wikipedia-Seiten (de) mit 48.523 Aufrufen.",
+   "quelle": {
+    "name": "Sophia Thomalla",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über die Person Sophia Thomalla",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z"
+  },
+  {
+   "id": "idee-b314911d",
+   "bereich": "fakten",
+   "titel": "Der Film Die Bücherdiebin",
+   "thema": "Fakten zum Film Die Bücherdiebin",
+   "begruendung": "Der Trend 'Die Bücherdiebin (Film)' ist Platz 8 der meistgelesenen Wikipedia-Seiten (de) mit 21.275 Aufrufen.",
+   "quelle": {
+    "name": "Die Bücherdiebin (Film)",
+    "typ": "trend",
+    "score": 74.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zum Film Die Bücherdiebin",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z"
+  },
+  {
+   "id": "idee-6c71b357",
+   "bereich": "erklaer",
+   "titel": "Wie funktioniert Anthropic AI?",
+   "thema": "Eine Erklärung der Funktionsweise von Anthropic und künstlicher Intelligenz",
+   "begruendung": "Der Trend 'Anthropic' ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) mit 25.551 Aufrufen und Platz 16 der meistgelesenen Wikipedia-Seiten (en) mit 112.202 Aufrufen.",
+   "quelle": {
+    "name": "Anthropic",
+    "typ": "trend",
+    "score": 90.7,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der Funktionsweise von Anthropic und künstlicher Intelligenz"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-20T14:06:48Z"
+  },
+  {
+   "id": "idee-a4166352",
+   "bereich": "erklaer",
+   "titel": "Die Welt von Grand Theft Auto",
+   "thema": "Eine Erklärung der Spielmechaniken und des Einflusses von Grand Theft Auto",
+   "begruendung": "Der Trend 'Grand Theft Auto' ist Platz 1 der meistgelesenen Wikipedia-Seiten (de) mit 73.626 Aufrufen und Platz 1 der meistgelesenen Wikipedia-Seiten (en) mit 750.227 Aufrufen.",
+   "quelle": {
+    "name": "Grand Theft Auto",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der Spielmechaniken und des Einflusses von Grand Theft Auto"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-20T14:06:48Z"
+  },
+  {
+   "id": "idee-52ace639",
+   "bereich": "erklaer",
+   "titel": "So werden Auslegerbrücken gebaut",
+   "thema": "Eine Erklärung der Konstruktionsweise von Auslegerbrücken",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist Platz 5 der meistgelesenen Wikipedia-Seiten (de) mit 32.912 Aufrufen.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 81.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der Konstruktionsweise von Auslegerbrücken"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-20T14:06:48Z"
+  },
+  {
+   "id": "idee-0912ba67",
+   "bereich": "reportage",
+   "titel": "NASCAR-Aufsehen um Cleetus McFarland",
+   "thema": "Eine Reportage über das Aufsehen um Cleetus McFarland bei der Freedom Factory",
+   "begruendung": "Der Trend 'cleetus mcfarland lemullets freedom factory' ist Platz 1 der Google-Trends (US) mit über 2.000 Suchen; Meldung: „NASCAR Urged to ‘Look in the Mirror’ After Cleetus McFarland & Carson Hocevar Steal the Spotlight at Freedom Factory",
+   "quelle": {
+    "name": "cleetus mcfarland lemullets freedom factory",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über das Aufsehen um Cleetus McFarland bei der Freedom Factory",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-102d08d5",
+   "bereich": "reportage",
+   "titel": "UEFA-Strafe für England nach Sieg",
+   "thema": "Eine Reportage über die von der UEFA verhängte Strafe gegen England",
+   "begruendung": "Der Trend 'uefa' ist Platz 2 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Papa tezahüratı nedeniyle UEFA'dan İspanya galibiyetinin ardından İngiltere'ye ceza“.",
+   "quelle": {
+    "name": "uefa",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die von der UEFA verhängte Strafe gegen England",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-86e6614f",
+   "bereich": "reportage",
+   "titel": "ACC Men's Asia Cup: Indien vs. Nepal",
+   "thema": "Eine Reportage über das ACC Men's Asia Cup Spiel zwischen Indien und Nepal",
+   "begruendung": "Der Trend 'india a vs nepal' ist Platz 2 der Google-Trends (US) mit über 200 Suchen; Meldung: „India vs Nepal ACC Men's Asia Cup Rising Stars score, toss winner, winning probability, result and highlights from Doha“.",
+   "quelle": {
+    "name": "india a vs nepal",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über das ACC Men's Asia Cup Spiel zwischen Indien und Nepal",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-27f00aa5",
+   "bereich": "reportage",
+   "titel": "Darts Grand Slam: Luke Humphries scheidet aus",
+   "thema": "Eine Reportage über das Ausscheiden von Luke Humphries beim Grand Slam of Darts 2026",
+   "begruendung": "Der Trend 'luke humphries' ist Platz 3 der Google-Trends (DE) mit über 5.000 Suchen; Meldung: „Grand Slam of Darts 2026: Luke Humphries upset by unseeded Tom Sykes in second round“.",
+   "quelle": {
+    "name": "luke humphries",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über das Ausscheiden von Luke Humphries beim Grand Slam of Darts 2026",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-69319492",
+   "bereich": "reportage",
+   "titel": "Rheinmetall-Aktie im Fokus",
+   "thema": "Eine Reportage über die Bewertung der Rheinmetall-Aktie durch Bernstein Research",
+   "begruendung": "Der Trend 'rheinmetall aktien' ist Platz 5 der Google-Trends (DE) mit über 1.000 Suchen; Meldung: „Market-Perform-Analyse: Bernstein Research bewertet Rheinmetall-Aktie“.",
+   "quelle": {
+    "name": "rheinmetall aktien",
+    "typ": "trend",
+    "score": 73.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Bewertung der Rheinmetall-Aktie durch Bernstein Research",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-8251049d",
+   "bereich": "satire",
+   "titel": "Cyber-Chef im Weißen Haus: Offline",
+   "thema": "Eine satirische Reaktion auf die Entlassung des Cyber-Sicherheitschefs im Weißen Haus",
+   "begruendung": "Die Nachricht 'White House removes cyber-security chief after series of tech outages' ist von 2 Quellen bestätigt (BBC World).",
+   "quelle": {
+    "name": "White House removes cyber-security chief after series of tech outages",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Eine satirische Reaktion auf die Entlassung des Cyber-Sicherheitschefs im Weißen Haus",
+    "sprache": "de",
+    "meldung": "White House removes cyber-security chief after series of tech outages"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-20T14:06:48Z"
+  },
   {
    "id": "idee-c5a8c0ba",
    "bereich": "fakten",
@@ -1013,144 +1420,6 @@
    ]
   },
   {
-   "id": "idee-2e92d346",
-   "bereich": "fakten",
-   "titel": "Robert Pattinson: Fakten zu seiner Karriere",
-   "thema": "Wissens-Fakten über die Karriere von Robert Pattinson.",
-   "begruendung": "Robert Pattinson ist Platz 1 der meistgelesenen Wikipedia-Seiten (de) und (en).",
-   "quelle": {
-    "name": "Robert Pattinson",
-    "typ": "trend",
-    "score": 99.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten über die Karriere von Robert Pattinson.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z",
-   "recherche": []
-  },
-  {
-   "id": "idee-532078b0",
-   "bereich": "fakten",
-   "titel": "Suki Waterhouse: Fakten zur Person",
-   "thema": "Wissens-Fakten über Suki Waterhouse.",
-   "begruendung": "Suki Waterhouse ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) und Platz 4 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Suki Waterhouse",
-    "typ": "trend",
-    "score": 96.4,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten über Suki Waterhouse.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z"
-  },
-  {
-   "id": "idee-0fe097ed",
-   "bereich": "fakten",
-   "titel": "Fakten zum Phänomen James Bond",
-   "thema": "Wissens-Fakten über die Filmreihe James Bond.",
-   "begruendung": "James Bond ist Platz 7 der meistgelesenen Wikipedia-Seiten (de) und ein Reddit r/todayilearned Thema.",
-   "quelle": {
-    "name": "James Bond",
-    "typ": "trend",
-    "score": 95.0,
-    "quellen": [
-     "reddit",
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten über die Filmreihe James Bond.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z"
-  },
-  {
-   "id": "idee-6e1f3f3f",
-   "bereich": "fakten",
-   "titel": "Das Gemälde 'Saturn verschlingt seinen Sohn'",
-   "thema": "Wissens-Fakten über das Gemälde 'Saturn Devouring His Son'.",
-   "begruendung": "'Saturn Devouring His Son' ist Platz 7 der meistgelesenen Wikipedia-Seiten (en) und ein Reddit r/todayilearned Thema.",
-   "quelle": {
-    "name": "Saturn Devouring His Son",
-    "typ": "trend",
-    "score": 91.9,
-    "quellen": [
-     "reddit",
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten über das Gemälde 'Saturn Devouring His Son'.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z"
-  },
-  {
-   "id": "idee-5636dee1",
-   "bereich": "fakten",
-   "titel": "Fakten zur Geschichte von Ramayana",
-   "thema": "Wissens-Fakten über die Erzählung Ramayana.",
-   "begruendung": "'Ramayana: Part 1' ist Platz 2 der meistgelesenen Wikipedia-Seiten (en).",
-   "quelle": {
-    "name": "Ramayana: Part 1",
-    "typ": "trend",
-    "score": 87.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissens-Fakten über die Erzählung Ramayana.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z"
-  },
-  {
    "id": "idee-b17b8584",
    "bereich": "erklaer",
    "titel": "Urlaub im öffentlichen Dienst erklärt",
@@ -1241,157 +1510,6 @@
    },
    "app_auftrag": false,
    "erstellt": "2026-11-17T14:35:05Z"
-  },
-  {
-   "id": "idee-e79a7751",
-   "bereich": "erklaer",
-   "titel": "Die Beamtenbesoldung in Deutschland",
-   "thema": "Wie das System der Beamtenbesoldung in Deutschland funktioniert.",
-   "begruendung": "Der Trend 'beamter' ist Platz 4 der Google-Trends (DE) mit einer Meldung zur Prüfung der Beamtenbesoldung in Sachsen-Anhalt.",
-   "quelle": {
-    "name": "beamter",
-    "typ": "trend",
-    "score": 80.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Wie das System der Beamtenbesoldung in Deutschland funktioniert."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-17T14:35:05Z"
-  },
-  {
-   "id": "idee-74f73ebc",
-   "bereich": "reportage",
-   "titel": "Phil Collins: Gesundheits-Update",
-   "thema": "Eine sachliche Nachrichtenreportage zum Gesundheitszustand von Phil Collins.",
-   "begruendung": "Der Trend 'phil collins' ist Platz 1 der Google-Trends (US) mit einer Meldung zum Gesundheits-Update.",
-   "quelle": {
-    "name": "phil collins",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Nachrichtenreportage zum Gesundheitszustand von Phil Collins.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-95e22874",
-   "bereich": "reportage",
-   "titel": "GZSZ Vorschau: Was passiert in Folge 8657?",
-   "thema": "Eine sachliche Nachrichtenreportage zur Vorschau der GZSZ-Folge 8657.",
-   "begruendung": "Der Trend 'jo gerner' ist Platz 2 der Google-Trends (DE) mit einer Meldung zur GZSZ-Vorschau.",
-   "quelle": {
-    "name": "jo gerner",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Nachrichtenreportage zur Vorschau der GZSZ-Folge 8657.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-c6dbb1e8",
-   "bereich": "reportage",
-   "titel": "NHL-Transfer: Blackhawks und Rangers",
-   "thema": "Eine sachliche Nachrichtenreportage über den Torwart-Transfer zwischen den Blackhawks und Rangers.",
-   "begruendung": "Der Trend 'rangers' ist Platz 2 der Google-Trends (US) mit einer Meldung zu einem Goaltending Trade.",
-   "quelle": {
-    "name": "rangers",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Nachrichtenreportage über den Torwart-Transfer zwischen den Blackhawks und Rangers.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-a34157a9",
-   "bereich": "reportage",
-   "titel": "Krim-Brücke getroffen: Drohnenangriff",
-   "thema": "Eine sachliche Nachrichtenreportage über den Angriff auf die Krim-Brücke.",
-   "begruendung": "Die Meldung 'Landmark Crimea bridge hit as Russia reports biggest Ukrainian drone attack of war' ist von 4 Quellen bestätigt.",
-   "quelle": {
-    "name": "Landmark Crimea bridge hit as Russia reports biggest Ukrainian drone attack of war",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "Wikipedia · The Guardian"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Nachrichtenreportage über den Angriff auf die Krim-Brücke.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-b27ff409",
-   "bereich": "reportage",
-   "titel": "Deutschland gewinnt Nations League Gruppe",
-   "thema": "Eine sachliche Nachrichtenreportage über den Sieg Deutschlands in der Nations League.",
-   "begruendung": "Die Meldung 'Germany beat Netherlands 5-0 to win Nations League group' ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Germany beat Netherlands 5-0 to win Nations League group",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "Wikipedia · AP"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine sachliche Nachrichtenreportage über den Sieg Deutschlands in der Nations League.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
   },
   {
    "id": "idee-639a4133",
@@ -1504,52 +1622,6 @@
    "app_auftrag": true,
    "erstellt": "2026-11-16T13:45:20Z",
    "recherche": []
-  },
-  {
-   "id": "idee-084608bb",
-   "bereich": "erklaer",
-   "titel": "Immobilien in Ebersberg: Mehrfach überschreiben?",
-   "thema": "Ein Erklärvideo darüber, warum Familien in Ebersberg Immobilien mehrfach überschreiben.",
-   "begruendung": "Der Trend 'ebersberg' war Platz 1 der Google-Trends (DE) mit über 100 Suchen; die Meldung 'Neuer Ebersberger Notar: Warum Familien hier Immobilien mehrfach überschreiben' (Merkur) beschreibt das Thema.",
-   "quelle": {
-    "name": "ebersberg",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo darüber, warum Familien in Ebersberg Immobilien mehrfach überschreiben."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-16T13:45:20Z"
-  },
-  {
-   "id": "idee-bd95258f",
-   "bereich": "erklaer",
-   "titel": "Abschiebezentren: Was steckt dahinter?",
-   "thema": "Ein Erklärvideo über das Konzept und die Eignung von Abschiebezentren.",
-   "begruendung": "Der Trend 'ruanda' war Platz 2 der Google-Trends (DE) mit über 100 Suchen; die Meldung 'Mögliche Abkommen: Eignet sich Ruanda für Abschiebezentren?' (tagesschau.de) thematisiert dies.",
-   "quelle": {
-    "name": "ruanda",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo über das Konzept und die Eignung von Abschiebezentren."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-16T13:45:20Z"
   },
   {
    "id": "idee-a328d521",
@@ -1711,216 +1783,6 @@
    },
    "app_auftrag": true,
    "erstellt": "2026-11-14T12:16:39Z"
-  },
-  {
-   "id": "idee-793a35bc",
-   "bereich": "ranking",
-   "titel": "Top-Brücken: Ausleger-Giganten",
-   "thema": "Die größten Auslegerbrücken, sortiert nach ihrer Größe",
-   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' war auf Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-12 mit 33.404 Aufrufen.",
-   "quelle": {
-    "name": "Liste der größten Auslegerbrücken",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q46300 heißt 'Crespadoro', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de"
-    ],
-    "thema": "Die größten Auslegerbrücken, sortiert nach ihrer Größe"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:26Z",
-   "recherche": [
-    {
-     "text": "700 Tonnen, 153 Meter Ausleger: Der Kraneinsatz seit März",
-     "status": "einzeln",
-     "datum": "2026-11-09",
-     "quellen": [
-      {
-       "quelle": "solidbau.at",
-       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
-       "datum": "2026-11-09"
-      }
-     ]
-    },
-    {
-     "text": "vorherige Phase (Juli 2026): 700-t-Raupenkran mit 153 m Ausleger, Grobbleche bis rund 95 t",
-     "status": "einzeln",
-     "datum": "2026-11-09",
-     "quellen": [
-      {
-       "quelle": "solidbau.at",
-       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
-       "datum": "2026-11-09"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-ab9729b4",
-   "bereich": "ranking",
-   "titel": "Auslegerbrücken: Die Längsten",
-   "thema": "Die größten Auslegerbrücken im Überblick",
-   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' war auf Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-12 mit 33.404 Aufrufen.",
-   "quelle": {
-    "name": "Liste der größten Auslegerbrücken",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184600 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de"
-    ],
-    "thema": "Die größten Auslegerbrücken im Überblick"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z",
-   "recherche": [
-    {
-     "text": "700 Tonnen, 153 Meter Ausleger: Der Kraneinsatz seit März",
-     "status": "einzeln",
-     "datum": "2026-11-09",
-     "quellen": [
-      {
-       "quelle": "solidbau.at",
-       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
-       "datum": "2026-11-09"
-      }
-     ]
-    },
-    {
-     "text": "vorherige Phase (Juli 2026): 700-t-Raupenkran mit 153 m Ausleger, Grobbleche bis rund 95 t",
-     "status": "einzeln",
-     "datum": "2026-11-09",
-     "quellen": [
-      {
-       "quelle": "solidbau.at",
-       "url": "https://solidbau.at/news/porr-hochbruecke-horb-neckartal-extradosed-667-meter/",
-       "datum": "2026-11-09"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-b2bc4b52",
-   "bereich": "story",
-   "titel": "Als die Brücke zum Problem wurde",
-   "thema": "Eine Alltagsgeschichte über die Herausforderungen maroder Infrastruktur",
-   "begruendung": "Der Trend 'köhlbrandbrücke' war auf Platz 2 der Google-Trends (DE) mit über 100 Suchen; Meldung: „Marode Köhlbrandbrücke: Hamburgs Hafen droht der Infarkt“ (taz.de).",
-   "quelle": {
-    "name": "köhlbrandbrücke",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Alltagsgeschichte über die Herausforderungen maroder Infrastruktur",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-ab54d8aa",
-   "bereich": "story",
-   "titel": "Der Tag, an dem das Netz zusammenbrach",
-   "thema": "Eine Alltagsgeschichte über die Auswirkungen eines Webhoster-Ausfalls",
-   "begruendung": "Der Trend 'heise online' war auf Platz 3 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Angriff über MCP-Server: Webhoster Mittwald im Krisenmodus“ (heise online).",
-   "quelle": {
-    "name": "heise online",
-    "typ": "trend",
-    "score": 86.7,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Alltagsgeschichte über die Auswirkungen eines Webhoster-Ausfalls",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-8a2f9bb7",
-   "bereich": "story",
-   "titel": "Unerwarteter Regen in der Stadt",
-   "thema": "Eine Alltagsgeschichte über plötzliche Wetterumschwünge",
-   "begruendung": "Der Trend 'weather san diego' war auf Platz 4 der Google-Trends (US) mit über 500 Suchen; Meldung: „Light Rain Forecast Overnight in San Diego County“ (San Diego County News Center).",
-   "quelle": {
-    "name": "weather san diego",
-    "typ": "trend",
-    "score": 80.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Alltagsgeschichte über plötzliche Wetterumschwünge",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z"
-  },
-  {
-   "id": "idee-6b4dd7d4",
-   "bereich": "satire",
-   "titel": "IT-Ausfall: Der digitale Weltuntergang",
-   "thema": "Satirische Betrachtung eines globalen Software-Konzern-Ausfalls",
-   "begruendung": "Die Nachricht 'Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft' ist von 2 Quellen (Tagesschau) bestätigt.",
-   "quelle": {
-    "name": "Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
-   "auftrag": {
-    "art": "satire",
-    "thema": "Satirische Betrachtung eines globalen Software-Konzern-Ausfalls",
-    "sprache": "de",
-    "meldung": "Weltweite Störung bei Outlook, Teams und anderen Programmen des Software-Konzerns Microsoft"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-13T13:12:39Z"
   }
  ]
 }
