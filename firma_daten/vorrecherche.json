@@ -1,14 +1,13 @@
 {
- "erzeugt": "2026-11-19T10:51:53Z",
+ "erzeugt": "2026-11-20T10:34:00Z",
  "hinweise": [
-  "meiste-einwohner (10, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
   "meiste-einwohner (10, de+en): 2× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut"
  ],
  "vorgaben": 36,
- "neu": 2,
+ "neu": 1,
  "behalten": 0,
- "aufgeschoben": 2,
- "aktuell": 32,
+ "aufgeschoben": 1,
+ "aktuell": 34,
  "entfernt": 0,
  "eintraege": [
   {
@@ -207,6 +206,20 @@
     "korrigiert": 1
    },
    "bytes": 9855
+  },
+  {
+   "schluessel": "56e63761d594cd5d18ac",
+   "thema": "meiste-einwohner",
+   "plaetze": 10,
+   "sprachen": [
+    "de"
+   ],
+   "stand": "2026-11-20T10:31:28Z",
+   "status": {
+    "bestätigt": 6,
+    "korrigiert": 4
+   },
+   "bytes": 24788
   },
   {
    "schluessel": "579b5e6f1f0e159a7fba",
@@ -491,5 +504,5 @@
    "bytes": 10109
   }
  ],
- "bytes": 531732
+ "bytes": 556520
 }
