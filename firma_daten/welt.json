@@ -1,45 +1,36 @@
 {
- "erzeugt": "2026-11-19T20:51:02Z",
- "anzahl": 19,
- "nur_ausland": 1,
+ "erzeugt": "2026-11-20T07:32:43Z",
+ "anzahl": 16,
+ "nur_ausland": 0,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "European leaders unite in Berlin to reaffirm support for Ukraine",
-   "kurz": "German chancellor warns peace talks without Europe's involvement are doomed to fail, urging unity with Ukraine.",
-   "link": "https://www.aljazeera.com/news/2026/11/19/european-leaders-unite-in-berlin-to-reaffirm-support-for-ukraine?traffic_source=rss",
+   "titel": "‘We don’t want our future decided by the military’: Young Germans protest",
+   "kurz": "Ahead of Friday's nationwide rallies, German teenagers explain why they are resisting conscription.",
+   "link": "https://www.aljazeera.com/news/2026/11/20/we-dont-want-our-future-decided-by-the-military-young-germans-protest?traffic_source=rss",
    "sprache": "en",
-   "zeit": "2026-11-19T19:40:23Z",
-   "ausland_quellen": 2,
+   "zeit": "2026-11-20T06:20:26Z",
+   "ausland_quellen": 1,
    "laender": [
-    "Frankreich",
     "Katar"
    ],
    "laender_einig": [
-    "Frankreich",
     "Katar"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Hongkong/China",
-    "Russland",
-    "USA",
-    "Ukraine"
-   ],
+   "beteiligte_laender": [],
    "zusammenfassung": [
-    "Al Jazeera (Katar): European leaders unite in Berlin to reaffirm support for Ukraine",
-    "France 24 (Frankreich): Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks"
+    "Al Jazeera (Katar): ‘We don’t want our future decided by the military’: Young Germans protest"
    ],
    "staatsnah": [
-    "Al Jazeera",
-    "France 24"
+    "Al Jazeera"
    ],
    "deutsch_quellen": [],
-   "nur_ausland": true,
-   "unabhaengig_n": 2,
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
@@ -48,19 +39,122 @@
      "land": "Katar",
      "art": "staatsnah",
      "beteiligt": false,
-     "titel": "European leaders unite in Berlin to reaffirm support for Ukraine",
-     "link": "https://www.aljazeera.com/news/2026/11/19/european-leaders-unite-in-berlin-to-reaffirm-support-for-ukraine?traffic_source=rss",
+     "titel": "‘We don’t want our future decided by the military’: Young Germans protest",
+     "link": "https://www.aljazeera.com/news/2026/11/20/we-dont-want-our-future-decided-by-the-military-young-germans-protest?traffic_source=rss",
      "eigentuemer": "staatlich (Katar)",
      "zaehlt_nicht": ""
-    },
+    }
+   ]
+  },
+  {
+   "titel": "Studie aus Deutschland: Psychische Gesundheit bei Jugendlichen seit Pandemie anhaltend belastet",
+   "kurz": "Eine verminderte Lebensqualität, psychische Auffälligkeiten und Angstsymptome sind bei Kindern und Jugendlichen in Deutschland nicht selten. Die COPSY-Studie…",
+   "link": "https://www.derstandard.at/story/3000000350166/studie-aus-deutschland-psychische-gesundheit-bei-jugendlichen-seit-pandemie-anhaltend-belastet?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-20T05:27:05Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Studie aus Deutschland: Psychische Gesundheit bei Jugendlichen seit Pandemie anhaltend belastet"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
     {
-     "quelle": "France 24",
-     "land": "Frankreich",
-     "art": "staatsnah",
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
      "beteiligt": false,
-     "titel": "Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks",
-     "link": "https://www.france24.com/en/europe/20261119-european-leaders-to-meet-in-berlin-to-support-for-ukraine-after-trump-putin-xi-talks",
-     "eigentuemer": "staatlich (Frankreich)",
+     "titel": "Studie aus Deutschland: Psychische Gesundheit bei Jugendlichen seit Pandemie anhaltend belastet",
+     "link": "https://www.derstandard.at/story/3000000350166/studie-aus-deutschland-psychische-gesundheit-bei-jugendlichen-seit-pandemie-anhaltend-belastet?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa",
+   "kurz": "La actriz alemana da vida a una mujer del siglo XVII que se hace pasar por hombre en un cuidado drama histórico en blanco y negro con aroma a wéstern",
+   "link": "https://elpais.com/cultura/cine/2026-11-20/rose-sandra-huller-lleva-los-pantalones-en-otra-actuacion-prodigiosa.html",
+   "sprache": "es",
+   "zeit": "2026-11-20T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): ‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa",
+     "link": "https://elpais.com/cultura/cine/2026-11-20/rose-sandra-huller-lleva-los-pantalones-en-otra-actuacion-prodigiosa.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "US open to NATO-style security guarantees for Ukraine, Kushner says",
+   "kurz": "The US envoy's remarks came after Kyiv's allies gathered in Berlin for a 'Coalition of the Willing' summit with President Volodymyr Zelensky. German Chancellor…",
+   "link": "https://www.lemonde.fr/en/international/article/2026/11/19/europe-expects-to-join-new-ukraine-peace-talks-soon-says-german-chancellor_6784813_4.html",
+   "sprache": "en",
+   "zeit": "2026-11-19T23:36:26+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [
+    "Frankreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): US open to NATO-style security guarantees for Ukraine, Kushner says"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "US open to NATO-style security guarantees for Ukraine, Kushner says",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/19/europe-expects-to-join-new-ukraine-peace-talks-soon-says-german-chancellor_6784813_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
      "zaehlt_nicht": ""
     }
    ]
@@ -150,118 +244,46 @@
    ]
   },
   {
-   "titel": "Germany’s Merz says ‘Yalta format’ cannot bring peace in Ukraine",
-   "kurz": "Chancellor hosts Zelenskyy, US envoys in Berlin, warning talks excluding Europe, Kyiv cannot end war",
-   "link": "https://www.aa.com.tr/en/world/germany-s-merz-says-yalta-format-cannot-bring-peace-in-ukraine/4131349",
-   "sprache": "en",
-   "zeit": "2026-11-19T20:28:02+03:00",
+   "titel": "Merz critica la entente entre Trump, Xi y Putin: “El formato de Yalta solo trae inseguridad y división”",
+   "kurz": "Una coalición de casi 40 países se reúne en Berlín para apoyar a Ucrania y exigir que Europa participe en las negociaciones de paz",
+   "link": "https://elpais.com/internacional/2026-11-19/merz-critica-la-entente-entre-trump-xi-y-putin-el-formato-de-yalta-solo-trae-inseguridad-y-division.html",
+   "sprache": "es",
+   "zeit": "2026-11-19T19:20:55Z",
    "ausland_quellen": 1,
    "laender": [
-    "Türkei"
+    "Spanien"
    ],
    "laender_einig": [
-    "Türkei"
+    "Spanien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
     "Ukraine"
    ],
    "zusammenfassung": [
-    "Anadolu (Türkei): Germany’s Merz says ‘Yalta format’ cannot bring peace in Ukraine"
-   ],
-   "staatsnah": [
-    "Anadolu"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Anadolu",
-     "land": "Türkei",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Germany’s Merz says ‘Yalta format’ cannot bring peace in Ukraine",
-     "link": "https://www.aa.com.tr/en/world/germany-s-merz-says-yalta-format-cannot-bring-peace-in-ukraine/4131349",
-     "eigentuemer": "staatlich (Türkei)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "German rights group seeks arrest of former Mossad chief for Lebanon attacks",
-   "kurz": "ECCHR accuses David Barnea of committing war crimes, demands prosecutors arrest him during visit to Berlin",
-   "link": "https://www.aa.com.tr/en/europe/german-rights-group-seeks-arrest-of-former-mossad-chief-for-lebanon-attacks/4131338",
-   "sprache": "en",
-   "zeit": "2026-11-19T20:16:25+03:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Türkei"
-   ],
-   "laender_einig": [
-    "Türkei"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Anadolu (Türkei): German rights group seeks arrest of former Mossad chief for Lebanon attacks"
-   ],
-   "staatsnah": [
-    "Anadolu"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Anadolu",
-     "land": "Türkei",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "German rights group seeks arrest of former Mossad chief for Lebanon attacks",
-     "link": "https://www.aa.com.tr/en/europe/german-rights-group-seeks-arrest-of-former-mossad-chief-for-lebanon-attacks/4131338",
-     "eigentuemer": "staatlich (Türkei)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Football needs personalities like Klopp – Guardiola",
-   "kurz": "Pep Guardiola praises Jürgen Klopp’s charisma and communication, saying football needs personalities like him as the German returns to coaching. Read More…",
-   "link": "https://punchng.com/football-needs-personalities-like-klopp-guardiola/?utm_source=rss.punchng.com&utm_medium=web",
-   "sprache": "en",
-   "zeit": "2026-11-19T19:57:48Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Nigeria"
-   ],
-   "laender_einig": [
-    "Nigeria"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Punch (Nigeria): Football needs personalities like Klopp – Guardiola"
+    "El País (Spanien): Merz critica la entente entre Trump, Xi y Putin: “El formato de Yalta solo trae inseguridad y división”"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Erstmals gemeinsames Treffen von Putin, Trump und Xi im Rahmen eines Gipfels in Shenzhen",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1686796.html"
+    }
+   ],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Punch",
-     "land": "Nigeria",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Football needs personalities like Klopp – Guardiola",
-     "link": "https://punchng.com/football-needs-personalities-like-klopp-guardiola/?utm_source=rss.punchng.com&utm_medium=web",
-     "eigentuemer": "Eigentümer unbekannt",
+     "titel": "Merz critica la entente entre Trump, Xi y Putin: “El formato de Yalta solo trae inseguridad y división”",
+     "link": "https://elpais.com/internacional/2026-11-19/merz-critica-la-entente-entre-trump-xi-y-putin-el-formato-de-yalta-solo-trae-inseguridad-y-division.html",
+     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -304,24 +326,31 @@
    ]
   },
   {
-   "titel": "DER ANDERE BLICK - Deutschland präsentiert sich als leuchtendes Vorbild in der Welt. Doch seine Klimapolitik ist gescheitert",
-   "kurz": "Auf der Weltklimakonferenz in Antalya droht Deutschland das wenige moralische Kapital zu verspielen, das es noch hat. Auf Belehrungen sollte es verzichten.",
-   "link": "https://www.nzz.ch/der-andere-blick/deutschland-praesentiert-sich-als-leuchtendes-vorbild-in-der-welt-doch-seine-klimapolitik-ist-gescheitert-ld.10068518",
-   "sprache": "de",
-   "zeit": "2026-11-19T17:08:17Z",
+   "titel": "China summit ends with little new, Europe backs Ukraine in Berlin",
+   "kurz": "The leaders of China, the United States and Russia met in Shenzhen for a historic first, but the summit brought little new: non-binding statements on peace and…",
+   "link": "https://www.france24.com/en/china-summit-ends-with-little-new-europe-backs-ukraine-in-berlin",
+   "sprache": "en",
+   "zeit": "2026-11-19T14:04:03Z",
    "ausland_quellen": 1,
    "laender": [
-    "Schweiz"
+    "Frankreich"
    ],
    "laender_einig": [
-    "Schweiz"
+    "Frankreich"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): DER ANDERE BLICK - Deutschland präsentiert sich als leuchtendes Vorbild in der Welt. Doch seine Klimapolitik ist gescheitert"
+   "beteiligte_laender": [
+    "Hongkong/China",
+    "Russland",
+    "USA",
+    "Ukraine"
    ],
-   "staatsnah": [],
+   "zusammenfassung": [
+    "France 24 (Frankreich): Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks"
+   ],
+   "staatsnah": [
+    "France 24"
+   ],
    "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
@@ -329,50 +358,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
+     "quelle": "France 24",
+     "land": "Frankreich",
+     "art": "staatsnah",
      "beteiligt": false,
-     "titel": "DER ANDERE BLICK - Deutschland präsentiert sich als leuchtendes Vorbild in der Welt. Doch seine Klimapolitik ist gescheitert",
-     "link": "https://www.nzz.ch/der-andere-blick/deutschland-praesentiert-sich-als-leuchtendes-vorbild-in-der-welt-doch-seine-klimapolitik-ist-gescheitert-ld.10068518",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Jugendstreik in Europa: Am Freitag geht die Gen Z in ganz Europa auf die Strasse",
-   "kurz": "Für den 20. November haben Jugendliche zu Protesten aufgerufen. Die NZZ berichtet live aus Zürich, Bern, Paris, Berlin und der Westschweiz.",
-   "link": "https://www.nzz.ch/international/jugendstreik-in-europa-am-freitag-geht-die-gen-z-in-ganz-europa-auf-die-strasse-ld.10066446",
-   "sprache": "de",
-   "zeit": "2026-11-19T15:41:20Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): Jugendstreik in Europa: Am Freitag geht die Gen Z in ganz Europa auf die Strasse"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Jugendstreik in Europa: Am Freitag geht die Gen Z in ganz Europa auf die Strasse",
-     "link": "https://www.nzz.ch/international/jugendstreik-in-europa-am-freitag-geht-die-gen-z-in-ganz-europa-auf-die-strasse-ld.10066446",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "titel": "Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks",
+     "link": "https://www.france24.com/en/europe/20261119-european-leaders-to-meet-in-berlin-to-support-for-ukraine-after-trump-putin-xi-talks",
+     "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
     }
    ]
@@ -489,172 +481,22 @@
    ]
   },
   {
-   "titel": "Österreichs Botschaft in Kyjiw durch Geschoss beschädigt, niemand verletzt",
-   "kurz": "Die Koalition der Willigen demonstriert in Berlin ihre Unterstützung für die Ukraine. Bei einem russischen Angriff vor der österreichischen Botschaft gab es…",
-   "link": "https://www.derstandard.at/jetzt/livebericht/3000000349923/trump-und-putin-fuehrten-gespraech-vor-dreiertreffen-mit-xi?ref=rss",
+   "titel": "VIDEO - Kriegsmaterialgesetz: Der Bundesrat will die Regeln für Waffenexporte lockern",
+   "kurz": "Am 29. November stimmt das Schweizer Stimmvolk über die Revision des Kriegsmaterialgesetzes ab. Während Bundesrat und Parlament damit die heimische…",
+   "link": "https://www.nzz.ch/shorts/kriegsmaterialgesetz-der-bundesrat-will-die-regeln-fuer-waffenexporte-lockern-ld.10069683",
    "sprache": "de",
-   "zeit": "2026-11-19T05:50:11Z",
+   "zeit": "2026-11-20T05:47:05Z",
    "ausland_quellen": 1,
    "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Österreichs Botschaft in Kyjiw durch Geschoss beschädigt, niemand verletzt"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Österreichs Botschaft in Kyjiw durch Geschoss beschädigt, niemand verletzt",
-     "link": "https://www.derstandard.at/jetzt/livebericht/3000000349923/trump-und-putin-fuehrten-gespraech-vor-dreiertreffen-mit-xi?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "El Eurogrupo amplía el plazo para presentar candidatos a la dirección del BCE con Hernández de Cos como favorito a la presidencia",
-   "kurz": "Alemania designa de forma oficial al economista Markus K. Brunnermeier para ser economista jefe",
-   "link": "https://elpais.com/economia/2026-11-18/el-eurogrupo-amplia-el-plazo-para-presentar-candidatos-a-la-direccion-del-bce-con-hernandez-de-cos-como-favorito-a-la-presidencia.html",
-   "sprache": "es",
-   "zeit": "2026-11-18T18:15:45Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): El Eurogrupo amplía el plazo para presentar candidatos a la dirección del BCE con Hernández de Cos como favorito a la presidencia"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "El Eurogrupo amplía el plazo para presentar candidatos a la dirección del BCE con Hernández de Cos como favorito a la presidencia",
-     "link": "https://elpais.com/economia/2026-11-18/el-eurogrupo-amplia-el-plazo-para-presentar-candidatos-a-la-direccion-del-bce-con-hernandez-de-cos-como-favorito-a-la-presidencia.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’",
-   "kurz": "Reports cite 15 million leaked records reviewed by more than 200 journalists; German Finance Minister calls for authorities to investigate",
-   "link": "https://www.thehindu.com/news/international/deutsche-bank-chair-backs-ceo-after-reports-expose-past-lapses-trump-calls-tax-leak-illegal/article71715150.ece",
-   "sprache": "en",
-   "zeit": "2026-11-18T15:33:34+05:30",
-   "ausland_quellen": 1,
-   "laender": [
-    "Indien"
-   ],
-   "laender_einig": [
-    "Indien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "The Hindu (Indien): Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "The Hindu",
-     "land": "Indien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’",
-     "link": "https://www.thehindu.com/news/international/deutsche-bank-chair-backs-ceo-after-reports-expose-past-lapses-trump-calls-tax-leak-illegal/article71715150.ece",
-     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Szczecin, un oasis urbano poco conocido entre Berlín y Varsovia",
-   "kurz": "Situada en el noroeste de Polonia, frontera con Alemania, la ciudad es un auténtico hallazgo rodeado de bosques, canales y ríos",
-   "link": "https://elpais.com/elviajero/escapadas/europa/2026-11-18/szczecin-un-oasis-urbano-poco-conocido-entre-berlin-y-varsovia.html",
-   "sprache": "es",
-   "zeit": "2026-11-18T04:30:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Szczecin, un oasis urbano poco conocido entre Berlín y Varsovia"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Szczecin, un oasis urbano poco conocido entre Berlín y Varsovia",
-     "link": "https://elpais.com/elviajero/escapadas/europa/2026-11-18/szczecin-un-oasis-urbano-poco-conocido-entre-berlin-y-varsovia.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "El Deutsche Bank detectó movimientos sospechosos del empresario De Achával vinculados a una misteriosa sociedad",
-   "kurz": "Empleados del banco alemán vincularon al dueño de Hipódromo Argentino de Palermo (HAPSA) con sociedades cercanas a Val de Loire; la Justicia argentina no logró…",
-   "link": "https://www.lanacion.com.ar/politica/el-deutsche-bank-detecto-movimientos-sospechosos-del-empresario-de-achaval-vinculados-a-una-nid19112026/",
-   "sprache": "es",
-   "zeit": "2026-11-19T20:25:28Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
+    "Schweiz"
    ],
    "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Argentinien"
+    "Schweiz"
    ],
    "zusammenfassung": [
-    "La Nación (Argentinien): El Deutsche Bank detectó movimientos sospechosos del empresario De Achával vinculados a una misteriosa sociedad"
+    "NZZ (Schweiz): VIDEO - Kriegsmaterialgesetz: Der Bundesrat will die Regeln für Waffenexporte lockern"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -664,13 +506,50 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "La Nación",
-     "land": "Argentinien",
+     "quelle": "NZZ",
+     "land": "Schweiz",
      "art": "privat",
      "beteiligt": true,
-     "titel": "El Deutsche Bank detectó movimientos sospechosos del empresario De Achával vinculados a una misteriosa sociedad",
-     "link": "https://www.lanacion.com.ar/politica/el-deutsche-bank-detecto-movimientos-sospechosos-del-empresario-de-achaval-vinculados-a-una-nid19112026/",
-     "eigentuemer": "Eigentümer unbekannt",
+     "titel": "VIDEO - Kriegsmaterialgesetz: Der Bundesrat will die Regeln für Waffenexporte lockern",
+     "link": "https://www.nzz.ch/shorts/kriegsmaterialgesetz-der-bundesrat-will-die-regeln-fuer-waffenexporte-lockern-ld.10069683",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "From Germany, with love: a letter to the UK | Klaus Brinkbäumer",
+   "kurz": "As Andy Burnham pushes to reopen Brexit, Berlin won’t say it, but the truth is, we just want you back Dear British friends, Germans are not the love-letter…",
+   "link": "https://www.theguardian.com/commentisfree/2026/nov/20/from-germany-with-love-a-letter-to-the-uk",
+   "sprache": "en",
+   "zeit": "2026-11-20T05:00:22Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Großbritannien"
+   ],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): From Germany, with love: a letter to the UK | Klaus Brinkbäumer"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "From Germany, with love: a letter to the UK | Klaus Brinkbäumer",
+     "link": "https://www.theguardian.com/commentisfree/2026/nov/20/from-germany-with-love-a-letter-to-the-uk",
+     "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
     }
    ]
@@ -753,6 +632,22 @@
  ],
  "verbindungen": [
   {
+   "name": "Sandra Hüller",
+   "wikidata": "https://www.wikidata.org/wiki/Q70003",
+   "beschreibung": "German actress (born 1978)",
+   "verbindungen": [
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Akademie der Künste Berlin",
+     "link": "https://www.wikidata.org/wiki/Q414110",
+     "beendet": null
+    }
+   ],
+   "themen": [
+    "‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa"
+   ]
+  },
+  {
    "name": "Deutsche Bank",
    "wikidata": "https://www.wikidata.org/wiki/Q66048",
    "beschreibung": "German global banking and financial services company",
@@ -813,9 +708,29 @@
     }
    ],
    "themen": [
-    "'Inside Deutsche Bank': The German bank's greenwashing",
-    "Deutsche Bank chair backs CEO after reports expose past lapses; Trump calls tax leak ‘illegal’",
-    "El Deutsche Bank detectó movimientos sospechosos del empresario De Achával vinculados a una misteriosa sociedad"
+    "'Inside Deutsche Bank': The German bank's greenwashing"
+   ]
+  },
+  {
+   "name": "Klaus Brinkbäumer",
+   "wikidata": "https://www.wikidata.org/wiki/Q1744930",
+   "beschreibung": "German journalist",
+   "verbindungen": [
+    {
+     "eigenschaft": "Amt",
+     "wert": "Chefredakteur",
+     "link": "https://www.wikidata.org/wiki/Q589298",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Spiegel-Verlag",
+     "link": "https://www.wikidata.org/wiki/Q13142918",
+     "beendet": null
+    }
+   ],
+   "themen": [
+    "From Germany, with love: a letter to the UK | Klaus Brinkbäumer"
    ]
   }
  ],
@@ -1372,6 +1287,44 @@
   },
   "Millionen Cybercabs": {
    "keine_treffer": true
+  },
+  "Young Germans": {
+   "keine_treffer": true
+  },
+  "Psychische Gesundheit": {
+   "keine_treffer": true
+  },
+  "Sandra Hüller": {
+   "name": "Sandra Hüller",
+   "wikidata": "https://www.wikidata.org/wiki/Q70003",
+   "beschreibung": "German actress (born 1978)",
+   "verbindungen": [
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Akademie der Künste Berlin",
+     "link": "https://www.wikidata.org/wiki/Q414110",
+     "beendet": null
+    }
+   ]
+  },
+  "Klaus Brinkbäumer": {
+   "name": "Klaus Brinkbäumer",
+   "wikidata": "https://www.wikidata.org/wiki/Q1744930",
+   "beschreibung": "German journalist",
+   "verbindungen": [
+    {
+     "eigenschaft": "Amt",
+     "wert": "Chefredakteur",
+     "link": "https://www.wikidata.org/wiki/Q589298",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Spiegel-Verlag",
+     "link": "https://www.wikidata.org/wiki/Q13142918",
+     "beendet": null
+    }
+   ]
   }
  }
 }
