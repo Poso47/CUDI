@@ -1,10 +1,8 @@
 {
- "erzeugt": "2026-11-19T20:56:17Z",
+ "erzeugt": "2026-11-20T02:34:55Z",
  "anzahl": 60,
- "bestaetigt": 15,
- "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
- ],
+ "bestaetigt": 22,
+ "hinweise": [],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
   {
@@ -22,7 +20,7 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "What did Trump, Xi and Putin get out of their historic meeting?",
+     "titel": "BBC correspondents discuss what Trump, Xi and Putin got out of historic talks",
      "link": "https://www.bbc.co.uk/news/videos/c63rgnq05pdwo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
@@ -110,6 +108,205 @@
    ]
   },
   {
+   "titel": "Medienberichte: Lufthansa will 1.000 Stellen streichen",
+   "kurz": "Insgesamt 1.000 Stellen in München und Frankfurt will man bei der Lufthansa Airlines streichen, das geht aus einem Brief an Mitarbeiter hervor. Auf Anfrage…",
+   "link": "https://www.tagesschau.de/wirtschaft/lufthansa-1000-stellen-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-20T02:56:36+01:00",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "onvista.de"
+   ],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Medienberichte: Lufthansa will 1.000 Stellen streichen",
+     "link": "https://www.tagesschau.de/wirtschaft/lufthansa-1000-stellen-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "welt.de",
+     "titel": "Nicht wettbewerbsfähig : 20 Millionen Verlust pro Monat – Lufthansa streicht 1000 Stellen",
+     "link": "https://www.welt.de/wirtschaft/article6aff94735842ff528b9e0da5/nicht-wettbewerbsfaehig-20-millionen-verlust-pro-monat-lufthansa-streicht-1000-stellen.html",
+     "eigentuemer": "gehört Axel Springer SE",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "onvista.de",
+     "titel": "Lufthansa will 1 . 000 Stellen an Drehkreuzen streichen",
+     "link": "https://www.onvista.de/news/2026/11-19-lufthansa-will-1-000-stellen-an-drehkreuzen-streichen-0-10-26578550",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Gender - Pay - Gap : Frauen arbeiten in Europa ab sofort kostenlos",
+   "kurz": "",
+   "link": "https://www.welt.de/politik/ausland/article6aff8b495842ff528b9e0d89/gender-pay-gap-frauen-arbeiten-in-europa-ab-sofort-kostenlos.html",
+   "quelle": "welt.de",
+   "sprache": "de",
+   "zeit": "2026-11-20T01:30:00Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "onvista.de"
+   ],
+   "quellen": [
+    {
+     "quelle": "welt.de",
+     "titel": "EU : Ab jetzt arbeiten Frauen symbolisch kostenlos",
+     "link": "https://www.welt.de/newsticker/dpa_nt/infoline_nt/wirtschaft_nt/article6aff80125842ff528b9e0d67/eu-ab-jetzt-arbeiten-frauen-symbolisch-kostenlos.html",
+     "eigentuemer": "gehört Axel Springer SE",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "handelsblatt.com",
+     "titel": "Gehalt und Gleichheit : EU : Ab jetzt arbeiten Frauen symbolisch kostenlos",
+     "link": "https://www.handelsblatt.com/politik/deutschland/gehalt-und-gleichheit-eu-ab-jetzt-arbeiten-frauen-symbolisch-kostenlos/100271410.html",
+     "eigentuemer": "gehört Handelsblatt Media Group und Dieter von Holtzbrinck Medien",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "onvista.de",
+     "titel": "EU : Ab jetzt arbeiten Frauen symbolisch kostenlos",
+     "link": "https://www.onvista.de/news/2026/11-19-eu-ab-jetzt-arbeiten-frauen-symbolisch-kostenlos-0-10-26578556",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
+   "kurz": "European allies of Ukraine say they have a \"united\" negotiating position at a summit in Berlin.",
+   "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:27:00Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Inside the old gas pipeline where Ukraine is fighting an underground war with Russia",
+     "link": "https://www.bbc.co.uk/news/videos/c8p3vw4q6nzzo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "European leaders present united front in push for peace in Ukraine",
+     "link": "https://www.dw.com/en/european-leaders-present-united-front-in-push-for-peace-in-ukraine/live-79986520?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "foxnews.com",
+     "titel": "Zelenskyy urges US to organize Russia talks with European participation",
+     "link": "https://www.foxnews.com/world/zelenskyy-presses-us-expanded-russia-talks-kushner-announces-breakthrough",
+     "eigentuemer": "gehört Fox Corporation und Fox Broadcasting Company",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Democrats nominate Hakeem Jeffries to be US Speaker of the House",
+   "kurz": "The nomination sets him on the path to become the first black lawmaker to lead the chamber when Democrats take control of the House in January.",
+   "link": "https://www.bbc.co.uk/news/articles/cmy49873dn95o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Democrats nominate Hakeem Jeffries to be US Speaker of the House",
+     "link": "https://www.bbc.co.uk/news/articles/cmy49873dn95o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Anthropic raises more than $100B in IPO. And, Dems nominate Jeffries for House speaker",
+     "link": "https://www.npr.org/2026/11/19/g-s1-154344/up-first-newsletter-house-democrats-trump-xi-putin-anthropic",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Anthropic IPO raises record $81 . 3 billion at $1 . 5 trillion valuation",
+     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/anthropic-ipo-raises-record-81-3-billion-at-1-5-trillion-valuation/articleshow/136008098.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "\"Koalition der Willigen\" berät in Berlin über Unterstützung der Ukraine",
+   "kurz": "\"Koalition der Willigen\" berät in Berlin über Unterstützung der Ukraine",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1686798.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-20T00:15:00Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "\"Koalition der Willigen\" berät in Berlin über Unterstützung der Ukraine",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1686798.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Die \"Koalition der Willigen\" bei der Ukraine-Unterstützung trifft sich in Berlin. Europa will künftig über einen Frieden mitreden",
+     "link": "https://www.dw.com/de/die-koalition-der-willigen-bei-der-ukraine-unterstützung-trifft-sich-in-berlin-europa-will-künftig-über-einen-frieden-mitreden/a-79960717?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "deutschlandfunk.de",
+     "titel": "Koalition der Willigen - Merz dringt auf Beteiligung Europas",
+     "link": "https://www.deutschlandfunk.de/merz-dringt-auf-beteiligung-europas-102.html",
+     "eigentuemer": "gehört Deutschlandradio",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Putin vows 'far more painful' response to Ukraine's strikes on Crimean Bridge",
    "kurz": "The bridge - a symbol of Russia's occupation of the Crimean Peninsula - suffered major damaged following a combined attack by Ukraine earlier this week.",
    "link": "https://www.bbc.co.uk/news/articles/cm879dqn3e1jo?at_medium=RSS&at_campaign=rss",
@@ -123,9 +320,9 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Wikipedia · BBC News",
-     "titel": "The Crimean Bridge is struck by a Ukrainian kamikaze drone , damaging the structure and prompting Russian authorities to close the bridge…",
-     "link": "https://www.bbc.com/news/articles/ckx27v6dpjz0o",
+     "quelle": "BBC World",
+     "titel": "Putin vows 'far more painful' response to Ukraine's strikes on Crimean Bridge",
+     "link": "https://www.bbc.co.uk/news/articles/cm879dqn3e1jo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -149,12 +346,86 @@
    ]
   },
   {
-   "titel": "Internationaler Gerichtshof stuft Verbrechen gegen Rohingya als Völkermord ein",
-   "kurz": "Internationaler Gerichtshof stuft Verbrechen gegen Rohingya als Völkermord ein",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686750.html",
+   "titel": "Gaza 's health ministry reports that two people have been killed by recent Israeli attacks and two others died from their wounds over the…",
+   "kurz": "Gaza 's health ministry reports that two people have been killed by recent Israeli attacks and two others died from their wounds over the past day.",
+   "link": "https://aje.news/r003u9?update=5168071",
+   "quelle": "Wikipedia · Al Jazeera",
+   "sprache": "en",
+   "zeit": "",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "aje.news"
+   ],
+   "quellen": [
+    {
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "Gaza 's health ministry reports that two people have been killed by recent Israeli attacks and two others died from their wounds over the…",
+     "link": "https://aje.news/r003u9?update=5168071",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AA",
+     "titel": "Five Palestinians are killed, including a child, and others are injured in a series of Israeli airstrikes on various areas of the Gaza…",
+     "link": "https://www.aa.com.tr/en/middle-east/israeli-army-kills-palestinian-blows-up-homes-in-gaza-despite-ceasefire/4127526",
+     "eigentuemer": "staatlich (Türkei)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "A 72-year-old Palestinian woman is killed and ten others are injured in an attack by Israeli settlers on Palestinian homes in the village…",
+     "link": "https://www.aljazeera.com/news/2026/11/17/israeli-settler-pogrom-kills-palestinian-woman-wounds-10-people",
+     "eigentuemer": "staatlich (Katar)",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Arbeitskampf: IG Metall startet 24-Stunden-Warnstreiks",
+   "kurz": "In ganz Deutschland sollen Betriebe einen Tag lang stillstehen - seit Mitternacht rollt die Streikwelle der IG Metall an. Betroffen sind Betriebe der Metall-…",
+   "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/warnstreik-ig-metall-126.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-19T20:17:11+01:00",
+   "zeit": "2026-11-20T01:41:04+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "onvista.de"
+   ],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Warnstreiks der IG Metall",
+     "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/warnstreik-ig-metall-124.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "onvista.de",
+     "titel": "IG Metall startet 24 - Stunden - Warnstreiks",
+     "link": "https://www.onvista.de/news/2026/11-19-ig-metall-startet-24-stunden-warnstreiks-0-10-26578553",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "26 - Jähriger in Weißensee angeschossen - Täter flüchtig",
+   "kurz": "",
+   "link": "https://www.welt.de/regionales/berlin/article6aff943a5842ff528b9e0d9f/26-jaehriger-in-weissensee-angeschossen-taeter-fluechtig.html",
+   "quelle": "welt.de",
+   "sprache": "de",
+   "zeit": "2026-11-20T01:30:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -162,92 +433,129 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Internationaler Gerichtshof: Vorgehen Myanmars gegen Rohingya war Völkermord",
-     "link": "https://www.tagesschau.de/ausland/asien/urteil-voelkermord-rohingya-myanmar-100.html",
-     "eigentuemer": "gehört ARD",
+     "quelle": "welt.de",
+     "titel": "26 - Jähriger in Weißensee angeschossen - Täter flüchtig",
+     "link": "https://www.welt.de/regionales/berlin/article6aff943a5842ff528b9e0d9f/26-jaehriger-in-weissensee-angeschossen-taeter-fluechtig.html",
+     "eigentuemer": "gehört Axel Springer SE",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Deutsche Welle",
-     "titel": "UN-Gericht: Myanmar verantwortlich für Rohingya-Völkermord",
-     "link": "https://www.dw.com/de/un-gericht-myanmar-verantwortlich-für-rohingya-völkermord/a-79992591?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "n-tv.de",
+     "titel": "Berlin & Brandenburg : 26 - Jähriger in Weißensee angeschossen - Täter flüchtig",
+     "link": "https://www.n-tv.de/regionales/berlin-und-brandenburg/26-Jaehriger-in-Weissensee-angeschossen-Taeter-fluechtig-id31556153.html",
+     "eigentuemer": "gehört n-tv und RTL Deutschland",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Bundeskanzler Merz begrüßt \"Koalition der Willingen\" für Beratungen zur Ukraine-Unterstützung in Berlin",
-   "kurz": "Bundeskanzler Merz begrüßt \"Koalition der Willingen\" für Beratungen zur Ukraine-Unterstützung in Berlin",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686748.html",
-   "quelle": "Tagesschau",
+   "titel": "Nilpferd Fiona - Mütze von Besucher vertilgt : Nilpferd in US - Zoo gestorben - Wissen",
+   "kurz": "",
+   "link": "https://www.sueddeutsche.de/wissen/nilpferd-fiona-muetze-von-besucher-vertilgt-nilpferd-in-us-zoo-gestorben-dpa.urn-newsml-dpa-com-20090101-261119-930-22770",
+   "quelle": "sueddeutsche.de",
    "sprache": "de",
-   "zeit": "2026-11-19T20:11:07+01:00",
+   "zeit": "2026-11-20T01:30:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
    "abhaengig": [],
-   "eigentuemer_unbekannt": [],
+   "eigentuemer_unbekannt": [
+    "gmx.ch"
+   ],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Bundeskanzler Merz begrüßt \"Koalition der Willingen\" für Beratungen zur Ukraine-Unterstützung in Berlin",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686748.html",
-     "eigentuemer": "gehört ARD",
+     "quelle": "sueddeutsche.de",
+     "titel": "Nilpferd Fiona - Mütze von Besucher vertilgt : Nilpferd in US - Zoo gestorben - Wissen",
+     "link": "https://www.sueddeutsche.de/wissen/nilpferd-fiona-muetze-von-besucher-vertilgt-nilpferd-in-us-zoo-gestorben-dpa.urn-newsml-dpa-com-20090101-261119-930-22770",
+     "eigentuemer": "gehört Südwestdeutsche Medienholding",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Deutsche Welle",
-     "titel": "Die \"Koalition der Willigen\" bei der Ukraine-Unterstützung trifft sich in Berlin. Europa will künftig über einen Frieden mitreden",
-     "link": "https://www.dw.com/de/die-koalition-der-willigen-bei-der-ukraine-unterstützung-trifft-sich-in-berlin-europa-will-künftig-über-einen-frieden-mitreden/a-79960717?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "gmx.ch",
+     "titel": "Mütze von Besucher vertilgt : Nilpferd in US - Zoo gestorben",
+     "link": "https://www.gmx.ch/magazine/panorama/muetze-besucher-vertilgt-nilpferd-us-zoo-gestorben-42964434",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Nach Treffen von Trump, Xi und Putin: Gemeinsames Statement ohne Friedenslösung für die Ukraine",
-   "kurz": "Nach Treffen von Trump, Xi und Putin: Gemeinsames Statement ohne Friedenslösung für die Ukraine",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686740.html",
-   "quelle": "Tagesschau",
+   "titel": "Promi - Special von „ Wer wird Millionär ? startet mit Panne : „ Wo ist denn der ?!",
+   "kurz": "",
+   "link": "https://www.merkur.de/boulevard/promi-special-von-wer-wird-millionaer-startet-mit-panne-wo-ist-denn-der-zr-94599284.html",
+   "quelle": "merkur.de",
    "sprache": "de",
-   "zeit": "2026-11-19T20:07:31+01:00",
+   "zeit": "2026-11-20T01:30:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
    "abhaengig": [],
-   "eigentuemer_unbekannt": [],
+   "eigentuemer_unbekannt": [
+    "gmx.ch"
+   ],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Nach Treffen von Trump, Xi und Putin: Gemeinsames Statement ohne Friedenslösung für die Ukraine",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686740.html",
-     "eigentuemer": "gehört ARD",
+     "quelle": "merkur.de",
+     "titel": "Promi - Special von „ Wer wird Millionär ? startet mit Panne : „ Wo ist denn der ?!",
+     "link": "https://www.merkur.de/boulevard/promi-special-von-wer-wird-millionaer-startet-mit-panne-wo-ist-denn-der-zr-94599284.html",
+     "eigentuemer": "gehört Dirk Ippen",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Deutsche Welle",
-     "titel": "Xi und Putin demonstrieren Einigkeit vor Treffen mit Trump",
-     "link": "https://www.dw.com/de/xi-und-putin-demonstrieren-einigkeit-vor-treffen-mit-trump/a-79978226?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "gmx.ch",
+     "titel": "Promi - Special Wer wird Millionär ?: Ein Gaststar und zwei Pleiten",
+     "link": "https://www.gmx.ch/magazine/unterhaltung/tv-shows/promi-special-millionaer-gaststar-pleiten-42964426",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
-   "kurz": "European allies of Ukraine say they have a \"united\" negotiating position at a summit in Berlin.",
-   "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
+   "titel": "Chip - Riese : Kalifornien will von Nvidia Aufklärung zu China - Lieferungen",
+   "kurz": "",
+   "link": "https://www.handelsblatt.com/technik/it-internet/chip-riese-kalifornien-will-von-nvidia-aufklaerung-zu-china-lieferungen/100271419.html",
+   "quelle": "handelsblatt.com",
+   "sprache": "de",
+   "zeit": "2026-11-20T01:30:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "gmx.ch"
+   ],
+   "quellen": [
+    {
+     "quelle": "handelsblatt.com",
+     "titel": "Chip - Riese : Kalifornien will von Nvidia Aufklärung zu China - Lieferungen",
+     "link": "https://www.handelsblatt.com/technik/it-internet/chip-riese-kalifornien-will-von-nvidia-aufklaerung-zu-china-lieferungen/100271419.html",
+     "eigentuemer": "gehört Handelsblatt Media Group und Dieter von Holtzbrinck Medien",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "gmx.ch",
+     "titel": "Kalifornien will von Nvidia Aufklärung zu China - Lieferungen",
+     "link": "https://www.gmx.ch/magazine/digital/kalifornien-nvidia-aufklaerung-china-lieferungen-42964494",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "From premature baby to social media star - Famed hippo Fiona dies",
+   "kurz": "The beloved hippopotamus died days after swallowing a knitted hat that accidentally got into her enclosure at the Cincinnati Zoo.",
+   "link": "https://www.bbc.co.uk/news/videos/cq39gvj9y7xpo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-19T19:16:21Z",
+   "zeit": "2026-11-20T01:03:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -256,16 +564,146 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Inside the old gas pipeline where Ukraine is fighting an underground war with Russia",
-     "link": "https://www.bbc.co.uk/news/videos/c8p3vw4q6nzzo?at_medium=RSS&at_campaign=rss",
+     "titel": "From premature baby to social media star - Famed hippo Fiona dies",
+     "link": "https://www.bbc.co.uk/news/videos/cq39gvj9y7xpo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "European leaders present united front in push for peace in Ukraine",
-     "link": "https://www.dw.com/en/european-leaders-present-united-front-in-push-for-peace-in-ukraine/live-79986520?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "Cincinnati's famous hippo Fiona dies after eating visitor's hat",
+     "link": "https://www.dw.com/en/cincinnati-s-famous-hippo-fiona-dies-after-eating-visitor-s-hat/a-79998371?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Getränke : Falsche Zuckerangaben – Coca - Cola ruft Dosen seiner Zitronen - Limo Sprite zurück",
+   "kurz": "",
+   "link": "https://www.welt.de/vermischtes/article6aff83e95842ff528b9e0d79/getraenke-falsche-zuckerangaben-coca-cola-ruft-dosen-seiner-zitronen-limo-sprite-zurueck.html",
+   "quelle": "welt.de",
+   "sprache": "de",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "onvista.de"
+   ],
+   "quellen": [
+    {
+     "quelle": "welt.de",
+     "titel": "Getränke : Falsche Zuckerangaben – Coca - Cola ruft Dosen seiner Zitronen - Limo Sprite zurück",
+     "link": "https://www.welt.de/vermischtes/article6aff83e95842ff528b9e0d79/getraenke-falsche-zuckerangaben-coca-cola-ruft-dosen-seiner-zitronen-limo-sprite-zurueck.html",
+     "eigentuemer": "gehört Axel Springer SE",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "onvista.de",
+     "titel": "Limo in falscher Dose - Hersteller ruft Sprite zurück",
+     "link": "https://www.onvista.de/news/2026/11-19-limo-in-falscher-dose-hersteller-ruft-sprite-zurueck-0-10-26578549",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Metall - und Elektroindustrie - IG Metall lässt ganztägige Warnstreiks rollen - Wirtschaft",
+   "kurz": "",
+   "link": "https://www.sueddeutsche.de/wirtschaft/metall-und-elektroindustrie-ig-metall-laesst-ganztaegige-warnstreiks-rollen-dpa.urn-newsml-dpa-com-20090101-261119-930-22761",
+   "quelle": "sueddeutsche.de",
+   "sprache": "de",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "onvista.de"
+   ],
+   "quellen": [
+    {
+     "quelle": "sueddeutsche.de",
+     "titel": "Metall - und Elektroindustrie - IG Metall lässt ganztägige Warnstreiks rollen - Wirtschaft",
+     "link": "https://www.sueddeutsche.de/wirtschaft/metall-und-elektroindustrie-ig-metall-laesst-ganztaegige-warnstreiks-rollen-dpa.urn-newsml-dpa-com-20090101-261119-930-22761",
+     "eigentuemer": "gehört Südwestdeutsche Medienholding",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "onvista.de",
+     "titel": "IG Metall lässt ganztägige Warnstreiks rollen",
+     "link": "https://www.onvista.de/news/2026/11-19-ig-metall-laesst-ganztaegige-warnstreiks-rollen-0-10-26578557",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "IPO / ROUNDUP 2 : Anthropic startet mit deutlichem Kursplus an der Börse",
+   "kurz": "",
+   "link": "https://www.onvista.de/news/2026/11-19-ipo-roundup-2-anthropic-startet-mit-deutlichem-kursplus-an-der-boerse-0-10-26578552",
+   "quelle": "onvista.de",
+   "sprache": "de",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "onvista.de"
+   ],
+   "quellen": [
+    {
+     "quelle": "onvista.de",
+     "titel": "IPO / ROUNDUP 2 : Anthropic startet mit deutlichem Kursplus an der Börse",
+     "link": "https://www.onvista.de/news/2026/11-19-ipo-roundup-2-anthropic-startet-mit-deutlichem-kursplus-an-der-boerse-0-10-26578552",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "deutschlandfunk.de",
+     "titel": "KI - Firma - Anthropic startet mit kräftigem Kursplus an der Börse",
+     "link": "https://www.deutschlandfunk.de/anthropic-startet-mit-kraeftigem-kursplus-an-der-boerse-102.html",
+     "eigentuemer": "gehört Deutschlandradio",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Erstmals gemeinsames Treffen von Putin, Trump und Xi im Rahmen eines Gipfels in Shenzhen",
+   "kurz": "Erstmals gemeinsames Treffen von Putin, Trump und Xi im Rahmen eines Gipfels in Shenzhen",
+   "link": "https://www.tagesschau.de/tagesthemen/video-1686796.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-19T22:26:15+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Dreiergipfel in Shenzhen: Xis Choreografie - assistiert von Trump und Putin",
+     "link": "https://www.tagesschau.de/ausland/asien/dreiergipfel-xi-trump-putin-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Trump, Xi, Putin: Gipfel in China mit hochtrabenden Worten",
+     "link": "https://www.dw.com/de/trump-xi-putin-gipfel-in-china-mit-hochtrabenden-worten/a-79988021?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
@@ -304,12 +742,12 @@
    ]
   },
   {
-   "titel": "Krim-Brücke nach ukrainischem Angriff erneut gesperrt",
-   "kurz": "Nach einem erneuten Angriff auf die für Russland strategisch wichtige Krim-Brücke ist laut Behörden nun der Zugverkehr \"vorübergehend\" eingestellt worden…",
-   "link": "https://www.tagesschau.de/ausland/europa/krim-bruecke-angriff-ukraine-zugverkehr-gestoppt-100.html",
+   "titel": "Internationaler Gerichtshof: Vorgehen Myanmars gegen Rohingya war Völkermord",
+   "kurz": "Myanmar wollte einen \"wesentlichen Teil\" der Minderheit der Rohingya vernichten: Zu dieser Einschätzung kommt der Internationale Gerichtshof. Das Land sei…",
+   "link": "https://www.tagesschau.de/ausland/asien/urteil-voelkermord-rohingya-myanmar-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-19T12:26:18+01:00",
+   "zeit": "2026-11-19T14:47:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -318,79 +756,17 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Krim-Brücke nach ukrainischem Angriff erneut gesperrt",
-     "link": "https://www.tagesschau.de/ausland/europa/krim-bruecke-angriff-ukraine-zugverkehr-gestoppt-100.html",
+     "titel": "Internationaler Gerichtshof: Vorgehen Myanmars gegen Rohingya war Völkermord",
+     "link": "https://www.tagesschau.de/ausland/asien/urteil-voelkermord-rohingya-myanmar-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
      "quelle": "Deutsche Welle",
-     "titel": "Angriff auf die Krim-Brücke: Welche Folgen Kyjiws Operation hat",
-     "link": "https://www.dw.com/de/angriff-auf-die-krim-brücke-welche-folgen-kyjiws-operation-hat/a-79979350?maca=de-rss-de-all-1119-xml-mrss",
+     "titel": "UN-Gericht: Myanmar verantwortlich für Rohingya-Völkermord",
+     "link": "https://www.dw.com/de/un-gericht-myanmar-verantwortlich-für-rohingya-völkermord/a-79992591?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Democrats nominate Hakeem Jeffries to be US Speaker of the House",
-   "kurz": "The nomination sets him on the path to become the first black lawmaker to lead the chamber when Democrats take control of the House in January.",
-   "link": "https://www.bbc.co.uk/news/articles/cmy49873dn95o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-19T07:26:01-05:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Democrats nominate Hakeem Jeffries to be US Speaker of the House",
-     "link": "https://www.bbc.co.uk/news/articles/cmy49873dn95o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "NPR",
-     "titel": "Anthropic raises more than $100B in IPO. And, Dems nominate Jeffries for House speaker",
-     "link": "https://www.npr.org/2026/11/19/g-s1-154344/up-first-newsletter-house-democrats-trump-xi-putin-anthropic",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "What makes 'Grand Theft Auto VI' more than just a game?",
-   "kurz": "When \"GTA VI\" is released on November 19, millions of people worldwide will rush to their consoles to play it. How has this video game created such a…",
-   "link": "https://www.dw.com/en/what-makes-grand-theft-auto-vi-more-than-just-a-game/a-79965822?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T07:21:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "What makes 'Grand Theft Auto VI' more than just a game?",
-     "link": "https://www.dw.com/en/what-makes-grand-theft-auto-vi-more-than-just-a-game/a-79965822?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · Axios",
-     "titel": "PlayStation reports a major outage ahead of the release of Grand Theft Auto VI .",
-     "link": "https://www.axios.com/2026/11/18/gta-6-playstation-psn-servers",
-     "eigentuemer": "gehört Cox Enterprises",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -430,452 +806,12 @@
    ]
   },
   {
-   "titel": "Russland-Debatte - Cyber-Attacke auf Eishockey-Weltverband",
-   "kurz": "Der Eishockey-Weltverband IIHF hat bestätigt, Ziel einer Cyber-Attacke geworden zu sein. Der Hacker-Angriff könnte im Zusammenhang mit dem umstrittenen…",
-   "link": "https://www.sportschau.de/eishockey/eishockey-weltverband-bestaetigt-cyber-angriff,cyber-attacke-russland-cas-urteil-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-18T12:53:38+01:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [
-    "sportschau.de"
-   ],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Russland-Debatte - Cyber-Attacke auf Eishockey-Weltverband",
-     "link": "https://www.sportschau.de/eishockey/eishockey-weltverband-bestaetigt-cyber-angriff,cyber-attacke-russland-cas-urteil-100.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Angriff aus Russland? Cyberattacke auf Eishockey-Weltverband",
-     "link": "https://www.dw.com/de/angriff-aus-russland-cyberattacke-auf-eishockey-weltverband/a-79977795?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Salvadoran forces destroy a house belonging to Jeff Larose, the leader of the Taliban gang that operates in Canaan , Haiti . The Gang…",
-   "kurz": "Salvadoran forces destroy a house belonging to Jeff Larose, the leader of the Taliban gang that operates in Canaan , Haiti . The Gang Suppression Force says it…",
-   "link": "https://apnews.com/article/haiti-bukele-jeff-canaan-gangs-attack-home-4397ab6847be1d1dcc9c5bc600a4953f",
-   "quelle": "Wikipedia · AP",
-   "sprache": "en",
-   "zeit": "",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · AP",
-     "titel": "Salvadoran forces destroy a house belonging to Jeff Larose, the leader of the Taliban gang that operates in Canaan , Haiti . The Gang…",
-     "link": "https://apnews.com/article/haiti-bukele-jeff-canaan-gangs-attack-home-4397ab6847be1d1dcc9c5bc600a4953f",
-     "eigentuemer": "gehört The Associated Press",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · Al Jazeera",
-     "titel": "Hundreds of Haitians march in cities across Haiti to show support for the deployment of Salvadoran troops to combat gang violence .",
-     "link": "https://www.aljazeera.com/news/2026/11/17/haitians-protest-in-support-of-el-salvadors-anti-gang-troop-deployment",
-     "eigentuemer": "staatlich (Katar)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Five Palestinians are killed, including a child, and others are injured in a series of Israeli airstrikes on various areas of the Gaza…",
-   "kurz": "Five Palestinians are killed, including a child, and others are injured in a series of Israeli airstrikes on various areas of the Gaza Strip , Palestine .",
-   "link": "https://www.aa.com.tr/en/middle-east/israeli-army-kills-palestinian-blows-up-homes-in-gaza-despite-ceasefire/4127526",
-   "quelle": "Wikipedia · AA",
-   "sprache": "en",
-   "zeit": "",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · AA",
-     "titel": "Five Palestinians are killed, including a child, and others are injured in a series of Israeli airstrikes on various areas of the Gaza…",
-     "link": "https://www.aa.com.tr/en/middle-east/israeli-army-kills-palestinian-blows-up-homes-in-gaza-despite-ceasefire/4127526",
-     "eigentuemer": "staatlich (Türkei)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · Al Jazeera",
-     "titel": "A 72-year-old Palestinian woman is killed and ten others are injured in an attack by Israeli settlers on Palestinian homes in the village…",
-     "link": "https://www.aljazeera.com/news/2026/11/17/israeli-settler-pogrom-kills-palestinian-woman-wounds-10-people",
-     "eigentuemer": "staatlich (Katar)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "AfD lässt laut Siegmund Wahl von Ministerpräsident in Sachsen-Anhalt vorziehen",
-   "kurz": "Die Wahl des Ministerpräsidenten in Sachsen-Anhalt soll früher stattfinden als gedacht, wie AfD-Spitzenkandidat Siegmund nun bestätigte. Er will sich am 8…",
-   "link": "https://www.mdr.de/nachrichten/sachsen-anhalt/landtagswahl/wahl-ministerpraesident-zeitpunkt-afd-video-social-media-einschaetzung-reporter-frohmueller,afd-siegmund-114.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T21:51:59+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "AfD lässt laut Siegmund Wahl von Ministerpräsident in Sachsen-Anhalt vorziehen",
-     "link": "https://www.mdr.de/nachrichten/sachsen-anhalt/landtagswahl/wahl-ministerpraesident-zeitpunkt-afd-video-social-media-einschaetzung-reporter-frohmueller,afd-siegmund-114.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Liveticker zu Gipfeln: ++ Wadephul sieht Chance auf Schritt Richtung Frieden ++",
-   "kurz": "Außenminister Wadephul gibt sich nach den jüngsten Bemühungen um einen Frieden für die Ukraine optimistisch. Frankreichs Präsident Macron will erneut über…",
-   "link": "https://www.tagesschau.de/newsticker/liveblog-apec-gipfel-xi-trump-putin-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T21:43:34+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Liveticker zu Gipfeln: ++ Wadephul sieht Chance auf Schritt Richtung Frieden ++",
-     "link": "https://www.tagesschau.de/newsticker/liveblog-apec-gipfel-xi-trump-putin-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Champions League: FC Bayern fertigt Austria Wien ab",
-   "kurz": "Die Fußballerinnen des FC Bayern München haben in der UEFA Women's Champions League einen souveränen Sieg über Tabellenschlusslicht Austria Wien eingefahren…",
-   "link": "https://www.sportschau.de/regional/br/br-klarer-sieg-im-rekordspiel-fc-bayern-fertigt-austria-wien-ab-102.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T21:12:55+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Champions League: FC Bayern fertigt Austria Wien ab",
-     "link": "https://www.sportschau.de/regional/br/br-klarer-sieg-im-rekordspiel-fc-bayern-fertigt-austria-wien-ab-102.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Strafbefehl gegen Tesla-Werksleiter",
-   "kurz": "Im Februar hatte die IG Metall Strafanzeige gegen den Werksleiter von Tesla in Grünheide gestellt. Der Vorwurf: üble Nachrede. Nun hat ein Gericht einen…",
-   "link": "https://www.tagesschau.de/inland/regional/brandenburg/strafbefehl-werksleiter-von-tesla-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T21:07:12+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Strafbefehl gegen Tesla-Werksleiter",
-     "link": "https://www.tagesschau.de/inland/regional/brandenburg/strafbefehl-werksleiter-von-tesla-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "'Humanitarian mission' for Kostiantynivka: Is it a trap?",
-   "kurz": "Russian President Putin has proposed an evacuation of the Ukrainian city of Kostiantynivka, like the recent operation in Oleshky. Experts warn this could serve…",
-   "link": "https://www.dw.com/en/humanitarian-mission-for-kostiantynivka-is-it-a-trap/a-79996772?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T20:53:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "'Humanitarian mission' for Kostiantynivka: Is it a trap?",
-     "link": "https://www.dw.com/en/humanitarian-mission-for-kostiantynivka-is-it-a-trap/a-79996772?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "tagesschau 20:00 Uhr",
-   "kurz": "Trump und Xi sowie Putin beenden Dreiergipfel in Shenzhen mit \"Friedenserklärung\", Kanzler Merz begrüßt \"Koalition der Willingen\" für Beratungen zur…",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686764.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T20:34:05+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau 20:00 Uhr",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1686764.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Merz will baldige Gespräche mit Russland auf neutralem Boden",
-   "kurz": "Die \"Koalition der Willigen\" verspricht, der Ukraine \"so lange wie nötig\" zu helfen. Nach dem Gipfel in Berlin rief Kanzler Merz Russlands Präsident Putin auf…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/gipfel-koalition-willige-ukraine-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T20:22:45+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Merz will baldige Gespräche mit Russland auf neutralem Boden",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/gipfel-koalition-willige-ukraine-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Johann Wadephul, CDU/Bundesaußenminister, zu Europas Rolle bei Friedensbemühungen für die Ukraine",
-   "kurz": "Johann Wadephul, CDU/Bundesaußenminister, zu Europas Rolle bei Friedensbemühungen für die Ukraine",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1686742.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T20:16:19+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Johann Wadephul, CDU/Bundesaußenminister, zu Europas Rolle bei Friedensbemühungen für die Ukraine",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1686742.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Ukraine-Russland-Verhandlungen: Wer spricht für Europa und wer nicht?",
-   "kurz": "Ein europäisches Verhandlungsteam soll bei künftigen Ukraine-Russland-Gesprächen mit am Tisch sitzen. Doch wie haltbar ist diese Übereinkunft von vergangener…",
-   "link": "https://www.dw.com/de/ukraine-russland-verhandlungen-wer-spricht-für-europa-und-wer-nicht/a-79996255?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-19T19:31:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Ukraine-Russland-Verhandlungen: Wer spricht für Europa und wer nicht?",
-     "link": "https://www.dw.com/de/ukraine-russland-verhandlungen-wer-spricht-für-europa-und-wer-nicht/a-79996255?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Uganda minister at COP31: 'We need a just transition'",
-   "kurz": "Funding from wealthy countries to help deal with the impacts of climate change hasn't materialized, says Uganda's environment minister. The East African…",
-   "link": "https://www.dw.com/en/uganda-minister-at-cop31-we-need-a-just-transition/a-79997209?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T19:31:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Uganda minister at COP31: 'We need a just transition'",
-     "link": "https://www.dw.com/en/uganda-minister-at-cop31-we-need-a-just-transition/a-79997209?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Dreiergipfel in Shenzhen: Xis Choreografie - assistiert von Trump und Putin",
-   "kurz": "Beim Gipfel von Xi, Trump und Putin ging es um schöne Bilder und Schmeicheleien. Konkrete Politik? Fehlanzeige. Doch China gelang es, ein Thema zu setzen, das…",
-   "link": "https://www.tagesschau.de/ausland/asien/dreiergipfel-xi-trump-putin-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T19:30:48+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Dreiergipfel in Shenzhen: Xis Choreografie - assistiert von Trump und Putin",
-     "link": "https://www.tagesschau.de/ausland/asien/dreiergipfel-xi-trump-putin-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
-   "kurz": "Freitag gibt es in der Mitte zum Teil länger andauernde und ergiebige Regenfälle, m Süden windiges bis stürmisches Schauerwetter. Im Norden ist es dagegen…",
-   "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T19:28:11+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
-     "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany news: Pistorius visits Auschwitz memorial in Poland trip",
-   "kurz": "Germany's defense minister's first stop in Poland was the memorial site of the former Nazi extermination camp Auschwitz-Birkenau. Follow DW for more.",
-   "link": "https://www.dw.com/en/germany-news-pistorius-visits-auschwitz-memorial-in-poland-trip/live-79987991?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T18:59:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Germany news: Pistorius visits Auschwitz memorial in Poland trip",
-     "link": "https://www.dw.com/en/germany-news-pistorius-visits-auschwitz-memorial-in-poland-trip/live-79987991?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Iraq's risky standoff: The state vs. Iran-allied militias",
-   "kurz": "This week, Iraqi security forces surrounded an area run by the Kataib Hezbollah militia. Onlookers describe it as the most dangerous confrontation between the…",
-   "link": "https://www.dw.com/en/iraq-s-risky-standoff-the-state-vs-iran-allied-militias/a-79995757?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T18:59:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Iraq's risky standoff: The state vs. Iran-allied militias",
-     "link": "https://www.dw.com/en/iraq-s-risky-standoff-the-state-vs-iran-allied-militias/a-79995757?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Marktbericht: Keine Erholung trotz Anthropic-Euphorie",
-   "kurz": "Trotz der guten Stimmung im Technologiesektor rund um den Rekord-Börsengang von Anthropic ist der DAX abgerutscht. Der deutsche Leitindex schloss auf dem…",
-   "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-anthropic-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T18:33:52+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Marktbericht: Keine Erholung trotz Anthropic-Euphorie",
-     "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-anthropic-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "tagesschau in 100 Sekunden",
    "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686628.html",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686824.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-19T18:32:04+01:00",
+   "zeit": "2026-11-20T01:59:41+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -885,7 +821,7 @@
     {
      "quelle": "Tagesschau",
      "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686628.html",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1686824.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -893,58 +829,12 @@
    ]
   },
   {
-   "titel": "EU verschiebt Methan-Vorgaben für Importe um zwei Jahre",
-   "kurz": "Seit 2024 gibt es in der EU Vorgaben zur Reduzierung von Methanemissionen. Ab 2027 sollten auch Regeln für importierte fossile Brennstoffe gelten. Doch deren…",
-   "link": "https://www.tagesschau.de/wirtschaft/energie/eu-methan-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T18:14:34+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "EU verschiebt Methan-Vorgaben für Importe um zwei Jahre",
-     "link": "https://www.tagesschau.de/wirtschaft/energie/eu-methan-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Rekord an der Börse: Lehren aus dem Anthropic-Börsengang",
-   "kurz": "Anthropic gelingt der größte Börsengang aller Zeiten. Nach dem Absturz von Nvidia verbindet die KI-Branche damit neue Hoffnungen. Sind die Zweifel am Boom rund…",
-   "link": "https://www.tagesschau.de/wirtschaft/finanzen/anthropic-boersengang-ki-boom-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T17:54:27+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Anthropic-Börsengang wird Musk-Rekord übertreffen",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/anthropic-boersengang-aktie-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Susan Smith denied parole again 32 years after drowning her two sons",
-   "kurz": "At a hearing on the possibility of parole, Smith said she wished she could change the past, and her two children \"did not deserve to die\".",
-   "link": "https://www.bbc.co.uk/news/articles/ckdd1y09eqjmo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
+   "titel": "Aakasamlo Oka Tara Twitter review : Dulquer Salmaan wins praise for emotional performance ; Satvika Veeravalli makes a promising debut",
+   "kurz": "",
+   "link": "https://timesofindia.indiatimes.com/entertainment/telugu/movies/news/aakasamlo-oka-tara-twitter-review-dulquer-salmaan-wins-praise-for-emotional-performance-satvika-veeravalli-makes-a-promising-debut/articleshow/136009307.cms",
+   "quelle": "timesofindia.indiatimes.com",
    "sprache": "en",
-   "zeit": "2026-11-19T17:23:34Z",
+   "zeit": "2026-11-20T01:30:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -952,22 +842,22 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC World",
-     "titel": "Susan Smith denied parole again 32 years after drowning her two sons",
-     "link": "https://www.bbc.co.uk/news/articles/ckdd1y09eqjmo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
+     "quelle": "timesofindia.indiatimes.com",
+     "titel": "Aakasamlo Oka Tara Twitter review : Dulquer Salmaan wins praise for emotional performance ; Satvika Veeravalli makes a promising debut",
+     "link": "https://timesofindia.indiatimes.com/entertainment/telugu/movies/news/aakasamlo-oka-tara-twitter-review-dulquer-salmaan-wins-praise-for-emotional-performance-satvika-veeravalli-makes-a-promising-debut/articleshow/136009307.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Volkswagen will Nullrunden für zwei Jahre",
-   "kurz": "Nullrunden, weniger Zulagen und Änderungen bei der Arbeitszeit - Volkswagen will harte Einschnitte in der anstehenden Tarifrunde durchsetzen. Die IG Metall…",
-   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vw-nullrunde-100.html",
-   "quelle": "Tagesschau",
+   "titel": "Zwei Schwerverletzte nach Zusammenstoß auf Landstraße",
+   "kurz": "",
+   "link": "https://www.welt.de/regionales/baden-wuerttemberg/article6aff95a239a3e8110f0e316e/zwei-schwerverletzte-nach-zusammenstoss-auf-landstrasse.html",
+   "quelle": "welt.de",
    "sprache": "de",
-   "zeit": "2026-11-19T17:11:57+01:00",
+   "zeit": "2026-11-20T01:30:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -975,22 +865,22 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Volkswagen will Nullrunden für zwei Jahre",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/vw-nullrunde-100.html",
-     "eigentuemer": "gehört ARD",
+     "quelle": "welt.de",
+     "titel": "Zwei Schwerverletzte nach Zusammenstoß auf Landstraße",
+     "link": "https://www.welt.de/regionales/baden-wuerttemberg/article6aff95a239a3e8110f0e316e/zwei-schwerverletzte-nach-zusammenstoss-auf-landstrasse.html",
+     "eigentuemer": "gehört Axel Springer SE",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Europäer erhöhen Druck auf FIFA und Infantino",
-   "kurz": "Die Spitzen der UEFA um DFB-Präsident Bernd Neuendorf erhöhen im Machtkampf beim Weltverband FIFA mit einem Beschwerdebrief den Druck auf Präsident Gianni…",
-   "link": "https://www.sportschau.de/fussball/europaeer-erhoehen-druck-auf-fifa-und-infantino,fifa-beschwerde-brief-europa-100.html",
-   "quelle": "Tagesschau",
+   "titel": "Ukraine - Krieg im Liveticker : +++ 00 : 30 Pistorius will Militärpakt mit Polen ausbauen und warnt vor Nationalismus +++",
+   "kurz": "",
+   "link": "https://www.n-tv.de/politik/00-30-Pistorius-will-Militaerpakt-mit-Polen-ausbauen-und-warnt-vor-Nationalismus-id30859357.html",
+   "quelle": "n-tv.de",
    "sprache": "de",
-   "zeit": "2026-11-19T17:08:40+01:00",
+   "zeit": "2026-11-20T01:30:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -998,9 +888,55 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Europäer erhöhen Druck auf FIFA und Infantino",
-     "link": "https://www.sportschau.de/fussball/europaeer-erhoehen-druck-auf-fifa-und-infantino,fifa-beschwerde-brief-europa-100.html",
+     "quelle": "n-tv.de",
+     "titel": "Ukraine - Krieg im Liveticker : +++ 00 : 30 Pistorius will Militärpakt mit Polen ausbauen und warnt vor Nationalismus +++",
+     "link": "https://www.n-tv.de/politik/00-30-Pistorius-will-Militaerpakt-mit-Polen-ausbauen-und-warnt-vor-Nationalismus-id30859357.html",
+     "eigentuemer": "gehört n-tv und RTL Deutschland",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Streit bis tief in die Nacht : Arbeitgeber von Schwarz - Rot genervt",
+   "kurz": "",
+   "link": "https://www.n-tv.de/politik/Arbeitgeber-von-Schwarz-Rot-genervt-id31556146.html",
+   "quelle": "n-tv.de",
+   "sprache": "de",
+   "zeit": "2026-11-20T01:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "n-tv.de",
+     "titel": "Streit bis tief in die Nacht : Arbeitgeber von Schwarz - Rot genervt",
+     "link": "https://www.n-tv.de/politik/Arbeitgeber-von-Schwarz-Rot-genervt-id31556146.html",
+     "eigentuemer": "gehört n-tv und RTL Deutschland",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "GTA 6 : Laborgebühren (# 4 ) Lösung – Besorge Brians Miete",
+   "kurz": "",
+   "link": "https://www.giga.de/games/gta-6-laborgebuehren-4-loesung-besorge-brians-miete--01M7T85C13NQ7Q2FK0B7KKDHEQ",
+   "quelle": "giga.de",
+   "sprache": "de",
+   "zeit": "2026-11-20T01:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "giga.de",
+     "titel": "GTA 6 : Laborgebühren (# 4 ) Lösung – Besorge Brians Miete",
+     "link": "https://www.giga.de/games/gta-6-laborgebuehren-4-loesung-besorge-brians-miete--01M7T85C13NQ7Q2FK0B7KKDHEQ",
      "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1008,518 +944,403 @@
    ]
   },
   {
-   "titel": "Israeli military completes ground operation in Gaza beyond Yellow Line",
-   "kurz": "Hamas condemned the incursion, which the Israeli military said was to dismantle a \"terror tunnel\", as a \"flagrant\" ceasefire violation.",
-   "link": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_medium=RSS&at_campaign=rss",
+   "titel": "WDR 2 Neue Filme : Lieblingsmenschen - Die außergewöhnliche Freundschaft von Agnes und Amir - Filmtipp",
+   "kurz": "",
+   "link": "https://www1.wdr.de/radio/wdr2/themen/kino-filmtipps/lieblingsmenschen-100.html",
+   "quelle": "wdr.de",
+   "sprache": "de",
+   "zeit": "2026-11-20T01:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "wdr.de",
+     "titel": "WDR 2 Neue Filme : Lieblingsmenschen - Die außergewöhnliche Freundschaft von Agnes und Amir - Filmtipp",
+     "link": "https://www1.wdr.de/radio/wdr2/themen/kino-filmtipps/lieblingsmenschen-100.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Bacchanal Buffet at Caesars Palace is closing for renovation until summer 2027",
+   "kurz": "",
+   "link": "https://www.foxnews.com/travel/legendary-las-vegas-buffet-close-renovations-after-rumors-swirled-its-demise",
+   "quelle": "foxnews.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "foxnews.com",
+     "titel": "Bacchanal Buffet at Caesars Palace is closing for renovation until summer 2027",
+     "link": "https://www.foxnews.com/travel/legendary-las-vegas-buffet-close-renovations-after-rumors-swirled-its-demise",
+     "eigentuemer": "gehört Fox Corporation und Fox Broadcasting Company",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Weekly top stock picks : Weekly Top Picks : These stocks scored 10 on 10 on Stock Reports Plus",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/markets/stocks/news/weekly-top-picks-these-stocks-scored-10-on-10-on-stock-reports-plus/articleshow/136009052.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Weekly top stock picks : Weekly Top Picks : These stocks scored 10 on 10 on Stock Reports Plus",
+     "link": "https://economictimes.indiatimes.com/markets/stocks/news/weekly-top-picks-these-stocks-scored-10-on-10-on-stock-reports-plus/articleshow/136009052.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Talent poaching , data leaks and a spy row roil Tamil Nadu - Andhra investment battle",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/news/india/talent-poaching-data-leaks-and-a-spy-row-roil-tamil-nadu-andhra-investment-battle/articleshow/136003884.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Talent poaching , data leaks and a spy row roil Tamil Nadu - Andhra investment battle",
+     "link": "https://economictimes.indiatimes.com/news/india/talent-poaching-data-leaks-and-a-spy-row-roil-tamil-nadu-andhra-investment-battle/articleshow/136003884.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "For boomers , economic boom times are over - The Economic Times",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/the-economist/for-boomers-economic-boom-times-are-over/articleshow/135928179.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "For boomers , economic boom times are over - The Economic Times",
+     "link": "https://economictimes.indiatimes.com/the-economist/for-boomers-economic-boom-times-are-over/articleshow/135928179.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "India turns net overweight market for Asia - Pacific fund managers",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/markets/stocks/news/india-turns-net-overweight-among-asia-pacific-fund-managers-after-10-months/articleshow/136008999.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "India turns net overweight market for Asia - Pacific fund managers",
+     "link": "https://economictimes.indiatimes.com/markets/stocks/news/india-turns-net-overweight-among-asia-pacific-fund-managers-after-10-months/articleshow/136008999.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Anthropic historic debut to put AI promise and peril on Wall Street trial",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/anthropics-historic-debut-to-put-ais-promise-and-peril-on-wall-street-trial/articleshow/136009180.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Anthropic historic debut to put AI promise and peril on Wall Street trial",
+     "link": "https://economictimes.indiatimes.com/markets/us-stocks/news/anthropics-historic-debut-to-put-ais-promise-and-peril-on-wall-street-trial/articleshow/136009180.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "US signed off on sales of nearly 900 , 000 AI chips to China in six months , House committee says",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/news/international/business/us-signed-off-on-sales-of-nearly-900000-ai-chips-to-china-in-six-months-house-committee-says/articleshow/136009098.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "US signed off on sales of nearly 900 , 000 AI chips to China in six months , House committee says",
+     "link": "https://economictimes.indiatimes.com/news/international/business/us-signed-off-on-sales-of-nearly-900000-ai-chips-to-china-in-six-months-house-committee-says/articleshow/136009098.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Paytm , Mobikwik , Pine Labs shares slide on UPI MDR delay report",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/markets/stocks/news/paytm-mobikwik-pine-labs-shares-slide-on-upi-mdr-delay-report/articleshow/136009195.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Paytm , Mobikwik , Pine Labs shares slide on UPI MDR delay report",
+     "link": "https://economictimes.indiatimes.com/markets/stocks/news/paytm-mobikwik-pine-labs-shares-slide-on-upi-mdr-delay-report/articleshow/136009195.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "FPIs pump record Rs 84 , 291 crore into Indian stocks in first half of November",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/markets/stocks/news/fpis-pump-record-rs-84291-crore-into-indian-stocks-in-first-half-of-november/articleshow/136008392.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "FPIs pump record Rs 84 , 291 crore into Indian stocks in first half of November",
+     "link": "https://economictimes.indiatimes.com/markets/stocks/news/fpis-pump-record-rs-84291-crore-into-indian-stocks-in-first-half-of-november/articleshow/136008392.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "RBI flags suspicious off - market deals in state bonds",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/markets/bonds/rbi-probes-suspicious-off-market-trades-in-illiquid-state-bonds/articleshow/136008880.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "RBI flags suspicious off - market deals in state bonds",
+     "link": "https://economictimes.indiatimes.com/markets/bonds/rbi-probes-suspicious-off-market-trades-in-illiquid-state-bonds/articleshow/136008880.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Rupee hits seven - month high amid foreign fund inflows and falling commodity prices",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/markets/forex/rupee-hits-seven-month-high-amid-foreign-fund-inflows-and-falling-commodity-prices/articleshow/136009061.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Rupee hits seven - month high amid foreign fund inflows and falling commodity prices",
+     "link": "https://economictimes.indiatimes.com/markets/forex/rupee-hits-seven-month-high-amid-foreign-fund-inflows-and-falling-commodity-prices/articleshow/136009061.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Hungry for Sops , But Not Sharing : PM Raps India Inc for Not Passing on Gains",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/et-front/hungry-for-sops-but-not-sharing/articleshow/136005123.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Hungry for Sops , But Not Sharing : PM Raps India Inc for Not Passing on Gains",
+     "link": "https://economictimes.indiatimes.com/et-front/hungry-for-sops-but-not-sharing/articleshow/136005123.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Insatiable appetite for sop : PM Narendra Modi asks corporate India to deliver on quality in sharp message",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/news/india/insatiable-appetite-for-sops-pm-narendra-modi-asks-corporate-india-to-deliver-on-quality-in-sharp-message/articleshow/136004051.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Insatiable appetite for sop : PM Narendra Modi asks corporate India to deliver on quality in sharp message",
+     "link": "https://economictimes.indiatimes.com/news/india/insatiable-appetite-for-sops-pm-narendra-modi-asks-corporate-india-to-deliver-on-quality-in-sharp-message/articleshow/136004051.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Stocks in news : Coal India , Paytm , ACME Solar , Jindal Steel , Hexaware Tech and Highway Infra",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/markets/stocks/news/stocks-in-news-coal-india-paytm-acme-solar-jindal-steel-hexaware-tech-and-highway-infra/articleshow/135978874.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Stocks in news : Coal India , Paytm , ACME Solar , Jindal Steel , Hexaware Tech and Highway Infra",
+     "link": "https://economictimes.indiatimes.com/markets/stocks/news/stocks-in-news-coal-india-paytm-acme-solar-jindal-steel-hexaware-tech-and-highway-infra/articleshow/135978874.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Noel Set to Push Tata Sons Rejig Again",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/et-front/noel-set-to-push-tata-sons-rejig-again/articleshow/136005126.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "Noel Set to Push Tata Sons Rejig Again",
+     "link": "https://economictimes.indiatimes.com/et-front/noel-set-to-push-tata-sons-rejig-again/articleshow/136005126.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "China Daily Website - Connecting China Connecting the World",
+   "kurz": "",
+   "link": "http://www.chinadaily.com.cn/www.chinadaily.com.cn/a/202611/20/WS6aff9a8ae4b03ebf8519d938.html",
+   "quelle": "chinadaily.com.cn",
+   "sprache": "en",
+   "zeit": "2026-11-20T01:15:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "chinadaily.com.cn",
+     "titel": "China Daily Website - Connecting China Connecting the World",
+     "link": "http://www.chinadaily.com.cn/www.chinadaily.com.cn/a/202611/20/WS6aff9053e4b03ebf8519d91c.html",
+     "eigentuemer": "gehört Kommunistische Partei Chinas und Propagandaabteilung des Zentralkomitees der Kommunistischen Partei Chinas",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "More climate money for Africa? Europe says use what's already pledged",
+   "kurz": "African countries at the UN climate summit in Turkey are demanding more funding from developed nations to help them cope with climate change.",
+   "link": "https://www.bbc.co.uk/news/articles/c6074k5jjrzko?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-19T17:03:23Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · BBC News",
-     "titel": "The Israeli army launches its first operation in central Gaza Strip amid the displacement of families from the area, for the first time…",
-     "link": "https://www.bbc.com/news/articles/cw8r7510degno",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "BASF bläst Evonik-Übernahme ab",
-   "kurz": "BASF nimmt Abstand von einer Übernahme des Konkurrenten Evonik. Der Chemiekonzern gibt die Pläne auf, nachdem Evonik zuvor zwei unverbindliche Kaufangebote…",
-   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/basf-evonik-uebernahme-absage-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T16:55:43+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "BASF bläst Evonik-Übernahme ab",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/basf-evonik-uebernahme-absage-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Wadephul im Südkaukasus: Frieden sichern - Putin fernhalten?",
-   "kurz": "In Aserbaidschan und Armenien wirbt Bundesaußenminister Wadephul für die Unterzeichnung des Friedensvertrags zwischen den Nachbarn und lobt deren Annährung an…",
-   "link": "https://www.dw.com/de/wadephul-im-südkaukasus-frieden-sichern-putin-fernhalten/a-79993105?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-19T16:49:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Wadephul im Südkaukasus: Frieden sichern - Putin fernhalten?",
-     "link": "https://www.dw.com/de/wadephul-im-südkaukasus-frieden-sichern-putin-fernhalten/a-79993105?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Putin, Xi und Trump: Appelle für Weltfrieden und gegen Atomkrieg",
-   "kurz": "Etwa eineinhalb Stunden Zeit nahmen sich die Präsidenten Trump, Putin und Xi für ihr erstes Dreiertreffen. Sie verabredeten einen Dialog über \"atomare…",
-   "link": "https://www.tagesschau.de/ausland/asien/gipfel-trump-putin-xi-shenzhen-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T16:32:13+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Putin, Xi und Trump: Appelle für Weltfrieden und gegen Atomkrieg",
-     "link": "https://www.tagesschau.de/ausland/asien/gipfel-trump-putin-xi-shenzhen-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Kürzungen bei Demokratie-Förderung treffen Projekte gegen Antisemitismus und Rassismus",
-   "kurz": "Zahlreiche Demokratie-Projekte in Deutschland verlieren Fördermittel. Betroffene Organisationen warnen und verweisen auf wachsende Herausforderungen durch den…",
-   "link": "https://www.dw.com/de/kürzungen-bei-demokratie-förderung-treffen-projekte-gegen-antisemitismus-und-rassismus/a-79991213?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-19T16:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Kürzungen bei Demokratie-Förderung treffen Projekte gegen Antisemitismus und Rassismus",
-     "link": "https://www.dw.com/de/kürzungen-bei-demokratie-förderung-treffen-projekte-gegen-antisemitismus-und-rassismus/a-79991213?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "EGMR-Urteil: Corona-Impfpflichten waren menschenrechtskonform",
-   "kurz": "Zur Bekämpfung der Covid-19-Pandemie wurden Personen, die beispielsweise in Krankenhäusern oder Rettungsdiensten arbeiteten, verpflichtet, sich gegen Corona…",
-   "link": "https://www.tagesschau.de/ausland/europa/egmr-corona-impfpflicht-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T16:24:28+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "EGMR-Urteil: Corona-Impfpflichten waren menschenrechtskonform",
-     "link": "https://www.tagesschau.de/ausland/europa/egmr-corona-impfpflicht-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Cyber-Sicherheit: Wie verwundbar ist Deutschland? Antworten stehen im Lagebericht des Bundesamtes für Sicherheit in der Informationstechnik (BSI)",
-   "kurz": "Angriffe auf Privatpersonen, Wirtschaft oder öffentliche Verwaltungen nehmen zu und verunsichern die Bevölkerung. Wie reagieren Politik und Sicherheitsbehörden?",
-   "link": "https://www.dw.com/de/cyber-sicherheit-wie-verwundbar-ist-deutschland-antworten-stehen-im-lagebericht-des-bundesamtes-für-sicherheit-in-der-informationstechnik-bsi/a-79984323?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-19T16:24:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Cyber-Sicherheit: Wie verwundbar ist Deutschland? Antworten stehen im Lagebericht des Bundesamtes für Sicherheit in der Informationstechnik (BSI)",
-     "link": "https://www.dw.com/de/cyber-sicherheit-wie-verwundbar-ist-deutschland-antworten-stehen-im-lagebericht-des-bundesamtes-für-sicherheit-in-der-informationstechnik-bsi/a-79984323?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Cupic: Biobauer, Dozent und nun Serbiens Parlamentspräsident",
-   "kurz": "Ein Biobauer und Dozent, der sechs Kinder hat und in einem Dorf lebt. Aleksandar Cupic ist für Anhänger der Studentischen Liste der Inbegriff eines…",
-   "link": "https://www.tagesschau.de/ausland/europa/cupic-parlamentspraesident-serbien-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T16:08:53+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Cupic: Biobauer, Dozent und nun Serbiens Parlamentspräsident",
-     "link": "https://www.tagesschau.de/ausland/europa/cupic-parlamentspraesident-serbien-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "No mention of fossil fuels in latest COP31 draft deal",
-   "kurz": "One of the most fraught debates at the UN climate talks in Turkey has revolved around the future of coal, oil and gas. Now, all mention of fossil fuels has…",
-   "link": "https://www.dw.com/en/no-mention-of-fossil-fuels-in-latest-cop31-draft-deal/a-79992394?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T16:03:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "No mention of fossil fuels in latest COP31 draft deal",
-     "link": "https://www.dw.com/en/no-mention-of-fossil-fuels-in-latest-cop31-draft-deal/a-79992394?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Anthropic trading tests investors' appetite for AI",
-   "kurz": "Anthropic was valued at $2 trillion after shares started trading on the Nasdaq following a record $81 billion IPO. Its performance will put investor confidence…",
-   "link": "https://www.dw.com/en/anthropic-trading-tests-investors-appetite-for-ai/a-79993163?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T15:52:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Anthropic trading tests investors' appetite for AI",
-     "link": "https://www.dw.com/en/anthropic-trading-tests-investors-appetite-for-ai/a-79993163?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Erstmals weltweit mehr Energie zum Kühlen als zum Heizen verbraucht",
-   "kurz": "Aufgrund der steigenden Temperaturen auf der Erde wurde laut Internationaler Energieagentur weltweit erstmals mehr Energie zum Kühlen als zum Heizen…",
-   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/energieverbrauch-weltweit-heizen-kuehlen-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T15:51:14+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Erstmals weltweit mehr Energie zum Kühlen als zum Heizen verbraucht",
-     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/energieverbrauch-weltweit-heizen-kuehlen-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "\"Ein Warnruf in alle Richtungen\", ARD-Reporter zur Bedrohung durch Cyberangriffe",
-   "kurz": "\"Ein Warnruf in alle Richtungen\", ARD-Reporter zur Bedrohung durch Cyberangriffe",
-   "link": "https://www.tagesschau.de/video/video-1686392.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T15:26:55+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "\"Ein Warnruf in alle Richtungen\", ARD-Reporter zur Bedrohung durch Cyberangriffe",
-     "link": "https://www.tagesschau.de/video/video-1686392.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Alexander Zverev faces fresh lawsuit from ex-girlfriend",
-   "kurz": "World No. 1 tennis player Alexander Zverev is facing a new lawsuit related to a domestic abuse trial. The lawyer for his ex-girlfriend, Brenda Patea, told DW…",
-   "link": "https://www.dw.com/en/alexander-zverev-faces-fresh-lawsuit-from-ex-girlfriend/a-79990005?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T15:18:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Alexander Zverev faces fresh lawsuit from ex-girlfriend",
-     "link": "https://www.dw.com/en/alexander-zverev-faces-fresh-lawsuit-from-ex-girlfriend/a-79990005?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "EU Commission confirms it was targeted in cyberattack using AI tools",
-   "kurz": "The European Commission was targeted by an \"AI-generated cybercampaign,\" a spokesperson has said. This is the first time the bloc has publicly reported an…",
-   "link": "https://www.dw.com/en/eu-commission-confirms-it-was-targeted-in-cyberattack-using-ai-tools/a-79993016?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T14:58:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "EU Commission confirms it was targeted in cyberattack using AI tools",
-     "link": "https://www.dw.com/en/eu-commission-confirms-it-was-targeted-in-cyberattack-using-ai-tools/a-79993016?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "KI-gestützter Cyberangriff auf EU-Kommission",
-   "kurz": "Die Europäische Kommission in Brüssel ist Ziel eines KI-gestützten Hackerangriffs geworden. Ob Daten der mehr als 33.000 Beschäftigten gestohlen wurden, sagte…",
-   "link": "https://www.tagesschau.de/ausland/europa/cyberangriff-eu-kommission-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T14:56:39+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "KI-gestützter Cyberangriff auf EU-Kommission",
-     "link": "https://www.tagesschau.de/ausland/europa/cyberangriff-eu-kommission-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Judges have put Trump's arch and golf course on hold, but only for a matter of days",
-   "kurz": "A federal judge has twice delayed construction of Trump's arch. Another is keeping East Potomac Park open. The proposed golf course redesign got mixed feedback…",
-   "link": "https://www.npr.org/2026/11/19/nx-s1-6047151/trump-arch-golf-course-judge-orders",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-19T14:46:27-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Judges have put Trump's arch and golf course on hold, but only for a matter of days",
-     "link": "https://www.npr.org/2026/11/19/nx-s1-6047151/trump-arch-golf-course-judge-orders",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Gebrauchte Spielekonsolen so teuer wie noch nie",
-   "kurz": "Der mit viel Rummel begleitete Start des Videospiels \"Grand Theft Auto VI\" hat Auswirkungen auf die Elektronik-Branche: Die Preise für Spielkonsolen sind auf…",
-   "link": "https://www.tagesschau.de/wirtschaft/digitales/gta-vi-konsolen-preise-gaming-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T14:33:49+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Gebrauchte Spielekonsolen so teuer wie noch nie",
-     "link": "https://www.tagesschau.de/wirtschaft/digitales/gta-vi-konsolen-preise-gaming-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Firmenporträt: Anthropics halsbrecherischer Aufstieg",
-   "kurz": "Google schwor einst, nicht böse zu sein. OpenAI wollte KI fürs Gemeinwohl nutzen. Anthropic verspricht Sicherheit. Jetzt kommt der Börsengang - und mit ihm die…",
-   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/anthropic-firmenportrait-claude-boersengang-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T14:30:31+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Firmenporträt: Anthropics halsbrecherischer Aufstieg",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/anthropic-firmenportrait-claude-boersengang-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Warnstreiks der IG Metall",
-   "kurz": "Die Gewerkschaft IG Metall hat für Freitag großflächige Warnstreiks angekündigt. Betroffen sind viele Autowerke und Zulieferbetriebe in Baden-Württemberg und…",
-   "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/warnstreik-ig-metall-124.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T13:58:34+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Warnstreiks der IG Metall",
-     "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/warnstreik-ig-metall-124.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Wadephul: 'Coalition of the Willing' talks in Berlin send strong signal to Moscow",
-   "kurz": "German Foreign Minister Wadephul has said the Coalition of the Willing meeting in Berlin sends a clear message to Moscow to take peace talks seriously. He also…",
-   "link": "https://www.dw.com/en/wadephul-coalition-of-the-willing-talks-in-berlin-send-strong-signal-to-moscow/a-79990664?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-19T13:56:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "'Coalition of the Willing' meets in Berlin: Europe remains committed to Ukraine",
-     "link": "https://www.dw.com/en/coalition-of-the-willing-meets-in-berlin-europe-remains-committed-to-ukraine/a-79974996?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "GTA VI: \"Das hat kein Spiel bisher geschafft\", Ilyass Alaoui, NDR-Reporter",
-   "kurz": "GTA VI: \"Das hat kein Spiel bisher geschafft\", Ilyass Alaoui, NDR-Reporter",
-   "link": "https://www.tagesschau.de/video/video-1686370.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-19T13:40:28+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "GTA VI: \"Das hat kein Spiel bisher geschafft\", Ilyass Alaoui, NDR-Reporter",
-     "link": "https://www.tagesschau.de/video/video-1686370.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Infantino, Diallo, Tashima: Wer führt die FIFA ab 2027?",
-   "kurz": "Gianni Infantino gilt als Favorit für die FIFA-Präsidentschaft 2027 - doch Frankreichs Verbandschef Philippe Diallo und der Japaner Kozo Tashima fordern ihn…",
-   "link": "https://www.dw.com/de/infantino-diallo-tashima-wer-führt-die-fifa-ab-2027/a-79991151?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-19T13:32:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Infantino, Diallo, Tashima: Wer führt die FIFA ab 2027?",
-     "link": "https://www.dw.com/de/infantino-diallo-tashima-wer-führt-die-fifa-ab-2027/a-79991151?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Venezuela signs military deal with US less than a year after Maduro's removal",
-   "kurz": "The US Secretary of Defence says Venezuela has \"gone from our most aggressive regional threat to a compliant security partner\".",
-   "link": "https://www.bbc.co.uk/news/articles/cmwy8pyqlq5vo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-19T13:31:23Z",
+   "zeit": "2026-11-20T00:54:50Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1528,8 +1349,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Venezuela signs military deal with US less than a year after Maduro's removal",
-     "link": "https://www.bbc.co.uk/news/articles/cmwy8pyqlq5vo?at_medium=RSS&at_campaign=rss",
+     "titel": "More climate money for Africa? Europe says use what's already pledged",
+     "link": "https://www.bbc.co.uk/news/articles/c6074k5jjrzko?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1537,12 +1358,12 @@
    ]
   },
   {
-   "titel": "The 'Magic Six': How to strengthen your marriage in midlife",
-   "kurz": "How do we maintain healthy romantic relationships as we age? Allison Aubrey and Scott Detrow talk about about the science of healthy, later-in-life…",
-   "link": "https://www.npr.org/2026/11/19/nx-s1-5996688/magic-6-marriage-tips-nina-totenberg-relationships",
-   "quelle": "NPR",
+   "titel": "Kalshi hired its GTA VI researcher after receiving 30 , 000 applications",
+   "kurz": "",
+   "link": "https://finance.yahoo.com/technology/article/kalshi-hired-its-gta-vi-researcher-after-receiving-30000-applications-192348447.html",
+   "quelle": "finance.yahoo.com",
    "sprache": "en",
-   "zeit": "2026-11-19T13:28:23-05:00",
+   "zeit": "2026-11-20T00:45:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1550,10 +1371,309 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NPR",
-     "titel": "The 'Magic Six': How to strengthen your marriage in midlife",
-     "link": "https://www.npr.org/2026/11/19/nx-s1-5996688/magic-6-marriage-tips-nina-totenberg-relationships",
-     "eigentuemer": "gehört NPR",
+     "quelle": "finance.yahoo.com",
+     "titel": "Kalshi hired its GTA VI researcher after receiving 30 , 000 applications",
+     "link": "https://finance.yahoo.com/technology/article/kalshi-hired-its-gta-vi-researcher-after-receiving-30000-applications-192348447.html",
+     "eigentuemer": "gehört Verizon Communications und Yahoo",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Portmeirion documentary shows life in Italianate village",
+   "kurz": "",
+   "link": "https://www.bbc.co.uk/news/articles/ckr5g60v3d1do",
+   "quelle": "bbc.co.uk",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "bbc.co.uk",
+     "titel": "Portmeirion documentary shows life in Italianate village",
+     "link": "https://www.bbc.co.uk/news/articles/ckr5g60v3d1do",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Massive hope for pancreatic cancer pill after trial saw tumours vanish",
+   "kurz": "",
+   "link": "https://www.bbc.co.uk/news/articles/cqrmgjnzz9l0o",
+   "quelle": "bbc.co.uk",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "bbc.co.uk",
+     "titel": "Massive hope for pancreatic cancer pill after trial saw tumours vanish",
+     "link": "https://www.bbc.co.uk/news/articles/cqrmgjnzz9l0o",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Girls as young as five targeted for upskirting as charges continue to rise",
+   "kurz": "",
+   "link": "https://www.bbc.co.uk/news/articles/cq808rerxxp3o",
+   "quelle": "bbc.co.uk",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "bbc.co.uk",
+     "titel": "Girls as young as five targeted for upskirting as charges continue to rise",
+     "link": "https://www.bbc.co.uk/news/articles/cq808rerxxp3o",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Spacecraft reaches Mercury on second - ever mission to enter its orbit",
+   "kurz": "",
+   "link": "https://www.theguardian.com/science/2026/nov/20/spacecraft-mercury-second-ever-mission-orbit-bepicolombo",
+   "quelle": "theguardian.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "theguardian.com",
+     "titel": "Spacecraft reaches Mercury on second - ever mission to enter its orbit",
+     "link": "https://www.theguardian.com/science/2026/nov/20/spacecraft-mercury-second-ever-mission-orbit-bepicolombo",
+     "eigentuemer": "gehört Guardian Media Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "House panel says Airbus should lose US taxpayer funds over China ties",
+   "kurz": "",
+   "link": "https://www.foxnews.com/politics/house-china-panel-calls-cutting-defense-contracts-over-aerospace-ties-beijings-military",
+   "quelle": "foxnews.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "foxnews.com",
+     "titel": "House panel says Airbus should lose US taxpayer funds over China ties",
+     "link": "https://www.foxnews.com/politics/house-china-panel-calls-cutting-defense-contracts-over-aerospace-ties-beijings-military",
+     "eigentuemer": "gehört Fox Corporation und Fox Broadcasting Company",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Judge Merryday denies motion to dismiss Trump $15 billion defamation suit",
+   "kurz": "",
+   "link": "https://www.foxnews.com/media/trump-clears-hurdle-15-billion-lawsuit-against-new-york-times",
+   "quelle": "foxnews.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "foxnews.com",
+     "titel": "Judge Merryday denies motion to dismiss Trump $15 billion defamation suit",
+     "link": "https://www.foxnews.com/media/trump-clears-hurdle-15-billion-lawsuit-against-new-york-times",
+     "eigentuemer": "gehört Fox Corporation und Fox Broadcasting Company",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Sagittarius Shani Horoscope Today , 20 November 2026 : Moon Meets Neptune This Afternoon , and Shani Asks You to Stop Delaying a School Matter",
+   "kurz": "",
+   "link": "https://timesofindia.indiatimes.com/astrology/horoscope/sagittarius-shani-horoscope-today-20-november-2026-moon-meets-neptune-this-afternoon-and-shani-asks-you-to-stop-delaying-a-school-matter/articleshow/135916622.cms",
+   "quelle": "timesofindia.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "timesofindia.indiatimes.com",
+     "titel": "Panchang Today , November 20 , 2026 : Shukla Paksh 10 ( Dasami ), P . Bhadrapada , Shubh Muhurat , Rahu Kaal and More",
+     "link": "https://timesofindia.indiatimes.com/astrology/panchang/panchang-today-november-20-2026-shukla-paksh-10-dasami-p-bhadrapada-shubh-muhurat-rahu-kaal-and-more/articleshow/135987877.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Lance Broadway passes away at age 43 , pitcher - turned - actor found dead at stairwell in Dallas apartment complex",
+   "kurz": "",
+   "link": "https://timesofindia.indiatimes.com/entertainment/english/hollywood/news/lance-broadway-passes-away-at-age-43-pitcher-turned-actor-found-dead-at-stairwell-in-dallas-apartment-complex/articleshow/136008119.cms",
+   "quelle": "timesofindia.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "timesofindia.indiatimes.com",
+     "titel": "Lance Broadway passes away at age 43 , pitcher - turned - actor found dead at stairwell in Dallas apartment complex",
+     "link": "https://timesofindia.indiatimes.com/entertainment/english/hollywood/news/lance-broadway-passes-away-at-age-43-pitcher-turned-actor-found-dead-at-stairwell-in-dallas-apartment-complex/articleshow/136008119.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "​Mom gets keyboard tattooed on arm to help non - speaking autistic son communicate : 5 lessons in emotionally intelligent parenting​",
+   "kurz": "",
+   "link": "https://timesofindia.indiatimes.com/life-style/parenting/pregnancy/mom-gets-keyboard-tattooed-on-arm-to-help-non-speaking-autistic-son-communicate-5-lessons-in-emotionally-intelligent-parenting/photostory/135949403.cms",
+   "quelle": "timesofindia.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "timesofindia.indiatimes.com",
+     "titel": "​Mom gets keyboard tattooed on arm to help non - speaking autistic son communicate : 5 lessons in emotionally intelligent parenting​",
+     "link": "https://timesofindia.indiatimes.com/life-style/parenting/pregnancy/mom-gets-keyboard-tattooed-on-arm-to-help-non-speaking-autistic-son-communicate-5-lessons-in-emotionally-intelligent-parenting/photostory/135949403.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ramayana : Rise of a Legend box office collection day 15 : Ranbir Kapoor , Yash film earns Rs 19 . 35 cr ; second - week collection drops 47 %",
+   "kurz": "",
+   "link": "https://timesofindia.indiatimes.com/entertainment/hindi/bollywood/box-office/ramayana-rise-of-a-legend-box-office-collection-day-15-ranbir-kapoor-yash-film-earns-rs-19-35-cr-second-week-collection-drops-47/articleshow/136008840.cms",
+   "quelle": "timesofindia.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "timesofindia.indiatimes.com",
+     "titel": "Ramayana : Rise of a Legend box office collection day 15 : Ranbir Kapoor , Yash film earns Rs 19 . 35 cr ; second - week collection drops 47 %",
+     "link": "https://timesofindia.indiatimes.com/entertainment/hindi/bollywood/box-office/ramayana-rise-of-a-legend-box-office-collection-day-15-ranbir-kapoor-yash-film-earns-rs-19-35-cr-second-week-collection-drops-47/articleshow/136008840.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Percy Jackson and the Olympians Season 2 recap & ending explained : Does Thalia come back to life and what happened to the Camp Half - Blood ?",
+   "kurz": "",
+   "link": "https://www.indiatimes.com/trending/percy-jackson-and-the-olympians-season-2-recap-ending-explained-does-thalia-come-back-to-life-and-what-happened-to-the-camp-half-blood/articleshow/136004492.html",
+   "quelle": "indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "indiatimes.com",
+     "titel": "Percy Jackson and the Olympians Season 2 recap & ending explained : Does Thalia come back to life and what happened to the Camp Half - Blood ?",
+     "link": "https://www.indiatimes.com/trending/percy-jackson-and-the-olympians-season-2-recap-ending-explained-does-thalia-come-back-to-life-and-what-happened-to-the-camp-half-blood/articleshow/136004492.html",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Scorpio Season Begins : These 4 Zodiac Signs May See Major Changes in Love , Trust , and Finances",
+   "kurz": "",
+   "link": "https://timesofindia.indiatimes.com/astrology/horoscope/scorpio-season-begins-these-4-zodiac-signs-may-see-major-changes-in-love-trust-and-finances/articleshow/135982370.cms",
+   "quelle": "timesofindia.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "timesofindia.indiatimes.com",
+     "titel": "Scorpio Season Begins : These 4 Zodiac Signs May See Major Changes in Love , Trust , and Finances",
+     "link": "https://timesofindia.indiatimes.com/astrology/horoscope/scorpio-season-begins-these-4-zodiac-signs-may-see-major-changes-in-love-trust-and-finances/articleshow/135982370.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Wall Street AI jitters return as stocks tumble , S & P500 logs longest losing streak in 2 . 5 years",
+   "kurz": "",
+   "link": "https://timesofindia.indiatimes.com/business/international-business/wall-streets-ai-jitters-return-as-stocks-tumble-sp-500-logs-longest-losing-streak-in-2-5-years/articleshow/136008927.cms",
+   "quelle": "timesofindia.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-20T00:45:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "timesofindia.indiatimes.com",
+     "titel": "Wall Street AI jitters return as stocks tumble , S & P500 logs longest losing streak in 2 . 5 years",
+     "link": "https://timesofindia.indiatimes.com/business/international-business/wall-streets-ai-jitters-return-as-stocks-tumble-sp-500-logs-longest-losing-streak-in-2-5-years/articleshow/136008927.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
