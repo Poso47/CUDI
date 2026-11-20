@@ -48,12 +48,14 @@
    "naechste_planung": "2026-11-20T13:32:43Z"
   },
   "briefing": {
-   "letzter_lauf": "2026-11-19T14:26:23Z",
-   "dauer_s": 8.2,
+   "letzter_lauf": "2026-11-20T14:01:15Z",
+   "dauer_s": 10.5,
    "ergebnis": "ok",
-   "zusammenfassung": "Briefing 2026-11-19 (llm), 56 Punkte",
-   "hinweise": [],
-   "naechste_planung": "2026-11-20T14:26:23Z"
+   "zusammenfassung": "Briefing 2026-11-20 (regeln), 58 Punkte",
+   "hinweise": [
+    "Sprachmodell nicht erreichbar (HTTPError: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions)"
+   ],
+   "naechste_planung": "2026-11-21T14:01:15Z"
   },
   "putzen": {
    "letzter_lauf": "2026-11-18T12:12:03Z",
@@ -133,5 +135,5 @@
    "naechste_planung": "2026-11-19T13:56:48Z"
   }
  },
- "erzeugt": "2026-11-20T12:06:45Z"
+ "erzeugt": "2026-11-20T14:01:15Z"
 }
