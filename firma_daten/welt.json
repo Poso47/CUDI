@@ -1,29 +1,29 @@
 {
- "erzeugt": "2026-11-21T07:28:08Z",
- "anzahl": 14,
+ "erzeugt": "2026-11-21T19:33:54Z",
+ "anzahl": 10,
  "nur_ausland": 0,
- "hinweise": [],
+ "hinweise": [
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+ ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "Los expertos vaticinan que los jueces tumbarán el pacto europeo para deportar migrantes a Ruanda",
-   "kurz": "Medio centenar de ONG instan a retirar el acuerdo de Alemania, Austria, Dinamarca, Países Bajos y Grecia con el país africano",
-   "link": "https://elpais.com/internacional/2026-11-21/los-expertos-vaticinan-que-los-jueces-tumbaran-el-pacto-europeo-para-deportar-migrantes-a-ruanda.html",
-   "sprache": "es",
-   "zeit": "2026-11-21T04:30:01Z",
+   "titel": "KOMMENTAR - Die SVP macht Powerplay nach Drehbuch – sie weiss, sie kann sich das leisten",
+   "kurz": "Mit Thomas Aeschi und Michael Graber nominiert die SVP zwei Hardliner für den Bundesrat. Ein ähnliches Manöver ist ihr schon einmal gelungen: mit Christoph…",
+   "link": "https://www.nzz.ch/meinung/die-svp-spielt-wieder-einmal-macht-schach-sie-weiss-sie-kann-sich-das-leisten-ld.10069953",
+   "sprache": "de",
+   "zeit": "2026-11-21T12:39:37Z",
    "ausland_quellen": 1,
    "laender": [
-    "Spanien"
+    "Schweiz"
    ],
    "laender_einig": [
-    "Spanien"
+    "Schweiz"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Österreich"
-   ],
+   "beteiligte_laender": [],
    "zusammenfassung": [
-    "El País (Spanien): Los expertos vaticinan que los jueces tumbarán el pacto europeo para deportar migrantes a Ruanda"
+    "NZZ (Schweiz): KOMMENTAR - Die SVP macht Powerplay nach Drehbuch – sie weiss, sie kann sich das leisten"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -33,13 +33,87 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "El País",
-     "land": "Spanien",
+     "quelle": "NZZ",
+     "land": "Schweiz",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Los expertos vaticinan que los jueces tumbarán el pacto europeo para deportar migrantes a Ruanda",
-     "link": "https://elpais.com/internacional/2026-11-21/los-expertos-vaticinan-que-los-jueces-tumbaran-el-pacto-europeo-para-deportar-migrantes-a-ruanda.html",
-     "eigentuemer": "gehört PRISA",
+     "titel": "KOMMENTAR - Die SVP macht Powerplay nach Drehbuch – sie weiss, sie kann sich das leisten",
+     "link": "https://www.nzz.ch/meinung/die-svp-spielt-wieder-einmal-macht-schach-sie-weiss-sie-kann-sich-das-leisten-ld.10069953",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "‘People couldn’t deal with watching an animal die’: the strange saga of Timmy the whale – and how a whole country lost its mind",
+   "kurz": "When the humpback got stranded on Germany’s Baltic coast, crowds gathered, conspiracy theorists pitted themselves against scientists and animal lovers argued…",
+   "link": "https://www.theguardian.com/environment/2026/nov/21/strange-saga-timmy-the-whale-germany",
+   "sprache": "en",
+   "zeit": "2026-11-21T12:00:57Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): ‘People couldn’t deal with watching an animal die’: the strange saga of Timmy the whale – and how a whole country lost its mind"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "‘People couldn’t deal with watching an animal die’: the strange saga of Timmy the whale – and how a whole country lost its mind",
+     "link": "https://www.theguardian.com/environment/2026/nov/21/strange-saga-timmy-the-whale-germany",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Warum plötzlich alle über \"GTA 6\" reden und nur wenige über Videospiele",
+   "kurz": "Vom Bundeskanzler bis zur MA48 will derzeit jeder auf den Hype-Zug aufspringen. Mit echtem Interesse an Videospielen hat das wenig zu tun",
+   "link": "https://www.derstandard.at/story/3000000350244/warum-ploetzlich-alle-ueber-gta-6-reden-und-nur-wenige-ueber-videospiele?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-21T11:50:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Warum plötzlich alle über \"GTA 6\" reden und nur wenige über Videospiele"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Warum plötzlich alle über \"GTA 6\" reden und nur wenige über Videospiele",
+     "link": "https://www.derstandard.at/story/3000000350244/warum-ploetzlich-alle-ueber-gta-6-reden-und-nur-wenige-ueber-videospiele?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -156,43 +230,6 @@
    ]
   },
   {
-   "titel": "El acuerdo francoalemán para la dirección del BCE coloca a Hernández de Cos a un paso de la presidencia",
-   "kurz": "El holandés Knot evita retirar su candidatura, aunque pierda opciones. El alemán Brunnermeier y la francesa Boone optan a los otros dos puestos a renovar del…",
-   "link": "https://elpais.com/economia/2026-11-20/hernandez-de-cos-roza-la-presidencia-del-bce-tras-conocerse-los-candidatos-de-francia-y-alemania-a-la-direccion.html",
-   "sprache": "es",
-   "zeit": "2026-11-20T16:42:05Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): El acuerdo francoalemán para la dirección del BCE coloca a Hernández de Cos a un paso de la presidencia"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "El acuerdo francoalemán para la dirección del BCE coloca a Hernández de Cos a un paso de la presidencia",
-     "link": "https://elpais.com/economia/2026-11-20/hernandez-de-cos-roza-la-presidencia-del-bce-tras-conocerse-los-candidatos-de-francia-y-alemania-a-la-direccion.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa",
    "kurz": "Der Deutsche führt die \"Koalition der Willigen\" zur Unterstützung Kyjiws an: Verhandlungen mit Putin erst bei Waffenstillstand. Hilfe für Kyjiw, was immer…",
    "link": "https://www.derstandard.at/story/3000000350209/kanzler-merz-zeigt-in-sachen-ukraine-fuehrungsstaerke-in-europa?ref=rss",
@@ -213,13 +250,7 @@
     "Der Standard (Österreich): Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Merz: Unterstützung der Ukraine bringt uns Dividende",
-     "link": "https://www.tagesschau.de/wirtschaft/deutsch-ukrainisches-wirtschaftsforum-104.html"
-    }
-   ],
+   "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -233,85 +264,6 @@
      "titel": "Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa",
      "link": "https://www.derstandard.at/story/3000000350209/kanzler-merz-zeigt-in-sachen-ukraine-fuehrungsstaerke-in-europa?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Gegen Wehrpflicht, marode Klos: Jugendproteste in Deutschland – Flaute in Frankreich",
-   "kurz": "Genug von leeren Versprechen: In Deutschland gehen wieder junge Menschen auf die Straße, um für Bildungschancen und gegen die Wehrpflicht zu demonstrieren",
-   "link": "https://www.derstandard.at/story/3000000350188/gegen-wehrpflicht-und-marode-klos-neue-jugendproteste-in-deutschland?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-20T11:44:42Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Gegen Wehrpflicht, marode Klos: Jugendproteste in Deutschland – Flaute in Frankreich"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Gegen Wehrpflicht, marode Klos: Jugendproteste in Deutschland – Flaute in Frankreich",
-     "link": "https://www.derstandard.at/story/3000000350188/gegen-wehrpflicht-und-marode-klos-neue-jugendproteste-in-deutschland?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Kyiv's allies push back against Trump and Putin's provocations",
-   "kurz": "The Russian leader has proposed meeting with European leaders in Moscow to discuss Ukraine's future and Europe's security architecture. German Chancellor…",
-   "link": "https://www.lemonde.fr/en/international/article/2026/11/20/kyiv-s-allies-push-back-against-trump-and-putin-s-provocations_6785209_4.html",
-   "sprache": "en",
-   "zeit": "2026-11-20T10:28:42+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): Kyiv's allies push back against Trump and Putin's provocations"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Kyiv's allies push back against Trump and Putin's provocations",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/20/kyiv-s-allies-push-back-against-trump-and-putin-s-provocations_6785209_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
      "zaehlt_nicht": ""
     }
    ]
@@ -389,127 +341,6 @@
      "titel": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
      "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Third Ukrainian strike in 4 days halts rail traffic on Russia's Kerch Bridge to Crimea",
-   "kurz": "The attack came hours before the start of talks in Berlin between U.S. envoys Jared Kushner and Steve Witkoff and Ukrainian President Volodymyr Zelenskyy…",
-   "link": "https://www.thehindu.com/news/international/third-ukrainian-strike-in-4-days-halts-rail-traffic-on-russias-kerch-bridge-to-crimea/article71721511.ece",
-   "sprache": "en",
-   "zeit": "2026-11-19T22:59:22+05:30",
-   "ausland_quellen": 1,
-   "laender": [
-    "Indien"
-   ],
-   "laender_einig": [
-    "Indien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "The Hindu (Indien): Third Ukrainian strike in 4 days halts rail traffic on Russia's Kerch Bridge to Crimea"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "The Hindu",
-     "land": "Indien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Third Ukrainian strike in 4 days halts rail traffic on Russia's Kerch Bridge to Crimea",
-     "link": "https://www.thehindu.com/news/international/third-ukrainian-strike-in-4-days-halts-rail-traffic-on-russias-kerch-bridge-to-crimea/article71721511.ece",
-     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Windkraftbetrüger Hendrik Holt ist in Dubai offenbar auf freiem Fuß",
-   "kurz": "Der deutsche Hochstapler, der mit erfundenen Windparks Millionen ergaunert hatte, erklärte nun auch, warum er im August aus einem Berliner Gefängnis geflüchtet…",
-   "link": "https://www.derstandard.at/story/3000000350149/windkraftbetrueger-hendrik-holt-ist-in-dubai-offenbar-auf-freiem-fuss?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-19T17:20:50Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Windkraftbetrüger Hendrik Holt ist in Dubai offenbar auf freiem Fuß"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Windkraftbetrüger Hendrik Holt ist in Dubai offenbar auf freiem Fuß",
-     "link": "https://www.derstandard.at/story/3000000350149/windkraftbetrueger-hendrik-holt-ist-in-dubai-offenbar-auf-freiem-fuss?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "China summit ends with little new, Europe backs Ukraine in Berlin",
-   "kurz": "The leaders of China, the United States and Russia met in Shenzhen for a historic first, but the summit brought little new: non-binding statements on peace and…",
-   "link": "https://www.france24.com/en/china-summit-ends-with-little-new-europe-backs-ukraine-in-berlin",
-   "sprache": "en",
-   "zeit": "2026-11-19T14:04:03Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Hongkong/China",
-    "Russland",
-    "USA",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "France 24 (Frankreich): Ukraine's European allies meet in Berlin in show of support"
-   ],
-   "staatsnah": [
-    "France 24"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "France 24",
-     "land": "Frankreich",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Ukraine's European allies meet in Berlin in show of support",
-     "link": "https://www.france24.com/en/ukraine-s-european-allies-meet-in-berlin-in-show-of-support",
-     "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
     }
    ]
