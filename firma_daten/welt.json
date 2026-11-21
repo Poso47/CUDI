@@ -1,63 +1,45 @@
 {
- "erzeugt": "2026-11-20T20:35:46Z",
- "anzahl": 20,
- "nur_ausland": 1,
- "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
- ],
+ "erzeugt": "2026-11-21T07:28:08Z",
+ "anzahl": 14,
+ "nur_ausland": 0,
+ "hinweise": [],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "China summit ends with little new, Europe backs Ukraine in Berlin",
-   "kurz": "The leaders of China, the United States and Russia met in Shenzhen for a historic first, but the summit brought little new: non-binding statements on peace and…",
-   "link": "https://www.france24.com/en/china-summit-ends-with-little-new-europe-backs-ukraine-in-berlin",
-   "sprache": "en",
-   "zeit": "2026-11-20T10:28:42+01:00",
-   "ausland_quellen": 2,
+   "titel": "Los expertos vaticinan que los jueces tumbarán el pacto europeo para deportar migrantes a Ruanda",
+   "kurz": "Medio centenar de ONG instan a retirar el acuerdo de Alemania, Austria, Dinamarca, Países Bajos y Grecia con el país africano",
+   "link": "https://elpais.com/internacional/2026-11-21/los-expertos-vaticinan-que-los-jueces-tumbaran-el-pacto-europeo-para-deportar-migrantes-a-ruanda.html",
+   "sprache": "es",
+   "zeit": "2026-11-21T04:30:01Z",
+   "ausland_quellen": 1,
    "laender": [
-    "Frankreich"
+    "Spanien"
    ],
    "laender_einig": [
-    "Frankreich"
+    "Spanien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Hongkong/China",
-    "Russland",
-    "USA",
-    "Ukraine"
+    "Österreich"
    ],
    "zusammenfassung": [
-    "France 24 (Frankreich): Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks",
-    "Le Monde (en) (Frankreich): Kyiv's allies push back against Trump and Putin's provocations"
+    "El País (Spanien): Los expertos vaticinan que los jueces tumbarán el pacto europeo para deportar migrantes a Ruanda"
    ],
-   "staatsnah": [
-    "France 24"
-   ],
+   "staatsnah": [],
    "deutsch_quellen": [],
-   "nur_ausland": true,
-   "unabhaengig_n": 2,
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "France 24",
-     "land": "Frankreich",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Ukraine's allies meet in Berlin to rally support for Kyiv after Trump-Putin-Xi talks",
-     "link": "https://www.france24.com/en/europe/20261119-european-leaders-to-meet-in-berlin-to-support-for-ukraine-after-trump-putin-xi-talks",
-     "eigentuemer": "staatlich (Frankreich)",
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Kyiv's allies push back against Trump and Putin's provocations",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/20/kyiv-s-allies-push-back-against-trump-and-putin-s-provocations_6785209_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
+     "titel": "Los expertos vaticinan que los jueces tumbarán el pacto europeo para deportar migrantes a Ruanda",
+     "link": "https://elpais.com/internacional/2026-11-21/los-expertos-vaticinan-que-los-jueces-tumbaran-el-pacto-europeo-para-deportar-migrantes-a-ruanda.html",
+     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -100,22 +82,22 @@
    ]
   },
   {
-   "titel": "Nachfolge von Guy Parmelin im Bundesrat: Die SVP nominiert Thomas Aeschi und Michael Graber",
-   "kurz": "Die Bundeshausfraktion der SVP präsentiert dem Parlament ein Zweierticket.",
-   "link": "https://www.nzz.ch/schweiz/nachfolge-von-guy-parmelin-im-bundesrat-die-svp-nominiert-thomas-aeschi-und-michael-graber-ld.10070030",
-   "sprache": "de",
-   "zeit": "2026-11-20T19:34:08Z",
+   "titel": "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer",
+   "kurz": "German company faced 65,000 claims from people who said they developed cancer after using weedkiller A Missouri judge on Friday approved Bayer ’s $7.25bn…",
+   "link": "https://www.theguardian.com/business/2026/nov/20/bayer-roundup-cancer-litigation",
+   "sprache": "en",
+   "zeit": "2026-11-20T23:42:43Z",
    "ausland_quellen": 1,
    "laender": [
-    "Schweiz"
+    "Großbritannien"
    ],
    "laender_einig": [
-    "Schweiz"
+    "Großbritannien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): LIVE-TICKER - Der Entscheid ist gefallen: Die SVP nominiert Thomas Aeschi und Michael Graber für den Bundesrat"
+    "Guardian Germany (Großbritannien): Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -125,13 +107,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NZZ",
-     "land": "Schweiz",
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "LIVE-TICKER - Der Entscheid ist gefallen: Die SVP nominiert Thomas Aeschi und Michael Graber für den Bundesrat",
-     "link": "https://www.nzz.ch/schweiz/der-entscheid-ist-gefallen-die-svp-nominiert-thomas-aeschi-und-michael-graber-fuer-den-bundesrat-ld.10069881",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "titel": "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer",
+     "link": "https://www.theguardian.com/business/2026/nov/20/bayer-roundup-cancer-litigation",
+     "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
     }
    ]
@@ -169,43 +151,6 @@
      "titel": "'Inside Deutsche Bank': German government demands 'transparency' over revelations",
      "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/20/inside-deutsche-bank-german-government-demands-transparency-over-revelations_6785607_8.html",
      "eigentuemer": "gehört Groupe Le Monde",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Hans Baldung Grien, un maestro de la mirada, el cuerpo y la muerte a la sombra de Durero",
-   "kurz": "El Museo del Prado inaugura una exposición monográfica dedicada a uno de los grandes desconocidos del Renacimiento alemán",
-   "link": "https://elpais.com/cultura/2026-11-20/hans-baldung-grien-un-maestro-de-la-mirada-el-cuerpo-y-la-muerte-a-la-sombra-de-durero.html",
-   "sprache": "es",
-   "zeit": "2026-11-20T17:03:17Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Hans Baldung Grien, un maestro de la mirada, el cuerpo y la muerte a la sombra de Durero"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Hans Baldung Grien, un maestro de la mirada, el cuerpo y la muerte a la sombra de Durero",
-     "link": "https://elpais.com/cultura/2026-11-20/hans-baldung-grien-un-maestro-de-la-mirada-el-cuerpo-y-la-muerte-a-la-sombra-de-durero.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -268,7 +213,13 @@
     "Der Standard (Österreich): Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Merz: Unterstützung der Ukraine bringt uns Dividende",
+     "link": "https://www.tagesschau.de/wirtschaft/deutsch-ukrainisches-wirtschaftsforum-104.html"
+    }
+   ],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -281,122 +232,6 @@
      "beteiligt": false,
      "titel": "Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa",
      "link": "https://www.derstandard.at/story/3000000350209/kanzler-merz-zeigt-in-sachen-ukraine-fuehrungsstaerke-in-europa?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "LIVE-TICKER - Jugendstreik in Europa: Angespannte Situation in Lausanne +++ Polizei ist in Zürich mit Grossaufgebot vor Ort",
-   "kurz": "Für den 20. November haben Jugendliche zu Protesten aufgerufen. Die NZZ berichtet live aus Zürich, Bern, der Westschweiz, Paris, Rom und Berlin.",
-   "link": "https://www.nzz.ch/international/jugendstreik-in-europa-am-freitag-geht-die-gen-z-in-ganz-europa-auf-die-strasse-ld.10066446",
-   "sprache": "de",
-   "zeit": "2026-11-20T16:02:43Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): LIVE-TICKER - Jugendstreik in Europa: Angespannte Situation in Lausanne +++ Polizei ist in Zürich mit Grossaufgebot vor Ort"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "LIVE-TICKER - Jugendstreik in Europa: Angespannte Situation in Lausanne +++ Polizei ist in Zürich mit Grossaufgebot vor Ort",
-     "link": "https://www.nzz.ch/international/jugendstreik-in-europa-am-freitag-geht-die-gen-z-in-ganz-europa-auf-die-strasse-ld.10066446",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "BILDSTRECKE - Tausende Junge protestieren in Europa – die Bilder",
-   "kurz": "Ob gegen Wehrpflicht in Deutschland, für bessere Bildung in Frankreich oder gegen Sparbudgets in Italien: Tausende junge Menschen haben am Freitag in…",
-   "link": "https://www.nzz.ch/international/tausende-junge-protestieren-in-europa-die-bilder-ld.10070000",
-   "sprache": "de",
-   "zeit": "2026-11-20T15:27:19Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich"
-   ],
-   "zusammenfassung": [
-    "NZZ (Schweiz): BILDSTRECKE - Tausende Junge protestieren in Europa – die Bilder"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "BILDSTRECKE - Tausende Junge protestieren in Europa – die Bilder",
-     "link": "https://www.nzz.ch/international/tausende-junge-protestieren-in-europa-die-bilder-ld.10070000",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Kracher Spanien gegen Frankreich im Nations-League-Viertelfinale",
-   "kurz": "Deutschland spielt gegen Belgien. Die Partien finden zwischen 25. und 30. März statt",
-   "link": "https://www.derstandard.at/story/3000000350262/fu223ball-spanien-gegen-frankreich-im-nations-league-viertelfinale?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-20T12:02:16Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Spanien"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Kracher Spanien gegen Frankreich im Nations-League-Viertelfinale"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Kracher Spanien gegen Frankreich im Nations-League-Viertelfinale",
-     "link": "https://www.derstandard.at/story/3000000350262/fu223ball-spanien-gegen-frankreich-im-nations-league-viertelfinale?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
@@ -442,6 +277,46 @@
    ]
   },
   {
+   "titel": "Kyiv's allies push back against Trump and Putin's provocations",
+   "kurz": "The Russian leader has proposed meeting with European leaders in Moscow to discuss Ukraine's future and Europe's security architecture. German Chancellor…",
+   "link": "https://www.lemonde.fr/en/international/article/2026/11/20/kyiv-s-allies-push-back-against-trump-and-putin-s-provocations_6785209_4.html",
+   "sprache": "en",
+   "zeit": "2026-11-20T10:28:42+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [
+    "Frankreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): Kyiv's allies push back against Trump and Putin's provocations"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Kyiv's allies push back against Trump and Putin's provocations",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/20/kyiv-s-allies-push-back-against-trump-and-putin-s-provocations_6785209_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Studie aus Deutschland: Psychische Gesundheit bei Jugendlichen seit Pandemie anhaltend belastet",
    "kurz": "Eine verminderte Lebensqualität, psychische Auffälligkeiten und Angstsymptome sind bei Kindern und Jugendlichen in Deutschland nicht selten. Die COPSY-Studie…",
    "link": "https://www.derstandard.at/story/3000000350166/studie-aus-deutschland-psychische-gesundheit-bei-jugendlichen-seit-pandemie-anhaltend-belastet?ref=rss",
@@ -474,43 +349,6 @@
      "titel": "Studie aus Deutschland: Psychische Gesundheit bei Jugendlichen seit Pandemie anhaltend belastet",
      "link": "https://www.derstandard.at/story/3000000350166/studie-aus-deutschland-psychische-gesundheit-bei-jugendlichen-seit-pandemie-anhaltend-belastet?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa",
-   "kurz": "La actriz alemana da vida a una mujer del siglo XVII que se hace pasar por hombre en un cuidado drama histórico en blanco y negro con aroma a wéstern",
-   "link": "https://elpais.com/cultura/cine/2026-11-20/rose-sandra-huller-lleva-los-pantalones-en-otra-actuacion-prodigiosa.html",
-   "sprache": "es",
-   "zeit": "2026-11-20T04:30:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): ‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa",
-     "link": "https://elpais.com/cultura/cine/2026-11-20/rose-sandra-huller-lleva-los-pantalones-en-otra-actuacion-prodigiosa.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -551,45 +389,6 @@
      "titel": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
      "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "US open to NATO-style security guarantees for Ukraine, Kushner says",
-   "kurz": "The US envoy's remarks came after Kyiv's allies gathered in Berlin for a 'Coalition of the Willing' summit with President Volodymyr Zelensky.",
-   "link": "https://www.lemonde.fr/en/international/article/2026/11/19/europe-expects-to-join-new-ukraine-peace-talks-soon-says-german-chancellor_6784813_4.html",
-   "sprache": "en",
-   "zeit": "2026-11-19T23:36:26+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): US open to NATO-style security guarantees for Ukraine, Kushner says"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "US open to NATO-style security guarantees for Ukraine, Kushner says",
-     "link": "https://www.lemonde.fr/en/international/article/2026/11/19/europe-expects-to-join-new-ukraine-peace-talks-soon-says-german-chancellor_6784813_4.html",
-     "eigentuemer": "gehört Groupe Le Monde",
      "zaehlt_nicht": ""
     }
    ]
@@ -672,62 +471,30 @@
    ]
   },
   {
-   "titel": "Xi-Putin-Trump trilateral: Why is it being compared to 1945 Yalta Conference?",
-   "kurz": "The Xi-Putin-Jinping meet is being compared with the Yalta Conference of 1945, which led to the establishment of four quarters of post-Nazi Germany and laid…",
-   "link": "https://www.thehindu.com/news/international/us-china-russia-trump-xi-jinping-putin-meet-2026-yalta-conference-explained/article71716078.ece",
+   "titel": "China summit ends with little new, Europe backs Ukraine in Berlin",
+   "kurz": "The leaders of China, the United States and Russia met in Shenzhen for a historic first, but the summit brought little new: non-binding statements on peace and…",
+   "link": "https://www.france24.com/en/china-summit-ends-with-little-new-europe-backs-ukraine-in-berlin",
    "sprache": "en",
-   "zeit": "2026-11-19T12:28:34+05:30",
+   "zeit": "2026-11-19T14:04:03Z",
    "ausland_quellen": 1,
    "laender": [
-    "Indien"
+    "Frankreich"
    ],
    "laender_einig": [
-    "Indien"
+    "Frankreich"
    ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "The Hindu (Indien): Xi-Putin-Trump trilateral: Why is it being compared to 1945 Yalta Conference?"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "The Hindu",
-     "land": "Indien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Xi-Putin-Trump trilateral: Why is it being compared to 1945 Yalta Conference?",
-     "link": "https://www.thehindu.com/news/international/us-china-russia-trump-xi-jinping-putin-meet-2026-yalta-conference-explained/article71716078.ece",
-     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Qatar and Germany deepen strategic ties during emir’s Berlin visit",
-   "kurz": "German chancellor says Qatar pledged $16.5bn in new investments as the two countries deepen defence and technology ties.",
-   "link": "https://www.aljazeera.com/news/2026/11/20/qatar-and-germany-deepen-strategic-ties-during-emirs-berlin-visit?traffic_source=rss",
-   "sprache": "en",
-   "zeit": "2026-11-20T16:13:57Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Katar"
-   ],
-   "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Katar"
+    "Hongkong/China",
+    "Russland",
+    "USA",
+    "Ukraine"
    ],
    "zusammenfassung": [
-    "Al Jazeera (Katar): Qatar and Germany deepen strategic ties during emir’s Berlin visit"
+    "France 24 (Frankreich): Ukraine's European allies meet in Berlin in show of support"
    ],
    "staatsnah": [
-    "Al Jazeera"
+    "France 24"
    ],
    "deutsch_quellen": [],
    "nur_ausland": false,
@@ -736,13 +503,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
+     "quelle": "France 24",
+     "land": "Frankreich",
      "art": "staatsnah",
-     "beteiligt": true,
-     "titel": "Qatar and Germany deepen strategic ties during emir’s Berlin visit",
-     "link": "https://www.aljazeera.com/news/2026/11/20/qatar-and-germany-deepen-strategic-ties-during-emirs-berlin-visit?traffic_source=rss",
-     "eigentuemer": "staatlich (Katar)",
+     "beteiligt": false,
+     "titel": "Ukraine's European allies meet in Berlin in show of support",
+     "link": "https://www.france24.com/en/ukraine-s-european-allies-meet-in-berlin-in-show-of-support",
+     "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
     }
    ]
@@ -848,22 +615,6 @@
    ],
    "themen": [
     "'Inside Deutsche Bank': German government demands 'transparency' over revelations"
-   ]
-  },
-  {
-   "name": "Sandra Hüller",
-   "wikidata": "https://www.wikidata.org/wiki/Q70003",
-   "beschreibung": "German actress (born 1978)",
-   "verbindungen": [
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Akademie der Künste Berlin",
-     "link": "https://www.wikidata.org/wiki/Q414110",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "‘Rose’: Sandra Hüller lleva los pantalones en otra actuación prodigiosa"
    ]
   },
   {
@@ -1494,6 +1245,12 @@
    "keine_treffer": true
   },
   "Sachen Ukraine": {
+   "keine_treffer": true
+  },
+  "Ukraine Führungsstärke": {
+   "keine_treffer": true
+  },
+  "Gegen Wehrpflicht": {
    "keine_treffer": true
   }
  }
