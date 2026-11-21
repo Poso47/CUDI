@@ -1,24 +1,203 @@
 {
- "erzeugt": "2026-11-21T02:44:38Z",
+ "erzeugt": "2026-11-21T11:41:05Z",
  "anzahl": 60,
- "bestaetigt": 12,
- "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
- ],
+ "bestaetigt": 17,
+ "hinweise": [],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
   {
-   "titel": "Russian missile hits Poland as Ukraine's allies hold military exercise, says Tusk",
-   "kurz": "Nobody was hurt and no damage has been reported, but Warsaw described the incident as a \"provocation\" from Moscow.",
-   "link": "https://www.bbc.co.uk/news/articles/cqx2x9dklxnro?at_medium=RSS&at_campaign=rss",
+   "titel": "Zelensky says Putin is a 'killer' after Trump calls Russian leader a friend",
+   "kurz": "Earlier this week, Trump greeted Putin ahead of a meeting in China and said the pair have a \"great relationship\".",
+   "link": "https://www.bbc.co.uk/news/articles/cxnv4zvmdy0jo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-21T02:09:46Z",
+   "zeit": "2026-11-21T08:10:25Z",
+   "status": "bestätigt",
+   "n_quellen": 4,
+   "unabhaengig_n": 4,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "the-star.co.ke"
+   ],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Zelensky says Putin is a 'killer' after Trump calls Russian leader a friend",
+     "link": "https://www.bbc.co.uk/news/articles/cxnv4zvmdy0jo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "the-star.co.ke",
+     "titel": "He a killer : Zelensky reacts to Trump calling Putin a friend",
+     "link": "https://www.the-star.co.ke/news/world/2026-11-21-hes-a-killer-zelensky-reacts-to-trump-calling-putin-a-friend",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AFP",
+     "titel": "Chinese leader Xi Jinping , Russian president Vladimir Putin , and United States president Donald Trump hold their first trilateral meeting…",
+     "link": "https://www.afp.com/en/china-us-russia-issue-declaration-toward-peace-after-first-summit",
+     "eigentuemer": "gehört Agence France-Presse",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · Reuters",
+     "titel": "United States secretary of defense Pete Hegseth and acting Venezuelan president Delcy Rodríguez sign a military cooperation agreement that…",
+     "link": "https://www.reuters.com/world/americas/us-defense-secretary-hegseth-vows-boost-venezuela-military-cooperation-2026-11-18/",
+     "eigentuemer": "gehört Thomson Reuters",
+     "gruppe": 3,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Three El Salvador soldiers die in explosives accident in Haiti",
+   "kurz": "The soldiers were part of a Salvadoran military contingent deployed to the violence-ridden Caribbean nation last month to rescue four missing airmen. The…",
+   "link": "https://www.dw.com/en/three-el-salvador-soldiers-die-in-explosives-accident-in-haiti/a-80008005?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-21T06:58:00Z",
+   "status": "bestätigt",
+   "n_quellen": 4,
+   "unabhaengig_n": 4,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "laprensagrafica.com"
+   ],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Three El Salvador soldiers die in explosives accident in Haiti",
+     "link": "https://www.dw.com/en/three-el-salvador-soldiers-die-in-explosives-accident-in-haiti/a-80008005?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · La Prensa Gráfica",
+     "titel": "Three Salvadoran soldiers are killed and another is injured when explosives they are handling detonate.",
+     "link": "https://www.laprensagrafica.com/elsalvador/dos-soldados-salvadorenos-muertos-en-haiti-tras-explosion-en-campamento-20261120-0033.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AP",
+     "titel": "Salvadoran forces destroy a house belonging to Jeff Larose, the leader of the Taliban gang that operates in Canaan , Haiti . The Gang…",
+     "link": "https://apnews.com/article/haiti-bukele-jeff-canaan-gangs-attack-home-4397ab6847be1d1dcc9c5bc600a4953f",
+     "eigentuemer": "gehört The Associated Press",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · Reuters",
+     "titel": "The Haitian National Police say that 34 alleged gang members were killed during an operation in Port-au-Prince , in an area under the…",
+     "link": "https://www.reuters.com/world/americas/police-operation-haiti-leaves-least-34-alleged-gang-members-dead-2026-11-19/",
+     "eigentuemer": "gehört Thomson Reuters",
+     "gruppe": 3,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "'Killer robots' talks at UN end with no legally binding ban",
+   "kurz": "Countries have agreed to extend discussions over controls on lethal autonomous weapons systems for two years.",
+   "link": "https://www.dw.com/en/killer-robots-talks-at-un-end-with-no-legally-binding-ban/a-80008584?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-21T09:18:00Z",
    "status": "bestätigt",
    "n_quellen": 3,
    "unabhaengig_n": 3,
    "abhaengig": [],
    "eigentuemer_unbekannt": [
+    "asia.nikkei.com"
+   ],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "'Killer robots' talks at UN end with no legally binding ban",
+     "link": "https://www.dw.com/en/killer-robots-talks-at-un-end-with-no-legally-binding-ban/a-80008584?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Nations at UN talks on AI killer robots agree to more talks but no firm commitment to rein them in",
+     "link": "https://www.npr.org/2026/11/21/g-s1-154914/nations-at-un-talks-on-ai-killer-robots-agree-to-more-talks-but-no-firm-commitment-to-rein-them-in",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "asia.nikkei.com",
+     "titel": "Countries agree to UN talks aiming to regulate killer robot by 2028",
+     "link": "https://asia.nikkei.com/politics/international-relations/countries-agree-to-un-talks-aiming-to-regulate-killer-robots-by-2028",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Man convicted of starting Palisades fire in Los Angeles",
+   "kurz": "The 30-year-old LA resident was convicted of arson leading to wildfires that killed 12 people and destroyed more than 6,800 buildings.",
+   "link": "https://www.bbc.co.uk/news/articles/c64gn0gy8rj3o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-21T07:10:00Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "1061fmtalk.iheart.com"
+   ],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Man convicted of starting Palisades fire in Los Angeles",
+     "link": "https://www.bbc.co.uk/news/articles/c64gn0gy8rj3o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Man convicted of arson over deadly 2025 Palisades fire in Los Angeles",
+     "link": "https://www.dw.com/en/man-convicted-of-arson-over-deadly-2025-palisades-fire-in-los-angeles/a-80007933?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "1061fmtalk.iheart.com",
+     "titel": "Judge Orders Halt On Iowa Lead Detonation Plan",
+     "link": "https://1061fmtalk.iheart.com/content/2026-11-21-judge-orders-halt-on-iowa-lead-detonation-plan/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "What we know about the latest Russian missile strikes on Ukraine",
+   "kurz": "Russia struck bridges and railway stations in the capital Kyiv in a major attack.",
+   "link": "https://www.bbc.co.uk/news/videos/c65y19wy3xl8o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-21T06:45:00Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "the-star.co.ke",
     "aol.co.uk"
    ],
    "quellen": [
@@ -31,57 +210,61 @@
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · AOL",
-     "titel": "A Russian Kh-101 cruise missile strikes a field near the village of Nowy Lipowiec in Lublin Voivodeship , Poland , around 60 miles from a…",
-     "link": "https://www.aol.co.uk/articles/suspected-russian-projectile-lands-poland-095529000.html",
+     "quelle": "the-star.co.ke",
+     "titel": "Russian missile hits Poland as Ukraine allies hold military exercise",
+     "link": "https://www.the-star.co.ke/news/world/2026-11-21-russian-missile-hits-poland-as-ukraines-allies-hold-military-exercise-says-tusk",
      "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 1,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · AP",
-     "titel": "The Crimean Bridge connecting Taman , Russia , and Kerch , Russian-occupied Crimea , is struck by Ukrainian forces for the third time in…",
-     "link": "https://apnews.com/article/russia-ukraine-war-bridge-crimea-drones-missiles-df4b867cf8f70e88843d8fefea5d643c",
-     "eigentuemer": "gehört The Associated Press",
+     "quelle": "Wikipedia · AOL",
+     "titel": "A Russian Kh-101 cruise missile strikes a field near the village of Nowy Lipowiec in Lublin Voivodeship , Poland , around 60 miles from a…",
+     "link": "https://www.aol.co.uk/articles/suspected-russian-projectile-lands-poland-095529000.html",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 2,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Trump touts meeting with Xi and Putin but offers little results",
-   "kurz": "At a White House press conference Friday, Trump offered little in actual results of the meetings, beyond a joint statement on unity over some issues.",
-   "link": "https://www.npr.org/2026/11/20/nx-s1-6047594/trump-asia-trip-xi-putin-press-conference",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-20T10:00:00-05:00",
+   "titel": "Pflegekassen warnen vor erneuten Finanzrisiken Anfang 2027",
+   "kurz": "",
+   "link": "https://www.freiepresse.de/nachrichten/deutschland/pflegekassen-warnen-vor-erneuten-finanzrisiken-anfang-2027-artikel14491394",
+   "quelle": "freiepresse.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T06:45:00Z",
    "status": "bestätigt",
    "n_quellen": 3,
    "unabhaengig_n": 3,
    "abhaengig": [],
-   "eigentuemer_unbekannt": [],
+   "eigentuemer_unbekannt": [
+    "freiepresse.de",
+    "volksstimme.de",
+    "berchtesgadener-anzeiger.de"
+   ],
    "quellen": [
     {
-     "quelle": "NPR",
-     "titel": "Trump touts meeting with Xi and Putin but offers little results",
-     "link": "https://www.npr.org/2026/11/20/nx-s1-6047594/trump-asia-trip-xi-putin-press-conference",
-     "eigentuemer": "gehört NPR",
+     "quelle": "freiepresse.de",
+     "titel": "Pflegekassen warnen vor erneuten Finanzrisiken Anfang 2027",
+     "link": "https://www.freiepresse.de/nachrichten/deutschland/pflegekassen-warnen-vor-erneuten-finanzrisiken-anfang-2027-artikel14491394",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · AFP",
-     "titel": "Chinese leader Xi Jinping , Russian president Vladimir Putin , and United States president Donald Trump hold their first trilateral meeting…",
-     "link": "https://www.afp.com/en/china-us-russia-issue-declaration-toward-peace-after-first-summit",
-     "eigentuemer": "gehört Agence France-Presse",
+     "quelle": "volksstimme.de",
+     "titel": "Versorgung : Pflegekassen warnen vor erneuten Finanzrisiken Anfang 2027",
+     "link": "https://www.volksstimme.de/deutschland-und-welt/deutschland/pflegekassen-warnen-vor-erneuten-finanzrisiken-anfang-2027-4360214",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 1,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · Reuters",
-     "titel": "United States secretary of defense Pete Hegseth and acting Venezuelan president Delcy Rodríguez sign a military cooperation agreement that…",
-     "link": "https://www.reuters.com/world/americas/us-defense-secretary-hegseth-vows-boost-venezuela-military-cooperation-2026-11-18/",
-     "eigentuemer": "gehört Thomson Reuters",
+     "quelle": "berchtesgadener-anzeiger.de",
+     "titel": "Pflegekassen warnen vor erneuten Finanzrisiken Anfang 2027",
+     "link": "https://www.berchtesgadener-anzeiger.de/startseite_artikel,-pflegekassen-warnen-vor-erneuten-finanzrisiken-anfang-2027-_arid,1027797.html",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 2,
      "zaehlt_nicht": ""
     }
@@ -129,12 +312,46 @@
    ]
   },
   {
-   "titel": "MLK's handwritten draft of iconic speech on display for the first time",
-   "kurz": "The only known handwritten draft of The Reverend Martin Luther King Jr.'s 'I Have a Dream' speech is on display in his hometown. The iconic phrase, however…",
-   "link": "https://www.npr.org/2026/11/20/nx-s1-6039337/mlk-i-have-a-dream-speech-draft-public-display",
-   "quelle": "NPR",
+   "titel": "NAD+ gegen das Altern : Neue Studien stellen ein zentrales Versprechen infrage",
+   "kurz": "",
+   "link": "http://www.hna.de/wissen/nad-gegen-das-altern-neue-studien-stellen-ein-zentrales-versprechen-infrage-zr-94597828.html",
+   "quelle": "hna.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "hna.de",
+    "fnp.de"
+   ],
+   "quellen": [
+    {
+     "quelle": "hna.de",
+     "titel": "NAD+ gegen das Altern : Neue Studien stellen ein zentrales Versprechen infrage",
+     "link": "http://www.hna.de/wissen/nad-gegen-das-altern-neue-studien-stellen-ein-zentrales-versprechen-infrage-zr-94597828.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "fnp.de",
+     "titel": "NAD+ gegen das Altern : Neue Studien stellen ein zentrales Versprechen infrage",
+     "link": "http://www.fnp.de/welt/nad-gegen-das-altern-neue-studien-stellen-ein-zentrales-versprechen-infrage-zr-94597828.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Indian man sentenced to 19-plus years in plot to assassinate US-based Sikh separatist leader",
+   "kurz": "Nikhil Gupta pleaded guilty to murder-for-hire, conspiracy to commit murder-for-hire, and conspiracy to commit money laundering in February.",
+   "link": "https://www.bbc.co.uk/news/articles/cq702ez8d4lwo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-20T16:38:05-05:00",
+   "zeit": "2026-11-21T07:53:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -142,9 +359,104 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NPR",
-     "titel": "MLK's handwritten draft of iconic speech on display for the first time",
-     "link": "https://www.npr.org/2026/11/20/nx-s1-6039337/mlk-i-have-a-dream-speech-draft-public-display",
+     "quelle": "BBC World",
+     "titel": "Indian man sentenced to 19-plus years in plot to assassinate US-based Sikh separatist leader",
+     "link": "https://www.bbc.co.uk/news/articles/cq702ez8d4lwo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "US judge jails Indian national in foiled Sikh separatist murder plot",
+     "link": "https://www.dw.com/en/us-judge-jails-indian-national-in-foiled-sikh-separatist-murder-plot/live-80008104?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Mamdani announces plan to close New York's Rikers Island jail by 2032",
+   "kurz": "Plans to shutter the troubled facility date back to 2019, when the city council first voted to close it but delays arose over where to place inmates.",
+   "link": "https://www.bbc.co.uk/news/articles/cmjeqv89egylo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-21T06:45:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Mamdani announces plan to close New York's Rikers Island jail by 2032",
+     "link": "https://www.bbc.co.uk/news/articles/cmjeqv89egylo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "npr.org",
+     "titel": "New York City plans to close Rikers Island jail : NPR",
+     "link": "https://www.npr.org/transcripts/nx-s1-5981356",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nearly 600 women killed in South Africa within three months",
+   "kurz": "Police officials called for \"greater efforts to prevent... violence\" against women and children.",
+   "link": "https://www.bbc.co.uk/news/articles/c69vwyjp0339o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-21T06:45:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [
+    "premiumtimesng.com"
+   ],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Nearly 600 women killed in South Africa within three months",
+     "link": "https://www.bbc.co.uk/news/articles/c69vwyjp0339o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "premiumtimesng.com",
+     "titel": "Nearly 600 women killed in South Africa in three months",
+     "link": "https://www.premiumtimesng.com/news/top-news/926853-nearly-600-women-killed-in-south-africa-in-three-months.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "MLK's handwritten draft of iconic speech on display for the first time",
+   "kurz": "The only known handwritten draft of The Reverend Martin Luther King Jr.'s 'I Have a Dream' speech is on display in his hometown. The iconic phrase, however…",
+   "link": "https://www.npr.org/2026/11/20/nx-s1-6039337/mlk-i-have-a-dream-speech-draft-public-display",
+   "quelle": "NPR",
+   "sprache": "en",
+   "zeit": "2026-11-21T06:45:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "npr.org",
+     "titel": "Draft of iconic MLK speech goes on public display : NPR",
+     "link": "https://www.npr.org/transcripts/nx-s1-6039337",
      "eigentuemer": "gehört NPR",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -160,31 +472,34 @@
    ]
   },
   {
-   "titel": "Myanmar genocide ruling: Rohingya say struggle for justice not over",
-   "kurz": "The ICJ has held Myanmar responsible for genocide against the Rohingya and ordered restitution and reparations. Community members have hailed the ruling, but…",
-   "link": "https://www.dw.com/en/myanmar-genocide-ruling-rohingya-say-struggle-for-justice-not-over/a-80003365?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-20T13:38:00Z",
+   "titel": "Ganz ohne Pinkel : Grünkohlpesto auf Zwiebelbaguette",
+   "kurz": "",
+   "link": "https://www.freiepresse.de/ratgeber/essen-trinken/ganz-ohne-pinkel-gruenkohlpesto-auf-zwiebelbaguette-artikel14491415",
+   "quelle": "freiepresse.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T06:45:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
    "abhaengig": [],
-   "eigentuemer_unbekannt": [],
+   "eigentuemer_unbekannt": [
+    "freiepresse.de",
+    "volksstimme.de"
+   ],
    "quellen": [
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Myanmar genocide ruling: Rohingya say struggle for justice not over",
-     "link": "https://www.dw.com/en/myanmar-genocide-ruling-rohingya-say-struggle-for-justice-not-over/a-80003365?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "freiepresse.de",
+     "titel": "Ganz ohne Pinkel : Grünkohlpesto auf Zwiebelbaguette",
+     "link": "https://www.freiepresse.de/ratgeber/essen-trinken/ganz-ohne-pinkel-gruenkohlpesto-auf-zwiebelbaguette-artikel14491415",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · AFP",
-     "titel": "The International Court of Justice rules that Myanmar has committed genocide against the Rohingya people .",
-     "link": "https://www.afp.com/en/myanmar-guilty-genocide-against-rohingya-says-top-un-court",
-     "eigentuemer": "gehört Agence France-Presse",
+     "quelle": "volksstimme.de",
+     "titel": "Feierabendküche : Ganz ohne Pinkel : Grünkohlpesto auf Zwiebelbaguette",
+     "link": "https://www.volksstimme.de/leben/gesundheit/ganz-ohne-pinkel-grunkohlpesto-auf-zwiebelbaguette-4360220",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -216,68 +531,6 @@
      "titel": "Deutschlands Verteidigungsminister will Militärpakt mit Polen ausbauen",
      "link": "https://www.dw.com/de/deutschlands-verteidigungsminister-will-militärpakt-mit-polen-ausbauen/a-80000181?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Tote bei russischen Angriffen auf mehrere Brücken in Kiew",
-   "kurz": "Es ist eine Attacke ins Herz der ukrainischen Hauptstadt: Russland hat in Kiew erneut Brücken beschossen und beschädigt. Mehrere Menschen wurden getötet. Im…",
-   "link": "https://www.tagesschau.de/ausland/ukraine-russland-angriffe-bruecken-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T12:47:44+01:00",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Tote bei russischen Angriffen auf mehrere Brücken in Kiew",
-     "link": "https://www.tagesschau.de/ausland/ukraine-russland-angriffe-bruecken-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Acht Tote bei neuen russischen Angriffen auf die Ukraine",
-     "link": "https://www.dw.com/de/acht-tote-bei-neuen-russischen-angriffen-auf-die-ukraine/a-80001040?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Texas death-row inmate screams as execution takes more than one hour",
-   "kurz": "This prolonged execution comes weeks after Christa Pike survived the lethal injection of the same drug.",
-   "link": "https://www.bbc.co.uk/news/articles/ck20vl1dd8qzo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-20T12:42:37Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Texas death-row inmate screams as execution takes more than one hour",
-     "link": "https://www.bbc.co.uk/news/articles/ck20vl1dd8qzo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "NPR",
-     "titel": "Texas execution took over an hour as staff struggled to find vein; Reinaldo Dennes moaned about pain",
-     "link": "https://www.npr.org/2026/11/20/nx-s1-6048461/texas-execution-dennes-moaned-pain",
-     "eigentuemer": "gehört NPR",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -350,37 +603,6 @@
    ]
   },
   {
-   "titel": "The governments of Haiti and El Salvador agree to build three new prisons to incarcerate Haitian gang members.",
-   "kurz": "",
-   "link": "https://apnews.com/article/el-salvador-haiti-troops-killed-injured-bukele-c3192c1276fd235b727666a05062db00",
-   "quelle": "Wikipedia · AP",
-   "sprache": "en",
-   "zeit": "",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Wikipedia · AP",
-     "titel": "Salvadoran forces destroy a house belonging to Jeff Larose, the leader of the Taliban gang that operates in Canaan , Haiti . The Gang…",
-     "link": "https://apnews.com/article/haiti-bukele-jeff-canaan-gangs-attack-home-4397ab6847be1d1dcc9c5bc600a4953f",
-     "eigentuemer": "gehört The Associated Press",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · Reuters",
-     "titel": "The Haitian National Police say that 34 alleged gang members were killed during an operation in Port-au-Prince , in an area under the…",
-     "link": "https://www.reuters.com/world/americas/police-operation-haiti-leaves-least-34-alleged-gang-members-dead-2026-11-19/",
-     "eigentuemer": "gehört Thomson Reuters",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Grand Theft Auto VI by Rockstar Games becomes the biggest video game launch in history with more than $ 2.3 billion in sales, surpassing…",
    "kurz": "Grand Theft Auto VI by Rockstar Games becomes the biggest video game launch in history with more than $ 2.3 billion in sales, surpassing the previous record…",
    "link": "https://www.lbc.co.uk/article/gta-6-breaks-records-as-estimated-sales-top-23bn-5HjdnKw_2/",
@@ -412,12 +634,12 @@
    ]
   },
   {
-   "titel": "Tote und Verletzte bei Raketenangriff auf Krywyj Rih",
-   "kurz": "Krywyj Rih ist die Heimatstadt des ukrainischen Präsidenten Selenskyj. Nun wurde die Industriestadt erneut mit ballistischen Raketen beschossen. Eine Rakete…",
-   "link": "https://www.tagesschau.de/ausland/europa/ukraine-krieg-russland-krywyj-rih-100.html",
+   "titel": "Bagger in München, Winter in China, Eisschnelllauf in Südkorea",
+   "kurz": "Bagger in München, Winter in China, Eisschnelllauf in Südkorea",
+   "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10580.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-21T03:39:59+01:00",
+   "zeit": "2026-11-21T12:23:37+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -426,170 +648,9 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Tote und Verletzte bei Raketenangriff auf Krywyj Rih",
-     "link": "https://www.tagesschau.de/ausland/europa/ukraine-krieg-russland-krywyj-rih-100.html",
+     "titel": "Bagger in München, Winter in China, Eisschnelllauf in Südkorea",
+     "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10580.html",
      "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Jugendliche erneut zu Tausenden auf den Straßen",
-   "kurz": "Zehntausende junge Menschen haben am Freitag friedlich für die Anliegen ihrer Generation demonstriert. Nach dem Ende der \"Gen Z regelt\"-Demos gab es…",
-   "link": "https://www.tagesschau.de/inland/gesellschaft/jugendproteste-krawalle-gen-z-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-21T03:38:36+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Jugendliche erneut zu Tausenden auf den Straßen",
-     "link": "https://www.tagesschau.de/inland/gesellschaft/jugendproteste-krawalle-gen-z-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "tagesschau in 100 Sekunden",
-   "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1687436.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-21T03:01:53+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1687436.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "They were fined $811m for conning detained migrants, but the scams didn't stop",
-   "kurz": "How convicted fraudsters made millions from detained immigrants, evaded efforts to shut down their bail business and left migrants behind bars.",
-   "link": "https://www.bbc.co.uk/news/articles/cqgm0zlkgrm2o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-21T01:02:39Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "They were fined $811m for conning detained migrants, but the scams didn't stop",
-     "link": "https://www.bbc.co.uk/news/articles/cqgm0zlkgrm2o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "ANC fights to keep control of South Africa's key cities after election setback",
-   "kurz": "The ANC appears reluctant to replicate its national power-sharing deal with the pro-business DA at the local level.",
-   "link": "https://www.bbc.co.uk/news/articles/cqpv94d10rwpo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-21T00:34:51Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "ANC fights to keep control of South Africa's key cities after election setback",
-     "link": "https://www.bbc.co.uk/news/articles/cqpv94d10rwpo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "US judge approves Bayer's $7.25 billion cancer settlement",
-   "kurz": "Bayer could end years of costly lawsuits in the US over claims that its Roundup weedkiller causes cancer. Tens of thousands of people could now receive…",
-   "link": "https://www.dw.com/en/us-judge-approves-bayer-s-7-25-billion-cancer-settlement/a-80007474?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-21T00:03:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "US judge approves Bayer's $7.25 billion cancer settlement",
-     "link": "https://www.dw.com/en/us-judge-approves-bayer-s-7-25-billion-cancer-settlement/a-80007474?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Mamdani announces plan to close New York's Rikers Island jail by 2032",
-   "kurz": "Plans to shutter the troubled facility date back to 2019, when the city council first voted to close it but delays arose over where to place inmates.",
-   "link": "https://www.bbc.co.uk/news/articles/cmjeqv89egylo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-21T00:01:39Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Mamdani announces plan to close New York's Rikers Island jail by 2032",
-     "link": "https://www.bbc.co.uk/news/articles/cmjeqv89egylo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "A new Nepal, an old neighbour - Balendra Shah's India test",
-   "kurz": "Trade, connectivity and regional cooperation will be on top of the agenda when Nepal's PM meets his India counterpart.",
-   "link": "https://www.bbc.co.uk/news/articles/c6jre8xd83qgo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-20T23:28:17Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "A new Nepal, an old neighbour - Balendra Shah's India test",
-     "link": "https://www.bbc.co.uk/news/articles/c6jre8xd83qgo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -597,11 +658,11 @@
   },
   {
    "titel": "Schock für FC Bayern: Harry Kane erleidet Syndesmoseriss",
-   "kurz": "Der FC Bayern München muss monatelang auf Starstürmer Harry Kane verzichten. Der Engländer zog sich beim Remis gegen den 1. FC Köln einen Riss des…",
-   "link": "https://www.sportschau.de/fussball/bundesliga/harry-kane-erleidet-syndesmoseriss,kane-verletzung-100.html",
+   "kurz": "Der FC Bayern München muss monatelang auf Starstürmer Harry Kane verzichten. Der Engländer zog sich einen Riss des Syndesmosebandes zu und ist schon operiert…",
+   "link": "https://www.sportschau.de/fussball/bundesliga/fc-bayern-muenchen-mehrere-monate-ohne-harry-kane,kane-verletzung-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T23:24:47+01:00",
+   "zeit": "2026-11-21T12:22:23+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -611,7 +672,7 @@
     {
      "quelle": "Tagesschau",
      "titel": "Schock für FC Bayern: Harry Kane erleidet Syndesmoseriss",
-     "link": "https://www.sportschau.de/fussball/bundesliga/harry-kane-erleidet-syndesmoseriss,kane-verletzung-100.html",
+     "link": "https://www.sportschau.de/fussball/bundesliga/fc-bayern-muenchen-mehrere-monate-ohne-harry-kane,kane-verletzung-100.html",
      "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -619,81 +680,12 @@
    ]
   },
   {
-   "titel": "Dead pets were meant to be cremated - then their bodies appeared on a livestream",
-   "kurz": "Grieving Filipinos confront a distressing reality: their dogs and cats may not have received the send-off they paid for.",
-   "link": "https://www.bbc.co.uk/news/articles/cmn502ek17yvo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-20T23:20:33Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Dead pets were meant to be cremated - then their bodies appeared on a livestream",
-     "link": "https://www.bbc.co.uk/news/articles/cmn502ek17yvo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "US declassifies more UFO footage filmed in the Middle East",
-   "kurz": "The Pentagon has released an eighth tranche of UFO records, which includes three video clips recorded in 2020, 2023 and 2026.",
-   "link": "https://www.bbc.co.uk/news/videos/cqdr1x8mypnko?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-20T23:15:20Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "US declassifies more UFO footage filmed in the Middle East",
-     "link": "https://www.bbc.co.uk/news/videos/cqdr1x8mypnko?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "In a year of AI solving maths problems, Anthropic may have just solved the biggest",
-   "kurz": "A mathematician at Anthropic says he used an AI to prove the famed Riemann hypothesis, though verification will take some time.",
-   "link": "https://www.bbc.co.uk/news/articles/c6pqr2g7w059o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-20T23:08:57Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "In a year of AI solving maths problems, Anthropic may have just solved the biggest",
-     "link": "https://www.bbc.co.uk/news/articles/c6pqr2g7w059o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Bei Remis gegen Köln: Kane und Olise verletzt ausgewechselt",
-   "kurz": "Dicke Überraschung am Freitagabend: Mit einer couragierten Leistung hat der 1. FC Köln beim FC Bayern ein Remis erkämpft. Bayerns Starspieler Kane und Olise…",
-   "link": "https://www.sportschau.de/fussball/bundesliga/koeln-ueberrascht-in-muenchen-kane-und-olise-verletzt-ausgewechselt,spielbericht-bayern-muenchen-koeln-102.html",
+   "titel": "Bilger fordert Bekenntnis der Autoindustrie zu Deutschland",
+   "kurz": "Die EU könnte Autokonzernen erlauben, auch nach 2035 neue Verbrenner und Hybride zu verkaufen. Verkehrsminister Bilger knüpft daran eine klare Erwartung…",
+   "link": "https://www.tagesschau.de/inland/bilger-fordert-bekenntnis-der-autohersteller-zu-deutschland-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T23:08:33+01:00",
+   "zeit": "2026-11-21T12:19:36+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -702,8 +694,284 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Bei Remis gegen Köln: Kane und Olise verletzt ausgewechselt",
-     "link": "https://www.sportschau.de/fussball/bundesliga/koeln-ueberrascht-in-muenchen-kane-und-olise-verletzt-ausgewechselt,spielbericht-bayern-muenchen-koeln-102.html",
+     "titel": "Bilger fordert Bekenntnis der Autoindustrie zu Deutschland",
+     "link": "https://www.tagesschau.de/inland/bilger-fordert-bekenntnis-der-autohersteller-zu-deutschland-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Benjamin Weber, ARD Istanbul, zzt. Antalya, zum aktuellen Stand des Weltklimagipfels",
+   "kurz": "Benjamin Weber, ARD Istanbul, zzt. Antalya, zum aktuellen Stand des Weltklimagipfels",
+   "link": "https://www.tagesschau.de/video/video-1687516.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-21T12:08:53+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Benjamin Weber, ARD Istanbul, zzt. Antalya, zum aktuellen Stand des Weltklimagipfels",
+     "link": "https://www.tagesschau.de/video/video-1687516.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "\"Altersvorsorgedepot für nahezu alle Riester-Sparer interessant\"",
+   "kurz": "Die Bundesregierung stellt die Altersvorsorge ab dem kommenden Jahr neu auf. Die staatliche Förderung könnte beim neuen Altersvorsorgedepot für viele…",
+   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/altersvorsorgedepot-tipps-riester-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-21T11:20:52+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "\"Altersvorsorgedepot für nahezu alle Riester-Sparer interessant\"",
+     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/altersvorsorgedepot-tipps-riester-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Altersvorsorgedepot: Staatlich organisierter Fonds nicht startklar",
+   "kurz": "Zum Jahreswechsel startet das neue Modell der staatlichen Altersvorsorge, das Altersvorsorgedepot. Private Angebote gibt es längst - doch das öffentlich…",
+   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/altersvorsorgedepot-staatlicher-fonds-nicht-startklar-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-21T11:16:17+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Altersvorsorgedepot: Staatlich organisierter Fonds nicht startklar",
+     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/altersvorsorgedepot-staatlicher-fonds-nicht-startklar-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Schweres Erdbeben erschüttert Peru",
+   "kurz": "In der Hauptstadt Lima strömten Menschen aus ihren Büros auf die Straße - auch die Abgeordneten des Parlaments. Das südamerikanische Land liegt auf dem…",
+   "link": "https://www.dw.com/de/schweres-erdbeben-erschüttert-peru/a-80008949?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:53:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Schweres Erdbeben erschüttert Peru",
+     "link": "https://www.dw.com/de/schweres-erdbeben-erschüttert-peru/a-80008949?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "COP31: UN Climate summit runs into overtime as deal remains elusive",
+   "kurz": "After nearly two weeks of negotiations, countries remain divided on how to fight global warming. A new draft declaration doesn't mention the phaseout of fossil…",
+   "link": "https://www.dw.com/en/cop31-un-climate-summit-runs-into-overtime-as-deal-remains-elusive/live-79999516?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-21T10:52:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "COP31: UN Climate summit runs into overtime as deal remains elusive",
+     "link": "https://www.dw.com/en/cop31-un-climate-summit-runs-into-overtime-as-deal-remains-elusive/live-79999516?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Erdbeben erschüttert Perus Andenregion",
+   "kurz": "Die Erschütterungen waren bis in die Hauptstadt Lima zu spüren: Ein Erdbeben der Stärke 6,7 hat die Andenregion in Peru erschüttert. Über Schäden oder Opfer…",
+   "link": "https://www.tagesschau.de/ausland/amerika/peru-erdbeben-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:51:28+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Erdbeben erschüttert Perus Andenregion",
+     "link": "https://www.tagesschau.de/ausland/amerika/peru-erdbeben-102.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "GTA VI spielt laut Konzern fast vier Milliarden Dollar am ersten Tag ein",
+   "kurz": "Lange mussten GTA-Fans auf den sechsten Teil der Videospiel-Reihe warten - jetzt trägt der Hype Früchte. Nach Angaben von Rockstar Games erzielte das Spiel am…",
+   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/milliardengewinn-gta-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:39:17+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "GTA VI spielt laut Konzern fast vier Milliarden Dollar am ersten Tag ein",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/milliardengewinn-gta-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "PM Modi inaugurates Nitish Setu , other projects worth Rs 34 , 470 crore in Bihar",
+   "kurz": "",
+   "link": "https://economictimes.indiatimes.com/news/india/pm-modi-inaugurates-nitish-setu-other-projects-worth-rs-34470-crore-in-bihar/articleshow/136049666.cms",
+   "quelle": "economictimes.indiatimes.com",
+   "sprache": "en",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "economictimes.indiatimes.com",
+     "titel": "PM Modi inaugurates Nitish Setu , other projects worth Rs 34 , 470 crore in Bihar",
+     "link": "https://economictimes.indiatimes.com/news/india/pm-modi-inaugurates-nitish-setu-other-projects-worth-rs-34470-crore-in-bihar/articleshow/136049666.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Shiv Sena Sanjay Raut calls to rename Nagpur as Deekshabhoomi ; Congress backs demand",
+   "kurz": "",
+   "link": "https://www.thehindu.com/news/national/maharashtra/shiv-senas-sanjay-raut-calls-to-rename-nagpur-as-deekshabhoomi-congress-backs-demand/article71727814.ece",
+   "quelle": "thehindu.com",
+   "sprache": "en",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "thehindu.com",
+     "titel": "Shiv Sena Sanjay Raut calls to rename Nagpur as Deekshabhoomi ; Congress backs demand",
+     "link": "https://www.thehindu.com/news/national/maharashtra/shiv-senas-sanjay-raut-calls-to-rename-nagpur-as-deekshabhoomi-congress-backs-demand/article71727814.ece",
+     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Brit top Christmas wishes revealed – from immortal pets to eight hours of sleep",
+   "kurz": "",
+   "link": "https://www.dailystar.co.uk/news/latest-news/brits-top-christmas-wishes-revealed-37901492",
+   "quelle": "dailystar.co.uk",
+   "sprache": "en",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "dailystar.co.uk",
+     "titel": "Brit top Christmas wishes revealed – from immortal pets to eight hours of sleep",
+     "link": "https://www.dailystar.co.uk/news/latest-news/brits-top-christmas-wishes-revealed-37901492",
+     "eigentuemer": "gehört Richard Desmond",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Woman marries bloke 20 years her senior but people think he her grandad",
+   "kurz": "",
+   "link": "https://www.dailystar.co.uk/news/latest-news/woman-marries-bloke-20-years-37893990",
+   "quelle": "dailystar.co.uk",
+   "sprache": "en",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "dailystar.co.uk",
+     "titel": "Woman marries bloke 20 years her senior but people think he her grandad",
+     "link": "https://www.dailystar.co.uk/news/latest-news/woman-marries-bloke-20-years-37893990",
+     "eigentuemer": "gehört Richard Desmond",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Achtsamkeit : Ich will meditieren , kriege es aber nicht hin . Was tun ?",
+   "kurz": "",
+   "link": "https://www.spiegel.de/gesundheit/achtsamkeit-ich-will-meditieren-kriege-es-aber-nicht-hin-was-tun-a-0bd4f40b-a27e-481f-8c4a-88a34271fa0c",
+   "quelle": "spiegel.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "spiegel.de",
+     "titel": "Achtsamkeit : Ich will meditieren , kriege es aber nicht hin . Was tun ?",
+     "link": "https://www.spiegel.de/gesundheit/achtsamkeit-ich-will-meditieren-kriege-es-aber-nicht-hin-was-tun-a-0bd4f40b-a27e-481f-8c4a-88a34271fa0c",
      "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -711,12 +979,265 @@
    ]
   },
   {
-   "titel": "Tech stock sell-off drags markets down as Anthropic shares slide",
-   "kurz": "Pressures weighed on US markets, with the S&P 500 and the Dow Jones Industrial Average pushed into correction territory.",
-   "link": "https://www.bbc.co.uk/news/articles/c6808ym10vzgo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
+   "titel": "Linke Migrationspolitik : Leser kritisieren Mirza Edis",
+   "kurz": "",
+   "link": "https://www.focus.de/die-debatte/linke-migrationspolitik-leser-kritisieren-mirza-edis_deb0a939-6a31-4e58-b57e-565b87ba8e8f.html",
+   "quelle": "focus.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "focus.de",
+     "titel": "Linke Migrationspolitik : Leser kritisieren Mirza Edis",
+     "link": "https://www.focus.de/die-debatte/linke-migrationspolitik-leser-kritisieren-mirza-edis_deb0a939-6a31-4e58-b57e-565b87ba8e8f.html",
+     "eigentuemer": "gehört Hubert Burda Media",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Großeinsatz - Kellerbrand in Bönningstedt : 38 Bewohner evakuiert - Panorama",
+   "kurz": "",
+   "link": "https://www.sueddeutsche.de/panorama/grosseinsatz-kellerbrand-in-boenningstedt-38-bewohner-evakuiert-dpa.urn-newsml-dpa-com-20090101-261121-930-29588",
+   "quelle": "sueddeutsche.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "sueddeutsche.de",
+     "titel": "Großeinsatz - Kellerbrand in Bönningstedt : 38 Bewohner evakuiert - Panorama",
+     "link": "https://www.sueddeutsche.de/panorama/grosseinsatz-kellerbrand-in-boenningstedt-38-bewohner-evakuiert-dpa.urn-newsml-dpa-com-20090101-261121-930-29588",
+     "eigentuemer": "gehört Südwestdeutsche Medienholding",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "TÜV : Deutscher Autobauer hat bei der HU deutlich die Nase vorn",
+   "kurz": "",
+   "link": "https://www.giga.de/tech/tuev-deutscher-autobauer-hat-bei-der-hu-deutlich-die-nase-vorn--01M7SKZG399HZ2831AZHR6NRMT",
+   "quelle": "giga.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "giga.de",
+     "titel": "TÜV : Deutscher Autobauer hat bei der HU deutlich die Nase vorn",
+     "link": "https://www.giga.de/tech/tuev-deutscher-autobauer-hat-bei-der-hu-deutlich-die-nase-vorn--01M7SKZG399HZ2831AZHR6NRMT",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Vier Weihnachtsmärkte in München mit Glühwein und Eisstockbahn",
+   "kurz": "",
+   "link": "http://www.merkur.de/lokales/muenchen/vier-weihnachtsmaerkte-in-muenchen-mit-gluehwein-und-eisstockbahn-zr-94598464.html",
+   "quelle": "merkur.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "merkur.de",
+     "titel": "Vier Weihnachtsmärkte in München mit Glühwein und Eisstockbahn",
+     "link": "http://www.merkur.de/lokales/muenchen/vier-weihnachtsmaerkte-in-muenchen-mit-gluehwein-und-eisstockbahn-zr-94598464.html",
+     "eigentuemer": "gehört Dirk Ippen",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Zum Jahreswechsel Strom und Gas werden für Millionen Haushalte deutlich teurer",
+   "kurz": "",
+   "link": "https://www.ksta.de:443/ratgeber/verbraucher/strom-und-gas-preise-steigen-zum-jahreswechsel-deutlich-1421904",
+   "quelle": "ksta.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "ksta.de",
+     "titel": "Zum Jahreswechsel Strom und Gas werden für Millionen Haushalte deutlich teurer",
+     "link": "https://www.ksta.de:443/ratgeber/verbraucher/strom-und-gas-preise-steigen-zum-jahreswechsel-deutlich-1421904",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Parkplatz in Longerich : Höhenschranke soll Müllsünder stoppen",
+   "kurz": "",
+   "link": "https://www.ksta.de:443/koeln/nippes/longerich/parkplatz-in-longerich-hoehenschranke-soll-muellsuender-stoppen-1413495",
+   "quelle": "ksta.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "ksta.de",
+     "titel": "Parkplatz in Longerich : Höhenschranke soll Müllsünder stoppen",
+     "link": "https://www.ksta.de:443/koeln/nippes/longerich/parkplatz-in-longerich-hoehenschranke-soll-muellsuender-stoppen-1413495",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Schwere Krawalle bei Jugend - Demo in Basel – Polizei setzt Tränengas und Wasserwerfer ein - Basel",
+   "kurz": "",
+   "link": "https://www.badische-zeitung.de/schwere-krawalle-bei-jugend-demo-in-basel-polizei-setzt-traenengas-und-wasserwerfer-ein?commentID=49326560-dd01-46ac-89bc-de9b74e8914f",
+   "quelle": "badische-zeitung.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "badische-zeitung.de",
+     "titel": "Schwere Krawalle bei Jugend - Demo in Basel – Polizei setzt Tränengas und Wasserwerfer ein - Basel",
+     "link": "https://www.badische-zeitung.de/schwere-krawalle-bei-jugend-demo-in-basel-polizei-setzt-traenengas-und-wasserwerfer-ein?commentID=49326560-dd01-46ac-89bc-de9b74e8914f",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Plätzchen ohne Ausstechen : 3 Sorten mit dem Teigrollen - Trick",
+   "kurz": "",
+   "link": "https://www.hna.de/leben/einfach-tasty/plaetzchen-ohne-ausstechen-sorten-mit-dem-teigrollen-trick-zr-94596079.html",
+   "quelle": "hna.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "hna.de",
+     "titel": "Plätzchen ohne Ausstechen : 3 Sorten mit dem Teigrollen - Trick",
+     "link": "https://www.hna.de/leben/einfach-tasty/plaetzchen-ohne-ausstechen-sorten-mit-dem-teigrollen-trick-zr-94596079.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Mutmaßlicher Anschlag auf Kyivstoner : Dänemark weist Attaché aus",
+   "kurz": "",
+   "link": "http://www.wa.de/politik/mutmasslicher-anschlag-auf-kyivstoner-daenemark-weist-attache-aus-zr-94601395.html",
+   "quelle": "wa.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "wa.de",
+     "titel": "Mutmaßlicher Anschlag auf Kyivstoner : Dänemark weist Attaché aus",
+     "link": "http://www.wa.de/politik/mutmasslicher-anschlag-auf-kyivstoner-daenemark-weist-attache-aus-zr-94601395.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Bier ist laut Studie deutlich schädlicher für die Nieren als Wein",
+   "kurz": "",
+   "link": "http://www.fnp.de/welt/bier-ist-laut-studie-deutlich-schaedlicher-fuer-die-nieren-als-wein-zr-94597499.html",
+   "quelle": "fnp.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "fnp.de",
+     "titel": "Bier ist laut Studie deutlich schädlicher für die Nieren als Wein",
+     "link": "http://www.fnp.de/welt/bier-ist-laut-studie-deutlich-schaedlicher-fuer-die-nieren-als-wein-zr-94597499.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Masern in Deutschland : RKI - Daten zeigen Impflücken",
+   "kurz": "",
+   "link": "http://www.fnp.de/deutschland/masern-in-deutschland-rki-daten-zeigen-impfluecken-bei-dosis-zr-94601405.html",
+   "quelle": "fnp.de",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:30:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "fnp.de",
+     "titel": "Masern in Deutschland : RKI - Daten zeigen Impflücken",
+     "link": "http://www.fnp.de/deutschland/masern-in-deutschland-rki-daten-zeigen-impfluecken-bei-dosis-zr-94601405.html",
+     "eigentuemer": "Eigentümer unbekannt",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Anthropic researcher uses AI to solve math's greatest riddle",
+   "kurz": "The proposed breakthrough could reshape mathematical research, but still needs independent verification. It's the latest in a string of cases where AI has…",
+   "link": "https://www.dw.com/en/anthropic-researcher-uses-ai-to-solve-math-s-greatest-riddle/a-80008428?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-20T22:42:47Z",
+   "zeit": "2026-11-21T10:29:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -724,194 +1245,10 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC World",
-     "titel": "Tech stock sell-off drags markets down as Anthropic shares slide",
-     "link": "https://www.bbc.co.uk/news/articles/c6808ym10vzgo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "French police officers sentenced for beating of music producer Michel Zecler",
-   "kurz": "The court has upheld the 2020 beating of the black music producer as an aggravated circumstance of racism.",
-   "link": "https://www.bbc.co.uk/news/articles/ck9d7e9wvvweo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-20T22:37:09Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "French police officers sentenced for beating of music producer Michel Zecler",
-     "link": "https://www.bbc.co.uk/news/articles/ck9d7e9wvvweo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Dänen weisen russischen Diplomaten aus",
-   "kurz": "Dänen weisen russischen Diplomaten aus",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1687378.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T22:28:00+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Mutmaßlicher Anschlagsplan: Dänen weisen russischen Diplomaten aus",
-     "link": "https://www.tagesschau.de/ausland/europa/daenemark-attentatsversuch-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Warenhauskette Galeria schließt drei Filialen",
-   "kurz": "Warenhauskette Galeria schließt drei Filialen",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1687376.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T22:17:40+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Galeria schließt drei Filialen - und noch viele mehr?",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/galerie-schliessung-filialen-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Riesige Rechenzentren und grüne Energie boomen in China",
-   "kurz": "Riesige Rechenzentren und grüne Energie boomen in China",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1687382.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T22:15:41+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Riesige Rechenzentren und grüne Energie boomen in China",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1687382.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "'I tell my son it's just fireworks': Life inside Yemeni city besieged by Houthis",
-   "kurz": "Orla Guerin speaks to seven people trapped in the key city of Taiz, cut off from the outside world for weeks.",
-   "link": "https://www.bbc.co.uk/news/articles/cx7v2d8q879eo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-20T22:14:17Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "'I tell my son it's just fireworks': Life inside Yemeni city besieged by Houthis",
-     "link": "https://www.bbc.co.uk/news/articles/cx7v2d8q879eo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Klimakonferenz geht in Verlängerung - gemeinsame Abschlusserklärung wird zur Herausforderung",
-   "kurz": "Klimakonferenz geht in Verlängerung - gemeinsame Abschlusserklärung wird zur Herausforderung",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1687372.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T22:12:00+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Klimakonferenz geht in Verlängerung - gemeinsame Abschlusserklärung wird zur Herausforderung",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1687372.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Übungsmanöver der \"Koalition der Willigen\" in Polen",
-   "kurz": "Übungsmanöver der \"Koalition der Willigen\" in Polen",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1687358.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T22:06:26+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Übungsmanöver der \"Koalition der Willigen\" in Polen",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1687358.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Britischer Premier Burnham in Brüssel - der Versuch einer EU-Annäherung",
-   "kurz": "Britischer Premier Burnham in Brüssel - der Versuch einer EU-Annäherung",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1687350.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T22:02:02+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Britischer Premier Burnham in Brüssel - der Versuch einer EU-Annäherung",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1687350.html",
-     "eigentuemer": "gehört ARD",
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Anthropic researcher uses AI to solve math's greatest riddle",
+     "link": "https://www.dw.com/en/anthropic-researcher-uses-ai-to-solve-math-s-greatest-riddle/a-80008428?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -923,7 +1260,7 @@
    "link": "https://www.bbc.co.uk/news/articles/cmde1lj4yjxno?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-20T21:57:07Z",
+   "zeit": "2026-11-21T10:26:36Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -941,12 +1278,58 @@
    ]
   },
   {
-   "titel": "Zweiter bundesweiter Protesttag - Schülerdemos kämpfen um Aufmerksamkeit",
-   "kurz": "Zweiter bundesweiter Protesttag - Schülerdemos kämpfen um Aufmerksamkeit",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1687342.html",
+   "titel": "UN-Waffenkonvention: Einsatz von Killerrobotern bleibt unklar",
+   "kurz": "Killerroboter sind Waffensysteme, die mehr oder weniger selbstständig Ziele erkennen und angreifen können. UN-Beratungen über eine Regulierung endeten nur mit…",
+   "link": "https://www.dw.com/de/un-waffenkonvention-einsatz-von-killerrobotern-bleibt-unklar/a-80008965?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-21T10:20:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "UN-Waffenkonvention: Einsatz von Killerrobotern bleibt unklar",
+     "link": "https://www.dw.com/de/un-waffenkonvention-einsatz-von-killerrobotern-bleibt-unklar/a-80008965?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Germany news: Support for Ukraine military aid waning, survey shows",
+   "kurz": "Nearly half of Germany's population wants to reduce military aid to Ukraine, a survey has found. Meanwhile, German consumers are set to pay more in energy…",
+   "link": "https://www.dw.com/en/germany-news-support-for-ukraine-military-aid-waning-survey-shows/live-80008430?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-21T10:10:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Germany news: Support for Ukraine military aid waning, survey shows",
+     "link": "https://www.dw.com/en/germany-news-support-for-ukraine-military-aid-waning-survey-shows/live-80008430?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Auch Rummenigge zweifelt an Musiala-Rückkehr auf Topniveau",
+   "kurz": "Karl-Heinz Rummenigge hat in der Diskussion um Jamal Musiala noch einmal nachgelegt. Das Aufsichtsratsmitglied der Münchner hegt Zweifel, ob der…",
+   "link": "https://www.sportschau.de/regional/br/br-auch-rummenigge-zweifelt-an-musiala-rueckkehr-auf-topniveau-102.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T21:53:12+01:00",
+   "zeit": "2026-11-21T09:57:11+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -955,21 +1338,21 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Zweiter bundesweiter Protesttag - Schülerdemos kämpfen um Aufmerksamkeit",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1687342.html",
-     "eigentuemer": "gehört ARD",
+     "titel": "Auch Rummenigge zweifelt an Musiala-Rückkehr auf Topniveau",
+     "link": "https://www.sportschau.de/regional/br/br-auch-rummenigge-zweifelt-an-musiala-rueckkehr-auf-topniveau-102.html",
+     "eigentuemer": "Eigentümer unbekannt",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "What the new UK-EU deal could mean for future post-Brexit relations",
-   "kurz": "The BBC's political and Europe editors analyse the new agreements between the UK and EU.",
-   "link": "https://www.bbc.co.uk/news/videos/c90k6gl3lyxeo?at_medium=RSS&at_campaign=rss",
+   "titel": "Fight over fossil fuels leaves COP31 climate talks in deadlock",
+   "kurz": "Countries from nearly 200 countries are in a deadlock to try and get a new global climate agreement.",
+   "link": "https://www.bbc.co.uk/news/articles/c6ly5w40eg07o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-20T21:43:22Z",
+   "zeit": "2026-11-21T09:52:11Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -978,216 +1361,9 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "What the new UK-EU deal could mean for future post-Brexit relations",
-     "link": "https://www.bbc.co.uk/news/videos/c90k6gl3lyxeo?at_medium=RSS&at_campaign=rss",
+     "titel": "Fight over fossil fuels leaves COP31 climate talks in deadlock",
+     "link": "https://www.bbc.co.uk/news/articles/c6ly5w40eg07o?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Großbritannien: Schuldsprüche in Vergewaltigungsprozess",
-   "kurz": "Der Fall erinnert an das Martyrium der Französin Gisèle Pelicot. Die Britin Joanne Young wurde über Jahre von ihrem Ehemann betäubt - und dann im Internet zur…",
-   "link": "https://www.tagesschau.de/ausland/europa/joanne-young-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T21:25:44+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Großbritannien: Schuldsprüche in Vergewaltigungsprozess",
-     "link": "https://www.tagesschau.de/ausland/europa/joanne-young-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Mehr als 100 Betriebe beteiligt: IG Metall setzt weiter auf ganztätige Warnstreiks",
-   "kurz": "BMW und Audi in Bayern, Werften im Norden: Mehr als Hunderttausend Beschäftigte haben für 24 Stunden die Arbeit niedergelegt. Ein neues Gesprächsangebot hat…",
-   "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/ig-metall-streik-112.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T20:58:08+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Mehr als 100 Betriebe beteiligt: IG Metall setzt weiter auf ganztätige Warnstreiks",
-     "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/ig-metall-streik-112.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Trump threatens ban on US firms building AI data centres overseas",
-   "kurz": "The US president provided little detail on the potential policy, saying others in his team were hearing about it for the first time.",
-   "link": "https://www.bbc.co.uk/news/articles/cmde1lw9y54ko?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-20T20:54:12Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Trump threatens ban on US firms building AI data centres overseas",
-     "link": "https://www.bbc.co.uk/news/articles/cmde1lw9y54ko?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Russian ornithologist jailed over small donations to Navalny's foundation",
-   "kurz": "Sofia Rosenfeld has devoted her life to studying Arctic birds. A Russian court sentenced her to 3.5 years in a penal colony over donations to Navalny's…",
-   "link": "https://www.dw.com/en/russian-ornithologist-jailed-over-small-donations-to-navalny-s-foundation/a-80005505?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-20T20:45:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Russian ornithologist jailed over small donations to Navalny's foundation",
-     "link": "https://www.dw.com/en/russian-ornithologist-jailed-over-small-donations-to-navalny-s-foundation/a-80005505?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Repression against Iranian lawyers increases",
-   "kurz": "At least 135 lawyers in Iran have been subjected to repressive measures over the past year. UN experts warn that this seriously jeopardizes the right of those…",
-   "link": "https://www.dw.com/en/repression-against-iranian-lawyers-increases/a-80006742?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-20T20:36:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Repression against Iranian lawyers increases",
-     "link": "https://www.dw.com/en/repression-against-iranian-lawyers-increases/a-80006742?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "At COP31, conflict over climate science slows action on global warming",
-   "kurz": "Attacks on climate science and disinformation risk delaying key measures at COP31 in Antalya. As the UN climate talks draw to a close, how will that affect…",
-   "link": "https://www.dw.com/en/at-cop31-conflict-over-climate-science-slows-action-on-global-warming/a-80004894?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-20T20:34:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "At COP31, conflict over climate science slows action on global warming",
-     "link": "https://www.dw.com/en/at-cop31-conflict-over-climate-science-slows-action-on-global-warming/a-80004894?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "COP31: UN Climate summit enters final phase with no deal in sight",
-   "kurz": "After nearly two weeks of negotiations, countries remain divided on how to fight global warming. A new draft declaration doesn't mention the phaseout of fossil…",
-   "link": "https://www.dw.com/en/cop31-un-climate-summit-enters-final-phase-with-no-deal-in-sight/live-79999516?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-20T20:31:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "COP31: UN Climate summit enters final phase with no deal in sight",
-     "link": "https://www.dw.com/en/cop31-un-climate-summit-enters-final-phase-with-no-deal-in-sight/live-79999516?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "tagesschau 20:00 Uhr",
-   "kurz": "Warnstreiks bei der Gewerkschaft IG Metall, Verlängerung der Weltklimakonferenz COP31 wegen ungelöster Streitfragen, EU und Großbritannien beschließen engere…",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1687290.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T20:17:35+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau 20:00 Uhr",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1687290.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Has the 'Parthenon puzzle' been solved? The long quest to reassemble lost eastern pediment",
-   "kurz": "The depiction of the birth of the goddess Athena above the Parthenon's entrance is considered a masterpiece of ancient art. Now, a German research team has…",
-   "link": "https://www.dw.com/en/has-the-parthenon-puzzle-been-solved-the-long-quest-to-reassemble-lost-eastern-pediment/a-79982098?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-20T20:03:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Has the 'Parthenon puzzle' been solved? The long quest to reassemble lost eastern pediment",
-     "link": "https://www.dw.com/en/has-the-parthenon-puzzle-been-solved-the-long-quest-to-reassemble-lost-eastern-pediment/a-79982098?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -1195,11 +1371,11 @@
   },
   {
    "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
-   "kurz": "Am Samstag gibt es im Norden und Osten einzelne Regen-, Schnee- und Graupelschauer. Ganz im Süden fällt zeitweise Regen. Sonst ist es meist trocken mit…",
+   "kurz": "Samstag im Norden und Osten gelegentlich Regen-, Schnee- oder Graupelschauer. Im äußersten Süden zeitweise Regen. Sonst neben ein paar Wolken- oder…",
    "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T19:51:12+01:00",
+   "zeit": "2026-11-21T09:44:03+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1217,12 +1393,12 @@
    ]
   },
   {
-   "titel": "Gérard Depardieu and French author investigated over sexual allegations",
-   "kurz": "A judicial investigation was launched after a complaint was filed last year over \"allegations of a sexual nature\".",
-   "link": "https://www.bbc.co.uk/news/articles/c9ly43pj10mvo?at_medium=RSS&at_campaign=rss",
+   "titel": "Deal with EU not dependent on tuition fees agreement, Miliband says",
+   "kurz": "Brussels sources had previously suggested the bloc might not apply the wider deal until fees were lowered for EU students in Britain.",
+   "link": "https://www.bbc.co.uk/news/articles/cm9w9p4geke8o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-20T19:45:20Z",
+   "zeit": "2026-11-21T09:40:55Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1231,8 +1407,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Gérard Depardieu and French author investigated over sexual allegations",
-     "link": "https://www.bbc.co.uk/news/articles/c9ly43pj10mvo?at_medium=RSS&at_campaign=rss",
+     "titel": "Deal with EU not dependent on tuition fees agreement, Miliband says",
+     "link": "https://www.bbc.co.uk/news/articles/cm9w9p4geke8o?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1240,12 +1416,35 @@
    ]
   },
   {
-   "titel": "Indian man sentenced to 19-plus years in plot to assassinate US-based Sikh separatist leader",
-   "kurz": "Nikhil Gupta pleaded guilty to murder-for-hire, conspiracy to commit murder-for-hire, and conspiracy to commit money laundering in February.",
-   "link": "https://www.bbc.co.uk/news/articles/cq702ez8d4lwo?at_medium=RSS&at_campaign=rss",
+   "titel": "Gemischte Bilanz nach einem Jahr Social-Media-Verbot für Jugendliche in Australien",
+   "kurz": "Gemischte Bilanz nach einem Jahr Social-Media-Verbot für Jugendliche in Australien",
+   "link": "https://www.tagesschau.de/video/video-1687456.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-21T09:37:40+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Gemischte Bilanz nach einem Jahr Social-Media-Verbot für Jugendliche in Australien",
+     "link": "https://www.tagesschau.de/video/video-1687456.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "FBI reportedly investigating apparent hack of its criminal database",
+   "kurz": "The National Crime Information Center database is used by federal and local law enforcement to share information.",
+   "link": "https://www.bbc.co.uk/news/articles/cvze7de86pk3o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-20T19:27:49Z",
+   "zeit": "2026-11-21T09:34:20Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1254,8 +1453,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Indian man sentenced to 19-plus years in plot to assassinate US-based Sikh separatist leader",
-     "link": "https://www.bbc.co.uk/news/articles/cq702ez8d4lwo?at_medium=RSS&at_campaign=rss",
+     "titel": "FBI reportedly investigating apparent hack of its criminal database",
+     "link": "https://www.bbc.co.uk/news/articles/cvze7de86pk3o?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1263,12 +1462,12 @@
    ]
   },
   {
-   "titel": "Anzeige gegen Depardieu und Houellebecq wegen Vergewaltigungsvorwurfs",
-   "kurz": "Gegen den Schauspieler Gérard Depardieu und den Schriftsteller Michel Houellebecq liegt eine neue Anzeige vor - es geht um den Vorwurf der…",
-   "link": "https://www.tagesschau.de/ausland/europa/frankreich-vergewaltigungsvorwuerfe-depardieu-houellebecq-100.html",
+   "titel": "tagesschau in 100 Sekunden",
+   "kurz": "tagesschau in 100 Sekunden",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1687468.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T19:25:36+01:00",
+   "zeit": "2026-11-21T09:34:12+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1277,8 +1476,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Anzeige gegen Depardieu und Houellebecq wegen Vergewaltigungsvorwurfs",
-     "link": "https://www.tagesschau.de/ausland/europa/frankreich-vergewaltigungsvorwuerfe-depardieu-houellebecq-100.html",
+     "titel": "tagesschau in 100 Sekunden",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1687468.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1286,35 +1485,12 @@
    ]
   },
   {
-   "titel": "Weltbevölkerungsbericht: Die GenZ ist gebildet, aber verunsichert",
-   "kurz": "Noch nie waren junge Menschen so gut ausgebildet, noch nie standen sie gleichzeitig vor so vielen Herausforderungen. Weshalb sich junge Deutsche fragen: Wird…",
-   "link": "https://www.dw.com/de/weltbevölkerungsbericht-die-genz-ist-gebildet-aber-verunsichert/a-80003564?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-20T19:22:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Weltbevölkerungsbericht: Die GenZ ist gebildet, aber verunsichert",
-     "link": "https://www.dw.com/de/weltbevölkerungsbericht-die-genz-ist-gebildet-aber-verunsichert/a-80003564?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Gipfel in Brüssel: Annäherung zwischen Großbritannien und EU",
-   "kurz": "Sechs Jahre nach dem Brexit rücken Großbritannien und die EU wieder näher zusammen. Das war beim gemeinsamen Gipfel in Brüssel deutlich spürbar. Manche träumen…",
-   "link": "https://www.tagesschau.de/ausland/eu-uk-gipfel-102.html",
+   "titel": "Welttag des Fernsehens",
+   "kurz": "Welttag des Fernsehens",
+   "link": "https://www.tagesschau.de/video/video-1687458.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T18:44:07+01:00",
+   "zeit": "2026-11-21T09:32:46+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1323,8 +1499,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Gipfel in Brüssel: Annäherung zwischen Großbritannien und EU",
-     "link": "https://www.tagesschau.de/ausland/eu-uk-gipfel-102.html",
+     "titel": "Welttag des Fernsehens",
+     "link": "https://www.tagesschau.de/video/video-1687458.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1332,12 +1508,12 @@
    ]
   },
   {
-   "titel": "Marktbericht: Ausverkauf geht weiter - auch im DAX",
-   "kurz": "An den Finanzmärkten rollt eine Verkaufswelle durch den vom Erfolg verwöhnten Technologiesektor. Der DAX folgt den Verlusten an der Wall Street und schließt…",
-   "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-anthropic-102.html",
+   "titel": "Südafrikas vermeidbare Wasserkrise",
+   "kurz": "Marode Leitungen, zu hoher Verbrauch, geringe Investitionen: Die Wasserkrise in Südafrika gilt als weitgehend hausgemacht. Weil sich die Lage verschlimmert…",
+   "link": "https://www.tagesschau.de/ausland/afrika/wassermangel-suedafrika-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T18:17:33+01:00",
+   "zeit": "2026-11-21T09:27:21+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1346,8 +1522,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Marktbericht: Ausverkauf geht weiter - auch im DAX",
-     "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-dax-dow-anthropic-102.html",
+     "titel": "Südafrikas vermeidbare Wasserkrise",
+     "link": "https://www.tagesschau.de/ausland/afrika/wassermangel-suedafrika-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1355,58 +1531,12 @@
    ]
   },
   {
-   "titel": "UK to explore even closer ties with EU after agreeing deal, says Burnham",
-   "kurz": "The UK-EU deal agreed on Friday covers British food exports, emissions trading and a youth experience scheme.",
-   "link": "https://www.bbc.co.uk/news/articles/c6jreyqgw4e9o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-20T17:49:48Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "UK to explore even closer ties with EU after agreeing deal, says Burnham",
-     "link": "https://www.bbc.co.uk/news/articles/c6jreyqgw4e9o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany news: Kids take to streets over school, climate and costs",
-   "kurz": "Thousands of young people turned out across Germany demanding improvements in education, climate and affordability. Protesters say they aren't being taken…",
-   "link": "https://www.dw.com/en/germany-news-kids-take-to-streets-over-school-climate-and-costs/live-79998529?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-20T17:43:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Germany news: Kids take to streets over school, climate and costs",
-     "link": "https://www.dw.com/en/germany-news-kids-take-to-streets-over-school-climate-and-costs/live-79998529?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Urteil hindert İmamoğlu an Präsidentschaftskandidatur in der Türkei",
-   "kurz": "Der größte Rivale von Präsident Erdoğan sitzt bereits im Gefängnis. Nun verhindert ein weiteres Gerichtsurteil, dass İmamoğlu bei der nächsten Wahl kandidieren…",
-   "link": "https://www.tagesschau.de/ausland/europa/tuerkei-imamoglu-104.html",
+   "titel": "Liquiditätshilfen für Schweinehalter: \"Nur ein Tropfen auf den heißen Stein\"",
+   "kurz": "Schweinehaltung in Deutschland ist ein Verlustgeschäft - Liquiditätshilfen in Höhe von 25 Millionen Euro sollen jetzt den Betrieben helfen. Doch das…",
+   "link": "https://www.tagesschau.de/inland/gesellschaft/schweinezucht-deutschland-exporte-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T17:30:28+01:00",
+   "zeit": "2026-11-21T09:26:38+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1415,8 +1545,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Urteil hindert İmamoğlu an Präsidentschaftskandidatur in der Türkei",
-     "link": "https://www.tagesschau.de/ausland/europa/tuerkei-imamoglu-104.html",
+     "titel": "Liquiditätshilfen für Schweinehalter: \"Nur ein Tropfen auf den heißen Stein\"",
+     "link": "https://www.tagesschau.de/inland/gesellschaft/schweinezucht-deutschland-exporte-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1424,12 +1554,12 @@
    ]
   },
   {
-   "titel": "Weltgrößtes Windrad in Betrieb: Sind Höhenwindräder die Zukunft?",
-   "kurz": "Bis zu 365 Meter hoch ist ein Windrad, das jetzt in der Lausitz in Betrieb gegangen ist - laut den Ingenieuren ein Rekord. Aber rechnen sich solche…",
-   "link": "https://www.tagesschau.de/wirtschaft/energie/groesstes-windrad-lausitz-100.html",
+   "titel": "US-Gericht billigt Bayer-Sammelvergleich",
+   "kurz": "US-Gericht billigt Bayer-Sammelvergleich",
+   "link": "https://www.tagesschau.de/video/video-1687448.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T17:25:17+01:00",
+   "zeit": "2026-11-21T09:25:29+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1438,8 +1568,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Weltgrößtes Windrad in Betrieb: Sind Höhenwindräder die Zukunft?",
-     "link": "https://www.tagesschau.de/wirtschaft/energie/groesstes-windrad-lausitz-100.html",
+     "titel": "US-Gericht billigt Vergleich von Bayer mit Glyphosat-Klägern",
+     "link": "https://www.tagesschau.de/wirtschaft/bayer-glyphosat-vergleich-usa-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1447,12 +1577,12 @@
    ]
   },
   {
-   "titel": "Pistorius in Polen: Eine Reise im Zeichen der Erinnerungsarbeit",
-   "kurz": "Deutschland und Polen wollen mehr Verantwortung für die Sicherheit in Europa übernehmen. Bei seiner Polen-Reise erinnert Verteidigungsminister Pistorius an die…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/pistorius-polen-gedenken-100.html",
+   "titel": "Russische Armee greift südukrainische Industriestadt Krywyj Rih an",
+   "kurz": "Russische Armee greift südukrainische Industriestadt Krywyj Rih an",
+   "link": "https://www.tagesschau.de/video/video-1687444.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T17:22:44+01:00",
+   "zeit": "2026-11-21T09:23:04+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1461,8 +1591,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Pistorius in Polen: Eine Reise im Zeichen der Erinnerungsarbeit",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/pistorius-polen-gedenken-100.html",
+     "titel": "Russische Armee greift südukrainische Industriestadt Krywyj Rih an",
+     "link": "https://www.tagesschau.de/video/video-1687444.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1470,12 +1600,12 @@
    ]
   },
   {
-   "titel": "Merz: Unterstützung der Ukraine bringt uns Dividende",
-   "kurz": "Seit dem Angriff Russlands unterstützt Deutschland die Ukraine - insgesamt mit mehr als 100 Milliarden Euro. Ausgaben, die sich auszahlen könnten. Kanzler Merz…",
-   "link": "https://www.tagesschau.de/wirtschaft/deutsch-ukrainisches-wirtschaftsforum-104.html",
+   "titel": "Bundesweite Jugendproteste verlaufen überwiegend friedlich",
+   "kurz": "Bundesweite Jugendproteste verlaufen überwiegend friedlich",
+   "link": "https://www.tagesschau.de/video/video-1687446.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-20T17:22:30+01:00",
+   "zeit": "2026-11-21T09:15:01+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1484,31 +1614,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Merz: Unterstützung der Ukraine bringt uns Dividende",
-     "link": "https://www.tagesschau.de/wirtschaft/deutsch-ukrainisches-wirtschaftsforum-104.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Polen wirft Russland gezielte Provokation vor",
-   "kurz": "Mehrere Flugkörper sind in den polnischen Luftraum eingedrungen - nach Einschätzung der Regierung eine gezielte Provokation Russlands. Sie könnte in…",
-   "link": "https://www.tagesschau.de/ausland/europa/absturz-russische-flugobjekte-polen-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-20T17:22:28+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Polen wirft Russland gezielte Provokation vor",
-     "link": "https://www.tagesschau.de/ausland/europa/absturz-russische-flugobjekte-polen-100.html",
+     "titel": "Bundesweite Jugendproteste verlaufen überwiegend friedlich",
+     "link": "https://www.tagesschau.de/video/video-1687446.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
