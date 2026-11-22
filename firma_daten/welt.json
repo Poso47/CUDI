@@ -1,10 +1,49 @@
 {
- "erzeugt": "2026-11-22T07:09:48Z",
- "anzahl": 14,
+ "erzeugt": "2026-11-22T19:53:24Z",
+ "anzahl": 8,
  "nur_ausland": 0,
- "hinweise": [],
+ "hinweise": [
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+ ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "Hansi Flick: “Siempre pasa lo mismo con este árbitro”",
+   "kurz": "La rabia azulgrana con el colegiado contrasta con la alegría por la remontada más rápida de la era del técnico alemán, tres goles entre el 57 y el 67, ante un…",
+   "link": "https://elpais.com/deportes/futbol/2026-11-22/hansi-flick-siempre-pasa-lo-mismo-con-este-arbitro.html",
+   "sprache": "es",
+   "zeit": "2026-11-22T16:57:59Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Hansi Flick: “Siempre pasa lo mismo con este árbitro”"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Hansi Flick: “Siempre pasa lo mismo con este árbitro”",
+     "link": "https://elpais.com/deportes/futbol/2026-11-22/hansi-flick-siempre-pasa-lo-mismo-con-este-arbitro.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "‘Serious error of judgment’: outrage over military AI event at Berlin arts complex",
    "kurz": "Kraftwerk Berlin, part of same development as techno club Tresor, transformed into ‘war room’ for arms firm event With their cavernous post-industrial venues…",
@@ -38,199 +77,6 @@
      "titel": "‘Serious error of judgment’: outrage over military AI event at Berlin arts complex",
      "link": "https://www.theguardian.com/world/2026/nov/22/military-ai-event-berlin-kraftwerk-arts-complex",
      "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Fusible Industrial Alemania Fusible Siemens 3NE1 820 - 0 ( 3NE1820 - 0 ), Nuevo , Hecho En Alemania – Envío Gratis",
-   "kurz": "",
-   "link": "https://www.motorward.com/3NE1-820-0-3NE1820-0-Nuevo-Hecho-En-Alemania-Env-o-481701",
-   "sprache": "es",
-   "zeit": "2026-11-22T05:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "United States"
-   ],
-   "laender_einig": [
-    "United States"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "motorward.com (United States): Fusible Industrial Alemania Fusible Siemens 3NE1 820 - 0 ( 3NE1820 - 0 ), Nuevo , Hecho En Alemania – Envío Gratis"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "motorward.com",
-     "land": "United States",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "Fusible Industrial Alemania Fusible Siemens 3NE1 820 - 0 ( 3NE1820 - 0 ), Nuevo , Hecho En Alemania – Envío Gratis",
-     "link": "https://www.motorward.com/3NE1-820-0-3NE1820-0-Nuevo-Hecho-En-Alemania-Env-o-481701",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "German car and shipyard workers set to strike as IG Metall union extends walkout",
-   "kurz": "",
-   "link": "https://www.933thedrive.com/2026/11/21/german-car-and-shipyard-workers-set-to-strike-as-ig-metall-union-extends-walkout/",
-   "sprache": "en",
-   "zeit": "2026-11-22T00:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "United States"
-   ],
-   "laender_einig": [
-    "United States"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "933thedrive.com (United States): German car and shipyard workers set to strike as IG Metall union extends walkout"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "933thedrive.com",
-     "land": "United States",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "German car and shipyard workers set to strike as IG Metall union extends walkout",
-     "link": "https://www.933thedrive.com/2026/11/21/german-car-and-shipyard-workers-set-to-strike-as-ig-metall-union-extends-walkout/",
-     "eigentuemer": "gehört Alpha Media",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Zverev, el rey cuestionado al que encara Alcaraz: “Soy el único número uno que debe justificarse”",
-   "kurz": "El alemán supera al ruso Medvedev en un duelo insípido (7-6(0) y 6-4, en 1h 27m) y busca redondear en la final (18.00) el gran año de su ascensión, envuelta de…",
-   "link": "https://elpais.com/deportes/tenis/2026-11-21/zverev-el-rey-cuestionado-al-que-encara-alcaraz-soy-el-unico-numero-uno-que-debe-justificarse.html",
-   "sprache": "es",
-   "zeit": "2026-11-21T22:14:20Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Zverev, el rey cuestionado al que encara Alcaraz: “Soy el único número uno que debe justificarse”"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "ATP Finals: Zverev steht im Endspiel gegen Alcaraz",
-     "link": "https://www.sportschau.de/tennis/atp/zverev-folgt-alcaraz-ins-traumfinale,spielbericht-atp-finals-zverev-medvedev-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Zverev, el rey cuestionado al que encara Alcaraz: “Soy el único número uno que debe justificarse”",
-     "link": "https://elpais.com/deportes/tenis/2026-11-21/zverev-el-rey-cuestionado-al-que-encara-alcaraz-soy-el-unico-numero-uno-que-debe-justificarse.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Merz , ABnin 2028 - 2034 bütçe teklifini kesintileri yetersiz bularak kabul etmedi",
-   "kurz": "",
-   "link": "https://www.haberler.com/guncel/merz-ab-nin-2028-2034-butce-teklifini-kesintileri-20449904-haberi/",
-   "sprache": "tr",
-   "zeit": "2026-11-21T20:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Turkey"
-   ],
-   "laender_einig": [
-    "Turkey"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "haberler.com (Turkey): Merz , ABnin 2028 - 2034 bütçe teklifini kesintileri yetersiz bularak kabul etmedi"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "haberler.com",
-     "land": "Turkey",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "Merz , ABnin 2028 - 2034 bütçe teklifini kesintileri yetersiz bularak kabul etmedi",
-     "link": "https://www.haberler.com/guncel/merz-ab-nin-2028-2034-butce-teklifini-kesintileri-20449904-haberi/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Messina , allAgorà un albero simbolo dellamicizia tra Italia e Germania",
-   "kurz": "",
-   "link": "https://www.tempostretto.it/news/messina-allagora-un-albero-simbolo-dellamicizia-tra-italia-e-germania.html",
-   "sprache": "it",
-   "zeit": "2026-11-21T20:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Italy"
-   ],
-   "laender_einig": [
-    "Italy"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "tempostretto.it (Italy): Messina , allAgorà un albero simbolo dellamicizia tra Italia e Germania"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "tempostretto.it",
-     "land": "Italy",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "Messina , allAgorà un albero simbolo dellamicizia tra Italia e Germania",
-     "link": "https://www.tempostretto.it/news/messina-allagora-un-albero-simbolo-dellamicizia-tra-italia-e-germania.html",
-     "eigentuemer": "Eigentümer unbekannt",
      "zaehlt_nicht": ""
     }
    ]
@@ -310,43 +156,6 @@
    ]
   },
   {
-   "titel": "Anthropic researcher says Claude solved maths’ greatest riddle",
-   "kurz": "First proposed by German mathematician Bernhard Riemann in 1859, the hypothesis concerns the distribution of prime numbers and is widely regarded as the most…",
-   "link": "https://www.thehindu.com/sci-tech/technology/anthropic-researcher-says-claude-solved-maths-greatest-riddle/article71725942.ece",
-   "sprache": "en",
-   "zeit": "2026-11-21T00:05:22+05:30",
-   "ausland_quellen": 1,
-   "laender": [
-    "Indien"
-   ],
-   "laender_einig": [
-    "Indien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "The Hindu (Indien): Anthropic researcher says Claude solved maths’ greatest riddle"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "The Hindu",
-     "land": "Indien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Anthropic researcher says Claude solved maths’ greatest riddle",
-     "link": "https://www.thehindu.com/sci-tech/technology/anthropic-researcher-says-claude-solved-maths-greatest-riddle/article71725942.ece",
-     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer",
    "kurz": "German company faced 65,000 claims from people who said they developed cancer after using weedkiller A Missouri judge on Friday approved Bayer ’s $7.25bn…",
    "link": "https://www.theguardian.com/business/2026/nov/20/bayer-roundup-cancer-litigation",
@@ -384,61 +193,65 @@
    ]
   },
   {
-   "titel": "'Inside Deutsche Bank': German government demands 'transparency' over revelations",
-   "kurz": "Rocked by investigative reports published by a consortium of more than 50 media outlets, including Le Monde, Deutsche Bank has downplayed the matter and said…",
-   "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/20/inside-deutsche-bank-german-government-demands-transparency-over-revelations_6785607_8.html",
-   "sprache": "en",
-   "zeit": "2026-11-20T18:38:38+01:00",
+   "titel": "Alexander Zverev - Carlos Alcaraz en directo | Alcaraz supera a Zverev y conquista por primera vez el título de las ATP Finals",
+   "kurz": "El tenista español tuvo que remar en la segunda manga para batir al alemán tras levantar tres bolas de set de su rival en el ‘tie-break’",
+   "link": "https://elpais.com/deportes/tenis/2026-11-22/alexander-zverev-carlos-alcaraz-en-directo-la-final-de-las-atp-finals-en-vivo.html",
+   "sprache": "es",
+   "zeit": "2026-11-22T19:26:19Z",
    "ausland_quellen": 1,
    "laender": [
-    "Frankreich"
+    "Spanien"
    ],
-   "laender_einig": [
-    "Frankreich"
-   ],
+   "laender_einig": [],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [],
+   "beteiligte_laender": [
+    "Spanien"
+   ],
    "zusammenfassung": [
-    "Le Monde (en) (Frankreich): 'Inside Deutsche Bank': German government demands 'transparency' over revelations"
+    "El País (Spanien): Alexander Zverev - Carlos Alcaraz en directo | Alcaraz supera a Zverev y conquista por primera vez el título de las ATP Finals"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "ATP Finals: Zverev steht im Endspiel gegen Alcaraz",
+     "link": "https://www.sportschau.de/tennis/atp/zverev-folgt-alcaraz-ins-traumfinale,spielbericht-atp-finals-zverev-medvedev-100.html"
+    }
+   ],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
-     "beteiligt": false,
-     "titel": "'Inside Deutsche Bank': German government demands 'transparency' over revelations",
-     "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/20/inside-deutsche-bank-german-government-demands-transparency-over-revelations_6785607_8.html",
-     "eigentuemer": "gehört Groupe Le Monde",
+     "beteiligt": true,
+     "titel": "Alexander Zverev - Carlos Alcaraz en directo | Alcaraz supera a Zverev y conquista por primera vez el título de las ATP Finals",
+     "link": "https://elpais.com/deportes/tenis/2026-11-22/alexander-zverev-carlos-alcaraz-en-directo-la-final-de-las-atp-finals-en-vivo.html",
+     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa",
-   "kurz": "Der Deutsche führt die \"Koalition der Willigen\" zur Unterstützung Kyjiws an: Verhandlungen mit Putin erst bei Waffenstillstand. Hilfe für Kyjiw, was immer…",
-   "link": "https://www.derstandard.at/story/3000000350209/kanzler-merz-zeigt-in-sachen-ukraine-fuehrungsstaerke-in-europa?ref=rss",
+   "titel": "VIDEO - Bundesrat Pfister: «Wird die Vorlage zum Kriegsmaterialgesetz abgelehnt, schaden wir uns selbst»",
+   "kurz": "Bundesrat Martin Pfister diskutiert bei «NZZ Standpunkte» die internationale Kritik am Schweizer Kriegsmaterialgesetz.",
+   "link": "https://www.nzz.ch/shorts/bundesrat-pfister-wird-die-kmg-vorlage-abgelehnt-schaden-wir-uns-selbst-ld.10070414",
    "sprache": "de",
-   "zeit": "2026-11-20T16:14:52Z",
+   "zeit": "2026-11-22T12:19:50Z",
    "ausland_quellen": 1,
    "laender": [
-    "Österreich"
+    "Schweiz"
    ],
-   "laender_einig": [
-    "Österreich"
-   ],
+   "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Ukraine"
+    "Schweiz"
    ],
    "zusammenfassung": [
-    "Der Standard (Österreich): Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa"
+    "NZZ (Schweiz): VIDEO «NZZ STANDPUNKTE» - «Ich bin entschlossen, im VBS zu bleiben», sagt Bundesrat Martin Pfister – und erteilt damit Gerüchten eine Absage"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -448,13 +261,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Der Standard",
-     "land": "Österreich",
+     "quelle": "NZZ",
+     "land": "Schweiz",
      "art": "privat",
-     "beteiligt": false,
-     "titel": "Kanzler Merz zeigt in Sachen Ukraine Führungsstärke in Europa",
-     "link": "https://www.derstandard.at/story/3000000350209/kanzler-merz-zeigt-in-sachen-ukraine-fuehrungsstaerke-in-europa?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
+     "beteiligt": true,
+     "titel": "VIDEO «NZZ STANDPUNKTE» - «Ich bin entschlossen, im VBS zu bleiben», sagt Bundesrat Martin Pfister – und erteilt damit Gerüchten eine Absage",
+     "link": "https://www.nzz.ch/schweiz/ich-bin-entschlossen-im-vbs-zu-bleiben-sagt-martin-pfister-ld.10069362",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     }
    ]
@@ -496,111 +309,9 @@
      "zaehlt_nicht": ""
     }
    ]
-  },
-  {
-   "titel": "German president to visit Kenya on final Africa tour before leaving office",
-   "kurz": "Steinmeier will be in Nairobi after visiting Côte d’Ivoire and Ghana as part of his five-day...",
-   "link": "https://nation.africa/kenya/news/world/german-president-to-visit-kenya-on-final-africa-tour-before-leaving-office-5679754",
-   "sprache": "en",
-   "zeit": "2026-11-21T17:39:10Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Kenia"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Kenia"
-   ],
-   "zusammenfassung": [
-    "Daily Nation (Kenia): German president to visit Kenya on final Africa tour before leaving office"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Daily Nation",
-     "land": "Kenia",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "German president to visit Kenya on final Africa tour before leaving office",
-     "link": "https://nation.africa/kenya/news/world/german-president-to-visit-kenya-on-final-africa-tour-before-leaving-office-5679754",
-     "eigentuemer": "gehört Nation Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
   }
  ],
- "verbindungen": [
-  {
-   "name": "Deutsche Bank",
-   "wikidata": "https://www.wikidata.org/wiki/Q66048",
-   "beschreibung": "German global banking and financial services company",
-   "verbindungen": [
-    {
-     "eigenschaft": "Eigentümer",
-     "wert": "BlackRock",
-     "link": "https://www.wikidata.org/wiki/Q219635",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Eigentümer",
-     "wert": "Capital Group Companies",
-     "link": "https://www.wikidata.org/wiki/Q505275",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Eigentümer",
-     "wert": "Cerberus Capital Management",
-     "link": "https://www.wikidata.org/wiki/Q289362",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Verband deutscher Pfandbriefbanken",
-     "link": "https://www.wikidata.org/wiki/Q1584881",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Cash Group",
-     "link": "https://www.wikidata.org/wiki/Q961426",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Linux Foundation",
-     "link": "https://www.wikidata.org/wiki/Q858851",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Deutscher Dialogmarketing Verband",
-     "link": "https://www.wikidata.org/wiki/Q1204711",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Bundesverband deutscher Banken",
-     "link": "https://www.wikidata.org/wiki/Q1009084",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Bundesnetzwerk Bürgerschaftliches Engagement",
-     "link": "https://www.wikidata.org/wiki/Q1006424",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "'Inside Deutsche Bank': German government demands 'transparency' over revelations"
-   ]
-  }
- ],
+ "verbindungen": [],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -1218,6 +929,24 @@
    "keine_treffer": true
   },
   "Fusible Siemens": {
+   "keine_treffer": true
+  },
+  "Hansi Flick": {
+   "name": "Hansi Flick",
+   "wikidata": "https://www.wikidata.org/wiki/Q577384",
+   "beschreibung": "German association football player and manager",
+   "verbindungen": []
+  },
+  "Alexander Zverev": {
+   "name": "Alexander Zverev",
+   "wikidata": "https://www.wikidata.org/wiki/Q13990552",
+   "beschreibung": "German tennis player (born 1997)",
+   "verbindungen": []
+  },
+  "Carlos Alcaraz": {
+   "keine_treffer": true
+  },
+  "Bundesrat Pfister": {
    "keine_treffer": true
   }
  }
