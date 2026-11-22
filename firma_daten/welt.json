@@ -1,29 +1,27 @@
 {
- "erzeugt": "2026-11-21T19:33:54Z",
- "anzahl": 10,
+ "erzeugt": "2026-11-22T07:09:48Z",
+ "anzahl": 14,
  "nur_ausland": 0,
- "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
- ],
+ "hinweise": [],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "KOMMENTAR - Die SVP macht Powerplay nach Drehbuch – sie weiss, sie kann sich das leisten",
-   "kurz": "Mit Thomas Aeschi und Michael Graber nominiert die SVP zwei Hardliner für den Bundesrat. Ein ähnliches Manöver ist ihr schon einmal gelungen: mit Christoph…",
-   "link": "https://www.nzz.ch/meinung/die-svp-spielt-wieder-einmal-macht-schach-sie-weiss-sie-kann-sich-das-leisten-ld.10069953",
-   "sprache": "de",
-   "zeit": "2026-11-21T12:39:37Z",
+   "titel": "‘Serious error of judgment’: outrage over military AI event at Berlin arts complex",
+   "kurz": "Kraftwerk Berlin, part of same development as techno club Tresor, transformed into ‘war room’ for arms firm event With their cavernous post-industrial venues…",
+   "link": "https://www.theguardian.com/world/2026/nov/22/military-ai-event-berlin-kraftwerk-arts-complex",
+   "sprache": "en",
+   "zeit": "2026-11-22T06:00:21Z",
    "ausland_quellen": 1,
    "laender": [
-    "Schweiz"
+    "Großbritannien"
    ],
    "laender_einig": [
-    "Schweiz"
+    "Großbritannien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): KOMMENTAR - Die SVP macht Powerplay nach Drehbuch – sie weiss, sie kann sich das leisten"
+    "Guardian Germany (Großbritannien): ‘Serious error of judgment’: outrage over military AI event at Berlin arts complex"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -33,13 +31,206 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NZZ",
-     "land": "Schweiz",
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "KOMMENTAR - Die SVP macht Powerplay nach Drehbuch – sie weiss, sie kann sich das leisten",
-     "link": "https://www.nzz.ch/meinung/die-svp-spielt-wieder-einmal-macht-schach-sie-weiss-sie-kann-sich-das-leisten-ld.10069953",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "titel": "‘Serious error of judgment’: outrage over military AI event at Berlin arts complex",
+     "link": "https://www.theguardian.com/world/2026/nov/22/military-ai-event-berlin-kraftwerk-arts-complex",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Fusible Industrial Alemania Fusible Siemens 3NE1 820 - 0 ( 3NE1820 - 0 ), Nuevo , Hecho En Alemania – Envío Gratis",
+   "kurz": "",
+   "link": "https://www.motorward.com/3NE1-820-0-3NE1820-0-Nuevo-Hecho-En-Alemania-Env-o-481701",
+   "sprache": "es",
+   "zeit": "2026-11-22T05:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "United States"
+   ],
+   "laender_einig": [
+    "United States"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "motorward.com (United States): Fusible Industrial Alemania Fusible Siemens 3NE1 820 - 0 ( 3NE1820 - 0 ), Nuevo , Hecho En Alemania – Envío Gratis"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "motorward.com",
+     "land": "United States",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "Fusible Industrial Alemania Fusible Siemens 3NE1 820 - 0 ( 3NE1820 - 0 ), Nuevo , Hecho En Alemania – Envío Gratis",
+     "link": "https://www.motorward.com/3NE1-820-0-3NE1820-0-Nuevo-Hecho-En-Alemania-Env-o-481701",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "German car and shipyard workers set to strike as IG Metall union extends walkout",
+   "kurz": "",
+   "link": "https://www.933thedrive.com/2026/11/21/german-car-and-shipyard-workers-set-to-strike-as-ig-metall-union-extends-walkout/",
+   "sprache": "en",
+   "zeit": "2026-11-22T00:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "United States"
+   ],
+   "laender_einig": [
+    "United States"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "933thedrive.com (United States): German car and shipyard workers set to strike as IG Metall union extends walkout"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "933thedrive.com",
+     "land": "United States",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "German car and shipyard workers set to strike as IG Metall union extends walkout",
+     "link": "https://www.933thedrive.com/2026/11/21/german-car-and-shipyard-workers-set-to-strike-as-ig-metall-union-extends-walkout/",
+     "eigentuemer": "gehört Alpha Media",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Zverev, el rey cuestionado al que encara Alcaraz: “Soy el único número uno que debe justificarse”",
+   "kurz": "El alemán supera al ruso Medvedev en un duelo insípido (7-6(0) y 6-4, en 1h 27m) y busca redondear en la final (18.00) el gran año de su ascensión, envuelta de…",
+   "link": "https://elpais.com/deportes/tenis/2026-11-21/zverev-el-rey-cuestionado-al-que-encara-alcaraz-soy-el-unico-numero-uno-que-debe-justificarse.html",
+   "sprache": "es",
+   "zeit": "2026-11-21T22:14:20Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland"
+   ],
+   "zusammenfassung": [
+    "El País (Spanien): Zverev, el rey cuestionado al que encara Alcaraz: “Soy el único número uno que debe justificarse”"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "ATP Finals: Zverev steht im Endspiel gegen Alcaraz",
+     "link": "https://www.sportschau.de/tennis/atp/zverev-folgt-alcaraz-ins-traumfinale,spielbericht-atp-finals-zverev-medvedev-100.html"
+    }
+   ],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Zverev, el rey cuestionado al que encara Alcaraz: “Soy el único número uno que debe justificarse”",
+     "link": "https://elpais.com/deportes/tenis/2026-11-21/zverev-el-rey-cuestionado-al-que-encara-alcaraz-soy-el-unico-numero-uno-que-debe-justificarse.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Merz , ABnin 2028 - 2034 bütçe teklifini kesintileri yetersiz bularak kabul etmedi",
+   "kurz": "",
+   "link": "https://www.haberler.com/guncel/merz-ab-nin-2028-2034-butce-teklifini-kesintileri-20449904-haberi/",
+   "sprache": "tr",
+   "zeit": "2026-11-21T20:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Turkey"
+   ],
+   "laender_einig": [
+    "Turkey"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "haberler.com (Turkey): Merz , ABnin 2028 - 2034 bütçe teklifini kesintileri yetersiz bularak kabul etmedi"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "haberler.com",
+     "land": "Turkey",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "Merz , ABnin 2028 - 2034 bütçe teklifini kesintileri yetersiz bularak kabul etmedi",
+     "link": "https://www.haberler.com/guncel/merz-ab-nin-2028-2034-butce-teklifini-kesintileri-20449904-haberi/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Messina , allAgorà un albero simbolo dellamicizia tra Italia e Germania",
+   "kurz": "",
+   "link": "https://www.tempostretto.it/news/messina-allagora-un-albero-simbolo-dellamicizia-tra-italia-e-germania.html",
+   "sprache": "it",
+   "zeit": "2026-11-21T20:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Italy"
+   ],
+   "laender_einig": [
+    "Italy"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "tempostretto.it (Italy): Messina , allAgorà un albero simbolo dellamicizia tra Italia e Germania"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "tempostretto.it",
+     "land": "Italy",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "Messina , allAgorà un albero simbolo dellamicizia tra Italia e Germania",
+     "link": "https://www.tempostretto.it/news/messina-allagora-un-albero-simbolo-dellamicizia-tra-italia-e-germania.html",
+     "eigentuemer": "Eigentümer unbekannt",
      "zaehlt_nicht": ""
     }
    ]
@@ -197,7 +388,7 @@
    "kurz": "Rocked by investigative reports published by a consortium of more than 50 media outlets, including Le Monde, Deutsche Bank has downplayed the matter and said…",
    "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/20/inside-deutsche-bank-german-government-demands-transparency-over-revelations_6785607_8.html",
    "sprache": "en",
-   "zeit": "2026-11-20T18:38:40+01:00",
+   "zeit": "2026-11-20T18:38:38+01:00",
    "ausland_quellen": 1,
    "laender": [
     "Frankreich"
@@ -269,99 +460,23 @@
    ]
   },
   {
-   "titel": "Studie aus Deutschland: Psychische Gesundheit bei Jugendlichen seit Pandemie anhaltend belastet",
-   "kurz": "Eine verminderte Lebensqualität, psychische Auffälligkeiten und Angstsymptome sind bei Kindern und Jugendlichen in Deutschland nicht selten. Die COPSY-Studie…",
-   "link": "https://www.derstandard.at/story/3000000350166/studie-aus-deutschland-psychische-gesundheit-bei-jugendlichen-seit-pandemie-anhaltend-belastet?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-20T05:27:05Z",
+   "titel": "“Tenemos el mejor candidato”: así lanzó España la carrera por la presidencia del BCE",
+   "kurz": "El perfil de Hernández de Cos más las circunstancias que condicionan a Francia y Alemania dejan al español a las puertas de dirigir al regulador monetario",
+   "link": "https://elpais.com/economia/2026-11-22/tenemos-el-mejor-candidato-asi-lanzo-espana-la-carrera-por-la-presidencia-del-bce.html",
+   "sprache": "es",
+   "zeit": "2026-11-22T04:45:01Z",
    "ausland_quellen": 1,
    "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Studie aus Deutschland: Psychische Gesundheit bei Jugendlichen seit Pandemie anhaltend belastet"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Studie aus Deutschland: Psychische Gesundheit bei Jugendlichen seit Pandemie anhaltend belastet",
-     "link": "https://www.derstandard.at/story/3000000350166/studie-aus-deutschland-psychische-gesundheit-bei-jugendlichen-seit-pandemie-anhaltend-belastet?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
-   "kurz": "European allies of Ukraine say they have a \"united\" negotiating position at a summit in Berlin.",
-   "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-20T00:50:24Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "BBC Europe (Großbritannien): Europe ready for talks with Russia on ending war in Ukraine, leaders say"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "Europe ready for talks with Russia on ending war in Ukraine, leaders say",
-     "link": "https://www.bbc.co.uk/news/articles/ckzd9nln5e6go?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "From Germany, with love: a letter to the UK | Klaus Brinkbäumer",
-   "kurz": "As Andy Burnham pushes to reopen Brexit, Berlin won’t say it, but the truth is, we just want you back Dear British friends, Germans are not the love-letter…",
-   "link": "https://www.theguardian.com/commentisfree/2026/nov/20/from-germany-with-love-a-letter-to-the-uk",
-   "sprache": "en",
-   "zeit": "2026-11-20T05:00:22Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
+    "Spanien"
    ],
    "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Großbritannien"
+    "Frankreich",
+    "Spanien"
    ],
    "zusammenfassung": [
-    "Guardian Germany (Großbritannien): From Germany, with love: a letter to the UK | Klaus Brinkbäumer"
+    "El País (Spanien): “Tenemos el mejor candidato”: así lanzó España la carrera por la presidencia del BCE"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -371,13 +486,50 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
      "beteiligt": true,
-     "titel": "From Germany, with love: a letter to the UK | Klaus Brinkbäumer",
-     "link": "https://www.theguardian.com/commentisfree/2026/nov/20/from-germany-with-love-a-letter-to-the-uk",
-     "eigentuemer": "gehört Guardian Media Group",
+     "titel": "“Tenemos el mejor candidato”: así lanzó España la carrera por la presidencia del BCE",
+     "link": "https://elpais.com/economia/2026-11-22/tenemos-el-mejor-candidato-asi-lanzo-espana-la-carrera-por-la-presidencia-del-bce.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "German president to visit Kenya on final Africa tour before leaving office",
+   "kurz": "Steinmeier will be in Nairobi after visiting Côte d’Ivoire and Ghana as part of his five-day...",
+   "link": "https://nation.africa/kenya/news/world/german-president-to-visit-kenya-on-final-africa-tour-before-leaving-office-5679754",
+   "sprache": "en",
+   "zeit": "2026-11-21T17:39:10Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Kenia"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Kenia"
+   ],
+   "zusammenfassung": [
+    "Daily Nation (Kenia): German president to visit Kenya on final Africa tour before leaving office"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Daily Nation",
+     "land": "Kenia",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "German president to visit Kenya on final Africa tour before leaving office",
+     "link": "https://nation.africa/kenya/news/world/german-president-to-visit-kenya-on-final-africa-tour-before-leaving-office-5679754",
+     "eigentuemer": "gehört Nation Media Group",
      "zaehlt_nicht": ""
     }
    ]
@@ -446,28 +598,6 @@
    ],
    "themen": [
     "'Inside Deutsche Bank': German government demands 'transparency' over revelations"
-   ]
-  },
-  {
-   "name": "Klaus Brinkbäumer",
-   "wikidata": "https://www.wikidata.org/wiki/Q1744930",
-   "beschreibung": "German journalist",
-   "verbindungen": [
-    {
-     "eigenschaft": "Amt",
-     "wert": "Chefredakteur",
-     "link": "https://www.wikidata.org/wiki/Q589298",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Spiegel-Verlag",
-     "link": "https://www.wikidata.org/wiki/Q13142918",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "From Germany, with love: a letter to the UK | Klaus Brinkbäumer"
    ]
   }
  ],
@@ -1082,6 +1212,12 @@
    "keine_treffer": true
   },
   "Gegen Wehrpflicht": {
+   "keine_treffer": true
+  },
+  "Fusible Industrial": {
+   "keine_treffer": true
+  },
+  "Fusible Siemens": {
    "keine_treffer": true
   }
  }
