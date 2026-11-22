@@ -1,5 +1,5 @@
 {
- "erzeugt": "2026-11-22T07:30:05Z",
+ "erzeugt": "2026-11-22T20:00:23Z",
  "einstellungen": {
   "aktiv": true,
   "max_pro_tag": 3,
@@ -171,7 +171,19 @@
    "fehler": "ClipError: Für ein Ranking gibt es bei flyinguwe im Zeitraum 7d zu wenige verschiedene Clips (0). Anderen Zeitraum (30d) versuchen.",
    "hochgeladen": [],
    "credit": "Original: Flying Uwe – https://www.twitch.tv/flyinguwe"
+  },
+  {
+   "quelle": "https://www.youtube.com/watch?v=iG9Dpb9F7HY",
+   "creator": "Flying Uwe",
+   "titel": "65 & ich klingeln bei EUCH – Audi Q3 zu gewinnen!",
+   "zeit": "2026-11-22T19:59:20Z",
+   "ok": false,
+   "fehler": "ClipError: Download fehlgeschlagen (ERROR: [youtube] iG9Dpb9F7HY: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-d). Hinweis: YouTube & Co. sperren Cloud-/Rechenzentrums-IPs oft.",
+   "hochgeladen": [],
+   "credit": "Original: Flying Uwe – https://www.youtube.com/watch?v=iG9Dpb9F7HY"
   }
  ],
- "hinweise": []
+ "hinweise": [
+  "YouTube sperrt den Server (Anmeldung verlangt) – mit Secret CUDI_YT_COOKIES geht es (docs/clip-team.md)."
+ ]
 }
