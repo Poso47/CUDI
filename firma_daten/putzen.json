@@ -1,5 +1,5 @@
 {
- "erzeugt": "2026-11-17T12:24:57Z",
+ "erzeugt": "2026-11-23T13:36:02Z",
  "regeln": {
   "artefakte_tage": 7,
   "laeufe_tage": 30,
@@ -7,18 +7,23 @@
   "ideen_tage": 7
  },
  "letzter_lauf": {
-  "zeit": "2026-11-17T12:24:57Z",
+  "zeit": "2026-11-23T13:36:02Z",
   "entfernt": {
    "artefakte": 0,
    "laeufe": 0,
-   "issues_gesperrt": 0,
-   "daten": {
-    "ideen": 3
-   }
+   "issues_gesperrt": 1,
+   "daten": {}
   },
   "hinweise": []
  },
  "protokoll": [
+  {
+   "zeit": "2026-11-23T13:36:02Z",
+   "entfernt": {
+    "issues_gesperrt": 1
+   },
+   "trocken": false
+  },
   {
    "zeit": "2026-11-17T12:24:57Z",
    "entfernt": {
