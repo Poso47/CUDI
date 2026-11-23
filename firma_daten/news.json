@@ -1,29 +1,29 @@
 {
- "erzeugt": "2026-11-23T01:56:47Z",
+ "erzeugt": "2026-11-23T13:33:54Z",
  "anzahl": 60,
- "bestaetigt": 7,
+ "bestaetigt": 8,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
   {
-   "titel": "Explosion on Russian ship at Libya port caused by suspected drone attack, officials say",
-   "kurz": "Libya's eastern government says the ship had stopped for fuel and supplies on its way back to Russia.",
+   "titel": "Russian warship hit by Ukrainian drones in Libya, Zelensky says",
+   "kurz": "The Kremlin warns of an \"escalation of tensions in the region\", but declines to comment directly on the attacks in Libya.",
    "link": "https://www.bbc.co.uk/news/articles/cr894gjz0j0yo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-22T20:28:09Z",
+   "zeit": "2026-11-23T11:40:01Z",
    "status": "bestätigt",
-   "n_quellen": 4,
-   "unabhaengig_n": 4,
+   "n_quellen": 5,
+   "unabhaengig_n": 5,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Explosion on Russian ship at Libya port caused by suspected drone attack, officials say",
-     "link": "https://www.bbc.co.uk/news/articles/cr894gjz0j0yo?at_medium=RSS&at_campaign=rss",
+     "titel": "'Danger seems greater all the time': Ukrainians search for missing after Russian strikes",
+     "link": "https://www.bbc.co.uk/news/videos/cre3dvd1k9y1o?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -37,11 +37,19 @@
      "zaehlt_nicht": ""
     },
     {
+     "quelle": "NPR",
+     "titel": "Ukrainian drones hit a Russian warship at a naval base in Libya, Zelenskyy says",
+     "link": "https://www.npr.org/2026/11/23/g-s1-155017/ukraine-attack-russian-warship-libya",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    },
+    {
      "quelle": "Wikipedia · Al-Jazeera",
-     "titel": "Several people are killed and at least 10 people are injured after the Russian corvette Merkury is struck by a Ukrainian naval drone attack…",
+     "titel": "Several people are killed and at least 10 others are injured after the Russian corvette Merkury is struck by a Ukrainian naval drone attack…",
      "link": "https://www.aljazeera.com/amp/news/2026/11/22/suspected-drone-strike-hits-russian-vessel-in-libya",
      "eigentuemer": "staatlich (Katar)",
-     "gruppe": 2,
+     "gruppe": 3,
      "zaehlt_nicht": ""
     },
     {
@@ -49,7 +57,108 @@
      "titel": "The Finnish defence ministry imposes temporary airspace and maritime restrictions after a drone struck a Russian cargo vessel in…",
      "link": "https://www.afp.com/en/russian-cargo-ship-hit-drone-baltic-finland-says",
      "eigentuemer": "gehört Agence France-Presse",
-     "gruppe": 3,
+     "gruppe": 4,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Longest-ever UN climate talks end with no deal as deep divisions exposed",
+   "kurz": "The prime minister of Australia, which co-hosted COP31, attributed the failure to \"difficult geopolitical times\".",
+   "link": "https://www.bbc.co.uk/news/articles/cqwy06zrd26lo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-23T06:33:50Z",
+   "status": "bestätigt",
+   "n_quellen": 3,
+   "unabhaengig_n": 3,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Five takeaways from the failed climate talks COP31",
+     "link": "https://www.bbc.co.uk/news/articles/cm75237wlp3lo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "COP31 climate talks end without consensus on how to fund vulnerable countries or move the world away from coal, oil and gas use",
+     "link": "https://www.dw.com/en/cop31-climate-talks-end-without-consensus-on-how-to-fund-vulnerable-countries-or-move-the-world-away-from-coal-oil-and-gas-use/a-80003610?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AFP",
+     "titel": "The 2026 United Nations Climate Change Conference (COP31) in Antalya , Turkey , concludes without a final agreement after countries failed…",
+     "link": "https://www.afp.com/en/climate-talks-collapse-chaotic-end-cop31",
+     "eigentuemer": "gehört Agence France-Presse",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Democrats win largest House majority since 1992 after flipping North Carolina seat",
+   "kurz": "Democrats have now won at least 258 seats in the midterms compared to Republicans, who hold at least 173 seats.",
+   "link": "https://www.bbc.co.uk/news/articles/c6vg29g7dlyno?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-23T13:02:05Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Democrats win largest House majority since 1992 after flipping North Carolina seat",
+     "link": "https://www.bbc.co.uk/news/articles/c6vg29g7dlyno?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "NPR",
+     "titel": "Democrats win House by largest margin in 50 years. And, COP31 ends with no deal",
+     "link": "https://www.npr.org/2026/11/23/g-s1-155021/up-first-newsletter-midterms-house-ai-stocks-poland-nato-cop31",
+     "eigentuemer": "gehört NPR",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Geheimdienste warnen: Russland soll Atomwaffe im Weltraum vorbereiten",
+   "kurz": "Westliche Geheimdienste gehen nach Recherchen von WDR, NDR und SZ davon aus, dass Russland noch dieses Jahr einen Satelliten mit einem Atomsprengkopf in den…",
+   "link": "https://www.tagesschau.de/investigativ/ndr-wdr/satellit-russland-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T09:02:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Geheimdienste warnen: Russland soll Atomwaffe im Weltraum vorbereiten",
+     "link": "https://www.tagesschau.de/investigativ/ndr-wdr/satellit-russland-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Russland soll Atomwaffe im Weltraum stationieren wollen",
+     "link": "https://www.dw.com/de/russland-soll-atomwaffe-im-weltraum-stationieren-wollen/a-80016120?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
      "zaehlt_nicht": ""
     }
    ]
@@ -62,8 +171,8 @@
    "sprache": "en",
    "zeit": "2026-11-22T14:05:20Z",
    "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
@@ -76,94 +185,10 @@
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Dozens missing as deadly fire hits Indonesian candy factory",
-     "link": "https://www.dw.com/en/dozens-missing-as-deadly-fire-hits-indonesian-candy-factory/a-80012342?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    },
-    {
      "quelle": "Wikipedia · AFP via France 24",
      "titel": "A fire at a confectionery factory in Serang Regency , Banten , Indonesia , kills at least three people, leaves 36 others missing, and…",
      "link": "https://www.france24.com/en/live-news/20261122-three-dead-36-missing-after-indonesia-factory-fire",
      "eigentuemer": "staatlich (Frankreich)",
-     "gruppe": 2,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Mexican special forces arrest drug kingpin 'Chapo Isidro'",
-   "kurz": "The alleged leader of the Beltran Leyva gang and one of the FBI's most wanted fugitives, known as \"Chapo Isidro,\" was captured by the Mexican military…",
-   "link": "https://www.dw.com/en/mexican-special-forces-arrest-drug-kingpin-chapo-isidro/a-80010745?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-21T18:30:00Z",
-   "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 2,
-   "abhaengig": [
-    {
-     "a": "Wikipedia · AFP via France 24",
-     "b": "Wikipedia · AFP",
-     "grund": "gleiche Nachrichtenagentur AFP"
-    }
-   ],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Mexican special forces arrest drug kingpin 'Chapo Isidro'",
-     "link": "https://www.dw.com/en/mexican-special-forces-arrest-drug-kingpin-chapo-isidro/a-80010745?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AFP via France 24",
-     "titel": "Mexican special forces arrest Fausto Isidro Meza Flores , leader of the drug cartel Los Mazatlecos and one of the United States Federal…",
-     "link": "https://www.france24.com/en/live-news/20261121-mexico-captures-drug-kingpin-on-fbi-s-most-wanted-list",
-     "eigentuemer": "staatlich (Frankreich)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AFP",
-     "titel": "Chinese leader Xi Jinping , Russian president Vladimir Putin , and United States president Donald Trump hold their first trilateral meeting…",
-     "link": "https://www.afp.com/en/china-us-russia-issue-declaration-toward-peace-after-first-summit",
-     "eigentuemer": "gehört Agence France-Presse",
-     "gruppe": 1,
-     "zaehlt_nicht": "gleiche Nachrichtenagentur AFP"
-    }
-   ]
-  },
-  {
-   "titel": "COP31 fails to reach major climate deal as talks expose deep divisions",
-   "kurz": "Hopes for an agreement on tackling climate change collapsed after a row about mentioning fossil fuels",
-   "link": "https://www.bbc.co.uk/news/articles/cqwy06zrd26lo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-23T00:50:35Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "What's next after no deal at COP31 climate talks?",
-     "link": "https://www.bbc.co.uk/news/videos/cr1ewge81q4qo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "COP31: Climate deal 'not adopted,' summit president says",
-     "link": "https://www.dw.com/en/cop31-climate-deal-not-adopted-summit-president-says/live-79999516?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -267,12 +292,12 @@
    ]
   },
   {
-   "titel": "US-Repräsentantenhaus: Demokraten so stark wie zuletzt 1992",
-   "kurz": "Die Demokraten haben ihre Mehrheit im US-Repräsentantenhaus weiter ausgebaut. Ab Januar stellen sie dort mindestens 258 Abgeordnete - zuletzt gelang ihnen dies…",
-   "link": "https://www.tagesschau.de/ausland/amerika/demokraten-mehrheit-repraesentantenhaus-100.html",
+   "titel": "Russland plant offenbar Atomsprengkopf fürs All",
+   "kurz": "Russland plant offenbar Atomsprengkopf fürs All",
+   "link": "https://www.tagesschau.de/video/video-1688444.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-23T01:55:05+01:00",
+   "zeit": "2026-11-23T14:15:56+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -281,8 +306,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "US-Repräsentantenhaus: Demokraten so stark wie zuletzt 1992",
-     "link": "https://www.tagesschau.de/ausland/amerika/demokraten-mehrheit-repraesentantenhaus-100.html",
+     "titel": "Russland plant offenbar Atomsprengkopf fürs All",
+     "link": "https://www.tagesschau.de/video/video-1688444.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -290,12 +315,12 @@
    ]
   },
   {
-   "titel": "Explosion auf russischem Schiff in Libyen - Behörden vermuten Drohnenangriff",
-   "kurz": "In einem Hafen der ostlibyschen Stadt Bengasi hat es eine Explosion auf einem russischen Kriegsschiff gegeben. Die Behörden gehen von einem Angriff mit Drohnen…",
-   "link": "https://www.tagesschau.de/ausland/afrika/russisches-schiff-libyen-100.html",
+   "titel": "NATO-Generalsekretär Rutte: \"Russlands Kriegsmaschinerie läuft auf Hochtouren\"",
+   "kurz": "NATO-Generalsekretär Rutte: \"Russlands Kriegsmaschinerie läuft auf Hochtouren\"",
+   "link": "https://www.tagesschau.de/video/video-1688434.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-23T01:51:02+01:00",
+   "zeit": "2026-11-23T14:10:55+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -304,9 +329,515 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Explosion auf russischem Schiff in Libyen - Behörden vermuten Drohnenangriff",
-     "link": "https://www.tagesschau.de/ausland/afrika/russisches-schiff-libyen-100.html",
+     "titel": "NATO-Generalsekretär Rutte: \"Russlands Kriegsmaschinerie läuft auf Hochtouren\"",
+     "link": "https://www.tagesschau.de/video/video-1688434.html",
      "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "EU-Kommission ermittelt gegen Coca-Cola-Abfüller wegen Wettbewerbsverstößen",
+   "kurz": "Die EU-Kommission ermittelt wegen möglicher Wettbewerbsverstöße gegen den größten europäischen Coca-Cola-Abfüller. Das Unternehmen habe Supermärkten und…",
+   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/eu-ermittlungen-coca-cola-abfueller-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T14:02:10+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "EU-Kommission ermittelt gegen Coca-Cola-Abfüller wegen Wettbewerbsverstößen",
+     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/eu-ermittlungen-coca-cola-abfueller-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Uganda minister at COP31: 'We need a just transition'",
+   "kurz": "Funding from wealthy countries to help deal with the impacts of climate change hasn't materialized, says Uganda's environment minister. The East African…",
+   "link": "https://www.dw.com/en/uganda-minister-at-cop31-we-need-a-just-transition/a-79997209?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-23T13:18:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Uganda minister at COP31: 'We need a just transition'",
+     "link": "https://www.dw.com/en/uganda-minister-at-cop31-we-need-a-just-transition/a-79997209?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nachfolge von Aiwanger: Tobias Gotthardt wird Wirtschaftsminister",
+   "kurz": "Nach dem plötzlichen Tod von Bayerns Wirtschaftsminister Aiwanger soll Staatssekretär Gotthardt als Wirtschaftsminister folgen. Der Landesverband wird künftig…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/aiwanger-nachfolge-gotthardt-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T13:17:05+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Nachfolge von Aiwanger: Tobias Gotthardt wird Wirtschaftsminister",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/aiwanger-nachfolge-gotthardt-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "A reset for climate diplomacy?",
+   "kurz": "COP31 has been branded a failure after countries couldn't reach a deal. But was the decision to walk away from what would have been a step back actually a show…",
+   "link": "https://www.dw.com/en/a-reset-for-climate-diplomacy/a-80020494?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-23T13:03:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "A reset for climate diplomacy?",
+     "link": "https://www.dw.com/en/a-reset-for-climate-diplomacy/a-80020494?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Bombendrohungen an Hunderten Schulen bundesweit",
+   "kurz": "Freiburg, Erfurt oder Hamburg: Hunderte Schulen im ganzen Land haben Drohschreiben bekommen. Mehrere Schulen wurden vorsorglich geräumt. Laut verschiedenen…",
+   "link": "https://www.tagesschau.de/inland/gesellschaft/bombendrohungen-schulen-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T12:55:42+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Bombendrohungen an Hunderten Schulen bundesweit",
+     "link": "https://www.tagesschau.de/inland/gesellschaft/bombendrohungen-schulen-102.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Marktbericht: Dem DAX gelingt eine Erholung - vorerst",
+   "kurz": "Nach dem Kursrutsch beim DAX von 2.000 Punkten in gut einer Woche setzt eine Erholung ein. Doch sie steht auf wackligen Beinen. Viele Negativ-Faktoren…",
+   "link": "https://www.tagesschau.de/wirtschaft/finanzen/dax-erholung-wacklig-nach-kursrutsch-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T12:49:55+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Marktbericht: Dem DAX gelingt eine Erholung - vorerst",
+     "link": "https://www.tagesschau.de/wirtschaft/finanzen/dax-erholung-wacklig-nach-kursrutsch-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Lissy Kaufmann, ARD Berlin, zu Reaktionen auf Ende der Klimakonferenz",
+   "kurz": "Lissy Kaufmann, ARD Berlin, zu Reaktionen auf Ende der Klimakonferenz",
+   "link": "https://www.tagesschau.de/video/video-1688400.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T12:33:53+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Lissy Kaufmann, ARD Berlin, zu Reaktionen auf Ende der Klimakonferenz",
+     "link": "https://www.tagesschau.de/video/video-1688400.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Presidential villa suffers water and power cuts, Nigerian leader says",
+   "kurz": "Bola Tinubu says he was shaving last week when the water cut out - an experience familiar to many Nigerians.",
+   "link": "https://www.bbc.co.uk/news/articles/cv1j65xjjk65o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-23T12:33:44Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Presidential villa suffers water and power cuts, Nigerian leader says",
+     "link": "https://www.bbc.co.uk/news/articles/cv1j65xjjk65o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Flights and train services cancelled in Belgium due to strike",
+   "kurz": "A series of strikes have hit Belgium in recent months as the prime minister struggles to agree a budget to cut costs.",
+   "link": "https://www.bbc.co.uk/news/articles/cwdr155e2d05o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-23T12:27:34Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Flights and train services cancelled in Belgium due to strike",
+     "link": "https://www.bbc.co.uk/news/articles/cwdr155e2d05o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Sparpolitik der Regierung: Streik in Belgien legt Flugverkehr lahm",
+   "kurz": "Durch einen Generalstreik in Belgien ist der Flugverkehr zum Erliegen gekommen. An den Brüsseler Flughäfen gibt es keine Starts und Landungen. Der Grund sind…",
+   "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/belgien-generalstreik-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T12:20:16+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Sparpolitik der Regierung: Streik in Belgien legt Flugverkehr lahm",
+     "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/belgien-generalstreik-102.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Israeli attacks have turned Gaza into 'toxic wasteland', Oxfam says",
+   "kurz": "The report says there are signs of possible contamination across almost all of Gaza as a result of Israel's actions.",
+   "link": "https://www.bbc.co.uk/news/articles/c8r4gzzxvxl3o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-23T11:57:33Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Israeli attacks have turned Gaza into 'toxic wasteland', Oxfam says",
+     "link": "https://www.bbc.co.uk/news/articles/c8r4gzzxvxl3o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Tina Fuchs, SWR, zu neuen Warnstreiks in Metall- und Elektroindustrie",
+   "kurz": "Tina Fuchs, SWR, zu neuen Warnstreiks in Metall- und Elektroindustrie",
+   "link": "https://www.tagesschau.de/video/video-1688380.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T11:45:58+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "IG Metall weitet Warnstreiks in norddeutscher Metall- und Elektroindustrie aus",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/ig-metall-warnstreik-102.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Wer ist schuld am Scheitern des Klimagipfels?",
+   "kurz": "Die Klimakonferenz in Antalya ist nach zwei Wochen zäher Verhandlungen ohne Abschlusserklärung zu Ende gegangen. Woran lag das? Bei der Suche nach möglichen…",
+   "link": "https://www.tagesschau.de/ausland/europa/klimakonferenz-scheitern-verantwortung-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T11:42:23+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Wer ist schuld am Scheitern des Klimagipfels?",
+     "link": "https://www.tagesschau.de/ausland/europa/klimakonferenz-scheitern-verantwortung-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "\"Koalition der Willigen\" absolviert Militärübung in Polen",
+   "kurz": "Es war die erste militärische Übung der \"Koalition der Willigen\": Hunderte Soldaten haben in Polen getestet, wie in der Ukraine Frieden gesichert werden kann…",
+   "link": "https://www.tagesschau.de/ausland/europa/militaeruebung-polen-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T11:30:31+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "\"Koalition der Willigen\" absolviert Militärübung in Polen",
+     "link": "https://www.tagesschau.de/ausland/europa/militaeruebung-polen-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Einigung: Zeugen Jehovas bekommen Archiv einer NS-Verfolgten",
+   "kurz": "Die Zeugen Jehovas litten unter der Verfolgung der Nationalsozialisten - eine Betroffene hat dies minutiös dokumentiert. Doch das Kusserow-Archiv lag lange im…",
+   "link": "https://www.tagesschau.de/inland/gesellschaft/zeugen-jehovas-kusserow-ns-verfolgung-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T11:26:02+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Einigung: Zeugen Jehovas bekommen Archiv einer NS-Verfolgten",
+     "link": "https://www.tagesschau.de/inland/gesellschaft/zeugen-jehovas-kusserow-ns-verfolgung-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Weltklimakonferenz in Antalya endet enttäuschend - ohne Abschlusserklärung",
+   "kurz": "Weltklimakonferenz in Antalya endet enttäuschend - ohne Abschlusserklärung",
+   "link": "https://www.tagesschau.de/video/video-1688366.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T11:24:40+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Weltklimakonferenz in Antalya endet enttäuschend - ohne Abschlusserklärung",
+     "link": "https://www.tagesschau.de/video/video-1688366.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Florian Flade, ARD Berlin, über Russlands Atom-Pläne im All",
+   "kurz": "Florian Flade, ARD Berlin, über Russlands Atom-Pläne im All",
+   "link": "https://www.tagesschau.de/video/video-1688346.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T11:03:12+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Florian Flade, ARD Berlin, über Russlands Atom-Pläne im All",
+     "link": "https://www.tagesschau.de/video/video-1688346.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "German police respond to multiple school bomb threats",
+   "kurz": "Police in Germany are responding to bomb threats against a series of schools, but say that at present they don't believe them to be credible. Danish…",
+   "link": "https://www.dw.com/en/german-police-respond-to-multiple-school-bomb-threats/a-80018842?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-23T11:01:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "German police respond to multiple school bomb threats",
+     "link": "https://www.dw.com/en/german-police-respond-to-multiple-school-bomb-threats/a-80018842?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Angst vor schweren Krankheiten in Deutschland wächst",
+   "kurz": "Krebs bleibt die am meisten gefürchtete Krankheit in Deutschland. Doch auch die Sorgen vor Schlaganfällen, Demenz und psychischen Erkrankungen nehmen zu…",
+   "link": "https://www.dw.com/de/angst-vor-schweren-krankheiten-in-deutschland-wächst/a-80018197?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-23T10:59:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Angst vor schweren Krankheiten in Deutschland wächst",
+     "link": "https://www.dw.com/de/angst-vor-schweren-krankheiten-in-deutschland-wächst/a-80018197?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "'I've lost her forever' — Why German voice actors are refusing to sign Netflix's AI contract",
+   "kurz": "For decades, Germans have known Hollywood's biggest stars through the same familiar voices. Now an AI clause in Netflix contracts is splitting the industry…",
+   "link": "https://www.dw.com/en/i-ve-lost-her-forever-why-german-voice-actors-are-refusing-to-sign-netflix-s-ai-contract/a-80004381?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-23T10:58:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "'I've lost her forever' — Why German voice actors are refusing to sign Netflix's AI contract",
+     "link": "https://www.dw.com/en/i-ve-lost-her-forever-why-german-voice-actors-are-refusing-to-sign-netflix-s-ai-contract/a-80004381?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Affäre von Ex-Nvidia-Chef wohl in Kontakt zu Chinas Geheimdienst",
+   "kurz": "Alice Huang, Geliebte des ehemaligen Nvidia-Chefs, hatte offenbar mehr als ein Jahr lang Kontakt zu einem Mitarbeiter des chinesischen Geheimdienstes. Die…",
+   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/nvidia-skandal-kontakt-chinesischer-geheimdienst-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T10:56:20+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Affäre von Ex-Nvidia-Chef wohl in Kontakt zu Chinas Geheimdienst",
+     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/nvidia-skandal-kontakt-chinesischer-geheimdienst-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Budget cuts threaten Germany's fight against antisemitism and racism",
+   "kurz": "Numerous grassroots initiatives in Germany are facing funding cuts. Affected organizations are sounding the alarm, pointing to growing challenges posed by…",
+   "link": "https://www.dw.com/en/budget-cuts-threaten-germany-s-fight-against-antisemitism-and-racism/a-80018644?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-23T10:55:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Budget cuts threaten Germany's fight against antisemitism and racism",
+     "link": "https://www.dw.com/en/budget-cuts-threaten-germany-s-fight-against-antisemitism-and-racism/a-80018644?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -315,10 +846,10 @@
   {
    "titel": "tagesschau in 100 Sekunden",
    "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1688236.html",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1688350.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-23T01:47:50+01:00",
+   "zeit": "2026-11-23T10:52:48+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -328,7 +859,7 @@
     {
      "quelle": "Tagesschau",
      "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1688236.html",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1688350.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -336,58 +867,12 @@
    ]
   },
   {
-   "titel": "Democrats win largest House majority since 1992 after flipping North Carolina seat",
-   "kurz": "Democrats have now won at least 258 seats in the midterms compared to Republicans, who hold at least 173 seats.",
-   "link": "https://www.bbc.co.uk/news/articles/c6vg29g7dlyno?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-23T01:23:43Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Democrats win largest House majority since 1992 after flipping North Carolina seat",
-     "link": "https://www.bbc.co.uk/news/articles/c6vg29g7dlyno?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Italian jeweller and businessman Paolo Bulgari dies aged 89",
-   "kurz": "In a statement to Italian media, his family remember him as \"the greatest jeweller of our time\".",
-   "link": "https://www.bbc.co.uk/news/articles/c8e39qk5vrpdo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-23T00:33:36Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Italian jeweller and businessman Paolo Bulgari dies aged 89",
-     "link": "https://www.bbc.co.uk/news/articles/c8e39qk5vrpdo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "FC Augsburgs Befreiungsschlag verschärft Krise von Mainz 05",
-   "kurz": "Der FC Augsburg hat in der Bundesliga trotz einer Roten Karte für Trainer Baum erstmals seit dem zweiten Spieltag wieder gewonnen. Der 3:1-Sieg verschärft die…",
-   "link": "https://www.sportschau.de/fussball/bundesliga/augsburger-befreiungsschlag-verschaerft-mainzer-krise,spielbericht-fc-augsburg-mainz-05-100.html",
-   "quelle": "Tagesschau",
+   "titel": "Ukraine bestätigt Angriffe auf russische Schiffe vor Libyen",
+   "kurz": "Die ukrainischen Streitkräfte hätten \"Seedrohnen\" eingesetzt, erklärte Präsident Selenskyj. \"Trotz aller Bemühungen des Feindes, den Angriff abzuwehren\", sei…",
+   "link": "https://www.dw.com/de/ukraine-bestätigt-angriffe-auf-russische-schiffe-vor-libyen/a-80018005?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
    "sprache": "de",
-   "zeit": "2026-11-23T00:00:09+01:00",
+   "zeit": "2026-11-23T10:42:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -395,263 +880,10 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "FC Augsburgs Befreiungsschlag verschärft Krise von Mainz 05",
-     "link": "https://www.sportschau.de/fussball/bundesliga/augsburger-befreiungsschlag-verschaerft-mainzer-krise,spielbericht-fc-augsburg-mainz-05-100.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "BVB holt sich mit 1:0-Sieg in Mönchengladbach die Tabellenführung",
-   "kurz": "Der BVB ist neuer Tabellenführer der Fußball-Bundesliga. Beim hart erkämpften Auswärtssieg bei Borussia Mönchengladbach profitierten die Schwarz-Gelben…",
-   "link": "https://www.sportschau.de/regional/wdr/wdr-bvb-holt-sich-in-moenchengladbach-die-tabellenfuehrung-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-23T00:00:08+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "BVB holt sich mit 1:0-Sieg in Mönchengladbach die Tabellenführung",
-     "link": "https://www.sportschau.de/regional/wdr/wdr-bvb-holt-sich-in-moenchengladbach-die-tabellenfuehrung-100.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Bremen schlägt den HSV im Nordderby klar",
-   "kurz": "Werder Bremen bleibt die Bundesliga-Überraschung. Mit einem deutlichen 4:0-Erfolg im Nordderby gegen den Hamburger SV halten die Grün-Weißen den Anschluss an…",
-   "link": "https://www.sportschau.de/fussball/bundesliga/bremen-haemmert-hsv-im-nordderby-weg,spielbericht-werder-bremen-hamburger-sv-104.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-23T00:00:04+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Bremen schlägt den HSV im Nordderby klar",
-     "link": "https://www.sportschau.de/fussball/bundesliga/bremen-haemmert-hsv-im-nordderby-weg,spielbericht-werder-bremen-hamburger-sv-104.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Regierungskoalition diskutiert weiterhin über die Rentenreform",
-   "kurz": "Regierungskoalition diskutiert weiterhin über die Rentenreform",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1688220.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T23:01:22+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Regierungskoalition diskutiert weiterhin über die Rentenreform",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1688220.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Die Meinung von Janina Schreiber, SWR, zum Scheitern der Weltklimakonferenz",
-   "kurz": "Die Meinung von Janina Schreiber, SWR, zum Scheitern der Weltklimakonferenz",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1688218.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T22:57:58+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Die Meinung von Janina Schreiber, SWR, zum Scheitern der Weltklimakonferenz",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1688218.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "COP31 ohne Abschlusserklärung: Was haben die Klimakonferenzen seit 2015 gebracht?",
-   "kurz": "COP31 ohne Abschlusserklärung: Was haben die Klimakonferenzen seit 2015 gebracht?",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1688216.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T22:56:45+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "COP31 ohne Abschlusserklärung: Was haben die Klimakonferenzen seit 2015 gebracht?",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1688216.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "'Danger seems greater all the time': Ukrainians search for missing after Russian strikes",
-   "kurz": "The BBC's Sarah Rainsford reports from the scene of a collapsed residential building in Ukraine's Kyiv region.",
-   "link": "https://www.bbc.co.uk/news/videos/cre3dvd1k9y1o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-22T22:37:43Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "'Danger seems greater all the time': Ukrainians search for missing after Russian strikes",
-     "link": "https://www.bbc.co.uk/news/videos/cre3dvd1k9y1o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Turkey: Thousands protest closure of critical media outlets",
-   "kurz": "Protesters gathered in Istanbul to show their support for press freedom in Turkey. The protest was called just days after the police raided Sozcu TV and…",
-   "link": "https://www.dw.com/en/turkey-thousands-protest-closure-of-critical-media-outlets/a-80015347?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-22T21:31:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Turkey: Thousands protest closure of critical media outlets",
-     "link": "https://www.dw.com/en/turkey-thousands-protest-closure-of-critical-media-outlets/a-80015347?maca=en-rss-en-all-1573-xml-mrss",
+     "quelle": "Deutsche Welle",
+     "titel": "Ukraine bestätigt Angriffe auf russische Schiffe vor Libyen",
+     "link": "https://www.dw.com/de/ukraine-bestätigt-angriffe-auf-russische-schiffe-vor-libyen/a-80018005?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Miley Cyrus marries Maxx Morando in California ceremony",
-   "kurz": "The couple have been together for four years and were engaged in 2025.",
-   "link": "https://www.bbc.co.uk/news/articles/cq8e0p87l89lo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-22T21:22:40Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Miley Cyrus marries Maxx Morando in California ceremony",
-     "link": "https://www.bbc.co.uk/news/articles/cq8e0p87l89lo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "tagesschau 20:00 Uhr",
-   "kurz": "Klimakonferenz COP31 im türkischen Antalya endet ohne Einigung auf gemeinsame Abschlusserklärung, CSU-Chef Söder fordert schnelle Entscheidungen zur…",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1688180.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T21:04:03+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "tagesschau 20:00 Uhr",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1688180.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Buhrufe und Pfiffe gegen BVB-Boss Cramer wegen Fall Nmecha",
-   "kurz": "Der religiös motivierte Kronen-Jubel von BVB-Fußballer Nmecha hat für Diskussionen gesorgt. Bei der Mitgliederversammlung des Vereins äußerte sich…",
-   "link": "https://www.tagesschau.de/sport/mitgliederversammlung-bvb-fall-nmecha-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T20:58:18+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Buhrufe und Pfiffe gegen BVB-Boss Cramer wegen Fall Nmecha",
-     "link": "https://www.tagesschau.de/sport/mitgliederversammlung-bvb-fall-nmecha-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Nach Drohnenangriff: \"Sparta II\" wird in russische Gewässer geschleppt",
-   "kurz": "Am Samstag war der russische Frachter \"Sparta II\" in der Ostsee von einer Drohne getroffen worden und in Brand geraten. Laut finnischem Grenzschutz hat das…",
-   "link": "https://www.tagesschau.de/ausland/europa/finnland-ostsee-frachter-drohne-102.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T20:53:03+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Nach Drohnenangriff: \"Sparta II\" wird in russische Gewässer geschleppt",
-     "link": "https://www.tagesschau.de/ausland/europa/finnland-ostsee-frachter-drohne-102.html",
-     "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
@@ -663,7 +895,7 @@
    "link": "https://www.sportschau.de/tennis/atp/zverev-verpasst-finals-titel,finale-zverev-alcaraz-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-22T20:31:47+01:00",
+   "zeit": "2026-11-23T10:37:46+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -681,12 +913,12 @@
    ]
   },
   {
-   "titel": "tagesschau mit Gebärdensprache",
-   "kurz": "tagesschau mit Gebärdensprache",
-   "link": "https://www.tagesschau.de/tagesschau_mit_gebaerdensprache/tsg-12388.html",
+   "titel": "Verbraucherschützer warnen zur Black Week vor Betrugsmaschen",
+   "kurz": "Rabatte von 50, 60 oder sogar 70 Prozent: Rund um den Black Friday lockt der Handel mit vermeintlichen Schnäppchen. Die Branche erwartet Rekordumsätze. Doch…",
+   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/blackweek-preisfallen-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-22T20:30:04+01:00",
+   "zeit": "2026-11-23T10:33:43+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -695,8 +927,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "tagesschau mit Gebärdensprache",
-     "link": "https://www.tagesschau.de/tagesschau_mit_gebaerdensprache/tsg-12388.html",
+     "titel": "Verbraucherschützer warnen zur Black Week vor Betrugsmaschen",
+     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/blackweek-preisfallen-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -704,150 +936,12 @@
    ]
   },
   {
-   "titel": "Kinderraub als Kriegswaffe: Hitlers Erbe, Putins System",
-   "kurz": "Als Kind von den Nazis verschleppt, als junge Frau mit dem Kinderraub durch Russland konfrontiert: Barbara Paciorkiewicz und Ksenija Koldin erzählen von…",
-   "link": "https://www.dw.com/de/kinderraub-als-kriegswaffe-hitlers-erbe-putins-system/a-80001588?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-22T20:30:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Kinderraub als Kriegswaffe: Hitlers Erbe, Putins System",
-     "link": "https://www.dw.com/de/kinderraub-als-kriegswaffe-hitlers-erbe-putins-system/a-80001588?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "TK-Chef Baas: Mehr Geld schafft keine Arzttermine",
-   "kurz": "Schneller zum Facharzt gegen Bezahlung? Die Einschätzung von Kassenärzte-Chef Gassen hat Kritik ausgelöst. Mehr Geld löse das Problem nicht, sagt TK-Chef Baas…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/bericht-aus-berlin-arzttermine-baas-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T20:24:22+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "TK-Chef Baas: Mehr Geld schafft keine Arzttermine",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/bericht-aus-berlin-arzttermine-baas-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Tausende demonstrieren in der Türkei gegen Einschränkungen der Pressefreiheit",
-   "kurz": "Tausende demonstrieren in der Türkei gegen Einschränkungen der Pressefreiheit",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1688174.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T20:16:42+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Türkei: Tausende demonstrieren in Istanbul für Pressefreiheit",
-     "link": "https://www.tagesschau.de/ausland/europa/tuerkei-proteste-pressefreiheit-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Russischer Frachter brennt in der Ostsee nach Drohnenangriff",
-   "kurz": "Russischer Frachter brennt in der Ostsee nach Drohnenangriff",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1688172.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T20:13:38+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Russischer Frachter brennt in der Ostsee nach Drohnenangriff",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1688172.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Justizministerin Hubig will Mordparagrafen verschärfen und Femizide als Mord erfassen",
-   "kurz": "Justizministerin Hubig will Mordparagrafen verschärfen und Femizide als Mord erfassen",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1688168.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T20:11:53+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Gesetzentwurf des Justizministeriums: Femizide sollen eindeutig als Mord gelten",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/femizide-mord-gesetzentwurf-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Kritik am Vorschlag um Selbstzahler-Termine bei Fachärzten für Kassenpatienten",
-   "kurz": "Kritik am Vorschlag um Selbstzahler-Termine bei Fachärzten für Kassenpatienten",
-   "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1688170.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T20:11:27+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Kritik am Vorschlag um Selbstzahler-Termine bei Fachärzten für Kassenpatienten",
-     "link": "https://www.tagesschau.de/tagesschau_20_uhr/video-1688170.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Sudan: Drones hit UN building, residential area in Khartoum",
-   "kurz": "The drones targeted Khartoum, damaging a UN building in the residential area. The UN agency deemed it unacceptable that humanitarian workers were exposed to…",
-   "link": "https://www.dw.com/en/sudan-drones-hit-un-building-residential-area-in-khartoum/a-80015122?maca=en-rss-en-all-1573-xml-mrss",
+   "titel": "Rembrandt's 'The Night Watch' is more alive than you'd expect",
+   "kurz": "A new project and exhibition, \"The Night Watch Lives,\" lifts the veil on the hidden world of microbes covering one of the most famous paintings of the Dutch…",
+   "link": "https://www.dw.com/en/rembrandt-s-the-night-watch-is-more-alive-than-you-d-expect/a-79972540?maca=en-rss-en-all-1573-xml-mrss",
    "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-22T19:25:00Z",
+   "zeit": "2026-11-23T10:33:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -856,8 +950,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "Sudan: Drones hit UN building, residential area in Khartoum",
-     "link": "https://www.dw.com/en/sudan-drones-hit-un-building-residential-area-in-khartoum/a-80015122?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "Rembrandt's 'The Night Watch' is more alive than you'd expect",
+     "link": "https://www.dw.com/en/rembrandt-s-the-night-watch-is-more-alive-than-you-d-expect/a-79972540?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -865,12 +959,127 @@
    ]
   },
   {
+   "titel": "Umweltminister Schneider: Scheitern der COP31 kein Rückschlag für Klimaschutz",
+   "kurz": "Der XXL-Klimagipfel ist vorbei - ein Bekenntnis der fast 200 Staaten zum Klimaschutz gibt es nicht. Umweltminister Schneider sieht im Scheitern von Antalya…",
+   "link": "https://www.tagesschau.de/ausland/europa/klimakonferenz-scheitern-schneider-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T10:29:40+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Umweltminister Schneider: Scheitern der COP31 kein Rückschlag für Klimaschutz",
+     "link": "https://www.tagesschau.de/ausland/europa/klimakonferenz-scheitern-schneider-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Wie die DDR den Kaffeeanbau in Vietnam ankurbelte",
+   "kurz": "Weil sich die DDR den Kaffee-Import nicht mehr leisten konnte, führte sie 1977 ein Mixprodukt mit Roggen und Zichorie ein. Der Aufschrei war groß. Die Lösung…",
+   "link": "https://www.dw.com/de/wie-die-ddr-den-kaffeeanbau-in-vietnam-ankurbelte/a-79960594?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-23T10:25:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Wie die DDR den Kaffeeanbau in Vietnam ankurbelte",
+     "link": "https://www.dw.com/de/wie-die-ddr-den-kaffeeanbau-in-vietnam-ankurbelte/a-79960594?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Anina Pommerenke, ARD-aktuell, zum Treffen von Rutte und Merz",
+   "kurz": "Anina Pommerenke, ARD-aktuell, zum Treffen von Rutte und Merz",
+   "link": "https://www.tagesschau.de/video/video-1688300.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T10:17:46+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Anina Pommerenke, ARD-aktuell, zum Treffen von Rutte und Merz",
+     "link": "https://www.tagesschau.de/video/video-1688300.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Generalkonsulat in Bonn - Geflüchtete Afghanen arbeiten für die Taliban",
+   "kurz": "Im afghanischen Generalkonsulat in Bonn sind laut NDR und WDR gut ein Dutzend Afghanen tätig, die in Deutschland vor den nun regierenden Taliban Schutz gesucht…",
+   "link": "https://www.tagesschau.de/investigativ/ndr-wdr/taliban-konsulat-bonn-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T10:16:50+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Generalkonsulat in Bonn - Geflüchtete Afghanen arbeiten für die Taliban",
+     "link": "https://www.tagesschau.de/investigativ/ndr-wdr/taliban-konsulat-bonn-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "NATO-Parlamentarier tagen zu Sicherheitspolitik in Berlin",
+   "kurz": "Die Parlamentarische Versammlung der NATO versteht sich als eine Art transatlantisches Parlament. Heute tagen die Delegierten in Berlin - mit prominenten…",
+   "link": "https://www.tagesschau.de/inland/nato-versammlung-berlin-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T10:14:40+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "NATO-Parlamentarier tagen zu Sicherheitspolitik in Berlin",
+     "link": "https://www.tagesschau.de/inland/nato-versammlung-berlin-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
-   "kurz": "Montag gibts teils Wolken oder Nebel, teils Sonne, im Süden Regen und in höheren Lagen auch Schnee. Im Norden und Osten sind einzelne Regen-, Schnee- und…",
+   "kurz": "Am Montag teils Wolken oder Nebel, teils Sonne. Ganz im Südwesten Schnee und Schneeregen, in tiefen Lagen Regen. Im Norden und Osten einzelne Regen-, Schnee-…",
    "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-22T19:16:33+01:00",
+   "zeit": "2026-11-23T09:32:22+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -888,357 +1097,12 @@
    ]
   },
   {
-   "titel": "Prien verurteilt Angriff auf FDP-Politikerin Preisler bei Demo",
-   "kurz": "Zwei Frauen sollen die Berliner FDP-Politikerin Preisler am Rande einer pro-palästinensischen Demonstration geschubst und getreten haben…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/prien-angriff-preisler-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T18:36:50+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Prien verurteilt Angriff auf FDP-Politikerin Preisler bei Demo",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/prien-angriff-preisler-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "US Army to detonate tonnes of unstable explosives in Iowa despite court order",
-   "kurz": "The Army says \"swift action\" is necessary to protect its personnel and nearby communities around its ammunition plant in Iowa.",
-   "link": "https://www.bbc.co.uk/news/articles/cvglrx764gdxo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-22T18:29:46Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "US Army to detonate tonnes of unstable explosives in Iowa despite court order",
-     "link": "https://www.bbc.co.uk/news/articles/cvglrx764gdxo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "56 Verletzte nach Kohlenmonoxid-Austritt in Kirche im Allgäu",
-   "kurz": "In einer Kirche im Allgäu wurden 56 Menschen durch Kohlenmonoxid vergiftet. Eine defekte Heizung verursachte offenbar das Gasleck während eines Gottesdienstes.",
-   "link": "https://www.tagesschau.de/inland/regional/badenwuerttemberg/kohlenmonoxid-vergiftung-kirche-allgaeu-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T18:17:18+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "56 Verletzte nach Kohlenmonoxid-Austritt in Kirche im Allgäu",
-     "link": "https://www.tagesschau.de/inland/regional/badenwuerttemberg/kohlenmonoxid-vergiftung-kirche-allgaeu-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Scheitern der COP31-Abschlusserklärung: \"Ein fatales Ergebnis\"",
-   "kurz": "Dass die Weltklimakonferenz ohne Abschlusserklärung endet, sorgt für scharfe Kritik. UN-Generalsekretär Guterres macht die Öl- und Gasindustrie…",
-   "link": "https://www.tagesschau.de/wissen/klima/klimakonferenz/weltklimakonferenz-reaktionen-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T17:56:52+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Scheitern der COP31-Abschlusserklärung: \"Ein fatales Ergebnis\"",
-     "link": "https://www.tagesschau.de/wissen/klima/klimakonferenz/weltklimakonferenz-reaktionen-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "What it's like at a climate conference as talks collapse",
-   "kurz": "After two weeks of negotiations, international climate talks fail to reach an agreement. NPR's Rachel Waldholz was in Turkey for the conference.",
-   "link": "https://www.npr.org/2026/11/22/nx-s1-6050248/what-its-like-at-a-climate-conference-as-talks-collapse",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-22T17:40:23-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "What it's like at a climate conference as talks collapse",
-     "link": "https://www.npr.org/2026/11/22/nx-s1-6050248/what-its-like-at-a-climate-conference-as-talks-collapse",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Philly festival-goers say pickles are a real big dill",
-   "kurz": "Influencer and pickle enthusiast Dan Pancoast gives a first hand account of the festivities at the \"The Big Dill\" festival in Philadelphia.",
-   "link": "https://www.npr.org/2026/11/22/nx-s1-6038939/philly-festival-goers-say-pickles-are-a-real-big-dill",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-22T17:40:19-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Philly festival-goers say pickles are a real big dill",
-     "link": "https://www.npr.org/2026/11/22/nx-s1-6038939/philly-festival-goers-say-pickles-are-a-real-big-dill",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Russia-bound ship towed away after it was attacked in Gulf of Finland",
-   "kurz": "Finnish defence forces say that Ukraine was likely behind the drone strike on Saturday. Kyiv has yet to comment.",
-   "link": "https://www.bbc.co.uk/news/articles/cj752ddve27ko?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-22T17:18:26Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Russia-bound ship towed away after it was attacked in Gulf of Finland",
-     "link": "https://www.bbc.co.uk/news/articles/cj752ddve27ko?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Kommentar zur COP31: Großes Versagen - vielleicht auch ein Anfang",
-   "kurz": "Der Ausgang der Klimakonferenz ist ein großes Versagen, meint Arne Schulz. Verantwortliche gibt es mehrere. Und jetzt? Vielleicht ergeben sich gerade durch das…",
-   "link": "https://www.tagesschau.de/kommentar/weltklimakonferenz-cop31-scheitern-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T17:08:20+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Kommentar zur COP31: Großes Versagen - vielleicht auch ein Anfang",
-     "link": "https://www.tagesschau.de/kommentar/weltklimakonferenz-cop31-scheitern-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Gebrauchte Elektroautos: Alternative oder Schrott?",
-   "kurz": "Elektroautos sind gefragter denn je - auch angesichts steigender Kraftstoffpreise. Mit Verzögerung zeigt sich der Boom nun bei Gebrauchtwagenhändlern…",
-   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/gebrauchte-elektroautos-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T16:36:15+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Gebrauchte Elektroautos: Alternative oder Schrott?",
-     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/gebrauchte-elektroautos-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Die COP31 scheiterte an der Frage, wie gefährdete Länder unterstützt werden sollen und wie das Ende von Kohle, Öl und Gas gestaltet werden soll",
-   "kurz": "Nach zwei Wochen zäher Verhandlungen ist der Klimagipfel COP31 ohne Einigung zu Ende gegangen. Damit wird der Ausstieg aus den fossilen Brennstoffen wieder…",
-   "link": "https://www.dw.com/de/die-cop31-scheiterte-an-der-frage-wie-gefährdete-länder-unterstützt-werden-sollen-und-wie-das-ende-von-kohle-öl-und-gas-gestaltet-werden-soll/a-80014116?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-22T16:31:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Die COP31 scheiterte an der Frage, wie gefährdete Länder unterstützt werden sollen und wie das Ende von Kohle, Öl und Gas gestaltet werden soll",
-     "link": "https://www.dw.com/de/die-cop31-scheiterte-an-der-frage-wie-gefährdete-länder-unterstützt-werden-sollen-und-wie-das-ende-von-kohle-öl-und-gas-gestaltet-werden-soll/a-80014116?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Weltklimakonferenz COP31: Keine Einigung auf Abschlusserklärung",
-   "kurz": "Die Teilnehmer der Weltklimakonferenz im türkischen Antalya haben sich nicht auf eine gemeinsame Abschlusserklärung einigen können. An dem Papier gab es unter…",
-   "link": "https://www.tagesschau.de/wissen/klima/klimakonferenz/weltklimakonferenz-cop31-antalya-kein-abschlussdokument-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T16:30:18+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Weltklimakonferenz COP31: Keine Einigung auf Abschlusserklärung",
-     "link": "https://www.tagesschau.de/wissen/klima/klimakonferenz/weltklimakonferenz-cop31-antalya-kein-abschlussdokument-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Brand in indonesischer Süßwarenfabrik - viele Tote befürchtet",
-   "kurz": "Nach einem Feuer in einer Fabrik westlich von Indonesiens Hauptstadt Jakarta gibt es mehrere Tote. Etwa 60 Menschen sollen sich zum Zeitpunkt des Ausbruchs im…",
-   "link": "https://www.tagesschau.de/ausland/asien/indonesien-brand-fabrik-tote-vermisste-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T16:21:42+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Brand in indonesischer Süßwarenfabrik - viele Tote befürchtet",
-     "link": "https://www.tagesschau.de/ausland/asien/indonesien-brand-fabrik-tote-vermisste-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Türkischer Sender Sözcü TV: Journalismus unter Zwangsverwaltung",
-   "kurz": "Der regierungskritische türkische Sender Sözcü steht seit wenigen Tagen unter Zwangsverwaltung. Für die Journalisten war die Razzia ein Schock - wie hat sich…",
-   "link": "https://www.tagesschau.de/ausland/asien/tuerkei-sender-soezcue-zwangsverwaltung-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T15:21:45+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Türkischer Sender Sözcü TV: Journalismus unter Zwangsverwaltung",
-     "link": "https://www.tagesschau.de/ausland/asien/tuerkei-sender-soezcue-zwangsverwaltung-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "NRW-AfD einigt sich auf Programm für Landtagswahl",
-   "kurz": "Der NRW-Landesverband der AfD hat das Wahlprogramm für 2027 verabschiedet. Zentrale Punkte zur Asylpolitik wurden von der AfD in Sachsen-Anhalt übernommen. Der…",
-   "link": "https://www.tagesschau.de/inland/regional/nordrheinwestfalen/afd-nrw-wahlprogramm-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T15:20:00+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "NRW-AfD einigt sich auf Programm für Landtagswahl",
-     "link": "https://www.tagesschau.de/inland/regional/nordrheinwestfalen/afd-nrw-wahlprogramm-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Friedwald in Brandenburg, Riesenrad in Lausanne, Nebel in Kronberg",
-   "kurz": "Friedwald in Brandenburg, Riesenrad in Lausanne, Nebel in Kronberg",
-   "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10582.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T15:10:50+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Friedwald in Brandenburg, Riesenrad in Lausanne, Nebel in Kronberg",
-     "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10582.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Israel's Eisenkot condemns 'Jewish terrorism' in West Bank",
-   "kurz": "Israeli opposition leader Gadi Eisenkot has condemned a recent series of arson attacks in the occupied West Bank as \"Jewish terrorism.\" Israeli authorities…",
-   "link": "https://www.dw.com/en/israel-s-eisenkot-condemns-jewish-terrorism-in-west-bank/a-80013861?maca=en-rss-en-all-1573-xml-mrss",
+   "titel": "Germany's Early Start Pension: Can child investment accounts help?",
+   "kurz": "Germany plans to pay €10 a month into investment accounts for children to encourage long-term retirement saving. Economists say the measure may help build…",
+   "link": "https://www.dw.com/en/germany-s-early-start-pension-can-child-investment-accounts-help/a-79852185?maca=en-rss-en-all-1573-xml-mrss",
    "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-22T15:09:00Z",
+   "zeit": "2026-11-23T09:26:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1247,8 +1111,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "Israel's Eisenkot condemns 'Jewish terrorism' in West Bank",
-     "link": "https://www.dw.com/en/israel-s-eisenkot-condemns-jewish-terrorism-in-west-bank/a-80013861?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "Germany's Early Start Pension: Can child investment accounts help?",
+     "link": "https://www.dw.com/en/germany-s-early-start-pension-can-child-investment-accounts-help/a-79852185?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1256,12 +1120,12 @@
    ]
   },
   {
-   "titel": "Wieder Absence bei Musiala - starke Kritik an Umgang des FCB",
-   "kurz": "Der Umgang des FC Bayern mit Jamal Musialas gesundheitlichen Problemen sorgt für immer mehr Kritik. Neben internationalen Stars meldet sich auch die…",
-   "link": "https://www.sportschau.de/regional/br/br-wieder-absence-bei-musiala-starke-kritik-an-umgang-des-fcb-102.html",
+   "titel": "Ukraine bekennt sich zu Zerstörung von russischem Kriegsschiff",
+   "kurz": "Die russische Korvette \"Merkury\" ging erst vor drei Jahren in Betrieb, nun wurde sie bei einem Angriff in einem libyschen Hafen versenkt. Präsident Selenskyj…",
+   "link": "https://www.tagesschau.de/ausland/afrika/russisches-kriegsschiff-zerstoert-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-22T14:16:54+01:00",
+   "zeit": "2026-11-23T09:24:41+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1270,54 +1134,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Wieder Absence bei Musiala - starke Kritik an Umgang des FCB",
-     "link": "https://www.sportschau.de/regional/br/br-wieder-absence-bei-musiala-starke-kritik-an-umgang-des-fcb-102.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Lebanese villagers return to wrecked homes as the Israeli army pulls back",
-   "kurz": "In a pilot project in a village in southern Lebanon, Israeli forces have left and the Lebanese army moved it. But villagers who return find their houses…",
-   "link": "https://www.npr.org/2026/11/22/nx-s1-6048710/lebanon-israel-army-conflict-homes",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-22T12:44:52-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Lebanese villagers return to wrecked homes as the Israeli army pulls back",
-     "link": "https://www.npr.org/2026/11/22/nx-s1-6048710/lebanon-israel-army-conflict-homes",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Nach Drohnenangriff: Löscharbeiten an der \"Sparta II\" dauern an",
-   "kurz": "Noch immer laufen die Löscharbeiten an dem russischen Frachter in der Ostsee vor Finnland. Was das Schiff geladen hat, ist weiterhin unklar. Es war von einer…",
-   "link": "https://www.tagesschau.de/ausland/europa/finnland-ostsee-frachter-drohne-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-22T12:41:16+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Nach Drohnenangriff: Löscharbeiten an der \"Sparta II\" dauern an",
-     "link": "https://www.tagesschau.de/ausland/europa/finnland-ostsee-frachter-drohne-100.html",
+     "titel": "Ukraine bekennt sich zu Zerstörung von russischem Kriegsschiff",
+     "link": "https://www.tagesschau.de/ausland/afrika/russisches-kriegsschiff-zerstoert-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1325,35 +1143,12 @@
    ]
   },
   {
-   "titel": "Meet the young authors! A literacy program inspires kids in South Africa",
-   "kurz": "South Africa is working to overcome a children's literacy crisis. In one Johannesburg township, a reading club is instilling a love of books in kids — and…",
-   "link": "https://www.npr.org/2026/11/22/g-s1-154387/books-children-authors-south-africa-literacy",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-22T12:34:20-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Meet the young authors! A literacy program inspires kids in South Africa",
-     "link": "https://www.npr.org/2026/11/22/g-s1-154387/books-children-authors-south-africa-literacy",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Deutschland plant schärferes Vorgehen gegen Femizide",
-   "kurz": "Wer eine Frau aus Besitzdenken oder wegen einer Trennung tötet, soll künftig leichter als Mörder verurteilt werden. Ein Gesetzentwurf sieht dafür Änderungen im…",
-   "link": "https://www.dw.com/de/deutschland-plant-schärferes-vorgehen-gegen-femizide/a-80013513?maca=de-rss-de-all-1119-xml-mrss",
+   "titel": "\"Junge Wilde\" aus Asien im Duell: Wer wird Schach-Weltmeister 2026?",
+   "kurz": "Indiens Titelverteidiger Gukesh Dommaraju gegen Herausforderer Jakhovir Sindarov aus Usbeskistan: Bis Mitte Dezember ringen zwei junge Großmeister in Genf um…",
+   "link": "https://www.dw.com/de/junge-wilde-aus-asien-im-duell-wer-wird-schach-weltmeister-2026/a-80000090?maca=de-rss-de-all-1119-xml-mrss",
    "quelle": "Deutsche Welle",
    "sprache": "de",
-   "zeit": "2026-11-22T12:34:00Z",
+   "zeit": "2026-11-23T09:10:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1362,8 +1157,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle",
-     "titel": "Deutschland plant schärferes Vorgehen gegen Femizide",
-     "link": "https://www.dw.com/de/deutschland-plant-schärferes-vorgehen-gegen-femizide/a-80013513?maca=de-rss-de-all-1119-xml-mrss",
+     "titel": "\"Junge Wilde\" aus Asien im Duell: Wer wird Schach-Weltmeister 2026?",
+     "link": "https://www.dw.com/de/junge-wilde-aus-asien-im-duell-wer-wird-schach-weltmeister-2026/a-80000090?maca=de-rss-de-all-1119-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1371,58 +1166,12 @@
    ]
   },
   {
-   "titel": "UN-Klimakonferenz COP31 ist in Antalya gescheitert",
-   "kurz": "Der türkische Entwurf für den Abschlusstext des Klimagipfels hat Öl, Kohle und Gas nicht erwähnt. Zu viele Delegationen haben ihre Zustimmung verweigert.",
-   "link": "https://www.dw.com/de/un-klimakonferenz-cop31-ist-in-antalya-gescheitert/a-80012944?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-22T12:19:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "UN-Klimakonferenz COP31 ist in Antalya gescheitert",
-     "link": "https://www.dw.com/de/un-klimakonferenz-cop31-ist-in-antalya-gescheitert/a-80012944?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Climate change talks fall apart in final hours over fossil fuels",
-   "kurz": "Some 200 countries gathered in Antalya, Turkey, for COP31, the annual climate negotiations. Countries failed to reach an agreement over fossil fuels - the…",
-   "link": "https://www.npr.org/2026/11/22/nx-s1-6046195/cop31-climate-talks-close-disappointment",
-   "quelle": "NPR",
-   "sprache": "en",
-   "zeit": "2026-11-22T11:33:22-05:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NPR",
-     "titel": "Climate change talks fall apart in final hours over fossil fuels",
-     "link": "https://www.npr.org/2026/11/22/nx-s1-6046195/cop31-climate-talks-close-disappointment",
-     "eigentuemer": "gehört NPR",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Bayern Munich bosses under fire over Jamal Musiala comments",
-   "kurz": "Officials have publicly questioned whether Musiala will ever fully recover from a debilitating neurological condition and queried the validity of his contract…",
-   "link": "https://www.dw.com/en/bayern-munich-bosses-under-fire-over-jamal-musiala-comments/a-80013187?maca=en-rss-en-all-1573-xml-mrss",
+   "titel": "NATO Parliamentary Assembly convenes amid Russian airspace violations",
+   "kurz": "Ukrainian President Zelenskyy and German Foreign Minister Wadephul are set to address the NATO Parliamentary Assembly in Berlin while NATO representatives…",
+   "link": "https://www.dw.com/en/nato-parliamentary-assembly-convenes-amid-russian-airspace-violations/live-80016415?maca=en-rss-en-all-1573-xml-mrss",
    "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-22T11:30:00Z",
+   "zeit": "2026-11-23T09:01:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1431,8 +1180,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "Bayern Munich bosses under fire over Jamal Musiala comments",
-     "link": "https://www.dw.com/en/bayern-munich-bosses-under-fire-over-jamal-musiala-comments/a-80013187?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "NATO Parliamentary Assembly convenes amid Russian airspace violations",
+     "link": "https://www.dw.com/en/nato-parliamentary-assembly-convenes-amid-russian-airspace-violations/live-80016415?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1440,12 +1189,35 @@
    ]
   },
   {
-   "titel": "Sind Einzelaktien eine Kostenfalle oder eine Goldgrube?",
-   "kurz": "Einzelaktien bieten etwas, was ein Welt-ETF kaum kann: Die Chance darauf, das Depot individueller zu gestalten und höhere Renditen zu erzielen. Gleichzeitig…",
-   "link": "https://www.tagesschau.de/wirtschaft/finanzen/boerse-investment-einzelaktien-etf-100.html",
+   "titel": "Kenya and DR Congo agree to restore ties after tensions over conflict",
+   "kurz": "The two leaders committed to upholding sovereignty and \"non-interference in the internal affairs of states\".",
+   "link": "https://www.bbc.co.uk/news/articles/cmvg2qnn95vro?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-23T08:53:01Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Kenya and DR Congo agree to restore ties after tensions over conflict",
+     "link": "https://www.bbc.co.uk/news/articles/cmvg2qnn95vro?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Schneefall in Japan, Rappbodetalsperre, Smog in Lahore",
+   "kurz": "Schneefall in Japan, Rappbodetalsperre, Smog in Lahore",
+   "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10584.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-22T11:25:29+01:00",
+   "zeit": "2026-11-23T08:23:10+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1454,8 +1226,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Sind Einzelaktien eine Kostenfalle oder eine Goldgrube?",
-     "link": "https://www.tagesschau.de/wirtschaft/finanzen/boerse-investment-einzelaktien-etf-100.html",
+     "titel": "Schneefall in Japan, Rappbodetalsperre, Smog in Lahore",
+     "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10584.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1463,12 +1235,12 @@
    ]
   },
   {
-   "titel": "Künftiger Generalinspekteur will bei sexualisiertem Fehlverhalten durchgreifen",
-   "kurz": "Die Bundeswehr hat ein Problem mit sexualisiertem Fehlverhalten. Das belegt eine Studie. Der künftige Generalinspekteur der Bundeswehr, Freuding, will hier…",
-   "link": "https://www.tagesschau.de/inland/gesellschaft/bundeswehr-generalinspekteur-gegen-sexualisiertes-fehlverhalten-100.html",
+   "titel": "Im Rentenstreit deutet sich ein Kompromiss an",
+   "kurz": "Die Union möchte die sogenannte Rente mit 63 am liebsten abschaffen, die SPD will sie behalten. Doch es deutet sich ein Abrücken von diesen Maximalforderungen…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/rente-koalition-soeder-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-22T10:51:56+01:00",
+   "zeit": "2026-11-23T08:11:48+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1477,9 +1249,239 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Künftiger Generalinspekteur will bei sexualisiertem Fehlverhalten durchgreifen",
-     "link": "https://www.tagesschau.de/inland/gesellschaft/bundeswehr-generalinspekteur-gegen-sexualisiertes-fehlverhalten-100.html",
+     "titel": "Im Rentenstreit deutet sich ein Kompromiss an",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/rente-koalition-soeder-100.html",
      "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutschland wirft Ölstaaten COP31-Blockade vor - News kompakt: Das Wichtigste kurz gefasst",
+   "kurz": "Das Scheitern der UN-Klimakonferenz in Antalya sorgt für Kritik. Bundespräsident Steinmeier ist wieder zu Besuch in Afrika. Der DW-Nachrichtenüberblick.",
+   "link": "https://www.dw.com/de/deutschland-wirft-ölstaaten-cop31-blockade-vor-news-kompakt-das-wichtigste-kurz-gefasst/a-80015414?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-23T08:00:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Deutschland wirft Ölstaaten COP31-Blockade vor - News kompakt: Das Wichtigste kurz gefasst",
+     "link": "https://www.dw.com/de/deutschland-wirft-ölstaaten-cop31-blockade-vor-news-kompakt-das-wichtigste-kurz-gefasst/a-80015414?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Germany news: Metalworkers go on strike as pay dispute heats up",
+   "kurz": "Germany's biggest union is calling for more strikes over heated pay disputes with car makers like Mercedes and shipyards among the companies impacted…",
+   "link": "https://www.dw.com/en/germany-news-metalworkers-go-on-strike-as-pay-dispute-heats-up/live-80015633?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-23T07:11:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Germany news: Metalworkers go on strike as pay dispute heats up",
+     "link": "https://www.dw.com/en/germany-news-metalworkers-go-on-strike-as-pay-dispute-heats-up/live-80015633?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "11KM-Podcast: Werden Kriege zukünftig im Weltall entschieden?",
+   "kurz": "Im Weltraum wird aufgerüstet. 11KM mit WDR-Investigativjournalist Florian Flade und dem deutschen Astronauten Matthias Maurer über neue Gefahren in und aus dem…",
+   "link": "https://www.tagesschau.de/multimedia/podcast/11km/podcast-11km-aufruestung-weltall-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T07:04:20+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "11KM-Podcast: Werden Kriege zukünftig im Weltall entschieden?",
+     "link": "https://www.tagesschau.de/multimedia/podcast/11km/podcast-11km-aufruestung-weltall-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Rule-breaking is contagious — and good examples barely help",
+   "kurz": "Seeing someone break a rule makes people more likely to break it too, a new study finds, especially when the rule-breaker is on their side politically…",
+   "link": "https://www.dw.com/en/rule-breaking-is-contagious-and-good-examples-barely-help/a-79980025?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-23T06:33:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Rule-breaking is contagious — and good examples barely help",
+     "link": "https://www.dw.com/en/rule-breaking-is-contagious-and-good-examples-barely-help/a-79980025?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Welche Chancen und Risiken KI bei Bewerbungen bietet",
+   "kurz": "Sowohl Bewerber als auch Unternehmen nutzen KI im Bewerbungsverfahren. So könnten sich in Zukunft Bewerbungsverfahren stark verändern. Doch besonders für die…",
+   "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/bewerbung-mit-ki-chancen-risiken-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T06:31:19+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Welche Chancen und Risiken KI bei Bewerbungen bietet",
+     "link": "https://www.tagesschau.de/wirtschaft/arbeitsmarkt/bewerbung-mit-ki-chancen-risiken-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "15 Minuten: Weltklimakonferenz, Social-Media-Verbote, Fake-Stellenanzeigen",
+   "kurz": "Die Themen im Podcast 15Minuten: Der UN-Klimagipfel geht ohne Abschlusserklärung zu Ende. Ein Jahr Social-Media-Verbot in Australien - was hat es gebracht? Und…",
+   "link": "https://www.tagesschau.de/multimedia/podcast/15-minuten/15min-podcast-gen-z-regelt-proteste-ratenkauf-gebuehr-restaurant-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T06:29:27+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "15 Minuten: Weltklimakonferenz, Social-Media-Verbote, Fake-Stellenanzeigen",
+     "link": "https://www.tagesschau.de/multimedia/podcast/15-minuten/15min-podcast-gen-z-regelt-proteste-ratenkauf-gebuehr-restaurant-102.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Deutschland auf großflächigen Satelliten-Ausfall nicht vorbereitet",
+   "kurz": "Wenn im Weltraum großflächig Satelliten ausfielen, hätte das einschneidende Folgen auf der Erde - und dennoch gibt es für ein solches Szenario nach…",
+   "link": "https://www.tagesschau.de/investigativ/ndr-wdr/satelliten-ausfall-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T06:00:22+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Deutschland auf großflächigen Satelliten-Ausfall nicht vorbereitet",
+     "link": "https://www.tagesschau.de/investigativ/ndr-wdr/satelliten-ausfall-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Krieg gegen die Ukraine: Tote nach Angriff auf Mehrfamilienhaus",
+   "kurz": "Das russische Militär geht weiter unvermindert gegen die Zivilbevölkerung in der Ukraine vor. Mindestens zehn Menschen wurden getötet, als in der Nacht zu…",
+   "link": "https://www.tagesschau.de/ausland/europa/ukraine-angriffe-wohnhaeuser-104.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-23T05:43:07+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Krieg gegen die Ukraine: Tote nach Angriff auf Mehrfamilienhaus",
+     "link": "https://www.tagesschau.de/ausland/europa/ukraine-angriffe-wohnhaeuser-104.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Boy, 7, pulled alive from rubble hours after Russian strike on Ukraine, rescuers say",
+   "kurz": "Eleven people are dead in the attack on Dymer, with rescue efforts ongoing to find those still missing from the residential building.",
+   "link": "https://www.bbc.co.uk/news/articles/cqdr15l32d3go?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-23T05:33:17Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Boy, 7, pulled alive from rubble hours after Russian strike on Ukraine, rescuers say",
+     "link": "https://www.bbc.co.uk/news/articles/cqdr15l32d3go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Riskantes Manöver: Irak will Hisbollah-Brigaden entwaffnen",
+   "kurz": "Es ist die gefährlichste Auseinandersetzung zwischen dem irakischen Staat und den mit dem Iran verbündeten Milizen seit Jahrzehnten: Irakische…",
+   "link": "https://www.dw.com/de/riskantes-manöver-irak-will-hisbollah-brigaden-entwaffnen/a-80003629?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-23T05:11:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Riskantes Manöver: Irak will Hisbollah-Brigaden entwaffnen",
+     "link": "https://www.dw.com/de/riskantes-manöver-irak-will-hisbollah-brigaden-entwaffnen/a-80003629?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
