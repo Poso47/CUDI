@@ -1,10 +1,585 @@
 {
- "erzeugt": "2026-11-23T16:07:54Z",
+ "erzeugt": "2026-11-24T15:58:50Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 68,
- "neu": 22,
+ "anzahl": 71,
+ "neu": 20,
  "ideen": [
+  {
+   "id": "idee-c098a7d1",
+   "bereich": "ranking",
+   "titel": "Die größten Auslegerbrücken",
+   "thema": "Eine Liste der größten Auslegerbrücken weltweit.",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist auf Platz 4 der meistgelesenen Wikipedia-Seiten (de) mit 32.664 Aufrufen.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184460 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Liste der größten Auslegerbrücken weltweit."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z",
+   "recherche": [
+    {
+     "text": "Die Brücken von solch einer Größe wurden teilweise in wenigen Jahren gebaut.",
+     "status": "einzeln",
+     "datum": "2026-11-24",
+     "quellen": [
+      {
+       "quelle": "tag24.de",
+       "url": "https://www.tag24.de/ratgeber/rekorde/menschliche-rekorde/laengste-bruecke-der-welt-3324941",
+       "datum": "2026-11-24"
+      }
+     ]
+    },
+    {
+     "text": "Wie groß die fünf größten Brücken der Welt sind und was sie so besonders macht, erfährst Du bei TAG24.",
+     "status": "einzeln",
+     "datum": "2026-11-24",
+     "quellen": [
+      {
+       "quelle": "tag24.de",
+       "url": "https://www.tag24.de/ratgeber/rekorde/menschliche-rekorde/laengste-bruecke-der-welt-3324941",
+       "datum": "2026-11-24"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-6a7ed1b0",
+   "bereich": "fakten",
+   "titel": "Die Riemannsche Vermutung erklärt",
+   "thema": "Wissenswertes über ein ungelöstes mathematisches Problem.",
+   "begruendung": "Der Trend 'Riemannsche Vermutung' ist auf Platz 2 der meistgelesenen Wikipedia-Seiten (de) mit 42.065 Aufrufen.",
+   "quelle": {
+    "name": "Riemannsche Vermutung",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über ein ungelöstes mathematisches Problem.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z",
+   "recherche": [
+    {
+     "text": "Die Riemannsche Vermutung stammt von dem deutschen Mathematiker Bernhard Riemann, der sie bereits im Jahr 1859 formulierte.",
+     "status": "bestaetigt",
+     "datum": "2026-11-24",
+     "quellen": [
+      {
+       "quelle": "Tagesschau (ARD)",
+       "url": "https://www.tagesschau.de/wissen/forschung/anthropic-riemannsche-vermutung-loesung-100.html",
+       "datum": "2026-11-23"
+      },
+      {
+       "quelle": "weekend.at",
+       "url": "https://www.weekend.at/chronik/riemannsche-vermutung-einfach-erklaert",
+       "datum": "2026-11-24"
+      },
+      {
+       "quelle": "business-punk.com",
+       "url": "https://www.business-punk.com/riemannsche-vermutung-167-jahre-raetsel-claude-braucht-41-tage-das-steckt-dahinter/",
+       "datum": "2026-11-24"
+      }
+     ]
+    },
+    {
+     "text": "FAQ: Riemannsche Vermutung einfach erklärt",
+     "status": "einzeln",
+     "datum": "2026-11-24",
+     "quellen": [
+      {
+       "quelle": "weekend.at",
+       "url": "https://www.weekend.at/chronik/riemannsche-vermutung-einfach-erklaert",
+       "datum": "2026-11-24"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-7ff8b3cf",
+   "bereich": "fakten",
+   "titel": "Hodgkin-Lymphom: Was ist das?",
+   "thema": "Fakten zu einer bestimmten Form von Lymphdrüsenkrebs.",
+   "begruendung": "Der Trend 'Hodgkin-Lymphom' ist auf Platz 5 der meistgelesenen Wikipedia-Seiten (de) mit 28.059 Aufrufen.",
+   "quelle": {
+    "name": "Hodgkin-Lymphom",
+    "typ": "trend",
+    "score": 81.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten zu einer bestimmten Form von Lymphdrüsenkrebs.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-52cd1c09",
+   "bereich": "fakten",
+   "titel": "Merkur: Fakten zum Planeten",
+   "thema": "Wissenswertes über den sonnennächsten Planeten.",
+   "begruendung": "Der Trend 'Merkuri' ist auf Platz 3 der meistgelesenen Wikipedia-Seiten (de) mit 40.189 Aufrufen.",
+   "quelle": {
+    "name": "Merkuri",
+    "typ": "trend",
+    "score": 85.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über den sonnennächsten Planeten.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-e0c9364d",
+   "bereich": "fakten",
+   "titel": "Linux: Das Betriebssystem",
+   "thema": "Wissenswerte Fakten über das Open-Source-Betriebssystem.",
+   "begruendung": "Der Trend 'Linux' ist auf Platz 6 der meistgelesenen Wikipedia-Seiten (en) mit 177.023 Aufrufen.",
+   "quelle": {
+    "name": "Linux",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswerte Fakten über das Open-Source-Betriebssystem.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-59839451",
+   "bereich": "fakten",
+   "titel": "Blut: Fakten und Funktionen",
+   "thema": "Wissenswertes über die Zusammensetzung und Aufgaben von Blut.",
+   "begruendung": "Der Trend 'Blood' ist auf Platz 7 der meistgelesenen Wikipedia-Seiten (en) mit 174.912 Aufrufen.",
+   "quelle": {
+    "name": "Blood",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über die Zusammensetzung und Aufgaben von Blut.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-366e0f13",
+   "bereich": "story",
+   "titel": "Die Vorfreude auf ein neues Spiel",
+   "thema": "Eine Geschichte über die Spannung vor der Veröffentlichung eines lang erwarteten Videospiels.",
+   "begruendung": "Der Trend 'Grand Theft Auto VI' ist auf Platz 10 der meistgelesenen Wikipedia-Seiten (de) mit 14.905 Aufrufen und Platz 2 der meistgelesenen Wikipedia-Seiten (en) mit 266.240 Aufrufen.",
+   "quelle": {
+    "name": "Grand Theft Auto VI",
+    "typ": "trend",
+    "score": 96.3,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über die Spannung vor der Veröffentlichung eines lang erwarteten Videospiels.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-9d59d6f4",
+   "bereich": "story",
+   "titel": "Wie Streaming unseren Alltag verändert",
+   "thema": "Eine Geschichte über die Anpassung der Sehgewohnheiten durch Streaming-Dienste.",
+   "begruendung": "Der Trend 'iptv' ist auf Platz 5 der Google-Trends (DE) mit über 500 Suchen; Meldung: „How has streaming changed when and where people watch television programs and films?“ (Britannica).",
+   "quelle": {
+    "name": "iptv",
+    "typ": "trend",
+    "score": 73.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über die Anpassung der Sehgewohnheiten durch Streaming-Dienste.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-9692bbb1",
+   "bereich": "story",
+   "titel": "Faszination des Mondes",
+   "thema": "Eine Geschichte über die menschliche Verbindung und den Blick zum Mond.",
+   "begruendung": "Der Trend 'Moon' ist auf Platz 4 der meistgelesenen Wikipedia-Seiten (en) mit 180.275 Aufrufen.",
+   "quelle": {
+    "name": "Moon",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über die menschliche Verbindung und den Blick zum Mond.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-86f43224",
+   "bereich": "erklaer",
+   "titel": "Die Riemann-Hypothese erklärt",
+   "thema": "Eine Erklärung, wie die Riemann-Hypothese funktioniert und warum sie wichtig ist.",
+   "begruendung": "Der Trend 'Riemann hypothesis' ist auf Platz 8 der meistgelesenen Wikipedia-Seiten (en) mit 157.845 Aufrufen.",
+   "quelle": {
+    "name": "Riemann hypothesis",
+    "typ": "trend",
+    "score": 74.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung, wie die Riemann-Hypothese funktioniert und warum sie wichtig ist."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-d205c1cf",
+   "bereich": "erklaer",
+   "titel": "Tesla Autonomie: Wie funktioniert das?",
+   "thema": "Eine Erklärung der Ambitionen von Tesla im Bereich autonomes Fahren.",
+   "begruendung": "Der Trend 'electrek' ist auf Platz 3 der Google-Trends (US) mit über 5.000 Suchen; Meldung: „Tesla's autonomy ambitions just got a Wall Street vote of confidence“ (Yahoo Finance).",
+   "quelle": {
+    "name": "electrek",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der Ambitionen von Tesla im Bereich autonomes Fahren."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-c6d86205",
+   "bereich": "erklaer",
+   "titel": "Hodgkin-Lymphom: Ursachen & Symptome",
+   "thema": "Eine Erklärung der Funktionsweise und Merkmale des Hodgkin-Lymphoms.",
+   "begruendung": "Der Trend 'Hodgkin-Lymphom' ist auf Platz 5 der meistgelesenen Wikipedia-Seiten (de) mit 28.059 Aufrufen.",
+   "quelle": {
+    "name": "Hodgkin-Lymphom",
+    "typ": "trend",
+    "score": 81.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der Funktionsweise und Merkmale des Hodgkin-Lymphoms."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-a474c4fd",
+   "bereich": "erklaer",
+   "titel": "Der Planet Merkur: Eine Erklärung",
+   "thema": "Eine Erklärung der physikalischen Eigenschaften und Umlaufbahn des Planeten Merkur.",
+   "begruendung": "Der Trend 'Merkuri' ist auf Platz 3 der meistgelesenen Wikipedia-Seiten (de) mit 40.189 Aufrufen.",
+   "quelle": {
+    "name": "Merkuri",
+    "typ": "trend",
+    "score": 85.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der physikalischen Eigenschaften und Umlaufbahn des Planeten Merkur."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-53a8afcf",
+   "bereich": "erklaer",
+   "titel": "Was ist Linux? Einfach erklärt",
+   "thema": "Eine Erklärung der Grundlagen und des Aufbaus des Linux-Betriebssystems.",
+   "begruendung": "Der Trend 'Linux' ist auf Platz 6 der meistgelesenen Wikipedia-Seiten (en) mit 177.023 Aufrufen.",
+   "quelle": {
+    "name": "Linux",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine Erklärung der Grundlagen und des Aufbaus des Linux-Betriebssystems."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
+  {
+   "id": "idee-b97a1a9f",
+   "bereich": "reportage",
+   "titel": "Luftangriff in Saporischschja",
+   "thema": "Ein Bericht über den russischen Luftangriff auf ein Wohngebäude in der Ukraine.",
+   "begruendung": "Die Nachricht 'A Russian airstrike hits a five-story apartment building in Zaporizhzhia , Ukraine , killing two people and wounding 44 others.' ist von 8 Quellen bestätigt.",
+   "quelle": {
+    "name": "A Russian airstrike hits a five-story apartment building in Zaporizhzhia , Ukraine , killing two people and wounding 44 others.",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Wikipedia · AP",
+     "Wikipedia · Al-Jazeera",
+     "Wikipedia · NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Ein Bericht über den russischen Luftangriff auf ein Wohngebäude in der Ukraine.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-b013fefb",
+   "bereich": "reportage",
+   "titel": "Landminen-Opfer: Aktueller Bericht",
+   "thema": "Eine Reportage über den Anstieg der Opferzahlen durch Landminen laut aktuellem Monitor.",
+   "begruendung": "Die Nachricht 'Landminen-Monitor: Zahl der Opfer von Landminen gestiegen' ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Landminen-Monitor: Zahl der Opfer von Landminen gestiegen",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über den Anstieg der Opferzahlen durch Landminen laut aktuellem Monitor.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-fca5eed2",
+   "bereich": "reportage",
+   "titel": "Frauen-WM: USA und UK als Gastgeber",
+   "thema": "Eine Reportage über die Vergabe der Frauen-Weltmeisterschaften 2031 und 2035 an die USA und das Vereinigte Königreich.",
+   "begruendung": "Die Nachricht 'US and UK to host Women's World Cups in 2031 and 2035' ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "US and UK to host Women's World Cups in 2031 and 2035",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "Wikipedia · AFP"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Vergabe der Frauen-Weltmeisterschaften 2031 und 2035 an die USA und das Vereinigte Königreich.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-b33318a3",
+   "bereich": "reportage",
+   "titel": "Schulbombendrohungen in Deutschland",
+   "thema": "Eine Reportage über die Reaktion der deutschen Polizei auf mehrere Bombendrohungen an Schulen.",
+   "begruendung": "Die Nachricht 'German police respond to multiple school bomb threats' ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "German police respond to multiple school bomb threats",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "Wikipedia · Reuters"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Reaktion der deutschen Polizei auf mehrere Bombendrohungen an Schulen.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-0a4a98c4",
+   "bereich": "reportage",
+   "titel": "COP31: Die gescheiterten Klimagespräche",
+   "thema": "Eine Reportage über die wichtigsten Erkenntnisse der gescheiterten Klimakonferenz COP31.",
+   "begruendung": "Die Nachricht 'Five takeaways from the failed climate talks COP31' ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Five takeaways from the failed climate talks COP31",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Wikipedia · AFP"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die wichtigsten Erkenntnisse der gescheiterten Klimakonferenz COP31.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-d3fe0ff4",
+   "bereich": "satire",
+   "titel": "Überzeugungskraft à la Trump",
+   "thema": "Eine satirische Betrachtung der Behauptung, einen CEO überzeugt zu haben.",
+   "begruendung": "Die Nachricht 'Trump faces backlash after saying he 'convinced' Nvidia to reinstate CEO Jensen Huang' ist von 4 Quellen bestätigt und betrifft einen Politiker und eine mächtige Figur aus der Wirtschaft.",
+   "quelle": {
+    "name": "Trump faces backlash after saying he 'convinced' Nvidia to reinstate CEO Jensen Huang",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Eine satirische Betrachtung der Behauptung, einen CEO überzeugt zu haben.",
+    "sprache": "de",
+    "meldung": "Trump faces backlash after saying he 'convinced' Nvidia to reinstate CEO Jensen Huang"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-24T15:57:53Z"
+  },
   {
    "id": "idee-aa6ccdb8",
    "bereich": "ranking",
@@ -1140,88 +1715,6 @@
    ]
   },
   {
-   "id": "idee-08fea219",
-   "bereich": "fakten",
-   "titel": "Fakten zur Riemann-Hypothese",
-   "thema": "Wissenswertes über die Riemann-Hypothese in der Mathematik.",
-   "begruendung": "\"Riemann hypothesis\" ist Platz 3 der meistgelesenen Wikipedia-Seiten (en) mit 295.157 Aufrufen am 2026-11-20.",
-   "quelle": {
-    "name": "Riemann hypothesis",
-    "typ": "trend",
-    "score": 95.1,
-    "quellen": [
-     "reddit",
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über die Riemann-Hypothese in der Mathematik.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-06266e0e",
-   "bereich": "fakten",
-   "titel": "Das Epos Ramayana: Fakten",
-   "thema": "Wissenswertes über den ersten Teil des Ramayana-Epos.",
-   "begruendung": "\"Ramayana: Part 1\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (en) mit 329.248 Aufrufen am 2026-11-20.",
-   "quelle": {
-    "name": "Ramayana: Part 1",
-    "typ": "trend",
-    "score": 87.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über den ersten Teil des Ramayana-Epos.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-f6d94f31",
-   "bereich": "fakten",
-   "titel": "Anthropic: Fakten zum KI-Unternehmen",
-   "thema": "Wissenswertes über das Unternehmen Anthropic.",
-   "begruendung": "\"Anthropic\" ist Platz 13 der meistgelesenen Wikipedia-Seiten (de) mit 16.026 Aufrufen und Platz 17 der meistgelesenen Wikipedia-Seiten (en) mit 89.567 Aufrufen am 2026-11-20.",
-   "quelle": {
-    "name": "Anthropic",
-    "typ": "trend",
-    "score": 83.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über das Unternehmen Anthropic.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
    "id": "idee-f217de26",
    "bereich": "story",
    "titel": "Wenn die Versicherung zahlt",
@@ -1324,355 +1817,6 @@
    },
    "app_auftrag": true,
    "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-e6527841",
-   "bereich": "erklaer",
-   "titel": "Was ist die Riemannsche Vermutung?",
-   "thema": "Eine Erklärung der Riemannschen Vermutung und ihrer Bedeutung.",
-   "begruendung": "\"Riemannsche Vermutung\" ist Platz 4 der meistgelesenen Wikipedia-Seiten (de) mit 30.852 Aufrufen am 2026-11-20.",
-   "quelle": {
-    "name": "Riemannsche Vermutung",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der Riemannschen Vermutung und ihrer Bedeutung."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-8b32e245",
-   "bereich": "erklaer",
-   "titel": "Wie funktioniert eine Kfz-Versicherung?",
-   "thema": "Eine Erklärung der Funktionsweise und Beitragssenkung einer Kfz-Versicherung.",
-   "begruendung": "\"versicherung\" ist Platz 2 der Google-Trends (DE) mit über 1.000 Suchen; Meldung: „Meinung: Kfz-Versicherung: So senken Sie ab 65 Jahren ihre Beiträge“ (Spiegel).",
-   "quelle": {
-    "name": "versicherung",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der Funktionsweise und Beitragssenkung einer Kfz-Versicherung."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-252d4cbe",
-   "bereich": "erklaer",
-   "titel": "Anthropic: Was macht das KI-Unternehmen?",
-   "thema": "Eine Erklärung der Arbeit und Ziele des KI-Unternehmens Anthropic.",
-   "begruendung": "\"Anthropic\" ist Platz 13 der meistgelesenen Wikipedia-Seiten (de) mit 16.026 Aufrufen und Platz 17 der meistgelesenen Wikipedia-Seiten (en) mit 89.567 Aufrufen am 2026-11-20.",
-   "quelle": {
-    "name": "Anthropic",
-    "typ": "trend",
-    "score": 83.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der Arbeit und Ziele des KI-Unternehmens Anthropic."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-d5ca07ca",
-   "bereich": "reportage",
-   "titel": "Bitcoin-Firma Strategy fliegt aus MSCI World",
-   "thema": "Ein Bericht über die Herausnahme der Bitcoin-Firma Strategy aus dem MSCI World ETF.",
-   "begruendung": "\"michael j saylor\" ist Platz 1 der Google-Trends (DE) mit über 200 Suchen; Meldung: „Bitcoin-Firma Strategy fliegt aus dem MSCI World – was sich im ETF ändert“ (Telepolis).",
-   "quelle": {
-    "name": "michael j saylor",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Bericht über die Herausnahme der Bitcoin-Firma Strategy aus dem MSCI World ETF.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-69056e01",
-   "bereich": "reportage",
-   "titel": "Pflegekassen warnen vor Finanzrisiken",
-   "thema": "Ein Bericht über die Warnung der Pflegekassen vor erneuten Finanzrisiken.",
-   "begruendung": "Die Meldung \"Pflegekassen warnen vor erneuten Finanzrisiken Anfang 2027\" ist von 3 Quellen bestätigt (freiepresse.de).",
-   "quelle": {
-    "name": "Pflegekassen warnen vor erneuten Finanzrisiken Anfang 2027",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "freiepresse.de",
-     "volksstimme.de",
-     "berchtesgadener-anzeiger.de"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Bericht über die Warnung der Pflegekassen vor erneuten Finanzrisiken.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-26a7a3a7",
-   "bereich": "reportage",
-   "titel": "Pistorius plant Ausbau des Militärpakts",
-   "thema": "Ein Bericht über die Absicht von Pistorius, den Militärpakt mit Polen auszubauen.",
-   "begruendung": "Die Meldung \"Pistorius will Militärpakt mit Polen ausbauen\" ist von 2 Quellen bestätigt (Tagesschau).",
-   "quelle": {
-    "name": "Pistorius will Militärpakt mit Polen ausbauen",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Bericht über die Absicht von Pistorius, den Militärpakt mit Polen auszubauen.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-453d4ec1",
-   "bereich": "reportage",
-   "titel": "US Mint stoppt Penny-Produktion",
-   "thema": "Ein Bericht über die Einstellung der Penny-Produktion in den USA.",
-   "begruendung": "\"u.s. mint stops producing pennies\" ist Platz 5 der Google-Trends (US) mit über 100 Suchen; Meldung: „Trump signs 'Common Cents Act' into law, halting penny production“ (5newsonline.com).",
-   "quelle": {
-    "name": "u.s. mint stops producing pennies",
-    "typ": "trend",
-    "score": 73.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Bericht über die Einstellung der Penny-Produktion in den USA.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-dcd7cf33",
-   "bereich": "reportage",
-   "titel": "Frauen-Bundesliga: Eintracht vs. HSV",
-   "thema": "Ein Bericht über das Fußballspiel Eintracht Frankfurt gegen Hamburger SV in der Frauen-Bundesliga.",
-   "begruendung": "\"eintracht frankfurt – hamburger sv\" ist Platz 4 der Google-Trends (DE) mit über 1.000 Suchen; Meldung: „Liveticker | Eintracht Frankfurt - Hamburger SV : | 11. Spieltag | Google Pixel Frauen-Bundesliga 2026/27“ (Kicker).",
-   "quelle": {
-    "name": "eintracht frankfurt – hamburger sv",
-    "typ": "trend",
-    "score": 80.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Bericht über das Fußballspiel Eintracht Frankfurt gegen Hamburger SV in der Frauen-Bundesliga.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-6a79fe23",
-   "bereich": "fakten",
-   "titel": "Alles über Grand Theft Auto",
-   "thema": "Wissenswertes zur Videospielreihe Grand Theft Auto",
-   "begruendung": "Der Trend 'Grand Theft Auto' ist Platz 1 der meistgelesenen Wikipedia-Seiten (de) mit 73.626 Aufrufen und Platz 1 der meistgelesenen Wikipedia-Seiten (en) mit 750.227 Aufrufen.",
-   "quelle": {
-    "name": "Grand Theft Auto",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes zur Videospielreihe Grand Theft Auto",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-20T14:06:48Z",
-   "recherche": [
-    {
-     "text": "13 Jahre nach dem Vorgänger erscheint \"Grand Theft Auto VI\".",
-     "status": "einzeln",
-     "datum": "2026-11-19",
-     "quellen": [
-      {
-       "quelle": "Tagesschau (ARD)",
-       "url": "https://www.tagesschau.de/wirtschaft/unternehmen/spiele-gta-sechs-neuerscheinung-100.html",
-       "datum": "2026-11-19"
-      }
-     ]
-    },
-    {
-     "text": "Lange warteten Fans auf ein neues Videospiel der Reihe \"Grand Theft Auto\" (GTA).",
-     "status": "einzeln",
-     "datum": "2026-11-19",
-     "quellen": [
-      {
-       "quelle": "Tagesschau (ARD)",
-       "url": "https://www.tagesschau.de/wirtschaft/unternehmen/spiele-gta-sechs-neuerscheinung-100.html",
-       "datum": "2026-11-19"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-d529fe1d",
-   "bereich": "fakten",
-   "titel": "Was ist Anthropic?",
-   "thema": "Fakten über das Unternehmen Anthropic",
-   "begruendung": "Der Trend 'Anthropic' ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) mit 25.551 Aufrufen und Platz 16 der meistgelesenen Wikipedia-Seiten (en) mit 112.202 Aufrufen.",
-   "quelle": {
-    "name": "Anthropic",
-    "typ": "trend",
-    "score": 90.7,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten über das Unternehmen Anthropic",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-20T14:06:48Z",
-   "recherche": [
-    {
-     "text": "Anthropic hat sich verpflichtet, bis 2045 fast 900 Milliarden Dollar in Rechenleistung oder Computer-Chips zu investieren.",
-     "status": "einzeln",
-     "datum": "2026-11-19",
-     "quellen": [
-      {
-       "quelle": "Tagesschau (ARD)",
-       "url": "https://www.tagesschau.de/wirtschaft/unternehmen/anthropic-boersengang-aktie-100.html",
-       "datum": "2026-11-19"
-      }
-     ]
-    },
-    {
-     "text": "Anthropic will verantwortungsvoll mit KI umgehen",
-     "status": "einzeln",
-     "datum": "2026-11-19",
-     "quellen": [
-      {
-       "quelle": "Tagesschau (ARD)",
-       "url": "https://www.tagesschau.de/wirtschaft/unternehmen/anthropic-boersengang-aktie-100.html",
-       "datum": "2026-11-19"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-6c71b357",
-   "bereich": "erklaer",
-   "titel": "Wie funktioniert Anthropic AI?",
-   "thema": "Eine Erklärung der Funktionsweise von Anthropic und künstlicher Intelligenz",
-   "begruendung": "Der Trend 'Anthropic' ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) mit 25.551 Aufrufen und Platz 16 der meistgelesenen Wikipedia-Seiten (en) mit 112.202 Aufrufen.",
-   "quelle": {
-    "name": "Anthropic",
-    "typ": "trend",
-    "score": 90.7,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der Funktionsweise von Anthropic und künstlicher Intelligenz"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-20T14:06:48Z"
-  },
-  {
-   "id": "idee-a4166352",
-   "bereich": "erklaer",
-   "titel": "Die Welt von Grand Theft Auto",
-   "thema": "Eine Erklärung der Spielmechaniken und des Einflusses von Grand Theft Auto",
-   "begruendung": "Der Trend 'Grand Theft Auto' ist Platz 1 der meistgelesenen Wikipedia-Seiten (de) mit 73.626 Aufrufen und Platz 1 der meistgelesenen Wikipedia-Seiten (en) mit 750.227 Aufrufen.",
-   "quelle": {
-    "name": "Grand Theft Auto",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der Spielmechaniken und des Einflusses von Grand Theft Auto"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-20T14:06:48Z"
   },
   {
    "id": "idee-8251049d",
@@ -1885,85 +2029,6 @@
    },
    "app_auftrag": true,
    "erstellt": "2026-11-18T14:11:03Z"
-  },
-  {
-   "id": "idee-f9634854",
-   "bereich": "ranking",
-   "titel": "Die größten Auslegerbrücken der Welt",
-   "thema": "Eine Rangliste der größten Auslegerbrücken nach messbaren Werten.",
-   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist Platz 5 der meistgelesenen Wikipedia-Seiten (de) und passt direkt zu diesem Format.",
-   "quelle": {
-    "name": "Liste der größten Auslegerbrücken",
-    "typ": "trend",
-    "score": 81.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q184600 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de"
-    ],
-    "thema": "Eine Rangliste der größten Auslegerbrücken nach messbaren Werten."
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z",
-   "recherche": [
-    {
-     "text": "Liste der größten Auslegerbrücken: 989.681 Abrufe",
-     "status": "einzeln",
-     "datum": "2026-11-16",
-     "quellen": [
-      {
-       "quelle": "severint.net",
-       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
-       "datum": "2026-11-16"
-      }
-     ]
-    },
-    {
-     "text": "Die geheime Weltherrschaft der Auslegerbrücken wäre die vierte Möglichkeit.",
-     "status": "einzeln",
-     "datum": "2026-11-16",
-     "quellen": [
-      {
-       "quelle": "severint.net",
-       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
-       "datum": "2026-11-16"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-639a4133",
-   "bereich": "satire",
-   "titel": "Gambia: Wahlkommission und 3. Amtszeit",
-   "thema": "Eine Satire über die Genehmigung der Kandidatur des Präsidenten für eine dritte Amtszeit.",
-   "begruendung": "Die Meldung 'The Gambian election commission approves President Adama Barrow 's candidacy for a third term in the December 5 presidential election as…' ist von 2 Quellen bestätigt und betrifft eine Regierung/Politiker.",
-   "quelle": {
-    "name": "The Gambian election commission approves President Adama Barrow 's candidacy for a third term in the December 5 presidential election as…",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Wikipedia · Reuters",
-     "Wikipedia · AFP via France 24"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
-   "auftrag": {
-    "art": "satire",
-    "thema": "Eine Satire über die Genehmigung der Kandidatur des Präsidenten für eine dritte Amtszeit.",
-    "sprache": "de",
-    "meldung": "The Gambian election commission approves President Adama Barrow 's candidacy for a third term in the December 5 presidential election as…"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-17T14:35:05Z"
   }
  ]
 }
