@@ -1,5 +1,5 @@
 {
- "erzeugt": "2026-11-23T08:18:13Z",
+ "erzeugt": "2026-11-24T00:35:31Z",
  "einstellungen": {
   "aktiv": true,
   "max_pro_tag": 3,
@@ -231,7 +231,19 @@
    "fehler": "ClipError: Download fehlgeschlagen (ERROR: [youtube] DituoNqnh7g: Video unavailable. This content isn’t available.).",
    "hochgeladen": [],
    "credit": "Original: Flying Uwe – https://www.youtube.com/watch?v=DituoNqnh7g"
+  },
+  {
+   "quelle": "https://www.youtube.com/watch?v=06eGK-l22jo",
+   "creator": "Flying Uwe",
+   "titel": "Michael im Stream – Sweater und Audi Lose obendrauf!",
+   "zeit": "2026-11-24T00:34:27Z",
+   "ok": false,
+   "fehler": "ClipError: Download fehlgeschlagen (ERROR: [youtube] 06eGK-l22jo: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-d). Hinweis: YouTube & Co. sperren Cloud-/Rechenzentrums-IPs oft.",
+   "hochgeladen": [],
+   "credit": "Original: Flying Uwe – https://www.youtube.com/watch?v=06eGK-l22jo"
   }
  ],
- "hinweise": []
+ "hinweise": [
+  "YouTube sperrt den Server (Anmeldung verlangt) – mit Secret CUDI_YT_COOKIES geht es (docs/clip-team.md)."
+ ]
 }
