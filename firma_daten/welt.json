@@ -1,10 +1,8 @@
 {
- "erzeugt": "2026-11-24T10:09:34Z",
- "anzahl": 12,
+ "erzeugt": "2026-11-24T22:39:26Z",
+ "anzahl": 20,
  "nur_ausland": 1,
- "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
- ],
+ "hinweise": [],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
@@ -12,34 +10,31 @@
    "kurz": "German media said Russia planned to launch a satellite with a nuclear warhead into space in coming weeks.",
    "link": "https://www.bbc.co.uk/news/articles/c9x2er1ry2mzo?at_medium=RSS&at_campaign=rss",
    "sprache": "en",
-   "zeit": "2026-11-24T10:36:08+05:30",
-   "ausland_quellen": 4,
+   "zeit": "2026-11-24T20:31:17Z",
+   "ausland_quellen": 3,
    "laender": [
     "Frankreich",
-    "Großbritannien",
-    "Indien"
+    "Großbritannien"
    ],
    "laender_einig": [
     "Frankreich",
-    "Großbritannien",
-    "Indien"
+    "Großbritannien"
    ],
-   "bestaetigt_laender": true,
+   "bestaetigt_laender": false,
    "beteiligte_laender": [
     "Russland"
    ],
    "zusammenfassung": [
     "BBC Europe (Großbritannien): Nato chief vows defence against space threat after Russian nuclear satellite reports",
     "Guardian Germany (Großbritannien): Germany taking seriously reports Russia may be planning to launch nuclear weapons into space",
-    "France 24 (Frankreich): NATO vows space defence after Russia nuclear satellite report",
-    "Times of India (Indien): Nuclear weapon in space? Russia may launch warhead-capable satellite by December"
+    "France 24 (Frankreich): NATO vows space defence after Russia nuclear satellite report"
    ],
    "staatsnah": [
     "France 24"
    ],
    "deutsch_quellen": [],
    "nur_ausland": true,
-   "unabhaengig_n": 4,
+   "unabhaengig_n": 3,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
@@ -72,201 +67,217 @@
      "link": "https://www.france24.com/en/nato-vows-space-defence-after-russia-nuclear-satellite-report",
      "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Times of India",
-     "land": "Indien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Nuclear weapon in space? Russia may launch warhead-capable satellite by December",
-     "link": "https://timesofindia.indiatimes.com/world/europe/nuclear-weapon-in-space-russia-may-launch-warhead-capable-satellite-by-december-report/articleshow/136120074.cms",
-     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
-     "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Dortmund vor CL-Duell bei Arsenal in ungewohnter Rolle",
-   "kurz": "Der in Deutschland noch ungeschlagene Tabellenführer ist in London Außenseiter, kann aber immerhin wieder auf Chukwuemeka hoffen. Baumgartner will und muss mit…",
-   "link": "https://www.derstandard.at/story/3000000350670/dortmund-vor-cl-duell-bei-arsenal-in-ungewohnter-rolle?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T10:00:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Dortmund vor CL-Duell bei Arsenal in ungewohnter Rolle"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Dortmund vor CL-Duell bei Arsenal in ungewohnter Rolle",
-     "link": "https://www.derstandard.at/story/3000000350670/dortmund-vor-cl-duell-bei-arsenal-in-ungewohnter-rolle?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
-   "kurz": "Wie wirken sich Energiewende und globale Krisen auf Strom- und Gaspreise in Deutschland aus? Hier gibt es jeden Tag die aktuellen Zahlen.",
-   "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
-   "sprache": "de",
-   "zeit": "2026-11-24T09:50:58Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
-     "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Russische Atomwaffen im Weltraum: Was soll das bringen?",
-   "kurz": "Noch bis Jahresende könnte Moskau einen nuklear bestückten Satelliten in den Weltraum entsenden, warnt die deutsche Bundeswehr. Machen es die Russen trotz…",
-   "link": "https://www.derstandard.at/story/3000000350558/russische-atomwaffen-im-weltraum-was-soll-das-bringen?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T06:06:14Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Russische Atomwaffen im Weltraum: Was soll das bringen?"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Geheimdienste warnen: Russland soll Atomwaffe im Weltraum vorbereiten",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1688798.html"
-    },
-    {
-     "quelle": "Tagesschau",
-     "titel": "Russische Atomwaffe im Weltall: Wie reagiert die NATO?",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1688800.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Russische Atomwaffen im Weltraum: Was soll das bringen?",
-     "link": "https://www.derstandard.at/story/3000000350558/russische-atomwaffen-im-weltraum-was-soll-das-bringen?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Arsenal vs Dortmund: Champions League – Predictions, how to watch, lineups",
-   "kurz": "Europe's premier club competition pits English champions Arsenal against German league leaders Dortmund on Tuesday.",
-   "link": "https://www.aljazeera.com/sports/2026/11/24/arsenal-borussia-dortmund-champions-league-predictions-lineups-streaming?traffic_source=rss",
+   "titel": "Poll : 53 % of Germans Want Berlin to Stop Sending Weapons to Ukraine - Novinite . com",
+   "kurz": "",
+   "link": "https://www.novinite.com/view_news.php?id=241760",
    "sprache": "en",
-   "zeit": "2026-11-24T05:56:41Z",
+   "zeit": "2026-11-24T22:15:00Z",
    "ausland_quellen": 1,
    "laender": [
-    "Katar"
+    "Bulgaria"
    ],
    "laender_einig": [
-    "Katar"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Großbritannien"
-   ],
-   "zusammenfassung": [
-    "Al Jazeera (Katar): Arsenal vs Dortmund: Champions League – Predictions, how to watch, lineups"
-   ],
-   "staatsnah": [
-    "Al Jazeera"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Al Jazeera",
-     "land": "Katar",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "Arsenal vs Dortmund: Champions League – Predictions, how to watch, lineups",
-     "link": "https://www.aljazeera.com/sports/2026/11/24/arsenal-borussia-dortmund-champions-league-predictions-lineups-streaming?traffic_source=rss",
-     "eigentuemer": "staatlich (Katar)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Russische Drohne erneut in polnischen Luftraum eingedrungen",
-   "kurz": "Deutschland und die Ukraine haben eine Absichtserklärung zur Weiterentwicklung des Gefechtssystems Delta unterzeichnet. Selenskyj bestätigt Angriffe auf die…",
-   "link": "https://www.derstandard.at/jetzt/livebericht/3000000350676/u?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T05:44:33Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
+    "Bulgaria"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
     "Ukraine"
    ],
    "zusammenfassung": [
-    "Der Standard (Österreich): Russische Drohne erneut in polnischen Luftraum eingedrungen"
+    "novinite.com (Bulgaria): Poll : 53 % of Germans Want Berlin to Stop Sending Weapons to Ukraine - Novinite . com"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "novinite.com",
+     "land": "Bulgaria",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "Poll : 53 % of Germans Want Berlin to Stop Sending Weapons to Ukraine - Novinite . com",
+     "link": "https://www.novinite.com/view_news.php?id=241760",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Berlin Left expels lawmaker accused of antisemitism in majority vote",
+   "kurz": "",
+   "link": "https://www.jpost.com/diaspora/antisemitism/article-916014",
+   "sprache": "en",
+   "zeit": "2026-11-24T22:15:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Israel"
+   ],
+   "laender_einig": [
+    "Israel"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "jpost.com (Israel): Berlin Left expels lawmaker accused of antisemitism in majority vote"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "jpost.com",
+     "land": "Israel",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "Berlin Left expels lawmaker accused of antisemitism in majority vote",
+     "link": "https://www.jpost.com/diaspora/antisemitism/article-916014",
+     "eigentuemer": "gehört Eli Azur",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "German Military Museum to Return WWII Archive to Jehovah Witnesses",
+   "kurz": "",
+   "link": "https://www.artnews.com/art-news/news/jehovahs-witnesses-military-history-museum-dresden-family-archive-nazi-era-1234807616/",
+   "sprache": "en",
+   "zeit": "2026-11-24T22:15:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "United States"
+   ],
+   "laender_einig": [
+    "United States"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "artnews.com (United States): German Military Museum to Return WWII Archive to Jehovah Witnesses"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "artnews.com",
+     "land": "United States",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "German Military Museum to Return WWII Archive to Jehovah Witnesses",
+     "link": "https://www.artnews.com/art-news/news/jehovahs-witnesses-military-history-museum-dresden-family-archive-nazi-era-1234807616/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Merz digs at NATO Ukraine membership failure",
+   "kurz": "",
+   "link": "http://www.russiaherald.com/news/279452535/merz-digs-at-nato-ukraine-membership-failure",
+   "sprache": "en",
+   "zeit": "2026-11-24T22:15:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Russia"
+   ],
+   "laender_einig": [
+    "Russia"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "russiaherald.com (Russia): Merz digs at NATO Ukraine membership failure"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "russiaherald.com",
+     "land": "Russia",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "Merz digs at NATO Ukraine membership failure",
+     "link": "http://www.russiaherald.com/news/279452535/merz-digs-at-nato-ukraine-membership-failure",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Volkswagen labor talks end without deal as union warns of January strikes",
+   "kurz": "IG Metall seeks 5% pay rise, while German automaker pushes for wage freeze in 2027 and 2028",
+   "link": "https://www.aa.com.tr/en/economy/volkswagen-labor-talks-end-without-deal-as-union-warns-of-january-strikes/4136379",
+   "sprache": "en",
+   "zeit": "2026-11-24T22:13:30+03:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Türkei"
+   ],
+   "laender_einig": [
+    "Türkei"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Anadolu (Türkei): Volkswagen labor talks end without deal as union warns of January strikes"
+   ],
+   "staatsnah": [
+    "Anadolu"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Anadolu",
+     "land": "Türkei",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Volkswagen labor talks end without deal as union warns of January strikes",
+     "link": "https://www.aa.com.tr/en/economy/volkswagen-labor-talks-end-without-deal-as-union-warns-of-january-strikes/4136379",
+     "eigentuemer": "staatlich (Türkei)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Muntere erste Partie bei Schach-WM in Genf endet mit einem Remis",
+   "kurz": "Weltmeister Gukesh und Herausforderer Sindarov trennen sich in einer Berliner Verteidigung nach interessantem Verlauf unentschieden, es steht 0,5 zu 0,5.",
+   "link": "https://www.derstandard.at/story/3000000350870/muntere-erste-partie-bei-schach-wm-in-genf-endet-mit-einem-remis?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T20:29:43Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Muntere erste Partie bei Schach-WM in Genf endet mit einem Remis"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -280,32 +291,34 @@
      "land": "Österreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Russische Drohne erneut in polnischen Luftraum eingedrungen",
-     "link": "https://www.derstandard.at/jetzt/livebericht/3000000350676/u?ref=rss",
+     "titel": "Muntere erste Partie bei Schach-WM in Genf endet mit einem Remis",
+     "link": "https://www.derstandard.at/story/3000000350870/muntere-erste-partie-bei-schach-wm-in-genf-endet-mit-einem-remis?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Sein Vater drohte ihm mit Enterbung, als er der SVP beitrat. Jetzt will Michael Graber Bundesrat werden",
-   "kurz": "Viele glauben, der Walliser Nationalrat Graber sei bloss der Steigbügelhalter für Thomas Aeschi. Doch könnten die Vorbehalte gegen Aeschi als Bundesrat am Ende…",
-   "link": "https://www.nzz.ch/schweiz/bundesratskandidat-michael-graber-der-impulsive-oberwalliser-wittert-seine-chance-ld.10070939",
-   "sprache": "de",
-   "zeit": "2026-11-24T04:44:22Z",
+   "titel": "German Chancellor Merz approval hits record low with 88% unhappy voters",
+   "kurz": "Just 11% express a positive view of Merz in new poll as right-wing AfD remains ahead at 26% in voting intentions",
+   "link": "https://www.aa.com.tr/en/europe/german-chancellor-merz-approval-hits-record-low-with-88-unhappy-voters/4136162",
+   "sprache": "en",
+   "zeit": "2026-11-24T19:46:20+03:00",
    "ausland_quellen": 1,
    "laender": [
-    "Schweiz"
+    "Türkei"
    ],
    "laender_einig": [
-    "Schweiz"
+    "Türkei"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): Sein Vater drohte ihm mit Enterbung, als er der SVP beitrat. Jetzt will Michael Graber Bundesrat werden"
+    "Anadolu (Türkei): German Chancellor Merz approval hits record low with 88% unhappy voters"
    ],
-   "staatsnah": [],
+   "staatsnah": [
+    "Anadolu"
+   ],
    "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
@@ -313,23 +326,23 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
+     "quelle": "Anadolu",
+     "land": "Türkei",
+     "art": "staatsnah",
      "beteiligt": false,
-     "titel": "Sein Vater drohte ihm mit Enterbung, als er der SVP beitrat. Jetzt will Michael Graber Bundesrat werden",
-     "link": "https://www.nzz.ch/schweiz/bundesratskandidat-michael-graber-der-impulsive-oberwalliser-wittert-seine-chance-ld.10070939",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "titel": "German Chancellor Merz approval hits record low with 88% unhappy voters",
+     "link": "https://www.aa.com.tr/en/europe/german-chancellor-merz-approval-hits-record-low-with-88-unhappy-voters/4136162",
+     "eigentuemer": "staatlich (Türkei)",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "La futura presidenta de Alemania no quiere saber nada ni de AfD ni de Die linke",
-   "kurz": "Ilse Aigner, candidata para ser la próxima jefa de Estado alemana, descarta el diálogo con la extrema derecha y el partido de izquierdas que gobernará Berlín",
-   "link": "https://elpais.com/internacional/2026-11-24/la-futura-presidenta-de-alemania-no-quiere-saber-nada-ni-de-afd-ni-de-die-linke.html",
+   "titel": "Musiala regresa a la Champions en el punto de mira por sus eventuales desmayos y bajo la presión del Bayern para bajar su sueldo",
+   "kurz": "Aquejado de una dolencia neuronal que no supera, el mejor volante alemán va convocado a Lille en medio de un escándalo jurídico y social sin precedentes",
+   "link": "https://elpais.com/deportes/futbol/2026-11-24/musiala-regresa-a-la-champions-bajo-la-presion-del-bayern-para-bajar-su-sueldo.html",
    "sprache": "es",
-   "zeit": "2026-11-24T04:30:01Z",
+   "zeit": "2026-11-24T19:35:08Z",
    "ausland_quellen": 1,
    "laender": [
     "Spanien"
@@ -340,7 +353,7 @@
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "El País (Spanien): La futura presidenta de Alemania no quiere saber nada ni de AfD ni de Die linke"
+    "El País (Spanien): Musiala regresa a la Champions en el punto de mira por sus eventuales desmayos y bajo la presión del Bayern para bajar su sueldo"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -354,9 +367,199 @@
      "land": "Spanien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "La futura presidenta de Alemania no quiere saber nada ni de AfD ni de Die linke",
-     "link": "https://elpais.com/internacional/2026-11-24/la-futura-presidenta-de-alemania-no-quiere-saber-nada-ni-de-afd-ni-de-die-linke.html",
+     "titel": "Musiala regresa a la Champions en el punto de mira por sus eventuales desmayos y bajo la presión del Bayern para bajar su sueldo",
+     "link": "https://elpais.com/deportes/futbol/2026-11-24/musiala-regresa-a-la-champions-bajo-la-presion-del-bayern-para-bajar-su-sueldo.html",
      "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Generali Deutschland baut 800 Stellen bis 2030 ab",
+   "kurz": "Nach einer Einigung mit dem Betriebsrat wurde der Abbau beschlossen, gekündigt wird aber niemand. In drei deutschen Städten werden die Standorte geschlossen",
+   "link": "https://www.derstandard.at/story/3000000350868/generali-deutschland-baut-800-stellen-bis-2030-ab?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T18:47:56Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Generali Deutschland baut 800 Stellen bis 2030 ab"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Generali Deutschland baut 800 Stellen bis 2030 ab",
+     "link": "https://www.derstandard.at/story/3000000350868/generali-deutschland-baut-800-stellen-bis-2030-ab?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "DER ANDERE BLICK - Die Furcht vor autonomen Waffen ist berechtigt – aber Deutschland muss seine Soldaten schützen können",
+   "kurz": "Je leistungsfähiger künstliche Intelligenz im Krieg wird, desto drängender stellt sich die Frage, welche Entscheidungen der Mensch an Maschinen delegieren darf.",
+   "link": "https://www.nzz.ch/der-andere-blick/die-furcht-vor-autonomen-waffen-ist-berechtigt-aber-deutschland-muss-seine-soldaten-schuetzen-koennen-ld.10073225",
+   "sprache": "de",
+   "zeit": "2026-11-24T17:00:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): DER ANDERE BLICK - Die Furcht vor autonomen Waffen ist berechtigt – aber Deutschland muss seine Soldaten schützen können"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "DER ANDERE BLICK - Die Furcht vor autonomen Waffen ist berechtigt – aber Deutschland muss seine Soldaten schützen können",
+     "link": "https://www.nzz.ch/der-andere-blick/die-furcht-vor-autonomen-waffen-ist-berechtigt-aber-deutschland-muss-seine-soldaten-schuetzen-koennen-ld.10073225",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Streit um Israel-Haltung: Berliner Linke stimmte für Ausschluss von Vanessa Emde",
+   "kurz": "SPD und Grüne hatten mit der Personalie die Zukunft einer möglichen rot-rot-grünen Koalition in der deutschen Hauptstadt verknüpft. Die Bundeschefin hatte sich…",
+   "link": "https://www.derstandard.at/story/3000000350746/streit-um-israel-haltung-berliner-linke-stimmte-fuer-ausschluss-von-vanessa-emde?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T16:35:51Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Israel"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Streit um Israel-Haltung: Berliner Linke stimmte für Ausschluss von Vanessa Emde"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Streit um Israel-Haltung: Berliner Linke stimmte für Ausschluss von Vanessa Emde",
+     "link": "https://www.derstandard.at/story/3000000350746/streit-um-israel-haltung-berliner-linke-stimmte-fuer-ausschluss-von-vanessa-emde?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Wiens Regierung soll sparen – auch bei der Vernebelungstaktik",
+   "kurz": "Im Vergleich zur bisherigen Informationspolitik der Rathauskoalition waren die Sparpakete der Bundesregierung ein Feuerwerk an Transparenz",
+   "link": "https://www.derstandard.at/story/3000000350813/wiens-regierung-soll-sparen-auch-bei-der-vernebelungstaktik?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T14:54:35Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Wiens Regierung soll sparen – auch bei der Vernebelungstaktik"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Wiens Regierung soll sparen – auch bei der Vernebelungstaktik",
+     "link": "https://www.derstandard.at/story/3000000350813/wiens-regierung-soll-sparen-auch-bei-der-vernebelungstaktik?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "USA machen laut Selenskyj Druck auf Frieden bis Jänner",
+   "kurz": "Eine russische Drohne ist erneut in Polens Luftraum eingedrungen. Deutschland und die Ukraine haben eine Absichtserklärung zur Weiterentwicklung des…",
+   "link": "https://www.derstandard.at/jetzt/livebericht/3000000350676/u?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T05:44:33Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "USA",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): USA machen laut Selenskyj Druck auf Frieden bis Jänner"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "USA machen laut Selenskyj Druck auf Frieden bis Jänner",
+     "link": "https://www.derstandard.at/jetzt/livebericht/3000000350676/u?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -471,6 +674,80 @@
      "titel": "Las series que llegan esta semana: todos los estrenos del 23 al 29 de noviembre",
      "link": "https://elpais.com/television/series/2026-11-23/las-series-que-llegan-esta-semana-todos-los-estrenos-del-23-al-29-de-noviembre.html",
      "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Berliner Fast-Food-Kette Burgermeister eröffnete in Wien",
+   "kurz": "Das deutsche Unternehmen will bis zu 20 Filialen in Österreich eröffnen, die erste davon eröffnete am Dienstag in Wien-Mitte",
+   "link": "https://www.derstandard.at/story/3000000350253/berliner-fast-food-kette-burgermeister-eroeffnete-in-wien?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T16:16:53Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Österreich"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Berliner Fast-Food-Kette Burgermeister eröffnete in Wien"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "Berliner Fast-Food-Kette Burgermeister eröffnete in Wien",
+     "link": "https://www.derstandard.at/story/3000000350253/berliner-fast-food-kette-burgermeister-eroeffnete-in-wien?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Wie Österreich künftig Drohnen abwehren will",
+   "kurz": "Die Bundesregierung hat am Dienstag ihre \"gesamtstaatliche Drohnenstrategie\" vorgestellt. Viele technische und finanzielle Fragen sind aber weiter offen",
+   "link": "https://www.derstandard.at/story/3000000350756/wie-oesterreich-kuenftig-drohnen-abwehren-will?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T14:36:09Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Österreich"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Wie Österreich künftig Drohnen abwehren will"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "Wie Österreich künftig Drohnen abwehren will",
+     "link": "https://www.derstandard.at/story/3000000350756/wie-oesterreich-kuenftig-drohnen-abwehren-will?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -1334,6 +1611,21 @@
    "keine_treffer": true
   },
   "Graber Bundesrat": {
+   "keine_treffer": true
+  },
+  "Germans Want": {
+   "keine_treffer": true
+  },
+  "Stop Sending": {
+   "keine_treffer": true
+  },
+  "Sending Weapons": {
+   "keine_treffer": true
+  },
+  "Military Museum": {
+   "keine_treffer": true
+  },
+  "Jehovah Witnesses": {
    "keine_treffer": true
   }
  }
