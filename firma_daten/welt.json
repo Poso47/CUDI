@@ -1,6 +1,6 @@
 {
- "erzeugt": "2026-11-24T00:07:53Z",
- "anzahl": 10,
+ "erzeugt": "2026-11-24T10:09:34Z",
+ "anzahl": 12,
  "nur_ausland": 1,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
@@ -8,37 +8,51 @@
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "Germany taking seriously reports Russia may be planning to launch nuclear weapons into space",
-   "kurz": "Move would breach nuclear weapons treaties and reports come amid rising concerns over militarisation of space The German government has said it is taking very…",
-   "link": "https://www.theguardian.com/world/2026/nov/23/russia-nuclear-weapons-space-german-intelligence",
+   "titel": "Nato chief vows defence against space threat after Russian nuclear satellite reports",
+   "kurz": "German media said Russia planned to launch a satellite with a nuclear warhead into space in coming weeks.",
+   "link": "https://www.bbc.co.uk/news/articles/c9x2er1ry2mzo?at_medium=RSS&at_campaign=rss",
    "sprache": "en",
-   "zeit": "2026-11-23T22:33:03Z",
-   "ausland_quellen": 2,
+   "zeit": "2026-11-24T10:36:08+05:30",
+   "ausland_quellen": 4,
    "laender": [
     "Frankreich",
-    "Großbritannien"
+    "Großbritannien",
+    "Indien"
    ],
    "laender_einig": [
     "Frankreich",
-    "Großbritannien"
+    "Großbritannien",
+    "Indien"
    ],
-   "bestaetigt_laender": false,
+   "bestaetigt_laender": true,
    "beteiligte_laender": [
     "Russland"
    ],
    "zusammenfassung": [
+    "BBC Europe (Großbritannien): Nato chief vows defence against space threat after Russian nuclear satellite reports",
     "Guardian Germany (Großbritannien): Germany taking seriously reports Russia may be planning to launch nuclear weapons into space",
-    "France 24 (Frankreich): NATO vows space defence after Russia nuclear satellite report"
+    "France 24 (Frankreich): NATO vows space defence after Russia nuclear satellite report",
+    "Times of India (Indien): Nuclear weapon in space? Russia may launch warhead-capable satellite by December"
    ],
    "staatsnah": [
     "France 24"
    ],
    "deutsch_quellen": [],
    "nur_ausland": true,
-   "unabhaengig_n": 2,
+   "unabhaengig_n": 4,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "Nato chief vows defence against space threat after Russian nuclear satellite reports",
+     "link": "https://www.bbc.co.uk/news/articles/c9x2er1ry2mzo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "zaehlt_nicht": ""
+    },
     {
      "quelle": "Guardian Germany",
      "land": "Großbritannien",
@@ -57,6 +71,292 @@
      "titel": "NATO vows space defence after Russia nuclear satellite report",
      "link": "https://www.france24.com/en/nato-vows-space-defence-after-russia-nuclear-satellite-report",
      "eigentuemer": "staatlich (Frankreich)",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Times of India",
+     "land": "Indien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Nuclear weapon in space? Russia may launch warhead-capable satellite by December",
+     "link": "https://timesofindia.indiatimes.com/world/europe/nuclear-weapon-in-space-russia-may-launch-warhead-capable-satellite-by-december-report/articleshow/136120074.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Dortmund vor CL-Duell bei Arsenal in ungewohnter Rolle",
+   "kurz": "Der in Deutschland noch ungeschlagene Tabellenführer ist in London Außenseiter, kann aber immerhin wieder auf Chukwuemeka hoffen. Baumgartner will und muss mit…",
+   "link": "https://www.derstandard.at/story/3000000350670/dortmund-vor-cl-duell-bei-arsenal-in-ungewohnter-rolle?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T10:00:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Dortmund vor CL-Duell bei Arsenal in ungewohnter Rolle"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Dortmund vor CL-Duell bei Arsenal in ungewohnter Rolle",
+     "link": "https://www.derstandard.at/story/3000000350670/dortmund-vor-cl-duell-bei-arsenal-in-ungewohnter-rolle?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+   "kurz": "Wie wirken sich Energiewende und globale Krisen auf Strom- und Gaspreise in Deutschland aus? Hier gibt es jeden Tag die aktuellen Zahlen.",
+   "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
+   "sprache": "de",
+   "zeit": "2026-11-24T09:50:58Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+     "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russische Atomwaffen im Weltraum: Was soll das bringen?",
+   "kurz": "Noch bis Jahresende könnte Moskau einen nuklear bestückten Satelliten in den Weltraum entsenden, warnt die deutsche Bundeswehr. Machen es die Russen trotz…",
+   "link": "https://www.derstandard.at/story/3000000350558/russische-atomwaffen-im-weltraum-was-soll-das-bringen?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T06:06:14Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Russische Atomwaffen im Weltraum: Was soll das bringen?"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Geheimdienste warnen: Russland soll Atomwaffe im Weltraum vorbereiten",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1688798.html"
+    },
+    {
+     "quelle": "Tagesschau",
+     "titel": "Russische Atomwaffe im Weltall: Wie reagiert die NATO?",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1688800.html"
+    }
+   ],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Russische Atomwaffen im Weltraum: Was soll das bringen?",
+     "link": "https://www.derstandard.at/story/3000000350558/russische-atomwaffen-im-weltraum-was-soll-das-bringen?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Arsenal vs Dortmund: Champions League – Predictions, how to watch, lineups",
+   "kurz": "Europe's premier club competition pits English champions Arsenal against German league leaders Dortmund on Tuesday.",
+   "link": "https://www.aljazeera.com/sports/2026/11/24/arsenal-borussia-dortmund-champions-league-predictions-lineups-streaming?traffic_source=rss",
+   "sprache": "en",
+   "zeit": "2026-11-24T05:56:41Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Katar"
+   ],
+   "laender_einig": [
+    "Katar"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Großbritannien"
+   ],
+   "zusammenfassung": [
+    "Al Jazeera (Katar): Arsenal vs Dortmund: Champions League – Predictions, how to watch, lineups"
+   ],
+   "staatsnah": [
+    "Al Jazeera"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Al Jazeera",
+     "land": "Katar",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Arsenal vs Dortmund: Champions League – Predictions, how to watch, lineups",
+     "link": "https://www.aljazeera.com/sports/2026/11/24/arsenal-borussia-dortmund-champions-league-predictions-lineups-streaming?traffic_source=rss",
+     "eigentuemer": "staatlich (Katar)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Russische Drohne erneut in polnischen Luftraum eingedrungen",
+   "kurz": "Deutschland und die Ukraine haben eine Absichtserklärung zur Weiterentwicklung des Gefechtssystems Delta unterzeichnet. Selenskyj bestätigt Angriffe auf die…",
+   "link": "https://www.derstandard.at/jetzt/livebericht/3000000350676/u?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-24T05:44:33Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Russische Drohne erneut in polnischen Luftraum eingedrungen"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Russische Drohne erneut in polnischen Luftraum eingedrungen",
+     "link": "https://www.derstandard.at/jetzt/livebericht/3000000350676/u?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Sein Vater drohte ihm mit Enterbung, als er der SVP beitrat. Jetzt will Michael Graber Bundesrat werden",
+   "kurz": "Viele glauben, der Walliser Nationalrat Graber sei bloss der Steigbügelhalter für Thomas Aeschi. Doch könnten die Vorbehalte gegen Aeschi als Bundesrat am Ende…",
+   "link": "https://www.nzz.ch/schweiz/bundesratskandidat-michael-graber-der-impulsive-oberwalliser-wittert-seine-chance-ld.10070939",
+   "sprache": "de",
+   "zeit": "2026-11-24T04:44:22Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Sein Vater drohte ihm mit Enterbung, als er der SVP beitrat. Jetzt will Michael Graber Bundesrat werden"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Sein Vater drohte ihm mit Enterbung, als er der SVP beitrat. Jetzt will Michael Graber Bundesrat werden",
+     "link": "https://www.nzz.ch/schweiz/bundesratskandidat-michael-graber-der-impulsive-oberwalliser-wittert-seine-chance-ld.10070939",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "La futura presidenta de Alemania no quiere saber nada ni de AfD ni de Die linke",
+   "kurz": "Ilse Aigner, candidata para ser la próxima jefa de Estado alemana, descarta el diálogo con la extrema derecha y el partido de izquierdas que gobernará Berlín",
+   "link": "https://elpais.com/internacional/2026-11-24/la-futura-presidenta-de-alemania-no-quiere-saber-nada-ni-de-afd-ni-de-die-linke.html",
+   "sprache": "es",
+   "zeit": "2026-11-24T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): La futura presidenta de Alemania no quiere saber nada ni de AfD ni de Die linke"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "La futura presidenta de Alemania no quiere saber nada ni de AfD ni de Die linke",
+     "link": "https://elpais.com/internacional/2026-11-24/la-futura-presidenta-de-alemania-no-quiere-saber-nada-ni-de-afd-ni-de-die-linke.html",
+     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -139,126 +439,6 @@
    ]
   },
   {
-   "titel": "Sin oxígeno y sin sherpas: la historia del alpinista que intentará hacer historia en el Everest invernal",
-   "kurz": "El alemán Jost Kobusch encara su cuarta expedición invernal hacia la cumbre más alta del mundo; el montañista persigue un objetivo técnico inédito mediante la…",
-   "link": "https://www.lanacion.com.ar/el-mundo/sin-oxigeno-y-sin-sherpas-la-historia-del-alpinista-que-intentara-hacer-historia-en-el-everest-nid23112026/",
-   "sprache": "es",
-   "zeit": "2026-11-23T20:42:50Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [
-    "Argentinien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "La Nación (Argentinien): Sin oxígeno y sin sherpas: la historia del alpinista que intentará hacer historia en el Everest invernal"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Sin oxígeno y sin sherpas: la historia del alpinista que intentará hacer historia en el Everest invernal",
-     "link": "https://www.lanacion.com.ar/el-mundo/sin-oxigeno-y-sin-sherpas-la-historia-del-alpinista-que-intentara-hacer-historia-en-el-everest-nid23112026/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "LIVE-TICKER - Krieg in der Ukraine: Polen bestellt nach Raketenabstürzen den russischen Botschafter ein +++ Merz warnt Russland vor weiteren «Provokationen»",
-   "kurz": "Seit über vier Jahren führt Russland Krieg gegen die Ukraine. Die wichtigsten Entwicklungen im Überblick.",
-   "link": "https://www.nzz.ch/international/krieg-in-der-ukraine-zugverkehr-ueber-krim-bruecke-nach-erneutem-angriff-eingestellt-ld.10021245",
-   "sprache": "de",
-   "zeit": "2026-11-23T18:25:15Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "NZZ (Schweiz): LIVE-TICKER - Krieg in der Ukraine: Polen bestellt nach Raketenabstürzen den russischen Botschafter ein +++ Merz warnt Russland vor…"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Krieg gegen die Ukraine: Tote nach Angriff auf Mehrfamilienhaus",
-     "link": "https://www.tagesschau.de/ausland/europa/ukraine-angriffe-wohnhaeuser-104.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "LIVE-TICKER - Krieg in der Ukraine: Polen bestellt nach Raketenabstürzen den russischen Botschafter ein +++ Merz warnt Russland vor weiteren «Provokationen»",
-     "link": "https://www.nzz.ch/international/krieg-in-der-ukraine-zugverkehr-ueber-krim-bruecke-nach-erneutem-angriff-eingestellt-ld.10021245",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Robert Schumann, nuestro contemporáneo",
-   "kurz": "Jörg Widmann programa en Lucerna una edición del Festival Forward dedicada a mostrar la profunda huella que ha dejado el compositor alemán en varios creadores…",
-   "link": "https://elpais.com/cultura/2026-11-23/robert-schumann-nuestro-contemporaneo.html",
-   "sprache": "es",
-   "zeit": "2026-11-23T17:03:28Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Robert Schumann, nuestro contemporáneo"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Robert Schumann, nuestro contemporáneo",
-     "link": "https://elpais.com/cultura/2026-11-23/robert-schumann-nuestro-contemporaneo.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Las series que llegan esta semana: todos los estrenos del 23 al 29 de noviembre",
    "kurz": "La historia real de un secuestro en Países Bajos y la quinta temporada de ‘Babylon Berlin’ son algunas de las opciones destacadas del catálogo",
    "link": "https://elpais.com/television/series/2026-11-23/las-series-que-llegan-esta-semana-todos-los-estrenos-del-23-al-29-de-noviembre.html",
@@ -291,43 +471,6 @@
      "titel": "Las series que llegan esta semana: todos los estrenos del 23 al 29 de noviembre",
      "link": "https://elpais.com/television/series/2026-11-23/las-series-que-llegan-esta-semana-todos-los-estrenos-del-23-al-29-de-noviembre.html",
      "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "‘Serious error of judgment’: outrage over military AI event at Berlin arts complex",
-   "kurz": "Kraftwerk Berlin, part of same development as techno club Tresor, transformed into ‘war room’ for arms firm event With their cavernous post-industrial venues…",
-   "link": "https://www.theguardian.com/world/2026/nov/22/military-ai-event-berlin-kraftwerk-arts-complex",
-   "sprache": "en",
-   "zeit": "2026-11-22T06:00:21Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): ‘Serious error of judgment’: outrage over military AI event at Berlin arts complex"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "‘Serious error of judgment’: outrage over military AI event at Berlin arts complex",
-     "link": "https://www.theguardian.com/world/2026/nov/22/military-ai-event-berlin-kraftwerk-arts-complex",
-     "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
     }
    ]
@@ -366,44 +509,6 @@
      "titel": "Germans reject choosing between US and China as faith in the West crumbles",
      "link": "https://www.scmp.com/news/china/diplomacy/article/3375525/germans-reject-choosing-between-us-and-china-faith-west-crumbles",
      "eigentuemer": "gehört Alibaba Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "“Tenemos el mejor candidato”: así lanzó España la carrera por la presidencia del BCE",
-   "kurz": "El perfil de Hernández de Cos más las circunstancias que condicionan a Francia y Alemania dejan al español a las puertas de dirigir al regulador monetario",
-   "link": "https://elpais.com/economia/2026-11-22/tenemos-el-mejor-candidato-asi-lanzo-espana-la-carrera-por-la-presidencia-del-bce.html",
-   "sprache": "es",
-   "zeit": "2026-11-22T04:45:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Spanien"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): “Tenemos el mejor candidato”: así lanzó España la carrera por la presidencia del BCE"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "“Tenemos el mejor candidato”: así lanzó España la carrera por la presidencia del BCE",
-     "link": "https://elpais.com/economia/2026-11-22/tenemos-el-mejor-candidato-asi-lanzo-espana-la-carrera-por-la-presidencia-del-bce.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -472,28 +577,6 @@
    ],
    "themen": [
     "'Inside Deutsche Bank': How money flowed unchecked through Colombia"
-   ]
-  },
-  {
-   "name": "Robert Schumann",
-   "wikidata": "https://www.wikidata.org/wiki/Q7351",
-   "beschreibung": "German composer, pianist and critic (1810–1856)",
-   "verbindungen": [
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Hochschule für Musik und Theater „Felix Mendelssohn Bartholdy“ Leipzig",
-     "link": "https://www.wikidata.org/wiki/Q312578",
-     "beendet": "1844"
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Leipziger Burschenschaft Germania",
-     "link": "https://www.wikidata.org/wiki/Q1815509",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "Robert Schumann, nuestro contemporáneo"
    ]
   }
  ],
@@ -1237,6 +1320,21 @@
      "beendet": null
     }
    ]
+  },
+  "Russische Atomwaffen": {
+   "keine_treffer": true
+  },
+  "Champions League": {
+   "keine_treffer": true
+  },
+  "Russische Drohne": {
+   "keine_treffer": true
+  },
+  "Sein Vater": {
+   "keine_treffer": true
+  },
+  "Graber Bundesrat": {
+   "keine_treffer": true
   }
  }
 }
