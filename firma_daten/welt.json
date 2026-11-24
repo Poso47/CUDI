@@ -1,112 +1,163 @@
 {
- "erzeugt": "2026-11-23T07:56:24Z",
- "anzahl": 7,
- "nur_ausland": 0,
- "hinweise": [],
+ "erzeugt": "2026-11-24T00:07:53Z",
+ "anzahl": 10,
+ "nur_ausland": 1,
+ "hinweise": [
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+ ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "15 Menschen bei Brand in Berliner Krankenhaus verletzt",
-   "kurz": "Eine Person erlitt lebensbedrohliche Verletzungen. Das Feuer war in einem Patientenzimmer ausgebrochen, die Polizei geht von schwerer Brandstiftung aus",
-   "link": "https://www.derstandard.at/story/3000000350465/15-menschen-bei-brand-in-berliner-krankenhaus-verletzt?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-23T05:00:45Z",
-   "ausland_quellen": 1,
+   "titel": "Germany taking seriously reports Russia may be planning to launch nuclear weapons into space",
+   "kurz": "Move would breach nuclear weapons treaties and reports come amid rising concerns over militarisation of space The German government has said it is taking very…",
+   "link": "https://www.theguardian.com/world/2026/nov/23/russia-nuclear-weapons-space-german-intelligence",
+   "sprache": "en",
+   "zeit": "2026-11-23T22:33:03Z",
+   "ausland_quellen": 2,
    "laender": [
-    "Österreich"
+    "Frankreich",
+    "Großbritannien"
    ],
    "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): 15 Menschen bei Brand in Berliner Krankenhaus verletzt"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "15 Menschen bei Brand in Berliner Krankenhaus verletzt",
-     "link": "https://www.derstandard.at/story/3000000350465/15-menschen-bei-brand-in-berliner-krankenhaus-verletzt?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "DER ANDERE BLICK - Der CSU-Chef sägt am Stuhl des Kanzlers: Neben Markus Söder sieht Friedrich Merz ziemlich blass aus",
-   "kurz": "Erst sicherte Söder seiner Partei ihre Wahlgeschenke, jetzt inszeniert er sich als Vorkämpfer gegen die kalte Progression. Während der Stern des Kanzlers…",
-   "link": "https://www.nzz.ch/der-andere-blick/der-csu-chef-saegt-am-stuhl-des-kanzlers-neben-soeder-sieht-merz-blass-aus-ld.10071593",
-   "sprache": "de",
-   "zeit": "2026-11-23T04:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): DER ANDERE BLICK - Der CSU-Chef sägt am Stuhl des Kanzlers: Neben Markus Söder sieht Friedrich Merz ziemlich blass aus"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "DER ANDERE BLICK - Der CSU-Chef sägt am Stuhl des Kanzlers: Neben Markus Söder sieht Friedrich Merz ziemlich blass aus",
-     "link": "https://www.nzz.ch/der-andere-blick/der-csu-chef-saegt-am-stuhl-des-kanzlers-neben-soeder-sieht-merz-blass-aus-ld.10071593",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Así quedó la tabla histórica de campeones del ATP Finals, tras el título de Carlos Alcaraz",
-   "kurz": "El español se consagró por primera vez en su carrera luego de derrotar al alemán Alexander Zverev, N° 1 del ranking ATP, por 6-2 y 7-6 (7) en la final",
-   "link": "https://www.lanacion.com.ar/deportes/tenis/asi-quedo-la-tabla-historica-de-campeones-del-atp-finals-tras-el-titulo-de-carlos-alcaraz-nid22112026/",
-   "sprache": "es",
-   "zeit": "2026-11-22T20:18:39Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [
-    "Argentinien"
+    "Frankreich",
+    "Großbritannien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Spanien"
+    "Russland"
    ],
    "zusammenfassung": [
-    "La Nación (Argentinien): Así quedó la tabla histórica de campeones del ATP Finals, tras el título de Carlos Alcaraz"
+    "Guardian Germany (Großbritannien): Germany taking seriously reports Russia may be planning to launch nuclear weapons into space",
+    "France 24 (Frankreich): NATO vows space defence after Russia nuclear satellite report"
+   ],
+   "staatsnah": [
+    "France 24"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": true,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Germany taking seriously reports Russia may be planning to launch nuclear weapons into space",
+     "link": "https://www.theguardian.com/world/2026/nov/23/russia-nuclear-weapons-space-german-intelligence",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "France 24",
+     "land": "Frankreich",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "NATO vows space defence after Russia nuclear satellite report",
+     "link": "https://www.france24.com/en/nato-vows-space-defence-after-russia-nuclear-satellite-report",
+     "eigentuemer": "staatlich (Frankreich)",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "'Inside Deutsche Bank': How money flowed unchecked through Colombia",
+   "kurz": "In Colombia, the German banking giant dominated the market for euro-denominated payments without carrying out the necessary checks, potentially facilitating…",
+   "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/23/inside-deutsche-bank-how-money-flowed-unchecked-through-colombia_6787342_8.html",
+   "sprache": "en",
+   "zeit": "2026-11-23T20:50:20+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [
+    "Frankreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): 'Inside Deutsche Bank': How money flowed unchecked through Colombia"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
     {
-     "quelle": "Tagesschau",
-     "titel": "Tennis: Alcaraz zu stark - Zverev verpasst Titel bei ATP Finals",
-     "link": "https://www.sportschau.de/tennis/atp/zverev-verpasst-finals-titel,finale-zverev-alcaraz-100.html"
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "'Inside Deutsche Bank': How money flowed unchecked through Colombia",
+     "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/23/inside-deutsche-bank-how-money-flowed-unchecked-through-colombia_6787342_8.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
     }
+   ]
+  },
+  {
+   "titel": "Zelenskyy calls for four-way talks with Russia ‘as soon as possible’",
+   "kurz": "During a gathering of Ukrainian supporters in Berlin last week, U.S. envoy Jared Kushner said that Washington might consider offering Ukraine a security…",
+   "link": "https://www.thehindu.com/news/international/zelenskyy-calls-for-four-way-talks-with-russia-as-soon-as-possible/article71734890.ece",
+   "sprache": "en",
+   "zeit": "2026-11-23T20:48:20+05:30",
+   "ausland_quellen": 1,
+   "laender": [
+    "Indien"
    ],
+   "laender_einig": [
+    "Indien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "The Hindu (Indien): Zelenskyy calls for four-way talks with Russia ‘as soon as possible’"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "The Hindu",
+     "land": "Indien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Zelenskyy calls for four-way talks with Russia ‘as soon as possible’",
+     "link": "https://www.thehindu.com/news/international/zelenskyy-calls-for-four-way-talks-with-russia-as-soon-as-possible/article71734890.ece",
+     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Sin oxígeno y sin sherpas: la historia del alpinista que intentará hacer historia en el Everest invernal",
+   "kurz": "El alemán Jost Kobusch encara su cuarta expedición invernal hacia la cumbre más alta del mundo; el montañista persigue un objetivo técnico inédito mediante la…",
+   "link": "https://www.lanacion.com.ar/el-mundo/sin-oxigeno-y-sin-sherpas-la-historia-del-alpinista-que-intentara-hacer-historia-en-el-everest-nid23112026/",
+   "sprache": "es",
+   "zeit": "2026-11-23T20:42:50Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "La Nación (Argentinien): Sin oxígeno y sin sherpas: la historia del alpinista que intentará hacer historia en el Everest invernal"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -117,9 +168,129 @@
      "land": "Argentinien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Así quedó la tabla histórica de campeones del ATP Finals, tras el título de Carlos Alcaraz",
-     "link": "https://www.lanacion.com.ar/deportes/tenis/asi-quedo-la-tabla-historica-de-campeones-del-atp-finals-tras-el-titulo-de-carlos-alcaraz-nid22112026/",
+     "titel": "Sin oxígeno y sin sherpas: la historia del alpinista que intentará hacer historia en el Everest invernal",
+     "link": "https://www.lanacion.com.ar/el-mundo/sin-oxigeno-y-sin-sherpas-la-historia-del-alpinista-que-intentara-hacer-historia-en-el-everest-nid23112026/",
      "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "LIVE-TICKER - Krieg in der Ukraine: Polen bestellt nach Raketenabstürzen den russischen Botschafter ein +++ Merz warnt Russland vor weiteren «Provokationen»",
+   "kurz": "Seit über vier Jahren führt Russland Krieg gegen die Ukraine. Die wichtigsten Entwicklungen im Überblick.",
+   "link": "https://www.nzz.ch/international/krieg-in-der-ukraine-zugverkehr-ueber-krim-bruecke-nach-erneutem-angriff-eingestellt-ld.10021245",
+   "sprache": "de",
+   "zeit": "2026-11-23T18:25:15Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "NZZ (Schweiz): LIVE-TICKER - Krieg in der Ukraine: Polen bestellt nach Raketenabstürzen den russischen Botschafter ein +++ Merz warnt Russland vor…"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Krieg gegen die Ukraine: Tote nach Angriff auf Mehrfamilienhaus",
+     "link": "https://www.tagesschau.de/ausland/europa/ukraine-angriffe-wohnhaeuser-104.html"
+    }
+   ],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "LIVE-TICKER - Krieg in der Ukraine: Polen bestellt nach Raketenabstürzen den russischen Botschafter ein +++ Merz warnt Russland vor weiteren «Provokationen»",
+     "link": "https://www.nzz.ch/international/krieg-in-der-ukraine-zugverkehr-ueber-krim-bruecke-nach-erneutem-angriff-eingestellt-ld.10021245",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Robert Schumann, nuestro contemporáneo",
+   "kurz": "Jörg Widmann programa en Lucerna una edición del Festival Forward dedicada a mostrar la profunda huella que ha dejado el compositor alemán en varios creadores…",
+   "link": "https://elpais.com/cultura/2026-11-23/robert-schumann-nuestro-contemporaneo.html",
+   "sprache": "es",
+   "zeit": "2026-11-23T17:03:28Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Robert Schumann, nuestro contemporáneo"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Robert Schumann, nuestro contemporáneo",
+     "link": "https://elpais.com/cultura/2026-11-23/robert-schumann-nuestro-contemporaneo.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Las series que llegan esta semana: todos los estrenos del 23 al 29 de noviembre",
+   "kurz": "La historia real de un secuestro en Países Bajos y la quinta temporada de ‘Babylon Berlin’ son algunas de las opciones destacadas del catálogo",
+   "link": "https://elpais.com/television/series/2026-11-23/las-series-que-llegan-esta-semana-todos-los-estrenos-del-23-al-29-de-noviembre.html",
+   "sprache": "es",
+   "zeit": "2026-11-23T13:33:45Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Las series que llegan esta semana: todos los estrenos del 23 al 29 de noviembre"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Las series que llegan esta semana: todos los estrenos del 23 al 29 de noviembre",
+     "link": "https://elpais.com/television/series/2026-11-23/las-series-que-llegan-esta-semana-todos-los-estrenos-del-23-al-29-de-noviembre.html",
+     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -162,57 +333,23 @@
    ]
   },
   {
-   "titel": "‘People couldn’t deal with watching an animal die’: the strange saga of Timmy the whale – and how a whole country lost its mind",
-   "kurz": "When the humpback got stranded on Germany’s Baltic coast, crowds gathered, conspiracy theorists pitted themselves against scientists and animal lovers argued…",
-   "link": "https://www.theguardian.com/environment/2026/nov/21/strange-saga-timmy-the-whale-germany",
+   "titel": "Germans reject choosing between US and China as faith in the West crumbles",
+   "kurz": "Amid heated superpower rivalry, a vast majority of Germans want to remain neutral between the United States and China, even as a major new survey also reveals…",
+   "link": "https://www.scmp.com/news/china/diplomacy/article/3375525/germans-reject-choosing-between-us-and-china-faith-west-crumbles",
    "sprache": "en",
-   "zeit": "2026-11-21T12:00:57Z",
+   "zeit": "2026-11-23T23:00:11Z",
    "ausland_quellen": 1,
    "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Guardian Germany (Großbritannien): ‘People couldn’t deal with watching an animal die’: the strange saga of Timmy the whale – and how a whole country lost its mind"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "‘People couldn’t deal with watching an animal die’: the strange saga of Timmy the whale – and how a whole country lost its mind",
-     "link": "https://www.theguardian.com/environment/2026/nov/21/strange-saga-timmy-the-whale-germany",
-     "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Más de 50 personas intoxicadas durante una misa en Alemania",
-   "kurz": "",
-   "link": "https://actualidad-rt.com/actualidad/639268-50-personas-intoxicadas-monoxido-carbono",
-   "sprache": "es",
-   "zeit": "2026-11-23T03:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "?"
+    "Hongkong/China"
    ],
    "laender_einig": [],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [],
+   "beteiligte_laender": [
+    "Hongkong/China",
+    "USA"
+   ],
    "zusammenfassung": [
-    "actualidad-rt.com (?): Más de 50 personas intoxicadas durante una misa en Alemania"
+    "SCMP (Hongkong/China): Germans reject choosing between US and China as faith in the West crumbles"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -222,13 +359,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "actualidad-rt.com",
-     "land": "?",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "Más de 50 personas intoxicadas durante una misa en Alemania",
-     "link": "https://actualidad-rt.com/actualidad/639268-50-personas-intoxicadas-monoxido-carbono",
-     "eigentuemer": "Eigentümer unbekannt",
+     "quelle": "SCMP",
+     "land": "Hongkong/China",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "Germans reject choosing between US and China as faith in the West crumbles",
+     "link": "https://www.scmp.com/news/china/diplomacy/article/3375525/germans-reject-choosing-between-us-and-china-faith-west-crumbles",
+     "eigentuemer": "gehört Alibaba Group",
      "zaehlt_nicht": ""
     }
    ]
@@ -274,167 +411,89 @@
  ],
  "verbindungen": [
   {
-   "name": "Markus Söder",
-   "wikidata": "https://www.wikidata.org/wiki/Q50664",
-   "beschreibung": "German politician (CSU)",
+   "name": "Deutsche Bank",
+   "wikidata": "https://www.wikidata.org/wiki/Q66048",
+   "beschreibung": "German global banking and financial services company",
    "verbindungen": [
     {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": "1998"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": "2003"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": "2008"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": "2013"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": "2018"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Bayerischen Landtags",
-     "link": "https://www.wikidata.org/wiki/Q17586301",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Partei",
-     "wert": "Christlich-Soziale Union in Bayern",
-     "link": "https://www.wikidata.org/wiki/Q49763",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Friedrich-Alexander-Universität Erlangen-Nürnberg",
-     "link": "https://www.wikidata.org/wiki/Q40025",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Bayerischer Rundfunk",
-     "link": "https://www.wikidata.org/wiki/Q278637",
-     "beendet": "1994"
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Baumüller",
-     "link": "https://www.wikidata.org/wiki/Q811655",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "ZDF-Fernsehrat",
-     "link": "https://www.wikidata.org/wiki/Q135972",
-     "beendet": "2008"
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Junge Union",
-     "link": "https://www.wikidata.org/wiki/Q497594",
-     "beendet": "2003"
-    }
-   ],
-   "themen": [
-    "DER ANDERE BLICK - Der CSU-Chef sägt am Stuhl des Kanzlers: Neben Markus Söder sieht Friedrich Merz ziemlich blass aus"
-   ]
-  },
-  {
-   "name": "Friedrich Merz",
-   "wikidata": "https://www.wikidata.org/wiki/Q566257",
-   "beschreibung": "German politician, Chancellor of the Federal Republic of Germany",
-   "verbindungen": [
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Deutschen Bundestages",
-     "link": "https://www.wikidata.org/wiki/Q1939555",
-     "beendet": "1998"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Europäischen Parlaments",
-     "link": "https://www.wikidata.org/wiki/Q27169",
-     "beendet": "1994"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Vorsitzender der CDU/CSU-Bundestagsfraktion",
-     "link": "https://www.wikidata.org/wiki/Q58908504",
-     "beendet": "2002"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Deutschen Bundestages",
-     "link": "https://www.wikidata.org/wiki/Q1939555",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Deutschen Bundestages",
-     "link": "https://www.wikidata.org/wiki/Q1939555",
-     "beendet": "2009"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Deutschen Bundestages",
-     "link": "https://www.wikidata.org/wiki/Q1939555",
-     "beendet": "2005"
-    },
-    {
-     "eigenschaft": "Partei",
-     "wert": "Christlich Demokratische Union Deutschlands",
-     "link": "https://www.wikidata.org/wiki/Q49762",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Arbeitgeber",
+     "eigenschaft": "Eigentümer",
      "wert": "BlackRock",
      "link": "https://www.wikidata.org/wiki/Q219635",
      "beendet": null
     },
     {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Verband der Chemischen Industrie",
-     "link": "https://www.wikidata.org/wiki/Q2513764",
-     "beendet": "1989"
+     "eigenschaft": "Eigentümer",
+     "wert": "Capital Group Companies",
+     "link": "https://www.wikidata.org/wiki/Q505275",
+     "beendet": null
     },
     {
-     "eigenschaft": "Arbeitgeber",
-     "wert": "Mayer Brown",
-     "link": "https://www.wikidata.org/wiki/Q6797057",
+     "eigenschaft": "Eigentümer",
+     "wert": "Cerberus Capital Management",
+     "link": "https://www.wikidata.org/wiki/Q289362",
      "beendet": null
     },
     {
      "eigenschaft": "Mitglied von",
-     "wert": "Atlantik-Brücke",
-     "link": "https://www.wikidata.org/wiki/Q756504",
+     "wert": "Verband deutscher Pfandbriefbanken",
+     "link": "https://www.wikidata.org/wiki/Q1584881",
      "beendet": null
     },
     {
      "eigenschaft": "Mitglied von",
-     "wert": "Trilaterale Kommission",
-     "link": "https://www.wikidata.org/wiki/Q218868",
+     "wert": "Cash Group",
+     "link": "https://www.wikidata.org/wiki/Q961426",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Linux Foundation",
+     "link": "https://www.wikidata.org/wiki/Q858851",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Deutscher Dialogmarketing Verband",
+     "link": "https://www.wikidata.org/wiki/Q1204711",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Bundesverband deutscher Banken",
+     "link": "https://www.wikidata.org/wiki/Q1009084",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Bundesnetzwerk Bürgerschaftliches Engagement",
+     "link": "https://www.wikidata.org/wiki/Q1006424",
      "beendet": null
     }
    ],
    "themen": [
-    "DER ANDERE BLICK - Der CSU-Chef sägt am Stuhl des Kanzlers: Neben Markus Söder sieht Friedrich Merz ziemlich blass aus"
+    "'Inside Deutsche Bank': How money flowed unchecked through Colombia"
+   ]
+  },
+  {
+   "name": "Robert Schumann",
+   "wikidata": "https://www.wikidata.org/wiki/Q7351",
+   "beschreibung": "German composer, pianist and critic (1810–1856)",
+   "verbindungen": [
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Hochschule für Musik und Theater „Felix Mendelssohn Bartholdy“ Leipzig",
+     "link": "https://www.wikidata.org/wiki/Q312578",
+     "beendet": "1844"
+    },
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Leipziger Burschenschaft Germania",
+     "link": "https://www.wikidata.org/wiki/Q1815509",
+     "beendet": null
+    }
+   ],
+   "themen": [
+    "Robert Schumann, nuestro contemporáneo"
    ]
   }
  ],
@@ -1157,6 +1216,25 @@
      "wert": "Junge Union",
      "link": "https://www.wikidata.org/wiki/Q497594",
      "beendet": "2003"
+    }
+   ]
+  },
+  "Robert Schumann": {
+   "name": "Robert Schumann",
+   "wikidata": "https://www.wikidata.org/wiki/Q7351",
+   "beschreibung": "German composer, pianist and critic (1810–1856)",
+   "verbindungen": [
+    {
+     "eigenschaft": "Arbeitgeber",
+     "wert": "Hochschule für Musik und Theater „Felix Mendelssohn Bartholdy“ Leipzig",
+     "link": "https://www.wikidata.org/wiki/Q312578",
+     "beendet": "1844"
+    },
+    {
+     "eigenschaft": "Mitglied von",
+     "wert": "Leipziger Burschenschaft Germania",
+     "link": "https://www.wikidata.org/wiki/Q1815509",
+     "beendet": null
     }
    ]
   }
