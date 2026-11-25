@@ -1,10 +1,8 @@
 {
- "erzeugt": "2026-11-25T08:55:14Z",
- "anzahl": 14,
+ "erzeugt": "2026-11-25T21:52:52Z",
+ "anzahl": 15,
  "nur_ausland": 1,
- "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
- ],
+ "hinweise": [],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
@@ -13,7 +11,7 @@
    "link": "https://www.bbc.co.uk/news/articles/c9x2er1ry2mzo?at_medium=RSS&at_campaign=rss",
    "sprache": "en",
    "zeit": "2026-11-24T20:31:17Z",
-   "ausland_quellen": 3,
+   "ausland_quellen": 2,
    "laender": [
     "Frankreich",
     "Großbritannien"
@@ -28,7 +26,6 @@
    ],
    "zusammenfassung": [
     "BBC Europe (Großbritannien): Nato chief vows defence against space threat after Russian nuclear satellite reports",
-    "Guardian Germany (Großbritannien): Germany taking seriously reports Russia may be planning to launch nuclear weapons into space",
     "France 24 (Frankreich): NATO vows space defence after Russia nuclear satellite report"
    ],
    "staatsnah": [
@@ -36,7 +33,7 @@
    ],
    "deutsch_quellen": [],
    "nur_ausland": true,
-   "unabhaengig_n": 3,
+   "unabhaengig_n": 2,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
@@ -48,16 +45,6 @@
      "titel": "Nato chief vows defence against space threat after Russian nuclear satellite reports",
      "link": "https://www.bbc.co.uk/news/articles/c9x2er1ry2mzo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Guardian Germany",
-     "land": "Großbritannien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Germany taking seriously reports Russia may be planning to launch nuclear weapons into space",
-     "link": "https://www.theguardian.com/world/2026/nov/23/russia-nuclear-weapons-space-german-intelligence",
-     "eigentuemer": "gehört Guardian Media Group",
      "zaehlt_nicht": ""
     },
     {
@@ -73,11 +60,51 @@
    ]
   },
   {
-   "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
-   "kurz": "Wie wirken sich Energiewende und globale Krisen auf Strom- und Gaspreise in Deutschland aus? Hier gibt es jeden Tag die aktuellen Zahlen.",
-   "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
+   "titel": "Rusia acumula casi 500.000 soldados muertos en la guerra y Alemania advierte que “quiere más que Ucrania”",
+   "kurz": "Una investigación de la BBC en base a una filtración de datos permitió hacer una estimación de las bajas",
+   "link": "https://www.lanacion.com.ar/el-mundo/rusia-acumula-casi-500000-soldados-muertos-en-la-guerra-y-alemania-advierte-que-quiere-mas-que-nid25112026/",
+   "sprache": "es",
+   "zeit": "2026-11-25T19:57:35Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "La Nación (Argentinien): Rusia acumula casi 500.000 soldados muertos en la guerra y Alemania advierte que “quiere más que Ucrania”"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Rusia acumula casi 500.000 soldados muertos en la guerra y Alemania advierte que “quiere más que Ucrania”",
+     "link": "https://www.lanacion.com.ar/el-mundo/rusia-acumula-casi-500000-soldados-muertos-en-la-guerra-y-alemania-advierte-que-quiere-mas-que-nid25112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Trump droht mit neuen Zöllen wegen Überkapazitäten – doch die EU will die USA lieber als Verbündete gegen China",
+   "kurz": "Amerikanische Zolldrohungen werden von der EU nicht mehr besonders ernst genommen. Gerade Europas industrielle Schwergewichte, darunter Deutschland, haben…",
+   "link": "https://www.nzz.ch/wirtschaft/trump-droht-mit-neuen-zoellen-wegen-ueberkapazitaeten-doch-die-eu-will-die-usa-lieber-als-verbuendete-gegen-china-ld.10074714",
    "sprache": "de",
-   "zeit": "2026-11-25T08:51:14Z",
+   "zeit": "2026-11-25T17:23:05Z",
    "ausland_quellen": 1,
    "laender": [
     "Schweiz"
@@ -86,9 +113,12 @@
     "Schweiz"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [],
+   "beteiligte_laender": [
+    "Hongkong/China",
+    "USA"
+   ],
    "zusammenfassung": [
-    "NZZ (Schweiz): INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland"
+    "NZZ (Schweiz): Trump droht mit neuen Zöllen wegen Überkapazitäten – doch die EU will die USA lieber als Verbündete gegen China"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -102,19 +132,167 @@
      "land": "Schweiz",
      "art": "privat",
      "beteiligt": false,
-     "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
-     "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
+     "titel": "Trump droht mit neuen Zöllen wegen Überkapazitäten – doch die EU will die USA lieber als Verbündete gegen China",
+     "link": "https://www.nzz.ch/wirtschaft/trump-droht-mit-neuen-zoellen-wegen-ueberkapazitaeten-doch-die-eu-will-die-usa-lieber-als-verbuendete-gegen-china-ld.10074714",
      "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Steffen Krach, líder del SPD en Berlín: “No creo que nacionalizar viviendas baje los alquileres, al contrario”",
-   "kurz": "El candidato socialdemócrata formará parte de una coalición de gobierno en la capital de Alemania convencido de que esa propuesta de sus socios de Die Linke…",
-   "link": "https://elpais.com/internacional/2026-11-25/steffen-krach-lider-del-spd-en-berlin-no-creo-que-nacionalizar-viviendas-baje-los-alquileres-al-contrario.html",
+   "titel": "Früheres Topmodel Veruschka ist gestorben",
+   "kurz": "Vera Gräfin von Lehndorff starb am Dienstag im Alter von 87 Jahren in Berlin. Sie galt als erstes deutsches Topmodel",
+   "link": "https://www.derstandard.at/story/3000000351091/fr252heres-topmodel-vera-gr228fin-von-lehndorff-ist-gestorben?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-25T16:21:38Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Früheres Topmodel Veruschka ist gestorben"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Früheres Topmodel Veruschka ist gestorben",
+     "link": "https://www.derstandard.at/story/3000000351091/fr252heres-topmodel-vera-gr228fin-von-lehndorff-ist-gestorben?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Bericht zu ADHS: Bundesrat empfiehlt Selbsthilfegruppen und bessere Schulung",
+   "kurz": "Das Fehlen von Kenntnissen über das Krankheitsbild führt dazu, dass zu vielen Leuten zur ADHS-Abklärung geraten wird. Das belastet die…",
+   "link": "https://www.nzz.ch/schweiz/bericht-zu-adhs-bundesrat-empfiehlt-selbsthilfegruppen-und-bessere-schulung-ld.10074242",
+   "sprache": "de",
+   "zeit": "2026-11-25T15:49:05Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Bericht zu ADHS: Bundesrat empfiehlt Selbsthilfegruppen und bessere Schulung"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Bericht zu ADHS: Bundesrat empfiehlt Selbsthilfegruppen und bessere Schulung",
+     "link": "https://www.nzz.ch/schweiz/bericht-zu-adhs-bundesrat-empfiehlt-selbsthilfegruppen-und-bessere-schulung-ld.10074242",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Crack breitet sich in Deutschland aus, Städte suchen Antworten",
+   "kurz": "Die Droge mit enormem Suchtpotenzial war Thema einer Fachtagung in Frankfurt. Vorbild für Lösungen könnte Zürich sein. In Wien ist Crack kaum Thema",
+   "link": "https://www.derstandard.at/story/3000000351081/crack-breitet-sich-in-deutschland-aus-st228dte-suchen-antworten?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-25T15:35:57Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Crack breitet sich in Deutschland aus, Städte suchen Antworten"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Crack breitet sich in Deutschland aus, Städte suchen Antworten",
+     "link": "https://www.derstandard.at/story/3000000351081/crack-breitet-sich-in-deutschland-aus-st228dte-suchen-antworten?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Sol Partinin Berlin Eyalet Meclisi Grubu , Vanessa Emdeyi 33 oyla ihraç etti",
+   "kurz": "",
+   "link": "https://www.haberler.com/guncel/sol-parti-nin-berlin-eyalet-meclisi-grubu-vanessa-20462246-haberi/",
+   "sprache": "tr",
+   "zeit": "2026-11-25T14:15:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Turkey"
+   ],
+   "laender_einig": [
+    "Turkey"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "haberler.com (Turkey): Sol Partinin Berlin Eyalet Meclisi Grubu , Vanessa Emdeyi 33 oyla ihraç etti"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "haberler.com",
+     "land": "Turkey",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "Sol Partinin Berlin Eyalet Meclisi Grubu , Vanessa Emdeyi 33 oyla ihraç etti",
+     "link": "https://www.haberler.com/guncel/sol-parti-nin-berlin-eyalet-meclisi-grubu-vanessa-20462246-haberi/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Merz defiende el apoyo militar de Alemania a Ucrania pese a la creciente oposición ciudadana",
+   "kurz": "Las encuestas advierten que una mayoría de alemanes está en contra de proseguir con la transferencia de ayuda armamentística a Kiev",
+   "link": "https://elpais.com/internacional/2026-11-25/merz-defiende-el-apoyo-militar-de-alemania-a-ucrania-pese-a-la-creciente-oposicion-ciudadana.html",
    "sprache": "es",
-   "zeit": "2026-11-25T04:30:01Z",
+   "zeit": "2026-11-25T14:14:10Z",
    "ausland_quellen": 1,
    "laender": [
     "Spanien"
@@ -123,9 +301,11 @@
     "Spanien"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [],
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
    "zusammenfassung": [
-    "El País (Spanien): Steffen Krach, líder del SPD en Berlín: “No creo que nacionalizar viviendas baje los alquileres, al contrario”"
+    "El País (Spanien): Merz defiende el apoyo militar de Alemania a Ucrania pese a la creciente oposición ciudadana"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -139,32 +319,30 @@
      "land": "Spanien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Steffen Krach, líder del SPD en Berlín: “No creo que nacionalizar viviendas baje los alquileres, al contrario”",
-     "link": "https://elpais.com/internacional/2026-11-25/steffen-krach-lider-del-spd-en-berlin-no-creo-que-nacionalizar-viviendas-baje-los-alquileres-al-contrario.html",
+     "titel": "Merz defiende el apoyo militar de Alemania a Ucrania pese a la creciente oposición ciudadana",
+     "link": "https://elpais.com/internacional/2026-11-25/merz-defiende-el-apoyo-militar-de-alemania-a-ucrania-pese-a-la-creciente-oposicion-ciudadana.html",
      "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Diplomatische Offensive: Warum nun plötzlich wieder über einen Nato-Beitritt der Ukraine gesprochen wird",
-   "kurz": "Bei den Gesprächen der vergangenen Wochen kamen totgeglaubte Ideen wieder auf. Der deutsche Kanzler Merz kritisierte zudem seine Parteikollegin Merkel: Wäre…",
-   "link": "https://www.nzz.ch/international/diplomatische-offensive-warum-nun-ploetzlich-wieder-ueber-einen-nato-beitritt-der-ukraine-gesprochen-wird-ld.10073266",
+   "titel": "Gewaltschutz: 16 Tage Empörung, 349 Tage Alltag",
+   "kurz": "Zum Auftakt der Aktionstage gegen Gewalt an Frauen entdeckt selbst der Boulevard den Feminismus – die Bundesregierung unterdessen weiteren Gesprächsbedarf",
+   "link": "https://www.derstandard.at/story/3000000350932/gewaltschutz-16-tage-empoerung-349-tage-alltag?ref=rss",
    "sprache": "de",
-   "zeit": "2026-11-25T04:30:00Z",
+   "zeit": "2026-11-25T14:13:19Z",
    "ausland_quellen": 1,
    "laender": [
-    "Schweiz"
+    "Österreich"
    ],
    "laender_einig": [
-    "Schweiz"
+    "Österreich"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Ukraine"
-   ],
+   "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): Diplomatische Offensive: Warum nun plötzlich wieder über einen Nato-Beitritt der Ukraine gesprochen wird"
+    "Der Standard (Österreich): Gewaltschutz: 16 Tage Empörung, 349 Tage Alltag"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -174,34 +352,34 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NZZ",
-     "land": "Schweiz",
+     "quelle": "Der Standard",
+     "land": "Österreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Diplomatische Offensive: Warum nun plötzlich wieder über einen Nato-Beitritt der Ukraine gesprochen wird",
-     "link": "https://www.nzz.ch/international/diplomatische-offensive-warum-nun-ploetzlich-wieder-ueber-einen-nato-beitritt-der-ukraine-gesprochen-wird-ld.10073266",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "titel": "Gewaltschutz: 16 Tage Empörung, 349 Tage Alltag",
+     "link": "https://www.derstandard.at/story/3000000350932/gewaltschutz-16-tage-empoerung-349-tage-alltag?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Wenn der Bismarckhering sauer aufstösst: So macht Jean-Luc Mélenchon die Germanophobie wieder salonfähig",
-   "kurz": "Der französische Präsidentschaftskandidat bemüht seit Jahren das Schreckbild deutscher Vorherrschaft in Europa. Nun reist der Linkspopulist nach Berlin, wo er…",
-   "link": "https://www.nzz.ch/international/warum-jean-luc-melenchon-deutschland-als-feindbild-sieht-ld.10073238",
+   "titel": "Rauswurf von Abgeordneter Emde erleichtert Weg zu linker Koalition in Berlin",
+   "kurz": "SPD und Grüne begrüßen den Ausschluss von Vanessa Emde aus der linken Fraktion und wollen sich nun auf Inhalte konzentrieren",
+   "link": "https://www.derstandard.at/story/3000000350998/rauswurf-von-abgeordneter-emde-erleichtert-weg-zu-linker-koalition-in-berlin?ref=rss",
    "sprache": "de",
-   "zeit": "2026-11-25T04:30:00Z",
+   "zeit": "2026-11-25T13:15:46Z",
    "ausland_quellen": 1,
    "laender": [
-    "Schweiz"
+    "Österreich"
    ],
    "laender_einig": [
-    "Schweiz"
+    "Österreich"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): Wenn der Bismarckhering sauer aufstösst: So macht Jean-Luc Mélenchon die Germanophobie wieder salonfähig"
+    "Der Standard (Österreich): Rauswurf von Abgeordneter Emde erleichtert Weg zu linker Koalition in Berlin"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -211,50 +389,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NZZ",
-     "land": "Schweiz",
+     "quelle": "Der Standard",
+     "land": "Österreich",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Wenn der Bismarckhering sauer aufstösst: So macht Jean-Luc Mélenchon die Germanophobie wieder salonfähig",
-     "link": "https://www.nzz.ch/international/warum-jean-luc-melenchon-deutschland-als-feindbild-sieht-ld.10073238",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Das Bundesratskaff: Wie ein 1250-Seelen-Dorf am Zugerberg gleich zwei Landesväter hervorbringen könnte",
-   "kurz": "Wird Thomas Aeschi am 9. Dezember in die Landesregierung gewählt, sässen mit ihm und Martin Pfister gleich zwei Zuger im Bundesrat. Doch die beiden verbindet…",
-   "link": "https://www.nzz.ch/schweiz/das-bundesratskaff-wie-ein-1250-seelen-dorf-am-zugerberg-gleich-zwei-landesvaeter-hervorbringt-ld.10073197",
-   "sprache": "de",
-   "zeit": "2026-11-25T04:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): Das Bundesratskaff: Wie ein 1250-Seelen-Dorf am Zugerberg gleich zwei Landesväter hervorbringen könnte"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Das Bundesratskaff: Wie ein 1250-Seelen-Dorf am Zugerberg gleich zwei Landesväter hervorbringen könnte",
-     "link": "https://www.nzz.ch/schweiz/das-bundesratskaff-wie-ein-1250-seelen-dorf-am-zugerberg-gleich-zwei-landesvaeter-hervorbringt-ld.10073197",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "titel": "Rauswurf von Abgeordneter Emde erleichtert Weg zu linker Koalition in Berlin",
+     "link": "https://www.derstandard.at/story/3000000350998/rauswurf-von-abgeordneter-emde-erleichtert-weg-zu-linker-koalition-in-berlin?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -336,143 +477,22 @@
    ]
   },
   {
-   "titel": "Muntere erste Partie bei Schach-WM in Genf endet mit einem Remis",
-   "kurz": "Weltmeister Gukesh und Herausforderer Sindarov trennen sich in einer Berliner Verteidigung nach interessantem Verlauf unentschieden, es steht 0,5 zu 0,5.",
-   "link": "https://www.derstandard.at/story/3000000350870/muntere-erste-partie-bei-schach-wm-in-genf-endet-mit-einem-remis?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T20:29:43Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Muntere erste Partie bei Schach-WM in Genf endet mit einem Remis"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Muntere erste Partie bei Schach-WM in Genf endet mit einem Remis",
-     "link": "https://www.derstandard.at/story/3000000350870/muntere-erste-partie-bei-schach-wm-in-genf-endet-mit-einem-remis?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "German Chancellor Merz approval hits record low with 88% unhappy voters",
-   "kurz": "Just 11% express a positive view of Merz in new poll as right-wing AfD remains ahead at 26% in voting intentions",
-   "link": "https://www.aa.com.tr/en/europe/german-chancellor-merz-approval-hits-record-low-with-88-unhappy-voters/4136162",
+   "titel": "Ruto, Steinmeier sign pact as Kenya eyes more German jobs",
+   "kurz": "Deal signed with German language-testing body to make it easier for Kenyans to qualify for jobs.",
+   "link": "https://nation.africa/kenya/news/ruto-steinmeier-sign-pact-as-kenya-eyes-more-german-jobs-5684126",
    "sprache": "en",
-   "zeit": "2026-11-24T19:46:20+03:00",
+   "zeit": "2026-11-25T15:34:56Z",
    "ausland_quellen": 1,
    "laender": [
-    "Türkei"
+    "Kenia"
    ],
-   "laender_einig": [
-    "Türkei"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Anadolu (Türkei): German Chancellor Merz approval hits record low with 88% unhappy voters"
-   ],
-   "staatsnah": [
-    "Anadolu"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Anadolu",
-     "land": "Türkei",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "German Chancellor Merz approval hits record low with 88% unhappy voters",
-     "link": "https://www.aa.com.tr/en/europe/german-chancellor-merz-approval-hits-record-low-with-88-unhappy-voters/4136162",
-     "eigentuemer": "staatlich (Türkei)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Streit um Israel-Haltung: Berliner Linke stimmte für Ausschluss von Vanessa Emde",
-   "kurz": "SPD und Grüne hatten mit der Personalie die Zukunft einer möglichen rot-rot-grünen Koalition in der deutschen Hauptstadt verknüpft. Die Bundeschefin hatte sich…",
-   "link": "https://www.derstandard.at/story/3000000350746/streit-um-israel-haltung-berliner-linke-stimmte-fuer-ausschluss-von-vanessa-emde?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T16:35:51Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
+   "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Israel"
+    "Kenia"
    ],
    "zusammenfassung": [
-    "Der Standard (Österreich): Streit um Israel-Haltung: Berliner Linke stimmte für Ausschluss von Vanessa Emde"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Linksfraktion in Berlin schließt umstrittene Abgeordnete Vanessa Emde aus",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1689336.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Streit um Israel-Haltung: Berliner Linke stimmte für Ausschluss von Vanessa Emde",
-     "link": "https://www.derstandard.at/story/3000000350746/streit-um-israel-haltung-berliner-linke-stimmte-fuer-ausschluss-von-vanessa-emde?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Wiens Regierung soll sparen – auch bei der Vernebelungstaktik",
-   "kurz": "Im Vergleich zur bisherigen Informationspolitik der Rathauskoalition waren die Sparpakete der Bundesregierung ein Feuerwerk an Transparenz",
-   "link": "https://www.derstandard.at/story/3000000350813/wiens-regierung-soll-sparen-auch-bei-der-vernebelungstaktik?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T14:54:35Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Wiens Regierung soll sparen – auch bei der Vernebelungstaktik"
+    "Daily Nation (Kenia): German President Steinmeier arrives in Kenya for talks with Ruto"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -482,13 +502,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Der Standard",
-     "land": "Österreich",
+     "quelle": "Daily Nation",
+     "land": "Kenia",
      "art": "privat",
-     "beteiligt": false,
-     "titel": "Wiens Regierung soll sparen – auch bei der Vernebelungstaktik",
-     "link": "https://www.derstandard.at/story/3000000350813/wiens-regierung-soll-sparen-auch-bei-der-vernebelungstaktik?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
+     "beteiligt": true,
+     "titel": "German President Steinmeier arrives in Kenya for talks with Ruto",
+     "link": "https://nation.africa/kenya/news/german-president-steinmeier-arrives-in-kenya-for-talks-with-ruto-5683630",
+     "eigentuemer": "gehört Nation Media Group",
      "zaehlt_nicht": ""
     }
    ]
@@ -569,42 +589,7 @@
    ]
   }
  ],
- "verbindungen": [
-  {
-   "name": "Steffen Krach",
-   "wikidata": "https://www.wikidata.org/wiki/Q25805646",
-   "beschreibung": "German politician",
-   "verbindungen": [
-    {
-     "eigenschaft": "Amt",
-     "wert": "Regionspräsident der Region Hannover",
-     "link": "https://www.wikidata.org/wiki/Q131371425",
-     "beendet": "2026"
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Partei­vorsitzende",
-     "link": "https://www.wikidata.org/wiki/Q2746259",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Amt",
-     "wert": "Mitglied des Abgeordnetenhauses von Berlin",
-     "link": "https://www.wikidata.org/wiki/Q18327335",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Partei",
-     "wert": "Sozialdemokratische Partei Deutschlands",
-     "link": "https://www.wikidata.org/wiki/Q49768",
-     "beendet": null
-    }
-   ],
-   "themen": [
-    "Steffen Krach, líder del SPD en Berlín: “No creo que nacionalizar viviendas baje los alquileres, al contrario”"
-   ]
-  }
- ],
+ "verbindungen": [],
  "wikidata_cache": {
   "Friedrich Merz": {
    "name": "Friedrich Merz",
@@ -1417,6 +1402,21 @@
    "keine_treffer": true
   },
   "Berliner Linke": {
+   "keine_treffer": true
+  },
+  "Früheres Topmodel": {
+   "keine_treffer": true
+  },
+  "Topmodel Veruschka": {
+   "keine_treffer": true
+  },
+  "Sol Partinin": {
+   "keine_treffer": true
+  },
+  "Eyalet Meclisi": {
+   "keine_treffer": true
+  },
+  "Meclisi Grubu": {
    "keine_treffer": true
   }
  }
