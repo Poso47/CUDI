@@ -1,8 +1,10 @@
 {
- "erzeugt": "2026-11-24T22:39:26Z",
- "anzahl": 20,
+ "erzeugt": "2026-11-25T08:55:14Z",
+ "anzahl": 14,
  "nur_ausland": 1,
- "hinweise": [],
+ "hinweise": [
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+ ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
@@ -71,24 +73,98 @@
    ]
   },
   {
-   "titel": "Poll : 53 % of Germans Want Berlin to Stop Sending Weapons to Ukraine - Novinite . com",
-   "kurz": "",
-   "link": "https://www.novinite.com/view_news.php?id=241760",
-   "sprache": "en",
-   "zeit": "2026-11-24T22:15:00Z",
+   "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+   "kurz": "Wie wirken sich Energiewende und globale Krisen auf Strom- und Gaspreise in Deutschland aus? Hier gibt es jeden Tag die aktuellen Zahlen.",
+   "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
+   "sprache": "de",
+   "zeit": "2026-11-25T08:51:14Z",
    "ausland_quellen": 1,
    "laender": [
-    "Bulgaria"
+    "Schweiz"
    ],
    "laender_einig": [
-    "Bulgaria"
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+     "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Steffen Krach, líder del SPD en Berlín: “No creo que nacionalizar viviendas baje los alquileres, al contrario”",
+   "kurz": "El candidato socialdemócrata formará parte de una coalición de gobierno en la capital de Alemania convencido de que esa propuesta de sus socios de Die Linke…",
+   "link": "https://elpais.com/internacional/2026-11-25/steffen-krach-lider-del-spd-en-berlin-no-creo-que-nacionalizar-viviendas-baje-los-alquileres-al-contrario.html",
+   "sprache": "es",
+   "zeit": "2026-11-25T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "El País (Spanien): Steffen Krach, líder del SPD en Berlín: “No creo que nacionalizar viviendas baje los alquileres, al contrario”"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Steffen Krach, líder del SPD en Berlín: “No creo que nacionalizar viviendas baje los alquileres, al contrario”",
+     "link": "https://elpais.com/internacional/2026-11-25/steffen-krach-lider-del-spd-en-berlin-no-creo-que-nacionalizar-viviendas-baje-los-alquileres-al-contrario.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Diplomatische Offensive: Warum nun plötzlich wieder über einen Nato-Beitritt der Ukraine gesprochen wird",
+   "kurz": "Bei den Gesprächen der vergangenen Wochen kamen totgeglaubte Ideen wieder auf. Der deutsche Kanzler Merz kritisierte zudem seine Parteikollegin Merkel: Wäre…",
+   "link": "https://www.nzz.ch/international/diplomatische-offensive-warum-nun-ploetzlich-wieder-ueber-einen-nato-beitritt-der-ukraine-gesprochen-wird-ld.10073266",
+   "sprache": "de",
+   "zeit": "2026-11-25T04:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
     "Ukraine"
    ],
    "zusammenfassung": [
-    "novinite.com (Bulgaria): Poll : 53 % of Germans Want Berlin to Stop Sending Weapons to Ukraine - Novinite . com"
+    "NZZ (Schweiz): Diplomatische Offensive: Warum nun plötzlich wieder über einen Nato-Beitritt der Ukraine gesprochen wird"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -98,34 +174,34 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "novinite.com",
-     "land": "Bulgaria",
-     "art": "unbekannt",
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
      "beteiligt": false,
-     "titel": "Poll : 53 % of Germans Want Berlin to Stop Sending Weapons to Ukraine - Novinite . com",
-     "link": "https://www.novinite.com/view_news.php?id=241760",
-     "eigentuemer": "Eigentümer unbekannt",
+     "titel": "Diplomatische Offensive: Warum nun plötzlich wieder über einen Nato-Beitritt der Ukraine gesprochen wird",
+     "link": "https://www.nzz.ch/international/diplomatische-offensive-warum-nun-ploetzlich-wieder-ueber-einen-nato-beitritt-der-ukraine-gesprochen-wird-ld.10073266",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Berlin Left expels lawmaker accused of antisemitism in majority vote",
-   "kurz": "",
-   "link": "https://www.jpost.com/diaspora/antisemitism/article-916014",
-   "sprache": "en",
-   "zeit": "2026-11-24T22:15:00Z",
+   "titel": "Wenn der Bismarckhering sauer aufstösst: So macht Jean-Luc Mélenchon die Germanophobie wieder salonfähig",
+   "kurz": "Der französische Präsidentschaftskandidat bemüht seit Jahren das Schreckbild deutscher Vorherrschaft in Europa. Nun reist der Linkspopulist nach Berlin, wo er…",
+   "link": "https://www.nzz.ch/international/warum-jean-luc-melenchon-deutschland-als-feindbild-sieht-ld.10073238",
+   "sprache": "de",
+   "zeit": "2026-11-25T04:30:00Z",
    "ausland_quellen": 1,
    "laender": [
-    "Israel"
+    "Schweiz"
    ],
    "laender_einig": [
-    "Israel"
+    "Schweiz"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "jpost.com (Israel): Berlin Left expels lawmaker accused of antisemitism in majority vote"
+    "NZZ (Schweiz): Wenn der Bismarckhering sauer aufstösst: So macht Jean-Luc Mélenchon die Germanophobie wieder salonfähig"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -135,34 +211,34 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "jpost.com",
-     "land": "Israel",
-     "art": "unbekannt",
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
      "beteiligt": false,
-     "titel": "Berlin Left expels lawmaker accused of antisemitism in majority vote",
-     "link": "https://www.jpost.com/diaspora/antisemitism/article-916014",
-     "eigentuemer": "gehört Eli Azur",
+     "titel": "Wenn der Bismarckhering sauer aufstösst: So macht Jean-Luc Mélenchon die Germanophobie wieder salonfähig",
+     "link": "https://www.nzz.ch/international/warum-jean-luc-melenchon-deutschland-als-feindbild-sieht-ld.10073238",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "German Military Museum to Return WWII Archive to Jehovah Witnesses",
-   "kurz": "",
-   "link": "https://www.artnews.com/art-news/news/jehovahs-witnesses-military-history-museum-dresden-family-archive-nazi-era-1234807616/",
-   "sprache": "en",
-   "zeit": "2026-11-24T22:15:00Z",
+   "titel": "Das Bundesratskaff: Wie ein 1250-Seelen-Dorf am Zugerberg gleich zwei Landesväter hervorbringen könnte",
+   "kurz": "Wird Thomas Aeschi am 9. Dezember in die Landesregierung gewählt, sässen mit ihm und Martin Pfister gleich zwei Zuger im Bundesrat. Doch die beiden verbindet…",
+   "link": "https://www.nzz.ch/schweiz/das-bundesratskaff-wie-ein-1250-seelen-dorf-am-zugerberg-gleich-zwei-landesvaeter-hervorbringt-ld.10073197",
+   "sprache": "de",
+   "zeit": "2026-11-25T04:30:00Z",
    "ausland_quellen": 1,
    "laender": [
-    "United States"
+    "Schweiz"
    ],
    "laender_einig": [
-    "United States"
+    "Schweiz"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [],
    "zusammenfassung": [
-    "artnews.com (United States): German Military Museum to Return WWII Archive to Jehovah Witnesses"
+    "NZZ (Schweiz): Das Bundesratskaff: Wie ein 1250-Seelen-Dorf am Zugerberg gleich zwei Landesväter hervorbringen könnte"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -172,36 +248,34 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "artnews.com",
-     "land": "United States",
-     "art": "unbekannt",
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
      "beteiligt": false,
-     "titel": "German Military Museum to Return WWII Archive to Jehovah Witnesses",
-     "link": "https://www.artnews.com/art-news/news/jehovahs-witnesses-military-history-museum-dresden-family-archive-nazi-era-1234807616/",
-     "eigentuemer": "Eigentümer unbekannt",
+     "titel": "Das Bundesratskaff: Wie ein 1250-Seelen-Dorf am Zugerberg gleich zwei Landesväter hervorbringen könnte",
+     "link": "https://www.nzz.ch/schweiz/das-bundesratskaff-wie-ein-1250-seelen-dorf-am-zugerberg-gleich-zwei-landesvaeter-hervorbringt-ld.10073197",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Merz digs at NATO Ukraine membership failure",
-   "kurz": "",
-   "link": "http://www.russiaherald.com/news/279452535/merz-digs-at-nato-ukraine-membership-failure",
-   "sprache": "en",
-   "zeit": "2026-11-24T22:15:00Z",
+   "titel": "\"Kleinstaaterei\" bei Satelliten wird Starlink nicht ablösen, mahnen Experten",
+   "kurz": "Die Forscher des Kiel Instituts warnen vor einer Kostenexplosion, vor allem weil Deutschland an einer eigenen Lösung arbeitet",
+   "link": "https://www.derstandard.at/story/3000000350821/kleinstaaterei-bei-satelliten-wird-starlink-nicht-abloesen-mahnen-experten?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-25T04:00:00Z",
    "ausland_quellen": 1,
    "laender": [
-    "Russia"
+    "Österreich"
    ],
    "laender_einig": [
-    "Russia"
+    "Österreich"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Ukraine"
-   ],
+   "beteiligte_laender": [],
    "zusammenfassung": [
-    "russiaherald.com (Russia): Merz digs at NATO Ukraine membership failure"
+    "Der Standard (Österreich): \"Kleinstaaterei\" bei Satelliten wird Starlink nicht ablösen, mahnen Experten"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -211,13 +285,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "russiaherald.com",
-     "land": "Russia",
-     "art": "unbekannt",
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
      "beteiligt": false,
-     "titel": "Merz digs at NATO Ukraine membership failure",
-     "link": "http://www.russiaherald.com/news/279452535/merz-digs-at-nato-ukraine-membership-failure",
-     "eigentuemer": "Eigentümer unbekannt",
+     "titel": "\"Kleinstaaterei\" bei Satelliten wird Starlink nicht ablösen, mahnen Experten",
+     "link": "https://www.derstandard.at/story/3000000350821/kleinstaaterei-bei-satelliten-wird-starlink-nicht-abloesen-mahnen-experten?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -338,117 +412,6 @@
    ]
   },
   {
-   "titel": "Musiala regresa a la Champions en el punto de mira por sus eventuales desmayos y bajo la presión del Bayern para bajar su sueldo",
-   "kurz": "Aquejado de una dolencia neuronal que no supera, el mejor volante alemán va convocado a Lille en medio de un escándalo jurídico y social sin precedentes",
-   "link": "https://elpais.com/deportes/futbol/2026-11-24/musiala-regresa-a-la-champions-bajo-la-presion-del-bayern-para-bajar-su-sueldo.html",
-   "sprache": "es",
-   "zeit": "2026-11-24T19:35:08Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Musiala regresa a la Champions en el punto de mira por sus eventuales desmayos y bajo la presión del Bayern para bajar su sueldo"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Musiala regresa a la Champions en el punto de mira por sus eventuales desmayos y bajo la presión del Bayern para bajar su sueldo",
-     "link": "https://elpais.com/deportes/futbol/2026-11-24/musiala-regresa-a-la-champions-bajo-la-presion-del-bayern-para-bajar-su-sueldo.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Generali Deutschland baut 800 Stellen bis 2030 ab",
-   "kurz": "Nach einer Einigung mit dem Betriebsrat wurde der Abbau beschlossen, gekündigt wird aber niemand. In drei deutschen Städten werden die Standorte geschlossen",
-   "link": "https://www.derstandard.at/story/3000000350868/generali-deutschland-baut-800-stellen-bis-2030-ab?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T18:47:56Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Generali Deutschland baut 800 Stellen bis 2030 ab"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Generali Deutschland baut 800 Stellen bis 2030 ab",
-     "link": "https://www.derstandard.at/story/3000000350868/generali-deutschland-baut-800-stellen-bis-2030-ab?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "DER ANDERE BLICK - Die Furcht vor autonomen Waffen ist berechtigt – aber Deutschland muss seine Soldaten schützen können",
-   "kurz": "Je leistungsfähiger künstliche Intelligenz im Krieg wird, desto drängender stellt sich die Frage, welche Entscheidungen der Mensch an Maschinen delegieren darf.",
-   "link": "https://www.nzz.ch/der-andere-blick/die-furcht-vor-autonomen-waffen-ist-berechtigt-aber-deutschland-muss-seine-soldaten-schuetzen-koennen-ld.10073225",
-   "sprache": "de",
-   "zeit": "2026-11-24T17:00:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): DER ANDERE BLICK - Die Furcht vor autonomen Waffen ist berechtigt – aber Deutschland muss seine Soldaten schützen können"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "DER ANDERE BLICK - Die Furcht vor autonomen Waffen ist berechtigt – aber Deutschland muss seine Soldaten schützen können",
-     "link": "https://www.nzz.ch/der-andere-blick/die-furcht-vor-autonomen-waffen-ist-berechtigt-aber-deutschland-muss-seine-soldaten-schuetzen-koennen-ld.10073225",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Streit um Israel-Haltung: Berliner Linke stimmte für Ausschluss von Vanessa Emde",
    "kurz": "SPD und Grüne hatten mit der Personalie die Zukunft einer möglichen rot-rot-grünen Koalition in der deutschen Hauptstadt verknüpft. Die Bundeschefin hatte sich…",
    "link": "https://www.derstandard.at/story/3000000350746/streit-um-israel-haltung-berliner-linke-stimmte-fuer-ausschluss-von-vanessa-emde?ref=rss",
@@ -469,7 +432,13 @@
     "Der Standard (Österreich): Streit um Israel-Haltung: Berliner Linke stimmte für Ausschluss von Vanessa Emde"
    ],
    "staatsnah": [],
-   "deutsch_quellen": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Linksfraktion in Berlin schließt umstrittene Abgeordnete Vanessa Emde aus",
+     "link": "https://www.tagesschau.de/tagesthemen/video-1689336.html"
+    }
+   ],
    "nur_ausland": false,
    "unabhaengig_n": 1,
    "abhaengig": [],
@@ -525,162 +494,8 @@
    ]
   },
   {
-   "titel": "USA machen laut Selenskyj Druck auf Frieden bis Jänner",
-   "kurz": "Eine russische Drohne ist erneut in Polens Luftraum eingedrungen. Deutschland und die Ukraine haben eine Absichtserklärung zur Weiterentwicklung des…",
-   "link": "https://www.derstandard.at/jetzt/livebericht/3000000350676/u?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T05:44:33Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "USA",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): USA machen laut Selenskyj Druck auf Frieden bis Jänner"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "USA machen laut Selenskyj Druck auf Frieden bis Jänner",
-     "link": "https://www.derstandard.at/jetzt/livebericht/3000000350676/u?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "'Inside Deutsche Bank': How money flowed unchecked through Colombia",
-   "kurz": "In Colombia, the German banking giant dominated the market for euro-denominated payments without carrying out the necessary checks, potentially facilitating…",
-   "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/23/inside-deutsche-bank-how-money-flowed-unchecked-through-colombia_6787342_8.html",
-   "sprache": "en",
-   "zeit": "2026-11-23T20:50:20+01:00",
-   "ausland_quellen": 1,
-   "laender": [
-    "Frankreich"
-   ],
-   "laender_einig": [
-    "Frankreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Le Monde (en) (Frankreich): 'Inside Deutsche Bank': How money flowed unchecked through Colombia"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "'Inside Deutsche Bank': How money flowed unchecked through Colombia",
-     "link": "https://www.lemonde.fr/en/les-decodeurs/article/2026/11/23/inside-deutsche-bank-how-money-flowed-unchecked-through-colombia_6787342_8.html",
-     "eigentuemer": "gehört Groupe Le Monde",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Zelenskyy calls for four-way talks with Russia ‘as soon as possible’",
-   "kurz": "During a gathering of Ukrainian supporters in Berlin last week, U.S. envoy Jared Kushner said that Washington might consider offering Ukraine a security…",
-   "link": "https://www.thehindu.com/news/international/zelenskyy-calls-for-four-way-talks-with-russia-as-soon-as-possible/article71734890.ece",
-   "sprache": "en",
-   "zeit": "2026-11-23T20:48:20+05:30",
-   "ausland_quellen": 1,
-   "laender": [
-    "Indien"
-   ],
-   "laender_einig": [
-    "Indien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "The Hindu (Indien): Zelenskyy calls for four-way talks with Russia ‘as soon as possible’"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "The Hindu",
-     "land": "Indien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Zelenskyy calls for four-way talks with Russia ‘as soon as possible’",
-     "link": "https://www.thehindu.com/news/international/zelenskyy-calls-for-four-way-talks-with-russia-as-soon-as-possible/article71734890.ece",
-     "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Las series que llegan esta semana: todos los estrenos del 23 al 29 de noviembre",
-   "kurz": "La historia real de un secuestro en Países Bajos y la quinta temporada de ‘Babylon Berlin’ son algunas de las opciones destacadas del catálogo",
-   "link": "https://elpais.com/television/series/2026-11-23/las-series-que-llegan-esta-semana-todos-los-estrenos-del-23-al-29-de-noviembre.html",
-   "sprache": "es",
-   "zeit": "2026-11-23T13:33:45Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Las series que llegan esta semana: todos los estrenos del 23 al 29 de noviembre"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Las series que llegan esta semana: todos los estrenos del 23 al 29 de noviembre",
-     "link": "https://elpais.com/television/series/2026-11-23/las-series-que-llegan-esta-semana-todos-los-estrenos-del-23-al-29-de-noviembre.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Berliner Fast-Food-Kette Burgermeister eröffnete in Wien",
-   "kurz": "Das deutsche Unternehmen will bis zu 20 Filialen in Österreich eröffnen, die erste davon eröffnete am Dienstag in Wien-Mitte",
+   "titel": "Berliner Fastfood-Kette Burgermeister eröffnete in Wien",
+   "kurz": "Das deutsche Unternehmen will bis zu 20 Filialen in Österreich betreiben, die erste davon sperrte am Dienstag in Wien-Mitte auf",
    "link": "https://www.derstandard.at/story/3000000350253/berliner-fast-food-kette-burgermeister-eroeffnete-in-wien?ref=rss",
    "sprache": "de",
    "zeit": "2026-11-24T16:16:53Z",
@@ -694,7 +509,7 @@
     "Österreich"
    ],
    "zusammenfassung": [
-    "Der Standard (Österreich): Berliner Fast-Food-Kette Burgermeister eröffnete in Wien"
+    "Der Standard (Österreich): Berliner Fastfood-Kette Burgermeister eröffnete in Wien"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -708,45 +523,8 @@
      "land": "Österreich",
      "art": "privat",
      "beteiligt": true,
-     "titel": "Berliner Fast-Food-Kette Burgermeister eröffnete in Wien",
+     "titel": "Berliner Fastfood-Kette Burgermeister eröffnete in Wien",
      "link": "https://www.derstandard.at/story/3000000350253/berliner-fast-food-kette-burgermeister-eroeffnete-in-wien?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Wie Österreich künftig Drohnen abwehren will",
-   "kurz": "Die Bundesregierung hat am Dienstag ihre \"gesamtstaatliche Drohnenstrategie\" vorgestellt. Viele technische und finanzielle Fragen sind aber weiter offen",
-   "link": "https://www.derstandard.at/story/3000000350756/wie-oesterreich-kuenftig-drohnen-abwehren-will?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T14:36:09Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Österreich"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Wie Österreich künftig Drohnen abwehren will"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Wie Österreich künftig Drohnen abwehren will",
-     "link": "https://www.derstandard.at/story/3000000350756/wie-oesterreich-kuenftig-drohnen-abwehren-will?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
@@ -793,67 +571,37 @@
  ],
  "verbindungen": [
   {
-   "name": "Deutsche Bank",
-   "wikidata": "https://www.wikidata.org/wiki/Q66048",
-   "beschreibung": "German global banking and financial services company",
+   "name": "Steffen Krach",
+   "wikidata": "https://www.wikidata.org/wiki/Q25805646",
+   "beschreibung": "German politician",
    "verbindungen": [
     {
-     "eigenschaft": "Eigentümer",
-     "wert": "BlackRock",
-     "link": "https://www.wikidata.org/wiki/Q219635",
+     "eigenschaft": "Amt",
+     "wert": "Regionspräsident der Region Hannover",
+     "link": "https://www.wikidata.org/wiki/Q131371425",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Partei­vorsitzende",
+     "link": "https://www.wikidata.org/wiki/Q2746259",
      "beendet": null
     },
     {
-     "eigenschaft": "Eigentümer",
-     "wert": "Capital Group Companies",
-     "link": "https://www.wikidata.org/wiki/Q505275",
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Abgeordnetenhauses von Berlin",
+     "link": "https://www.wikidata.org/wiki/Q18327335",
      "beendet": null
     },
     {
-     "eigenschaft": "Eigentümer",
-     "wert": "Cerberus Capital Management",
-     "link": "https://www.wikidata.org/wiki/Q289362",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Verband deutscher Pfandbriefbanken",
-     "link": "https://www.wikidata.org/wiki/Q1584881",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Cash Group",
-     "link": "https://www.wikidata.org/wiki/Q961426",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Linux Foundation",
-     "link": "https://www.wikidata.org/wiki/Q858851",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Deutscher Dialogmarketing Verband",
-     "link": "https://www.wikidata.org/wiki/Q1204711",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Bundesverband deutscher Banken",
-     "link": "https://www.wikidata.org/wiki/Q1009084",
-     "beendet": null
-    },
-    {
-     "eigenschaft": "Mitglied von",
-     "wert": "Bundesnetzwerk Bürgerschaftliches Engagement",
-     "link": "https://www.wikidata.org/wiki/Q1006424",
+     "eigenschaft": "Partei",
+     "wert": "Sozialdemokratische Partei Deutschlands",
+     "link": "https://www.wikidata.org/wiki/Q49768",
      "beendet": null
     }
    ],
    "themen": [
-    "'Inside Deutsche Bank': How money flowed unchecked through Colombia"
+    "Steffen Krach, líder del SPD en Berlín: “No creo que nacionalizar viviendas baje los alquileres, al contrario”"
    ]
   }
  ],
@@ -1626,6 +1374,49 @@
    "keine_treffer": true
   },
   "Jehovah Witnesses": {
+   "keine_treffer": true
+  },
+  "Steffen Krach": {
+   "name": "Steffen Krach",
+   "wikidata": "https://www.wikidata.org/wiki/Q25805646",
+   "beschreibung": "German politician",
+   "verbindungen": [
+    {
+     "eigenschaft": "Amt",
+     "wert": "Regionspräsident der Region Hannover",
+     "link": "https://www.wikidata.org/wiki/Q131371425",
+     "beendet": "2026"
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Partei­vorsitzende",
+     "link": "https://www.wikidata.org/wiki/Q2746259",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Amt",
+     "wert": "Mitglied des Abgeordnetenhauses von Berlin",
+     "link": "https://www.wikidata.org/wiki/Q18327335",
+     "beendet": null
+    },
+    {
+     "eigenschaft": "Partei",
+     "wert": "Sozialdemokratische Partei Deutschlands",
+     "link": "https://www.wikidata.org/wiki/Q49768",
+     "beendet": null
+    }
+   ]
+  },
+  "Diplomatische Offensive": {
+   "keine_treffer": true
+  },
+  "Jean-Luc Mélenchon": {
+   "keine_treffer": true
+  },
+  "Luc Mélenchon": {
+   "keine_treffer": true
+  },
+  "Berliner Linke": {
    "keine_treffer": true
   }
  }
