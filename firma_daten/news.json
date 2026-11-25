@@ -1,39 +1,55 @@
 {
- "erzeugt": "2026-11-25T09:02:33Z",
+ "erzeugt": "2026-11-25T19:33:08Z",
  "anzahl": 60,
- "bestaetigt": 12,
+ "bestaetigt": 13,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "bestätigt = mindestens 2 unabhängige Quellen (nicht derselbe Eigentümer, Geldgeber, dieselbe Agentur oder derselbe Staat; unbekannter Eigentümer zählt nur nach Domain und ist vermerkt); nur Titel, Kurzzeile und Link",
  "meldungen": [
   {
-   "titel": "Libya: 2 dead after Ukrainian attack on Russian warship in Benghazi",
-   "kurz": "The head of the eastern administration in Libya has confirmed that two Libyan soldiers succumbed to their injuries. Ukraine's foreign minister defended the…",
-   "link": "https://www.dw.com/en/libya-2-dead-after-ukrainian-attack-on-russian-warship-in-benghazi/a-80042348?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
+   "titel": "Russia's own figures show it has lost nearly 500,000 people in Ukraine war",
+   "kurz": "Leaked data reveal how the full-scale invasion of Ukraine has fundamentally changed mortality patterns in Russia.",
+   "link": "https://www.bbc.co.uk/news/articles/cmx27g533zwyo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-25T04:41:00Z",
+   "zeit": "2026-11-25T13:17:00Z",
    "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
+   "n_quellen": 5,
+   "unabhaengig_n": 5,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Libya: 2 dead after Ukrainian attack on Russian warship in Benghazi",
-     "link": "https://www.dw.com/en/libya-2-dead-after-ukrainian-attack-on-russian-warship-in-benghazi/a-80042348?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "BBC World",
+     "titel": "Russia's own figures show it has lost nearly 500,000 people in Ukraine war",
+     "link": "https://www.bbc.co.uk/news/articles/cmx27g533zwyo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · Al-Jazeera",
-     "titel": "Several people are killed and at least 10 others are injured after the Russian corvette Merkury is struck by a Ukrainian naval drone attack…",
-     "link": "https://www.aljazeera.com/amp/news/2026/11/22/suspected-drone-strike-hits-russian-vessel-in-libya",
-     "eigentuemer": "staatlich (Katar)",
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Why Indian nationals are still ending up in Russia's war on Ukraine",
+     "link": "https://www.dw.com/en/why-indian-nationals-are-still-ending-up-in-russia-s-war-on-ukraine/a-80048537?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AP",
+     "titel": "Two Libyan naval officers dies of their wounds sustained in the Ukrainian naval drone attack against the Russian corvette Merkury in the…",
+     "link": "https://apnews.com/article/russia-ukraine-war-libya-drone-attack-warship-officers-5719d6750c0619695c7f23a373cecd7b",
+     "eigentuemer": "gehört The Associated Press",
+     "gruppe": 2,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · Reuters",
+     "titel": "Ten people are injured after the Russian corvette Merkury is struck by a Ukrainian naval drone attack while docked at the Port of Benghazi…",
+     "link": "https://www.reuters.com/world/middle-east/libyas-eastern-government-suspects-drone-attack-caused-explosion-russian-ship-2026-11-22/",
+     "eigentuemer": "gehört Thomson Reuters",
+     "gruppe": 3,
      "zaehlt_nicht": ""
     },
     {
@@ -41,18 +57,18 @@
      "titel": "The M/V Angara , a Russian -flagged cargo ship, is also struck by naval drones off the coast of Benghazi in the Mediterranean Sea .",
      "link": "https://www.npr.org/2026/11/23/g-s1-155017/ukraine-attack-russian-warship-libya",
      "eigentuemer": "gehört NPR",
-     "gruppe": 2,
+     "gruppe": 4,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "What Jensen Huang's return teaches China's Xi about Trump",
-   "kurz": "Huang being back at the helm of Nvidia is no guarantee of relief for Beijing.",
-   "link": "https://www.bbc.co.uk/news/articles/c63rgpy50x98o?at_medium=RSS&at_campaign=rss",
+   "titel": "US Army says controlled blast of explosives in Iowa was 'huge success'",
+   "kurz": "Despite widespread concern from residents ahead of the blast, officials say that lead readings in the area so far have been promising.",
+   "link": "https://www.bbc.co.uk/news/articles/cwg7l5ve251ko?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-24T07:26:27Z",
+   "zeit": "2026-11-25T19:23:03Z",
    "status": "bestätigt",
    "n_quellen": 3,
    "unabhaengig_n": 3,
@@ -61,79 +77,99 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Cheers and applause as Jensen Huang returns to Nvidia office",
-     "link": "https://www.bbc.co.uk/news/videos/ckedq2edqegzo?at_medium=RSS&at_campaign=rss",
+     "titel": "US Army says controlled blast of explosives in Iowa was 'huge success'",
+     "link": "https://www.bbc.co.uk/news/articles/cwg7l5ve251ko?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "NPR",
-     "titel": "For workplace culture champions, Jensen Huang's return is 'unfathomable'",
-     "link": "https://www.npr.org/2026/11/24/nx-s1-6051583/nvidia-huang-dei-trump-women",
-     "eigentuemer": "gehört NPR",
+     "quelle": "Deutsche Welle (en)",
+     "titel": "US Army detonates unstable lead-based explosives in Iowa",
+     "link": "https://www.dw.com/en/us-army-detonates-unstable-lead-based-explosives-in-iowa/a-80043319?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · CBS",
-     "titel": "Nvidia reinstates Jensen Huang as president and chief executive officer less than two weeks after he resigned following revelations of an…",
-     "link": "https://www.cbsnews.com/news/nvidia-reinstates-jensen-huang-ceo/",
-     "eigentuemer": "gehört CBS News and Stations und Paramount Global",
+     "quelle": "Wikipedia · AFP",
+     "titel": "The United States Army detonates nearly 5 tons of degrading lead azide at the Iowa Army Ammunition Plant in Middletown , Iowa , citing…",
+     "link": "https://www.afp.com/en/us-army-detonates-toxic-explosives-iowa-despite-contamination-fears",
+     "eigentuemer": "gehört Agence France-Presse",
      "gruppe": 2,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Five people are killed and six others are injured during classe between farmers and herders in East Darfur , Sudan .",
-   "kurz": "",
-   "link": "https://www.radiotamazuj.org/en/news/article/farmer-herder-clashes-leave-5-dead-6-injured-in-east-darfur",
-   "quelle": "Wikipedia · Radio Tamazuj",
+   "titel": "North Korea expels Swiss diplomat in sanctions row",
+   "kurz": "Swiss officials said relations would be kept through North Korea's embassy in Bern, and its own embassy in Beijing.",
+   "link": "https://www.bbc.co.uk/news/articles/cq0l34e4kkr5o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "",
+   "zeit": "2026-11-25T19:19:06Z",
    "status": "bestätigt",
-   "n_quellen": 3,
-   "unabhaengig_n": 3,
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
    "abhaengig": [],
-   "eigentuemer_unbekannt": [
-    "radiotamazuj.org",
-    "genocidewatch.com"
-   ],
+   "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Wikipedia · Radio Tamazuj",
-     "titel": "Five people are killed and six others are injured during classe between farmers and herders in East Darfur , Sudan .",
-     "link": "https://www.radiotamazuj.org/en/news/article/farmer-herder-clashes-leave-5-dead-6-injured-in-east-darfur",
-     "eigentuemer": "Eigentümer unbekannt",
+     "quelle": "BBC World",
+     "titel": "North Korea expels Swiss diplomat in sanctions row",
+     "link": "https://www.bbc.co.uk/news/articles/cq0l34e4kkr5o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · CTV News",
-     "titel": "Twenty-four people, including seven children, are killed in an attack by the armed wing of the Sudan People's Liberation…",
-     "link": "https://www.ctvnews.ca/world/article/24-civilians-killed-in-fresh-south-sudan-violence/",
-     "eigentuemer": "gehört Bell Media und CTV",
+     "quelle": "Deutsche Welle (en)",
+     "titel": "North Korea expels Swiss envoy over sanctions on camp accused of indoctrinating Ukrainian children",
+     "link": "https://www.dw.com/en/north-korea-expels-swiss-envoy-over-sanctions-on-camp-accused-of-indoctrinating-ukrainian-children/a-80043648?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 1,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AFP via Genocide Watch",
-     "titel": "Four people are killed, nine others are wounded, and a United Nations building is damaged in drone attacks in Omdurman , Sudan .",
-     "link": "https://www.genocidewatch.com/single-post/drone-attacks-kill-four-near-sudan-s-capital",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 2,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Lagebild des BKA: Erneut mehr Gewalt gegen Frauen",
-   "kurz": "Lagebild des BKA: Erneut mehr Gewalt gegen Frauen",
-   "link": "https://www.tagesschau.de/video/video-1689074.html",
+   "titel": "Colombian police storm supermarket to free 76 held hostage for 17 hours",
+   "kurz": "One gunman was killed after what the country's president described as a robbery of a cash-laden armoured car gone wrong.",
+   "link": "https://www.bbc.co.uk/news/articles/ckp80mjr9emyo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-25T18:41:33Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Colombian police storm supermarket to free 76 held hostage for 17 hours",
+     "link": "https://www.bbc.co.uk/news/articles/ckp80mjr9emyo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "Twenty people are rescued after a hostage-taking at a supermarket by armed men in Cartagena , Colombia , after a failed armored-car…",
+     "link": "https://www.aljazeera.com/amp/news/2026/11/24/hostage-situation-reported-in-colombia-as-armed-men-flee-into-supermarket",
+     "eigentuemer": "staatlich (Katar)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Gewalt gegen Frauen in Brasilien: Auf Streife gegen Femizide",
+   "kurz": "In Brasilien hat die Zahl der Frauenmorde vergangenes Jahr einen Höchststand erreicht. Eine Spezialeinheit der Polizei soll gefährdete Frauen schützen -…",
+   "link": "https://www.tagesschau.de/ausland/amerika/brasilien-gewalt-gegen-frauen-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-25T05:34:57+01:00",
+   "zeit": "2026-11-25T15:36:37+01:00",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -159,12 +195,43 @@
    ]
   },
   {
-   "titel": "Huawei found guilty of stealing US trade secrets but acquitted of racketeering",
-   "kurz": "The verdict follows a months-long trial in New York.",
-   "link": "https://www.bbc.co.uk/news/articles/cmy49ngydqzpo?at_medium=RSS&at_campaign=rss",
+   "titel": "Was über die rechtsextremistische Gruppe \"Terror 18\" bekannt ist",
+   "kurz": "Sie sind fast noch Kinder und planten laut Bundesanwaltschaft schwerste Straftaten, etwa auf eine Flüchtlingsunterkunft. Nun gingen Ermittler gegen mutmaßliche…",
+   "link": "https://www.tagesschau.de/inland/terror-18-rechtsextremistische-gruppe-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T14:15:59+01:00",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Razzia bei rechtsextremistischer Gruppe \"Terror 18\"",
+     "link": "https://www.tagesschau.de/eilmeldung/razzia-terror-18-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Deutschland: Razzien bei rechtsextremistischer Gruppe \"Terror 18\"",
+     "link": "https://www.dw.com/de/deutschland-razzien-bei-rechtsextremistischer-gruppe-terror-18/a-80045786?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Israeli strike kills senior Hamas security official and family in Gaza City",
+   "kurz": "Mohammed Abu al-Ouf, head of Hamas's internal security service in northern Gaza, was killed with his wife and two teenage daughters, doctors say.",
+   "link": "https://www.bbc.co.uk/news/articles/cmd718zydz9qo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-25T02:59:27Z",
+   "zeit": "2026-11-25T14:06:13Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -173,29 +240,29 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Huawei found guilty of stealing US trade secrets but acquitted of racketeering",
-     "link": "https://www.bbc.co.uk/news/articles/cmy49ngydqzpo?at_medium=RSS&at_campaign=rss",
+     "titel": "Israeli strike kills senior Hamas security official and family in Gaza City",
+     "link": "https://www.bbc.co.uk/news/articles/cmd718zydz9qo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "US jury convicts Huawei of violating sanctions, stealing trade secrets",
-     "link": "https://www.dw.com/en/us-jury-convicts-huawei-of-violating-sanctions-stealing-trade-secrets/a-80042172?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "A Hamas security official, his wife, and two daughters, are killed in an Israeli airstrike on the Al-Shati refugee camp near Gaza City …",
+     "link": "https://www.aljazeera.com/news/2026/11/25/israeli-strike-kills-hamas-official-his-wife-and-children",
+     "eigentuemer": "staatlich (Katar)",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Africa Cup title given back to Senegal after sports court rules against Morocco",
-   "kurz": "Senegal won the Africa Cup on the field in Morocco in January and then lost it in a legal case in March because its players walked off the field in protest in…",
-   "link": "https://www.npr.org/2026/11/25/nx-s1-6053783/africa-cup-senegal-morocco",
-   "quelle": "NPR",
+   "titel": "Spain: Catalan separatist Puigdemont sets date for return",
+   "kurz": "Former Catalan leader Carles Puigdemont plans to return to Barcelona on December 12 after nearly a decade in exile. Spain's Supreme Court has dropped the…",
+   "link": "https://www.dw.com/en/spain-catalan-separatist-puigdemont-sets-date-for-return/a-80045846?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-25T01:43:23-05:00",
+   "zeit": "2026-11-25T11:57:00Z",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
@@ -203,18 +270,111 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "NPR",
-     "titel": "Africa Cup title given back to Senegal after sports court rules against Morocco",
-     "link": "https://www.npr.org/2026/11/25/nx-s1-6053783/africa-cup-senegal-morocco",
-     "eigentuemer": "gehört NPR",
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Spain: Catalan separatist Puigdemont sets date for return",
+     "link": "https://www.dw.com/en/spain-catalan-separatist-puigdemont-sets-date-for-return/a-80045846?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     },
     {
-     "quelle": "Wikipedia · AP",
-     "titel": "In association football , the Court of Arbitration for Sport rules in favor of the Senegalese Football Federation and against the…",
-     "link": "https://apnews.com/article/africa-cup-final-afcon-senegal-morocco-cas-d3804e3923ec1b7e5ca846806e8d6040",
-     "eigentuemer": "gehört The Associated Press",
+     "quelle": "Wikipedia · CNN",
+     "titel": "The Supreme Court of Spain grants amnesty to former Catalan president Carles Puigdemont , who is currently in self-imposed exile in Belgium…",
+     "link": "https://edition.cnn.com/2026/11/23/europe/spanish-court-carles-puigdemont-exile-intl",
+     "eigentuemer": "gehört Warner Bros. Discovery",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Australia, Solomon Islands sign sweeping pact seen as countering China",
+   "kurz": "Australia will become the Solomon Islands' primary security partner, while the archipelago will reject any foreign power trying to \"interfere\" on its…",
+   "link": "https://www.dw.com/en/australia-solomon-islands-sign-sweeping-pact-seen-as-countering-china/a-80043646?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-25T10:51:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Australia, Solomon Islands sign sweeping pact seen as countering China",
+     "link": "https://www.dw.com/en/australia-solomon-islands-sign-sweeping-pact-seen-as-countering-china/a-80043646?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · NBC News",
+     "titel": "Solomon Islands prime minister Matthew Wale signs a treaty with Australian prime minister Anthony Albanese to designate Australia as the…",
+     "link": "https://www.nbcnews.com/world/asia/solomon-islands-signs-treaty-australia-checks-chinas-influence-pacific-rcna611254",
+     "eigentuemer": "gehört NBCUniversal und NBCUniversal Television Group",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Houthis claim attacks on Saudi refinery, financial district",
+   "kurz": "Iran-backed Yemeni Houthis say they carried out fresh retaliatory attacks in Saudi Arabia. A fire was reported at Ras Tanura oil refinery and Riyadh's…",
+   "link": "https://www.dw.com/en/houthis-claim-attacks-on-saudi-refinery-financial-district/a-80043632?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-25T10:35:00Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Houthis claim attacks on Saudi refinery, financial district",
+     "link": "https://www.dw.com/en/houthis-claim-attacks-on-saudi-refinery-financial-district/a-80043632?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · NBC News",
+     "titel": "The Ras Tanura oil refinery in Saudi Arabia 's Eastern Province is damaged in an attack by the Houthis .",
+     "link": "https://www.nbcnews.com/world/saudi-arabia/yemen-houthi-rebels-attack-saudi-arabia-largest-oil-refinery-rcna611319",
+     "eigentuemer": "gehört NBCUniversal und NBCUniversal Television Group",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Moment Chinese space mission lifts off with first Pakistan astronaut aboard",
+   "kurz": "China launched its Shenzhou-24 space mission to bring three astronauts to its Tiangong space station.",
+   "link": "https://www.bbc.co.uk/news/videos/cmz74l0yzzvyo?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-25T03:28:37Z",
+   "status": "bestätigt",
+   "n_quellen": 2,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "Moment Chinese space mission lifts off with first Pakistan astronaut aboard",
+     "link": "https://www.bbc.co.uk/news/videos/cmz74l0yzzvyo?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AFP",
+     "titel": "Pakistani astronaut Muhammad Zeeshan Ali becomes the first Pakistani to reach orbit and the first foreign national to board China 's…",
+     "link": "https://www.afp.com/en/china-space-station-receives-pakistani-astronaut-historic-mission",
+     "eigentuemer": "gehört Agence France-Presse",
      "gruppe": 1,
      "zaehlt_nicht": ""
     }
@@ -254,167 +414,112 @@
    ]
   },
   {
-   "titel": "Weniger Hybridautos aus China - EU reguliert den Import",
-   "kurz": "Die EU will mit Importquoten verhindern, dass günstige chinesische Hybrid-Autos Europas Autobauern Konkurrenz machen. Die Importe hatten sich in den…",
-   "link": "https://www.tagesschau.de/wirtschaft/hybridautos-china-europa-importe-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-24T16:26:15+01:00",
+   "titel": "The Federal Supreme Court rules that the federal government of Iraq can deploy troops to the country's borders and can oversee and audit…",
+   "kurz": "The Federal Supreme Court rules that the federal government of Iraq can deploy troops to the country's borders and can oversee and audit the oil industry in…",
+   "link": "https://www.aljazeera.com/news/2026/11/25/iraqs-top-court-rules-government-can-take-over-kurdish-borders-oil-fields",
+   "quelle": "Wikipedia · Al Jazeera",
+   "sprache": "en",
+   "zeit": "",
    "status": "bestätigt",
    "n_quellen": 2,
    "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Wikipedia · Al Jazeera",
+     "titel": "The Federal Supreme Court rules that the federal government of Iraq can deploy troops to the country's borders and can oversee and audit…",
+     "link": "https://www.aljazeera.com/news/2026/11/25/iraqs-top-court-rules-government-can-take-over-kurdish-borders-oil-fields",
+     "eigentuemer": "staatlich (Katar)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Wikipedia · AP",
+     "titel": "In association football , the Court of Arbitration for Sport rules in favor of the Senegalese Football Federation and against the…",
+     "link": "https://apnews.com/article/africa-cup-final-afcon-senegal-morocco-cas-d3804e3923ec1b7e5ca846806e8d6040",
+     "eigentuemer": "gehört The Associated Press",
+     "gruppe": 1,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "tagesschau mit Gebärdensprache",
+   "kurz": "tagesschau mit Gebärdensprache",
+   "link": "https://www.tagesschau.de/tagesschau_mit_gebaerdensprache/tsg-12390.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T20:29:34+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Weniger Hybridautos aus China - EU reguliert den Import",
-     "link": "https://www.tagesschau.de/wirtschaft/hybridautos-china-europa-importe-100.html",
+     "titel": "tagesschau mit Gebärdensprache",
+     "link": "https://www.tagesschau.de/tagesschau_mit_gebaerdensprache/tsg-12390.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "EU macht Ernst: Erste Importquoten für Hybridautos aus China",
-     "link": "https://www.dw.com/de/eu-macht-ernst-erste-importquoten-für-hybridautos-aus-china/a-80030678?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Israeli air strike kills Hamas internal security chief in Gaza",
-   "kurz": "Naeem Abu Nahel, who had been in the post for two months, is among seven Palestinians reportedly killed in Israeli strikes on Tuesday.",
-   "link": "https://www.bbc.co.uk/news/articles/c6rrg7ggq190o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-24T15:35:53Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Israeli air strike kills Hamas internal security chief in Gaza",
-     "link": "https://www.bbc.co.uk/news/articles/c6rrg7ggq190o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · AFP via France 24",
-     "titel": "Three Palestinians are killed by an Israeli drone strike on a food-carrying vehicle in Gaza City , while another is killed by gunfire in…",
-     "link": "https://www.france24.com/en/live-news/20261121-gaza-civil-defence-says-israeli-fire-kills-four",
-     "eigentuemer": "staatlich (Frankreich)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Pope Francis' diary reveals claims he saw the devil three times",
-   "kurz": "Published extracts from the late pontiff's diary claim one of the visions happened \"in the choir loft\" during Mass.",
-   "link": "https://www.bbc.co.uk/news/articles/cm78270l4z7no?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-24T15:21:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Pope Francis' diary reveals claims he saw the devil three times",
-     "link": "https://www.bbc.co.uk/news/articles/cm78270l4z7no?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Pope Francis diaries recount spiritual crisis, him seeing the 'Devil'",
-     "link": "https://www.dw.com/en/pope-francis-diaries-recount-spiritual-crisis-him-seeing-the-devil/a-80033224?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Landminen-Monitor: Zahl der Opfer von Landminen gestiegen",
-   "kurz": "Fast 7.000 Menschen wurden im vergangenen Jahr weltweit Opfer von Landminen. Das ist die höchste Zahl seit fünf Jahren. Am meisten gefährdet sind Kinder - oft…",
-   "link": "https://www.tagesschau.de/ausland/europa/landminen-monitor-102.html",
+   "titel": "Expertenkommission fordert schärfere Regeln für Prostitution",
+   "kurz": "Mehr Schutz vor Gewalt und Ausbeutung - Zwangsprostitution und Menschenhandel wirksamer bekämpfen: Die schwarz-rote Koalition will Prostitution neu regeln…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/neue-regeln-fuer-prostituition-empfehlungen-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-24T12:28:00Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
+   "zeit": "2026-11-25T20:14:28+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Landminen-Monitor: Zahl der Opfer von Landminen gestiegen",
-     "link": "https://www.tagesschau.de/ausland/europa/landminen-monitor-102.html",
+     "titel": "Expertenkommission fordert schärfere Regeln für Prostitution",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/neue-regeln-fuer-prostituition-empfehlungen-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Zahl der Landminen-Opfer stark gestiegen",
-     "link": "https://www.dw.com/de/zahl-der-landminen-opfer-stark-gestiegen/a-80032671?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 1,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Bangladesh's ex-PM Sheikh Hasina says she plans to return on 16 December",
-   "kurz": "Hasina has spoken several times of her desire to return, but this is the first time she has set a date.",
-   "link": "https://www.bbc.co.uk/news/articles/c60rk1yj07xeo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-24T06:23:01Z",
-   "status": "bestätigt",
-   "n_quellen": 2,
-   "unabhaengig_n": 2,
+   "titel": "Streit um \"Rente mit 63\": Unionsabgeordnete schlagen \"Respekt-Rente\" vor",
+   "kurz": "Im Streit um die \"Rente mit 63\" gehen Unionsabgeordnete mit einem Kompromiss auf die SPD zu: Sie schlagen eine \"Respekt-Rente\" vor. Für Menschen mit kleinem…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/rente-kompromiss-koalition-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T20:14:08+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC World",
-     "titel": "Bangladesh's ex-PM Sheikh Hasina says she plans to return on 16 December",
-     "link": "https://www.bbc.co.uk/news/articles/c60rk1yj07xeo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
+     "quelle": "Tagesschau",
+     "titel": "Streit um \"Rente mit 63\": Unionsabgeordnete schlagen \"Respekt-Rente\" vor",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/rente-kompromiss-koalition-100.html",
+     "eigentuemer": "gehört ARD",
      "gruppe": 0,
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Wikipedia · Reuters",
-     "titel": "Former Bangladesh Prime Minister Sheikh Hasina announces she plans to return to the country on December 16, coinciding with Victory Day .",
-     "link": "https://www.reuters.com/world/asia-pacific/sheikh-hasina-seeks-return-bangladesh-december-16-state-carrier-2026-11-24/",
-     "eigentuemer": "gehört Thomson Reuters",
-     "gruppe": 1,
      "zaehlt_nicht": ""
     }
    ]
   },
   {
    "titel": "Wetter Deutschland: Wolken, Temperaturen, Wind und Aussichten",
-   "kurz": "Am Mittwoch gibt es im Norden zum Teil zähe Hochnebelfelder, bisweilen ist es auch freundlich. In der Mitte ist es vielfach sonnig, im Süden und Südwesten…",
+   "kurz": "Am Donnerstag ist es oft dicht bewölkt, nur regional noch sonnig und es weht ein lebhafter Ostwind. Regen- und Schneeschauer gibt es von Ostholstein bis…",
    "link": "https://www.tagesschau.de/wetter/deutschland/wettervorhersage-deutschland-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-25T09:42:14+01:00",
+   "zeit": "2026-11-25T20:02:47+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -432,288 +537,12 @@
    ]
   },
   {
-   "titel": "US-Gericht spricht Huawei wegen Betrugs schuldig",
-   "kurz": "Der chinesische Technologiekonzern Huawei ist in den USA in einem jahrelangen Strafverfahren schuldig gesprochen worden. Eine Jury in Brooklyn befand das…",
-   "link": "https://www.tagesschau.de/wirtschaft/weltwirtschaft/huawei-geldwaesche-us-gericht-urteil-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-25T09:25:40+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "US-Gericht spricht Huawei wegen Betrugs schuldig",
-     "link": "https://www.tagesschau.de/wirtschaft/weltwirtschaft/huawei-geldwaesche-us-gericht-urteil-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "EU will Versorgung mit Arzneimitteln sicherstellen",
-   "kurz": "Ob Antibiotika oder Fiebersäfte für Kinder: Immer wieder fehlen in Europa Medikamente - Grund ist auch die große Abhängigkeit von Asien. Das will die EU…",
-   "link": "https://www.tagesschau.de/ausland/europa/eu-parlament-arzneimittel-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-25T09:24:12+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "EU will Versorgung mit Arzneimitteln sicherstellen",
-     "link": "https://www.tagesschau.de/ausland/europa/eu-parlament-arzneimittel-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Europas größte Satellitenfabrik eröffnet",
-   "kurz": "Die EU will bis 2030 ein eigenes sicheres Kommunikationsnetz im Weltraum aufbauen. Ziel ist es, unabhängiger von Anbietern wie dem US-Dienst Starlink zu…",
-   "link": "https://www.tagesschau.de/ausland/satellitenfabrik-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-25T09:06:22+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Europas größte Satellitenfabrik eröffnet",
-     "link": "https://www.tagesschau.de/ausland/satellitenfabrik-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Livestream: Die Nachrichten auf tagesschau24",
-   "kurz": "Aktuelle Meldungen, vertiefende Analysen und Interviews: Verfolgen Sie das Programm des ARD-Nachrichtenkanals tagesschau24 hier.",
-   "link": "https://www.tagesschau.de/multimedia/livestreams/livestream-ts24-104.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-25T09:03:20+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Livestream: Die Nachrichten auf tagesschau24",
-     "link": "https://www.tagesschau.de/multimedia/livestreams/livestream-ts24-104.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "So geht es dem deutschen Wald wirklich",
-   "kurz": "Der Waldökosystembericht zeigt erstmals, wie es um alle Wälder in Deutschland steht - möglich durch Satellitenbilder, über zehn Jahre aufgenommen. Fazit: Der…",
-   "link": "https://www.dw.com/de/so-geht-es-dem-deutschen-wald-wirklich/a-80035784?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-25T08:57:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "So geht es dem deutschen Wald wirklich",
-     "link": "https://www.dw.com/de/so-geht-es-dem-deutschen-wald-wirklich/a-80035784?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "German auto workers on back foot as costs, competition bite",
-   "kurz": "German auto workers profited during the industry's boom years, but are now increasingly being asked to trade past gains for future job security.",
-   "link": "https://www.dw.com/en/german-auto-workers-on-back-foot-as-costs-competition-bite/a-80036111?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-25T08:51:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "German auto workers on back foot as costs, competition bite",
-     "link": "https://www.dw.com/en/german-auto-workers-on-back-foot-as-costs-competition-bite/a-80036111?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germany news: Steinmeier arrives in Kenya for final leg of Africa tour",
-   "kurz": "The German head of state will meet his counterpart William Ruto in Nairobi. Meanwhile, Berlin is set to unveil a plaque for the Holocaust survivor Margot…",
-   "link": "https://www.dw.com/en/germany-news-steinmeier-arrives-in-kenya-for-final-leg-of-africa-tour/live-80042795?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-25T08:35:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Germany news: Steinmeier arrives in Kenya for final leg of Africa tour",
-     "link": "https://www.dw.com/en/germany-news-steinmeier-arrives-in-kenya-for-final-leg-of-africa-tour/live-80042795?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Colombian security forces storm supermarket, free hostages",
-   "kurz": "A failed robbery turned into a day-long hostage crisis in one of Colombia's most popular tourist destinations. The incident comes amid concerns over the…",
-   "link": "https://www.dw.com/en/colombian-security-forces-storm-supermarket-free-hostages/a-80043016?maca=en-rss-en-all-1573-xml-mrss",
-   "quelle": "Deutsche Welle (en)",
-   "sprache": "en",
-   "zeit": "2026-11-25T08:27:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle (en)",
-     "titel": "Colombian security forces storm supermarket, free hostages",
-     "link": "https://www.dw.com/en/colombian-security-forces-storm-supermarket-free-hostages/a-80043016?maca=en-rss-en-all-1573-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Springflut in Kalifornien, Ausstellung \"The Art of the Brick\", Damavand",
-   "kurz": "Springflut in Kalifornien, Ausstellung \"The Art of the Brick\", Damavand",
-   "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10588.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-25T08:09:43+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Springflut in Kalifornien, Ausstellung \"The Art of the Brick\", Damavand",
-     "link": "https://www.tagesschau.de/multimedia/bilder/blickpunkte-10588.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "News kompakt: Deutschland will Patriot-Flugabwehr massiv ausbauen",
-   "kurz": "Die Bundesregierung will erheblich in die Flugabwehr der Bundeswehr investieren. China lässt erstmals einen Ausländer in seine Weltraumstation. Der…",
-   "link": "https://www.dw.com/de/news-kompakt-deutschland-will-patriot-flugabwehr-massiv-ausbauen/a-80042756?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-25T08:00:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "News kompakt: Deutschland will Patriot-Flugabwehr massiv ausbauen",
-     "link": "https://www.dw.com/de/news-kompakt-deutschland-will-patriot-flugabwehr-massiv-ausbauen/a-80042756?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Heftiger Schlagabtausch bei Generaldebatte erwartet",
-   "kurz": "Kanzler Merz im Fokus: Bei der Haushaltswoche im Bundestag wird heute der Etat des Kanzleramts verhandelt. Traditionell eine Gelegenheit für die Opposition…",
-   "link": "https://www.tagesschau.de/inland/innenpolitik/generaldebatte-bundestag-150.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-25T07:32:57+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Heftiger Schlagabtausch bei Generaldebatte erwartet",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/generaldebatte-bundestag-150.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Marktbericht: DAX vor holprigem Start",
-   "kurz": "Das Beben in der Technologiebranche ist noch nicht ausgestanden. In Asien fallen die Kurse, auch wegen neuer Zollsorgen. Diese könnten auch dem DAX zum…",
-   "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-nikkei-dax-nasdaq-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-25T07:28:06+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Marktbericht: DAX vor holprigem Start",
-     "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-nikkei-dax-nasdaq-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Zimbabwe issues arrest warrant for Robert Mugabe's son over missed court date",
-   "kurz": "The son of Zimbabwe's late former President Robert Mugabe has faced multiple legal troubles in the recent past.",
-   "link": "https://www.bbc.co.uk/news/articles/c6d917jn5gq7o?at_medium=RSS&at_campaign=rss",
+   "titel": "Two children among six dead after plane crash off Mississippi coast",
+   "kurz": "Divers found the bodies of three adult, one teenager aged 16, and two boys, aged 12 and 10, in the wreckage.",
+   "link": "https://www.bbc.co.uk/news/articles/c6z74l1017zpo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-25T07:26:54Z",
+   "zeit": "2026-11-25T19:26:44Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -722,8 +551,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Zimbabwe issues arrest warrant for Robert Mugabe's son over missed court date",
-     "link": "https://www.bbc.co.uk/news/articles/c6d917jn5gq7o?at_medium=RSS&at_campaign=rss",
+     "titel": "Two children among six dead after plane crash off Mississippi coast",
+     "link": "https://www.bbc.co.uk/news/articles/c6z74l1017zpo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -731,12 +560,12 @@
    ]
   },
   {
-   "titel": "11KM-Podcast: Abschiebezentren in Ruanda: Die nächste Stufe der EU-Asylpolitik",
-   "kurz": "Deutschland und vier weitere EU-Staaten wollen abgelehnte Asylbewerber nach Ruanda abschieben. 11KM analysiert, wohin sich die europäische Migrationspolitik…",
-   "link": "https://www.tagesschau.de/inland/gesellschaft/podcast-11km-abschiebezentren-100.html",
+   "titel": "Ukraine-Hilfe polarisiert die Generaldebatte im Bundestag",
+   "kurz": "Im Bundestag wurde über den Haushalt 2027 debattiert. Darin auch enthalten: rund zwölf Milliarden Euro Ukraine-Hilfe. Für die AfD ist das eine Veruntreuung von…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/bundestag-generaldebatte-ukraine-hilfe-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-25T07:11:51+01:00",
+   "zeit": "2026-11-25T19:10:19+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -745,8 +574,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "11KM-Podcast: Abschiebezentren in Ruanda: Die nächste Stufe der EU-Asylpolitik",
-     "link": "https://www.tagesschau.de/inland/gesellschaft/podcast-11km-abschiebezentren-100.html",
+     "titel": "Ukraine-Hilfe polarisiert die Generaldebatte im Bundestag",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/bundestag-generaldebatte-ukraine-hilfe-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -754,35 +583,12 @@
    ]
   },
   {
-   "titel": "Ein linker Berliner \"Super-PAC\" will die deutsche Politik aufmischen",
-   "kurz": "Die Agentur The Goodforces will einen Linksruck in der Bundespolitik. Dabei orientiert sie sich am New Yorker Bürgermeister Mamdani und dem linken…",
-   "link": "https://www.dw.com/de/ein-linker-berliner-super-pac-will-die-deutsche-politik-aufmischen/a-80013641?maca=de-rss-de-all-1119-xml-mrss",
-   "quelle": "Deutsche Welle",
-   "sprache": "de",
-   "zeit": "2026-11-25T07:11:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Deutsche Welle",
-     "titel": "Ein linker Berliner \"Super-PAC\" will die deutsche Politik aufmischen",
-     "link": "https://www.dw.com/de/ein-linker-berliner-super-pac-will-die-deutsche-politik-aufmischen/a-80013641?maca=de-rss-de-all-1119-xml-mrss",
-     "eigentuemer": "staatlich (Deutschland)",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Domestic violence soars to record high in Germany",
-   "kurz": "Every three days in Germany, a man kills his wife or ex-partner. Every 10 minutes, the police record a sexual offense against a woman. \"A shocking finding,\"…",
-   "link": "https://www.dw.com/en/domestic-violence-soars-to-record-high-in-germany/a-80041678?maca=en-rss-en-all-1573-xml-mrss",
+   "titel": "Peter Magyar meets Volodymyr Zelenskyy: Hungary and Ukraine make a fresh start after the icy relations of the Viktor Orban era",
+   "kurz": "After years of frosty and hostile relations under Hungary's Kremlin-friendly former PM Viktor Orban, his successor, Peter Magyar, and Ukrainian President…",
+   "link": "https://www.dw.com/en/peter-magyar-meets-volodymyr-zelenskyy-hungary-and-ukraine-make-a-fresh-start-after-the-icy-relations-of-the-viktor-orban-era/a-80054175?maca=en-rss-en-all-1573-xml-mrss",
    "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-25T06:57:00Z",
+   "zeit": "2026-11-25T18:52:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -791,8 +597,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "Domestic violence soars to record high in Germany",
-     "link": "https://www.dw.com/en/domestic-violence-soars-to-record-high-in-germany/a-80041678?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "Peter Magyar meets Volodymyr Zelenskyy: Hungary and Ukraine make a fresh start after the icy relations of the Viktor Orban era",
+     "link": "https://www.dw.com/en/peter-magyar-meets-volodymyr-zelenskyy-hungary-and-ukraine-make-a-fresh-start-after-the-icy-relations-of-the-viktor-orban-era/a-80054175?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -800,35 +606,12 @@
    ]
   },
   {
-   "titel": "Kilmar Ábrego García leaves US for Spain, ending Trump deportation battle",
-   "kurz": "Ábrego García's deportation to El Salvador and return to the US became a flashpoint in the debate over President Donald Trump's immigration agenda.",
-   "link": "https://www.bbc.co.uk/news/articles/c6808pyy5dl9o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-25T06:36:00Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Kilmar Ábrego García leaves US for Spain, ending Trump deportation battle",
-     "link": "https://www.bbc.co.uk/news/articles/c6808pyy5dl9o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Deutsche Industrie: Wo es hakt und wo es rund läuft",
-   "kurz": "Die Aussichten für die Wirtschaft haben sich zuletzt verbessert. Doch es gibt große Unterschiede: Während in manchen Branchen Firmen ums Überleben kämpfen…",
-   "link": "https://www.tagesschau.de/wirtschaft/konjunktur/wirtschaftswachstum-branchen-100.html",
+   "titel": "TK-Gesundheitsreport Weiblich, mittelalt, leistungsstark - öfter krank?",
+   "kurz": "Im neuen Gesundheitsreport blickt die Techniker Krankenkasse auf die Situation von Frauen zwischen 35 und 55. Sie sind eine wichtige Gruppe von…",
+   "link": "https://www.tagesschau.de/wirtschaft/gesundheit-frauen-wechseljahre-arbeitsplatz-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-25T06:28:36+01:00",
+   "zeit": "2026-11-25T18:37:52+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -837,8 +620,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Deutsche Industrie: Wo es hakt und wo es rund läuft",
-     "link": "https://www.tagesschau.de/wirtschaft/konjunktur/wirtschaftswachstum-branchen-100.html",
+     "titel": "TK-Gesundheitsreport Weiblich, mittelalt, leistungsstark - öfter krank?",
+     "link": "https://www.tagesschau.de/wirtschaft/gesundheit-frauen-wechseljahre-arbeitsplatz-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -846,12 +629,12 @@
    ]
   },
   {
-   "titel": "Israel nach der Wahl: Schwierige Sondierungen zwischen Rivalen",
-   "kurz": "In Israel bleibt Gadi Eisenkot nicht mehr viel Zeit, eine Regierung zu bilden. Aktuell laufen die Gespräche mit Netanjahus Likud-Partei. Dabei gibt es große…",
-   "link": "https://www.tagesschau.de/ausland/asien/israel-eisenkot-netanjahu-100.html",
+   "titel": "Asteroiden-Abwehr - einfach schießen und hoffen reicht nicht",
+   "kurz": "Was tun, wenn ein Asteroid auf die Erde zusteuert? Die Sonde \"Hera\" untersucht einen Asteroiden, an dem so ein Abwehrversuch getestet wurde. Noch fehlen viele…",
+   "link": "https://www.tagesschau.de/wissen/sonde-hera-asteroid-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-25T06:18:30+01:00",
+   "zeit": "2026-11-25T18:30:09+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -860,77 +643,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Israel nach der Wahl: Schwierige Sondierungen zwischen Rivalen",
-     "link": "https://www.tagesschau.de/ausland/asien/israel-eisenkot-netanjahu-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Theaterstück in Berlin: Wenn Spätis verschwinden",
-   "kurz": "Immer öfter müssen Spätis oder Kneipen schließen. Dabei sind sie essenziell für den sozialen Zusammenhalt. Was dieser Verlust für die Gesellschaft bedeutet…",
-   "link": "https://www.tagesschau.de/kultur/paradies-spaeti-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-25T06:12:39+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Theaterstück in Berlin: Wenn Spätis verschwinden",
-     "link": "https://www.tagesschau.de/kultur/paradies-spaeti-100.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Four years after huge asteroid crash, a spacecraft has now returned to assess the damage",
-   "kurz": "The mission is studying an asteroid deliberately knocked off course by a colliding spacecraft.",
-   "link": "https://www.bbc.co.uk/news/articles/cw8dv112r5gmo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-25T06:00:36Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Four years after huge asteroid crash, a spacecraft has now returned to assess the damage",
-     "link": "https://www.bbc.co.uk/news/articles/cw8dv112r5gmo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "US-Medienberichte: Trump plant wohl neue Zölle - auch gegen die EU",
-   "kurz": "Die US-Regierung bereitet offenbar neue Zölle gegenüber China, der EU und weiteren Ländern vor. Der Schritt erfolgt, nachdem die Zölle vom Supreme Court als…",
-   "link": "https://www.tagesschau.de/ausland/amerika/usa-zoelle-122.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-25T05:08:29+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "US-Medienberichte: Trump plant wohl neue Zölle - auch gegen die EU",
-     "link": "https://www.tagesschau.de/ausland/amerika/usa-zoelle-122.html",
+     "titel": "Asteroiden-Abwehr - einfach schießen und hoffen reicht nicht",
+     "link": "https://www.tagesschau.de/wissen/sonde-hera-asteroid-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -940,10 +654,10 @@
   {
    "titel": "tagesschau in 100 Sekunden",
    "kurz": "tagesschau in 100 Sekunden",
-   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1689502.html",
+   "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1689824.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-25T05:06:59+01:00",
+   "zeit": "2026-11-25T18:29:06+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -953,7 +667,7 @@
     {
      "quelle": "Tagesschau",
      "titel": "tagesschau in 100 Sekunden",
-     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1689502.html",
+     "link": "https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1689824.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -961,12 +675,35 @@
    ]
   },
   {
-   "titel": "India news: US prepares new tariffs after trade probe",
-   "kurz": "The United States is reportedly readying fresh tariffs on India and 15 other economies under a trade probe. Also, a woman was allegedly gangraped by her…",
-   "link": "https://www.dw.com/en/india-news-us-prepares-new-tariffs-after-trade-probe/live-80042306?maca=en-rss-en-all-1573-xml-mrss",
+   "titel": "Marktbericht: DAX fällt unter 25.000 Punkte-Marke",
+   "kurz": "Die Verunsicherung am deutschen Aktienmarkt nimmt weiter zu. Neue Zolldrohungen der US-Regierung und Zweifel am KI-Boom setzten den DAX unter Druck. Der…",
+   "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-nikkei-dax-nasdaq-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T18:17:11+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Marktbericht: DAX fällt unter 25.000 Punkte-Marke",
+     "link": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-nikkei-dax-nasdaq-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Spain: Canary Islands witness 1-day migration record",
+   "kurz": "The arrival of over 2,000 migrants to the islands comes as Spain holds elections this weekend. The president of the Canary Islands said the archipelago is…",
+   "link": "https://www.dw.com/en/spain-canary-islands-witness-1-day-migration-record/a-80052770?maca=en-rss-en-all-1573-xml-mrss",
    "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-25T04:44:00Z",
+   "zeit": "2026-11-25T18:00:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -975,8 +712,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "India news: US prepares new tariffs after trade probe",
-     "link": "https://www.dw.com/en/india-news-us-prepares-new-tariffs-after-trade-probe/live-80042306?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "Spain: Canary Islands witness 1-day migration record",
+     "link": "https://www.dw.com/en/spain-canary-islands-witness-1-day-migration-record/a-80052770?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -984,12 +721,12 @@
    ]
   },
   {
-   "titel": "US attorney general dodges questions about Nvidia investigation",
-   "kurz": "Nvidia's share price have fallen 7% as lawmakers demand answers about President Donald Trump's involvement in Huang's reinstatement.",
-   "link": "https://www.bbc.co.uk/news/articles/crpdw1qx7jgxo?at_medium=RSS&at_campaign=rss",
+   "titel": "US stocks fall further as fears over AI intensify",
+   "kurz": "All three main US indexes were down in early trading, with the tech-dominated Nasdaq down almost 4%.",
+   "link": "https://www.bbc.co.uk/news/articles/cq0md8g14zryo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-25T03:44:07Z",
+   "zeit": "2026-11-25T17:48:09Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -998,8 +735,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "US attorney general dodges questions about Nvidia investigation",
-     "link": "https://www.bbc.co.uk/news/articles/crpdw1qx7jgxo?at_medium=RSS&at_campaign=rss",
+     "titel": "US stocks fall further as fears over AI intensify",
+     "link": "https://www.bbc.co.uk/news/articles/cq0md8g14zryo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1007,12 +744,58 @@
    ]
   },
   {
-   "titel": "Moment Chinese space mission lifts off with first Pakistan astronaut aboard",
-   "kurz": "China launched its Shenzhou-24 space mission to bring three astronauts to its Tiangong space station.",
-   "link": "https://www.bbc.co.uk/news/videos/cmz74l0yzzvyo?at_medium=RSS&at_campaign=rss",
+   "titel": "tagesschau in Einfacher Sprache startet WhatsApp-Kanal",
+   "kurz": "Langsamer gesprochen, erklärte Fachbegriffe, kaum Nebensätze - seit 2024 gibt es die tagesschau in Einfacher Sprache. Zehntausende nutzen sie jeden Tag. Nun…",
+   "link": "https://www.tagesschau.de/inland/gesellschaft/einfache-sprache-102.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T17:42:49+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "tagesschau in Einfacher Sprache",
+     "link": "https://www.tagesschau.de/tagesschau_in_einfacher_sprache/tse-1524.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Fast 800 Fälle sexualisierter Gewalt im Bistum Trier laut Langzeitbericht",
+   "kurz": "Fast 800 Fälle sexualisierter Gewalt im Bistum Trier laut Langzeitbericht",
+   "link": "https://www.tagesschau.de/video/video-1689748.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T17:32:00+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Fast 800 Kinder im Bistum Trier von 1946 bis 2021 missbraucht",
+     "link": "https://www.tagesschau.de/inland/regional/rheinlandpfalz/bistum-trier-missbrauch-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Images of asteroid targeted to test Earth's defences reveal stadium-sized crater",
+   "kurz": "The asteroid's surface was transformed after a spacecraft was deliberately crashed into it four years ago",
+   "link": "https://www.bbc.co.uk/news/articles/cw8dv112r5gmo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-25T03:28:37Z",
+   "zeit": "2026-11-25T17:30:16Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1021,8 +804,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Moment Chinese space mission lifts off with first Pakistan astronaut aboard",
-     "link": "https://www.bbc.co.uk/news/videos/cmz74l0yzzvyo?at_medium=RSS&at_campaign=rss",
+     "titel": "Images of asteroid targeted to test Earth's defences reveal stadium-sized crater",
+     "link": "https://www.bbc.co.uk/news/articles/cw8dv112r5gmo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1030,12 +813,196 @@
    ]
   },
   {
-   "titel": "China launches Shenzhou-24 to Tiangong station",
-   "kurz": "A new Chinese crew is on its way to the Tiangong station after a launch that China called a complete success. This includes a Pakistani pilot, who is making a…",
-   "link": "https://www.dw.com/en/china-launches-shenzhou-24-to-tiangong-station/a-80042281?maca=en-rss-en-all-1573-xml-mrss",
+   "titel": "EU will mehr Sicherheit bei Medikamentenversorgung",
+   "kurz": "EU will mehr Sicherheit bei Medikamentenversorgung",
+   "link": "https://www.tagesschau.de/video/video-1689792.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T17:30:01+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "EU will mehr Sicherheit bei Medikamentenversorgung",
+     "link": "https://www.tagesschau.de/video/video-1689792.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "EU-Kommission erlaubt weiter Staatshilfen für Landwirte und Industrie",
+   "kurz": "Landwirte, Industrie und andere Unternehmen können wegen der anhaltenden Energiekrise weiterhin mit staatlichen Zuschüssen rechnen. Laut EU-Kommission bleibt…",
+   "link": "https://www.tagesschau.de/ausland/europa/eu-staatshilfen-landwirte-industrie-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T17:29:03+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "EU-Kommission erlaubt weiter Staatshilfen für Landwirte und Industrie",
+     "link": "https://www.tagesschau.de/ausland/europa/eu-staatshilfen-landwirte-industrie-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "KI-Ernüchterung an den Börsen greift um sich",
+   "kurz": "An den US-Börsen geht die Verkaufswelle bei Tech-Aktien weiter. Die alten Sorgen von Investoren wegen der Geschäfts mit Künstlicher Intelligenz bleiben - und…",
+   "link": "https://www.tagesschau.de/wirtschaft/technologie/nvidia-rueckkehr-huang-boersen-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T17:28:08+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "KI-Ernüchterung an den Börsen greift um sich",
+     "link": "https://www.tagesschau.de/wirtschaft/technologie/nvidia-rueckkehr-huang-boersen-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Merz verteidigt Haushalt für 2027 - Generaldebatte im Bundestag",
+   "kurz": "Merz verteidigt Haushalt für 2027 - Generaldebatte im Bundestag",
+   "link": "https://www.tagesschau.de/video/video-1689672.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T17:15:59+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Generaldebatte zu Haushalt 2027 im Bundestag",
+     "link": "https://www.tagesschau.de/video/video-1689776.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Generaldebatte im Bundestag: Nachdenkliche Töne und ein Zugeständnis",
+   "kurz": "Selbstkritisch hat Bundeskanzler Merz im Bundestag den Kurs seiner Regierung verteidigt. Bei der Rede war es ungewöhnlich leise im Saal. Merz führte aus…",
+   "link": "https://www.tagesschau.de/inland/innenpolitik/haushalt-generaldebatte-merz-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T17:10:40+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Generaldebatte im Bundestag: Nachdenkliche Töne und ein Zugeständnis",
+     "link": "https://www.tagesschau.de/inland/innenpolitik/haushalt-generaldebatte-merz-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "US announces new tariffs on host of countries including China",
+   "kurz": "The new levies would hit many of America's biggest trading partners, including China and the EU.",
+   "link": "https://www.bbc.co.uk/news/articles/c893r9ke5p97o?at_medium=RSS&at_campaign=rss",
+   "quelle": "BBC World",
+   "sprache": "en",
+   "zeit": "2026-11-25T16:21:34Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC World",
+     "titel": "US announces new tariffs on host of countries including China",
+     "link": "https://www.bbc.co.uk/news/articles/c893r9ke5p97o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Stand der Tarifverhandlungen in Metall- und Elektroindustrie - Martin Rottach, SWR",
+   "kurz": "Stand der Tarifverhandlungen in Metall- und Elektroindustrie - Martin Rottach, SWR",
+   "link": "https://www.tagesschau.de/video/video-1689678.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T16:18:48+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Tarifverhandlungen in Metall- und Elektroindustrie gehen weiter",
+     "link": "https://www.tagesschau.de/video/video-1689742.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "USA kündigen neue Zölle an - auch gegen EU und China",
+   "kurz": "Die USA haben neue Sonderzölle gegen die EU und weitere Handelspartner angekündigt. Für betroffene EU-Produkte ist ein Zollsatz von 15 Prozent vorgesehen, auf…",
+   "link": "https://www.tagesschau.de/ausland/amerika/usa-zoelle-124.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T16:18:25+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "USA kündigen neue Zölle an - auch gegen EU und China",
+     "link": "https://www.tagesschau.de/ausland/amerika/usa-zoelle-124.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "€561 Billion and Still Not Enough: Germany's 2027 Budget Exposes a Coalition on the Brink",
+   "kurz": "The budget for 2027 has reached new highs, and pension funds, defense spending and a weak economy are increasing the pressure. At the same time, tensions are…",
+   "link": "https://www.dw.com/en/€561-billion-and-still-not-enough-germany-s-2027-budget-exposes-a-coalition-on-the-brink/a-80052664?maca=en-rss-en-all-1573-xml-mrss",
    "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-25T02:56:00Z",
+   "zeit": "2026-11-25T16:06:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1044,8 +1011,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "China launches Shenzhou-24 to Tiangong station",
-     "link": "https://www.dw.com/en/china-launches-shenzhou-24-to-tiangong-station/a-80042281?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "€561 Billion and Still Not Enough: Germany's 2027 Budget Exposes a Coalition on the Brink",
+     "link": "https://www.dw.com/en/€561-billion-and-still-not-enough-germany-s-2027-budget-exposes-a-coalition-on-the-brink/a-80052664?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1053,12 +1020,12 @@
    ]
   },
   {
-   "titel": "Brücken-Krieg: Gefahr für Kiew, Probleme für Russlands Logistik",
-   "kurz": "Kiew, Saporischschja, Odessa - immer wieder greift Russland ukrainische Brücken an. Im Gegenzug schießt die Ukraine vermehrt zurück - auch auf die Krim-Brücke…",
-   "link": "https://www.tagesschau.de/ausland/europa/ukraine-russland-bruecken-krieg-100.html",
+   "titel": "Tote und Vermisste nach Überflutung in Goldmine",
+   "kurz": "In einer illegal errichteten indonesischen Goldmine sind Bergleute von Wassermassen überrascht und eingeschlossen worden. Die Rettungsmaßnahmen laufen. Bisher…",
+   "link": "https://www.tagesschau.de/ausland/asien/unglueck-illegale-goldmine-indonesien-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-25T02:40:52+01:00",
+   "zeit": "2026-11-25T16:01:03+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1067,8 +1034,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Brücken-Krieg: Gefahr für Kiew, Probleme für Russlands Logistik",
-     "link": "https://www.tagesschau.de/ausland/europa/ukraine-russland-bruecken-krieg-100.html",
+     "titel": "Tote und Vermisste nach Überflutung in Goldmine",
+     "link": "https://www.tagesschau.de/ausland/asien/unglueck-illegale-goldmine-indonesien-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1076,12 +1043,35 @@
    ]
   },
   {
-   "titel": "Lies, a disguise and surfboard bags: how a jealous Sydney policeman tried to cover up double murder",
-   "kurz": "Beau Lamarre was on Wednesday found guilty of murdering his ex Jesse Baird, and Baird's new partner Luke Davies.",
-   "link": "https://www.bbc.co.uk/news/articles/cmrrg749d02do?at_medium=RSS&at_campaign=rss",
+   "titel": "USA wollen neuen 15-Prozent-Zoll für EU-Importe",
+   "kurz": "Der US-Handelsbeauftragte bestätigt Berichte, wonach der Zollkonflikt zwischen den USA und deren wichtigsten Handelspartnern in die nächste Runde geht. Für…",
+   "link": "https://www.dw.com/de/usa-wollen-neuen-15-prozent-zoll-für-eu-importe/a-80045806?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-25T15:57:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "USA wollen neuen 15-Prozent-Zoll für EU-Importe",
+     "link": "https://www.dw.com/de/usa-wollen-neuen-15-prozent-zoll-für-eu-importe/a-80045806?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "South Africa's Ramaphosa wins court battle over impeachment threat",
+   "kurz": "The break-in happened in 2020, when thieves allegedly stole bundles of US dollar bills hidden inside a sofa at the farm.",
+   "link": "https://www.bbc.co.uk/news/articles/cq4gn6gj3z37o?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-25T01:51:43Z",
+   "zeit": "2026-11-25T15:42:50Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1090,8 +1080,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Lies, a disguise and surfboard bags: how a jealous Sydney policeman tried to cover up double murder",
-     "link": "https://www.bbc.co.uk/news/articles/cmrrg749d02do?at_medium=RSS&at_campaign=rss",
+     "titel": "South Africa's Ramaphosa wins court battle over impeachment threat",
+     "link": "https://www.bbc.co.uk/news/articles/cq4gn6gj3z37o?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1099,12 +1089,12 @@
    ]
   },
   {
-   "titel": "Thomas Markle charged in US for possessing child sex abuse images",
-   "kurz": "The FBI arrested Markle on 6 November after a search of a storage unit he had allegedly rented in Los Angeles uncovered the abuse material.",
-   "link": "https://www.bbc.co.uk/news/articles/crwy4egxn592o?at_medium=RSS&at_campaign=rss",
+   "titel": "Canadian astronaut welcomes baby girl from space station",
+   "kurz": "Joshua Kutryk, currently on his first space mission, is just the fourth astronaut in history to miss the birth of a child while aboard the International Space…",
+   "link": "https://www.bbc.co.uk/news/articles/ckx283y8wwwgo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-25T01:40:42Z",
+   "zeit": "2026-11-25T15:41:39Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1113,8 +1103,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Thomas Markle charged in US for possessing child sex abuse images",
-     "link": "https://www.bbc.co.uk/news/articles/crwy4egxn592o?at_medium=RSS&at_campaign=rss",
+     "titel": "Canadian astronaut welcomes baby girl from space station",
+     "link": "https://www.bbc.co.uk/news/articles/ckx283y8wwwgo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1122,12 +1112,12 @@
    ]
   },
   {
-   "titel": "WHO: Lebenserwartung in Kuba erstmals seit Beginn der Aufzeichnungen gesunken",
-   "kurz": "Die Lebenserwartung in Kuba ist laut der WHO erstmals in der Geschichte gesunken, die Säuglingssterblichkeit hat sich mehr als verdoppelt. WHO-Chef Tedros…",
-   "link": "https://www.tagesschau.de/ausland/amerika/kuba-lebenserwartungen-who-100.html",
+   "titel": "Wenn der Partner zuschlägt",
+   "kurz": "Alle drei Minuten erlebt eine Frau oder ein Mädchen in Deutschland häusliche Gewalt. Nur ein kleiner Teil der Taten wird angezeigt - aus Angst, Scham oder…",
+   "link": "https://www.tagesschau.de/inland/gesellschaft/wenn-der-partner-zuschlaegt-gewalt-gegen-frauen-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-25T01:06:58+01:00",
+   "zeit": "2026-11-25T15:36:47+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1136,8 +1126,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "WHO: Lebenserwartung in Kuba erstmals seit Beginn der Aufzeichnungen gesunken",
-     "link": "https://www.tagesschau.de/ausland/amerika/kuba-lebenserwartungen-who-100.html",
+     "titel": "Wenn der Partner zuschlägt",
+     "link": "https://www.tagesschau.de/inland/gesellschaft/wenn-der-partner-zuschlaegt-gewalt-gegen-frauen-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1145,265 +1135,12 @@
    ]
   },
   {
-   "titel": "Trump's rescue of Nvidia's Huang brings political risks",
-   "kurz": "The US president's intercession to reinstate CEO Jensen Huang has inextricably linked their fates.",
-   "link": "https://www.bbc.co.uk/news/articles/ckj05m2zdyryo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-25T01:03:05Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Trump's rescue of Nvidia's Huang brings political risks",
-     "link": "https://www.bbc.co.uk/news/articles/ckj05m2zdyryo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "The rising cost of putting food on the table in India",
-   "kurz": "India's food inflation is broadening, squeezing household budgets.",
-   "link": "https://www.bbc.co.uk/news/articles/cmy0xj41kl50o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-25T01:02:13Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "The rising cost of putting food on the table in India",
-     "link": "https://www.bbc.co.uk/news/articles/cmy0xj41kl50o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Shot in the face at 15: The lives shattered by Cameroon's decade of conflict",
-   "kurz": "More than half a million people have fled their homes since separatist groups demanded independence for Cameroon's English-speaking regions.",
-   "link": "https://www.bbc.co.uk/news/articles/crd6128y1qn1o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-25T01:00:36Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Shot in the face at 15: The lives shattered by Cameroon's decade of conflict",
-     "link": "https://www.bbc.co.uk/news/articles/crd6128y1qn1o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Clashing political visions reflect a divided Spain ahead of election",
-   "kurz": "Sunday’s election could see a far-right party enter the Spanish government for first time.",
-   "link": "https://www.bbc.co.uk/news/articles/cq5y1212y4pwo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-25T00:58:34Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Clashing political visions reflect a divided Spain ahead of election",
-     "link": "https://www.bbc.co.uk/news/articles/cq5y1212y4pwo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Russia's own figures show almost 500,000 deaths in war in Ukraine",
-   "kurz": "Leaked data reveal how the full-scale invasion of Ukraine has fundamentally changed mortality patterns in Russia.",
-   "link": "https://www.bbc.co.uk/news/articles/cmx27g533zwyo?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-25T00:56:51Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Russia's own figures show almost 500,000 deaths in war in Ukraine",
-     "link": "https://www.bbc.co.uk/news/articles/cmx27g533zwyo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "My family died in Ukraine. My mum blamed Zelensky's troops - the truth is complicated",
-   "kurz": "BBC journalist Anastasiya Gribanova investigates who killed her father and grandparents in the war.",
-   "link": "https://www.bbc.co.uk/news/articles/cw24e17v9e51o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-25T00:54:13Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "My family died in Ukraine. My mum blamed Zelensky's troops - the truth is complicated",
-     "link": "https://www.bbc.co.uk/news/articles/cw24e17v9e51o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Champions League: RB Leipzig hält dem Druck gegen Lens stand",
-   "kurz": "Es war ein hart erkämpfter Erfolg für RB Leipzig gegen RC Lens. Damit haben sich die Sachsen die Chance auf das Achtelfinale erhalten.",
-   "link": "https://www.sportschau.de/fussball/championsleague/rb-leipzig-haelt-dem-druck-gegen-rc-lens-stand,spielbericht-leipzig-lens-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-24T23:48:33+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Champions League: RB Leipzig hält dem Druck gegen Lens stand",
-     "link": "https://www.sportschau.de/fussball/championsleague/rb-leipzig-haelt-dem-druck-gegen-rc-lens-stand,spielbericht-leipzig-lens-100.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Champions League: BVB liefert FC Arsenal einen großen Kampf",
-   "kurz": "Borussia Dortmund hat in der Champions League dem FC Arsenal ein Remis abgetrotzt. Neben der kämpferischen Leistung war das Glück ein Faktor.",
-   "link": "https://www.sportschau.de/fussball/championsleague/bvb-liefert-dem-fc-arsenal-einen-grossen-kampf,spielbericht-arsenal-dortmund-100.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-24T23:18:46+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Champions League: BVB liefert FC Arsenal einen großen Kampf",
-     "link": "https://www.sportschau.de/fussball/championsleague/bvb-liefert-dem-fc-arsenal-einen-grossen-kampf,spielbericht-arsenal-dortmund-100.html",
-     "eigentuemer": "Eigentümer unbekannt",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Is China behind a wave of AI fake videos targeting Taiwan?",
-   "kurz": "The network attacked key figures in the ruling DPP, including President Lai and mayoral candidate Shen.",
-   "link": "https://www.bbc.co.uk/news/articles/cv702rw7dzx5o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-24T23:05:11Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "Is China behind a wave of AI fake videos targeting Taiwan?",
-     "link": "https://www.bbc.co.uk/news/articles/cv702rw7dzx5o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "These North Koreans say they were spied on, beaten and jailed for being Christian",
-   "kurz": "A new report has testimonies from hundreds of defectors who say they were persecuted because of their faith.",
-   "link": "https://www.bbc.co.uk/news/articles/cqgkv8kp7145o?at_medium=RSS&at_campaign=rss",
-   "quelle": "BBC World",
-   "sprache": "en",
-   "zeit": "2026-11-24T23:03:59Z",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC World",
-     "titel": "These North Koreans say they were spied on, beaten and jailed for being Christian",
-     "link": "https://www.bbc.co.uk/news/articles/cqgkv8kp7145o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Stefanie Hubig, SPD/Bundesjustizministerin, zu häuslicher Gewalt",
-   "kurz": "Stefanie Hubig, SPD/Bundesjustizministerin, zu häuslicher Gewalt",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1689342.html",
-   "quelle": "Tagesschau",
-   "sprache": "de",
-   "zeit": "2026-11-24T22:38:20+01:00",
-   "status": "unbestätigt",
-   "n_quellen": 1,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Stefanie Hubig, SPD/Bundesjustizministerin, zu häuslicher Gewalt",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1689342.html",
-     "eigentuemer": "gehört ARD",
-     "gruppe": 0,
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Scientists discover quasar formed 630 million years after the Big Bang",
-   "kurz": "Scientists are seeing the quasar as it was 13.1 billion years ago — when the universe was less than 5% of its current age.",
-   "link": "https://www.dw.com/en/scientists-discover-quasar-formed-630-million-years-after-the-big-bang/a-80041882?maca=en-rss-en-all-1573-xml-mrss",
+   "titel": "EU must set out a new timeline for cage-free farming, court rules",
+   "kurz": "European General Court ruled that the European Commission has failed to set out a timeline after pledging to end caged farming by the end of 2023.",
+   "link": "https://www.dw.com/en/eu-must-set-out-a-new-timeline-for-cage-free-farming-court-rules/a-80051729?maca=en-rss-en-all-1573-xml-mrss",
    "quelle": "Deutsche Welle (en)",
    "sprache": "en",
-   "zeit": "2026-11-24T22:34:00Z",
+   "zeit": "2026-11-25T15:36:00Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1412,8 +1149,8 @@
    "quellen": [
     {
      "quelle": "Deutsche Welle (en)",
-     "titel": "Scientists discover quasar formed 630 million years after the Big Bang",
-     "link": "https://www.dw.com/en/scientists-discover-quasar-formed-630-million-years-after-the-big-bang/a-80041882?maca=en-rss-en-all-1573-xml-mrss",
+     "titel": "EU must set out a new timeline for cage-free farming, court rules",
+     "link": "https://www.dw.com/en/eu-must-set-out-a-new-timeline-for-cage-free-farming-court-rules/a-80051729?maca=en-rss-en-all-1573-xml-mrss",
      "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1421,12 +1158,81 @@
    ]
   },
   {
-   "titel": "Das unterschätzte Problem? Gewalt gegen Männer",
-   "kurz": "Das unterschätzte Problem? Gewalt gegen Männer",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1689340.html",
+   "titel": "\"Flamingo-Revolution\": Warum 600.000 Albaner auswanderten - und warum Albaniens Jugend heute gegen Premier Edi Rama protestiert, anstatt zu emigrieren",
+   "kurz": "Jugendproteste gegen ein erstarrtes politisches System und Korruption erschüttern die Regierung von Premier Edi Rama. Sie zeigen auch, dass immer weniger junge…",
+   "link": "https://www.dw.com/de/flamingo-revolution-warum-600-000-albaner-auswanderten-und-warum-albaniens-jugend-heute-gegen-premier-edi-rama-protestiert-anstatt-zu-emigrieren/a-80033291?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-25T15:28:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "\"Flamingo-Revolution\": Warum 600.000 Albaner auswanderten - und warum Albaniens Jugend heute gegen Premier Edi Rama protestiert, anstatt zu emigrieren",
+     "link": "https://www.dw.com/de/flamingo-revolution-warum-600-000-albaner-auswanderten-und-warum-albaniens-jugend-heute-gegen-premier-edi-rama-protestiert-anstatt-zu-emigrieren/a-80033291?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Nigeria's upcoming election marred by rising AI disinformation",
+   "kurz": "As Nigeria inches closer to the 2027 polls, the use of artificial intelligence in the electoral process has prompted questions about integrity and…",
+   "link": "https://www.dw.com/en/nigeria-s-upcoming-election-marred-by-rising-ai-disinformation/a-79946897?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-25T15:28:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Nigeria's upcoming election marred by rising AI disinformation",
+     "link": "https://www.dw.com/en/nigeria-s-upcoming-election-marred-by-rising-ai-disinformation/a-79946897?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "EU-Kommission wegen Untätigkeit bei Käfighaltung verurteilt",
+   "kurz": "Aktivisten hatten vor einigen Jahren rund 1,4 Millionen Unterschriften für ein Verbot der Käfighaltung gesammelt. Die EU-Kommission reagierte allerdings zu…",
+   "link": "https://www.dw.com/de/eu-kommission-wegen-untätigkeit-bei-käfighaltung-verurteilt/a-80049946?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-25T15:19:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "EU-Kommission wegen Untätigkeit bei Käfighaltung verurteilt",
+     "link": "https://www.dw.com/de/eu-kommission-wegen-untätigkeit-bei-käfighaltung-verurteilt/a-80049946?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "74 Peitschenhiebe für iranische Sängerin lösen Empörung aus",
+   "kurz": "Ein Onlinekonzert ohne Kopftuch - dafür erhielt die iranische Sängerin Parastu Ahmadi 74 Peitschenhiebe. Das löste international große Empörung aus. Die Strafe…",
+   "link": "https://www.tagesschau.de/ausland/asien/iran-saengerin-peitschenhiebe-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-24T22:30:35+01:00",
+   "zeit": "2026-11-25T15:07:47+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1435,8 +1241,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Das unterschätzte Problem? Gewalt gegen Männer",
-     "link": "https://www.tagesschau.de/tagesthemen/video-1689340.html",
+     "titel": "74 Peitschenhiebe für iranische Sängerin lösen Empörung aus",
+     "link": "https://www.tagesschau.de/ausland/asien/iran-saengerin-peitschenhiebe-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1444,12 +1250,12 @@
    ]
   },
   {
-   "titel": "Linksfraktion in Berlin schließt umstrittene Abgeordnete Vanessa Emde aus",
-   "kurz": "Linksfraktion in Berlin schließt umstrittene Abgeordnete Vanessa Emde aus",
-   "link": "https://www.tagesschau.de/tagesthemen/video-1689336.html",
+   "titel": "Discounter senken Butterpreis unter einen Euro",
+   "kurz": "Die Discounter Lidl und Aldi haben den Preis für ein Stück Butter unter einen Euro gesenkt. Das liege an gesunkenen Einkaufspreisen. Der Bauernverband…",
+   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/butter-preis-preiskampf-discounter-bauern-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-24T22:25:58+01:00",
+   "zeit": "2026-11-25T15:01:31+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1458,8 +1264,8 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Berliner Linke schließt Emde aus Fraktion aus",
-     "link": "https://www.tagesschau.de/inland/innenpolitik/emde-ausschluss-berlin-linke-100.html",
+     "titel": "Discounter senken Butterpreis unter einen Euro",
+     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/butter-preis-preiskampf-discounter-bauern-100.html",
      "eigentuemer": "gehört ARD",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1467,12 +1273,127 @@
    ]
   },
   {
-   "titel": "Watch: Flock of turkeys chases woman on Massachusetts pavement",
-   "kurz": "The woman said she had to jump into a stranger's car to escape a flock of turkeys that chased her down the sidewalk.",
-   "link": "https://www.bbc.co.uk/news/videos/cknv4mq93gd2o?at_medium=RSS&at_campaign=rss",
+   "titel": "EU-Parlament stimmt neuen Arzneimittelregeln zu",
+   "kurz": "Ob Antibiotika oder Fiebersäfte für Kinder: Immer wieder fehlen in Europa Medikamente - Grund ist auch die große Abhängigkeit von Asien. Das will die EU…",
+   "link": "https://www.tagesschau.de/ausland/europa/eu-parlament-arzneimittel-100.html",
+   "quelle": "Tagesschau",
+   "sprache": "de",
+   "zeit": "2026-11-25T15:00:56+01:00",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "EU-Parlament stimmt neuen Arzneimittelregeln zu",
+     "link": "https://www.tagesschau.de/ausland/europa/eu-parlament-arzneimittel-100.html",
+     "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ukraine: Poland to set up no-fly zone near Ukraine border",
+   "kurz": "Poland urged NATO allies to be vigilant at their borders after repeated Russian airspace incursions. Allies have also offered different opinions on Kyiv…",
+   "link": "https://www.dw.com/en/ukraine-poland-to-set-up-no-fly-zone-near-ukraine-border/live-80047122?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-25T14:59:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Ukraine: Poland to set up no-fly zone near Ukraine border",
+     "link": "https://www.dw.com/en/ukraine-poland-to-set-up-no-fly-zone-near-ukraine-border/live-80047122?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "US plans new tariffs on EU, China and 12 others",
+   "kurz": "The Trump administration is planning new import duties of up to 20% to counter excessive manufacturing abroad. The measures could put further pressure on US…",
+   "link": "https://www.dw.com/en/us-plans-new-tariffs-on-eu-china-and-12-others/a-80050872?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-25T14:54:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "US plans new tariffs on EU, China and 12 others",
+     "link": "https://www.dw.com/en/us-plans-new-tariffs-on-eu-china-and-12-others/a-80050872?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ungarn-Ukraine: Peter Magyar und Wolodymyr Selenskyj wagen Neustart",
+   "kurz": "Lange vergiftete Viktor Orbans prorussischer Kurs Ungarns Verhältnis zur Ukraine. Nun schaffen Premier Magyar und Präsident Selenskyj bei einem Treffen eine…",
+   "link": "https://www.dw.com/de/ungarn-ukraine-peter-magyar-und-wolodymyr-selenskyj-wagen-neustart/a-80048613?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-25T14:52:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Ungarn-Ukraine: Peter Magyar und Wolodymyr Selenskyj wagen Neustart",
+     "link": "https://www.dw.com/de/ungarn-ukraine-peter-magyar-und-wolodymyr-selenskyj-wagen-neustart/a-80048613?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "FC Bayern beendet Spekulationen um Jamal Musiala",
+   "kurz": "Der FC Bayern und die Agentur Jamal Musialas geben ein Statement ab. Darin geht es um die neurologischen Symptome des Nationalspielers und den genauen…",
+   "link": "https://www.dw.com/de/fc-bayern-beendet-spekulationen-um-jamal-musiala/a-80051092?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-25T14:50:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "FC Bayern beendet Spekulationen um Jamal Musiala",
+     "link": "https://www.dw.com/de/fc-bayern-beendet-spekulationen-um-jamal-musiala/a-80051092?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Five Russian military jets hit in airfield strike, says Ukraine",
+   "kurz": "The Savasleyka airfield hosts aircraft used by Russia to launch hypersonic missiles and glide bombs at Ukraine.",
+   "link": "https://www.bbc.co.uk/news/articles/ck9q8xp5r5pgo?at_medium=RSS&at_campaign=rss",
    "quelle": "BBC World",
    "sprache": "en",
-   "zeit": "2026-11-24T22:07:30Z",
+   "zeit": "2026-11-25T14:46:41Z",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1481,8 +1402,8 @@
    "quellen": [
     {
      "quelle": "BBC World",
-     "titel": "Watch: Flock of turkeys chases woman on Massachusetts pavement",
-     "link": "https://www.bbc.co.uk/news/videos/cknv4mq93gd2o?at_medium=RSS&at_campaign=rss",
+     "titel": "Five Russian military jets hit in airfield strike, says Ukraine",
+     "link": "https://www.bbc.co.uk/news/articles/ck9q8xp5r5pgo?at_medium=RSS&at_campaign=rss",
      "eigentuemer": "gehört BBC",
      "gruppe": 0,
      "zaehlt_nicht": ""
@@ -1490,12 +1411,35 @@
    ]
   },
   {
-   "titel": "Nvidia-Chef Huang ist zurück, doch wie hoch ist der Preis?",
-   "kurz": "Huang ist zurück als Chef von Nvidia. Doch die Krise ist nicht ausgestanden. Der US-Kongress fordert Antworten. Und auch für Trump könnte der Fall Konsequenzen…",
-   "link": "https://www.tagesschau.de/wirtschaft/unternehmen/huang-folgen-nvidia-rueckkehr-100.html",
+   "titel": "German firms eye Africa as global trade shocks hit traditional markets",
+   "kurz": "German businesses are optimistic about Africa, but Berlin's cautious approach to risk is holding them back from cashing in on the opportunities that their…",
+   "link": "https://www.dw.com/en/german-firms-eye-africa-as-global-trade-shocks-hit-traditional-markets/a-80047671?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-25T14:38:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "German firms eye Africa as global trade shocks hit traditional markets",
+     "link": "https://www.dw.com/en/german-firms-eye-africa-as-global-trade-shocks-hit-traditional-markets/a-80047671?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Kartenzahlung überholt erstmals Bargeld in Geschäften",
+   "kurz": "Verbraucher in der Eurozone nutzen immer häufiger Kartenzahlungen. Trotzdem bleibt Bargeld beliebt - vor allem geringe Summen werden nach wie vor oft bar…",
+   "link": "https://www.tagesschau.de/wirtschaft/verbraucher/ezb-zahlungsverhalten-bargeld-kartenzahlung-100.html",
    "quelle": "Tagesschau",
    "sprache": "de",
-   "zeit": "2026-11-24T21:17:10+01:00",
+   "zeit": "2026-11-25T14:32:13+01:00",
    "status": "unbestätigt",
    "n_quellen": 1,
    "unabhaengig_n": 1,
@@ -1504,9 +1448,78 @@
    "quellen": [
     {
      "quelle": "Tagesschau",
-     "titel": "Nvidia-Chef Huang ist zurück, doch wie hoch ist der Preis?",
-     "link": "https://www.tagesschau.de/wirtschaft/unternehmen/huang-folgen-nvidia-rueckkehr-100.html",
+     "titel": "Kartenzahlung überholt erstmals Bargeld in Geschäften",
+     "link": "https://www.tagesschau.de/wirtschaft/verbraucher/ezb-zahlungsverhalten-bargeld-kartenzahlung-100.html",
      "eigentuemer": "gehört ARD",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Durch die Hintertür: Ex-Mossad-Chef sorgt im Bundestag für Wirbel",
+   "kurz": "Geplant war nur ein gut einstündiges Gespräch: Aber der Besuch von Ex-Mossad-Chef David Barnea in Berlin sorgte für Aufregung. Eine Menschenrechtsgruppe…",
+   "link": "https://www.dw.com/de/durch-die-hintertür-ex-mossad-chef-sorgt-im-bundestag-für-wirbel/a-80045432?maca=de-rss-de-all-1119-xml-mrss",
+   "quelle": "Deutsche Welle",
+   "sprache": "de",
+   "zeit": "2026-11-25T14:03:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle",
+     "titel": "Durch die Hintertür: Ex-Mossad-Chef sorgt im Bundestag für Wirbel",
+     "link": "https://www.dw.com/de/durch-die-hintertür-ex-mossad-chef-sorgt-im-bundestag-für-wirbel/a-80045432?maca=de-rss-de-all-1119-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "EU plans €50 billion sovereign tech equity fund to boost quantum technology",
+   "kurz": "The European Commission proposed a tech fund with a target size of €50 billion to boost quantum computing efforts. The bloc aims to keep up with the US and…",
+   "link": "https://www.dw.com/en/eu-plans-€50-billion-sovereign-tech-equity-fund-to-boost-quantum-technology/a-80047569?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-25T13:44:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "EU plans €50 billion sovereign tech equity fund to boost quantum technology",
+     "link": "https://www.dw.com/en/eu-plans-€50-billion-sovereign-tech-equity-fund-to-boost-quantum-technology/a-80047569?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
+     "gruppe": 0,
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Ice hockey prospect Max Calce follows Leon Draisaitl's path, leaving Mannheim for Canada",
+   "kurz": "The player widely seen as Germany's biggest ice hockey talent to come along in years is leaving the country's top professional league for Canada – changing…",
+   "link": "https://www.dw.com/en/ice-hockey-prospect-max-calce-follows-leon-draisaitl-s-path-leaving-mannheim-for-canada/a-80049458?maca=en-rss-en-all-1573-xml-mrss",
+   "quelle": "Deutsche Welle (en)",
+   "sprache": "en",
+   "zeit": "2026-11-25T13:28:00Z",
+   "status": "unbestätigt",
+   "n_quellen": 1,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Deutsche Welle (en)",
+     "titel": "Ice hockey prospect Max Calce follows Leon Draisaitl's path, leaving Mannheim for Canada",
+     "link": "https://www.dw.com/en/ice-hockey-prospect-max-calce-follows-leon-draisaitl-s-path-leaving-mannheim-for-canada/a-80049458?maca=en-rss-en-all-1573-xml-mrss",
+     "eigentuemer": "staatlich (Deutschland)",
      "gruppe": 0,
      "zaehlt_nicht": ""
     }
