@@ -1,23 +1,23 @@
 {
- "erzeugt": "2026-11-24T13:22:09Z",
+ "erzeugt": "2026-11-25T12:09:56Z",
  "hinweise": [
   "meiste-einwohner (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
-  "groesste-laender (5): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
+  "groesste-laender (5, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
   "groesste-seen (10): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
   "groesste-seen (10): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
   "groesste-seen (5): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
   "groesste-seen (5): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
-  "tiefste-seen (10): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
-  "groesste-laender (10, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
+  "tiefste-seen (10): JSONDecodeError: Extra data: line 786 column 2 (char 20804)",
+  "groesste-laender (10): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
   "groesste-laender (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
   "groesste-laender (5, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
   "meiste-einwohner (10, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut"
  ],
  "vorgaben": 36,
- "neu": 1,
- "behalten": 6,
- "aufgeschoben": 5,
- "aktuell": 24,
+ "neu": 2,
+ "behalten": 5,
+ "aufgeschoben": 6,
+ "aktuell": 23,
  "entfernt": 0,
  "eintraege": [
   {
@@ -309,12 +309,12 @@
     "de",
     "en"
    ],
-   "stand": "2026-11-22T11:54:12Z",
+   "stand": "2026-11-25T12:09:56Z",
    "status": {
     "bestätigt": 2,
     "korrigiert": 3
    },
-   "bytes": 14351
+   "bytes": 14349
   },
   {
    "schluessel": "863ea70acae7f37bb12a",
@@ -350,12 +350,12 @@
    "sprachen": [
     "de"
    ],
-   "stand": "2026-11-22T11:53:46Z",
+   "stand": "2026-11-25T12:09:27Z",
    "status": {
     "bestätigt": 2,
     "korrigiert": 3
    },
-   "bytes": 14312
+   "bytes": 14310
   },
   {
    "schluessel": "9b098770f1d1ecbe2934",
@@ -514,5 +514,5 @@
    "bytes": 10046
   }
  ],
- "bytes": 556285
+ "bytes": 556281
 }
