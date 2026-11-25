@@ -1,10 +1,490 @@
 {
- "erzeugt": "2026-11-24T15:58:50Z",
+ "erzeugt": "2026-11-25T15:45:15Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 71,
- "neu": 20,
+ "anzahl": 70,
+ "neu": 18,
  "ideen": [
+  {
+   "id": "idee-b9eb1790",
+   "bereich": "ranking",
+   "titel": "Die längsten Auslegerbrücken der Welt",
+   "thema": "Eine Rangliste der größten Auslegerbrücken weltweit.",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist Platz 4 der meistgelesenen Wikipedia-Seiten (de) und eignet sich für ein Ranking.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q185390 heißt 'anti-nuclear antibody', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Rangliste der größten Auslegerbrücken weltweit."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:38Z",
+   "recherche": [
+    {
+     "text": "Top 5: Das sind die längsten Brücken der Welt",
+     "status": "einzeln",
+     "datum": "2026-11-25",
+     "quellen": [
+      {
+       "quelle": "tag24.de",
+       "url": "https://www.tag24.de/ratgeber/rekorde/menschliche-rekorde/laengste-bruecke-der-welt-3324941",
+       "datum": "2026-11-25"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-03b30eb2",
+   "bereich": "ranking",
+   "titel": "Top-Filme: Indiens erfolgreichste Streifen",
+   "thema": "Eine Rangliste der umsatzstärksten indischen Filme.",
+   "begruendung": "Der Trend 'List of highest-grossing Indian films' ist Platz 6 der meistgelesenen Wikipedia-Seiten (en) und eignet sich für ein Ranking.",
+   "quelle": {
+    "name": "List of highest-grossing Indian films",
+    "typ": "trend",
+    "score": 78.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Thema nicht als Ranking darstellbar: The topic 'umsatzstärksten' (highest-grossing/revenue) cannot be expressed with the allowed nu",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Rangliste der umsatzstärksten indischen Filme."
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z",
+   "recherche": []
+  },
+  {
+   "id": "idee-e17c34f5",
+   "bereich": "fakten",
+   "titel": "Wer ist Jensen Huang?",
+   "thema": "Wissenswertes über Jensen Huang.",
+   "begruendung": "Der Trend 'Jensen Huang' ist Platz 8 der meistgelesenen Wikipedia-Seiten (de), Platz 2 der meistgelesenen Wikipedia-Seiten (en) und Platz 11 auf Reddit r/technology.",
+   "quelle": {
+    "name": "Jensen Huang",
+    "typ": "trend",
+    "score": 99.1,
+    "quellen": [
+     "reddit",
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswertes über Jensen Huang.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-3b2d558a",
+   "bereich": "fakten",
+   "titel": "GTA VI: Das wissen wir bisher",
+   "thema": "Wissenswerte Fakten über das Spiel Grand Theft Auto VI.",
+   "begruendung": "Der Trend 'Grand Theft Auto VI' ist Platz 19 der meistgelesenen Wikipedia-Seiten (de) und Platz 3 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Grand Theft Auto VI",
+    "typ": "trend",
+    "score": 92.7,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswerte Fakten über das Spiel Grand Theft Auto VI.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-b894b825",
+   "bereich": "fakten",
+   "titel": "Melanie Thornton: Ihr Leben",
+   "thema": "Wissenswerte Fakten über die Person Melanie Thornton.",
+   "begruendung": "Der Trend 'Melanie Thornton' ist Platz 3 der meistgelesenen Wikipedia-Seiten (de).",
+   "quelle": {
+    "name": "Melanie Thornton",
+    "typ": "trend",
+    "score": 85.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswerte Fakten über die Person Melanie Thornton.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-b0a337ab",
+   "bereich": "fakten",
+   "titel": "Freddie Mercury: Ein Porträt",
+   "thema": "Wissenswerte Fakten über die Person Freddie Mercury.",
+   "begruendung": "Der Trend 'Freddie Mercury' ist Platz 7 der meistgelesenen Wikipedia-Seiten (de).",
+   "quelle": {
+    "name": "Freddie Mercury",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswerte Fakten über die Person Freddie Mercury.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-e14f5626",
+   "bereich": "fakten",
+   "titel": "Ramayana: Teil 1 – Das Epos",
+   "thema": "Wissenswerte Fakten über das Thema Ramayana: Part 1.",
+   "begruendung": "Der Trend 'Ramayana: Part 1' ist Platz 1 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 90.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswerte Fakten über das Thema Ramayana: Part 1.",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-b806e397",
+   "bereich": "story",
+   "titel": "Wenn der Pendleralltag nervt",
+   "thema": "Die Stimmung frustrierter Pendler im Alltag.",
+   "begruendung": "Der Trend 'zehlendorf' zeigt die Meldung 'S-Bahnfahrer in Zehlendorf entnervt', was eine Alltagsstimmung beschreibt.",
+   "quelle": {
+    "name": "zehlendorf",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die Stimmung frustrierter Pendler im Alltag.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-51868700",
+   "bereich": "story",
+   "titel": "Die Jagd nach Game-Secrets",
+   "thema": "Die Stimmung von Spielern, die nach versteckten Inhalten suchen.",
+   "begruendung": "Der Trend 'gta 6 chapter 2 mission list' und die Meldung 'How Long Is Chapter 2 in GTA 6? All Missables and Mission List' beschreiben die Suche nach Spielinhalten, was eine Gamer-Stimmung darstellt.",
+   "quelle": {
+    "name": "gta 6 chapter 2 mission list",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die Stimmung von Spielern, die nach versteckten Inhalten suchen.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-a6f64033",
+   "bereich": "story",
+   "titel": "Der Nervenkitzel des Heists",
+   "thema": "Die Stimmung und Herausforderung beim Planen und Ausführen eines virtuellen Raubzugs.",
+   "begruendung": "Der Trend 'how to open vaults in gta 6' und die Meldung 'The Cartel Heist Walkthrough' beschreiben das Thema von Raubzügen im Spiel, was eine spannende Gamer-Stimmung darstellt.",
+   "quelle": {
+    "name": "how to open vaults in gta 6",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die Stimmung und Herausforderung beim Planen und Ausführen eines virtuellen Raubzugs.",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-5faaec74",
+   "bereich": "reportage",
+   "titel": "Was ist ein Tailstrike?",
+   "thema": "Erklärung des Luftfahrtbegriffs 'Tailstrike' und seiner Ursachen.",
+   "begruendung": "Der Trend 'tailstrike' ist Platz 3 der Google-Trends (DE) und eine Meldung beschreibt einen 'tail strike on go around'.",
+   "quelle": {
+    "name": "tailstrike",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Erklärung des Luftfahrtbegriffs 'Tailstrike' und seiner Ursachen.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-4c314707",
+   "bereich": "erklaer",
+   "titel": "Die Riemann-Hypothese erklärt",
+   "thema": "Eine einfache Erklärung der Riemann-Hypothese.",
+   "begruendung": "Der Trend 'Riemann hypothesis' ist Platz 8 der meistgelesenen Wikipedia-Seiten (en).",
+   "quelle": {
+    "name": "Riemann hypothesis",
+    "typ": "trend",
+    "score": 74.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Eine einfache Erklärung der Riemann-Hypothese."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-bc436dd9",
+   "bereich": "erklaer",
+   "titel": "GTA 6: So funktioniert Chapter 2",
+   "thema": "Erklärung der Struktur und Inhalte von Chapter 2 in GTA 6.",
+   "begruendung": "Der Trend 'gta 6 chapter 2 mission list' ist Platz 1 der Google-Trends (US) und eine Meldung beschreibt 'How Long Is Chapter 2 in GTA 6? All Missables and Mission List'.",
+   "quelle": {
+    "name": "gta 6 chapter 2 mission list",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung der Struktur und Inhalte von Chapter 2 in GTA 6."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-9f7eff2b",
+   "bereich": "erklaer",
+   "titel": "GTA 6: Tresore knacken erklärt",
+   "thema": "Erklärung, wie man Tresore im Spiel GTA 6 öffnet.",
+   "begruendung": "Der Trend 'how to open vaults in gta 6' ist Platz 2 der Google-Trends (US) und eine Meldung beschreibt 'The Cartel Heist Walkthrough'.",
+   "quelle": {
+    "name": "how to open vaults in gta 6",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung, wie man Tresore im Spiel GTA 6 öffnet."
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-25T15:44:40Z"
+  },
+  {
+   "id": "idee-5a581dbe",
+   "bereich": "reportage",
+   "titel": "S-Bahn-Frust in Zehlendorf",
+   "thema": "Eine Reportage über die aktuelle Verkehrssituation in Zehlendorf.",
+   "begruendung": "Der Trend 'zehlendorf' ist Platz 1 der Google-Trends (DE) mit der Meldung 'S-Bahnfahrer in Zehlendorf entnervt – Jetzt kommt auch noch die Vollsperrung'.",
+   "quelle": {
+    "name": "zehlendorf",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die aktuelle Verkehrssituation in Zehlendorf.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-4b6706f9",
+   "bereich": "reportage",
+   "titel": "Huawei: Urteil zu US-Geheimnissen",
+   "thema": "Eine Reportage über das Gerichtsurteil gegen Huawei wegen Diebstahls von US-Handelsgeheimnissen.",
+   "begruendung": "Die Nachricht 'Huawei found guilty of stealing US trade secrets but acquitted of racketeering' ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Huawei found guilty of stealing US trade secrets but acquitted of racketeering",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über das Gerichtsurteil gegen Huawei wegen Diebstahls von US-Handelsgeheimnissen.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-67dac33d",
+   "bereich": "reportage",
+   "titel": "Afrika-Cup: Senegal bekommt Titel",
+   "thema": "Eine Reportage über die Rückgabe des Afrika-Cup-Titels an Senegal nach einem CAS-Urteil.",
+   "begruendung": "Die Nachricht 'CAS-Urteil: Senegal erhält Afrika-Cup-Titel zurück' ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "CAS-Urteil: Senegal erhält Afrika-Cup-Titel zurück",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Rückgabe des Afrika-Cup-Titels an Senegal nach einem CAS-Urteil.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-3c4c8aad",
+   "bereich": "reportage",
+   "titel": "EU reguliert China-Importe",
+   "thema": "Eine Reportage über die EU-Regulierung des Imports von Hybridautos aus China.",
+   "begruendung": "Die Nachricht 'Weniger Hybridautos aus China - EU reguliert den Import' ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Weniger Hybridautos aus China - EU reguliert den Import",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die EU-Regulierung des Imports von Hybridautos aus China.",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-25T15:44:40Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
   {
    "id": "idee-c098a7d1",
    "bereich": "ranking",
@@ -1149,191 +1629,6 @@
    "erstellt": "2026-11-23T16:06:45Z"
   },
   {
-   "id": "idee-657ee6ba",
-   "bereich": "fakten",
-   "titel": "Grand Theft Auto: Wissenswertes",
-   "thema": "Wissenswertes über die Videospielreihe Grand Theft Auto.",
-   "begruendung": "Der Trend \"Grand Theft Auto\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (de) und Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-20.",
-   "quelle": {
-    "name": "Grand Theft Auto",
-    "typ": "trend",
-    "score": 99.9,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über die Videospielreihe Grand Theft Auto.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z",
-   "recherche": [
-    {
-     "text": "What Grand Theft Auto 6 Doesn't Tell You",
-     "status": "einzeln",
-     "datum": "2026-11-22",
-     "quellen": [
-      {
-       "quelle": "games.gg",
-       "url": "https://games.gg/grand-theft-auto-vi/guides/grand-theft-auto-6-guide-20-things-game-doesnt-tell-you/",
-       "datum": "2026-11-22"
-      }
-     ]
-    },
-    {
-     "text": "The things Grand Theft Auto 6 doesn't tell you are mostly hidden controls and quiet systems: you can push a flipped car back over, let the car drive itself to a waypoint, scan a parked car before you ",
-     "status": "einzeln",
-     "datum": "2026-11-22",
-     "quellen": [
-      {
-       "quelle": "games.gg",
-       "url": "https://games.gg/grand-theft-auto-vi/guides/grand-theft-auto-6-guide-20-things-game-doesnt-tell-you/",
-       "datum": "2026-11-22"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-95f2232d",
-   "bereich": "fakten",
-   "titel": "Olli Dittrich: Seine Karriere",
-   "thema": "Wissenswertes über die Karriere von Olli Dittrich.",
-   "begruendung": "Der Trend \"Olli Dittrich\" ist Platz 1 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-20.",
-   "quelle": {
-    "name": "Olli Dittrich",
-    "typ": "trend",
-    "score": 90.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über die Karriere von Olli Dittrich.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z",
-   "recherche": [
-    {
-     "text": "In der neuen TV-Dokumentation „Die Kunst, Olli Dittrich zu sein“ (22.20 Uhr, ARD) schauen Dittrich und prominente Weggefährten auf sein Leben und seine Karriere zurück.",
-     "status": "einzeln",
-     "datum": "2026-11-20",
-     "quellen": [
-      {
-       "quelle": "Bild",
-       "url": "https://www.bild.de/unterhaltung/stars-und-leute/olli-dittrich-wird-70-der-komiker-spricht-in-ard-doku-ueber-seine-finstersten-zeiten-6aff241dc1e8003ef73c4c17",
-       "datum": "2026-11-20"
-      }
-     ]
-    },
-    {
-     "text": "Olli Dittrich spricht in der Doku auch über seine Zeit als Angestellter der Plattenfirma Polydor in den Achtzigerjahren, wo er alles andere als glücklich mit seinem Job war.",
-     "status": "einzeln",
-     "datum": "2026-11-20",
-     "quellen": [
-      {
-       "quelle": "Bild",
-       "url": "https://www.bild.de/unterhaltung/stars-und-leute/olli-dittrich-wird-70-der-komiker-spricht-in-ard-doku-ueber-seine-finstersten-zeiten-6aff241dc1e8003ef73c4c17",
-       "datum": "2026-11-20"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-c802e7eb",
-   "bereich": "fakten",
-   "titel": "Hunger Games: Sunrise on the Reaping",
-   "thema": "Wissenswertes über das Buch \"The Hunger Games: Sunrise on the Reaping\".",
-   "begruendung": "Der Trend \"The Hunger Games: Sunrise on the Reaping\" ist Platz 4 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-20.",
-   "quelle": {
-    "name": "The Hunger Games: Sunrise on the Reaping",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über das Buch \"The Hunger Games: Sunrise on the Reaping\".",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z"
-  },
-  {
-   "id": "idee-74d54806",
-   "bereich": "fakten",
-   "titel": "Der Schimmelreiter: Fakten zum Klassiker",
-   "thema": "Wissenswertes über die Novelle \"Der Schimmelreiter\".",
-   "begruendung": "Der Trend \"Der Schimmelreiter\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-20.",
-   "quelle": {
-    "name": "Der Schimmelreiter",
-    "typ": "trend",
-    "score": 78.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über die Novelle \"Der Schimmelreiter\".",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z"
-  },
-  {
-   "id": "idee-6b2c4605",
-   "bereich": "reportage",
-   "titel": "Die Weite der Wildnis im Spiel",
-   "thema": "Eine Geschichte über das Gefühl, eine riesige virtuelle Welt zu erkunden.",
-   "begruendung": "Der Trend \"red dead redemption 2\" ist Platz 1 der Google-Trends (DE) und es gibt eine Meldung über das Spiel.",
-   "quelle": {
-    "name": "red dead redemption 2",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Geschichte über das Gefühl, eine riesige virtuelle Welt zu erkunden.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
    "id": "idee-a02b0e0c",
    "bereich": "story",
    "titel": "Unerwartete Momente in der offenen Welt",
@@ -1434,181 +1729,6 @@
    "erstellt": "2026-11-22T13:26:01Z"
   },
   {
-   "id": "idee-a98654cf",
-   "bereich": "erklaer",
-   "titel": "Zero-Day-Lücke: Was bedeutet das?",
-   "thema": "Eine Erklärung, was eine Zero-Day-Lücke ist und wie sie funktioniert.",
-   "begruendung": "Der Trend \"zero-day-lücke\" ist Platz 5 der Google-Trends (DE) und es gibt eine Meldung über ein Update für eine solche Lücke.",
-   "quelle": {
-    "name": "zero-day-lücke",
-    "typ": "trend",
-    "score": 73.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung, was eine Zero-Day-Lücke ist und wie sie funktioniert."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-22T13:26:01Z"
-  },
-  {
-   "id": "idee-f2e1057e",
-   "bereich": "erklaer",
-   "titel": "SEC Rankings: Das System erklärt",
-   "thema": "Eine Erklärung, wie die SEC Rankings im College Football funktionieren.",
-   "begruendung": "Der Trend \"sec rankings\" ist Platz 1 der Google-Trends (US) und es gibt eine Meldung über die Zahlenliebe der SEC.",
-   "quelle": {
-    "name": "sec rankings",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung, wie die SEC Rankings im College Football funktionieren."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-22T13:26:01Z"
-  },
-  {
-   "id": "idee-82d8ed00",
-   "bereich": "erklaer",
-   "titel": "SEC Standings: Championship Szenarien",
-   "thema": "Eine Erklärung der SEC Standings und der möglichen Szenarien für die Championship.",
-   "begruendung": "Der Trend \"sec standings\" ist Platz 5 der Google-Trends (US) und es gibt Meldungen über Championship Game Szenarien und Power Rankings.",
-   "quelle": {
-    "name": "sec standings",
-    "typ": "trend",
-    "score": 85.8,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der SEC Standings und der möglichen Szenarien für die Championship."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-22T13:26:01Z"
-  },
-  {
-   "id": "idee-5f0e119c",
-   "bereich": "reportage",
-   "titel": "Soldaten sterben bei Unfall in Haiti",
-   "thema": "Eine Reportage über den Unfalltod von drei Soldaten aus El Salvador in Haiti.",
-   "begruendung": "Die Nachricht \"Three El Salvador soldiers die in explosives accident in Haiti\" wurde von 4 Quellen bestätigt.",
-   "quelle": {
-    "name": "Three El Salvador soldiers die in explosives accident in Haiti",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "Wikipedia · La Prensa Gráfica",
-     "Wikipedia · AP"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über den Unfalltod von drei Soldaten aus El Salvador in Haiti.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-7c22ccdf",
-   "bereich": "reportage",
-   "titel": "Verurteilung nach Waldbrand in L.A.",
-   "thema": "Eine Reportage über die Verurteilung eines Mannes wegen des Palisades-Brandes in Los Angeles.",
-   "begruendung": "Die Nachricht \"Man convicted of starting Palisades fire in Los Angeles\" wurde von 3 Quellen bestätigt.",
-   "quelle": {
-    "name": "Man convicted of starting Palisades fire in Los Angeles",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Verurteilung eines Mannes wegen des Palisades-Brandes in Los Angeles.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-2f92731b",
-   "bereich": "reportage",
-   "titel": "Fabrikbrand in Indonesien: Tote und Vermisste",
-   "thema": "Eine Reportage über den Fabrikbrand in Indonesien mit Toten und Dutzenden Vermissten.",
-   "begruendung": "Die Nachricht \"Three killed and dozens missing after fire at Indonesian factory\" wurde von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Three killed and dozens missing after fire at Indonesian factory",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über den Fabrikbrand in Indonesien mit Toten und Dutzenden Vermissten.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-b0045ad4",
-   "bereich": "reportage",
-   "titel": "Drogenboss 'Chapo Isidro' festgenommen",
-   "thema": "Eine Reportage über die Festnahme des Drogenbosses 'Chapo Isidro' durch mexikanische Spezialkräfte.",
-   "begruendung": "Die Nachricht \"Mexican special forces arrest drug kingpin 'Chapo Isidro'\" wurde von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Mexican special forces arrest drug kingpin 'Chapo Isidro'",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "Wikipedia · AFP via France 24"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Festnahme des Drogenbosses 'Chapo Isidro' durch mexikanische Spezialkräfte.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
    "id": "idee-a5c28478",
    "bereich": "ranking",
    "titel": "Die größten Auslegerbrücken der Welt",
@@ -1656,59 +1776,6 @@
        "quelle": "tag24.de",
        "url": "https://www.tag24.de/ratgeber/rekorde/menschliche-rekorde/laengste-bruecke-der-welt-3324941",
        "datum": "2026-11-21"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-ebcb164a",
-   "bereich": "fakten",
-   "titel": "Wissenswertes über Grand Theft Auto",
-   "thema": "Fakten rund um die Videospielreihe Grand Theft Auto.",
-   "begruendung": "\"Grand Theft Auto\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (de) mit 36.759 Aufrufen und Platz 1 der meistgelesenen Wikipedia-Seiten (en) mit 540.793 Aufrufen am 2026-11-20.",
-   "quelle": {
-    "name": "Grand Theft Auto",
-    "typ": "trend",
-    "score": 99.9,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten rund um die Videospielreihe Grand Theft Auto.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z",
-   "recherche": [
-    {
-     "text": "\"Grand Theft Auto\" ist die Bezeichnung der US-Justiz für schweren Autoliebstahl.",
-     "status": "einzeln",
-     "datum": "2026-11-19",
-     "quellen": [
-      {
-       "quelle": "swr.de",
-       "url": "https://www.swr.de/swraktuell-radio/gta-6-release-deutschland-muss-nicht-mehr-warten-100.html",
-       "datum": "2026-11-19"
-      }
-     ]
-    },
-    {
-     "text": "Vom Banküberfall bis zum Amoklauf: In der Welt von Grand Theft Auto ist so ziemlich alles möglich.",
-     "status": "einzeln",
-     "datum": "2026-11-19",
-     "quellen": [
-      {
-       "quelle": "swr.de",
-       "url": "https://www.swr.de/swraktuell-radio/gta-6-release-deutschland-muss-nicht-mehr-warten-100.html",
-       "datum": "2026-11-19"
       }
      ]
     }
@@ -1843,192 +1910,6 @@
    },
    "app_auftrag": true,
    "erstellt": "2026-11-20T14:06:48Z"
-  },
-  {
-   "id": "idee-bdce4ad4",
-   "bereich": "ranking",
-   "titel": "Die größten Auslegerbrücken",
-   "thema": "Eine Rangliste der größten Auslegerbrücken.",
-   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' war Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-17.",
-   "quelle": {
-    "name": "Liste der größten Auslegerbrücken",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q185360 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de"
-    ],
-    "thema": "Eine Rangliste der größten Auslegerbrücken."
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-18T14:11:01Z",
-   "recherche": [
-    {
-     "text": "Liste der größten Auslegerbrücken: 989.681 Abrufe",
-     "status": "einzeln",
-     "datum": "2026-11-16",
-     "quellen": [
-      {
-       "quelle": "severint.net",
-       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
-       "datum": "2026-11-16"
-      }
-     ]
-    },
-    {
-     "text": "Warum die Auslegerbrücken so oft abgerufen werden, bleibt also offen.",
-     "status": "einzeln",
-     "datum": "2026-11-16",
-     "quellen": [
-      {
-       "quelle": "severint.net",
-       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
-       "datum": "2026-11-16"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-c74c7332",
-   "bereich": "ranking",
-   "titel": "Umsatzstärkste indische Filme",
-   "thema": "Ein Ranking der umsatzstärksten indischen Filme.",
-   "begruendung": "Der Trend 'List of highest-grossing Indian films' war Platz 4 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-17.",
-   "quelle": {
-    "name": "List of highest-grossing Indian films",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "nicht planbar: RuntimeError: Thema nicht als Ranking darstellbar: The topic 'umsatzstärksten' (highest-grossing/revenue) cannot be expressed using the allowed n",
-   "auftrag": {
-    "art": "ranking",
-    "plaetze": 10,
-    "sprachen": [
-     "de"
-    ],
-    "thema": "Ein Ranking der umsatzstärksten indischen Filme."
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-18T14:11:03Z",
-   "recherche": []
-  },
-  {
-   "id": "idee-a877c441",
-   "bereich": "story",
-   "titel": "Vorfreude auf ein neues Spiel",
-   "thema": "Die Stimmung der Vorfreude auf ein lang erwartetes Videospiel.",
-   "begruendung": "Der Trend 'Grand Theft Auto VI' war Platz 14 der meistgelesenen Wikipedia-Seiten (de) und Platz 5 (en) am 2026-11-17.",
-   "quelle": {
-    "name": "Grand Theft Auto VI",
-    "typ": "trend",
-    "score": 92.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Die Stimmung der Vorfreude auf ein lang erwartetes Videospiel.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-18T14:11:03Z"
-  },
-  {
-   "id": "idee-ef4461a1",
-   "bereich": "story",
-   "titel": "Faszination für alte Epen",
-   "thema": "Die Faszination für alte Epen und Geschichten.",
-   "begruendung": "Der Trend 'Ramayana: Part 1' war Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-17.",
-   "quelle": {
-    "name": "Ramayana: Part 1",
-    "typ": "trend",
-    "score": 87.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Die Faszination für alte Epen und Geschichten.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-18T14:11:03Z"
-  },
-  {
-   "id": "idee-4556ef85",
-   "bereich": "story",
-   "titel": "Leidenschaft für Fußballturniere",
-   "thema": "Die Leidenschaft für internationale Fußballturniere.",
-   "begruendung": "Der Trend 'UEFA Nations League' war Platz 16 der meistgelesenen Wikipedia-Seiten (de) und Platz 16 (en) am 2026-11-17.",
-   "quelle": {
-    "name": "UEFA Nations League",
-    "typ": "trend",
-    "score": 91.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Die Leidenschaft für internationale Fußballturniere.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-18T14:11:03Z"
-  },
-  {
-   "id": "idee-f2cd0d34",
-   "bereich": "satire",
-   "titel": "Alaskas Senatswahl: Warten lohnt sich",
-   "thema": "Satire über die ungewöhnlich lange Auszählung der Alaska Senatswahl.",
-   "begruendung": "Die Nachricht 'Democrats win Alaska Senate race two weeks after midterms counting began' wurde von 3 Quellen bestätigt (BBC World).",
-   "quelle": {
-    "name": "Democrats win Alaska Senate race two weeks after midterms counting began",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "Wikipedia · AP"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
-   "auftrag": {
-    "art": "satire",
-    "thema": "Satire über die ungewöhnlich lange Auszählung der Alaska Senatswahl.",
-    "sprache": "de",
-    "meldung": "Democrats win Alaska Senate race two weeks after midterms counting began"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-18T14:11:03Z"
   }
  ]
 }
