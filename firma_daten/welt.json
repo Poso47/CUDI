@@ -1,84 +1,29 @@
 {
- "erzeugt": "2026-11-25T21:52:52Z",
- "anzahl": 15,
- "nur_ausland": 1,
- "hinweise": [],
+ "erzeugt": "2026-11-26T08:40:35Z",
+ "anzahl": 19,
+ "nur_ausland": 0,
+ "hinweise": [
+  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
+ ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
   {
-   "titel": "Nato chief vows defence against space threat after Russian nuclear satellite reports",
-   "kurz": "German media said Russia planned to launch a satellite with a nuclear warhead into space in coming weeks.",
-   "link": "https://www.bbc.co.uk/news/articles/c9x2er1ry2mzo?at_medium=RSS&at_campaign=rss",
+   "titel": "German woman fined €25 for crying alone on a children's playground bench",
+   "kurz": "",
+   "link": "https://timesofindia.indiatimes.com/world/rest-of-world/a-german-woman-sat-crying-on-a-childrens-playground-bench-while-speaking-to-her-aunt-on-the-phone-municipal-officers-fined-her-25-for-being-there-without-a-child-calling-it-a-mild-and-proportionate-measure/articleshow/136180029.cms",
    "sprache": "en",
-   "zeit": "2026-11-24T20:31:17Z",
-   "ausland_quellen": 2,
-   "laender": [
-    "Frankreich",
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Frankreich",
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland"
-   ],
-   "zusammenfassung": [
-    "BBC Europe (Großbritannien): Nato chief vows defence against space threat after Russian nuclear satellite reports",
-    "France 24 (Frankreich): NATO vows space defence after Russia nuclear satellite report"
-   ],
-   "staatsnah": [
-    "France 24"
-   ],
-   "deutsch_quellen": [],
-   "nur_ausland": true,
-   "unabhaengig_n": 2,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "Nato chief vows defence against space threat after Russian nuclear satellite reports",
-     "link": "https://www.bbc.co.uk/news/articles/c9x2er1ry2mzo?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "France 24",
-     "land": "Frankreich",
-     "art": "staatsnah",
-     "beteiligt": false,
-     "titel": "NATO vows space defence after Russia nuclear satellite report",
-     "link": "https://www.france24.com/en/nato-vows-space-defence-after-russia-nuclear-satellite-report",
-     "eigentuemer": "staatlich (Frankreich)",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Rusia acumula casi 500.000 soldados muertos en la guerra y Alemania advierte que “quiere más que Ucrania”",
-   "kurz": "Una investigación de la BBC en base a una filtración de datos permitió hacer una estimación de las bajas",
-   "link": "https://www.lanacion.com.ar/el-mundo/rusia-acumula-casi-500000-soldados-muertos-en-la-guerra-y-alemania-advierte-que-quiere-mas-que-nid25112026/",
-   "sprache": "es",
-   "zeit": "2026-11-25T19:57:35Z",
+   "zeit": "2026-11-26T11:21:36+05:30",
    "ausland_quellen": 1,
    "laender": [
-    "Argentinien"
+    "Indien"
    ],
    "laender_einig": [
-    "Argentinien"
+    "Indien"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland",
-    "Ukraine"
-   ],
+   "beteiligte_laender": [],
    "zusammenfassung": [
-    "La Nación (Argentinien): Rusia acumula casi 500.000 soldados muertos en la guerra y Alemania advierte que “quiere más que Ucrania”"
+    "Times of India (Indien): German woman fined €25 for crying alone on a children's playground bench"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -88,23 +33,23 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "La Nación",
-     "land": "Argentinien",
+     "quelle": "Times of India",
+     "land": "Indien",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Rusia acumula casi 500.000 soldados muertos en la guerra y Alemania advierte que “quiere más que Ucrania”",
-     "link": "https://www.lanacion.com.ar/el-mundo/rusia-acumula-casi-500000-soldados-muertos-en-la-guerra-y-alemania-advierte-que-quiere-mas-que-nid25112026/",
-     "eigentuemer": "Eigentümer unbekannt",
+     "titel": "German woman fined €25 for crying alone on a children's playground bench",
+     "link": "https://timesofindia.indiatimes.com/world/rest-of-world/a-german-woman-sat-crying-on-a-childrens-playground-bench-while-speaking-to-her-aunt-on-the-phone-municipal-officers-fined-her-25-for-being-there-without-a-child-calling-it-a-mild-and-proportionate-measure/articleshow/136180029.cms",
+     "eigentuemer": "gehört Bennett, Coleman & Co. und The Times Group",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Trump droht mit neuen Zöllen wegen Überkapazitäten – doch die EU will die USA lieber als Verbündete gegen China",
-   "kurz": "Amerikanische Zolldrohungen werden von der EU nicht mehr besonders ernst genommen. Gerade Europas industrielle Schwergewichte, darunter Deutschland, haben…",
-   "link": "https://www.nzz.ch/wirtschaft/trump-droht-mit-neuen-zoellen-wegen-ueberkapazitaeten-doch-die-eu-will-die-usa-lieber-als-verbuendete-gegen-china-ld.10074714",
+   "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+   "kurz": "Wie wirken sich Energiewende und globale Krisen auf Strom- und Gaspreise in Deutschland aus? Hier gibt es jeden Tag die aktuellen Zahlen.",
+   "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
    "sprache": "de",
-   "zeit": "2026-11-25T17:23:05Z",
+   "zeit": "2026-11-26T08:14:41Z",
    "ausland_quellen": 1,
    "laender": [
     "Schweiz"
@@ -113,12 +58,9 @@
     "Schweiz"
    ],
    "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Hongkong/China",
-    "USA"
-   ],
+   "beteiligte_laender": [],
    "zusammenfassung": [
-    "NZZ (Schweiz): Trump droht mit neuen Zöllen wegen Überkapazitäten – doch die EU will die USA lieber als Verbündete gegen China"
+    "NZZ (Schweiz): INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -132,9 +74,344 @@
      "land": "Schweiz",
      "art": "privat",
      "beteiligt": false,
-     "titel": "Trump droht mit neuen Zöllen wegen Überkapazitäten – doch die EU will die USA lieber als Verbündete gegen China",
-     "link": "https://www.nzz.ch/wirtschaft/trump-droht-mit-neuen-zoellen-wegen-ueberkapazitaeten-doch-die-eu-will-die-usa-lieber-als-verbuendete-gegen-china-ld.10074714",
+     "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+     "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
      "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Das sind die Pfeiler von Jans’ Asylstrategie 2027: Das Recht auf ein Asylverfahren wird eingeschränkt, und das Haftregime wird verschärft",
+   "kurz": "Voraussichtlich nächste Woche könnte der Bundesrat entscheiden, wie es in der Asylpolitik weitergeht. Vor allem in einem Bereich steht ein Paradigmenwechsel…",
+   "link": "https://www.nzz.ch/schweiz/das-sind-die-pfeiler-von-jans-asylstrategie-2027-das-recht-auf-ein-asylverfahren-wird-eingeschraenkt-und-das-haftregime-wird-verschaerft-ld.10072350",
+   "sprache": "de",
+   "zeit": "2026-11-26T08:04:43Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Das sind die Pfeiler von Jans’ Asylstrategie 2027: Das Recht auf ein Asylverfahren wird eingeschränkt, und das Haftregime wird verschärft"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Das sind die Pfeiler von Jans’ Asylstrategie 2027: Das Recht auf ein Asylverfahren wird eingeschränkt, und das Haftregime wird verschärft",
+     "link": "https://www.nzz.ch/schweiz/das-sind-die-pfeiler-von-jans-asylstrategie-2027-das-recht-auf-ein-asylverfahren-wird-eingeschraenkt-und-das-haftregime-wird-verschaerft-ld.10072350",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Der deutsche Präsident arbeitet jetzt in einem Holzbau aus Vorarlberg",
+   "kurz": "Das Berliner Schloss Bellevue wird saniert, Kaufmann Bausysteme errichtete das Ausweichquartier. Für die Fertigung nahe der Baustelle hat die Firma eine Fabrik…",
+   "link": "https://www.derstandard.at/story/3000000350944/der-deutsche-praesident-arbeitet-jetzt-in-einem-holzbau-aus-vorarlberg?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-26T07:00:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): Der deutsche Präsident arbeitet jetzt in einem Holzbau aus Vorarlberg"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Der deutsche Präsident arbeitet jetzt in einem Holzbau aus Vorarlberg",
+     "link": "https://www.derstandard.at/story/3000000350944/der-deutsche-praesident-arbeitet-jetzt-in-einem-holzbau-aus-vorarlberg?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Iconic German supermodel Veruschka dies at 87",
+   "kurz": "German supermodel and actress Veruschka, who appeared on 13 American Vogue covers and in Blow-Up, has died at 87, Bild reports. Read More…",
+   "link": "https://punchng.com/iconic-german-supermodel-veruschka-dies-at-87/?utm_source=rss.punchng.com&utm_medium=web",
+   "sprache": "en",
+   "zeit": "2026-11-26T06:42:47Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Nigeria"
+   ],
+   "laender_einig": [
+    "Nigeria"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "USA"
+   ],
+   "zusammenfassung": [
+    "Punch (Nigeria): Iconic German supermodel Veruschka dies at 87"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Punch",
+     "land": "Nigeria",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Iconic German supermodel Veruschka dies at 87",
+     "link": "https://punchng.com/iconic-german-supermodel-veruschka-dies-at-87/?utm_source=rss.punchng.com&utm_medium=web",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "German boat dealer suspected of supplying Channel smuggling gangs, BBC finds",
+   "kurz": "Nearly a third of crossings in early 2026 allegedly involved boats or engines from the German man's firm.",
+   "link": "https://www.bbc.co.uk/news/articles/cqlymky8kpzjo?at_medium=RSS&at_campaign=rss",
+   "sprache": "en",
+   "zeit": "2026-11-26T05:00:27Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "BBC Europe (Großbritannien): Watch: BBC confronts German man suspected of supplying migrant gangs with small boats"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "Watch: BBC confronts German man suspected of supplying migrant gangs with small boats",
+     "link": "https://www.bbc.co.uk/news/videos/cvglrz5yr79go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Lieben die Deutschen ihre Demokratie? Niemand weiss es. Denn verteidigen sollen sie andere",
+   "kurz": "«German Angst» hat Tradition: vom Waldsterben, das so nie eintrat, bis zum Atomausstieg, der sich mittlerweile als strategischer Fehler erweist. Was soll aus…",
+   "link": "https://www.nzz.ch/meinung/lieben-die-deutschen-ihre-demokratie-niemand-weiss-es-denn-verteidigen-sollen-sie-andere-ld.10065316",
+   "sprache": "de",
+   "zeit": "2026-11-26T04:38:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): Lieben die Deutschen ihre Demokratie? Niemand weiss es. Denn verteidigen sollen sie andere"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Lieben die Deutschen ihre Demokratie? Niemand weiss es. Denn verteidigen sollen sie andere",
+     "link": "https://www.nzz.ch/meinung/lieben-die-deutschen-ihre-demokratie-niemand-weiss-es-denn-verteidigen-sollen-sie-andere-ld.10065316",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "KOMMENTAR - Rettet das Privateigentum!",
+   "kurz": "In Deutschland und anderen westlichen Ländern steht das Privateigentum politisch zunehmend unter Beschuss. Das ist eine Gefahr für Frieden, Freiheit und…",
+   "link": "https://www.nzz.ch/meinung/rettet-das-privateigentum-ld.10068640",
+   "sprache": "de",
+   "zeit": "2026-11-26T04:35:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): KOMMENTAR - Rettet das Privateigentum!"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "KOMMENTAR - Rettet das Privateigentum!",
+     "link": "https://www.nzz.ch/meinung/rettet-das-privateigentum-ld.10068640",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "KOMMENTAR - Die Kosten für die Pflege durch Angehörige sind ausser Kontrolle – der Bundesrat hat das Thema zu lange vernachlässigt",
+   "kurz": "Die Angehörigenpflege kostet die Prämienzahler dieses Jahr Hunderte Millionen Franken. Das Missbrauchspotenzial ist hoch. Dass es so weit kam, hat auch mit dem…",
+   "link": "https://www.nzz.ch/meinung/die-kosten-fuer-die-pflege-durch-angehoerige-sind-ausser-kontrolle-der-bundesrat-hat-das-thema-zu-lange-vernachlaessigt-ld.10074200",
+   "sprache": "de",
+   "zeit": "2026-11-26T04:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): KOMMENTAR - Die Kosten für die Pflege durch Angehörige sind ausser Kontrolle – der Bundesrat hat das Thema zu lange vernachlässigt"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "KOMMENTAR - Die Kosten für die Pflege durch Angehörige sind ausser Kontrolle – der Bundesrat hat das Thema zu lange vernachlässigt",
+     "link": "https://www.nzz.ch/meinung/die-kosten-fuer-die-pflege-durch-angehoerige-sind-ausser-kontrolle-der-bundesrat-hat-das-thema-zu-lange-vernachlaessigt-ld.10074200",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Veruschka, one of the world’s first supermodels – a life in pictures",
+   "kurz": "The German supermodel and Blow-Up actor, born Vera Gottliebe Anna Gräfin von Lehndorff-Steinort, has died aged 87. She was a favourite of photographers…",
+   "link": "https://www.theguardian.com/fashion/gallery/2026/nov/26/veruschka-death-worlds-first-supermodel-a-life-in-pictures",
+   "sprache": "en",
+   "zeit": "2026-11-26T04:29:46Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): Veruschka, one of the world’s first supermodels – a life in pictures"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Veruschka, one of the world’s first supermodels – a life in pictures",
+     "link": "https://www.theguardian.com/fashion/gallery/2026/nov/26/veruschka-death-worlds-first-supermodel-a-life-in-pictures",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Guitar wars - the transatlantic battle over the Stratocaster",
+   "kurz": "US company Fender is in dispute with a German firm that makes generic versions of its key model.",
+   "link": "https://www.bbc.co.uk/news/articles/cqd01l9x8k48o?at_medium=RSS&at_campaign=rss",
+   "sprache": "en",
+   "zeit": "2026-11-26T00:01:37Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "BBC Europe (Großbritannien): Guitar wars - the transatlantic battle over the Stratocaster"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "Guitar wars - the transatlantic battle over the Stratocaster",
+     "link": "https://www.bbc.co.uk/news/articles/cqd01l9x8k48o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
      "zaehlt_nicht": ""
     }
    ]
@@ -177,43 +454,6 @@
    ]
   },
   {
-   "titel": "Bericht zu ADHS: Bundesrat empfiehlt Selbsthilfegruppen und bessere Schulung",
-   "kurz": "Das Fehlen von Kenntnissen über das Krankheitsbild führt dazu, dass zu vielen Leuten zur ADHS-Abklärung geraten wird. Das belastet die…",
-   "link": "https://www.nzz.ch/schweiz/bericht-zu-adhs-bundesrat-empfiehlt-selbsthilfegruppen-und-bessere-schulung-ld.10074242",
-   "sprache": "de",
-   "zeit": "2026-11-25T15:49:05Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): Bericht zu ADHS: Bundesrat empfiehlt Selbsthilfegruppen und bessere Schulung"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Bericht zu ADHS: Bundesrat empfiehlt Selbsthilfegruppen und bessere Schulung",
-     "link": "https://www.nzz.ch/schweiz/bericht-zu-adhs-bundesrat-empfiehlt-selbsthilfegruppen-und-bessere-schulung-ld.10074242",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
    "titel": "Crack breitet sich in Deutschland aus, Städte suchen Antworten",
    "kurz": "Die Droge mit enormem Suchtpotenzial war Thema einer Fachtagung in Frankfurt. Vorbild für Lösungen könnte Zürich sein. In Wien ist Crack kaum Thema",
    "link": "https://www.derstandard.at/story/3000000351081/crack-breitet-sich-in-deutschland-aus-st228dte-suchen-antworten?ref=rss",
@@ -246,82 +486,6 @@
      "titel": "Crack breitet sich in Deutschland aus, Städte suchen Antworten",
      "link": "https://www.derstandard.at/story/3000000351081/crack-breitet-sich-in-deutschland-aus-st228dte-suchen-antworten?ref=rss",
      "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Sol Partinin Berlin Eyalet Meclisi Grubu , Vanessa Emdeyi 33 oyla ihraç etti",
-   "kurz": "",
-   "link": "https://www.haberler.com/guncel/sol-parti-nin-berlin-eyalet-meclisi-grubu-vanessa-20462246-haberi/",
-   "sprache": "tr",
-   "zeit": "2026-11-25T14:15:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Turkey"
-   ],
-   "laender_einig": [
-    "Turkey"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "haberler.com (Turkey): Sol Partinin Berlin Eyalet Meclisi Grubu , Vanessa Emdeyi 33 oyla ihraç etti"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "haberler.com",
-     "land": "Turkey",
-     "art": "unbekannt",
-     "beteiligt": false,
-     "titel": "Sol Partinin Berlin Eyalet Meclisi Grubu , Vanessa Emdeyi 33 oyla ihraç etti",
-     "link": "https://www.haberler.com/guncel/sol-parti-nin-berlin-eyalet-meclisi-grubu-vanessa-20462246-haberi/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Merz defiende el apoyo militar de Alemania a Ucrania pese a la creciente oposición ciudadana",
-   "kurz": "Las encuestas advierten que una mayoría de alemanes está en contra de proseguir con la transferencia de ayuda armamentística a Kiev",
-   "link": "https://elpais.com/internacional/2026-11-25/merz-defiende-el-apoyo-militar-de-alemania-a-ucrania-pese-a-la-creciente-oposicion-ciudadana.html",
-   "sprache": "es",
-   "zeit": "2026-11-25T14:14:10Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Merz defiende el apoyo militar de Alemania a Ucrania pese a la creciente oposición ciudadana"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Merz defiende el apoyo militar de Alemania a Ucrania pese a la creciente oposición ciudadana",
-     "link": "https://elpais.com/internacional/2026-11-25/merz-defiende-el-apoyo-militar-de-alemania-a-ucrania-pese-a-la-creciente-oposicion-ciudadana.html",
-     "eigentuemer": "gehört PRISA",
      "zaehlt_nicht": ""
     }
    ]
@@ -477,24 +641,28 @@
    ]
   },
   {
-   "titel": "Ruto, Steinmeier sign pact as Kenya eyes more German jobs",
-   "kurz": "Deal signed with German language-testing body to make it easier for Kenyans to qualify for jobs.",
-   "link": "https://nation.africa/kenya/news/ruto-steinmeier-sign-pact-as-kenya-eyes-more-german-jobs-5684126",
+   "titel": "Russian nuclear satellites plan 'foolhardy', expert says",
+   "kurz": "NATO chief Mark Rutte said Monday the alliance would defend against threats in space when asked about German media reports that Russia may be preparing to…",
+   "link": "https://www.france24.com/en/russian-nuclear-satellites-plan-foolhardy-expert-says",
    "sprache": "en",
-   "zeit": "2026-11-25T15:34:56Z",
+   "zeit": "2026-11-24T20:31:17Z",
    "ausland_quellen": 1,
    "laender": [
-    "Kenia"
+    "Frankreich"
    ],
-   "laender_einig": [],
+   "laender_einig": [
+    "Frankreich"
+   ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Kenia"
+    "Russland"
    ],
    "zusammenfassung": [
-    "Daily Nation (Kenia): German President Steinmeier arrives in Kenya for talks with Ruto"
+    "France 24 (Frankreich): Russian nuclear satellites plan 'foolhardy', expert says"
    ],
-   "staatsnah": [],
+   "staatsnah": [
+    "France 24"
+   ],
    "deutsch_quellen": [],
    "nur_ausland": false,
    "unabhaengig_n": 1,
@@ -502,34 +670,34 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Daily Nation",
-     "land": "Kenia",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "German President Steinmeier arrives in Kenya for talks with Ruto",
-     "link": "https://nation.africa/kenya/news/german-president-steinmeier-arrives-in-kenya-for-talks-with-ruto-5683630",
-     "eigentuemer": "gehört Nation Media Group",
+     "quelle": "France 24",
+     "land": "Frankreich",
+     "art": "staatsnah",
+     "beteiligt": false,
+     "titel": "Russian nuclear satellites plan 'foolhardy', expert says",
+     "link": "https://www.france24.com/en/russian-nuclear-satellites-plan-foolhardy-expert-says",
+     "eigentuemer": "staatlich (Frankreich)",
      "zaehlt_nicht": ""
     }
    ]
   },
   {
-   "titel": "Berliner Fastfood-Kette Burgermeister eröffnete in Wien",
-   "kurz": "Das deutsche Unternehmen will bis zu 20 Filialen in Österreich betreiben, die erste davon sperrte am Dienstag in Wien-Mitte auf",
-   "link": "https://www.derstandard.at/story/3000000350253/berliner-fast-food-kette-burgermeister-eroeffnete-in-wien?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-24T16:16:53Z",
+   "titel": "El héroe de Berlín: una divertida comedia sobre los peligros de sostener una confusión conveniente",
+   "kurz": "Se estrena en la Argentina la última película del mismo realizador de la exitosa Good Bye Lenin!, fallecido en 2024",
+   "link": "https://www.lanacion.com.ar/espectaculos/cine/el-heroe-de-berlin-una-divertida-comedia-sobre-los-peligros-de-sostener-una-confusion-conveniente-nid26112026/",
+   "sprache": "es",
+   "zeit": "2026-11-26T03:01:00Z",
    "ausland_quellen": 1,
    "laender": [
-    "Österreich"
+    "Argentinien"
    ],
    "laender_einig": [],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
-    "Österreich"
+    "Argentinien"
    ],
    "zusammenfassung": [
-    "Der Standard (Österreich): Berliner Fastfood-Kette Burgermeister eröffnete in Wien"
+    "La Nación (Argentinien): El héroe de Berlín: una divertida comedia sobre los peligros de sostener una confusión conveniente"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
@@ -539,51 +707,13 @@
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "Der Standard",
-     "land": "Österreich",
+     "quelle": "La Nación",
+     "land": "Argentinien",
      "art": "privat",
      "beteiligt": true,
-     "titel": "Berliner Fastfood-Kette Burgermeister eröffnete in Wien",
-     "link": "https://www.derstandard.at/story/3000000350253/berliner-fast-food-kette-burgermeister-eroeffnete-in-wien?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Germans reject choosing between US and China as faith in the West crumbles",
-   "kurz": "Amid heated superpower rivalry, a vast majority of Germans want to remain neutral between the United States and China, even as a major new survey also reveals…",
-   "link": "https://www.scmp.com/news/china/diplomacy/article/3375525/germans-reject-choosing-between-us-and-china-faith-west-crumbles",
-   "sprache": "en",
-   "zeit": "2026-11-23T23:00:11Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Hongkong/China"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Hongkong/China",
-    "USA"
-   ],
-   "zusammenfassung": [
-    "SCMP (Hongkong/China): Germans reject choosing between US and China as faith in the West crumbles"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "SCMP",
-     "land": "Hongkong/China",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Germans reject choosing between US and China as faith in the West crumbles",
-     "link": "https://www.scmp.com/news/china/diplomacy/article/3375525/germans-reject-choosing-between-us-and-china-faith-west-crumbles",
-     "eigentuemer": "gehört Alibaba Group",
+     "titel": "El héroe de Berlín: una divertida comedia sobre los peligros de sostener una confusión conveniente",
+     "link": "https://www.lanacion.com.ar/espectaculos/cine/el-heroe-de-berlin-una-divertida-comedia-sobre-los-peligros-de-sostener-una-confusion-conveniente-nid26112026/",
+     "eigentuemer": "Eigentümer unbekannt",
      "zaehlt_nicht": ""
     }
    ]
@@ -1417,6 +1547,15 @@
    "keine_treffer": true
   },
   "Meclisi Grubu": {
+   "keine_treffer": true
+  },
+  "Tage Empörung": {
+   "keine_treffer": true
+  },
+  "Tage Alltag": {
+   "keine_treffer": true
+  },
+  "Abgeordneter Emde": {
    "keine_treffer": true
   }
  }
