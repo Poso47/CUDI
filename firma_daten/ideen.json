@@ -1,10 +1,551 @@
 {
- "erzeugt": "2026-11-25T15:45:15Z",
+ "erzeugt": "2026-11-26T15:26:05Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 70,
- "neu": 18,
+ "anzahl": 72,
+ "neu": 20,
  "ideen": [
+  {
+   "id": "idee-dd1089db",
+   "bereich": "ranking",
+   "titel": "Die größten Auslegerbrücken der Welt",
+   "thema": "Eine Rangliste der größten Auslegerbrücken nach ihrer Spannweite",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist auf Wikipedia (de) Platz 4 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Thema nicht als Ranking darstellbar: The topic 'Eine Rangliste der größten Auslegerbrücken nach ihrer Spannweite' requires the prop",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Rangliste der größten Auslegerbrücken nach ihrer Spannweite"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:24:59Z",
+   "recherche": [
+    {
+     "text": "Liste der größten Auslegerbrücken: 989.681 Abrufe",
+     "status": "einzeln",
+     "datum": "2026-11-16",
+     "quellen": [
+      {
+       "quelle": "severint.net",
+       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
+       "datum": "2026-11-16"
+      }
+     ]
+    },
+    {
+     "text": "Die geheime Weltherrschaft der Auslegerbrücken wäre die vierte Möglichkeit.",
+     "status": "einzeln",
+     "datum": "2026-11-16",
+     "quellen": [
+      {
+       "quelle": "severint.net",
+       "url": "https://www.severint.net/2026/11/16/auslegerbruecken-wikipedia-abrufe-raetsel-statistik/",
+       "datum": "2026-11-16"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-4f003daf",
+   "bereich": "reportage",
+   "titel": "Die ältesten im Jahr 2026 verstorbenen Persönlichkeiten",
+   "thema": "Eine Rangliste der bekannten Persönlichkeiten, die 2026 verstorben sind, sortiert nach Alter",
+   "begruendung": "Der Trend 'Deaths in 2026' ist auf Wikipedia (en) Platz 7 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Deaths in 2026",
+    "typ": "trend",
+    "score": 76.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Rangliste der bekannten Persönlichkeiten, die 2026 verstorben sind, sortiert nach Alter",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:24:59Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "recherche": []
+  },
+  {
+   "id": "idee-6b025441",
+   "bereich": "ranking",
+   "titel": "Die größten Chamäleon-Arten der Welt",
+   "thema": "Eine Rangliste der größten bekannten Chamäleon-Arten nach ihrer Körpergröße",
+   "begruendung": "Der Trend 'Chamäleon (2026)' ist auf Wikipedia (de) Platz 2 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Chamäleon (2026)",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Thema nicht als Ranking darstellbar: The topic 'chameleon species' cannot be directly represented as a single Wikidata class whose ",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Rangliste der größten bekannten Chamäleon-Arten nach ihrer Körpergröße"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-88c4b0d4",
+   "bereich": "fakten",
+   "titel": "Wissenswertes über Vanessa Emde",
+   "thema": "Interessante Fakten rund um die Person Vanessa Emde",
+   "begruendung": "Der Trend 'Vanessa Emde' ist auf Wikipedia (de) Platz 1 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Vanessa Emde",
+    "typ": "trend",
+    "score": 90.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Interessante Fakten rund um die Person Vanessa Emde",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-ddad9334",
+   "bereich": "fakten",
+   "titel": "Fakten zum Wettbewerb Miss Universe 2026",
+   "thema": "Wissenswerte Details zum internationalen Schönheitswettbewerb Miss Universe 2026",
+   "begruendung": "Der Trend 'Miss Universe 2026' ist auf Wikipedia (en) Platz 1 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Miss Universe 2026",
+    "typ": "trend",
+    "score": 90.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissenswerte Details zum internationalen Schönheitswettbewerb Miss Universe 2026",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-9548371f",
+   "bereich": "fakten",
+   "titel": "Hintergrundwissen zum Film Ramayana: Part 1",
+   "thema": "Fakten und Informationen zum Filmprojekt Ramayana: Part 1",
+   "begruendung": "Der Trend 'Ramayana: Part 1' ist auf Wikipedia (en) Platz 2 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten und Informationen zum Filmprojekt Ramayana: Part 1",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-7bd0b50b",
+   "bereich": "fakten",
+   "titel": "Wer ist Ezra Frech?",
+   "thema": "Fakten über den Sportler Ezra Frech und seine Leistungen",
+   "begruendung": "Der Trend 'Ezra Frech' ist auf Wikipedia (en) Platz 3 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Ezra Frech",
+    "typ": "trend",
+    "score": 85.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Fakten über den Sportler Ezra Frech und seine Leistungen",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-269038ba",
+   "bereich": "fakten",
+   "titel": "Was ist die Riemannsche Vermutung?",
+   "thema": "Grundlagen und Bedeutung der Riemannschen Vermutung in der Mathematik",
+   "begruendung": "Der Trend 'Riemannsche Vermutung' ist auf Wikipedia (de) Platz 8 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Riemannsche Vermutung",
+    "typ": "trend",
+    "score": 74.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Grundlagen und Bedeutung der Riemannschen Vermutung in der Mathematik",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-83b0d2ba",
+   "bereich": "story",
+   "titel": "Der Kampf gegen Kalk im Alltag",
+   "thema": "Eine Alltagsgeschichte über die Herausforderung von Kalkablagerungen und mögliche Lösungen",
+   "begruendung": "Der Trend 'kalkbuster wasserhahn entkalker' ist auf Google-Trends (DE) Platz 5 und wird als 'Millionenidee'-Sieger erwähnt, was auf eine alltägliche Problemlösung hindeutet.",
+   "quelle": {
+    "name": "kalkbuster wasserhahn entkalker",
+    "typ": "trend",
+    "score": 73.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Alltagsgeschichte über die Herausforderung von Kalkablagerungen und mögliche Lösungen",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-86f001c4",
+   "bereich": "story",
+   "titel": "Wie es ist, sich ständig anpassen zu müssen",
+   "thema": "Eine Geschichte über die Notwendigkeit, sich immer wieder an neue Situationen anzupassen",
+   "begruendung": "Der Trend 'Chamäleon (2026)' ist auf Wikipedia (de) Platz 2 und inspiriert das Thema der Anpassungsfähigkeit.",
+   "quelle": {
+    "name": "Chamäleon (2026)",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über die Notwendigkeit, sich immer wieder an neue Situationen anzupassen",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-82dcecdc",
+   "bereich": "story",
+   "titel": "Die Aufregung vor einem großen Release",
+   "thema": "Eine Geschichte über die Vorfreude und Erwartungen vor der Veröffentlichung eines lang erwarteten Produkts",
+   "begruendung": "Der Trend 'Grand Theft Auto VI' ist auf Wikipedia (de) Platz 22 und (en) Platz 5, was auf große Erwartungen hindeutet.",
+   "quelle": {
+    "name": "Grand Theft Auto VI",
+    "typ": "trend",
+    "score": 89.1,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Eine Geschichte über die Vorfreude und Erwartungen vor der Veröffentlichung eines lang erwarteten Produkts",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-afefcc01",
+   "bereich": "erklaer",
+   "titel": "Wie Barrierefreiheit Videospiele verändert",
+   "thema": "Ein Erklärvideo darüber, wie Videospiele durch Barrierefreiheit inklusiver werden",
+   "begruendung": "Der Trend 'rockstar' ist auf Google-Trends (DE) Platz 2; eine Meldung dazu ist: 'GTA 6 should lead the way for gamers with disabilities'.",
+   "quelle": {
+    "name": "rockstar",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo darüber, wie Videospiele durch Barrierefreiheit inklusiver werden"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-cd20dcae",
+   "bereich": "erklaer",
+   "titel": "Die Riemannsche Vermutung einfach erklärt",
+   "thema": "Ein Erklärvideo zur komplexen Riemannschen Vermutung und ihrer Bedeutung",
+   "begruendung": "Der Trend 'Riemannsche Vermutung' ist auf Wikipedia (de) Platz 8 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Riemannsche Vermutung",
+    "typ": "trend",
+    "score": 74.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zur komplexen Riemannschen Vermutung und ihrer Bedeutung"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-af63d84b",
+   "bereich": "erklaer",
+   "titel": "So funktioniert ein Wasserhahn-Entkalker",
+   "thema": "Ein Erklärvideo zur Funktionsweise und Anwendung von Wasserhahn-Entkalkern",
+   "begruendung": "Der Trend 'kalkbuster wasserhahn entkalker' ist auf Google-Trends (DE) Platz 5 und wird als 'Millionenidee'-Sieger erwähnt.",
+   "quelle": {
+    "name": "kalkbuster wasserhahn entkalker",
+    "typ": "trend",
+    "score": 73.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo zur Funktionsweise und Anwendung von Wasserhahn-Entkalkern"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-613f9f08",
+   "bereich": "erklaer",
+   "titel": "Der Entwicklungsprozess eines großen Videospiels",
+   "thema": "Ein Erklärvideo über die einzelnen Schritte bei der Entwicklung eines Blockbuster-Videospiels",
+   "begruendung": "Der Trend 'Grand Theft Auto VI' ist auf Wikipedia (de) Platz 22 und (en) Platz 5, was auf die Komplexität der Entwicklung hindeutet.",
+   "quelle": {
+    "name": "Grand Theft Auto VI",
+    "typ": "trend",
+    "score": 89.1,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo über die einzelnen Schritte bei der Entwicklung eines Blockbuster-Videospiels"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-07053900",
+   "bereich": "erklaer",
+   "titel": "Wie Chamäleons ihre Farbe wechseln",
+   "thema": "Ein Erklärvideo über den Mechanismus hinter dem Farbwechsel von Chamäleons",
+   "begruendung": "Der Trend 'Chamäleon (2026)' ist auf Wikipedia (de) Platz 2 der meistgelesenen Seiten.",
+   "quelle": {
+    "name": "Chamäleon (2026)",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Ein Erklärvideo über den Mechanismus hinter dem Farbwechsel von Chamäleons"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-26T15:25:14Z"
+  },
+  {
+   "id": "idee-7f4819c4",
+   "bereich": "reportage",
+   "titel": "Aktueller Bericht zu Verlusten im Ukraine-Krieg",
+   "thema": "Eine sachliche Reportage über die von Russland selbst gemeldeten Verluste im Ukraine-Krieg",
+   "begruendung": "Die Nachricht 'Russia's own figures show it has lost nearly 500,000 people in Ukraine war' ist von 4 Quellen bestätigt.",
+   "quelle": {
+    "name": "Russia's own figures show it has lost nearly 500,000 people in Ukraine war",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "theguardian.com"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine sachliche Reportage über die von Russland selbst gemeldeten Verluste im Ukraine-Krieg",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-53dcb2d7",
+   "bereich": "reportage",
+   "titel": "Macy's Thanksgiving Parade verschoben",
+   "thema": "Eine Reportage über die Verschiebung der Macy's Thanksgiving Parade aufgrund des Wetters",
+   "begruendung": "Die Nachricht 'Macy's postpones Thanksgiving parade due to weather' ist von 3 Quellen bestätigt.",
+   "quelle": {
+    "name": "Macy's postpones Thanksgiving parade due to weather",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "yahoo.com",
+     "Wikipedia · NBC"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über die Verschiebung der Macy's Thanksgiving Parade aufgrund des Wetters",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-c1d40f44",
+   "bereich": "reportage",
+   "titel": "Großbrand auf Autobahn in Gizeh",
+   "thema": "Eine Reportage über den Großbrand auf einer Autobahn in Gizeh mit Todesopfern",
+   "begruendung": "Die Nachricht 'Ägypten: Mindestens 30 Tote bei Großbrand auf Autobahn in Gizeh' ist von 2 Quellen bestätigt.",
+   "quelle": {
+    "name": "Ägypten: Mindestens 30 Tote bei Großbrand auf Autobahn in Gizeh",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "faz.net"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über den Großbrand auf einer Autobahn in Gizeh mit Todesopfern",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-ed3f7596",
+   "bereich": "reportage",
+   "titel": "Duran Duran Gitarrist Andy Taylor ist tot",
+   "thema": "Eine Reportage über den Tod des Duran Duran Gitarristen Andy Taylor",
+   "begruendung": "Die Nachricht 'Duran Duran guitarist Andy Taylor dies at 65' ist von 3 Quellen bestätigt.",
+   "quelle": {
+    "name": "Duran Duran guitarist Andy Taylor dies at 65",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Deutsche Welle (en)",
+     "bbc.co.uk",
+     "theguardian.com"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Eine Reportage über den Tod des Duran Duran Gitarristen Andy Taylor",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-26T15:25:14Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
   {
    "id": "idee-b9eb1790",
    "bereich": "ranking",
@@ -1117,141 +1658,6 @@
    "recherche": []
   },
   {
-   "id": "idee-82865ff4",
-   "bereich": "fakten",
-   "titel": "Melika Foroutan: Karriere-Check",
-   "thema": "Ein Überblick über die Karriere von Melika Foroutan",
-   "begruendung": "Der Trend 'Melika Foroutan' war Platz 1 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-22 mit 63.421 Aufrufen.",
-   "quelle": {
-    "name": "Melika Foroutan",
-    "typ": "trend",
-    "score": 90.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Ein Überblick über die Karriere von Melika Foroutan",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
-   "id": "idee-4d2108c9",
-   "bereich": "fakten",
-   "titel": "Grand Theft Auto: Die Saga",
-   "thema": "Die Geschichte und Entwicklung der Videospielreihe Grand Theft Auto",
-   "begruendung": "Der Trend 'Grand Theft Auto' war mehrfach in den meistgelesenen Wikipedia-Seiten (de/en) am 2026-11-22 gelistet, unter anderem mit 308.867 Aufrufen.",
-   "quelle": {
-    "name": "Grand Theft Auto",
-    "typ": "trend",
-    "score": 99.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Die Geschichte und Entwicklung der Videospielreihe Grand Theft Auto",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
-   "id": "idee-5083433b",
-   "bereich": "fakten",
-   "titel": "Miley Cyrus: Ihre Laufbahn",
-   "thema": "Ein Blick auf die musikalische und schauspielerische Laufbahn von Miley Cyrus",
-   "begruendung": "Der Trend 'Miley Cyrus' war mehrfach in den meistgelesenen Wikipedia-Seiten (de/en) am 2026-11-22 gelistet, unter anderem mit 170.642 Aufrufen.",
-   "quelle": {
-    "name": "Miley Cyrus",
-    "typ": "trend",
-    "score": 86.9,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Ein Blick auf die musikalische und schauspielerische Laufbahn von Miley Cyrus",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
-   "id": "idee-ab90b6ca",
-   "bereich": "fakten",
-   "titel": "Professor Severus Snape",
-   "thema": "Der Charakter Professor Severus Snape in der Popkultur",
-   "begruendung": "Der Trend 'professor severus snape' war Platz 3 der Google-Trends (DE) mit über 100 Suchen.",
-   "quelle": {
-    "name": "professor severus snape",
-    "typ": "trend",
-    "score": 86.7,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Der Charakter Professor Severus Snape in der Popkultur",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
-   "id": "idee-49b5c393",
-   "bereich": "fakten",
-   "titel": "Edin Hasanović: Sein Weg",
-   "thema": "Die Karriere des Schauspielers Edin Hasanović",
-   "begruendung": "Der Trend 'Edin Hasanović' war Platz 3 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-22 mit 39.147 Aufrufen.",
-   "quelle": {
-    "name": "Edin Hasanović",
-    "typ": "trend",
-    "score": 85.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Die Karriere des Schauspielers Edin Hasanović",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
    "id": "idee-3e90cad5",
    "bereich": "story",
    "titel": "Doppelstandards im Alltag",
@@ -1376,206 +1782,6 @@
    "erstellt": "2026-11-23T16:06:45Z"
   },
   {
-   "id": "idee-0c6e804c",
-   "bereich": "erklaer",
-   "titel": "Satire-News verstehen",
-   "thema": "Wie satirische Nachrichtenportale wie The Onion funktionieren",
-   "begruendung": "Der Trend 'the onion' war Platz 1 der Google-Trends (US) mit über 200 Suchen; die Meldung dazu stammt von einer satirischen Quelle.",
-   "quelle": {
-    "name": "the onion",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Wie satirische Nachrichtenportale wie The Onion funktionieren"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
-   "id": "idee-9c1aaadb",
-   "bereich": "erklaer",
-   "titel": "Was ist 'Hood Stock'?",
-   "thema": "Eine Erklärung des Begriffs 'Hood Stock' im Finanzkontext",
-   "begruendung": "Der Trend 'hood stock' war Platz 3 der Google-Trends (US) mit über 100 Suchen; die Meldung dazu bezieht sich auf Robinhood und Aktien.",
-   "quelle": {
-    "name": "hood stock",
-    "typ": "trend",
-    "score": 86.7,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung des Begriffs 'Hood Stock' im Finanzkontext"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
-   "id": "idee-a6751bcf",
-   "bereich": "erklaer",
-   "titel": "Das Ramayana: Eine Einführung",
-   "thema": "Eine Einführung in die epische Erzählung des Ramayana",
-   "begruendung": "Der Trend 'Ramayana: Part 1' war Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-22 mit 384.249 Aufrufen.",
-   "quelle": {
-    "name": "Ramayana: Part 1",
-    "typ": "trend",
-    "score": 90.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Einführung in die epische Erzählung des Ramayana"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
-   "id": "idee-3fe2b017",
-   "bereich": "reportage",
-   "titel": "Ereignisse in Kehl",
-   "thema": "Aktuelle Informationen zu den Ereignissen in Kehl",
-   "begruendung": "Der Trend 'kehl' war Platz 1 der Google-Trends (DE) mit über 200 Suchen; die Meldung lautet: 'Eilmeldung: Mehrere Tote in Wohnung in Kehl entdeckt' (BILD).",
-   "quelle": {
-    "name": "kehl",
-    "typ": "trend",
-    "score": 100.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Aktuelle Informationen zu den Ereignissen in Kehl",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-d566528b",
-   "bereich": "reportage",
-   "titel": "Angriff auf russisches Kriegsschiff",
-   "thema": "Bericht über den mutmaßlichen Drohnenangriff auf ein russisches Kriegsschiff in Libyen",
-   "begruendung": "Die Nachricht 'Russian warship hit by Ukrainian drones in Libya, Zelensky says' ist von 5 Quellen bestätigt (BBC World).",
-   "quelle": {
-    "name": "Russian warship hit by Ukrainian drones in Libya, Zelensky says",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Bericht über den mutmaßlichen Drohnenangriff auf ein russisches Kriegsschiff in Libyen",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-96e3a420",
-   "bereich": "reportage",
-   "titel": "UN-Klimaverhandlungen ohne Einigung",
-   "thema": "Analyse der ergebnislosen UN-Klimaverhandlungen",
-   "begruendung": "Die Nachricht 'Longest-ever UN climate talks end with no deal as deep divisions exposed' ist von 3 Quellen bestätigt (BBC World).",
-   "quelle": {
-    "name": "Longest-ever UN climate talks end with no deal as deep divisions exposed",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)",
-     "Wikipedia · AFP"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Analyse der ergebnislosen UN-Klimaverhandlungen",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-3c867e18",
-   "bereich": "reportage",
-   "titel": "Russlands Weltraum-Atomwaffe?",
-   "thema": "Die Warnungen der Geheimdienste zu russischen Weltraum-Atomwaffen",
-   "begruendung": "Die Nachricht 'Geheimdienste warnen: Russland soll Atomwaffe im Weltraum vorbereiten' ist von 2 Quellen bestätigt (Tagesschau).",
-   "quelle": {
-    "name": "Geheimdienste warnen: Russland soll Atomwaffe im Weltraum vorbereiten",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Die Warnungen der Geheimdienste zu russischen Weltraum-Atomwaffen",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-0b9df474",
-   "bereich": "reportage",
-   "titel": "Demokraten gewinnen Mehrheit",
-   "thema": "Die jüngsten Wahlergebnisse und die neue Mehrheit im US-Repräsentantenhaus",
-   "begruendung": "Die Nachricht 'Democrats win largest House majority since 1992 after flipping North Carolina seat' ist von 2 Quellen bestätigt (BBC World).",
-   "quelle": {
-    "name": "Democrats win largest House majority since 1992 after flipping North Carolina seat",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Die jüngsten Wahlergebnisse und die neue Mehrheit im US-Repräsentantenhaus",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
    "id": "idee-83f3b29f",
    "bereich": "satire",
    "titel": "Klimagipfel: Nichts entschieden",
@@ -1682,53 +1888,6 @@
    "erstellt": "2026-11-22T13:26:01Z"
   },
   {
-   "id": "idee-64fa1aed",
-   "bereich": "erklaer",
-   "titel": "Die Riemannsche Vermutung erklärt",
-   "thema": "Eine Erklärung, was die Riemannsche Vermutung ist und warum sie wichtig ist.",
-   "begruendung": "Der Trend \"Riemann hypothesis\" ist Platz 3 der meistgelesenen Wikipedia-Seiten (en) und war auf Reddit r/technology.",
-   "quelle": {
-    "name": "Riemann hypothesis",
-    "typ": "trend",
-    "score": 90.7,
-    "quellen": [
-     "reddit",
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung, was die Riemannsche Vermutung ist und warum sie wichtig ist."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-22T13:26:01Z"
-  },
-  {
-   "id": "idee-311dc2b2",
-   "bereich": "erklaer",
-   "titel": "Was ist die Riemannsche Vermutung?",
-   "thema": "Ein Erklärvideo zur Riemannschen Vermutung.",
-   "begruendung": "Der Trend \"Riemannsche Vermutung\" ist Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-20.",
-   "quelle": {
-    "name": "Riemannsche Vermutung",
-    "typ": "trend",
-    "score": 83.2,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Ein Erklärvideo zur Riemannschen Vermutung."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-22T13:26:01Z"
-  },
-  {
    "id": "idee-a5c28478",
    "bereich": "ranking",
    "titel": "Die größten Auslegerbrücken der Welt",
@@ -1800,84 +1959,6 @@
    "auftrag": {
     "art": "story",
     "wunsch": "Eine Geschichte über das Gefühl, wenn eine Versicherung im Ernstfall hilft.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-b674e8dd",
-   "bereich": "story",
-   "titel": "Black Friday: Die Schnäppchenjagd",
-   "thema": "Eine Geschichte über die Stimmung beim Suchen nach Black Friday Angeboten.",
-   "begruendung": "\"black friday sale deals\" ist Platz 2 der Google-Trends (US) mit über 1.000 Suchen.",
-   "quelle": {
-    "name": "black friday sale deals",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Geschichte über die Stimmung beim Suchen nach Black Friday Angeboten.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-97817ef1",
-   "bereich": "story",
-   "titel": "Mein erstes Mal in Los Santos",
-   "thema": "Eine Geschichte über das Eintauchen in die Welt von Grand Theft Auto.",
-   "begruendung": "\"Grand Theft Auto\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (de) mit 36.759 Aufrufen und Platz 1 der meistgelesenen Wikipedia-Seiten (en) mit 540.793 Aufrufen am 2026-11-20.",
-   "quelle": {
-    "name": "Grand Theft Auto",
-    "typ": "trend",
-    "score": 99.9,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Geschichte über das Eintauchen in die Welt von Grand Theft Auto.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-d52096d9",
-   "bereich": "story",
-   "titel": "Sturmflut an der Küste",
-   "thema": "Eine Geschichte, die die bedrohliche Stimmung einer Sturmflut einfängt.",
-   "begruendung": "\"Der Schimmelreiter\" ist Platz 6 der meistgelesenen Wikipedia-Seiten (de) mit 23.599 Aufrufen am 2026-11-20.",
-   "quelle": {
-    "name": "Der Schimmelreiter",
-    "typ": "trend",
-    "score": 78.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Geschichte, die die bedrohliche Stimmung einer Sturmflut einfängt.",
     "stimmung": "auto",
     "sprache": "de",
     "laenge": "3min"
