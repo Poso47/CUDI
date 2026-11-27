@@ -1,10 +1,590 @@
 {
- "erzeugt": "2026-11-26T15:26:05Z",
+ "erzeugt": "2026-11-27T15:13:28Z",
  "modus": "llm",
  "hinweise": [],
- "anzahl": 72,
- "neu": 20,
+ "anzahl": 73,
+ "neu": 21,
  "ideen": [
+  {
+   "id": "idee-1c4b2ec2",
+   "bereich": "ranking",
+   "titel": "Die längsten Auslegerbrücken der Welt",
+   "thema": "Eine Liste der größten Auslegerbrücken nach ihrer Länge",
+   "begruendung": "Der Trend 'Liste der größten Auslegerbrücken' ist Platz 3 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-26 mit 32.851 Aufrufen.",
+   "quelle": {
+    "name": "Liste der größten Auslegerbrücken",
+    "typ": "trend",
+    "score": 85.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "nicht planbar: RuntimeError: Wikidata-ID Q185360 heißt '', nicht 'cantilever bridge' – bitte Vorlage nutzen.",
+   "auftrag": {
+    "art": "ranking",
+    "plaetze": 10,
+    "sprachen": [
+     "de"
+    ],
+    "thema": "Eine Liste der größten Auslegerbrücken nach ihrer Länge"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z",
+   "recherche": [
+    {
+     "text": "Top 5: Das sind die längsten Brücken der Welt",
+     "status": "einzeln",
+     "datum": "2026-11-27",
+     "quellen": [
+      {
+       "quelle": "tag24.de",
+       "url": "https://www.tag24.de/ratgeber/rekorde/menschliche-rekorde/laengste-bruecke-der-welt-3324941",
+       "datum": "2026-11-27"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-032a5bb2",
+   "bereich": "fakten",
+   "titel": "Rosbergs Formel-1-Titel 2016",
+   "thema": "Wissens-Fakten über Nico Rosbergs Formel-1-Weltmeistertitel 2016",
+   "begruendung": "Der Trend 'nico rosberg' ist Platz 1 der Google-Trends (DE) mit über 500 Suchen und einer Meldung über die Kosten seines Formel-1-WM-Titels 2016.",
+   "quelle": {
+    "name": "nico rosberg",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über Nico Rosbergs Formel-1-Weltmeistertitel 2016",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z",
+   "recherche": [
+    {
+     "text": "Nico Rosberg: Was ihn der Formel-1-WM-Titel 2016 wirklich gekostet hat",
+     "status": "einzeln",
+     "datum": "2026-11-27",
+     "quellen": [
+      {
+       "quelle": "motorsport-total.com",
+       "url": "https://www.motorsport-total.com/formel-1/news/nico-rosberg-was-ihn-der-formel-1-wm-titel-2016-wirklich-gekostet-hat-26112701",
+       "datum": "2026-11-27"
+      }
+     ]
+    },
+    {
+     "text": "Lewis Hamilton vor Nico Rosberg und Sebastian Vettel beim Formel-1-Rennen in Abu Dhabi 2016 Zoom",
+     "status": "einzeln",
+     "datum": "2026-11-27",
+     "quellen": [
+      {
+       "quelle": "motorsport-total.com",
+       "url": "https://www.motorsport-total.com/formel-1/news/nico-rosberg-was-ihn-der-formel-1-wm-titel-2016-wirklich-gekostet-hat-26112701",
+       "datum": "2026-11-27"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idee-2e260fe8",
+   "bereich": "fakten",
+   "titel": "Die Band Duran Duran",
+   "thema": "Wissens-Fakten über die Musikgruppe Duran Duran",
+   "begruendung": "Der Trend 'Duran Duran' ist Platz 7 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-26 mit 21.344 Aufrufen.",
+   "quelle": {
+    "name": "Duran Duran",
+    "typ": "trend",
+    "score": 95.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über die Musikgruppe Duran Duran",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-ae2ccc78",
+   "bereich": "fakten",
+   "titel": "Wer ist Andy Taylor?",
+   "thema": "Wissens-Fakten über den Musiker Andy Taylor",
+   "begruendung": "Der Trend 'Andy Taylor (Musiker)' ist Platz 1 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-26 mit 51.533 Aufrufen.",
+   "quelle": {
+    "name": "Andy Taylor (Musiker)",
+    "typ": "trend",
+    "score": 90.0,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über den Musiker Andy Taylor",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-f63512a0",
+   "bereich": "fakten",
+   "titel": "Thanksgiving: Ursprung & Bräuche",
+   "thema": "Wissens-Fakten über die Ursprünge und Bräuche des Thanksgiving-Festes",
+   "begruendung": "Der Trend 'Thanksgiving' ist Platz 8 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-26 mit 19.831 Aufrufen.",
+   "quelle": {
+    "name": "Thanksgiving",
+    "typ": "trend",
+    "score": 90.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten über die Ursprünge und Bräuche des Thanksgiving-Festes",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-421ba4ed",
+   "bereich": "fakten",
+   "titel": "Was ist der Steirerstich?",
+   "thema": "Wissens-Fakten zum Begriff Steirerstich",
+   "begruendung": "Der Trend 'Steirerstich' ist Platz 4 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-26 mit 32.197 Aufrufen.",
+   "quelle": {
+    "name": "Steirerstich",
+    "typ": "trend",
+    "score": 83.2,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "ranking",
+    "thema": "Wissens-Fakten zum Begriff Steirerstich",
+    "plaetze": 7,
+    "sprachen": [
+     "de"
+    ]
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-4b41178a",
+   "bereich": "story",
+   "titel": "Das Gefühl von Thanksgiving",
+   "thema": "Die besonderen Gefühle rund um das Thanksgiving-Fest",
+   "begruendung": "Der Trend 'Thanksgiving' ist Platz 8 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-26 mit 19.831 Aufrufen.",
+   "quelle": {
+    "name": "Thanksgiving",
+    "typ": "trend",
+    "score": 90.5,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die besonderen Gefühle rund um das Thanksgiving-Fest",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-5b8774a7",
+   "bereich": "story",
+   "titel": "Der tägliche Blick auf die Météo",
+   "thema": "Die Überraschungen und Routinen beim Blick auf die Wettervorhersage",
+   "begruendung": "Der Trend 'météo' ist Platz 2 der Google-Trends (US) mit über 200 Suchen und einer Meldung zur Wettervorhersage.",
+   "quelle": {
+    "name": "météo",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die Überraschungen und Routinen beim Blick auf die Wettervorhersage",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-d141210d",
+   "bereich": "story",
+   "titel": "Black Friday Jagd auf Pokémon",
+   "thema": "Die Jagd nach begehrten Artikeln am Black Friday",
+   "begruendung": "Der Trend 'walmart black friday pokemon' ist Platz 5 der Google-Trends (US) mit über 200 Suchen und einer Meldung zu Black Friday Angeboten für Pokémon.",
+   "quelle": {
+    "name": "walmart black friday pokemon",
+    "typ": "trend",
+    "score": 84.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die Jagd nach begehrten Artikeln am Black Friday",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-890ea1af",
+   "bereich": "story",
+   "titel": "Die Sorge am Tankrabatt",
+   "thema": "Die Sorge vor steigenden Preisen an der Zapfsäule",
+   "begruendung": "Der Trend 'tankrabatt' ist Platz 2 der Google-Trends (DE) mit über 2.000 Suchen und einer Meldung über einen drohenden Preisschock für Autofahrer.",
+   "quelle": {
+    "name": "tankrabatt",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "story",
+    "wunsch": "Die Sorge vor steigenden Preisen an der Zapfsäule",
+    "stimmung": "auto",
+    "sprache": "de",
+    "laenge": "3min"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-0a5c05b0",
+   "bereich": "erklaer",
+   "titel": "Wie funktioniert ein Tankrabatt?",
+   "thema": "Erklärung der Funktionsweise eines Tankrabatts und seiner Auswirkungen auf Preise",
+   "begruendung": "Der Trend 'tankrabatt' ist Platz 2 der Google-Trends (DE) mit über 2.000 Suchen und einer Meldung über einen drohenden Preisschock für Autofahrer.",
+   "quelle": {
+    "name": "tankrabatt",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung der Funktionsweise eines Tankrabatts und seiner Auswirkungen auf Preise"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-facb70ed",
+   "bereich": "erklaer",
+   "titel": "Feiertags-Regeln für Banken",
+   "thema": "Erklärung, welche Regeln für die Öffnungszeiten von Banken an Feiertagen gelten",
+   "begruendung": "Der Trend 'are banks open today' ist Platz 1 der Google-Trends (US) mit über 200 Suchen und einer Meldung über Öffnungszeiten an Feiertagen.",
+   "quelle": {
+    "name": "are banks open today",
+    "typ": "trend",
+    "score": 100.0,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung, welche Regeln für die Öffnungszeiten von Banken an Feiertagen gelten"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-abc90972",
+   "bereich": "erklaer",
+   "titel": "Wie entsteht eine Wettervorhersage?",
+   "thema": "Erklärung, wie Wettervorhersagen erstellt werden und welche Faktoren dabei eine Rolle spielen",
+   "begruendung": "Der Trend 'météo' ist Platz 2 der Google-Trends (US) mit über 200 Suchen und einer Meldung zur Wettervorhersage.",
+   "quelle": {
+    "name": "météo",
+    "typ": "trend",
+    "score": 93.3,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung, wie Wettervorhersagen erstellt werden und welche Faktoren dabei eine Rolle spielen"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-af2f7cc2",
+   "bereich": "erklaer",
+   "titel": "Der FIFA-Wahlprozess",
+   "thema": "Erklärung, wie der Wahlprozess für den FIFA-Präsidenten abläuft",
+   "begruendung": "Der Trend 'gianni infantino' ist Platz 3 der Google-Trends (DE) mit über 500 Suchen und einer Meldung über eine mögliche Herausforderung bei der Fifa-Wahl.",
+   "quelle": {
+    "name": "gianni infantino",
+    "typ": "trend",
+    "score": 86.7,
+    "quellen": [
+     "google"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung, wie der Wahlprozess für den FIFA-Präsidenten abläuft"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-9c001bba",
+   "bereich": "erklaer",
+   "titel": "Das Ramayana erklärt",
+   "thema": "Erklärung der grundlegenden Inhalte und Bedeutung des Ramayana",
+   "begruendung": "Der Trend 'Ramayana: Part 1' ist Platz 2 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-26 mit 256.714 Aufrufen.",
+   "quelle": {
+    "name": "Ramayana: Part 1",
+    "typ": "trend",
+    "score": 87.8,
+    "quellen": [
+     "wikipedia"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
+   "auftrag": {
+    "art": "erklaer",
+    "thema": "Erklärung der grundlegenden Inhalte und Bedeutung des Ramayana"
+   },
+   "app_auftrag": false,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
+  {
+   "id": "idee-67499775",
+   "bereich": "reportage",
+   "titel": "Depardieu vor Gericht",
+   "thema": "Sachliche Reportage zum Gerichtsverfahren gegen Gérard Depardieu wegen mutmaßlicher Vergewaltigung",
+   "begruendung": "Die Nachricht 'Gérard Depardieu to stand trial for alleged rape of actress in 2018, court rules' ist von 3 Quellen bestätigt (BBC World).",
+   "quelle": {
+    "name": "Gérard Depardieu to stand trial for alleged rape of actress in 2018, court rules",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "NPR"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Sachliche Reportage zum Gerichtsverfahren gegen Gérard Depardieu wegen mutmaßlicher Vergewaltigung",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-2261ce0e",
+   "bereich": "reportage",
+   "titel": "Angriffe im Jemen",
+   "thema": "Sachliche Reportage über Houthi-Angriffe und ihre Auswirkungen auf die Sicherheit in Saudi-Arabien",
+   "begruendung": "Die Nachricht 'Inside Saudi Arabia, Houthi attacks test kingdom's image of security' ist von 3 Quellen bestätigt (BBC World).",
+   "quelle": {
+    "name": "Inside Saudi Arabia, Houthi attacks test kingdom's image of security",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Wikipedia · AFP via AA",
+     "Wikipedia · NBC News"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Sachliche Reportage über Houthi-Angriffe und ihre Auswirkungen auf die Sicherheit in Saudi-Arabien",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-f5602094",
+   "bereich": "reportage",
+   "titel": "Tanker-Unglück vor Ibiza",
+   "thema": "Sachliche Reportage über das Kentern eines Dieseltankers nahe Ibiza mit einem Todesfall",
+   "begruendung": "Die Nachricht 'Diesel tanker carrying up to 7,000 tonnes capsizes near Ibiza, killing one' ist von 3 Quellen bestätigt (BBC World).",
+   "quelle": {
+    "name": "Diesel tanker carrying up to 7,000 tonnes capsizes near Ibiza, killing one",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "BBC World",
+     "Deutsche Welle (en)",
+     "Wikipedia · Reuters"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Sachliche Reportage über das Kentern eines Dieseltankers nahe Ibiza mit einem Todesfall",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-52017000",
+   "bereich": "reportage",
+   "titel": "Sturm legt USA lahm",
+   "thema": "Sachliche Reportage über die massiven Einschränkungen durch einen schweren Sturm in den USA an Thanksgiving",
+   "begruendung": "Die Nachricht 'USA: Schwerer Sturm sorgt an Thanksgiving für massive Einschränkungen' ist von 2 Quellen bestätigt (Tagesschau).",
+   "quelle": {
+    "name": "USA: Schwerer Sturm sorgt an Thanksgiving für massive Einschränkungen",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Sachliche Reportage über die massiven Einschränkungen durch einen schweren Sturm in den USA an Thanksgiving",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-0dfdc1e1",
+   "bereich": "reportage",
+   "titel": "BSW-Parteitag in Dresden",
+   "thema": "Sachliche Reportage über den Parteitag des BSW in Dresden und dessen Haltung zur AfD",
+   "begruendung": "Die Nachricht 'Parteitag in Dresden: Wie hält es das BSW mit der AfD?' ist von 2 Quellen bestätigt (Tagesschau).",
+   "quelle": {
+    "name": "Parteitag in Dresden: Wie hält es das BSW mit der AfD?",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
+   "auftrag": {
+    "art": "reportage",
+    "thema": "Sachliche Reportage über den Parteitag des BSW in Dresden und dessen Haltung zur AfD",
+    "sprache": "de"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z",
+   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
+  },
+  {
+   "id": "idee-ee081266",
+   "bereich": "satire",
+   "titel": "BSW: Der Drahtseilakt",
+   "thema": "Satire über die Positionierung des BSW-Parteitags in Dresden zur AfD",
+   "begruendung": "Die Nachricht 'Parteitag in Dresden: Wie hält es das BSW mit der AfD?' ist von 2 Quellen bestätigt (Tagesschau) und betrifft politische Parteien.",
+   "quelle": {
+    "name": "Parteitag in Dresden: Wie hält es das BSW mit der AfD?",
+    "typ": "news",
+    "score": null,
+    "quellen": [
+     "Tagesschau",
+     "Deutsche Welle"
+    ]
+   },
+   "geprueft": "idee",
+   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
+   "auftrag": {
+    "art": "satire",
+    "thema": "Satire über die Positionierung des BSW-Parteitags in Dresden zur AfD",
+    "sprache": "de",
+    "meldung": "Parteitag in Dresden: Wie hält es das BSW mit der AfD?"
+   },
+   "app_auftrag": true,
+   "erstellt": "2026-11-27T15:12:41Z"
+  },
   {
    "id": "idee-dd1089db",
    "bereich": "ranking",
@@ -1080,177 +1660,6 @@
    ]
   },
   {
-   "id": "idee-6a7ed1b0",
-   "bereich": "fakten",
-   "titel": "Die Riemannsche Vermutung erklärt",
-   "thema": "Wissenswertes über ein ungelöstes mathematisches Problem.",
-   "begruendung": "Der Trend 'Riemannsche Vermutung' ist auf Platz 2 der meistgelesenen Wikipedia-Seiten (de) mit 42.065 Aufrufen.",
-   "quelle": {
-    "name": "Riemannsche Vermutung",
-    "typ": "trend",
-    "score": 87.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über ein ungelöstes mathematisches Problem.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z",
-   "recherche": [
-    {
-     "text": "Die Riemannsche Vermutung stammt von dem deutschen Mathematiker Bernhard Riemann, der sie bereits im Jahr 1859 formulierte.",
-     "status": "bestaetigt",
-     "datum": "2026-11-24",
-     "quellen": [
-      {
-       "quelle": "Tagesschau (ARD)",
-       "url": "https://www.tagesschau.de/wissen/forschung/anthropic-riemannsche-vermutung-loesung-100.html",
-       "datum": "2026-11-23"
-      },
-      {
-       "quelle": "weekend.at",
-       "url": "https://www.weekend.at/chronik/riemannsche-vermutung-einfach-erklaert",
-       "datum": "2026-11-24"
-      },
-      {
-       "quelle": "business-punk.com",
-       "url": "https://www.business-punk.com/riemannsche-vermutung-167-jahre-raetsel-claude-braucht-41-tage-das-steckt-dahinter/",
-       "datum": "2026-11-24"
-      }
-     ]
-    },
-    {
-     "text": "FAQ: Riemannsche Vermutung einfach erklärt",
-     "status": "einzeln",
-     "datum": "2026-11-24",
-     "quellen": [
-      {
-       "quelle": "weekend.at",
-       "url": "https://www.weekend.at/chronik/riemannsche-vermutung-einfach-erklaert",
-       "datum": "2026-11-24"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "idee-7ff8b3cf",
-   "bereich": "fakten",
-   "titel": "Hodgkin-Lymphom: Was ist das?",
-   "thema": "Fakten zu einer bestimmten Form von Lymphdrüsenkrebs.",
-   "begruendung": "Der Trend 'Hodgkin-Lymphom' ist auf Platz 5 der meistgelesenen Wikipedia-Seiten (de) mit 28.059 Aufrufen.",
-   "quelle": {
-    "name": "Hodgkin-Lymphom",
-    "typ": "trend",
-    "score": 81.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Fakten zu einer bestimmten Form von Lymphdrüsenkrebs.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z"
-  },
-  {
-   "id": "idee-52cd1c09",
-   "bereich": "fakten",
-   "titel": "Merkur: Fakten zum Planeten",
-   "thema": "Wissenswertes über den sonnennächsten Planeten.",
-   "begruendung": "Der Trend 'Merkuri' ist auf Platz 3 der meistgelesenen Wikipedia-Seiten (de) mit 40.189 Aufrufen.",
-   "quelle": {
-    "name": "Merkuri",
-    "typ": "trend",
-    "score": 85.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über den sonnennächsten Planeten.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z"
-  },
-  {
-   "id": "idee-e0c9364d",
-   "bereich": "fakten",
-   "titel": "Linux: Das Betriebssystem",
-   "thema": "Wissenswerte Fakten über das Open-Source-Betriebssystem.",
-   "begruendung": "Der Trend 'Linux' ist auf Platz 6 der meistgelesenen Wikipedia-Seiten (en) mit 177.023 Aufrufen.",
-   "quelle": {
-    "name": "Linux",
-    "typ": "trend",
-    "score": 78.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswerte Fakten über das Open-Source-Betriebssystem.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z"
-  },
-  {
-   "id": "idee-59839451",
-   "bereich": "fakten",
-   "titel": "Blut: Fakten und Funktionen",
-   "thema": "Wissenswertes über die Zusammensetzung und Aufgaben von Blut.",
-   "begruendung": "Der Trend 'Blood' ist auf Platz 7 der meistgelesenen Wikipedia-Seiten (en) mit 174.912 Aufrufen.",
-   "quelle": {
-    "name": "Blood",
-    "typ": "trend",
-    "score": 76.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "ranking",
-    "thema": "Wissenswertes über die Zusammensetzung und Aufgaben von Blut.",
-    "plaetze": 7,
-    "sprachen": [
-     "de"
-    ]
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z"
-  },
-  {
    "id": "idee-366e0f13",
    "bereich": "story",
    "titel": "Die Vorfreude auf ein neues Spiel",
@@ -1373,206 +1782,6 @@
    },
    "app_auftrag": false,
    "erstellt": "2026-11-24T15:57:53Z"
-  },
-  {
-   "id": "idee-c6d86205",
-   "bereich": "erklaer",
-   "titel": "Hodgkin-Lymphom: Ursachen & Symptome",
-   "thema": "Eine Erklärung der Funktionsweise und Merkmale des Hodgkin-Lymphoms.",
-   "begruendung": "Der Trend 'Hodgkin-Lymphom' ist auf Platz 5 der meistgelesenen Wikipedia-Seiten (de) mit 28.059 Aufrufen.",
-   "quelle": {
-    "name": "Hodgkin-Lymphom",
-    "typ": "trend",
-    "score": 81.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der Funktionsweise und Merkmale des Hodgkin-Lymphoms."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-24T15:57:53Z"
-  },
-  {
-   "id": "idee-a474c4fd",
-   "bereich": "erklaer",
-   "titel": "Der Planet Merkur: Eine Erklärung",
-   "thema": "Eine Erklärung der physikalischen Eigenschaften und Umlaufbahn des Planeten Merkur.",
-   "begruendung": "Der Trend 'Merkuri' ist auf Platz 3 der meistgelesenen Wikipedia-Seiten (de) mit 40.189 Aufrufen.",
-   "quelle": {
-    "name": "Merkuri",
-    "typ": "trend",
-    "score": 85.5,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der physikalischen Eigenschaften und Umlaufbahn des Planeten Merkur."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-24T15:57:53Z"
-  },
-  {
-   "id": "idee-53a8afcf",
-   "bereich": "erklaer",
-   "titel": "Was ist Linux? Einfach erklärt",
-   "thema": "Eine Erklärung der Grundlagen und des Aufbaus des Linux-Betriebssystems.",
-   "begruendung": "Der Trend 'Linux' ist auf Platz 6 der meistgelesenen Wikipedia-Seiten (en) mit 177.023 Aufrufen.",
-   "quelle": {
-    "name": "Linux",
-    "typ": "trend",
-    "score": 78.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine Erklärung der Grundlagen und des Aufbaus des Linux-Betriebssystems."
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-24T15:57:53Z"
-  },
-  {
-   "id": "idee-b97a1a9f",
-   "bereich": "reportage",
-   "titel": "Luftangriff in Saporischschja",
-   "thema": "Ein Bericht über den russischen Luftangriff auf ein Wohngebäude in der Ukraine.",
-   "begruendung": "Die Nachricht 'A Russian airstrike hits a five-story apartment building in Zaporizhzhia , Ukraine , killing two people and wounding 44 others.' ist von 8 Quellen bestätigt.",
-   "quelle": {
-    "name": "A Russian airstrike hits a five-story apartment building in Zaporizhzhia , Ukraine , killing two people and wounding 44 others.",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Wikipedia · AP",
-     "Wikipedia · Al-Jazeera",
-     "Wikipedia · NPR"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Ein Bericht über den russischen Luftangriff auf ein Wohngebäude in der Ukraine.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-b013fefb",
-   "bereich": "reportage",
-   "titel": "Landminen-Opfer: Aktueller Bericht",
-   "thema": "Eine Reportage über den Anstieg der Opferzahlen durch Landminen laut aktuellem Monitor.",
-   "begruendung": "Die Nachricht 'Landminen-Monitor: Zahl der Opfer von Landminen gestiegen' ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Landminen-Monitor: Zahl der Opfer von Landminen gestiegen",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Tagesschau",
-     "Deutsche Welle"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über den Anstieg der Opferzahlen durch Landminen laut aktuellem Monitor.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-fca5eed2",
-   "bereich": "reportage",
-   "titel": "Frauen-WM: USA und UK als Gastgeber",
-   "thema": "Eine Reportage über die Vergabe der Frauen-Weltmeisterschaften 2031 und 2035 an die USA und das Vereinigte Königreich.",
-   "begruendung": "Die Nachricht 'US and UK to host Women's World Cups in 2031 and 2035' ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "US and UK to host Women's World Cups in 2031 and 2035",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "Wikipedia · AFP"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Vergabe der Frauen-Weltmeisterschaften 2031 und 2035 an die USA und das Vereinigte Königreich.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-b33318a3",
-   "bereich": "reportage",
-   "titel": "Schulbombendrohungen in Deutschland",
-   "thema": "Eine Reportage über die Reaktion der deutschen Polizei auf mehrere Bombendrohungen an Schulen.",
-   "begruendung": "Die Nachricht 'German police respond to multiple school bomb threats' ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "German police respond to multiple school bomb threats",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "Deutsche Welle (en)",
-     "Wikipedia · Reuters"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die Reaktion der deutschen Polizei auf mehrere Bombendrohungen an Schulen.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
-  },
-  {
-   "id": "idee-0a4a98c4",
-   "bereich": "reportage",
-   "titel": "COP31: Die gescheiterten Klimagespräche",
-   "thema": "Eine Reportage über die wichtigsten Erkenntnisse der gescheiterten Klimakonferenz COP31.",
-   "begruendung": "Die Nachricht 'Five takeaways from the failed climate talks COP31' ist von 2 Quellen bestätigt.",
-   "quelle": {
-    "name": "Five takeaways from the failed climate talks COP31",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Wikipedia · AFP"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen.",
-   "auftrag": {
-    "art": "reportage",
-    "thema": "Eine Reportage über die wichtigsten Erkenntnisse der gescheiterten Klimakonferenz COP31.",
-    "sprache": "de"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-24T15:57:53Z",
-   "regeln": "Sachlich und respektvoll wie eine Nachrichtenreportage; nur von mehreren Quellen bestätigte Fakten mit Zeitbezug; keine Spannungs-Hooks, kein Clickbait, keine Spekulation, keine reißerische Musik; Betroffene nicht zur Schau stellen, keine Namen von Opfern ohne öffentliche Bestätigung; Quellen nennen."
   },
   {
    "id": "idee-d3fe0ff4",
@@ -1710,78 +1919,6 @@
    "erstellt": "2026-11-23T16:06:45Z"
   },
   {
-   "id": "idee-2d5b9c7f",
-   "bereich": "story",
-   "titel": "Im Urteil der Gesellschaft",
-   "thema": "Eine Alltagsgeschichte über gesellschaftliche Urteile und Erwartungen",
-   "begruendung": "Der Trend 'br24' war Platz 4 der Google-Trends (DE) mit über 500 Suchen; die Meldung dazu lautet: 'Frauen sind von der gesamten Gesellschaft Urteilen ausgesetzt'.",
-   "quelle": {
-    "name": "br24",
-    "typ": "trend",
-    "score": 80.0,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Alltagsgeschichte über gesellschaftliche Urteile und Erwartungen",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
-   "id": "idee-3c6798b0",
-   "bereich": "erklaer",
-   "titel": "Riemannsche Vermutung erklärt",
-   "thema": "Eine einfache Erklärung der Riemannschen Vermutung",
-   "begruendung": "Der Trend 'Riemannsche Vermutung' war Platz 2 der meistgelesenen Wikipedia-Seiten (de) am 2026-11-22 mit 53.229 Aufrufen.",
-   "quelle": {
-    "name": "Riemannsche Vermutung",
-    "typ": "trend",
-    "score": 87.8,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Eine einfache Erklärung der Riemannschen Vermutung"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
-   "id": "idee-45c4ee4f",
-   "bereich": "erklaer",
-   "titel": "Was ist die Riemann-Hypothese?",
-   "thema": "Die Grundlagen der Riemann-Hypothese einfach erklärt",
-   "begruendung": "Der Trend 'Riemann hypothesis' war Platz 5 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-22 mit 205.793 Aufrufen.",
-   "quelle": {
-    "name": "Riemann hypothesis",
-    "typ": "trend",
-    "score": 81.0,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "erklaer",
-    "thema": "Die Grundlagen der Riemann-Hypothese einfach erklärt"
-   },
-   "app_auftrag": false,
-   "erstellt": "2026-11-23T16:06:45Z"
-  },
-  {
    "id": "idee-83f3b29f",
    "bereich": "satire",
    "titel": "Klimagipfel: Nichts entschieden",
@@ -1835,59 +1972,6 @@
    "erstellt": "2026-11-23T16:06:45Z"
   },
   {
-   "id": "idee-a02b0e0c",
-   "bereich": "story",
-   "titel": "Unerwartete Momente in der offenen Welt",
-   "thema": "Eine Geschichte über überraschende Erlebnisse in einem Open-World-Videospiel.",
-   "begruendung": "Der Trend \"Grand Theft Auto\" ist Platz 2 der meistgelesenen Wikipedia-Seiten (de) und Platz 1 der meistgelesenen Wikipedia-Seiten (en) am 2026-11-20.",
-   "quelle": {
-    "name": "Grand Theft Auto",
-    "typ": "trend",
-    "score": 99.9,
-    "quellen": [
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Geschichte über überraschende Erlebnisse in einem Open-World-Videospiel.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z"
-  },
-  {
-   "id": "idee-f24a0264",
-   "bereich": "story",
-   "titel": "Die Faszination ungelöster Rätsel",
-   "thema": "Eine Geschichte über die Anziehungskraft eines großen, ungelösten mathematischen Problems.",
-   "begruendung": "Der Trend \"Riemann hypothesis\" ist Platz 3 der meistgelesenen Wikipedia-Seiten (en) und war auf Reddit r/technology.",
-   "quelle": {
-    "name": "Riemann hypothesis",
-    "typ": "trend",
-    "score": 90.7,
-    "quellen": [
-     "reddit",
-     "wikipedia"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Geschichte über die Anziehungskraft eines großen, ungelösten mathematischen Problems.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-22T13:26:01Z"
-  },
-  {
    "id": "idee-a5c28478",
    "bereich": "ranking",
    "titel": "Die größten Auslegerbrücken der Welt",
@@ -1939,58 +2023,6 @@
      ]
     }
    ]
-  },
-  {
-   "id": "idee-f217de26",
-   "bereich": "story",
-   "titel": "Wenn die Versicherung zahlt",
-   "thema": "Eine Geschichte über das Gefühl, wenn eine Versicherung im Ernstfall hilft.",
-   "begruendung": "\"versicherung\" ist Platz 2 der Google-Trends (DE) mit über 1.000 Suchen.",
-   "quelle": {
-    "name": "versicherung",
-    "typ": "trend",
-    "score": 93.3,
-    "quellen": [
-     "google"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Fakten entstehen erst in der geprüften Pipeline",
-   "auftrag": {
-    "art": "story",
-    "wunsch": "Eine Geschichte über das Gefühl, wenn eine Versicherung im Ernstfall hilft.",
-    "stimmung": "auto",
-    "sprache": "de",
-    "laenge": "3min"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-21T13:32:11Z"
-  },
-  {
-   "id": "idee-8251049d",
-   "bereich": "satire",
-   "titel": "Cyber-Chef im Weißen Haus: Offline",
-   "thema": "Eine satirische Reaktion auf die Entlassung des Cyber-Sicherheitschefs im Weißen Haus",
-   "begruendung": "Die Nachricht 'White House removes cyber-security chief after series of tech outages' ist von 2 Quellen bestätigt (BBC World).",
-   "quelle": {
-    "name": "White House removes cyber-security chief after series of tech outages",
-    "typ": "news",
-    "score": null,
-    "quellen": [
-     "BBC World",
-     "Deutsche Welle (en)"
-    ]
-   },
-   "geprueft": "idee",
-   "hinweis": "Satire: immer als SATIRE gekennzeichnet, steht auf einer von ≥ 2 Quellen bestätigten Meldung; keine erfundenen Zitate, kein Leid, kein Spott gegen Gruppen.",
-   "auftrag": {
-    "art": "satire",
-    "thema": "Eine satirische Reaktion auf die Entlassung des Cyber-Sicherheitschefs im Weißen Haus",
-    "sprache": "de",
-    "meldung": "White House removes cyber-security chief after series of tech outages"
-   },
-   "app_auftrag": true,
-   "erstellt": "2026-11-20T14:06:48Z"
   }
  ]
 }
