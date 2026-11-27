@@ -1,12 +1,66 @@
 {
- "erzeugt": "2026-11-26T21:45:58Z",
- "anzahl": 13,
- "nur_ausland": 1,
+ "erzeugt": "2026-11-27T08:51:15Z",
+ "anzahl": 14,
+ "nur_ausland": 2,
  "hinweise": [
   "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
  ],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "France and Germany push for EU budget deal by year-end as far-right rise threatens Ukraine aid",
+   "kurz": "As Europe braces itself for a slew of tense elections in 2027, Paris and Berlin are pushing for the European Union to strike a budget deal by December 31 to…",
+   "link": "https://www.france24.com/en/europe/20261127-france-and-germany-push-for-eu-budget-deal-by-year-end-as-far-right-rise-threatens-ukraine-aid",
+   "sprache": "en",
+   "zeit": "2026-11-27T08:17:02Z",
+   "ausland_quellen": 2,
+   "laender": [
+    "Frankreich",
+    "Südafrika"
+   ],
+   "laender_einig": [
+    "Südafrika"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich",
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "France 24 (Frankreich): France and Germany push for EU budget deal by year-end as far-right rise threatens Ukraine aid",
+    "Daily Maverick (Südafrika): France and Germany want deal by year-end to ‘Le Pen-proof’ next EU budget, Ukraine"
+   ],
+   "staatsnah": [
+    "France 24"
+   ],
+   "deutsch_quellen": [],
+   "nur_ausland": true,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "France 24",
+     "land": "Frankreich",
+     "art": "staatsnah",
+     "beteiligt": true,
+     "titel": "France and Germany push for EU budget deal by year-end as far-right rise threatens Ukraine aid",
+     "link": "https://www.france24.com/en/europe/20261127-france-and-germany-push-for-eu-budget-deal-by-year-end-as-far-right-rise-threatens-ukraine-aid",
+     "eigentuemer": "staatlich (Frankreich)",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Daily Maverick",
+     "land": "Südafrika",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "France and Germany want deal by year-end to ‘Le Pen-proof’ next EU budget, Ukraine",
+     "link": "https://www.dailymaverick.co.za/article/2026-11-27-france-and-germany-want-deal-by-year-end-to-le-pen-proof-next-eu-budget-and/",
+     "eigentuemer": "gehört Daily Maverick",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "German boat dealer suspected of supplying Channel smuggling gangs, BBC finds",
    "kurz": "Nearly a third of crossings in early 2026 allegedly involved boats or engines from the German man's firm.",
@@ -59,11 +113,206 @@
    ]
   },
   {
+   "titel": "At critical juncture, Friedrich Merz finds Germans’ support for Ukraine wavering",
+   "kurz": "German chancellor is on difficult terrain, at home and abroad, as he fights to maintain European backing for Kyiv The German chancellor, Friedrich Merz, is…",
+   "link": "https://www.theguardian.com/world/2026/nov/27/at-critical-juncture-friedrich-merz-finds-germans-support-for-ukraine-wavering",
+   "sprache": "en",
+   "zeit": "2026-11-27T08:33:08Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "Guardian Germany (Großbritannien): At critical juncture, Friedrich Merz finds Germans’ support for Ukraine wavering"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Guardian Germany",
+     "land": "Großbritannien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "At critical juncture, Friedrich Merz finds Germans’ support for Ukraine wavering",
+     "link": "https://www.theguardian.com/world/2026/nov/27/at-critical-juncture-friedrich-merz-finds-germans-support-for-ukraine-wavering",
+     "eigentuemer": "gehört Guardian Media Group",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+   "kurz": "Wie wirken sich Energiewende und globale Krisen auf Strom- und Gaspreise in Deutschland aus? Hier gibt es jeden Tag die aktuellen Zahlen.",
+   "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
+   "sprache": "de",
+   "zeit": "2026-11-27T08:02:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
+     "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Eva von Redecker, filósofa: “El fascismo en todas partes se parece a Rusia porque está financiado por Putin”",
+   "kurz": "La pensadora alemana denuncia en un ensayo que la extrema derecha pretende defender a los suyos a costa de eliminar los derechos de los demás",
+   "link": "https://elpais.com/ideas/2026-11-27/eva-von-redecker-filosofa-el-fascismo-en-todas-partes-se-parece-a-rusia-porque-esta-financiado-por-putin.html",
+   "sprache": "es",
+   "zeit": "2026-11-27T04:30:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Russland"
+   ],
+   "zusammenfassung": [
+    "El País (Spanien): Eva von Redecker, filósofa: “El fascismo en todas partes se parece a Rusia porque está financiado por Putin”"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Eva von Redecker, filósofa: “El fascismo en todas partes se parece a Rusia porque está financiado por Putin”",
+     "link": "https://elpais.com/ideas/2026-11-27/eva-von-redecker-filosofa-el-fascismo-en-todas-partes-se-parece-a-rusia-porque-esta-financiado-por-putin.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "KOMMENTAR - Die Wahl des Spaniers Pablo Hernández de Cos zum EZB-Chef zeigt: Die Notenbank ist fest in den Händen des «Club Med»",
+   "kurz": "Erneut wird ein Südeuropäer Präsident der EZB, ein Deutscher wird Chefökonom. Für Berlin könnte sich das als Pyrrhussieg erweisen.",
+   "link": "https://www.nzz.ch/meinung/die-wahl-des-spaniers-pablo-hernandez-de-cos-zum-ezb-chef-zeigt-die-notenbank-ist-fest-in-den-haenden-des-club-med-ld.10075756",
+   "sprache": "de",
+   "zeit": "2026-11-27T04:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [
+    "Schweiz"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "NZZ (Schweiz): KOMMENTAR - Die Wahl des Spaniers Pablo Hernández de Cos zum EZB-Chef zeigt: Die Notenbank ist fest in den Händen des «Club Med»"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [
+    {
+     "quelle": "Tagesschau",
+     "titel": "Wofür steht der designierte EZB-Präsident Pablo Hernández de Cos?",
+     "link": "https://www.tagesschau.de/wirtschaft/konjunktur/nachfolger-ezb-de-cos-portrait-100.html"
+    }
+   ],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "KOMMENTAR - Die Wahl des Spaniers Pablo Hernández de Cos zum EZB-Chef zeigt: Die Notenbank ist fest in den Händen des «Club Med»",
+     "link": "https://www.nzz.ch/meinung/die-wahl-des-spaniers-pablo-hernandez-de-cos-zum-ezb-chef-zeigt-die-notenbank-ist-fest-in-den-haenden-des-club-med-ld.10075756",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "La mejor bodega del mundo: fundada por monjes, se la apropió Napoleón y fue bombardeada en la Segunda Guerra Mundial",
+   "kurz": "Schloss Johannisberg, en Alemania, ocupa el puesto N°1 del ranking The 50 Best Vineyards 2026",
+   "link": "https://www.lanacion.com.ar/sabado/la-mejor-bodega-del-mundo-fundada-por-monjes-se-la-apropio-napoleon-y-fue-bombardeada-en-la-segunda-nid27112026/",
+   "sprache": "es",
+   "zeit": "2026-11-27T03:01:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [
+    "Argentinien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "La Nación (Argentinien): La mejor bodega del mundo: fundada por monjes, se la apropió Napoleón y fue bombardeada en la Segunda Guerra Mundial"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "La mejor bodega del mundo: fundada por monjes, se la apropió Napoleón y fue bombardeada en la Segunda Guerra Mundial",
+     "link": "https://www.lanacion.com.ar/sabado/la-mejor-bodega-del-mundo-fundada-por-monjes-se-la-apropio-napoleon-y-fue-bombardeada-en-la-segunda-nid27112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "La UE lucha por aprobar un presupuesto antes de la posible llegada de Le Pen al poder en Francia",
    "kurz": "El canciller alemán Merz exige solidaridad unánime en la ayuda a Ucrania pero cuatro países son reacios: Hungría, Eslovaquia, República Checa y Bulgaria",
    "link": "https://elpais.com/internacional/2026-11-26/la-ue-lucha-por-aprobar-un-presupuesto-antes-de-la-posible-llegada-de-le-pen-al-poder-en-francia.html",
    "sprache": "es",
-   "zeit": "2026-11-26T20:15:04Z",
+   "zeit": "2026-11-26T21:27:41Z",
    "ausland_quellen": 1,
    "laender": [
     "Spanien"
@@ -94,6 +343,45 @@
      "titel": "La UE lucha por aprobar un presupuesto antes de la posible llegada de Le Pen al poder en Francia",
      "link": "https://elpais.com/internacional/2026-11-26/la-ue-lucha-por-aprobar-un-presupuesto-antes-de-la-posible-llegada-de-le-pen-al-poder-en-francia.html",
      "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Two Italians killed in strike in Kuwait, as Iran denies responsibility",
+   "kurz": "The pair were technicians for German company Rheinmetall, according to Italy's foreign ministry.",
+   "link": "https://www.bbc.co.uk/news/articles/c39w9y5dx4k5o?at_medium=RSS&at_campaign=rss",
+   "sprache": "en",
+   "zeit": "2026-11-26T21:17:53Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Iran"
+   ],
+   "zusammenfassung": [
+    "BBC Europe (Großbritannien): Two Italians killed in strike in Kuwait, as Iran denies responsibility"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "Two Italians killed in strike in Kuwait, as Iran denies responsibility",
+     "link": "https://www.bbc.co.uk/news/articles/c39w9y5dx4k5o?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
      "zaehlt_nicht": ""
     }
    ]
@@ -131,162 +419,6 @@
      "titel": "German police arrest two Iraqis over alleged Cologne synagogue bomb plot",
      "link": "https://www.thehindu.com/news/international/german-police-arrest-two-iraqis-over-alleged-cologne-synagogue-bomb-plot/article71746212.ece",
      "eigentuemer": "gehört Kasturi & Sons Limited und The Hindu Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "DER ANDERE BLICK - Friedrich Merz weiss, was er beim EU-Haushalt will. Doch gegen Macron und Meloni wird er einen schweren Stand haben",
-   "kurz": "Der deutsche Kanzler will die Ausgaben der EU begrenzen und das Geld anders verteilen. Dabei geht es um mehr als Geld: Europa muss seine Prioritäten neu ordnen…",
-   "link": "https://www.nzz.ch/der-andere-blick/friedrich-merz-weiss-was-er-beim-eu-haushalt-will-doch-gegen-macron-und-meloni-wird-er-einen-schweren-stand-haben-ld.10075631",
-   "sprache": "de",
-   "zeit": "2026-11-26T16:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): DER ANDERE BLICK - Friedrich Merz weiss, was er beim EU-Haushalt will. Doch gegen Macron und Meloni wird er einen schweren Stand haben"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "DER ANDERE BLICK - Friedrich Merz weiss, was er beim EU-Haushalt will. Doch gegen Macron und Meloni wird er einen schweren Stand haben",
-     "link": "https://www.nzz.ch/der-andere-blick/friedrich-merz-weiss-was-er-beim-eu-haushalt-will-doch-gegen-macron-und-meloni-wird-er-einen-schweren-stand-haben-ld.10075631",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Neuer Metalltarif in Deutschland vereinbart",
-   "kurz": "In den Tarifverhandlungen der deutschen Metall- und Elektroindustrie haben IG Metall und Arbeitgeber eine Einigung erzielt",
-   "link": "https://www.derstandard.at/story/3000000351277/einigung-von-ig-metall-und-arbeitgebern-in-der-metall-tarifrunde?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-26T15:30:15Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Neuer Metalltarif in Deutschland vereinbart"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Neuer Metalltarif in Deutschland vereinbart",
-     "link": "https://www.derstandard.at/story/3000000351277/einigung-von-ig-metall-und-arbeitgebern-in-der-metall-tarifrunde?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Muere Veruschka von Lehndorff, la modelo alemana que cambió las reglas, a los 87 años",
-   "kurz": "La maniquí falleció rodeada de su familia tras años retirada del foco mediático el pasado 24 de noviembre. El fotógrafo Richard Avedon la llegó a calificar…",
-   "link": "https://elpais.com/gente/2026-11-26/muere-veruschka-von-lehndorff-la-modelo-alemana-que-cambio-las-reglas-a-los-87-anos.html",
-   "sprache": "es",
-   "zeit": "2026-11-26T09:37:13Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "El País (Spanien): Muere Veruschka von Lehndorff, la modelo alemana que cambió las reglas, a los 87 años"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Muere Veruschka von Lehndorff, la modelo alemana que cambió las reglas, a los 87 años",
-     "link": "https://elpais.com/gente/2026-11-26/muere-veruschka-von-lehndorff-la-modelo-alemana-que-cambio-las-reglas-a-los-87-anos.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Jannik Sinner sagt Teilnahme an Australian Open ab, Deutschland im Davis Cup ausgeschieden",
-   "kurz": "Der Südtiroler Sinner wurde am Dienstag am rechten Knie operiert. Er hat seit Juli kein Turnier mehr bestritten. Großbritannien steht im Davis-Cup-Halbfinale",
-   "link": "https://www.derstandard.at/story/3000000351154/jannik-sinner-sagt-teilnahme-an-australian-open-ab?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-26T09:15:22Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [
-    "Österreich"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Großbritannien"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Jannik Sinner sagt Teilnahme an Australian Open ab, Deutschland im Davis Cup ausgeschieden"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Davis Cup: Deutschland scheidet im Viertelfinale aus",
-     "link": "https://www.sportschau.de/tennis/davis-cup/davis-cup-deutschland-scheidet-aus,davis-cup-viertelfinale-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Jannik Sinner sagt Teilnahme an Australian Open ab, Deutschland im Davis Cup ausgeschieden",
-     "link": "https://www.derstandard.at/story/3000000351154/jannik-sinner-sagt-teilnahme-an-australian-open-ab?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
      "zaehlt_nicht": ""
     }
    ]
@@ -438,81 +570,6 @@
      "zaehlt_nicht": ""
     }
    ]
-  },
-  {
-   "titel": "Österreich und Deutschland wollen TikTok unter europäische Kontrolle bringen",
-   "kurz": "Deutscher Medienminister besucht Wien. Suche nach Partnerländern und Investoren, Entscheidung bis 2027 geplant",
-   "link": "https://www.derstandard.at/story/3000000351265/oesterreich-und-deutschland-wollen-tiktok-unter-europaeische-kontrolle-bringen?ref=rss",
-   "sprache": "de",
-   "zeit": "2026-11-26T14:33:50Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Österreich"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Österreich"
-   ],
-   "zusammenfassung": [
-    "Der Standard (Österreich): Österreich und Deutschland wollen TikTok unter europäische Kontrolle bringen"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "Der Standard",
-     "land": "Österreich",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Österreich und Deutschland wollen TikTok unter europäische Kontrolle bringen",
-     "link": "https://www.derstandard.at/story/3000000351265/oesterreich-und-deutschland-wollen-tiktok-unter-europaeische-kontrolle-bringen?ref=rss",
-     "eigentuemer": "gehört Oscar Bronner",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Hernández de Cos se convertirá en febrero en el primer español en presidir el BCE",
-   "kurz": "El exgobernador del Banco de España relevará a Lagarde al frente de la autoridad monetaria europea tras obtener el apoyo de Francia y Alemania",
-   "link": "https://elpais.com/economia/2026-11-26/hernandez-de-cos-se-convertira-en-febrero-en-el-primer-espanol-en-presidir-el-bce.html",
-   "sprache": "es",
-   "zeit": "2026-11-26T13:19:27Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Spanien"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Hernández de Cos se convertirá en febrero en el primer español en presidir el BCE"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": true,
-     "titel": "Hernández de Cos se convertirá en febrero en el primer español en presidir el BCE",
-     "link": "https://elpais.com/economia/2026-11-26/hernandez-de-cos-se-convertira-en-febrero-en-el-primer-espanol-en-presidir-el-bce.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
   }
  ],
  "verbindungen": [
@@ -595,7 +652,7 @@
     }
    ],
    "themen": [
-    "DER ANDERE BLICK - Friedrich Merz weiss, was er beim EU-Haushalt will. Doch gegen Macron und Meloni wird er einen schweren Stand haben"
+    "At critical juncture, Friedrich Merz finds Germans’ support for Ukraine wavering"
    ]
   }
  ],
@@ -1450,6 +1507,18 @@
    "keine_treffer": true
   },
   "Davis Cup": {
+   "keine_treffer": true
+  },
+  "Spaniers Pablo": {
+   "keine_treffer": true
+  },
+  "Club Med": {
+   "keine_treffer": true
+  },
+  "Segunda Guerra": {
+   "keine_treffer": true
+  },
+  "Guerra Mundial": {
    "keine_treffer": true
   }
  }
