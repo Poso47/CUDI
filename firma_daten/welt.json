@@ -1,12 +1,61 @@
 {
- "erzeugt": "2026-11-27T08:51:15Z",
- "anzahl": 14,
+ "erzeugt": "2026-11-27T21:29:45Z",
+ "anzahl": 18,
  "nur_ausland": 2,
- "hinweise": [
-  "GDELT: nicht erreichbar (HTTPError: 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?…)"
- ],
+ "hinweise": [],
  "regel": "Ausland-Betreiber zählen einzeln, aber Quellen mit gleichem Eigentümer/Geldgeber/Agentur/Staat nur einmal (Länder nur mit unabhängigen Quellen); nur_ausland = >= 2 ausländische Betreiber, keine passende Meldung in news.json; Verbindungen nur mit Wikidata-Link; staatsnahe Sender sind gekennzeichnet",
  "themen": [
+  {
+   "titel": "German boat dealer suspected of supplying Channel smuggling gangs, BBC finds",
+   "kurz": "Nearly a third of crossings in early 2026 allegedly involved boats or engines from the German man's firm.",
+   "link": "https://www.bbc.co.uk/news/articles/cqlymky8kpzjo?at_medium=RSS&at_campaign=rss",
+   "sprache": "en",
+   "zeit": "2026-11-27T17:49:37+01:00",
+   "ausland_quellen": 2,
+   "laender": [
+    "Frankreich",
+    "Großbritannien"
+   ],
+   "laender_einig": [
+    "Großbritannien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "BBC Europe (Großbritannien): Watch: BBC confronts German man suspected of supplying migrant gangs with small boats",
+    "Le Monde (en) (Frankreich): German vendor suspected of 'involuntary manslaughter' for supplying boats for deadly Channel crossings"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": true,
+   "unabhaengig_n": 2,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "BBC Europe",
+     "land": "Großbritannien",
+     "art": "öffentlich-rechtlich",
+     "beteiligt": false,
+     "titel": "Watch: BBC confronts German man suspected of supplying migrant gangs with small boats",
+     "link": "https://www.bbc.co.uk/news/videos/cvglrz5yr79go?at_medium=RSS&at_campaign=rss",
+     "eigentuemer": "gehört BBC",
+     "zaehlt_nicht": ""
+    },
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "German vendor suspected of 'involuntary manslaughter' for supplying boats for deadly Channel crossings",
+     "link": "https://www.lemonde.fr/en/france/article/2026/11/26/german-vendor-suspected-of-involuntary-manslaughter-for-supplying-boats-for-deadly-channel-crossings_6789466_7.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
   {
    "titel": "France and Germany push for EU budget deal by year-end as far-right rise threatens Ukraine aid",
    "kurz": "As Europe braces itself for a slew of tense elections in 2027, Paris and Berlin are pushing for the European Union to strike a budget deal by December 31 to…",
@@ -62,52 +111,190 @@
    ]
   },
   {
-   "titel": "German boat dealer suspected of supplying Channel smuggling gangs, BBC finds",
-   "kurz": "Nearly a third of crossings in early 2026 allegedly involved boats or engines from the German man's firm.",
-   "link": "https://www.bbc.co.uk/news/articles/cqlymky8kpzjo?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-26T19:30:13+01:00",
-   "ausland_quellen": 2,
+   "titel": "Línea 4 del Metro de Bogotá : Alemania aporta 800 . 000 euros para estudios de factibilidad",
+   "kurz": "",
+   "link": "https://www.pulzo.com/nacion/bogota/linea-4-del-metro-de-bogota-alemania-aporta-800-000-euros-para-estudios-de-factibilidad-PP5366549A",
+   "sprache": "es",
+   "zeit": "2026-11-27T20:30:00Z",
+   "ausland_quellen": 1,
    "laender": [
-    "Frankreich",
-    "Großbritannien"
+    "Colombia"
    ],
    "laender_einig": [
-    "Großbritannien"
+    "Colombia"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "pulzo.com (Colombia): Línea 4 del Metro de Bogotá : Alemania aporta 800 . 000 euros para estudios de factibilidad"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "pulzo.com",
+     "land": "Colombia",
+     "art": "unbekannt",
+     "beteiligt": false,
+     "titel": "Línea 4 del Metro de Bogotá : Alemania aporta 800 . 000 euros para estudios de factibilidad",
+     "link": "https://www.pulzo.com/nacion/bogota/linea-4-del-metro-de-bogota-alemania-aporta-800-000-euros-para-estudios-de-factibilidad-PP5366549A",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "La tensión entre Francia y Alemania dificulta el acuerdo presupuestario en la UE",
+   "kurz": "Macron y Merz muestran de nuevo falta de sintonía en el Consejo Europeo. El presidente, António Costa, confía en que la negociación fructifique en la próxima…",
+   "link": "https://elpais.com/internacional/2026-11-27/la-tension-entre-francia-y-alemania-dificulta-el-acuerdo-presupuestario-en-la-ue.html",
+   "sprache": "es",
+   "zeit": "2026-11-27T18:30:53Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
    ],
    "bestaetigt_laender": false,
    "beteiligte_laender": [
     "Frankreich"
    ],
    "zusammenfassung": [
-    "BBC Europe (Großbritannien): Watch: BBC confronts German man suspected of supplying migrant gangs with small boats",
-    "Le Monde (en) (Frankreich): German vendor suspected of 'involuntary manslaughter' for supplying boats for deadly Channel crossings"
+    "El País (Spanien): La tensión entre Francia y Alemania dificulta el acuerdo presupuestario en la UE"
    ],
    "staatsnah": [],
    "deutsch_quellen": [],
-   "nur_ausland": true,
-   "unabhaengig_n": 2,
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
    "abhaengig": [],
    "eigentuemer_unbekannt": [],
    "quellen": [
     {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "Watch: BBC confronts German man suspected of supplying migrant gangs with small boats",
-     "link": "https://www.bbc.co.uk/news/videos/cvglrz5yr79go?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
-     "zaehlt_nicht": ""
-    },
-    {
-     "quelle": "Le Monde (en)",
-     "land": "Frankreich",
+     "quelle": "El País",
+     "land": "Spanien",
      "art": "privat",
-     "beteiligt": true,
-     "titel": "German vendor suspected of 'involuntary manslaughter' for supplying boats for deadly Channel crossings",
-     "link": "https://www.lemonde.fr/en/france/article/2026/11/26/german-vendor-suspected-of-involuntary-manslaughter-for-supplying-boats-for-deadly-channel-crossings_6789466_7.html",
-     "eigentuemer": "gehört Groupe Le Monde",
+     "beteiligt": false,
+     "titel": "La tensión entre Francia y Alemania dificulta el acuerdo presupuestario en la UE",
+     "link": "https://elpais.com/internacional/2026-11-27/la-tension-entre-francia-y-alemania-dificulta-el-acuerdo-presupuestario-en-la-ue.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Alemania aprueba el mayor gasto en defensa desde la Guerra Fría tras una dura batalla de Merz con los socialdemócratas",
+   "kurz": "El canciller subraya con estos presupuestos, bajo la coyuntura de la guerra en Ucrania y una creciente amenaza rusa, la necesidad de que el país se pueda…",
+   "link": "https://elpais.com/internacional/2026-11-27/alemania-aprueba-el-mayor-presupuesto-de-su-historia-tras-una-dura-batalla-de-merz-con-los-socialdemocratas.html",
+   "sprache": "es",
+   "zeit": "2026-11-27T16:52:49Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Spanien"
+   ],
+   "laender_einig": [
+    "Spanien"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Ukraine"
+   ],
+   "zusammenfassung": [
+    "El País (Spanien): Alemania aprueba el mayor gasto en defensa desde la Guerra Fría tras una dura batalla de Merz con los socialdemócratas"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "El País",
+     "land": "Spanien",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "Alemania aprueba el mayor gasto en defensa desde la Guerra Fría tras una dura batalla de Merz con los socialdemócratas",
+     "link": "https://elpais.com/internacional/2026-11-27/alemania-aprueba-el-mayor-presupuesto-de-su-historia-tras-una-dura-batalla-de-merz-con-los-socialdemocratas.html",
+     "eigentuemer": "gehört PRISA",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "HPV-Impfung: Weniger Fälle von Gebärmutterhalskrebs bei jungen Frauen in Deutschland",
+   "kurz": "Die Zahl der Fälle ist in Deutschland deutlich gesunken. Dort ist die HPV-Impfung seit 2007 eine Kassenleistung",
+   "link": "https://www.derstandard.at/story/3000000351413/hpv-impfung-weniger-f228lle-von-geb228rmutterhalskrebs-bei-jungen-frauen?ref=rss",
+   "sprache": "de",
+   "zeit": "2026-11-27T12:32:24Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Österreich"
+   ],
+   "laender_einig": [
+    "Österreich"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Der Standard (Österreich): HPV-Impfung: Weniger Fälle von Gebärmutterhalskrebs bei jungen Frauen in Deutschland"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Der Standard",
+     "land": "Österreich",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "HPV-Impfung: Weniger Fälle von Gebärmutterhalskrebs bei jungen Frauen in Deutschland",
+     "link": "https://www.derstandard.at/story/3000000351413/hpv-impfung-weniger-f228lle-von-geb228rmutterhalskrebs-bei-jungen-frauen?ref=rss",
+     "eigentuemer": "gehört Oscar Bronner",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "OBITUARY: Lutz van Dijk, a fighter for orphans and voice for queer Nazi victims",
+   "kurz": "The Berlin-born campaigner founded a children’s home in a Cape Town township, helped rebuild it after a fire and wrote more than 50 books.",
+   "link": "https://www.dailymaverick.co.za/article/2026-11-27-lutz-van-dijk-a-fighter-for-orphans-and-voice-for-queer-nazi-victims/",
+   "sprache": "en",
+   "zeit": "2026-11-27T11:30:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Südafrika"
+   ],
+   "laender_einig": [
+    "Südafrika"
+   ],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [],
+   "zusammenfassung": [
+    "Daily Maverick (Südafrika): OBITUARY: Lutz van Dijk, a fighter for orphans and voice for queer Nazi victims"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Daily Maverick",
+     "land": "Südafrika",
+     "art": "privat",
+     "beteiligt": false,
+     "titel": "OBITUARY: Lutz van Dijk, a fighter for orphans and voice for queer Nazi victims",
+     "link": "https://www.dailymaverick.co.za/article/2026-11-27-lutz-van-dijk-a-fighter-for-orphans-and-voice-for-queer-nazi-victims/",
+     "eigentuemer": "gehört Daily Maverick",
      "zaehlt_nicht": ""
     }
    ]
@@ -147,241 +334,6 @@
      "titel": "At critical juncture, Friedrich Merz finds Germans’ support for Ukraine wavering",
      "link": "https://www.theguardian.com/world/2026/nov/27/at-critical-juncture-friedrich-merz-finds-germans-support-for-ukraine-wavering",
      "eigentuemer": "gehört Guardian Media Group",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
-   "kurz": "Wie wirken sich Energiewende und globale Krisen auf Strom- und Gaspreise in Deutschland aus? Hier gibt es jeden Tag die aktuellen Zahlen.",
-   "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
-   "sprache": "de",
-   "zeit": "2026-11-27T08:02:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "INTERAKTIV - Strom und Gas so teuer wie zuletzt Anfang 2023 – die aktuellen Zahlen zur Energieversorgung in Deutschland",
-     "link": "https://www.nzz.ch/visuals/warum-ist-strom-in-deutschland-so-teuer-alle-zahlen-ld.1683901",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Eva von Redecker, filósofa: “El fascismo en todas partes se parece a Rusia porque está financiado por Putin”",
-   "kurz": "La pensadora alemana denuncia en un ensayo que la extrema derecha pretende defender a los suyos a costa de eliminar los derechos de los demás",
-   "link": "https://elpais.com/ideas/2026-11-27/eva-von-redecker-filosofa-el-fascismo-en-todas-partes-se-parece-a-rusia-porque-esta-financiado-por-putin.html",
-   "sprache": "es",
-   "zeit": "2026-11-27T04:30:01Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Russland"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): Eva von Redecker, filósofa: “El fascismo en todas partes se parece a Rusia porque está financiado por Putin”"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "Eva von Redecker, filósofa: “El fascismo en todas partes se parece a Rusia porque está financiado por Putin”",
-     "link": "https://elpais.com/ideas/2026-11-27/eva-von-redecker-filosofa-el-fascismo-en-todas-partes-se-parece-a-rusia-porque-esta-financiado-por-putin.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "KOMMENTAR - Die Wahl des Spaniers Pablo Hernández de Cos zum EZB-Chef zeigt: Die Notenbank ist fest in den Händen des «Club Med»",
-   "kurz": "Erneut wird ein Südeuropäer Präsident der EZB, ein Deutscher wird Chefökonom. Für Berlin könnte sich das als Pyrrhussieg erweisen.",
-   "link": "https://www.nzz.ch/meinung/die-wahl-des-spaniers-pablo-hernandez-de-cos-zum-ezb-chef-zeigt-die-notenbank-ist-fest-in-den-haenden-des-club-med-ld.10075756",
-   "sprache": "de",
-   "zeit": "2026-11-27T04:30:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Schweiz"
-   ],
-   "laender_einig": [
-    "Schweiz"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "NZZ (Schweiz): KOMMENTAR - Die Wahl des Spaniers Pablo Hernández de Cos zum EZB-Chef zeigt: Die Notenbank ist fest in den Händen des «Club Med»"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [
-    {
-     "quelle": "Tagesschau",
-     "titel": "Wofür steht der designierte EZB-Präsident Pablo Hernández de Cos?",
-     "link": "https://www.tagesschau.de/wirtschaft/konjunktur/nachfolger-ezb-de-cos-portrait-100.html"
-    }
-   ],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "NZZ",
-     "land": "Schweiz",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "KOMMENTAR - Die Wahl des Spaniers Pablo Hernández de Cos zum EZB-Chef zeigt: Die Notenbank ist fest in den Händen des «Club Med»",
-     "link": "https://www.nzz.ch/meinung/die-wahl-des-spaniers-pablo-hernandez-de-cos-zum-ezb-chef-zeigt-die-notenbank-ist-fest-in-den-haenden-des-club-med-ld.10075756",
-     "eigentuemer": "gehört NZZ-Mediengruppe",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "La mejor bodega del mundo: fundada por monjes, se la apropió Napoleón y fue bombardeada en la Segunda Guerra Mundial",
-   "kurz": "Schloss Johannisberg, en Alemania, ocupa el puesto N°1 del ranking The 50 Best Vineyards 2026",
-   "link": "https://www.lanacion.com.ar/sabado/la-mejor-bodega-del-mundo-fundada-por-monjes-se-la-apropio-napoleon-y-fue-bombardeada-en-la-segunda-nid27112026/",
-   "sprache": "es",
-   "zeit": "2026-11-27T03:01:00Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Argentinien"
-   ],
-   "laender_einig": [
-    "Argentinien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [],
-   "zusammenfassung": [
-    "La Nación (Argentinien): La mejor bodega del mundo: fundada por monjes, se la apropió Napoleón y fue bombardeada en la Segunda Guerra Mundial"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "La Nación",
-     "land": "Argentinien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "La mejor bodega del mundo: fundada por monjes, se la apropió Napoleón y fue bombardeada en la Segunda Guerra Mundial",
-     "link": "https://www.lanacion.com.ar/sabado/la-mejor-bodega-del-mundo-fundada-por-monjes-se-la-apropio-napoleon-y-fue-bombardeada-en-la-segunda-nid27112026/",
-     "eigentuemer": "Eigentümer unbekannt",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "La UE lucha por aprobar un presupuesto antes de la posible llegada de Le Pen al poder en Francia",
-   "kurz": "El canciller alemán Merz exige solidaridad unánime en la ayuda a Ucrania pero cuatro países son reacios: Hungría, Eslovaquia, República Checa y Bulgaria",
-   "link": "https://elpais.com/internacional/2026-11-26/la-ue-lucha-por-aprobar-un-presupuesto-antes-de-la-posible-llegada-de-le-pen-al-poder-en-francia.html",
-   "sprache": "es",
-   "zeit": "2026-11-26T21:27:41Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Spanien"
-   ],
-   "laender_einig": [
-    "Spanien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Frankreich",
-    "Ukraine"
-   ],
-   "zusammenfassung": [
-    "El País (Spanien): La UE lucha por aprobar un presupuesto antes de la posible llegada de Le Pen al poder en Francia"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "El País",
-     "land": "Spanien",
-     "art": "privat",
-     "beteiligt": false,
-     "titel": "La UE lucha por aprobar un presupuesto antes de la posible llegada de Le Pen al poder en Francia",
-     "link": "https://elpais.com/internacional/2026-11-26/la-ue-lucha-por-aprobar-un-presupuesto-antes-de-la-posible-llegada-de-le-pen-al-poder-en-francia.html",
-     "eigentuemer": "gehört PRISA",
-     "zaehlt_nicht": ""
-    }
-   ]
-  },
-  {
-   "titel": "Two Italians killed in strike in Kuwait, as Iran denies responsibility",
-   "kurz": "The pair were technicians for German company Rheinmetall, according to Italy's foreign ministry.",
-   "link": "https://www.bbc.co.uk/news/articles/c39w9y5dx4k5o?at_medium=RSS&at_campaign=rss",
-   "sprache": "en",
-   "zeit": "2026-11-26T21:17:53Z",
-   "ausland_quellen": 1,
-   "laender": [
-    "Großbritannien"
-   ],
-   "laender_einig": [
-    "Großbritannien"
-   ],
-   "bestaetigt_laender": false,
-   "beteiligte_laender": [
-    "Iran"
-   ],
-   "zusammenfassung": [
-    "BBC Europe (Großbritannien): Two Italians killed in strike in Kuwait, as Iran denies responsibility"
-   ],
-   "staatsnah": [],
-   "deutsch_quellen": [],
-   "nur_ausland": false,
-   "unabhaengig_n": 1,
-   "abhaengig": [],
-   "eigentuemer_unbekannt": [],
-   "quellen": [
-    {
-     "quelle": "BBC Europe",
-     "land": "Großbritannien",
-     "art": "öffentlich-rechtlich",
-     "beteiligt": false,
-     "titel": "Two Italians killed in strike in Kuwait, as Iran denies responsibility",
-     "link": "https://www.bbc.co.uk/news/articles/c39w9y5dx4k5o?at_medium=RSS&at_campaign=rss",
-     "eigentuemer": "gehört BBC",
      "zaehlt_nicht": ""
     }
    ]
@@ -535,11 +487,197 @@
    ]
   },
   {
+   "titel": "La furia del arquero argentino que fue golpeado por un árbitro boliviano: “Es un cagón, que pegue más fuerte”",
+   "kurz": "Cristian Martínez recibió un puñetazo en la cara de parte de Jordy Alemán mientras reclamaba por el arbitraje de la final de la Copa Paceña; el juez fue…",
+   "link": "https://www.lanacion.com.ar/deportes/futbol/la-furia-del-arquero-argentino-que-fue-golpeado-por-un-arbitro-boliviano-es-un-cagon-que-pegue-mas-nid27112026/",
+   "sprache": "es",
+   "zeit": "2026-11-27T19:22:21Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Argentinien",
+    "Spanien"
+   ],
+   "zusammenfassung": [
+    "La Nación (Argentinien): “Policía de frontera”: los importadores europeos admiten que tendrán un rol sin precedentes por una norma que impacta sobre las…"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "“Policía de frontera”: los importadores europeos admiten que tendrán un rol sin precedentes por una norma que impacta sobre las exportaciones argentinas",
+     "link": "https://www.lanacion.com.ar/economia/campo/policia-de-frontera-los-importadores-europeos-admiten-que-tendran-un-rol-sin-precedentes-por-una-nid27112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Puma cierra una fábrica en La Rioja y concentra su producción en la Argentina",
+   "kurz": "La compañía alemana informó que dejará de operar su establecimiento en Chamical y unifica su negocio en la planta del Parque Industrial de la capital provincial",
+   "link": "https://www.lanacion.com.ar/economia/negocios/puma-cierra-una-fabrica-en-la-rioja-y-concentra-su-produccion-en-la-argentina-nid27112026/",
+   "sprache": "es",
+   "zeit": "2026-11-27T17:51:01Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Argentinien"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Argentinien"
+   ],
+   "zusammenfassung": [
+    "La Nación (Argentinien): Puma cierra una fábrica en La Rioja y concentra su producción en la Argentina"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "La Nación",
+     "land": "Argentinien",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "Puma cierra una fábrica en La Rioja y concentra su producción en la Argentina",
+     "link": "https://www.lanacion.com.ar/economia/negocios/puma-cierra-una-fabrica-en-la-rioja-y-concentra-su-produccion-en-la-argentina-nid27112026/",
+     "eigentuemer": "Eigentümer unbekannt",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Mélenchon calls for 'overhaul' of France-Germany ties",
+   "kurz": "While on a trip to Berlin, radical left-wing presidential candidate Jean-Luc Mélenchon spoke of the 'need for a thorough overhaul of the French-German…",
+   "link": "https://www.lemonde.fr/en/international/article/2026/11/27/french-leftist-leader-melenchon-calls-for-overhaul-of-france-germany-ties_6789994_4.html",
+   "sprache": "en",
+   "zeit": "2026-11-27T17:22:31+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): Mélenchon calls for 'overhaul' of France-Germany ties"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "Mélenchon calls for 'overhaul' of France-Germany ties",
+     "link": "https://www.lemonde.fr/en/international/article/2026/11/27/french-leftist-leader-melenchon-calls-for-overhaul-of-france-germany-ties_6789994_4.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "Why Germany's youth did not protest more",
+   "kurz": "Germany's education system faces material challenges similar to those in France, but the country's economy helps ease social tensions by integrating students…",
+   "link": "https://www.lemonde.fr/en/opinion/article/2026/11/27/why-germany-s-youth-did-not-protest-more_6789862_23.html",
+   "sprache": "en",
+   "zeit": "2026-11-27T14:00:12+01:00",
+   "ausland_quellen": 1,
+   "laender": [
+    "Frankreich"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Frankreich"
+   ],
+   "zusammenfassung": [
+    "Le Monde (en) (Frankreich): Why Germany's youth did not protest more"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "Le Monde (en)",
+     "land": "Frankreich",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "Why Germany's youth did not protest more",
+     "link": "https://www.lemonde.fr/en/opinion/article/2026/11/27/why-germany-s-youth-did-not-protest-more_6789862_23.html",
+     "eigentuemer": "gehört Groupe Le Monde",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
+   "titel": "MELDUNGEN SCHWEIZ - Christoph Blocher stört sich an «Schönheitsfehler» auf dem SVP-Ticket für den Bundesrat",
+   "kurz": "Die neuesten Meldungen aus der Schweiz.",
+   "link": "https://www.nzz.ch/schweiz/schweiz-die-neuesten-meldungen-ld.10054175",
+   "sprache": "de",
+   "zeit": "2026-11-27T13:25:00Z",
+   "ausland_quellen": 1,
+   "laender": [
+    "Schweiz"
+   ],
+   "laender_einig": [],
+   "bestaetigt_laender": false,
+   "beteiligte_laender": [
+    "Schweiz"
+   ],
+   "zusammenfassung": [
+    "NZZ (Schweiz): MELDUNGEN SCHWEIZ - Christoph Blocher stört sich an «Schönheitsfehler» auf dem SVP-Ticket für den Bundesrat"
+   ],
+   "staatsnah": [],
+   "deutsch_quellen": [],
+   "nur_ausland": false,
+   "unabhaengig_n": 1,
+   "abhaengig": [],
+   "eigentuemer_unbekannt": [],
+   "quellen": [
+    {
+     "quelle": "NZZ",
+     "land": "Schweiz",
+     "art": "privat",
+     "beteiligt": true,
+     "titel": "MELDUNGEN SCHWEIZ - Christoph Blocher stört sich an «Schönheitsfehler» auf dem SVP-Ticket für den Bundesrat",
+     "link": "https://www.nzz.ch/schweiz/schweiz-die-neuesten-meldungen-ld.10054175",
+     "eigentuemer": "gehört NZZ-Mediengruppe",
+     "zaehlt_nicht": ""
+    }
+   ]
+  },
+  {
    "titel": "Mélenchon heads to Berlin, where his anti-German rhetoric unsettles even his 'partners'",
    "kurz": "The radical-left French presidential candidate currently has no meetings scheduled with officials from Die Linke, which his party sits with in the European…",
    "link": "https://www.lemonde.fr/en/international/article/2026/11/26/melenchon-heads-to-berlin-where-his-anti-german-rhetoric-unsettles-even-his-partners_6789433_4.html",
    "sprache": "en",
-   "zeit": "2026-11-26T18:27:56+01:00",
+   "zeit": "2026-11-26T18:27:52+01:00",
    "ausland_quellen": 1,
    "laender": [
     "Frankreich"
@@ -1519,6 +1657,12 @@
    "keine_treffer": true
   },
   "Guerra Mundial": {
+   "keine_treffer": true
+  },
+  "Weniger Fälle": {
+   "keine_treffer": true
+  },
+  "Christoph Blocher": {
    "keine_treffer": true
   }
  }
