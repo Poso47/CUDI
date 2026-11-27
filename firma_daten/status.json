@@ -1,15 +1,15 @@
 {
  "mitarbeiter": {
   "trends": {
-   "letzter_lauf": "2026-11-15T06:15:38Z",
+   "letzter_lauf": "2026-11-27T01:40:46Z",
    "dauer_s": 21.0,
    "ergebnis": "ok",
    "zusammenfassung": "80 Themen aus 3 Quellen",
    "hinweise": [
-    "YouTube DE: nicht erreichbar (UploadError: YouTube-Anmeldung fehlgeschlagen (Token abgelaufen?… neu einloggen): HTTP 400 { \"error\": \"invalid_grant\", \"error_description\": \"Token has been expired or revoked.\" })",
-    "YouTube US: nicht erreichbar (UploadError: YouTube-Anmeldung fehlgeschlagen (Token abgelaufen?… neu einloggen): HTTP 400 { \"error\": \"invalid_grant\", \"error_description\": \"Token has been expired or revoked.\" })"
+    "YouTube DE: nicht erreichbar (UploadError: YouTube-Anmeldung fehlgeschlagen (Token abgelaufen?… neu einloggen): HTTP 400 { \"error\": \"invalid_grant\", \"error_description\": \"Bad Request\" })",
+    "YouTube US: nicht erreichbar (UploadError: YouTube-Anmeldung fehlgeschlagen (Token abgelaufen?… neu einloggen): HTTP 400 { \"error\": \"invalid_grant\", \"error_description\": \"Bad Request\" })"
    ],
-   "naechste_planung": "2026-11-15T09:15:38Z"
+   "naechste_planung": "2026-11-27T04:40:46Z"
   },
   "news": {
    "letzter_lauf": "2026-11-26T17:16:09Z",
@@ -144,5 +144,5 @@
    "naechste_planung": "2026-11-19T13:56:48Z"
   }
  },
- "erzeugt": "2026-11-26T21:45:58Z"
+ "erzeugt": "2026-11-27T01:40:46Z"
 }
