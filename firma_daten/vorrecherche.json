@@ -1,22 +1,22 @@
 {
- "erzeugt": "2026-11-27T11:51:48Z",
+ "erzeugt": "2026-11-28T11:10:31Z",
  "hinweise": [
   "meiste-einwohner (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
-  "groesste-laender (5): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
-  "groesste-seen (10): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
-  "groesste-seen (10): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
-  "groesste-seen (5): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
-  "groesste-seen (5): neuer Abgleich schwächer als der gespeicherte – alter bleibt",
+  "groesste-laender (5, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
+  "groesste-seen (10): RuntimeError: Keine Daten gefunden",
+  "groesste-seen (10): RuntimeError: Keine Daten gefunden",
+  "groesste-seen (5): RuntimeError: Keine Daten gefunden",
+  "groesste-seen (5): RuntimeError: Keine Daten gefunden",
   "groesste-laender (10, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
   "groesste-laender (10, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
   "groesste-laender (5, de+en): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut",
   "meiste-einwohner (10, de): 1× von Wikimedia gedrosselt (Abgleich unvollständig) – später erneut"
  ],
  "vorgaben": 36,
- "neu": 0,
- "behalten": 5,
- "aufgeschoben": 5,
- "aktuell": 26,
+ "neu": 2,
+ "behalten": 0,
+ "aufgeschoben": 10,
+ "aktuell": 24,
  "entfernt": 0,
  "eintraege": [
   {
@@ -308,12 +308,12 @@
     "de",
     "en"
    ],
-   "stand": "2026-11-25T12:09:56Z",
+   "stand": "2026-11-28T11:10:31Z",
    "status": {
     "bestätigt": 2,
     "korrigiert": 3
    },
-   "bytes": 14349
+   "bytes": 14347
   },
   {
    "schluessel": "863ea70acae7f37bb12a",
@@ -349,7 +349,7 @@
    "sprachen": [
     "de"
    ],
-   "stand": "2026-11-25T12:09:27Z",
+   "stand": "2026-11-28T11:10:03Z",
    "status": {
     "bestätigt": 2,
     "korrigiert": 3
@@ -513,5 +513,5 @@
    "bytes": 10046
   }
  ],
- "bytes": 556305
+ "bytes": 556303
 }
